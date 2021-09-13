@@ -348,3 +348,10 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Frontend
+node_modules
+
+# Electron-builder output
+dist
+dist_electron

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNFe.API", "UniNFe.API\UniNFe.API.csproj", "{942D0622-F588-47A9-A497-E88E52FAC711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNFe.Database", "UniNFe.Database\UniNFe.Database.csproj", "{EEA2BA9C-53F0-41B8-A231-9ED63B7562BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{942D0622-F588-47A9-A497-E88E52FAC711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942D0622-F588-47A9-A497-E88E52FAC711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942D0622-F588-47A9-A497-E88E52FAC711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942D0622-F588-47A9-A497-E88E52FAC711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA2BA9C-53F0-41B8-A231-9ED63B7562BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA2BA9C-53F0-41B8-A231-9ED63B7562BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA2BA9C-53F0-41B8-A231-9ED63B7562BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA2BA9C-53F0-41B8-A231-9ED63B7562BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68E2907D-137C-4621-9B12-02C605F059E1}
+	EndGlobalSection
+EndGlobal
