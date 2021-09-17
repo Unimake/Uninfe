@@ -51,7 +51,9 @@ namespace UniNFe.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UniNFe.API v1"));
             }
 
+            #if RELEASE
             app.UseHttpsRedirection();
+            #endif
 
             app.UseRouting();
 
