@@ -142,7 +142,7 @@
 
     mounted () {
       axios
-        .get('https://localhost:5001/api/Configuration')
+        .get('http://localhost:5000/api/Configuration')
         .then(response => {
           if (response.data.length > 0) {
             this.configuration = response.data[0]
@@ -156,14 +156,14 @@
         
         if (this.configuration.id == undefined) {
           axios
-            .post('https://localhost:5001/api/Configuration', this.configuration)
+            .post('http://localhost:5000/api/Configuration', this.configuration)
             .then(response => {
               this.configuration = response.data
               this.success = true
           })  
         } else {
           axios
-            .put(`https://localhost:5001/api/Configuration/${this.configuration.id}`, this.configuration)
+            .put(`http://localhost:5000/api/Configuration/${this.configuration.id}`, this.configuration)
             .then(response => {
               this.configuration = response.data
               this.success = true
