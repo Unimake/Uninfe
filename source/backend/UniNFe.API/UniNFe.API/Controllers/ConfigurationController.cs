@@ -46,6 +46,12 @@ namespace UniNFe.API.Controllers
             configurationUpdate.DocumentType = configurationPayload.DocumentType;
             configurationUpdate.DocumentNumber = configurationPayload.DocumentNumber;
             configurationUpdate.Email = configurationPayload.Email;
+            configurationUpdate.Service = configurationPayload.Service;
+            configurationUpdate.Csc = configurationPayload.Csc;
+            configurationUpdate.IdToken = configurationPayload.IdToken;
+            configurationUpdate.UF = configurationPayload.UF;
+            configurationUpdate.Environment = configurationPayload.Environment;
+            configurationUpdate.IssuanceType = configurationPayload.IssuanceType;
             _uniNFeContext.Update(configurationUpdate);
             _uniNFeContext.SaveChanges();
             return configurationUpdate;

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniNFe.Database;
 
 namespace UniNFe.Database.Migrations
 {
     [DbContext(typeof(UniNFeContext))]
-    partial class UniNFeContextModelSnapshot : ModelSnapshot
+    [Migration("20211026181711_AddServiceColumn")]
+    partial class AddServiceColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,9 +24,6 @@ namespace UniNFe.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Csc")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("DocumentNumber")
                         .HasColumnType("TEXT");
 
@@ -34,22 +33,10 @@ namespace UniNFe.Database.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Environment")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("IdToken")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("IssuanceType")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Service")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UF")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
