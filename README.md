@@ -8,7 +8,7 @@ In order to start the backend and frontend there are a few scripts that can be u
 
 ### Windows
 
-Currently there are no scripts to be used for Windows, you can use Visual Studio directly to run the backend and nodejs/npm for the frontend (npm run electron:serve).
+Currently there are no scripts to be used for Windows, you can use Visual Studio directly to run the backend and nodejs/npm for the frontend: `npm run electron:serve`
 
 ### Linux/Mac
 
