@@ -39,84 +39,79 @@ DisableDirPage=false
 Name: brazilianportuguese; MessagesFile: compiler:Languages\BrazilianPortuguese.isl
 
 [Files]
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\BouncyCastle.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\EBank.Solutions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\MetroFramework.Design.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\MetroFramework.Fonts.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\MetroFramework.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.AsyncInterfaces.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.Memory.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.TimeProvider.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.DependencyInjection.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.DependencyInjection.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Logging.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Logging.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Options.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.Identity.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.JsonWebTokens.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Logging.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Tokens.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Components.Info.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Components.Wsdl.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Components.XmlSerializers.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Components.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.ConvertTxt.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.SAT.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Service.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Settings.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Threadings.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.UI.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Validate.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Newtonsoft.Json.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Buffers.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.ComponentModel.Annotations.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Diagnostics.DiagnosticSource.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Formats.Asn1.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.IO.Pipelines.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.IdentityModel.Tokens.Jwt.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Memory.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Numerics.Vectors.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Cng.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Xml.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Text.Encodings.Web.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Text.Json.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.ValueTuple.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.AuthServer.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.EBank.Solutions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.MessageBroker.Primitives.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.MessageBroker.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Primitives.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.SAT.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Security.Platform.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Utils.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\BouncyCastle.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\EBank.Solutions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\MetroFramework.Design.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\MetroFramework.Fonts.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\MetroFramework.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.AsyncInterfaces.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.Memory.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Bcl.TimeProvider.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.DependencyInjection.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.DependencyInjection.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Logging.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Logging.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Options.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Extensions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.Identity.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Abstractions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.JsonWebTokens.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Logging.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Tokens.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.Info.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.Wsdl.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.XmlSerializers.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.ConvertTxt.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.SAT.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Service.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Settings.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Threadings.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.UI.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Validate.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Newtonsoft.Json.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Buffers.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.ComponentModel.Annotations.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Diagnostics.DiagnosticSource.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Formats.Asn1.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.IO.Pipelines.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.IdentityModel.Tokens.Jwt.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Memory.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Numerics.Vectors.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Cng.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Xml.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Text.Encodings.Web.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Text.Json.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\System.ValueTuple.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.AuthServer.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.EBank.Solutions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.Extensions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.MessageBroker.Primitives.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.MessageBroker.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.Primitives.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.SAT.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.Security.Platform.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\Unimake.Utils.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
 
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\uninfe\bin\x86\Release46_x86\UniNFeServico.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\x86\Release46_x86\UniNFeServico.exe; DestDir: {app}; Flags: ignoreversion
 
-Source: ..\fontes\uninfe\UniNfeSobre.xml; DestDir: {app}; Flags: ignoreversion
-Source: ..\doc\usuario\uninfe.url; DestDir: {app}; Flags: ignoreversion
-Source: ..\fontes\NFe.Components.Wsdl\NFe\WSDL\*.*; DestDir: {app}\nfe\wsdl; Flags: ignoreversion recursesubdirs
-Source: ..\fontes\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
-Source: ..\fontes\NFe.Components.Wsdl\NFse\WSDL\*.*; DestDir: {app}\nfse\wsdl; Flags: ignoreversion recursesubdirs
-Source: ..\fontes\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\schemas; Flags: ignoreversion recursesubdirs
+Source: ..\source\uninfe\UniNfeSobre.xml; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\NFe.Components.Wsdl\NFe\WSDL\*.*; DestDir: {app}\nfe\wsdl; Flags: ignoreversion recursesubdirs
+Source: ..\source\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
+Source: ..\source\NFe.Components.Wsdl\NFse\WSDL\*.*; DestDir: {app}\nfse\wsdl; Flags: ignoreversion recursesubdirs
+Source: ..\source\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\schemas; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: {group}\UniNFe - Monitor DF-e; Filename: {app}\uninfe.exe; WorkingDir: {app}; IconFilename: {app}\uninfe.exe; IconIndex: 0; Languages: ; Comment: Aplicativo responsável por monitorar os arquivos de documentos fiscais eletrônicos (NF-e, NFC-e, CT-e, MDF-e, NFS-e, etc.) para assinar, validar e enviar ao SEFAZ.
-Name: {group}\Links\www.uninfe.com.br; Filename: {app}\uninfe.url; IconFilename: {app}\uninfe.url; Flags: runmaximized
-
-[UninstallDelete]
-Type: files; Name: {app}\uninfe.url
 
 [Run]
 Filename: {app}\uninfe.exe; WorkingDir: {app}; Flags: postinstall shellexec; Parameters: /updatewsdl

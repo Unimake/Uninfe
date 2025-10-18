@@ -10,8 +10,8 @@
 :uninfe
    set "caminhoAssinar=\\192.168.0.48\assinar"
    set "caminhoAssinarArquivos=%caminhoAssinar%\arquivos"
-   set "caminhoDLLRelease=..\fontes\uninfe\bin\release"
-   set "caminhoDLLReleaseX86=..\fontes\uninfe\bin\x86\Release46_x86"
+   set "caminhoDLLRelease=..\source\uninfe\bin\release"
+   set "caminhoDLLReleaseX86=..\source\uninfe\bin\x86\Release46_x86"
    
    if /i "%2"=="betax86" goto copiarDLLReleaseX86Assinar
    
