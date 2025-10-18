@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GerarLinksNotaFiscal>
+	<Faixa>
+		<NumeroNfseInicial>10</NumeroNfseInicial>
+		<NumeroNfseFinal>100</NumeroNfseFinal>
+		<Status>1</Status>
+	</Faixa>
+	<PeriodoCompetencia>
+		<Inicial>201701</Inicial>
+		<Final>201802</Final>
+	</PeriodoCompetencia>
+	<Prestador>
+		<CpfCnpj>99999999999999</CpfCnpj>
+	</Prestador>
+</GerarLinksNotaFiscal>

@@ -1,0 +1,11 @@
+<ConsultarNfseRpsEnvio>
+	<IdentificacaoRps xmlns="http://www.sistema.com.br/Nfse/arquivos/nfse_3.xsd">
+		<Numero>1</Numero>
+		<Serie>Seri1</Serie>
+		<Tipo>1</Tipo>
+</IdentificacaoRps>
+	<Prestador xmlns="http://www.sistema.com.br/Nfse/arquivos/nfse_3.xsd">
+		<Cnpj>99999999999999</Cnpj>
+			<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</Prestador>
+</ConsultarNfseRpsEnvio>

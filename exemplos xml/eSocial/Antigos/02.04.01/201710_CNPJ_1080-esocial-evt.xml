@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtTabOperPort/v02_04_01">
+  <evtTabOperPort Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <infoOperPortuario>
+      <inclusao>
+        <ideOperPortuario>
+          <cnpjOpPortuario>str12340000000</cnpjOpPortuario>
+          <iniValid>2017-10</iniValid>
+          <fimValid>2017-10</fimValid>
+        </ideOperPortuario>
+        <dadosOperPortuario>
+          <aliqRat>33</aliqRat>
+          <fap>123.45</fap>
+          <aliqRatAjust>123.45</aliqRatAjust>
+        </dadosOperPortuario>
+      </inclusao>
+    </infoOperPortuario>
+  </evtTabOperPort>
+</eSocial>

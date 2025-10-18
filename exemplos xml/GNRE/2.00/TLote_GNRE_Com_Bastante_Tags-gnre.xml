@@ -1,0 +1,52 @@
+<TLote_GNRE xmlns="http://www.gnre.pe.gov.br" versao="2.00">
+	<guias>
+		<TDadosGNRE versao="2.00">
+			<ufFavorecida>SP</ufFavorecida>
+			<tipoGnre>0</tipoGnre>
+			<contribuinteEmitente>
+				<identificacao>
+					<CNPJ>12345678000199</CNPJ>
+					<IE>1234567890</IE>
+				</identificacao>
+				<razaoSocial>Empresa de Exemplo LTDA</razaoSocial>
+				<endereco>Rua Exemplo, 123</endereco>
+				<municipio>São Paulo</municipio>
+				<uf>SP</uf>
+				<cep>01001000</cep>
+				<telefone>1133334444</telefone>
+			</contribuinteEmitente>
+			<itensGNRE>
+				<item>
+					<receita>100099</receita>
+					<detalhamentoReceita>Detalhamento opcional</detalhamentoReceita>
+					<documentoOrigem tipo="1">NF123456</documentoOrigem>
+					<produto>Produto Teste</produto>
+					<referencia>
+						<periodo>1</periodo>
+						<mes>5</mes>
+						<ano>2025</ano>
+						<parcela>1</parcela>
+					</referencia>
+					<dataVencimento>2025-06-10</dataVencimento>
+					<valor tipo="11">150.00</valor>
+					<convenio>1234</convenio>
+					<contribuinteDestinatario>
+						<identificacao>
+							<CNPJ>98765432000188</CNPJ>
+						</identificacao>
+						<razaoSocial>Destinatário Exemplo SA</razaoSocial>
+						<municipio>Campinas</municipio>
+					</contribuinteDestinatario>
+					<camposExtras>
+						<campoExtra>
+							<codigo>99</codigo>
+							<valor>Informação Adicional</valor>
+						</campoExtra>
+					</camposExtras>
+				</item>
+			</itensGNRE>
+			<valorGNRE>150.00</valorGNRE>
+			<dataPagamento>2025-06-05</dataPagamento>
+		</TDadosGNRE>
+	</guias>
+</TLote_GNRE>

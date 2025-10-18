@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BoletoConsultar versao="1.00">
+	<!--Esta tag é obrigatória. ID da configuração da conta corrente no eBank. Este número é fornecido pela Unimake.-->
+	<ConfigurationId>ZCKWGQ55LTDXKYYC</ConfigurationId>
+	<!--Não é obrigatória se informado a tag NumerosNoBanco. Data de emissão inicial do boleto para realizar a consulta.-->
+	<DataEmissaoInicial>2025-03-25</DataEmissaoInicial>
+	<!--Não é obrigatória se informado a tag NumerosNoBanco. Data de emissão final do boleto para realizar a consulta.-->
+	<DataEmissaoFinal>2025-03-25</DataEmissaoFinal>
+	<!--Grupo de tag não é obrigatória se informado a data de emisão inicial/final-->
+	<NumerosNoBanco>
+	    <!--Pode repetir até 50 vezes-->
+		<NumeroNoBanco>-2147483641</NumeroNoBanco>
+		<NumeroNoBanco>-2147483642</NumeroNoBanco>
+		<NumeroNoBanco>-2147483643</NumeroNoBanco>
+		<NumeroNoBanco>-2147483644</NumeroNoBanco>
+	</NumerosNoBanco>
+	<!--Esta tag não é obrigatória. Numero da página que deseja consultar-->
+	<PageNumber>0</PageNumber>
+	<!--Esta tag não é obrigatória. Tamanho da página, ou seja, quantidade de registro por página que deseja ter como retorno-->
+	<PageSize>0</PageSize>
+	<!--Esta tag não é obrigatória. true=Somente teste - false=Produção-->
+	<Testing>true</Testing>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>true</UseHomologServer>
+</BoletoConsultar>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<altConfUniNFe>
+  <DadosEmpresa CNPJ="06117473000150" Servico="0">
+    <Nome>Unimake</Nome>
+  </DadosEmpresa>
+  <PastaXmlEnvio>c:\testenfe\envio</PastaXmlEnvio>
+  <PastaXmlRetorno>c:\testenfe\Retorno</PastaXmlRetorno>
+  <PastaXmlEnviado>c:\testenfe\Enviado</PastaXmlEnviado>
+  <PastaXmlErro>c:\testenfe\Erro</PastaXmlErro>
+  <PastaBackup>c:\testenfe\Backup</PastaBackup>
+  <PastaXmlEmLote>c:\testenfe\EnvioEmLote</PastaXmlEmLote>
+  <PastaValidar>c:\testenfe\Validar</PastaValidar>
+  <PastaDanfeMon />
+  <PastaDownloadNFeDest>c:\testenfe\DownloadNFe</PastaDownloadNFeDest>
+  <CNPJ>06117473000150</CNPJ>
+  <Nome>Unimake Software</Nome>
+  <UnidadeFederativaCodigo>41</UnidadeFederativaCodigo>
+  <AmbienteCodigo>2</AmbienteCodigo>
+  <tpEmis>1</tpEmis>
+  <UsaCertificado>true</UsaCertificado>
+  <CertificadoInstalado>true</CertificadoInstalado>
+  <CertificadoArquivo />
+  <CertificadoSenha />
+  <CertificadoPIN />
+  <ProviderCertificado>SafeSign Standard Cryptographic Service Provider</ProviderCertificado>
+  <ProviderTypeCertificado>1</ProviderTypeCertificado>
+  <Certificado>CN=UNIMAKE SOLUCOES CORPORATIVAS LTDA ME:06117473000150, OU=Autenticado por AR Kaminskas, OU=RFB e-CNPJ A1, OU=Secretaria da Receita Federal do Brasil - RFB, L=PARANAVAI, S=PR, O=ICP-Brasil, C=BR</Certificado>
+  <CertificadoDigitalThumbPrint>95FCC80B6D169D51664C845C751504ECBA74F7E8</CertificadoDigitalThumbPrint>
+  <GravarRetornoTXTNFe>false</GravarRetornoTXTNFe>
+  <DiasLimpeza>0</DiasLimpeza>
+  <TempoConsulta>2</TempoConsulta>
+  <UsuarioWS />
+  <SenhaWS />
+  <Servico>Todos</Servico>
+  <CriaPastasAutomaticamente>false</CriaPastasAutomaticamente>
+  <GravarEventosNaPastaEnviadosNFe>false</GravarEventosNaPastaEnviadosNFe>
+  <GravarEventosCancelamentoNaPastaEnviadosNFe>false</GravarEventosCancelamentoNaPastaEnviadosNFe>
+  <GravarEventosDeTerceiros>false</GravarEventosDeTerceiros>
+  <CompactarNfe>false</CompactarNfe>
+  <IndSinc>false</IndSinc>
+  <IdentificadorCSC>123456</IdentificadorCSC>
+  <TokenCSC>54324125</TokenCSC>
+  <PastaExeUniDanfe />
+  <PastaConfigUniDanfe />
+  <ConfiguracaoDanfe />
+  <ConfiguracaoCCe />
+  <XMLDanfeMonNFe>false</XMLDanfeMonNFe>
+  <XMLDanfeMonProcNFe>false</XMLDanfeMonProcNFe>
+  <XMLDanfeMonDenegadaNFe>false</XMLDanfeMonDenegadaNFe>
+  <EmailDanfe />
+  <AdicionaEmailDanfe>true</AdicionaEmailDanfe>
+  <diretorioSalvarComo>AM</diretorioSalvarComo>
+  <FTPPastaAutorizados />
+  <FTPPastaRetornos />
+  <FTPNomeDoServidor />
+  <FTPNomeDoUsuario />
+  <FTPSenha />
+  <FTPPorta>21</FTPPorta>
+  <FTPAtivo>false</FTPAtivo>
+  <FTPGravaXMLPastaUnica>false</FTPGravaXMLPastaUnica>
+  <RespTecCNPJ>06117473000150</RespTecCNPJ>
+  <RespTecXContato>Contato padrao</RespTecXContato>
+  <RespTecEmail>unimake@unimake.com.br</RespTecEmail>
+  <RespTecTelefone>4430402154</RespTecTelefone>
+  <RespTecIdCSRT>01</RespTecIdCSRT>
+  <RespTecCSRT>123456789</RespTecCSRT>
+</altConfUniNFe>

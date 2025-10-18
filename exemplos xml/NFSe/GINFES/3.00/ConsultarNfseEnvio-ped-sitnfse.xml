@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConsultarNfseEnvio xmlns="http://www.ginfes.com.br/servico_consultar_nfse_rps_envio_v03.xsd" xmlns:tipos="http://www.ginfes.com.br/tipos_v03.xsd" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+	<Prestador>
+		<tipos:Cnpj>99999999999999</tipos:Cnpj>
+		<tipos:InscricaoMunicipal>99999999999999</tipos:InscricaoMunicipal>
+	</Prestador>
+	<NumeroNfse>1</NumeroNfse>
+	<PeriodoEmissao>
+		<tipos:DataInicial>2018-08-01</tipos:DataInicial>
+		<tipos:DataFinal>2018-08-27</tipos:DataFinal>
+	</PeriodoEmissao>
+	<Tomador>
+		<CpfCnpj>
+			<tipos:Cnpj>99999999999999</tipos:Cnpj>
+		</CpfCnpj>
+		<tipos:InscricaoMunicipal>99999999999999</tipos:InscricaoMunicipal>
+	</Tomador>
+	<IntermediarioServico>
+		<tipos:RazaoSocial>Teste</tipos:RazaoSocial>
+		<CpfCnpj>
+			<tipos:Cnpj>99999999999999</tipos:Cnpj>
+		</CpfCnpj>
+		<tipos:InscricaoMunicipal>99999999999999</tipos:InscricaoMunicipal>
+	</IntermediarioServico>
+</ConsultarNfseEnvio>

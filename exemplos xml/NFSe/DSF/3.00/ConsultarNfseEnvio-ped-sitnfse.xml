@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConsultarNfseEnvio xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http:/www.abrasf.org.br/nfse.xsd">
+	<Prestador>
+		<Cnpj>99999999999999</Cnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</Prestador>
+	<NumeroNfse>1</NumeroNfse>
+	<PeriodoEmissao>
+		<DataInicial>2018-08-01</DataInicial>
+		<DataFinal>2018-08-27</DataFinal>
+	</PeriodoEmissao>
+	<Tomador>
+		<CpfCnpj>
+			<Cnpj>99999999999999</Cnpj>
+		</CpfCnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</Tomador>
+	<IntermediarioServico>
+		<RazaoSocial>Teste</RazaoSocial>
+		<CpfCnpj>
+			<Cnpj>99999999999999</Cnpj>
+		</CpfCnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</IntermediarioServico>
+</ConsultarNfseEnvio>

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTeOS xmlns="http://www.portalfiscal.inf.br/cte" versao="3.00">
+  <infCte Id="CTe41170899999999999999670010000000011000044048" versao="3.00">
+    <ide>
+      <cUF>41</cUF>
+      <cCT>00004404</cCT>
+      <CFOP>5352</CFOP>
+      <natOp>PRESTACAO DE SERVICO DE TRANSPORTE A ESTABELECIMENTO INDUSTR</natOp>
+      <mod>67</mod>
+      <serie>1</serie>
+      <nCT>1</nCT>
+      <dhEmi>2017-08-23T22:26:27-02:00</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>8</cDV>
+      <tpAmb>2</tpAmb>
+      <tpCTe>0</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>3.00</verProc>
+      <cMunEnv>4106902</cMunEnv>
+      <xMunEnv>CURITIBA</xMunEnv>
+      <UFEnv>PR</UFEnv>
+      <modal>01</modal>
+      <tpServ>6</tpServ>
+      <indIEToma>1</indIEToma>
+      <cMunIni>4106902</cMunIni>
+      <xMunIni>CURITIBA</xMunIni>
+      <UFIni>PR</UFIni>
+      <cMunFim>4119905</cMunFim>
+      <xMunFim>PONTA GROSSA</xMunFim>
+      <UFFim>PR</UFFim>
+    </ide>
+    <compl>
+      <xObs>Itin.: 9999; TAF: 999999999999;</xObs>
+      <ObsCont xCampo="LEI DA TRANSPARENCIA">
+        <xTexto>O valor aproximado de tributos incidentes sobre o preco deste servico e de R$ 177.33 .(0) Fonte: IBPT</xTexto>
+      </ObsCont>
+    </compl>
+    <emit>
+      <CNPJ>99999999999999</CNPJ>
+      <IE>9999999999</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <xFant>XXXXXXXXXXXXXXXXX</xFant>
+      <enderEmit>
+        <xLgr>XXXXXXXXXXXXXXX</xLgr>
+        <nro>91</nro>
+        <xBairro>XXXXX</xBairro>
+        <cMun>4106902</cMun>
+        <xMun>CURITIBA</xMun>
+        <CEP>99999999</CEP>
+        <UF>PR</UF>
+        <fone>9999999999</fone>
+      </enderEmit>
+    </emit>
+    <toma>
+      <CNPJ>99999999999999</CNPJ>
+      <IE>9999999999</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <xFant>XXXXXXXXXXXXXXXX</xFant>
+      <fone>99999999</fone>
+      <enderToma>
+        <xLgr>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xLgr>
+        <nro>777</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>4101804</cMun>
+        <xMun>ARAUCARIA</xMun>
+        <CEP>99999999</CEP>
+        <UF>PR</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderToma>
+    </toma>
+    <vPrest>
+      <vTPrest>2845.15</vTPrest>
+      <vRec>2845.15</vRec>
+      <Comp>
+        <xNome>VIAGEM TURISMO</xNome>
+        <vComp>2356.00</vComp>
+      </Comp>
+      <Comp>
+        <xNome>PEDAGIO</xNome>
+        <vComp>311.82</vComp>
+      </Comp>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMS00>
+          <CST>00</CST>
+          <vBC>2533.33</vBC>
+          <pICMS>7.00</pICMS>
+          <vICMS>177.33</vICMS>
+        </ICMS00>
+      </ICMS>
+      <vTotTrib>177.33</vTotTrib>
+      <infTribFed>
+        <vPIS>2.00</vPIS>
+        <vCOFINS>3.00</vCOFINS>
+        <vIR>3.00</vIR>
+        <vINSS>3.00</vINSS>
+        <vCSLL>3.00</vCSLL>
+      </infTribFed>
+    </imp>
+    <infCTeNorm>
+      <infServico>
+        <xDescServ>TRANSPORTE DE SERES VIVOS</xDescServ>
+        <infQ>
+          <qCarga>1.0000</qCarga>
+        </infQ>
+      </infServico>
+      <seg>
+        <respSeg>4</respSeg>
+        <xSeg>XXXXXXXXXXXXXXXX</xSeg>
+        <nApol>XXXXX</nApol>
+      </seg>
+      <infModal versaoModal="3.00">
+        <rodoOS>
+          <TAF>999999999999</TAF>
+        </rodoOS>
+      </infModal>
+    </infCTeNorm>
+    <autXML>
+      <CNPJ>99999999999999</CNPJ>
+    </autXML>
+    <autXML>
+      <CNPJ>99999999999999</CNPJ>
+    </autXML>
+  </infCte>
+</CTeOS>

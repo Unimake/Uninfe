@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe xmlns="http://www.portalfiscal.inf.br/cte" versao="2.00">
+  <infEvento Id="ID1101103513111131953200010257001000001950101152928801">
+    <cOrgao>35</cOrgao>
+    <tpAmb>2</tpAmb>
+    <CNPJ>11319532000102</CNPJ>
+    <chCTe>35131111319532000102570010000019501011529288</chCTe>
+    <dhEvento>2013-11-23T08:51:47</dhEvento>
+    <tpEvento>110110</tpEvento>
+    <nSeqEvento>1</nSeqEvento>
+    <detEvento versaoEvento="2.00">
+      <evCCeCTe>
+        <descEvento>Carta de Correcao</descEvento>
+        <infCorrecao>
+          <grupoAlterado>rem</grupoAlterado>
+          <campoAlterado>nro</campoAlterado>
+          <valorAlterado>170</valorAlterado>
+        </infCorrecao>
+        <infCorrecao>
+          <grupoAlterado>rem</grupoAlterado>
+          <campoAlterado>fone</campoAlterado>
+          <valorAlterado>14991001000</valorAlterado>
+        </infCorrecao>
+        <xCondUso>A Carta de Correcao e disciplinada pelo Art. 58-B do CONVENIO/SINIEF 06/89: Fica permitida a utilizacao de carta de correcao, para regularizacao de erro ocorrido na emissao de documentos fiscais relativos a prestacao de servico de transporte, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da prestacao;II - a correcao de dados cadastrais que implique mudanca do emitente, tomador, remetente ou do destinatario;III - a data de emissao ou de saida.</xCondUso>
+      </evCCeCTe>
+    </detEvento>
+  </infEvento>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="#ID1101103513111131953200010257001000001950101152928801">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>33g8IVP3JdVUJ4gWgdtwDS6sGYU=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>TP/U3LTApC4FLgMj4bSwyqTgYUoWOya0pgj1QSodh6fw+Qjtt+qXpKf702ZCFO3HwZr74B6PKA0haKKT6bl7krq963ZTuRUQNXnkqYczfqpSAarEYF8mQgHBPVJYD0+X0uF+lVdIdC9whJxgjFJfPuJ3bVk7263BcvPHj3/1zB831tR26mZ1Dn94iz7ItCP+EGyNkdIGJyOpvUUk0O6q/x3vJXa1Y9gaZMfzyMHshjkQHUwzgVS/dt4vWDMagyyCXm2vOQZTgzrDBvzyTYyPsRlm1NBEsnLrvuhxzO2/UIIdk3lcg/j78k55DC26yqlTkF0ZaRtyOBzNUakfGqLWug==</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>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</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</eventoCTe>

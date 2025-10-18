@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TrocarCodigoDeAtivacao>
+  <Opcao>1</Opcao>
+  <CodigoAtivacaoAtual>123456789</CodigoAtivacaoAtual>
+  <CodigoAtivacaoNovo>123456789</CodigoAtivacaoNovo>
+</TrocarCodigoDeAtivacao>

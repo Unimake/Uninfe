@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe xmlns="http://www.portalfiscal.inf.br/cte" versao="2.00">
+  <infEvento Id="ID1101113513107589206700018757004000000108121193132401">
+    <cOrgao>35</cOrgao>
+    <tpAmb>2</tpAmb>
+    <CNPJ>75892067000187</CNPJ>
+    <chCTe>35131075892067000187570040000001081211931324</chCTe>
+    <dhEvento>2013-10-31T09:44:20</dhEvento>
+    <tpEvento>110111</tpEvento>
+    <nSeqEvento>1</nSeqEvento>
+    <detEvento versaoEvento="2.00">
+      <evCancCTe>
+        <descEvento>Cancelamento</descEvento>
+        <nProt>342130000094417</nProt>
+        <xJust>TESTE DE ENVIO DE CANCELAMENTO VIA EVENTO</xJust>
+      </evCancCTe>
+    </detEvento>
+  </infEvento>
+</eventoCTe>

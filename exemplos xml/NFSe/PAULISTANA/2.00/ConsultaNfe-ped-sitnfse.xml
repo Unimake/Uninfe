@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<p1:PedidoConsultaNFe xmlns:p1="http://www.prefeitura.sp.gov.br/nfe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Cabecalho Versao="1">
+		<CPFCNPJRemetente>
+			<CNPJ>99999999999999</CNPJ>
+		</CPFCNPJRemetente>
+	</Cabecalho>
+	<Detalhe>
+		<ChaveNFe>
+			<InscricaoPrestador>99999999999999</InscricaoPrestador>
+			<NumeroNFe>99999999999999</NumeroNFe>
+		</ChaveNFe>
+	</Detalhe>
+	<Detalhe>
+		<ChaveRPS>
+			<InscricaoPrestador>99999999999999</InscricaoPrestador>
+			<SerieRPS>cc</SerieRPS>
+			<NumeroRPS>99999999999999</NumeroRPS>
+		</ChaveRPS>
+	</Detalhe>
+</p1:PedidoConsultaNFe>

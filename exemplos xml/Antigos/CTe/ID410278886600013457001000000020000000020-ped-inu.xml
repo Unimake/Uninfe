@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inutCTe xmlns="http://www.portalfiscal.inf.br/cte" versao="2.00">
+  <infInut Id="ID410278886600013457001000000020000000020">
+    <tpAmb>2</tpAmb>
+    <xServ>INUTILIZAR</xServ>
+    <cUF>41</cUF>
+    <ano>10</ano>
+    <CNPJ>76472349000430</CNPJ>
+    <mod>57</mod>
+    <serie>1</serie>
+    <nCTIni>20</nCTIni>
+    <nCTFin>20</nCTFin>
+    <xJust>Ocorreu uma falha no sistema que pulou a sequencia de numeracao</xJust>
+  </infInut>
+</inutCTe>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConsultarNfseServicoTomadoEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
+	<Consulente>
+		<CpfCnpj>
+			<Cpf>12345678912</Cpf>
+		</CpfCnpj>
+		<InscricaoMunicipal>12345678</InscricaoMunicipal>
+	</Consulente>
+	<NumeroNfse>123456789</NumeroNfse>
+	<Prestador>
+		<CpfCnpj>
+			<Cpf>12345678912</Cpf>
+		</CpfCnpj>
+		<InscricaoMunicipal>12345678</InscricaoMunicipal>
+	</Prestador>
+	<Tomador>
+		<CpfCnpj>
+			<Cpf>12345678912</Cpf>
+		</CpfCnpj>
+		<InscricaoMunicipal>12345678</InscricaoMunicipal>
+	</Tomador>
+	<Intermediario>
+		<CpfCnpj>
+			<Cpf>12345678912</Cpf>
+		</CpfCnpj>
+		<InscricaoMunicipal>12345678</InscricaoMunicipal>
+	</Intermediario>
+	<Pagina>1</Pagina>
+</ConsultarNfseServicoTomadoEnvio>

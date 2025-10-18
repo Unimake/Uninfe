@@ -1,0 +1,17 @@
+# Automatically abort script on errors
+option batch abort
+# Disable overwrite confirmations that conflict with the previous
+option confirm off
+
+open "unimake.com.br"
+option transfer binary
+put C:\projetos\instaladores\%arqftp% /public_html/pub/downloads/
+close
+
+#open "2-Unimake2.com.br - KingHost"
+#option transfer binary
+#put C:\projetos\instaladores\%arqftp% /www/
+#close
+
+# Exit WinSCP
+exit

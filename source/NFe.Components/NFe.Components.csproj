@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C199D582-6DA4-4D00-8963-89BA04777872}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NFe.Components</RootNamespace>
+    <AssemblyName>NFe.Components</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_fw46</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release35_AnyCPU|AnyCPU'">
+    <OutputPath>bin\Release35_AnyCPU\</OutputPath>
+    <DefineConstants>TRACE;_fw35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|AnyCPU'">
+    <OutputPath>bin\Release46_x86\</OutputPath>
+    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_fw46</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release35_AnyCPU|x86'">
+    <OutputPath>bin\x86\Release35_AnyCPU\</OutputPath>
+    <DefineConstants>TRACE;_fw35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
+    <OutputPath>bin\x86\Release46_x86\</OutputPath>
+    <DefineConstants>TRACE;_fw46;x86</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x64|x64'">
+    <OutputPath>bin\x64\Release46_x64\</OutputPath>
+    <DefineConstants>TRACE;_fw46;x64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.Cryptography, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Cryptography.9.0.10\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Formats.Asn1, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Formats.Asn1.9.0.10\lib\net462\System.Formats.Asn1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\Microsoft.NET.Build.Extensions\net461\lib\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Cng.5.0.0\lib\net47\System.Security.Cryptography.Cng.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.9.0.10\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.9.0.10\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Channels" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unimake.Business.DFe, Version=2025.10.17.1918, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20251017.1918.39\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Cryptography, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20250912.1810.37\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Extensions, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20250912.1810.37\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Utils, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20250912.1810.37\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CEI.cs" />
+    <Compile Include="CNPJ.cs" />
+    <Compile Include="ComboElemen.cs" />
+    <Compile Include="CPF.cs" />
+    <Compile Include="Properties\Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\SchemaXMLNFSe_AGILI.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_COPLAN.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_FIORILLI.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_FISCO.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_IIBRASIL.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_JLSOFT.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PROPRIOJOINVILLESC.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_GEISWEB.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_INDAIATUBA_SP.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_CECAM.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_MEGASOFT.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_D2TI.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PAULISTANA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_RLZ_INFORMATICA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PUBLIC_SOFT.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ADM_SISTEMAS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_E_RECEITA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_MODERNIZACAO_PUBLICA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_CENTI.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD_203.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_GIAP.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ELOTECH.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_VITORIA_ES.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_DESENVOLVECIDADE.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_EMBRAS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_MANAUS_AM.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_AVMB_ASTEN.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SOFTPLAN.cs" />
+    <Compile Include="Service References\HAmargosaBA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PAmargosaBA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\SchemaXMLNFSe_INTERSOL.cs" />
+    <Compile Include="NFeStrConstants.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_DBSELLER.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SUPERNOVA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PORTAL_FACIL.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SH3.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_BSITBR.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_LEXSOM.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_NOTAINTELIGENTE.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PRODEB.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_NA_INFORMATICA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_METROPOLIS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PUBLICA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_TINUS.cs" />
+    <Compile Include="Schemas\SchemaXML_CFE.cs" />
+    <Compile Include="Schemas\SchemaXML_ESocial.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_NATALENSE.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_FISSLEX.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_VVISS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SONNER.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_E_L.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_E_GOVERNE.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SIMPLISS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ISSWEB.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_FINTEL.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_CARIOCA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_TIPLAN.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_SYSTEMPRO.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_TECNOSISTEMAS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_DSF.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PRONIN.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_WebISS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_DUETO.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_GIF.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_BHISS.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ISSOnLine_AcessorPublico.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ISSNet.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ABACO.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_THEMA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_BETHA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_GINFES.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_GISSONLINE.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe.cs" />
+    <Compile Include="Criptografia.cs" />
+    <Compile Include="Exceptions\Exceptions.cs" />
+    <Compile Include="ExtensionsMethods\StringExtensions.cs" />
+    <Compile Include="ftplib.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="ObjectXMLSerializer.cs" />
+    <Compile Include="Schemas\SchemaXML.cs" />
+    <Compile Include="ServiceProcess.cs" />
+    <Compile Include="Smf.cs" />
+    <Compile Include="TipoArquivoXML.cs" />
+    <Compile Include="UniNFeUpdate.cs" />
+    <Compile Include="WebServiceNFSe.cs" />
+    <Compile Include="Propriedade.cs" />
+    <Compile Include="DiretorioSalvarComo.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Functions.cs" />
+    <Compile Include="MsgErro.cs" />
+    <Compile Include="Municipio.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebServiceProxy.cs" />
+    <Compile Include="XMLIniFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Xml.XmlElement.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.CancelarNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.ConsultarLoteRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.ConsultarNfsePorFaixaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.ConsultarNfsePorRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.ConsultarNfseServicoPrestadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.ConsultarNfseServicoTomadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.GerarNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.IncluirOutrasInformacoesNaNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.RecepcionarLoteRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.RecepcionarLoteRpsSincronoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\NFe.Components.HAmargosaBA.SubstituirNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HAmargosaBA\nfse.wsdl" />
+    <None Include="Service References\HAmargosaBA\nfse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HAmargosaBA\nfse1.wsdl" />
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.CancelarNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.ConsultarLoteRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.ConsultarNfsePorFaixaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.ConsultarNfsePorRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.ConsultarNfseServicoPrestadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.ConsultarNfseServicoTomadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.GerarNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.IncluirOutrasInformacoesNaNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.RecepcionarLoteRpsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.RecepcionarLoteRpsSincronoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\NFe.Components.PAmargosaBA.SubstituirNfseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PAmargosaBA\nfse.wsdl" />
+    <None Include="Service References\PAmargosaBA\nfse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PAmargosaBA\nfse1.wsdl" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\HAmargosaBA\" />
+    <WCFMetadataStorage Include="Service References\PAmargosaBA\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HAmargosaBA\nfse.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HAmargosaBA\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HAmargosaBA\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HAmargosaBA\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PAmargosaBA\nfse.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PAmargosaBA\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PAmargosaBA\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PAmargosaBA\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroFramework\MetroFramework\MetroFramework.csproj">
+      <Project>{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}</Project>
+      <Name>MetroFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

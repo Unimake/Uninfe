@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtContratAvNP/v02_04_01">
+  <evtContratAvNP Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <nrRecibo>str1234</nrRecibo>
+      <indApuracao>1</indApuracao>
+      <perApur>str1234</perApur>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <remunAvNP>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+      <codLotacao>str1234</codLotacao>
+      <vrBcCp00>123.45</vrBcCp00>
+      <vrBcCp15>123.45</vrBcCp15>
+      <vrBcCp20>123.45</vrBcCp20>
+      <vrBcCp25>123.45</vrBcCp25>
+      <vrBcCp13>123.45</vrBcCp13>
+      <vrBcFgts>123.45</vrBcFgts>
+      <vrDescCP>123.45</vrDescCP>
+    </remunAvNP>
+  </evtContratAvNP>
+</eSocial>

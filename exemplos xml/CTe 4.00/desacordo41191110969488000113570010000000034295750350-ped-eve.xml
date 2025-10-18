@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe versao="4.00" xmlns="http://www.portalfiscal.inf.br/cte">
+  <infEvento Id="ID61011041191199999999000199570010000005664416227436001">
+    <cOrgao>35</cOrgao>
+    <tpAmb>2</tpAmb>
+    <CNPJ>99999999000199</CNPJ>
+    <chCTe>41191199999999000199570010000005664416227436</chCTe>
+    <dhEvento>2019-11-26T10:45:09-03:00</dhEvento>
+    <tpEvento>610110</tpEvento>
+    <nSeqEvento>1</nSeqEvento>
+    <detEvento versaoEvento="4.00">
+      <evPrestDesacordo>
+        <descEvento>Prestacao do Servico em Desacordo</descEvento>
+        <indDesacordoOper>1</indDesacordoOper>
+        <xObs>Teste de manifestacao de servico em desacordo, ambiente de homolocacao.</xObs>
+      </evPrestDesacordo>
+    </detEvento>
+  </infEvento>
+</eventoCTe>

@@ -1,0 +1,4 @@
+tpEmis|1
+tpAmb|2
+cUF|41
+versao|4.00

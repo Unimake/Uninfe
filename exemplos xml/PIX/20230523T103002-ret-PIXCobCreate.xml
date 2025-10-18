@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PIXCobrancaCreateResponse>
+	<!--Status do PIX 0-Ativa (Pix GERADO), 1-Concluída (Já foi pago), 2-RemovidoPeloUsuarioRecebedor 3-RemovidopeloPSP  999-Exceção/Erro-->
+	<Status>0</Status>
+	<!--Descricao do Status-->
+	<Motivo>PIX Ativo (Cobrança gerada)</Motivo>
+	<!--contem a string do PIX Copia e Cola para o devedor pagar por este formato-->
+	<PixCopiaECola>11111111111111111111br.gov.bcb.pix1111pix.xxxxxx.com.br/qr/xxxxxxx/v2/cobv/11111111-1111-1111-1111-1111111111111111111111111111111111111XXXXXXX XX XXXXXXXXXNao_informado22222222***2222222E</PixCopiaECola>
+	<!--contem o caminho onde foi gravado a imagem do QRCode do PIX para o devedor pagar por este formato-->
+	<ImageQRCode>d:\testenfe\Retorno\20230523T103002-ret-PIXCobCreate.png</ImageQRCode>
+</PIXCobrancaCreateResponse>

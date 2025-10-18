@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CancelarNfseEnvio versao="1.00">
+	<numeronotacancelamento>1</numeronotacancelamento>
+	<motivocancelamento>Motivo teste</motivocancelamento>
+	<descricaocancelamento>Descricao teste</descricaocancelamento>
+</CancelarNfseEnvio>

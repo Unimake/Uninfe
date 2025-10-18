@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BoletoRegistrar versao="1.00">
+	<!-- ID da configuração da conta corrente no eBank. Este número é fornecido pela Unimake. -->
+	<ConfigurationId>ZCKWGQ55LTDXKYYC</ConfigurationId>
+	<Aceite>true</Aceite>
+	<Emissao>2025-07-22</Emissao>
+	<Especie>2</Especie>
+	<NumeroParcela>0</NumeroParcela>
+	<Pagador>
+		<Nome>Pagador Fictício</Nome>
+		<Inscricao>26994558000123</Inscricao>
+		<TipoInscricao>0</TipoInscricao>
+		<Endereco>
+			<Logradouro>Rua</Logradouro>
+			<Numero>11</Numero>
+			<Complemento>string</Complemento>
+			<Bairro>Bairro</Bairro>
+			<Cidade>Brasília</Cidade>
+			<UF>DF</UF>
+			<CEP>11111-111</CEP>
+		</Endereco>
+	</Pagador>
+	<PDFConfig>
+		<TryGeneratePDF>true</TryGeneratePDF>
+	</PDFConfig>
+	<PixConfig>
+		<Chave>06117473000150</Chave>
+		<RegistrarPIX>true</RegistrarPIX>
+	</PixConfig>
+	<Testing>true</Testing>
+	<ValorNominal>45.88</ValorNominal>
+	<Vencimento>2025-08-22</Vencimento>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>true</UseHomologServer>
+</BoletoRegistrar>

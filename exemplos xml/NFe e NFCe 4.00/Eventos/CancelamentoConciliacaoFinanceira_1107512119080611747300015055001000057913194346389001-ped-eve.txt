@@ -1,0 +1,14 @@
+idLote|000000000000001
+evento|1
+Id|ID1107512119080611747300015055001000057913194346389001
+cOrgao|21
+tpAmb|2
+CNPJ|12345678901234
+chNFe|21190806117473000150550010000579131943463890
+dhEvento|2024-08-30T11:43:08-03:00
+tpEvento|110751
+nSeqEvento|1
+verEvento|1.00
+descEvento|Cancelamento Conciliação Financeira
+verAplic|uninfeteste1.0
+cancConciliacaoFinanceira.nProtEvento|000000000000000

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PIXGetResponse>
+	<!--Status do PIX - 1=Movimento PIX Localizado   2=Nenhum Movimento PIX foi localizado   999=Exceção/Erro-->
+	<Status>1</Status>
+	<!--Descricao do Status-->
+	<Motivo>Movimento PIX Localizado.</Motivo>
+	<!-- TxId - Identificador do PIX que está sendo consultado-->
+	<TxId>12345678901234567890123456</TxId>
+	<!--Valor do PIX que foi efetuado-->
+	<Valor>0.00</Valor>
+	<!--Data e Hora que o PIX foi processado no PSP-->
+	<Horario>2023-05-23T10:42:05</Horario>
+	<!--Dados do pagador-->
+	<Pagador>
+		<!--Nome do pagador-->
+		<Nome>Teste nome pagador</Nome>
+		<!--Inscrição do pagador-->
+		<Inscricao>12345678901234</Inscricao>
+	</Pagador>
+</PIXGetResponse>

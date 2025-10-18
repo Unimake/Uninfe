@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Reinf xmlns="http://www.reinf.esocial.gov.br/schemas/evt2055AquisicaoProdRural/v1_05_00">
+  <evtAqProd id="ID1000000000000002021052608080800001">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <nrRecibo>00000-00-0000-0000-00000</nrRecibo>
+      <perApur>2021-05</perApur>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>APP_TESTE_1.0</verProc>
+      <retifS1250>S</retifS1250>
+    </ideEvento>
+    <ideContri>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideContri>
+    <infoAquisProd>
+      <ideEstabAdquir>
+        <tpInscAdq>1</tpInscAdq>
+        <nrInscAdq>12345678901234</nrInscAdq>
+        <ideProdutor>
+          <tpInscProd>1</tpInscProd>
+          <nrInscProd>12345678901234</nrInscProd>
+          <indOpcCP>S</indOpcCP>
+        </ideProdutor>
+        <detAquis>
+          <indAquis>5</indAquis>
+          <vlrBruto>100,00</vlrBruto>
+          <vlrCPDescPR>100,00</vlrCPDescPR>
+          <vlrRatDescPR>100,00</vlrRatDescPR>
+          <vlrSenarDesc>100,00</vlrSenarDesc>
+          <infoProcJud>
+            <nrProcJud>12345678901234</nrProcJud>
+            <codSusp>12345678901234</codSusp>
+            <vlrCPNRet>100,00</vlrCPNRet>
+            <vlrRatNRet>100,00</vlrRatNRet>
+            <vlrSenarNRet>100,00</vlrSenarNRet>
+          </infoProcJud>
+        </detAquis>
+      </ideEstabAdquir>
+    </infoAquisProd>
+  </evtAqProd>
+</Reinf>

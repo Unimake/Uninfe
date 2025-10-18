@@ -1,0 +1,7 @@
+Link padrão TIPLAN:
+
+Recife-PE:
+
+https://nfse.recife.pe.gov.br/contribuinte/notaprint.aspx?ccm=6244807&nf=39&cod=FEDCEZTW
+
+ccm = insc municipal nf= número da nota cod = código de verificação

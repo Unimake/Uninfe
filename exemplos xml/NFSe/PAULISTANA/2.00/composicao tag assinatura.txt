@@ -1,0 +1,31 @@
+A tag assinatura é composta pelo seguinte conteúdo:
+
+************************COLOCAR AQUI A CHAVE PARA COMPARAR PARA VER SE ESTÁ CERTO*********************
+58402454NF   00000000001620180607TNN00000000001000000000000000000003654214675166000112
+31000000OL03 00000000000120070103TNN00000000205000000000000050000002658100013167474254
++-------+----+-----------+-------++++--------------+--------------+----++-------------++-------------+
+123456781234512345678901212345678111123456789012345123456789012345123451123456789012341123456789012341
++-------+----+-----------+-------++++--------------+--------------+----++-------------++-------------+
+|       |    |           |       ||||              |              |    ||             ||             |
+A       B    C           D       EFGH              I              J    KL             MN             O
++------------------------------------------+-------------+
+| A-Inscrição Municipal do Prestador       |   8 dígitos |
+| B-Série do RPS                           |   5 diditos |
+| C-Número do RPS                          |  12 dígitos |
+| D-Data de Emissão do RPS                 |   8 dígitos |
+| E-Tipo de Tributação do RPS              |   1 dígito  |
+| F-Status do RPS                          |   1 dígito  |
+| G-ISS Retido                             |   1 dígito  |
+| H-Valor dos Serviços                     |  15 dígitos |
+| I-Valor das deduções                     |  15 dígitos |
+| J-Código do Serviço Prestado             |   5 dígitos |
+| K-Indicador de CPF/CNPJ do tomador       |   1 dígito  |
+| L-CPF/CNPJ do tomador                    |  14 dígitos |
+| M-Indicador de CPF/CNPJ do Intermediário |   1 dígito  |
+| N-CPF/CNPJ do Intermediário              |  14 dígitos |
+| O-ISS Retido Intermediário               |   1 dígito  |
++------------------------------------------+-------------+
+| TOTAL DE DÍGITOS                         | 102 dígitos |
++------------------------------------------+-------------+
+
+- - - - - - - - - -

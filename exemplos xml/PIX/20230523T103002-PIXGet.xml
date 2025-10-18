@@ -1,0 +1,29 @@
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<PIXGetRequest versao="1.00">
+	<!--Data inicial do período da consulta-->
+	<StartDate>2023-10-31</StartDate>
+	<!--Data final do período da consulta-->
+	<EndDate>2023-10-31</EndDate>
+	<!-- TxId - Identificador do PIX que é para consultar a situação e ver se foi recebido ou não. Tem que ter entre 26 e 35 caracteres (Só pode ter letras e números, não pode ter espaço ou outro carácter especial)-->
+	<TxId>11111111111111111111111111111111</TxId>
+	<!--true=Cria a cobrança PIX em ambiente de teste. Nem todos bancos oferencem ambiente de teste, até o momento só BB e Bradesco oferecem-->
+	<Testing>false</Testing>
+	<!--Grupo de tag Beneficiario é obrigatória-->
+	<Beneficiario>
+		<!--CNPJ ou CPF do titular da conta do recebedor do PIX-->
+		<Inscricao>11111111111111</Inscricao>
+		<!--Nome do titular da conta do recebedor do PIX-->
+		<Nome>EMPRESA TESTE</Nome>
+		<!--Grupo de tag Conta é obrigatória-->
+		<Conta>
+			<!--Agencia da conta do recebedor do PIX-->
+			<Agencia>1111</Agencia>
+			<!--Numero da conta do recebedor do PIX-->
+			<Numero>11111</Numero>
+			<!--Código do banco do recebedor do PIX 756=Sicoob 748=Sicredi 33=Santander 1=BancoDoBrasil etc...-->
+			<Banco>001</Banco>
+		</Conta>
+	</Beneficiario>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>false</UseHomologServer>
+</PIXGetRequest>

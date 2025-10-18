@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nfe>
+	<cancelaNota>
+		<codigoMotivo>99999999999999</codigoMotivo>
+		<numeroNota>99999999999999</numeroNota>
+	</cancelaNota>
+</nfe>

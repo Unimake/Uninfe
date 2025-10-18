@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session xmlns="http://winscp.net/schema/session/1.0" name="unimake.com.br" start="2025-10-17T22:30:23.426Z">
+  <upload>
+    <filename value="C:\projetos\instaladores\Install_Unimake.DFe.exe" />
+    <destination value="/public_html/pub/downloads/Install_Unimake.DFe.exe" />
+    <size value="3219648" />
+    <result success="true" />
+  </upload>
+  <touch>
+    <filename value="/public_html/pub/downloads/Install_Unimake.DFe.exe" />
+    <modification value="2025-10-17T22:30:11.000Z" />
+    <result success="true" />
+  </touch>
+</session>

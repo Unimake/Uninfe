@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<es:esCancelarNfseEnvio xmlns:es="http://www.equiplano.com.br/esnfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.equiplano.com.br/enfs esCancelarNfseEnvio_v01.xsd">
+	<prestador>
+		<nrInscricaoMunicipal>99999999999999</nrInscricaoMunicipal>
+		<cnpj>99999999999999</cnpj>
+		<idEntidade>99999999999999</idEntidade>
+	</prestador>
+	<nrNfse>1</nrNfse>
+	<dsMotivoCancelamento>Cancelamento</dsMotivoCancelamento>
+</es:esCancelarNfseEnvio>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoletoAlterarVenctoResponse>
+    <!--0=Vencimento alterado com sucesso, 1 ou 999=Erro-->
+	<Status>999</Status>
+	<Motivo>Not Found | No resources match requested URI</Motivo>
+	<UniNFeVersao>5.1.0.138 | 03-04-2025 - 17:16:05</UniNFeVersao>
+</BoletoAlterarVenctoResponse>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ConsultarLoteRps xmlns="https://portoseguro-ba.issintegra.com.br/webservices/abrasf/api">
+	<ConsultarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
+		<Prestador>
+			<Cnpj>99999999999999</Cnpj>
+			<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+		</Prestador>
+		<Protocolo>9999999999999999999999999999</Protocolo>
+	</ConsultarLoteRpsEnvio>
+</ConsultarLoteRps>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v02_04_01">
+  <evtIrrfBenef Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <nrRecArqBase>str1234</nrRecArqBase>
+      <perApur>str1234</perApur>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <ideTrabalhador>
+      <cpfTrab>str12340000</cpfTrab>
+    </ideTrabalhador>
+    <infoDep>
+      <vrDedDep>123.45</vrDedDep>
+    </infoDep>
+    <infoIrrf>
+      <codCateg>1234</codCateg>
+      <indResBr>s</indResBr>
+      <basesIrrf>
+        <tpValor>1</tpValor>
+        <valor>123.45</valor>
+      </basesIrrf>
+      <irrf>
+        <tpCR>1234</tpCR>
+        <vrIrrfDesc>123.45</vrIrrfDesc>
+      </irrf>
+      <idePgtoExt>
+        <idePais>
+          <codPais>str</codPais>
+          <indNIF>1</indNIF>
+          <nifBenef>str1234</nifBenef>
+        </idePais>
+        <endExt>
+          <dscLograd>str1234</dscLograd>
+          <nrLograd>str1234</nrLograd>
+          <complem>str1234</complem>
+          <bairro>str1234</bairro>
+          <nmCid>str1234</nmCid>
+          <codPostal>str1234</codPostal>
+        </endExt>
+      </idePgtoExt>
+    </infoIrrf>
+  </evtIrrfBenef>
+</eSocial>

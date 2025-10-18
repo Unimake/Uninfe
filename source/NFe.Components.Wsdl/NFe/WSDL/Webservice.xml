@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Webservice>
+	<Estado ID="11" Nome="Rondonia" UF="RO" SVC="teSVCAN"></Estado>
+	<Estado ID="12" Nome="Acre" UF="AC" SVC="teSVCAN"></Estado>
+	<Estado ID="13" Nome="Amazonas" UF="AM" SVC="teSVCRS"></Estado>
+	<Estado ID="14" Nome="Roraima" UF="RR" SVC="teSVCAN"></Estado>
+	<Estado ID="15" Nome="Pará" UF="PA" SVC="teSVCAN"></Estado>
+	<Estado ID="16" Nome="Amapa" UF="AP" SVC="teSVCAN"></Estado>
+	<Estado ID="17" Nome="Tocantins" UF="TO" SVC="teSVCAN"></Estado>
+	<Estado ID="21" Nome="Maranhão" UF="MA" SVC="teSVCRS"></Estado>
+	<Estado ID="22" Nome="Piaui" UF="PI" SVC="teSVCAN"></Estado>
+	<Estado ID="23" Nome="Ceará" UF="CE" SVC="teSVCAN"></Estado>
+	<Estado ID="24" Nome="Rio Grande do Norte" UF="RN" SVC="teSVCAN"></Estado>
+	<Estado ID="25" Nome="Paraiba" UF="PB" SVC="teSVCAN"></Estado>
+	<Estado ID="26" Nome="Pernambuco" UF="PE" SVC="teSVCRS"></Estado>
+	<Estado ID="27" Nome="Alagoas" UF="AL" SVC="teSVCAN"></Estado>
+	<Estado ID="28" Nome="Sergipe" UF="SE" SVC="teSVCAN"></Estado>
+	<Estado ID="29" Nome="Bahia" UF="BA" SVC="teSVCRS"></Estado>
+	<Estado ID="31" Nome="Minas Gerais" UF="MG" SVC="teSVCAN"></Estado>
+	<Estado ID="32" Nome="Espirito Santo" UF="ES" SVC="teSVCAN"></Estado>
+	<Estado ID="33" Nome="Rio de Janeiro" UF="RJ" SVC="teSVCAN"></Estado>
+	<Estado ID="35" Nome="São Paulo" UF="SP" SVC="teSVCAN"></Estado>
+	<Estado ID="41" Nome="Paraná" UF="PR" SVC="teSVCRS"></Estado>
+	<Estado ID="42" Nome="Santa Catarina" UF="SC" SVC="teSVCAN"></Estado>
+	<Estado ID="43" Nome="Rio Grande do Sul" UF="RS" SVC="teSVCAN"></Estado>
+	<Estado ID="50" Nome="Mato Grosso do Sul" UF="MS" SVC="teSVCRS"></Estado>
+	<Estado ID="51" Nome="Mato Grosso" UF="MT" SVC="teSVCRS"></Estado>
+	<Estado ID="52" Nome="Goiás" UF="GO" SVC="teSVCRS"></Estado>
+	<Estado ID="53" Nome="Distrito Federal" UF="DF" SVC="teSVCAN"></Estado>
+	<Estado ID="902" Nome="Servico Virtual de Contingência do Rio Grande do Sul (CTe e NFe)" UF="SVCRS" SVC="teNone"></Estado>
+	<Estado ID="903" Nome="Servico Virtual de Contingência de São Paulo (CTe)" UF="SVCSP" SVC="teNone"></Estado>
+	<Estado ID="904" Nome="Servico Virtual de Contingência do Ambiente Nacional (NFe)" UF="SVCAN" SVC="teNone"></Estado>
+	<Estado ID="905" Nome="EPEC - Evento Prévio de Emissão em Contingência - NFe" UF="EPEC" SVC="teNone"></Estado>
+	<Estado ID="906" Nome="EPEC - Evento Prévio de Emissão em Contingência - NFCe" UF="EPEC" SVC="teNone"></Estado>
+	<Estado ID="991" Nome="Serviços da SEFAZ Ambiente Nacional" UF="AN" SVC="teNone">
+		<LocalHomologacao>
+			<RecepcaoLoteReinf>WSDL\Homologacao\AN\EFDReinf.wsdl</RecepcaoLoteReinf>
+			<ConsultasReinf>WSDL\Homologacao\AN\EFDReinfConsultasReinf.wsdl</ConsultasReinf>
+			<RecepcaoLoteeSocial>WSDL\Homologacao\AN\eSocial_ServicoEnviarLoteEventos.wsdl</RecepcaoLoteeSocial>
+			<ConsultarLoteeSocial>WSDL\Homologacao\AN\eSocial_ServicoConsultarLoteEventos.wsdl</ConsultarLoteeSocial>
+			<ConsultarIdentificadoresEventoseSocial>WSDL\Homologacao\AN\eSocial_ConsultarIdentificadoresEventos.wsdl</ConsultarIdentificadoresEventoseSocial>
+			<DownloadEventoseSocial>WSDL\Homologacao\AN\eSocial_DownloadEventos.wsdl</DownloadEventoseSocial>
+		</LocalHomologacao>
+		<LocalProducao>
+			<RecepcaoLoteReinf>WSDL\Producao\AN\EFDReinf.wsdl</RecepcaoLoteReinf>
+			<ConsultasReinf>WSDL\Producao\AN\EFDReinfConsultasReinf.wsdl</ConsultasReinf>
+			<RecepcaoLoteeSocial>WSDL\Producao\AN\eSocial_ServicoEnviarLoteEventos.wsdl</RecepcaoLoteeSocial>
+			<ConsultarLoteeSocial>WSDL\Producao\AN\eSocial_ServicoConsultarLoteEventos.wsdl</ConsultarLoteeSocial>
+			<ConsultarIdentificadoresEventoseSocial>WSDL\Producao\AN\eSocial_ConsultarIdentificadoresEventos.wsdl</ConsultarIdentificadoresEventoseSocial>
+			<DownloadEventoseSocial>WSDL\Producao\AN\eSocial_DownloadEventos.wsdl</DownloadEventoseSocial>
+		</LocalProducao>
+	</Estado>
+</Webservice>

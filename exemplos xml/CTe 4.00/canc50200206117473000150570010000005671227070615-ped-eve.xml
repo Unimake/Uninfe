@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe versao="4.00" xmlns="http://www.portalfiscal.inf.br/cte">
+	<infEvento Id="ID11011150200206117473000150570010000005671227070615001">
+		<cOrgao>50</cOrgao>
+		<tpAmb>2</tpAmb>
+		<CNPJ>06117473000150</CNPJ>
+		<chCTe>50200206117473000150570010000005671227070615</chCTe>
+		<dhEvento>2023-05-15T17:05:06-03:00</dhEvento>
+		<tpEvento>110111</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="4.00">
+			<evCancCTe>
+				<descEvento>Cancelamento</descEvento>
+				<nProt>500000000000000</nProt>
+				<xJust>Justificativa para cancelamento da CTe de teste</xJust>
+			</evCancCTe>
+		</detEvento>
+	</infEvento>
+</eventoCTe>

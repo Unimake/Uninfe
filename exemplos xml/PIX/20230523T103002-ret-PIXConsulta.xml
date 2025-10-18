@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PIXConsultaResponse>
+	<!--Status do PIX - 1=Movimentos PIX localizados   2=Nenhum Movimento PIX foi localizado   999=Exceção/Erro-->
+	<Status>1</Status>
+	<!--Descricao do Status-->
+	<Motivo>Movimentos PIX localizados.</Motivo>
+	<!--Movimentos de PIX retornados-->
+	<Items>
+		<!--Primeiro movimento-->
+		<Item Id="1">
+			<!-- TxId - Identificador do PIX-->
+			<TxId>11111111111111111111111111111111</TxId>
+			<!--Valor do PIX-->
+			<Valor>75.36</Valor>
+			<!--Data e Hora que o PIX foi processado no PSP-->
+			<Horario>2023-10-31T16:29:41</Horario>
+			<!--Dados do pagador-->
+			<Pagador>
+				<!--Nome do pagador-->
+				<Nome>Teste nome pagador 1</Nome>
+				<!--Inscrição do pagador-->
+				<Inscricao>12345678901234</Inscricao>
+			</Pagador>
+		</Item>
+		<!--Segundo movimento-->
+		<Item Id="2">
+			<!-- TxId - Identificador do PIX-->
+			<TxId>22222222222222222222222222222222</TxId>
+			<!--Valor do PIX-->
+			<Valor>66.22</Valor>
+			<!--Data e Hora que o PIX foi processado no PSP-->
+			<Horario>2023-10-31T16:29:41</Horario>
+			<!--Dados do pagador-->
+			<Pagador>
+				<!--Nome do pagador-->
+				<Nome>Teste nome pagador 2</Nome>
+				<!--Inscrição do pagador-->
+				<Inscricao>11111111111111</Inscricao>
+			</Pagador>
+		</Item>
+	</Items>
+</PIXConsultaResponse>

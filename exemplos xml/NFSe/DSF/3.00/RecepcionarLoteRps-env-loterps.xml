@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EnviarLoteRpsEnvio xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http:/www.abrasf.org.br/nfse.xsd">
+	<LoteRps Id="LOTE10" versao="3.00">
+		<NumeroLote>10</NumeroLote>
+		<Cnpj>99999999999999</Cnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+		<QuantidadeRps>1</QuantidadeRps>
+		<ListaRps>
+			<Rps>
+				<InfRps>
+					<IdentificacaoRps>
+						<Numero>10</Numero>
+						<Serie>NFSE</Serie>
+						<Tipo>1</Tipo>
+					</IdentificacaoRps>
+					<DataEmissao>2010-10-26T16:02:00</DataEmissao>
+					<NaturezaOperacao>1</NaturezaOperacao>
+					<RegimeEspecialTributacao>5</RegimeEspecialTributacao>
+					<OptanteSimplesNacional>1</OptanteSimplesNacional>
+					<IncentivadorCultural>2</IncentivadorCultural>
+					<Status>1</Status>
+					<Servico>
+						<Valores>
+							<ValorServicos>376.00</ValorServicos>
+							<ValorDeducoes>0.00</ValorDeducoes>
+							<ValorPis>0.00</ValorPis>
+							<ValorCofins>0.00</ValorCofins>
+							<ValorInss>0.00</ValorInss>
+							<ValorIr>0.00</ValorIr>
+							<ValorCsll>0.00</ValorCsll>
+							<IssRetido>2</IssRetido>
+							<ValorIss>15.68</ValorIss>
+							<ValorIssRetido>0.00</ValorIssRetido>
+							<OutrasRetencoes>0.00</OutrasRetencoes>
+							<BaseCalculo>313.68</BaseCalculo>
+							<Aliquota>0.0500</Aliquota>
+							<ValorLiquidoNfse>313.68</ValorLiquidoNfse>
+							<DescontoIncondicionado>62.32</DescontoIncondicionado>
+							<DescontoCondicionado>0.00</DescontoCondicionado>
+						</Valores>
+						<ItemListaServico>14.01</ItemListaServico>
+						<!--Se não for informado o CNAE, a prefeitura pegará um CNAE aleatório vinculado ao código do serviço independente se o CNPJ tem aquela atividade-->
+						<CodigoCnae>9313100</CodigoCnae>
+						<CodigoTributacaoMunicipio>4520001</CodigoTributacaoMunicipio>
+						<Discriminacao>01-REVISAO DOS 20.000 KM 02-SERVICOS DE MECANICA 03-ALINHAMENTO E BALANCIAMENTO 04-SERVICOS DE TERCEIROS 05-LAVAGEM HILUX</Discriminacao>
+						<CodigoMunicipio>4128104</CodigoMunicipio>
+					</Servico>
+					<Prestador>
+						<Cnpj>99999999999999</Cnpj>
+						<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+					</Prestador>
+					<Tomador>
+						<IdentificacaoTomador>
+							<CpfCnpj>
+								<Cnpj>99999999999999</Cnpj>
+							</CpfCnpj>
+						</IdentificacaoTomador>
+						<RazaoSocial>xxxxxxxxxxx</RazaoSocial>
+						<Endereco>
+							<Endereco>xxxxxxxxx</Endereco>
+							<Numero>3064</Numero>
+							<Bairro>CENTRO</Bairro>
+							<CodigoMunicipio>4128104</CodigoMunicipio>
+							<Uf>PR</Uf>
+							<Cep>99999999999999</Cep>
+						</Endereco>
+					</Tomador>
+				</InfRps>
+			</Rps>
+		</ListaRps>
+	</LoteRps>
+</EnviarLoteRpsEnvio>

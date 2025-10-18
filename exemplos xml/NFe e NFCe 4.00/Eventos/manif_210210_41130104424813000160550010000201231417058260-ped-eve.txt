@@ -1,0 +1,13 @@
+idLote|000000000015255
+evento|1
+Id|ID2102404113010442481300016055001000020124101705827901
+cOrgao|91
+tpAmb|2
+CNPJ|53420477000192
+chNFe|41130104424813000160550010000201231417058260
+dhEvento|2011-03-03T08:06:00-03:00
+tpEvento|210200
+nSeqEvento|1
+verEvento|1.00
+descEvento|Operacao nao Realizada
+xJust|Operacao nao realizada somente testes de homologacao

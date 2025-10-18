@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PIXCobrancaCreateRequest versao="1.00">
+	<!--Campo livre, pode ser utilizado para descrever o serviço prestado que vai aparecer para o pagador (140 caracteres, no máximo)-->
+	<SolicitacaoPagador>Prestação de serviços em software</SolicitacaoPagador>
+	<!-- 0=Cob (Cobrança sem vencimento, multas ou juros. Cobrança simples) 1=CobV (Cobrança com vencimento, multas e juros. Normalmente utilizada junto com o boleto)-->
+	<TipoCobranca>0</TipoCobranca>
+	<!--Valor do PIX (separador decimal é um ponto final)-->
+	<Valor>1.00</Valor>
+	<!--Chave PIX do Recebedor-->
+	<Chave>+5544999999999</Chave>
+	<!-- TxId é o identificador do PIX, é a través dele que vamos consultar se o PIX foi ou não recebido. Tem que ter entre 26 e 35 caracteres (Só pode ter letras e números, não pode ter espaço ou outro carácter especial).-->
+	<TxId>12345678901234567890123456789012345</TxId>
+	<!--true=gera um arquovo de imagem contendo o QRCode para que o pagador efetue o pagamento do PIX, false = nao gera imagem QRCode.-->
+	<GerarQRCode>true</GerarQRCode>
+	<!--true=Cria a cobrança PIX em ambiente de teste. Nem todos bancos oferencem ambiente de teste, até o momento só BB e Bradesco oferecem-->
+	<Testing>false</Testing>
+	<!--Grupo de tag Beneficiario é obrigatória-->
+	<Beneficiario>
+		<!--CNPJ ou CPF do titular da conta do recebedor do PIX-->
+		<Inscricao>11222333000122</Inscricao>
+		<!--Nome do titular da conta do recebedor do PIX-->
+		<Nome>Empresa Teste</Nome>
+		<!--Grupo de tag Conta é obrigatória-->
+		<Conta>
+			<!--Agencia da conta do recebedor do PIX-->
+			<Agencia>1111</Agencia>
+			<!--Numero da conta do recebedor do PIX-->
+			<Numero>1111111</Numero>
+			<!--Código do banco do recebedor do PIX 756=Sicoob 748=Sicredi 33=Santander 1=BancoDoBrasil etc...-->
+			<Banco>756</Banco>
+		</Conta>
+	</Beneficiario>
+	<!--Grupo de tag Calendario não é obrigatório se o TipoCobranca for igual a 0, se for 1 é obrigatório.-->
+	<Calendario>
+		<!--Data e hora da criação do PIX, padrão é DATA e HORA atual-->
+		<Criacao>2023-05-23T10:42:05</Criacao>
+		<!--600 segundos para expirar a cobrança, ou seja, 10 minutos. (Padrão é 86400 segundos, ou seja, 24 horas)-->
+		<Expiracao>600</Expiracao>
+		<!--Data de vencimento do PIX, pode ser informado a tag <Expiracao> ou a tag <DataDeVencimento>-->
+		<DataDeVencimento>2023-05-23T10:42:05</DataDeVencimento>
+		<!--Numero de dias que a cobrança ainda poderá ser paga após o vencimento <DataDeVencimento> (Só informar se tiver a tag <DataVencimento>)-->
+		<ValidadeAposVencimento>3</ValidadeAposVencimento>
+	</Calendario>
+	<!--Grupo de tag QRCodeConfig não é obrigatório, mas receberá valores padrões se não informado-->
+	<QRCodeConfig>
+		<!--Largura da imagem (Padrão 512 Mega Pixes)-->
+		<Width>512</Width>
+		<!--Altura da imagem (Padrão 512 Mega Pixes)-->
+		<Height>512</Height>
+		<!--Nível da qualidade da imagem gerada (1 a 100) (Padrão = 100)-->
+		<Quality>100</Quality>
+		<!--Formato da imagem do QRCode 0=GIF 1=Jpeg 2=PNG 3=Webp (Não é obrigatório mas vai assumir valores padrões se for para gerar a imagem do QRCode-->
+		<ImageFormat>2</ImageFormat>
+	</QRCodeConfig>
+	<!--Grupo de tag Devedor não é obrigatória se o TipoCobranca for igual a 0, se for 1 é obrigatório.-->
+	<Devedor>
+		<!--Nome do Devedor-->
+		<Nome>Devedor de teste</Nome>
+		<!--CPF ou CNPJ do Devedor-->
+		<Inscricao>00000000000</Inscricao>
+		<!--CEP do Devedor-->
+		<CEP>87700000</CEP>
+		<!--Logradouro do Devedor-->
+		<Logradouro>Rua sao joao do joao, 111, Jardim teste</Logradouro>
+		<!--Cidade do Devedor-->
+		<Cidade>Paranavaí</Cidade>
+		<!--UF do Devedor-->
+		<UF>PR</UF>
+	</Devedor>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>false</UseHomologServer>	
+</PIXCobrancaCreateRequest>

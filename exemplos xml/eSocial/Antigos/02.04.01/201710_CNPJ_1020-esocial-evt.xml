@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtTabLotacao/v02_04_01">
+  <evtTabLotacao Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <infoLotacao>
+      <inclusao>
+        <ideLotacao>
+          <codLotacao>str1234</codLotacao>
+          <iniValid>2017-10</iniValid>
+          <fimValid>2017-10</fimValid>
+        </ideLotacao>
+        <dadosLotacao>
+          <tpLotacao>st</tpLotacao>
+          <tpInsc>1</tpInsc>
+          <nrInsc>00000000000000</nrInsc>
+          <fpasLotacao>
+            <fpas>1234</fpas>
+            <codTercs>str1</codTercs>
+            <codTercsSusp>str1</codTercsSusp>
+            <infoProcJudTerceiros>
+              <procJudTerceiro>
+                <codTerc>str1</codTerc>
+                <nrProcJud>str1234</nrProcJud>
+                <codSusp>1234</codSusp>
+              </procJudTerceiro>
+            </infoProcJudTerceiros>
+          </fpasLotacao>
+          <infoEmprParcial>
+            <tpInscContrat>1</tpInscContrat>
+            <nrInscContrat>str1234</nrInscContrat>
+            <tpInscProp>1</tpInscProp>
+            <nrInscProp>str1234</nrInscProp>
+          </infoEmprParcial>
+        </dadosLotacao>
+      </inclusao>
+    </infoLotacao>
+  </evtTabLotacao>
+</eSocial>

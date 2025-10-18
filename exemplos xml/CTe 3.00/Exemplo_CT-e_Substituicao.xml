@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTe>
+  <infCte Id="CTe43181099999999999999570910000001221000000002" versao="3.00">
+    <ide>
+      <cUF>43</cUF>
+      <cCT>00000000</cCT>
+      <CFOP>5352</CFOP>
+      <natOp>PRESTACAO SERVICO TRANSPORTE P/ ESTAB. INDUSTRIAL</natOp>
+      <mod>57</mod>
+      <serie>91</serie>
+      <nCT>122</nCT>
+      <dhEmi>2019-02-18T08:24:17-03:00</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>2</cDV>
+      <tpAmb>2</tpAmb>
+      <tpCTe>3</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>1</verProc>
+      <cMunEnv>4302105</cMunEnv>
+      <xMunEnv>BENTO GONCALVES</xMunEnv>
+      <UFEnv>RS</UFEnv>
+      <modal>01</modal>
+      <tpServ>0</tpServ>
+      <cMunIni>4302105</cMunIni>
+      <xMunIni>BENTO GONCALVES</xMunIni>
+      <UFIni>RS</UFIni>
+      <cMunFim>4302105</cMunFim>
+      <xMunFim>BENTO GONCALVES</xMunFim>
+      <UFFim>RS</UFFim>
+      <retira>0</retira>
+      <xDetRetira>detalhes teste</xDetRetira>
+      <indIEToma>9</indIEToma>
+      <toma3>
+        <toma>1</toma>
+      </toma3>
+    </ide>
+    <emit>
+      <CNPJ>99999999999999</CNPJ>
+      <IE>1234567891</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <xFant>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xFant>
+      <enderEmit>
+        <xLgr>Rua do teste</xLgr>
+        <nro>300</nro>
+        <xCpl>10 andar</xCpl>
+        <xBairro>BAIRRO TESTE</xBairro>
+        <cMun>4302105</cMun>
+        <xMun>BENTO GONCALVES</xMun>
+        <CEP>89233198</CEP>
+        <UF>RS</UF>
+        <fone>1132433400</fone>
+      </enderEmit>
+    </emit>
+    <rem>
+      <CNPJ>88888888888888</CNPJ>
+      <IE>9876543219</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <xFant>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xFant>
+      <fone>4430283749</fone>
+      <enderReme>
+        <xLgr>rua do teste remetente</xLgr>
+        <nro>0</nro>
+        <xBairro>PARANA</xBairro>
+        <cMun>4115200</cMun>
+        <xMun>PARANA</xMun>
+        <CEP>01000000</CEP>
+        <UF>PR</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderReme>
+      <email>x@tecnospeed.com.br</email>
+    </rem>
+    <exped>
+      <CPF>14725836978</CPF>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <fone>5434639000</fone>
+      <enderExped>
+        <xLgr>ROD. RSC KM 222</xLgr>
+        <nro>470</nro>
+        <xCpl>ALFANDEGA</xCpl>
+        <xBairro>ALFANDEGA</xBairro>
+        <cMun>4308607</cMun>
+        <xMun>GARIBALDI</xMun>
+        <CEP>95720000</CEP>
+        <UF>RS</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderExped>
+      <email>teste@tecnospeed.com.br</email>
+    </exped>
+    <dest>
+      <CPF>12335874915</CPF>
+      <IE>1597538246</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <enderDest>
+        <xLgr>Praca Matriz</xLgr>
+        <nro>0</nro>
+        <xBairro>Centro</xBairro>
+        <cMun>4302105</cMun>
+        <xMun>BENTO GONCALVES</xMun>
+        <CEP>01000000</CEP>
+        <UF>RS</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderDest>
+      <email>teste@tecnospeed.com.br</email>
+    </dest>
+    <vPrest>
+      <vTPrest>200.00</vTPrest>
+      <vRec>200.00</vRec>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMS00>
+          <CST>00</CST>
+          <vBC>0.01</vBC>
+          <pICMS>7.00</pICMS>
+          <vICMS>0.01</vICMS>
+        </ICMS00>
+      </ICMS>
+      <ICMSUFFim>
+        <vBCUFFim>1.10</vBCUFFim>
+        <pFCPUFFim>1.10</pFCPUFFim>
+        <pICMSUFFim>40</pICMSUFFim>
+        <pICMSInter>12.00</pICMSInter>
+        <pICMSInterPart>40.00</pICMSInterPart>
+        <vFCPUFFim>1.10</vFCPUFFim>
+        <vICMSUFFim>1.10</vICMSUFFim>
+        <vICMSUFIni>1.10</vICMSUFIni>
+      </ICMSUFFim>
+    </imp>
+    <infCTeNorm>
+      <infCarga>
+        <vCarga>1000.00</vCarga>
+        <proPred>LATA</proPred>
+        <infQ>
+          <cUnid>00</cUnid>
+          <tpMed>m3</tpMed>
+          <qCarga>1</qCarga>
+        </infQ>
+      </infCarga>
+      <infDoc>
+        <infOutros>
+          <tpDoc>00</tpDoc>
+          <nDoc>123456</nDoc>
+          <dEmi>2011-03-22</dEmi>
+          <vDocFisc>1.00</vDocFisc>
+        </infOutros>
+      </infDoc>
+      <infModal versaoModal="3.00">
+        <rodo>
+          <RNTRC>00000012</RNTRC>
+          <occ>
+            <serie>1</serie>
+            <nOcc>1</nOcc>
+            <dEmi>2017-07-10</dEmi>
+            <emiOcc>
+              <CNPJ>08187168000160</CNPJ>
+              <cInt>10</cInt>
+              <IE>0500077436</IE>
+              <UF>PR</UF>
+              <fone>99999999</fone>
+            </emiOcc>
+          </occ>
+        </rodo>
+      </infModal>
+      <infCteSub>
+        <chCte>43171099999999999999570910000002481000000002</chCte>
+        <refCteAnu>43171099999999999999570910000002491000000000</refCteAnu>
+      </infCteSub>
+    </infCTeNorm>
+  </infCte>
+</CTe>

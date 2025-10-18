@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/lote/eventos/envio/v1_1_1">
+  <envioLoteEventos grupo="2">
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>06117473</nrInsc>
+    </ideEmpregador>
+    <ideTransmissor>
+      <tpInsc>1</tpInsc>
+      <nrInsc>06117473000150</nrInsc>
+    </ideTransmissor>
+    <eventos>
+      <evento Id="ID1061174730000002019031915301800001">
+        <eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtTreiCap/v02_05_00">
+          <evtTreiCap Id="ID1061174730000002019031915301800001">
+            <ideEvento>
+              <indRetif>1</indRetif>
+              <tpAmb>2</tpAmb>
+              <procEmi>1</procEmi>
+              <verProc>1.1.0</verProc>
+            </ideEvento>
+            <ideEmpregador>
+              <tpInsc>1</tpInsc>
+              <nrInsc>06117473</nrInsc>
+            </ideEmpregador>
+            <ideVinculo>
+              <cpfTrab>99999999999</cpfTrab>
+              <nisTrab>99999999999</nisTrab>
+              <matricula>string123</matricula>
+            </ideVinculo>
+            <treiCap>
+              <codTreiCap>1902</codTreiCap>
+              <obsTreiCap>Teste de emissao</obsTreiCap>
+              <infoComplem>
+                <dtTreiCap>2019-03-18</dtTreiCap>
+                <durTreiCap>1</durTreiCap>
+                <modTreiCap>1</modTreiCap>
+                <tpTreiCap>2</tpTreiCap>
+                <ideProfResp>
+                  <cpfProf>99999999999</cpfProf>
+                  <nmProf>string123456</nmProf>
+                  <tpProf>2</tpProf>
+                  <formProf>string123</formProf>
+                  <codCBO>999999</codCBO>
+                  <nacProf>1</nacProf>
+                </ideProfResp>
+              </infoComplem>
+            </treiCap>
+          </evtTreiCap>
+        </eSocial>
+      </evento>
+    </eventos>
+  </envioLoteEventos>
+</eSocial>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uMessenger versao="1.00">
+	<PIXNotification>
+		<!--Código do PIX para pagamento com copiar e colar. Tag obrigatória-->
+		<CopyAndPaste>00011111111111111111BR.GOV.BCB.PIX2222qrpix.ebank.solutions/qr/v2/11cff33aa-ffff-dff4-94d6-bb2611a0ded21312312312asdasd12331.022332BR2332UNIMAKE SOFTWARE***1233233E</CopyAndPaste>
+		<!--Nome da empresa que gerou o PIX. Tag obrigatória-->
+		<CompanyName>Unimake Software</CompanyName>
+		<!--Telefone WhatsApp para que o destinatário da mensagem entre em contato-->
+		<ContactPhone>554431421010</ContactPhone>
+		<!--Nome do destinatário da cobrança PIX. Tag obrigatória-->
+		<CustomerName>Joaquim</CustomerName>
+		<!--Descrição do que será cobrado no PIX. Tag obrigatória-->
+		<Description>UniDANFe - Licença de 1 ano</Description>
+		<!--Data da emissão da cobrança via PIX no formato DD/MM/AAAA. Tag obrigatória-->
+		<IssuedDate>30/07/2024</IssuedDate>
+		<!--
+		    Informação adicional para pagamento via QRCode.
+		    O link para download é sempre no padrão: http://unimake.app.api/v1/pdf/download?Code=s65a4ds6a54ds6a4ds4ad54sa6d54as5dsa645d56sa4
+		    Onde "code" é o token gerado no momento da criação da cobrança PIX.
+		    Tag obrigatória
+		-->
+		<QueryString>http://unimake.app.api/v1/pdf/download?Code=s65a4ds6a54ds6a4ds4ad54sa6d54as5dsa645d56sa4</QueryString>
+		<!--Numero do whats para onde será enviada a mensagem-->
+		<To>554491423078</To>
+		<!--Valor da cobrança PIX (Como separador decimal utilize a virgula, ou seja, da forma que vai ser enviada a mensagem, exemplo: R$ 250,00-->
+		<Value>R$ 250,00</Value>
+		<!--True = Ambiente de teste   false=Ambiente de produção-->
+		<Testing>true</Testing>
+		<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+		<UseHomologServer>true</UseHomologServer>
+	</PIXNotification>
+</uMessenger>

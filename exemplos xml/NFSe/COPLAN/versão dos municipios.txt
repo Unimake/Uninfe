@@ -1,0 +1,4 @@
+Água Boa - MT = utiliza a versão 2.02
+Sinop - MT = utiliza a versão 2.02
+
+Demais municipios = utiliza versão 2.01

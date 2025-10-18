@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BoletoEnviarInstrucao versao="1.00">
+	<!--Esta tag é obrigatória. ID da configuração da conta corrente no eBank. Este número é fornecido pela Unimake.-->
+	<ConfigurationId>ZCKWGQ55LTDXKYYC</ConfigurationId>
+	<!--Esta tag é obrigatória. Nova data de vencimento do boleto-->
+	<Data>2025-04-03</Data>
+	<!--Esta tag é obrigatória. Instrução: 0=PedidoDeBaixa, 1=ConcessaoDeDesconto, 2=CancelamentoDeDescontoConcedido, 3=AlteracaoDeVencimento, 4=AlteracaoSeuNumero, 5=PedidoDeProtesto, 6=SustarProtestoEBaixarTitulo, 7=SustarProtestoEManterCarteira, 8=AlteracaoOutrosDados, 9=ConcessaoAbatimento, 10=CancelamentoAbatimentoConcedido-->
+    <Instrucao>1</Instrucao>
+	<!--Esta tag não é obrigatória. Instrução adicional: 0=Desconto, 1=JurosDia, 2=DescontoDiaAntecipacao, 3=CancelamentoProtestoAutomatico, 4=DataLimiteConcessaoDesconto -->
+    <InstrucaoAdicional>1</InstrucaoAdicional>
+	<!--Esta tag não é obrigatória. Número do boleto bancário que deverá ser aplicada a instrução-->
+	<NossoNumero>string</NossoNumero>
+	<!--Esta tag não é obrigatória-->
+	<NumeroNoBanco>string</NumeroNoBanco>
+	<!--Esta tag não é obrigatória. Quantidade de dias antes da data de vencimento que deve ser aplicado o desconto.-->
+	<QuantidadeDiasDesconto>0</QuantidadeDiasDesconto>
+	<!--Esta tag não é obrigatória. Número do boleto na empresa que deverá ser aplicada a instrução-->
+	<SeuNumero>string</SeuNumero>
+	<!--Esta tag não é obrigatória. Tipo de desconto: 0=NaoConsta, 1=ValorFixoAteDataInformada, 2=PercentualAteDataInformada, 3=ValorPorAntecipacaoDiaCorrido, 4=ValorPorAntecipacaoDiaUtil, 5=PercentualSobreValorNominalDiaCorrido, 6=PercentualSobreValorNominalDiaUtil, 7=Cancelamento, 8=BonificacaoValorFixoDiaUtil, 9=BonificacaoPercentualDiaUtil, 10=BonificacaoValorFixoDiaCorrido, 11=BonificacaoPercentualDiaCorrido, 12=PercentualPorAntecipacaoDiaUtil, 13=PercentualPorAntecipacaoDiaCorrido-->
+	<TipoDesconto>0</TipoDesconto>
+	<!--Esta tag não é obrigatória. Em alguns momentos, a instrução executada depende de um valor que será aplicado. Logo, este campo serve para informar o valor que deverá ser aplicado de acordo com cada instrução-->
+	<Valor>0.00</Valor>
+	<!--Esta tag não é obrigatória. true=Somente teste - false=Produção-->
+	<Testing>true</Testing>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>true</UseHomologServer>
+</BoletoEnviarInstrucao>

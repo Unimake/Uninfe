@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cteProc xmlns="http://www.portalfiscal.inf.br/cte" versao="1.04">
+  <CTe xmlns="http://www.portalfiscal.inf.br/cte">
+    <infCte versao="1.04" Id="CTe31140100438756000117570010000045021310105402">
+      <ide>
+        <cUF>31</cUF>
+        <cCT>31010540</cCT>
+        <CFOP>5352</CFOP>
+        <natOp>COMPLEMENTO DE TRANSPORTE</natOp>
+        <forPag>1</forPag>
+        <mod>57</mod>
+        <serie>1</serie>
+        <nCT>4502</nCT>
+        <dhEmi>2014-01-21T14:34:05</dhEmi>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>2</cDV>
+        <tpAmb>2</tpAmb>
+        <tpCTe>1</tpCTe>
+        <procEmi>0</procEmi>
+        <verProc>GCA</verProc>
+        <cMunEnv>3148004</cMunEnv>
+        <xMunEnv>PATOS DE MINAS</xMunEnv>
+        <UFEnv>MG</UFEnv>
+        <modal>01</modal>
+        <tpServ>0</tpServ>
+        <cMunIni>3136306</cMunIni>
+        <xMunIni>JOAO PINHEIRO</xMunIni>
+        <UFIni>MG</UFIni>
+        <cMunFim>3130309</cMunFim>
+        <xMunFim>IGUATAMA</xMunFim>
+        <UFFim>MG</UFFim>
+        <retira>1</retira>
+        <toma03>
+          <toma>0</toma>
+        </toma03>
+      </ide>
+      <compl>
+        <xEmi>JULIANA GONCALVES</xEmi>
+        <Entrega>
+          <semData>
+            <tpPer>0</tpPer>
+          </semData>
+          <semHora>
+            <tpHor>0</tpHor>
+          </semHora>
+        </Entrega>
+        <origCalc>JOAO PINHEIRO</origCalc>
+        <destCalc>IGUATAMA</destCalc>
+        <xObs>MG - ISENCAO DE ICMS CONFORME ITEM 144 PARTE 1 ANEXO I DO RICMS/MG. NR.OS: 027641 KM: 550 PEDIDO: 0 COMPLEMENTO DE PESO REFERENTE AOS CTes : 4455 / SERIE: 1;.</xObs>
+        <ObsCont xCampo="Lei da Transparencia">
+          <xTexto>O valor aproximado de tributos incidentes sobre o preco deste servico e de R$ 79, 39</xTexto>
+        </ObsCont>
+      </compl>
+      <emit>
+        <CNPJ>00438756000117</CNPJ>
+        <IE>4809252260026</IE>
+        <xNome>TRANSGRAOS LTDA</xNome>
+        <xFant>TRANSGRAOS LTDA</xFant>
+        <enderEmit>
+          <xLgr>RUA ROGERIO SEVERINO DE ALMEIDA</xLgr>
+          <nro>301</nro>
+          <xBairro>ALTO DOS CAICARAS</xBairro>
+          <cMun>3148004</cMun>
+          <xMun>PATOS DE MINAS</xMun>
+          <CEP>38702150</CEP>
+          <UF>MG</UF>
+          <fone>3438224264</fone>
+        </enderEmit>
+      </emit>
+      <rem>
+        <CNPJ>14386776000449</CNPJ>
+        <IE>0018956200289</IE>
+        <xNome>EGIR COMERCIAL LTDA</xNome>
+        <xFant>EGIR COMERCIAL LTDA</xFant>
+        <enderReme>
+          <xLgr>RUA JOAO PINHEIRO/PORTO NOVO KM 48</xLgr>
+          <nro>0</nro>
+          <xBairro>ZONA RURAL</xBairro>
+          <cMun>3136306</cMun>
+          <xMun>JOAO PINHEIRO</xMun>
+          <CEP>38770000</CEP>
+          <UF>MG</UF>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderReme>
+      </rem>
+      <dest>
+        <CNPJ>35820448013467</CNPJ>
+        <IE>3036164492647</IE>
+        <xNome>WHITE MARTINS GASES INDUSTRIAIS LTDA</xNome>
+        <enderDest>
+          <xLgr>ROD BR 354 KM451</xLgr>
+          <nro>0</nro>
+          <xCpl>S/N</xCpl>
+          <xBairro>ZONA RURAL</xBairro>
+          <cMun>3130309</cMun>
+          <xMun>IGUATAMA</xMun>
+          <CEP>38910000</CEP>
+          <UF>MG</UF>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderDest>
+      </dest>
+      <vPrest>
+        <vTPrest>858.24</vTPrest>
+        <vRec>858.24</vRec>
+        <Comp>
+          <xNome>TRANSPORTE</xNome>
+          <vComp>858.24</vComp>
+        </Comp>
+      </vPrest>
+      <imp>
+        <ICMS>
+          <ICMS45>
+            <CST>40</CST>
+          </ICMS45>
+        </ICMS>
+        <vTotTrib>0.00</vTotTrib>
+      </imp>
+      <infCteComp>
+        <chave>31140100438756000117570010000044551310105591</chave>
+      </infCteComp>
+    </infCte>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+        <Reference URI="#CTe31140100438756000117570010000045021310105402">
+          <Transforms>
+            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+          </Transforms>
+          <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+          <DigestValue>bio3gyBRmusZVrHxKtPpA0+3WgE=</DigestValue>
+        </Reference>
+      </SignedInfo>
+      <SignatureValue>kzhLuo20wRHzF7xXY5LhG8eaPcSwdSBIuhVpK/k2i1zUtawTOESj1//fDN9IR292RX6CjEUCixpGIalGOQntq3qSrsisrfY3M1y84AFw2MOOKHq4JHoFd+DoxlmuxfD0qYck/nZcWZAIpDS5l/y8rYrui32BU0oe/Gc8+UOgqPcG9u+90JSCcBnrCsbdqYaV2ihggwO2OfoxgZopk0qcPW7zm1iCTTO3c89VnCoTTvrv1YqNBvQQ3FUn3bB0ZYtwJXdxC7tIlby9hoVsM2M9lZ81EAE3F/7dUmOVWoZTwng8Q6UbXj0nCAPE2WXxcf7i1mBkiFt5x7Sm+RmVilBB1g==</SignatureValue>
+      <KeyInfo>
+        <X509Data>
+          <X509Certificate>MIIIQjCCBiqgAwIBAgIQcZHLZOYO0+xlPtBndUWUjjANBgkqhkiG9w0BAQsFADB4MQswCQYDVQQGEwJCUjETMBEGA1UEChMKSUNQLUJyYXNpbDE2MDQGA1UECxMtU2VjcmV0YXJpYSBkYSBSZWNlaXRhIEZlZGVyYWwgZG8gQnJhc2lsIC0gUkZCMRwwGgYDVQQDExNBQyBDZXJ0aXNpZ24gUkZCIEc0MB4XDTEzMTIwNDAwMDAwMFoXDTE0MTIwMzIzNTk1OVowgeUxCzAJBgNVBAYTAkJSMRMwEQYDVQQKFApJQ1AtQnJhc2lsMQswCQYDVQQIEwJNRzEXMBUGA1UEBxQOUEFUT1MgREUgTUlOQVMxNjA0BgNVBAsULVNlY3JldGFyaWEgZGEgUmVjZWl0YSBGZWRlcmFsIGRvIEJyYXNpbCAtIFJGQjEWMBQGA1UECxQNUkZCIGUtQ05QSiBBMTEiMCAGA1UECxQZQXV0ZW50aWNhZG8gcG9yIEFSIE5JQUxQQTEnMCUGA1UEAxMeVFJBTlNHUkFPUyBMVERBOjAwNDM4NzU2MDAwMTE3MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1O529zHyR8+zXWP0pxhoHSGpnYKIxGElkuoppRzRIZ9/NIWckJPyK1vGNztLxT0ySEnrqcPin0NyYU1hnrQCdZZV3H8u66sk4wpwYTNSi9YVvTOl4LemmRq0mpc5HCb8LQnfTZQi1HjJ2c2zauiltT+sbWfpAjOX17CK0qzb2I7mQ9uy+GxR0D3VoVsmthWgswHZCc81c+P7Dai6GJgb2VRDPqFTK7qKA0vl56+yEW/TiCANAiUUbpwPOzyYSkayePlOHl6hQ88Iy2dh+4HgUGlqVpvV6p8s4uJah3YxGoFl1+s0YhvSJozGeSw1asaPrqZ3/lcE0ev2aAXGzU0XiwIDAQABo4IDWDCCA1Qwgb0GA1UdEQSBtTCBsqA9BgVgTAEDBKA0BDIwOTAyMTk3MzgwNzk2OTc0NjkxMDAwMDAwMDAwMDAwMDAwMDAwTTU0Mzc0MTlTU1BNR6AhBgVgTAEDAqAYBBZFTElBUyBGRVJSRUlSQSBDQUlYRVRBoBkGBWBMAQMDoBAEDjAwNDM4NzU2MDAwMTE3oBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEab3JnY29udGFiaWxAbmV0c2l0ZS5jb20uYnIwCQYDVR0TBAIwADAfBgNVHSMEGDAWgBQukerWbeWyWYLcOIUpdjQWVjzQPjAOBgNVHQ8BAf8EBAMCBeAwfwYDVR0gBHgwdjB0BgZgTAECAQwwajBoBggrBgEFBQcCARZcaHR0cDovL2ljcC1icmFzaWwuY2VydGlzaWduLmNvbS5ici9yZXBvc2l0b3Jpby9kcGMvQUNfQ2VydGlzaWduX1JGQi9EUENfQUNfQ2VydGlzaWduX1JGQi5wZGYwggEWBgNVHR8EggENMIIBCTBXoFWgU4ZRaHR0cDovL2ljcC1icmFzaWwuY2VydGlzaWduLmNvbS5ici9yZXBvc2l0b3Jpby9sY3IvQUNDZXJ0aXNpZ25SRkJHNC9MYXRlc3RDUkwuY3JsMFagVKBShlBodHRwOi8vaWNwLWJyYXNpbC5vdXRyYWxjci5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDQ2VydGlzaWduUkZCRzQvTGF0ZXN0Q1JMLmNybDBWoFSgUoZQaHR0cDovL3JlcG9zaXRvcmlvLmljcGJyYXNpbC5nb3YuYnIvbGNyL0NlcnRpc2lnbi9BQ0NlcnRpc2lnblJGQkc0L0xhdGVzdENSTC5jcmwwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMIGbBggrBgEFBQcBAQSBjjCBizBfBggrBgEFBQcwAoZTaHR0cDovL2ljcC1icmFzaWwuY2VydGlzaWduLmNvbS5ici9yZXBvc2l0b3Jpby9jZXJ0aWZpY2Fkb3MvQUNfQ2VydGlzaWduX1JGQl9HNC5wN2MwKAYIKwYBBQUHMAGGHGh0dHA6Ly9vY3NwLmNlcnRpc2lnbi5jb20uYnIwDQYJKoZIhvcNAQELBQADggIBAIVnvHVoxZUXbUOcCbrTDA+4fjHry4e9rVvayjGPtdRs/5LEpsCeCaNoUfOF2lMudvsA3eL9MyH5QOfpYERmC01mRX/V+7aOYoBOOV//Y0g5xFHE6TuJBD+8wQAMqPWC1aQDIpv9EL5JI1GWdoWAAPoW6Re4b+DHl8QAslauVsNHReuTPySeyZa5QuNuar2WEMqoaZa1vuUXYuxwkgIep+cZ5Qbd3hWRHq5QTJeTwwb2limUSlDIruUXpOwAuhfbSEcjjQ9mdjHL0BV8F7txXjbRmk5AY6qhPP8O88/5dUU8EbFS128Iw5ADBYbHo436yuIxNfDV5tih+GjA5ZuRF2PmFHFa4NThB3uRCrWnSfiT3qBtOhpm+ALS+ID1cz9vuGg1sIeB7q8BuUade1bU8pjt7UpqxaFn3phPyLB/h1SKnl9H6uNijVWcoLYjvtHNN57uuHmyCgAiOG71l/bhfA4J2AICQGZFWiA7QIRGxJNn0l97ikyE0b/o3iYb/HLM10xO3RHv0IW8KdDtqpwxd7yfW2CZs+b1rNK1anT6v/hPhHvOv27V6gxw3kcX4TQXWx2scei+M/hBx1tqIkNYYhKuuAom7NHKckBAykC5/ZrtWV2e2OJUJkKIpUHb8Ct1RaNRMb34AKG5gdYwinPYiVBIWcYUdrzvVHSkYITeoxas</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </Signature>
+  </CTe>
+  <protCTe versao="2.00">
+    <infProt Id="ID131140045736195">
+      <tpAmb>1</tpAmb>
+      <verAplic>0_2_40</verAplic>
+      <chCTe>31140100438756000117570010000045021310105402</chCTe>
+      <dhRecbto>2014-01-22T08:41:42</dhRecbto>
+      <nProt>131140045736195</nProt>
+      <digVal>bio3gyBRmusZVrHxKtPpA0+3WgE=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso do CT-e</xMotivo>
+    </infProt>
+  </protCTe>
+</cteProc>

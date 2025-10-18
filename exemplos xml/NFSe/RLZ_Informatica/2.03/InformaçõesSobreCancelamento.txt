@@ -1,0 +1,2 @@
+Atualmente a versão 2.03 desse padrão não tem implementado o método de cancelamento. Para conseguir fazer o cancelamento é
+necessário entrar em contato com a prefeitura.

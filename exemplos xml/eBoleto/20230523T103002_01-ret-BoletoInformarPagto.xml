@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoletoInformarPagtoResponse>
+    <!--0=Boleto foi marcado como pago com sucesso, 1 ou 999=Erro-->
+	<Status>1</Status>
+	<Motivo>Não foi possível marcar o boleto como pago. Tente novamente mais tarde. (Status Code: 202)</Motivo>
+	<UniNFeVersao>5.1.0.138 | 23-04-2025 - 11:14:22</UniNFeVersao>
+</BoletoInformarPagtoResponse>

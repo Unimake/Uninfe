@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<es:esConsultarNfsePorRpsEnvio xmlns:es="http://www.equiplano.com.br/esnfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.equiplano.com.br/enfs esConsultarNfsePorRpsEnvio_v01.xsd">
+	<rps>
+		<nrRps>1</nrRps>
+		<nrEmissorRps>1</nrEmissorRps>
+	</rps>
+	<prestador>
+		<nrInscricaoMunicipal>99999999999999</nrInscricaoMunicipal>
+		<cnpj>99999999999999</cnpj>
+		<idEntidade>99999999999999</idEntidade>
+	</prestador>
+</es:esConsultarNfsePorRpsEnvio>

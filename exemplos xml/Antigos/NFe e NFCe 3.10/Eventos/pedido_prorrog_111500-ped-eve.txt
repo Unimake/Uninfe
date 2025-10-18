@@ -1,0 +1,15 @@
+idLote|000000000015255
+evento|1
+Id|ID2102403511031029073900013955001000000001105112804102
+cOrgao|35
+tpAmb|2
+CNPJ|10290739000139 
+chNFe|35110310290739000139550010000000011051128041
+dhEvento|2011-03-03T08:06:00-03:00
+tpEvento|111500
+nSeqEvento|1
+verEvento|1.00
+descEvento|Pedido de Prorrogacao                           
+nProt|0000000000001
+itemPedido.numItem|1
+itemPedido.qtdeItem|1

@@ -1,0 +1,89 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
+	<LoteRps Id="Lote_0001" versao="2.04">
+		<NumeroLote>45454</NumeroLote>
+		<Prestador>
+			<CpfCnpj>
+				<Cpf>99999999999999</Cpf>
+			</CpfCnpj>
+		</Prestador>
+		<QuantidadeRps>5</QuantidadeRps>
+		<ListaRps>
+			<Rps>
+				<InfDeclaracaoPrestacaoServico Id="declaracao_999999990001911733160024200900000000001">
+					<Rps Id="rps_9334444440001">
+						<IdentificacaoRps>
+							<Numero>343443</Numero>
+							<Serie>A123</Serie>
+							<Tipo>1</Tipo>
+						</IdentificacaoRps>
+						<DataEmissao>2017-11-07</DataEmissao>
+						<Status>2</Status>
+					</Rps>
+					<Competencia>2017-11-07</Competencia>
+					<Servico>
+						<Valores>
+							<ValorServicos>121.12</ValorServicos>
+						</Valores>
+						<IssRetido>1</IssRetido>
+						<ItemListaServico>01.01</ItemListaServico>
+						<CodigoTributacaoMunicipio>2</CodigoTributacaoMunicipio>
+						<Discriminacao>TTESTE DE DISCRIMINACAO</Discriminacao>
+						<CodigoMunicipio>5007307</CodigoMunicipio>
+						<ExigibilidadeISS>6</ExigibilidadeISS>
+					</Servico>
+					<Prestador>
+						<CpfCnpj>
+							<Cpf>99999999999999</Cpf>
+						</CpfCnpj>
+					</Prestador>
+					<TomadorServico>
+						<IdentificacaoTomador>
+							<CpfCnpj>
+								<Cpf>99999999999999</Cpf>
+							</CpfCnpj>
+						</IdentificacaoTomador>
+						<RazaoSocial>XXXXXXXXXX</RazaoSocial>
+						<Endereco>
+							<Endereco>XXXXXXXX</Endereco>
+							<Numero>446</Numero>
+							<Bairro>XXXXXXX</Bairro>
+							<CodigoMunicipio>5007307</CodigoMunicipio>
+							<Uf>SP</Uf>
+							<Cep>99999999</Cep>
+						</Endereco>
+						<Contato>
+							<Telefone>99999999999999</Telefone>
+							<Email>XXXXXXXXX@GMAIL.COM</Email>
+						</Contato>
+					</TomadorServico>
+					<OptanteSimplesNacional>1</OptanteSimplesNacional>
+					<IncentivoFiscal>1</IncentivoFiscal>
+					<InformacoesComplementares>INFORMACAO EXTRA BLA BLA BLA</InformacoesComplementares>
+					<!--Opcional-->
+					<Deducao>
+						<TipoDeducao>3</TipoDeducao>
+						<DescricaoDeducao>DEDUCAO DE TESTE</DescricaoDeducao>
+						<IdentificacaoDocumentoDeducao>
+							<IdentificacaoNfse>
+								<CodigoMunicipioGerador>99999999999999</CodigoMunicipioGerador>
+								<NumeroNfse>99999999999999</NumeroNfse>
+								<CodigoVerificacao>99999999999999</CodigoVerificacao>
+							</IdentificacaoNfse>
+						</IdentificacaoDocumentoDeducao>
+						<DadosFornecedor>
+							<IdentificacaoFornecedor>
+								<CpfCnpj>
+									<Cpf>99999999999999</Cpf>
+								</CpfCnpj>
+							</IdentificacaoFornecedor>
+						</DadosFornecedor>
+						<DataEmissao>2017-11-07</DataEmissao>
+						<ValorDedutivel>20.00</ValorDedutivel>
+						<ValorUtilizadoDeducao>10.00</ValorUtilizadoDeducao>
+					</Deducao>
+				</InfDeclaracaoPrestacaoServico>
+			</Rps>
+		</ListaRps>
+	</LoteRps>
+</EnviarLoteRpsEnvio>

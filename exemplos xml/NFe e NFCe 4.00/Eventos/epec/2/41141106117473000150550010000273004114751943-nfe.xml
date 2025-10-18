@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+  <infNFe Id="NFe41141106117473000150550010000273004114751943" versao="3.10">
+    <ide>
+      <cUF>41</cUF>
+      <cNF>11475194</cNF>
+      <natOp>VENDA PRODUC.DO ESTABELEC</natOp>
+      <indPag>0</indPag>
+      <mod>55</mod>
+      <serie>1</serie>
+      <nNF>27300</nNF>
+      <dhEmi>2014-11-16T06:42:43-02:00</dhEmi>
+      <dhSaiEnt>2014-11-16T06:42:43-02:00</dhSaiEnt>
+      <tpNF>1</tpNF>
+      <idDest>2</idDest>
+      <cMunFG>4118402</cMunFG>
+      <tpImp>1</tpImp>
+      <tpEmis>4</tpEmis>
+      <cDV>3</cDV>
+      <tpAmb>2</tpAmb>
+      <finNFe>1</finNFe>
+      <indFinal>0</indFinal>
+      <indPres>1</indPres>
+      <procEmi>0</procEmi>
+      <verProc>UNICO V8.0</verProc>
+      <dhCont>2014-11-16T06:42:43-02:00</dhCont>
+      <xJust>SEFAZ PARANA NAO ESTA AUTORIZANDO NOTAS</xJust>
+    </ide>
+    <emit>
+      <CNPJ>06117473000150</CNPJ>
+      <xNome>UNIMAKE SOLUCOES CORPORATIVAS LTDA</xNome>
+      <xFant>UNIMAKE - PARANAVAI</xFant>
+      <enderEmit>
+        <xLgr>RUA ANTONIO FELIPE</xLgr>
+        <nro>01500</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>4118402</cMun>
+        <xMun>PARANAVAI</xMun>
+        <UF>PR</UF>
+        <CEP>87704030</CEP>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+        <fone>04434234904</fone>
+      </enderEmit>
+      <IE>9032000301</IE>
+      <IM>14018</IM>
+      <CNAE>6202300</CNAE>
+      <CRT>1</CRT>
+    </emit>
+    <dest>
+      <CNPJ>13302747000146</CNPJ>
+      <xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <enderDest>
+        <xLgr>RUA 51</xLgr>
+        <nro>51</nro>
+        <xBairro>SALA 02 INCONFIDENTES</xBairro>
+        <cMun>3118601</cMun>
+        <xMun>CONTAGEM</xMun>
+        <UF>MG</UF>
+        <CEP>32260240</CEP>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+        <fone>03125558920</fone>
+      </enderDest>
+      <indIEDest>1</indIEDest>
+      <IE>0017387140049</IE>
+      <email>nfe@bsea.com.br</email>
+    </dest>
+    <det nItem="1">
+      <prod>
+        <cProd>01041</cProd>
+        <cEAN></cEAN>
+        <xProd>DANFE VIEW PLUS</xProd>
+        <NCM>84714900</NCM>
+        <CFOP>6101</CFOP>
+        <uCom>LU</uCom>
+        <qCom>1</qCom>
+        <vUnCom>59.9000000000</vUnCom>
+        <vProd>59.90</vProd>
+        <cEANTrib></cEANTrib>
+        <uTrib>LU</uTrib>
+        <qTrib>1</qTrib>
+        <vUnTrib>59.9000000000</vUnTrib>
+        <indTot>1</indTot>
+        <xPed>104041</xPed>
+        <nItemPed>1</nItemPed>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN101>
+            <orig>0</orig>
+            <CSOSN>101</CSOSN>
+            <pCredSN>2.0701</pCredSN>
+            <vCredICMSSN>1.24</vCredICMSSN>
+          </ICMSSN101>
+        </ICMS>
+        <PIS>
+          <PISOutr>
+            <CST>99</CST>
+            <vBC>0.00</vBC>
+            <pPIS>0.0000</pPIS>
+            <vPIS>0.00</vPIS>
+          </PISOutr>
+        </PIS>
+        <COFINS>
+          <COFINSOutr>
+            <CST>99</CST>
+            <vBC>0.00</vBC>
+            <pCOFINS>0.0000</pCOFINS>
+            <vCOFINS>0.00</vCOFINS>
+          </COFINSOutr>
+        </COFINS>
+      </imposto>
+      <infAdProd>1 ano</infAdProd>
+    </det>
+    <total>
+      <ICMSTot>
+        <vBC>0.00</vBC>
+        <vICMS>0.00</vICMS>
+        <vICMSDeson>0.00</vICMSDeson>
+        <vBCST>0.00</vBCST>
+        <vST>0.00</vST>
+        <vProd>59.90</vProd>
+        <vFrete>0.00</vFrete>
+        <vSeg>0.00</vSeg>
+        <vDesc>0.00</vDesc>
+        <vII>0.00</vII>
+        <vIPI>0.00</vIPI>
+        <vPIS>0.00</vPIS>
+        <vCOFINS>0.00</vCOFINS>
+        <vOutro>0.00</vOutro>
+        <vNF>59.90</vNF>
+      </ICMSTot>
+    </total>
+    <transp>
+      <modFrete>0</modFrete>
+      <transporta></transporta>
+      <vol>
+        <qVol>1</qVol>
+        <esp>LU</esp>
+        <pesoL>0.000</pesoL>
+        <pesoB>0.000</pesoB>
+      </vol>
+    </transp>
+    <cobr>
+      <dup>
+        <nDup>000000/01</nDup>
+        <dVenc>2014-11-14</dVenc>
+        <vDup>59.90</vDup>
+      </dup>
+    </cobr>
+    <infAdic>
+      <infCpl>;CONTROLE: 0000109194;PEDIDO(S) ATENDIDO(S): 104041;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 1,24, correspondente ao percentual de 2,07% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008)</infCpl>
+    </infAdic>
+  </infNFe>
+</NFe>

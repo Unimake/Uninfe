@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<nfse>
+	<nf>
+		<numero/>
+		<situacao>E</situacao>
+		<valor_total>000000006860,00</valor_total>
+		<valor_desconto>000000000000,00</valor_desconto>
+		<valor_ir>000000000000,00</valor_ir>
+		<valor_inss>000000000000,00</valor_inss>
+		<valor_contribuicao_social>000000000000,00</valor_contribuicao_social>
+		<observacao>Série 1 Nr. 0000090 | Invoice Number 114</observacao>
+	</nf>
+	<prestador>
+		<cpfcnpj>99999999999999</cpfcnpj>
+		<cidade>9999</cidade>
+	</prestador>
+	<tomador>
+		<tipo>E</tipo>
+		<identificador>99999999999999</identificador>
+		<nome_razao_social>xxxxxxxxxxxx</nome_razao_social>
+		<cidade>cidade</cidade>
+		<estado>estado</estado>
+		<pais>Itália</pais>
+		<cpfcnpj>99999999999999</cpfcnpj>
+		<ie/>
+		<logradouro>xxxxxx</logradouro>
+		<email>xxxxx@xxxxx.com.br</email>
+		<numero_residencia>1547</numero_residencia>
+		<complemento>CJT 1001</complemento>
+		<ponto_referencia/>
+		<bairro/>
+		<cep>89160000</cep>
+		<ddd_fone_comercial/>
+		<fone_comercial/>
+		<ddd_fone_residencial/>
+		<fone_residencial/>
+		<ddd_fax/>
+		<fone_fax/>
+	</tomador>
+	<itens>
+		<lista>
+			<tributa_municipio_prestador>N</tributa_municipio_prestador>
+			<codigo_local_prestacao_servico>9985</codigo_local_prestacao_servico>
+			<codigo_item_lista_servico>2001</codigo_item_lista_servico>
+			<descritivo>Servicos de porto discriminados abaixo</descritivo>
+			<aliquota_item_lista_servico>000000000003,00</aliquota_item_lista_servico>
+			<situacao_tributaria>0</situacao_tributaria>
+			<valor_tributavel>000000006860,00</valor_tributavel>
+			<valor_deducao>000000000000,00</valor_deducao>
+			<valor_issrf>000000000000,00</valor_issrf>
+		</lista>
+	</itens>
+	<genericos>
+		<linha>
+			<titulo>CARREGAMENTO DE CONTEINERES</titulo>
+			<descricao>&amp;lt;table width=&quot;875&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;C&amp;oacute;digo&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;Descri&amp;ccedil;&amp;atilde;o&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;Valor Unit&amp;aacute;rio&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;Quantidade&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;Valor Total&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800002&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;EMBARQUE VAZIO&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;238,50&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;3&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;715,50&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800003&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;DESCARGA CHEIO&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;503,50&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;503,50&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800004&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;DESCARGA VAZIO&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;238,50&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;238,50&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800015&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;REMOCAO DE TAMPA (HATCH COVER)&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;503,50&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;503,50&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800017 &amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;DESCARGA DE CHEIO OVERSIZE&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;755,25&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;755,25&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800021 &amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;755,25&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;3&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;2.265,75&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800025 &amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;XYZ&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;530,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;530,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800029 &amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;XYQ&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;371,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;371,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800042 &amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;XYQ00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;265,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;265,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800800046 &amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;XYQ77&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;212,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;212,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800810001&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;LEVANTE DE CONTAINER CHEIO&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;40,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;40,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800810005&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;POSICIONAMENTO PARA VISTORIA MAPA&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;125,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;125,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800810006&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;POSICIONAMENTO PARA VISTORIA ANVISA&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;100,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;100,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800810009&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;POSICIONAMENTO PARA EXPURGO&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;100,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;100,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;td width=&quot;99&quot;&amp;gt;800820011&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;454&quot;&amp;gt;ENERGIA + MONITORAMENTO REEFER TRANSBORDO&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;98&quot; align=&quot;right&quot;&amp;gt;135,00&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;87&quot; align=&quot;right&quot;&amp;gt;1&amp;lt;/td&amp;gt; &amp;lt;td width=&quot;127&quot; align=&quot;right&quot;&amp;gt;135,00&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/table&amp;gt;</descricao>
+		</linha>
+	</genericos>
+</nfse>

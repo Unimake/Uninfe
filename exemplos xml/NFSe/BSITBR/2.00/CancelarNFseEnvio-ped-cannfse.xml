@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<p:CancelarNfseEnvio xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="http://www.abrasf.org.br/nfse.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.abrasf.org.br/nfse.xsd nfse-v2.xsd ">
+	<p:credenciais>
+		<p:usuario>99999999999999-999999999</p:usuario>
+		<p:senha>9999999</p:senha>
+		<p:chavePrivada>999999999999</p:chavePrivada>
+	</p:credenciais>
+	<p:Pedido>
+		<p:InfPedidoCancelamento>
+			<p:IdentificacaoNfse>
+				<p:Numero>10</p:Numero>
+				<p:CpfCnpj>
+					<p:Cnpj>99999999999999</p:Cnpj>
+				</p:CpfCnpj>
+				<p:InscricaoMunicipal>99999999</p:InscricaoMunicipal>
+				<p:CodigoVerificacao>OHDGWRNX</p:CodigoVerificacao>
+			</p:IdentificacaoNfse>
+			<p:CodigoCancelamento>EE</p:CodigoCancelamento>
+			<p:DescricaoCancelamento>CANCELADA POR ERRO DE EMISSAO - VALOR INCORRETO</p:DescricaoCancelamento>
+		</p:InfPedidoCancelamento>
+	</p:Pedido>
+</p:CancelarNfseEnvio>

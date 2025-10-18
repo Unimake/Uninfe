@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTe xmlns="http://www.portalfiscal.inf.br/cte">
+  <infCte Id="CTe41150302618946000141570010000000521000000497" versao="2.00">
+    <ide>
+      <cUF>41</cUF>
+      <cCT>00000049</cCT>
+      <CFOP>6353</CFOP>
+      <natOp>PRESTACAO DE SERVICO DE TRANSPORTE A ESTABELECIMENTO COMERCI</natOp>
+      <forPag>1</forPag>
+      <mod>57</mod>
+      <serie>1</serie>
+      <nCT>52</nCT>
+      <dhEmi>2015-03-24T17:35:23</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>7</cDV>
+      <tpAmb>2</tpAmb>
+      <tpCTe>0</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>WPER 7.01</verProc>
+      <cMunEnv>4106902</cMunEnv>
+      <xMunEnv>CURITIBA</xMunEnv>
+      <UFEnv>PR</UFEnv>
+      <modal>01</modal>
+      <tpServ>0</tpServ>
+      <cMunIni>4106902</cMunIni>
+      <xMunIni>CURITIBA</xMunIni>
+      <UFIni>PR</UFIni>
+      <cMunFim>3106200</cMunFim>
+      <xMunFim>BELO HORIZONTE</xMunFim>
+      <UFFim>MG</UFFim>
+      <retira>1</retira>
+      <toma03>
+        <toma>0</toma>
+      </toma03>
+    </ide>
+    <compl>
+      <xEmi>GARRA IND. MOV. E AC</xEmi>
+      <origCalc>CURITIBA</origCalc>
+      <destCalc>BELO HORIZONTE</destCalc>
+      <xObs>EMPRESA OPTANTE PELO REGIME SIMPLES NACIONAL NOS TERMOS DO ARTIGO 23 DA LEI COMPLEMENTAR 123/2006;Carga tributaria 16,06 % conforme fonte IBPT lei 12.741/12</xObs>
+      <ObsCont xCampo="Lei da Transparencia">
+        <xTexto>Valor aproximado dos tributos R$ 594,22 correpondente a percentuais aplicados por NCM - Fonte: IBPT (Instituto Brasileiro de Planejamento Tributario)</xTexto>
+      </ObsCont>
+    </compl>
+    <emit>
+      <CNPJ>02618946000141</CNPJ>
+      <IE>9016314509</IE>
+      <xNome>GARRA IND. MOV. E ACES. EM METAL EIRELI - ME</xNome>
+      <xFant>GARRA COMPONENTES</xFant>
+      <enderEmit>
+        <xLgr>RUA ARTHUR MARTINS FRANCO</xLgr>
+        <nro>00160</nro>
+        <xBairro>CIC</xBairro>
+        <cMun>4106902</cMun>
+        <xMun>CURITIBA</xMun>
+        <CEP>81350100</CEP>
+        <UF>PR</UF>
+        <fone>4132841019</fone>
+      </enderEmit>
+    </emit>
+    <rem>
+      <CNPJ>07270824000120</CNPJ>
+      <IE>9033552804</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <xFant>HI-TOP</xFant>
+      <fone>41030723200</fone>
+      <enderReme>
+        <xLgr>RUA ARTHUR MASTINS FRANCO - BLOCO 01</xLgr>
+        <nro>00160</nro>
+        <xBairro>CIC</xBairro>
+        <cMun>4106902</cMun>
+        <xMun>CURITIBA</xMun>
+        <CEP>81350100</CEP>
+        <UF>PR</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderReme>
+    </rem>
+    <dest>
+      <CNPJ>17155342000345</CNPJ>
+      <IE>0620146640283</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <fone>31032188383</fone>
+      <enderDest>
+        <xLgr>RUA PROF JOSE VIEIRA DE MENDONCA</xLgr>
+        <nro>00011</nro>
+        <xBairro>ENGENHO NOGUEIRA</xBairro>
+        <cMun>3106200</cMun>
+        <xMun>BELO HORIZONTE</xMun>
+        <CEP>31310260</CEP>
+        <UF>MG</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderDest>
+    </dest>
+    <vPrest>
+      <vTPrest>3700.00</vTPrest>
+      <vRec>3700.00</vRec>
+      <Comp>
+        <xNome>FRETE PESO</xNome>
+        <vComp>3700.00</vComp>
+      </Comp>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMSSN>
+          <indSN>1</indSN>
+        </ICMSSN>
+      </ICMS>
+    </imp>
+    <infCTeNorm>
+      <infCarga>
+        <vCarga>41663.05</vCarga>
+        <proPred>REGUA DE 08 TOMADAS 10A 19" NBR 14136 - PRETA</proPred>
+        <infQ>
+          <cUnid>01</cUnid>
+          <tpMed>PESO BRUTO</tpMed>
+          <qCarga>2500.0000</qCarga>
+        </infQ>
+        <infQ>
+          <cUnid>03</cUnid>
+          <tpMed>CAIXAS</tpMed>
+          <qCarga>171.0000</qCarga>
+        </infQ>
+      </infCarga>
+      <infDoc>
+        <infNFe>
+          <chave>41150307270824000120550030000131991030234390</chave>
+        </infNFe>
+      </infDoc>
+      <seg>
+        <respSeg>0</respSeg>
+      </seg>
+      <infModal versaoModal="2.00">
+        <rodo>
+          <RNTRC>11750721</RNTRC>
+          <dPrev>2015-03-24</dPrev>
+          <lota>1</lota>
+          <veic>
+            <cInt>C 001</cInt>
+            <RENAVAM>135152542</RENAVAM>
+            <placa>ATE1121</placa>
+            <tara>13700</tara>
+            <capKG>0</capKG>
+            <capM3>0</capM3>
+            <tpProp>P</tpProp>
+            <tpVeic>0</tpVeic>
+            <tpRod>01</tpRod>
+            <tpCar>01</tpCar>
+            <UF>PR</UF>
+          </veic>
+        </rodo>
+      </infModal>
+    </infCTeNorm>
+  </infCte>
+</CTe>

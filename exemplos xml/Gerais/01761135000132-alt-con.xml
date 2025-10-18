@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<altConfUniNFe>
+  <DadosEmpresa CNPJ="06117473000150" Servico="0">
+    <Nome>Unimake</Nome>
+  </DadosEmpresa>
+  <PastaXmlEnvio>c:\testenfe\envio</PastaXmlEnvio>
+  <PastaXmlRetorno>c:\testenfe\retorno</PastaXmlRetorno>
+  <PastaXmlEnviado>c:\testenfe\enviados</PastaXmlEnviado>
+  <PastaXmlErro>c:\testenfe\erro</PastaXmlErro>
+  <PastaBackup>c:\testenfe\bkp</PastaBackup>
+  <PastaXmlEmLote>c:\testenfe\enviolote</PastaXmlEmLote>
+  <PastaValidar>c:\testenfe\validar</PastaValidar>
+  <PastaDownloadNFeDest>c:\testenfe\download</PastaDownloadNFeDest>
+  <UnidadeFederativaCodigo>41</UnidadeFederativaCodigo>
+  <AmbienteCodigo>2</AmbienteCodigo>
+  <CertificadoInstalado>True</CertificadoInstalado>
+  <tpEmis>1</tpEmis>
+  <GravarRetornoTXTNFe>False</GravarRetornoTXTNFe>
+  <GravarEventosDeTerceiros>False</GravarEventosDeTerceiros>
+  <GravarEventosNaPastaEnviadosNFe>False</GravarEventosNaPastaEnviadosNFe>
+  <GravarEventosCancelamentoNaPastaEnviadosNFe>False</GravarEventosCancelamentoNaPastaEnviadosNFe>
+  <DiretorioSalvarComo>AM</DiretorioSalvarComo>
+  <DiasLimpeza>0</DiasLimpeza>
+  <PastaExeUniDanfe />
+  <PastaConfigUniDanfe />
+  <PastaDanfeMon />
+  <XMLDanfeMonNFe>False</XMLDanfeMonNFe>
+  <XMLDanfeMonProcNFe>False</XMLDanfeMonProcNFe>
+  <XMLDanfeMonDenegadaNFe>False</XMLDanfeMonDenegadaNFe>
+  <TempoConsulta>2</TempoConsulta>
+  <FTPAtivo>False</FTPAtivo>
+  <FTPGravaXMLPastaUnica>False</FTPGravaXMLPastaUnica>  
+  <FTPNomeDoUsuario />
+  <FTPNomeDoServidor />
+  <FTPPastaAutorizados />
+  <FTPPastaRetornos />
+  <FTPPorta>21</FTPPorta>
+  <FTPSenha />
+  <CertificadoDigitalThumbPrint>BB8B5FE0490898B41A254F2E01EB0C8292E1F680</CertificadoDigitalThumbPrint>
+  <UsuarioWS />
+  <SenhaWS />
+  <AppID></AppID>
+  <Secret></Secret>
+</altConfUniNFe>

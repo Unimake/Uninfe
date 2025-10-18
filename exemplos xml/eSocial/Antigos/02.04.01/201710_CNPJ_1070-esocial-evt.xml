@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtTabProcesso/v02_04_01">
+  <evtTabProcesso Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <infoProcesso>
+      <inclusao>
+        <ideProcesso>
+          <tpProc>1</tpProc>
+          <nrProc>str1234</nrProc>
+          <iniValid>2017-10</iniValid>
+          <fimValid>2017-10</fimValid>
+        </ideProcesso>
+        <dadosProc>
+          <indAutoria>1</indAutoria>
+          <indMatProc>1</indMatProc>
+          <dadosProcJud>
+            <ufVara>AC</ufVara>
+            <codMunic>1234</codMunic>
+            <idVara>str1</idVara>
+          </dadosProcJud>
+          <infoSusp>
+            <codSusp>1234</codSusp>
+            <indSusp>str1234</indSusp>
+            <dtDecisao>2012-12-13</dtDecisao>
+            <indDeposito>s</indDeposito>
+          </infoSusp>
+        </dadosProc>
+      </inclusao>
+    </infoProcesso>
+  </evtTabProcesso>
+</eSocial>

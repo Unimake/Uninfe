@@ -1,0 +1,13 @@
+<ConsultarNfseFaixaEnvio>
+	<Prestador>
+		<CpfCnpj>
+			<Cnpj>99999999999999</Cnpj>
+		</CpfCnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</Prestador>
+	<Faixa>
+		<NumeroNfseInicial>99999999999999</NumeroNfseInicial>
+		<NumeroNfseFinal>99999999999999</NumeroNfseFinal>
+	</Faixa>
+	<Pagina>2</Pagina>
+</ConsultarNfseFaixaEnvio>

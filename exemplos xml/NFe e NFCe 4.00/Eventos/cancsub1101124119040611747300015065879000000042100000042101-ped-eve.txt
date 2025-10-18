@@ -1,0 +1,18 @@
+idLote|000000000015255
+evento|1
+Id|ID1101124119040611747300015065879000000042100000042101
+cOrgao|41
+tpAmb|2
+CNPJ|06117473000150 
+chNFe|41190406117473000150658790000000421000000421
+dhEvento|2019-04-17T10:58:02-03:00
+tpEvento|110112
+nSeqEvento|1
+verEvento|1.00
+descEvento|Cancelamento por substituicao   
+cancelamentoSubstituicao.cOrgaoAutor|41
+cancelamentoSubstituicao.tpAutor|1
+cancelamentoSubstituicao.verAplic|1.1.1.0
+nProt|141190000435431
+xJust|Justificativa do cancelamento
+cancelamentoSubstituicao.chNFeRef|41190406117473000150658790000000439000000432

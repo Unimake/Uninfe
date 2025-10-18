@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtInfoComplPer/v02_04_01">
+  <evtInfoComplPer Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <nrRecibo>str1234</nrRecibo>
+      <indApuracao>1</indApuracao>
+      <perApur>str1234</perApur>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <infoSubstPatr>
+      <indSubstPatr>1</indSubstPatr>
+      <percRedContrib>123.45</percRedContrib>
+    </infoSubstPatr>
+    <infoSubstPatrOpPort>
+      <cnpjOpPortuario>str12340000000</cnpjOpPortuario>
+    </infoSubstPatrOpPort>
+    <infoAtivConcom>
+      <fatorMes>123.45</fatorMes>
+      <fator13>123.45</fator13>
+    </infoAtivConcom>
+  </evtInfoComplPer>
+</eSocial>

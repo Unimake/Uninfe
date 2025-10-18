@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtToxic/v02_05_00">
+	<evtToxic Id="ID1061174730000002019032213491800001">
+		<ideEvento>
+			<indRetif>1</indRetif>
+			<tpAmb>2</tpAmb>
+			<procEmi>1</procEmi>
+			<verProc>1.0.0</verProc>
+		</ideEvento>
+		<ideEmpregador>
+			<tpInsc>1</tpInsc>
+			<nrInsc>06117473</nrInsc>
+		</ideEmpregador>
+		<ideVinculo>
+			<cpfTrab>99999999999</cpfTrab>
+			<nisTrab>9999999999</nisTrab>
+			<matricula>str1234</matricula>
+		</ideVinculo>
+		<toxicologico>
+			<dtExame>2019-03-22</dtExame>
+			<cnpjLab>99999999999999</cnpjLab>
+			<codSeqExame>str1234</codSeqExame>
+			<nmMed>str1234</nmMed>
+			<nrCRM>99999</nrCRM>
+			<ufCRM>PR</ufCRM>
+			<indRecusa>N</indRecusa>
+		</toxicologico>
+	</evtToxic>
+</eSocial>

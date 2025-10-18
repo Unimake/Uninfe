@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Reinf>
+  <ConsultaReciboEvento>
+    <tipoEvento>3010</tipoEvento>
+    <tpInsc>1</tpInsc>
+    <nrInsc>06117473</nrInsc>
+    <dtApur>2018-12-10</dtApur>
+    <nrInscEstabelecimento>06117473000150</nrInscEstabelecimento>
+  </ConsultaReciboEvento>
+</Reinf>

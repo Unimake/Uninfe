@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uMessenger versao="1.00">
+	<BilletNotification>
+		<!--Código de barras do boleto. Tag obrigatória-->
+		<BarCode>65465464646554456453456453456544565445645345654435</BarCode>
+		<!--Numero do boleto. Tag obrigatória-->
+		<BilletNumber>12345678</BilletNumber>
+		<!--Nome da empresa que emitiu o Boleto. Tag obrigatória-->
+		<CompanyName>Unimake Software</CompanyName>
+		<!--Telefone WhatsApp para que o destinatário da mensagem entre em contato-->
+		<ContactPhone>5544888889999</ContactPhone>
+		<!--Nome do beneficiário/cliente ou destinatário do boleto. Tag obrigatória-->
+		<CustomerName>Joaquim</CustomerName>
+		<!--Descrição do que está sendo cobrado no boleto, serviço prestado, por exemplo. Tag obrigatória-->
+		<Description>UniDANFe - Licença de 1 ano</Description>
+		<!--Data da emissão da cobrança via PIX no formato DD/MM/AAAA. Tag obrigatória-->
+		<DueDate>04/07/2023</DueDate>
+		<!--
+		    Informação adicional para download do boleto.
+		    O link para download é sempre no padrão: http://unimake.app.api/v1/pdf/download?Code=s65a4ds6a54ds6a4ds4ad54sa6d54as5dsa645d56sa4
+		    Onde "code" é o token gerado no momento da criação do boleto.
+		    Tag obrigatória
+		-->
+		<QueryString>http://unimake.app.api/v1/pdf/download?Code=s65a4ds6a54ds6a4ds4ad54sa6d54as5dsa645d56sa4</QueryString>
+		<!--Numero do whats para onde será enviada a mensagem-->
+		<To>554491423078</To>
+		<!--Valor do boleto (Como separador decimal utilize a virgula, ou seja, da forma que vai ser enviada a mensagem, exemplo: R$ 250,00-->
+		<Value>R$ 250,00</Value>
+		<!--True = Ambiente de teste   false=Ambiente de produção-->
+		<Testing>true</Testing>
+		<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+		<UseHomologServer>false</UseHomologServer>
+	</BilletNotification>
+</uMessenger>

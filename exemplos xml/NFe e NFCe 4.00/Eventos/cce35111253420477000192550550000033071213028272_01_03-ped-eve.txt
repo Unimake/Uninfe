@@ -1,0 +1,40 @@
+idLote|000000000038313
+evento|1
+Id|ID1101103511125342047700019255055000003307121302827201
+cOrgao|35
+tpAmb|2
+CNPJ|53420477000192
+chNFe|35111253420477000192550550000033071213028272
+dhEvento|2011-12-20T16:55:00-02:00
+tpEvento|110110
+nSeqEvento|1
+verEvento|1.00
+descEvento|Carta de Correção
+xCorrecao|Correção número 2
+xCondUso|A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.
+evento|2
+Id|ID1101103511125342047700019255055000003307121302827202
+cOrgao|35
+tpAmb|2
+CNPJ|53420477000192
+chNFe|35111253420477000192550550000033071213028272
+dhEvento|2011-12-20T16:55:00-02:00
+tpEvento|110110
+nSeqEvento|2
+verEvento|1.00
+descEvento|Carta de Correção
+xCorrecao|Correção número 1
+xCondUso|A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.
+evento|3
+Id|ID1101103511125342047700019255055000003307121302827203
+cOrgao|35
+tpAmb|2
+CNPJ|53420477000192
+chNFe|35111253420477000192550550000033071213028272
+dhEvento|2011-12-20T16:55:00-02:00
+tpEvento|110110
+nSeqEvento|3
+verEvento|1.00
+descEvento|Carta de Correção
+xCorrecao|Correção número 3
+xCondUso|A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.

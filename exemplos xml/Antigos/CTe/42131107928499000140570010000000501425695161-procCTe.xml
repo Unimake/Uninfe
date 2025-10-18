@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cteProc xmlns="http://www.portalfiscal.inf.br/cte" versao="2.00">
+  <CTe xmlns="http://www.portalfiscal.inf.br/cte">
+    <infCte Id="CTe42131107928499000140570010000000501425695161" versao="2.00">
+      <ide>
+        <cUF>42</cUF>
+        <cCT>42569516</cCT>
+        <CFOP>6352</CFOP>
+        <natOp>INTERESTADUAL</natOp>
+        <forPag>1</forPag>
+        <mod>57</mod>
+        <serie>1</serie>
+        <nCT>50</nCT>
+        <dhEmi>2013-11-13T14:22:13</dhEmi>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>1</cDV>
+        <tpAmb>2</tpAmb>
+        <tpCTe>0</tpCTe>
+        <procEmi>0</procEmi>
+        <verProc>1.1.1</verProc>
+        <cMunEnv>4208203</cMunEnv>
+        <xMunEnv>Itajai</xMunEnv>
+        <UFEnv>SC</UFEnv>
+        <modal>01</modal>
+        <tpServ>0</tpServ>
+        <cMunIni>3304557</cMunIni>
+        <xMunIni>Rio de Janeiro</xMunIni>
+        <UFIni>RJ</UFIni>
+        <cMunFim>3500105</cMunFim>
+        <xMunFim>Adamantina</xMunFim>
+        <UFFim>SP</UFFim>
+        <retira>1</retira>
+        <toma03>
+          <toma>0</toma>
+        </toma03>
+      </ide>
+      <compl>
+        <xObs>VEIC: NOVA RAZAO SOCIAL: TAC TRANSPORTES E ARMAZENS GERAIS LTDA.</xObs>
+      </compl>
+      <emit>
+        <CNPJ>07928499000140</CNPJ>
+        <IE>255271522</IE>
+        <xNome>TILOG TERMINAL ITAJAIENSE LOGISTICO LTDA ME</xNome>
+        <xFant>TILOG TERMINAL ITAJAIENSE LOGISTICO LTDA ME</xFant>
+        <enderEmit>
+          <xLgr>Rua Rosa Orsi Dalçóquio</xLgr>
+          <nro>400</nro>
+          <xBairro>Cordeiros</xBairro>
+          <cMun>4208203</cMun>
+          <xMun>Itajai</xMun>
+          <CEP>88311720</CEP>
+          <UF>SC</UF>
+        </enderEmit>
+      </emit>
+      <rem>
+        <CNPJ>02643330000120</CNPJ>
+        <IE>75815522</IE>
+        <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+        <fone>2125292698</fone>
+        <enderReme>
+          <xLgr>RUA MARQUES DE SÃO VICENTE, 52</xLgr>
+          <nro>124</nro>
+          <xCpl>LOJA 137</xCpl>
+          <xBairro>GAVEA</xBairro>
+          <cMun>3304557</cMun>
+          <xMun>Rio de Janeiro</xMun>
+          <CEP>22451000</CEP>
+          <UF>RJ</UF>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderReme>
+      </rem>
+      <dest>
+        <CNPJ>01643690000160</CNPJ>
+        <IE>209226634112</IE>
+        <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+        <enderDest>
+          <xLgr>Rua Primeiro de Agosto</xLgr>
+          <nro>124</nro>
+          <xCpl>até Quadra 6</xCpl>
+          <xBairro>Centro</xBairro>
+          <cMun>3506003</cMun>
+          <xMun>Bauru</xMun>
+          <CEP>17010011</CEP>
+          <UF>SP</UF>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderDest>
+      </dest>
+      <vPrest>
+        <vTPrest>134.40</vTPrest>
+        <vRec>134.40</vRec>
+        <Comp>
+          <xNome>VALOR DO FRETE</xNome>
+          <vComp>100.00</vComp>
+        </Comp>
+        <Comp>
+          <xNome>SEGURO</xNome>
+          <vComp>10.00</vComp>
+        </Comp>
+        <Comp>
+          <xNome>ICMS</xNome>
+          <vComp>16.13</vComp>
+        </Comp>
+      </vPrest>
+      <imp>
+        <ICMS>
+          <ICMS00>
+            <CST>00</CST>
+            <vBC>134.40</vBC>
+            <pICMS>12.00</pICMS>
+            <vICMS>16.13</vICMS>
+          </ICMS00>
+        </ICMS>
+      </imp>
+      <infCTeNorm>
+        <infCarga>
+          <vCarga>111.00</vCarga>
+          <proPred>CAIXAS</proPred>
+          <infQ>
+            <cUnid>00</cUnid>
+            <tpMed>CX</tpMed>
+            <qCarga>10.0000</qCarga>
+          </infQ>
+        </infCarga>
+        <infDoc>
+          <infNF>
+            <mod>01</mod>
+            <serie>1</serie>
+            <nDoc>1</nDoc>
+            <dEmi>2013-11-13</dEmi>
+            <vBC>100.00</vBC>
+            <vICMS>17.00</vICMS>
+            <vBCST>0.00</vBCST>
+            <vST>0.00</vST>
+            <vProd>100.00</vProd>
+            <vNF>100.00</vNF>
+            <nCFOP>5102</nCFOP>
+          </infNF>
+        </infDoc>
+        <seg>
+          <respSeg>3</respSeg>
+          <xSeg>SEGURADORA MAFRE</xSeg>
+          <nApol>321215454</nApol>
+          <nAver>12345678915487456789</nAver>
+          <vCarga>100.00</vCarga>
+        </seg>
+        <infModal versaoModal="2.00">
+          <rodo>
+            <RNTRC>12345678</RNTRC>
+            <dPrev>2013-11-13</dPrev>
+            <lota>1</lota>
+            <veic>
+              <cInt>417</cInt>
+              <RENAVAM>321654654</RENAVAM>
+              <placa>AAA0101</placa>
+              <tara>0</tara>
+              <capKG>0</capKG>
+              <capM3>1</capM3>
+              <tpProp>T</tpProp>
+              <tpVeic>1</tpVeic>
+              <tpRod>00</tpRod>
+              <tpCar>04</tpCar>
+              <UF>SC</UF>
+            </veic>
+            <moto>
+              <xNome>TRANSPORTES GABARDO</xNome>
+              <CPF>03531087908</CPF>
+            </moto>
+          </rodo>
+        </infModal>
+      </infCTeNorm>
+    </infCte>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+        <Reference URI="#CTe42131107928499000140570010000000501425695161">
+          <Transforms>
+            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+          </Transforms>
+          <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+          <DigestValue>qC9TV/WNAMo0BViOLmLfbhHEq7s=</DigestValue>
+        </Reference>
+      </SignedInfo>
+      <SignatureValue>TT3tM4T4HsrSDuPk9Jo+s9tRWna9Q73pZW77DSlQUQGBKv50yOByuGDlvMKdrj3btqw6/iHuFL53dYWCpWUlLBItzW2y/T/je89Lr4r3Cuxh9c+Sqt48PQYL7T4qO1cuRdtU8X8B+S0SSu1yfVp3kXK7Ju4P91hO2S/4Ism0KOK5QwICh1BvXYUVvvp4GrFkOmp6J5EIcio9qiF+WAaYv8QdOB1Xcg6klsHpF9bQLzrgqhaYvPH+tjMgXTfibT2ZB+H5Tpn5puuLnhv6N4AG2VtgLBxfkKkLO+B1qF/HQoDS2kzgyE6V/mDJqZ6fZ+hqz/USk8jCdVedKNnmOZzNVQ==</SignatureValue>
+      <KeyInfo>
+        <X509Data>
+          <X509Certificate>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</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </Signature>
+  </CTe>
+  <protCTe versao="2.00" xmlns="http://www.portalfiscal.inf.br/cte">
+    <infProt Id="CTe342130000096114">
+      <tpAmb>2</tpAmb>
+      <verAplic>RS20131113095441</verAplic>
+      <chCTe>42131107928499000140570010000000501425695161</chCTe>
+      <dhRecbto>2013-11-13T14:22:03</dhRecbto>
+      <nProt>342130000096114</nProt>
+      <digVal>qC9TV/WNAMo0BViOLmLfbhHEq7s=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso do CT-e</xMotivo>
+    </infProt>
+  </protCTe>
+</cteProc>

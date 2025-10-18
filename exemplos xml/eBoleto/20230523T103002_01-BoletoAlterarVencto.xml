@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BoletoAlterarVencto versao="1.00">
+	<!--Esta tag é obrigatória. ID da configuração da conta corrente no eBank. Este número é fornecido pela Unimake.-->
+	<ConfigurationId>ZCKWGQ55LTDXKYYC</ConfigurationId>
+	<!--Esta tag é obrigatória. Nova data de vencimento do boleto-->
+	<DataVencimento>2025-04-03</DataVencimento>
+	<!--Esta tag é obrigatória. Número do Boleto no Banco-->
+    <NumeroNoBanco>-2147483641</NumeroNoBanco>
+	<!--Esta tag não é obrigatória. true=Somente teste - false=Produção-->
+	<Testing>true</Testing>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>true</UseHomologServer>
+</BoletoAlterarVencto>

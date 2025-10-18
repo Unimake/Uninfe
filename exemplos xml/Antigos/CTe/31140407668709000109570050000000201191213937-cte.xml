@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTe xmlns="http://www.portalfiscal.inf.br/cte">
+  <infCte Id="CTe31140407668709000109570050000000201191213937" versao="2.00">
+    <ide>
+      <cUF>31</cUF>
+      <cCT>19121393</cCT>
+      <CFOP>6353</CFOP>
+      <natOp>TRANSPORTE DE CARGAS</natOp>
+      <forPag>1</forPag>
+      <mod>57</mod>
+      <serie>5</serie>
+      <nCT>20</nCT>
+      <dhEmi>2014-04-05T22:57:32</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>7</cDV>
+      <tpAmb>2</tpAmb>
+      <tpCTe>0</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>2.0.1</verProc>
+      <cMunEnv>3170701</cMunEnv>
+      <xMunEnv>VARGINHA</xMunEnv>
+      <UFEnv>MG</UFEnv>
+      <modal>01</modal>
+      <tpServ>0</tpServ>
+      <cMunIni>3170701</cMunIni>
+      <xMunIni>VARGINHA</xMunIni>
+      <UFIni>MG</UFIni>
+      <cMunFim>3548500</cMunFim>
+      <xMunFim>SANTOS</xMunFim>
+      <UFFim>SP</UFFim>
+      <retira>0</retira>
+      <toma03>
+        <toma>0</toma>
+      </toma03>
+    </ide>
+    <compl>
+      <xEmi>MASTER</xEmi>
+      <fluxo />
+      <xObs>ICMS ISENTO CONF DECRETO Nº46.221 DE 2013, ART 3º A PARTE 1 DO ANEXO I DO RICMS FICA ACRESC ITEM 199TESTE</xObs>
+    </compl>
+    <emit>
+      <CNPJ>07668709000109</CNPJ>
+      <IE>6049960730038</IE>
+      <xNome>ATMA LOGÍSTICA E TRANSPORTES LTDA</xNome>
+      <enderEmit>
+        <xLgr>AV. FILOMENA REZENDE DA SILVA</xLgr>
+        <nro>233</nro>
+        <xBairro>REZENDE</xBairro>
+        <cMun>3170701</cMun>
+        <xMun>VARGINHA</xMun>
+        <CEP>37062210</CEP>
+        <UF>MG</UF>
+        <fone>3532144041</fone>
+      </enderEmit>
+    </emit>
+    <rem>
+      <CNPJ>28154680001199</CNPJ>
+      <IE>7071003330186</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <fone>3521051899</fone>
+      <enderReme>
+        <xLgr>AVENIDA PRINCESA DO SUL</xLgr>
+        <nro>2025</nro>
+        <xBairro>REZENDE</xBairro>
+        <cMun>3170701</cMun>
+        <xMun>VARGINHA</xMun>
+        <CEP>37062447</CEP>
+        <UF>MG</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderReme>
+    </rem>
+    <dest>
+      <CNPJ>28154680000389</CNPJ>
+      <IE>633058244115</IE>
+      <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+      <enderDest>
+        <xLgr>RUA DO COMÉRCIO</xLgr>
+        <nro>41</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>3548500</cMun>
+        <xMun>SANTOS</xMun>
+        <CEP>11010141</CEP>
+        <UF>SP</UF>
+      </enderDest>
+    </dest>
+    <vPrest>
+      <vTPrest>2500.00</vTPrest>
+      <vRec>2500.00</vRec>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMS45>
+          <CST>40</CST>
+        </ICMS45>
+      </ICMS>
+    </imp>
+    <infCTeNorm>
+      <infCarga>
+        <vCarga>500000.00</vCarga>
+        <proPred>CAFÉ</proPred>
+        <xOutCat>BIG-BAG</xOutCat>
+        <infQ>
+          <cUnid>03</cUnid>
+          <tpMed>SACAS</tpMed>
+          <qCarga>500.0000</qCarga>
+        </infQ>
+      </infCarga>
+      <infDoc>
+        <infNFe>
+          <chave>31130728130052000606550020000172071002139687</chave>
+        </infNFe>
+      </infDoc>
+      <seg>
+        <respSeg>4</respSeg>
+      </seg>
+      <infModal versaoModal="2.00">
+        <rodo>
+          <RNTRC>12760364</RNTRC>
+          <dPrev>2014-04-06</dPrev>
+          <lota>1</lota>
+          <veic>
+            <RENAVAM>523504330</RENAVAM>
+            <placa>AAD1172</placa>
+            <tara>0</tara>
+            <capKG>0</capKG>
+            <capM3>0</capM3>
+            <tpProp>T</tpProp>
+            <tpVeic>1</tpVeic>
+            <tpRod>00</tpRod>
+            <tpCar>00</tpCar>
+            <UF>PR</UF>
+            <prop>
+              <CPF>05362284932</CPF>
+              <RNTRC>12760364</RNTRC>
+              <xNome>JEFERSON FERREIRA GARCIA</xNome>
+              <IE>ISENTO</IE>
+              <UF>PR</UF>
+              <tpProp>2</tpProp>
+            </prop>
+          </veic>
+          <veic>
+            <RENAVAM>665170327</RENAVAM>
+            <placa>AGP8024</placa>
+            <tara>0</tara>
+            <capKG>0</capKG>
+            <capM3>0</capM3>
+            <tpProp>T</tpProp>
+            <tpVeic>1</tpVeic>
+            <tpRod>00</tpRod>
+            <tpCar>00</tpCar>
+            <UF>PR</UF>
+          </veic>
+          <moto>
+            <xNome>JOAO BATISTA DA SILVA</xNome>
+            <CPF>06913776187</CPF>
+          </moto>
+        </rodo>
+      </infModal>
+    </infCTeNorm>
+  </infCte>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="#CTe31140407668709000109570050000000201191213937">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>3Lo+3hZQVecaPlKrRv2gSaVvlcs=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>Eo6VZVYv62iaSLT8aTc8jTzduGOxzlmLpOjYA+BHenEkt3zHUiyvBxsHXFP5YwMtKg3qecJPvkOdSpA3FHOpFgQPbI9badc7y3KiJt2+PNAwJ0Ypto6dxlvkG1D2did591qQQSEh0MlbP+hX4F/BMohUJeSQaUDxZj2znSx+0MDuOdhrqJAG6WWxJ7EP0mKEZDFNhftNdWgN7RuFioXobyEYaSl7ryjLSLkvvvyYNzJnEdQD2YgxsONGamEtxVWX0lVnOL2MLdFwr36Lbygv3glvf1+2i4kWscTN26Gsz3Ts5oCnBp8WlRDlBLR0y301l/qSwCj23/LUPwr0WsHcrg==</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>MIIISDCCBjCgAwIBAgIQePjpPZ+UK3t/LPCzwUuCbjANBgkqhkiG9w0BAQsFADBzMQswCQYDVQQGEwJCUjETMBEGA1UEChMKSUNQLUJyYXNpbDEtMCsGA1UECxMkQ2VydGlzaWduIENlcnRpZmljYWRvcmEgRGlnaXRhbCBTLkEuMSAwHgYDVQQDExdBQyBJbnN0aXR1dG8gRmVuYWNvbiBHMjAeFw0xMzA1MTMwMDAwMDBaFw0xNDA1MTIyMzU5NTlaMIHeMQswCQYDVQQGEwJCUjETMBEGA1UEChQKSUNQLUJyYXNpbDEtMCsGA1UECxQkQXV0ZW50aWNhZG8gcG9yIEFSIEluc3RpdHV0byBGZW5hY29uMRswGQYDVQQLFBJBc3NpbmF0dXJhIFRpcG8gQTExFTATBgNVBAsUDElEIC0gNDU3NDMwMDEuMCwGA1UEAxMlQVRNQSBMT0dJU1RJQ0EgRSBUUkFOU1BPUlRFUyBMVERBIEVQUDEnMCUGCSqGSIb3DQEJARYYYW50ZWNvbkBzZXJjb210ZWwuY29tLmJyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkH/Eftg7wp0OdATb9AHF27QGudmAHOaSx81Cp1oeUApFdRTbCLqupuMXy2KnULxcWrMazMZgxzSX3/szEY9LL1q28wF8oqDz3B5q6G1u+Y0a5Oj3+XSZNiqb6tESVL7otBvaO9z9LiN6dIesEJcR8MNkl8pegAC7AX7OQlmFwXoRl+YuFAaXSd9nQwjheToL3w60asO6hIRfXZL2YoSUIH8hSmq4h8a4uHd8jPz3Sbp1GkvHuWB3UVCVnifTeXOBkzit5J7tb84hWovz0vcB6j+8xTK5UaN7wY87wMvcDTrzyqZw1/kdkYVQLVLHaF+Sqj0pj/pcRUkD/wNN8riiIwIDAQABo4IDajCCA2YwgbUGA1UdEQSBrTCBqqA4BgVgTAEDBKAvBC0xMjA0MTk3OTAyMzQxNTk4OTg2MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDCgIAYFYEwBAwKgFwQVRUROTyBHT05DQUxWRVMgSlVOSU9SoBkGBWBMAQMDoBAEDjA3NjY4NzA5MDAwMTA5oBcGBWBMAQMHoA4EDDAwMDAwMDAwMDAwMIEYYW50ZWNvbkBzZXJjb210ZWwuY29tLmJyMAkGA1UdEwQCMAAwHwYDVR0jBBgwFoAU+zO+c73y13BTW6LwkNRX6v6GzIYwDgYDVR0PAQH/BAQDAgXgMIGIBgNVHSAEgYAwfjB8BgZgTAECASEwcjBwBggrBgEFBQcCARZkaHR0cDovL2ljcC1icmFzaWwuYWNmZW5hY29uLmNvbS5ici9yZXBvc2l0b3Jpby9kcGMvQUMtSW5zdGl0dXRvLUZlbmFjb24vRFBDX0FDIEluc3RpdHV0byBGZW5hY29uLnBkZjCCASIGA1UdHwSCARkwggEVMFugWaBXhlVodHRwOi8vaWNwLWJyYXNpbC5hY2ZlbmFjb24uY29tLmJyL3JlcG9zaXRvcmlvL2xjci9BQ0luc3RpdHV0b0ZlbmFjb25HMi9MYXRlc3RDUkwuY3JsMFqgWKBWhlRodHRwOi8vaWNwLWJyYXNpbC5vdXRyYWxjci5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDSW5zdGl0dXRvRmVuYWNvbkcyL0xhdGVzdENSTC5jcmwwWqBYoFaGVGh0dHA6Ly9yZXBvc2l0b3Jpby5pY3BicmFzaWwuZ292LmJyL2xjci9DZXJ0aXNpZ24vQUNJbnN0aXR1dG9GZW5hY29uRzIvTGF0ZXN0Q1JMLmNybDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgZ8GCCsGAQUFBwEBBIGSMIGPMGMGCCsGAQUFBzAChldodHRwOi8vaWNwLWJyYXNpbC5hY2ZlbmFjb24uY29tLmJyL3JlcG9zaXRvcmlvL2NlcnRpZmljYWRvcy9BQ19JbnN0aXR1dG9fRmVuYWNvbl9HMi5wN2MwKAYIKwYBBQUHMAGGHGh0dHA6Ly9vY3NwLmNlcnRpc2lnbi5jb20uYnIwDQYJKoZIhvcNAQELBQADggIBAHwxAWqxmn81MHtfqdfJ9P7P8Ijf+CGlY6kZ3m/Q9S8/Lh/8H/vaM84UMt998J4s86mx3bUPwoCwSR+WPpuj9g17PrtOo8etjhMeo8EBwrkZ4Se+WGP1ouhHTsFisda6IIYAW8zgzDOXUmJZ1HpB1nMmRKl6/3wUzZ3QUUwediVDddGVsRxFfZ7gKvAlRZhUVmgMvn6mHTg0tXFzxF0J8fMijZSqteGi1QK4t9ndjQQqj5mLzCiD88zTRLfaV0JBCI/28/mWDw9lI6+5K0QI7ZxBJ8zDQjp1AKBvl1xqJgl8exGX1mOq7qTqIDI9LX/Z4l1cWRCVBdp8xF3XvnC36s6Z6GVmHR0Ju0c3yT8Be2IWEZc7CWi6jkFhikN0TAGJQmnz/uq81SpfyYlq6Kjy9NzsMSiPJLADvGYxFBq5/URLGMiEWPlyz7FWqixPhsHMxBRt68wiRuxB5rWX7erYIJXKf61DW2sYNM3duI/xiqzTM90fH6cofjBIWHutvdH+fEL4SwNaL+S7nZIrcqqvRLmQrAQhEOgvW+49YmPv7AaAH73zuDxQV4W2SSixOZ3l7xtBnd71DX0GszwzUeb7Mx5b5DTLruaaMd/Yy48R2wtqZIaJE8UizpX9QjuJoBDlprtNRqGiWrZkF0kmA9OXmBHRl1rp65VbVGoQof6k1cgX</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</CTe>

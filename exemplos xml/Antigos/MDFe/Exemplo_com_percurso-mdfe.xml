@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MDFe xmlns="http://www.portalfiscal.inf.br/mdfe">
+	<infMDFe Id="MDFe41141100000000000000580010000000321000000277" versao="1.00">
+		<ide>
+			<cUF>41</cUF>
+			<tpAmb>2</tpAmb>
+			<tpEmit>2</tpEmit>
+			<mod>58</mod>
+			<serie>1</serie>
+			<nMDF>32</nMDF>
+			<cMDF>00000027</cMDF>
+			<cDV>7</cDV>
+			<modal>1</modal>
+			<dhEmi>2014-11-03T09:08:27</dhEmi>
+			<tpEmis>1</tpEmis>
+			<procEmi>0</procEmi>
+			<verProc>2.0.33.0</verProc>
+			<UFIni>PR</UFIni>
+			<UFFim>RJ</UFFim>
+			<infMunCarrega>
+				<cMunCarrega>4126504</cMunCarrega>
+				<xMunCarrega>SERTANOPOLIS</xMunCarrega>
+			</infMunCarrega>
+			<infPercurso>
+				<UFPer>SP</UFPer>
+			</infPercurso>
+		</ide>
+		<emit>
+			<CNPJ>00000000000000</CNPJ>
+			<IE>ISENTO</IE>
+			<xNome>NFE TESTE RAZAO</xNome>
+			<xFant>NFE TESTE FANTASIA</xFant>
+			<enderEmit>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>1.330</nro>
+				<xBairro>TESTE</xBairro>
+				<cMun>4126504</cMun>
+				<xMun>SERTANOPOLIS</xMun>
+				<CEP>86360000</CEP>
+				<UF>PR</UF>
+				<fone>4335243344</fone>
+				<email>email@email.com.br</email>
+			</enderEmit>
+		</emit>
+		<infModal versaoModal="1.00">
+			<rodo>
+				<veicTracao>
+					<placa>TES1234</placa>
+					<RENAVAM>01234567891</RENAVAM>
+					<tara>10</tara>
+					<capKG>10</capKG>
+					<capM3>10</capM3>
+					<condutor>
+						<xNome>CONDUTOR</xNome>
+						<CPF>00000000000</CPF>
+					</condutor>
+					<tpRod>01</tpRod>
+					<tpCar>00</tpCar>
+					<UF>PR</UF>
+				</veicTracao>
+				<codAgPorto>0000000000000000</codAgPorto>
+			</rodo>
+		</infModal>
+		<infDoc>
+			<infMunDescarga>
+				<cMunDescarga>3304557</cMunDescarga>
+				<xMunDescarga>RIO DE JANEIRO</xMunDescarga>
+				<infNFe>
+					<chNFe>41141000000000000000558890000009661000009669</chNFe>
+				</infNFe>
+			</infMunDescarga>
+		</infDoc>
+		<tot>
+			<qNFe>1</qNFe>
+			<vCarga>0</vCarga>
+			<cUnid>01</cUnid>
+			<qCarga>0</qCarga>
+		</tot>
+	</infMDFe>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+		<SignedInfo>
+			<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+			<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+			<Reference URI="#MDFe41141100000000000000580010000000321000000277">
+				<Transforms>
+					<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+				</Transforms>
+				<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<DigestValue>ndzdSZItYA3B/uJcZ/CxcMgpwI8=</DigestValue>
+			</Reference>
+		</SignedInfo>
+		<SignatureValue>SckxpNcL8UaRMU47WGzB9S9CSfPEjS2L/7t1IjvQlRf9ao07qxE8YvPGhqc7UgnSczHT/tIN8s0KdhB8OjOLAiBP8Uh0IoyJsc3SdwVxXOqL2UknQxkLZ3V4fU76ksSxpZOx/sDxvpCRQG+POLJR1urWMfuAUXFDUbJ6xDLn585mIKD/yKzrbvB1YGffIOSDRKYrmIlxeYckaRsBZT/tdQMu8uiwZBWaVYbE4AhfH9hjy1jlqcWKPlFCAA7jnPp5mAvcKNOXj2DYSK4H423vZpz4mgPG476Y1WqAlBl7TC3ykJyjDyYW+3dwe7xhHGECQb7HBP7Pu/rPIV83Hz6pAA==</SignatureValue>
+		<KeyInfo>
+			<X509Data>
+				<X509Certificate>MIIH9DCCBdygAwIBAgIIBvkmOM0I+HUwDQYJKoZIhvcNAQELBQAwTDELMAkGA1UEBhMCQlIxEzARBgNVBAoTCklDUC1CcmFzaWwxKDAmBgNVBAMTH1NFUkFTQSBDZXJ0aWZpY2Fkb3JhIERpZ2l0YWwgdjIwHhcNMTQwNTEyMjAzMzAwWhcNMTUwNTEyMjAzMzAwWjCB/jELMAkGA1UEBhMCQlIxEzARBgNVBAoTCklDUC1CcmFzaWwxFDASBgNVBAsTCyhFTSBCUkFOQ08pMRgwFgYDVQQLEw8wMDAwMDEwMDUxOTA1NTMxFDASBgNVBAsTCyhFTSBCUkFOQ08pMRQwEgYDVQQLEwsoRU0gQlJBTkNPKTEUMBIGA1UECxMLKEVNIEJSQU5DTykxFDASBgNVBAsTCyhFTSBCUkFOQ08pMRQwEgYDVQQLEwsoRU0gQlJBTkNPKTE8MDoGA1UEAxMzTENBIElORFVTVFJJQSBFIENPTUVSQ0lPIFBST0RVVE9TIEFMSU1FTlRJQ0lPUyBMVERBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlEbSZvv3RqMPpL4o+aCF+os6i9z549Yb+JpQ4hG43z4vrY+KqU8DU6NYjbUuGHj7CQ38MKxBET9m8NgTTaaD9skcrP9Hs1WWJHr5zfM7YTK9WZ63c9Ro7OW2gVeYk9Xp34qnvCozC1+7sgufPT6TThitPXREYBArzBJvAMNLZwtIje7zSY7Me+Atv9uSXKar2zr1VGsKkpqGxsl2J2cAEu/1hpHA78/rGERpxCBdQvalE5YBpOY9SJiuoI9uPzSnJaDkmPCeinhV63haQOvsYsRZ5eZq6Uyv8NS55GZs1fIuPVxx+O7q0RZsBFaZTNv+NDFZJEAfIOBaCpfLyxyIgwIDAQABo4IDJTCCAyEwgZcGCCsGAQUFBwEBBIGKMIGHMEcGCCsGAQUFBzAChjtodHRwOi8vd3d3LmNlcnRpZmljYWRvZGlnaXRhbC5jb20uYnIvY2FkZWlhcy9zZXJhc2FjZHYyLnA3YjA8BggrBgEFBQcwAYYwaHR0cDovL29jc3AuY2VydGlmaWNhZG9kaWdpdGFsLmNvbS5ici9zZXJhc2FjZHYyMB8GA1UdIwQYMBaAFJrggxDXJpvputqCsoHOORrTh3CGMHEGA1UdIARqMGgwZgYGYEwBAgEGMFwwWgYIKwYBBQUHAgEWTmh0dHA6Ly9wdWJsaWNhY2FvLmNlcnRpZmljYWRvZGlnaXRhbC5jb20uYnIvcmVwb3NpdG9yaW8vZHBjL2RlY2xhcmFjYW8tc2NkLnBkZjCB8AYDVR0fBIHoMIHlMEmgR6BFhkNodHRwOi8vd3d3LmNlcnRpZmljYWRvZGlnaXRhbC5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL3NlcmFzYWNkdjIuY3JsMEOgQaA/hj1odHRwOi8vbGNyLmNlcnRpZmljYWRvcy5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL3NlcmFzYWNkdjIuY3JsMFOgUaBPhk1odHRwOi8vcmVwb3NpdG9yaW8uaWNwYnJhc2lsLmdvdi5ici9sY3IvU2VyYXNhL3JlcG9zaXRvcmlvL2xjci9zZXJhc2FjZHYyLmNybDAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMIHOBgNVHREEgcYwgcOBIUNPTlRBQklMSURBREVATENBQUxJTUVOVE9TLkNPTS5CUqA+BgVgTAEDBKA1EzMyMDA1MTk1OTQ1MjI4NDM0OTY4MDAwMDAwMDAwMDAwMDAwMDAwMTM0OTU4MjNTRVMgUFKgKgYFYEwBAwKgIRMfQ0lSTyBNQU5PRUwgTE9VUkVJUk8gVkVOVFVSRUxMSaAZBgVgTAEDA6AQEw44MDg1MTQzOTAwMDE2N6AXBgVgTAEDB6AOEwwwMDAwMDAwMDAwMDAwDQYJKoZIhvcNAQELBQADggIBAHXw98drSm5+xXCCxfBeiWB/qmUUgitDwT+H7Ptei0cjyku8E46ssphK9xsG44gCjHpIgG28LoJIg0lLC6yqCWhahY4nVBA2BDh0nRnSOfCuQQNizv/pMXONqIPYNwxRdjCaXqc7I6yTrAJHPqQvic/CmJQv/DoB5QloLbxesHR4hP3UTb8rQr4FbPHETzEQ6KHqf8KgaxVLS2Ste7mO2Ko7Ei0C6U5ddkw1brbfWOz5id0BYA70Nov1+xDN5za5JEf8oBFuttGbzC8J5Ug0MdFHqAf+d97Kmn3d0iXoEus3eSRRpUa9gdvMs5Op33PudycwRIuOsGb9dAxw+zpdjR5Yti7kAM58qmuU+EUbrAFKIpnUoLySB6iJ7+BKBOl6WVMgwedOwP2HFJUHMEBYKkrViVEgypUXQDw0KJY8991EFlWzuOJvUC0TDu+Y8j4iG3F2rj1iZf4KIGYo0Vc8czt7lPOg6ed46/KaRz/ksNAmsrhoHGuiJ6+S7BL0cdMPqZMHp7kHnMNaf0ECuvDZRkvCMdjKQgMizyb5wMb9FjAFN8lj4C64pN7Qdp4avNsnPi9t3LAbiktoZqXWjRC89suq1zxGK1TN/s6KetXh2LyIMrY16fJWqotvqfSSmlOAI/o9Uhoh2PsyCR9+fQtkEdWeQS2TTTCKefXDF94jpG1m</X509Certificate>
+			</X509Data>
+		</KeyInfo>
+	</Signature>
+</MDFe>
+<!-- origin1.grp.bf1.yahoo.com Tue Nov  4 09:45:16 PST 2014 -->
+
+<!-- origin1.grp.bf1.yahoo.com Tue Nov  4 09:45:16 PST 2014 -->

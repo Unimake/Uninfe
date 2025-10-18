@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<nfse>
+	<nf>
+		<numero>99999999999999</numero>
+		<serie_nfse>99999999999999</serie_nfse>
+		<situacao>C</situacao>
+		<observacao>Série 1 Nr. 0000090</observacao>
+	</nf>
+	<prestador>
+		<cpfcnpj>99999999999999</cpfcnpj>
+		<cidade>9999</cidade>
+	</prestador>
+</nfse>

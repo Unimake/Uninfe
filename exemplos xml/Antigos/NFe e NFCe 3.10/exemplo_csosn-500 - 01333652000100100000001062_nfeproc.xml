@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="3.10">
+  <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infNFe versao="3.10" Id="NFe42150101333652000100551000000010621264603500">
+      <ide>
+        <cUF>42</cUF>
+        <cNF>26460350</cNF>
+        <natOp>VENDA DE MERCADORIA ADQUIRIDA DE TERCEIROS</natOp>
+        <indPag>1</indPag>
+        <mod>55</mod>
+        <serie>100</serie>
+        <nNF>1062</nNF>
+        <dhEmi>2015-01-12T10:48:15-02:00</dhEmi>
+        <tpNF>1</tpNF>
+        <idDest>1</idDest>
+        <cMunFG>4211702</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>0</cDV>
+        <tpAmb>2</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>1</indFinal>
+        <indPres>1</indPres>
+        <procEmi>0</procEmi>
+        <verProc>NFe_Util_2G</verProc>
+      </ide>
+      <emit>
+        <CNPJ>01333652000100</CNPJ>
+        <xNome>MARCON  E STRADIOTTO COM.DE TINTAS LTDA-EPP</xNome>
+        <xFant>MARCON TINTAS</xFant>
+        <enderEmit>
+          <xLgr>RUA ARISTILIANO RAMOS</xLgr>
+          <nro>298</nro>
+          <xBairro>CENTRO</xBairro>
+          <cMun>4211702</cMun>
+          <xMun>ORLEANS</xMun>
+          <UF>SC</UF>
+          <CEP>88870000</CEP>
+          <cPais>1058</cPais>
+          <xPais>Brasil</xPais>
+        </enderEmit>
+        <IE>253350492</IE>
+        <CRT>1</CRT>
+      </emit>
+      <dest>
+        <CNPJ>99999999000191</CNPJ>
+        <xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+        <enderDest>
+          <xLgr>RUA JOCY PEREIRA</xLgr>
+          <nro>257</nro>
+          <xBairro>OPERARIA NOVA</xBairro>
+          <cMun>4204608</cMun>
+          <xMun>CRICIUMA</xMun>
+          <UF>SC</UF>
+          <CEP>88809190</CEP>
+          <cPais>1058</cPais>
+          <xPais>Brasil</xPais>
+          <fone>4834339360</fone>
+        </enderDest>
+        <indIEDest>2</indIEDest>
+        <email>antonioargente@yahoo.com.br</email>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>1</cProd>
+          <cEAN />
+          <xProd>SELADOR ACRILICO 18LT CORAL</xProd>
+          <NCM>32091010</NCM>
+          <CFOP>5405</CFOP>
+          <uCom>BD</uCom>
+          <qCom>1</qCom>
+          <vUnCom>110</vUnCom>
+          <vProd>110.00</vProd>
+          <cEANTrib />
+          <uTrib>BD</uTrib>
+          <qTrib>1</qTrib>
+          <vUnTrib>110</vUnTrib>
+          <indTot>1</indTot>
+        </prod>
+        <imposto>
+          <vTotTrib>37.53</vTotTrib>
+          <ICMS>
+            <ICMSSN500>
+              <orig>0</orig>
+              <CSOSN>500</CSOSN>
+            </ICMSSN500>
+          </ICMS>
+          <IPI>
+            <cEnq>999</cEnq>
+            <IPINT>
+              <CST>53</CST>
+            </IPINT>
+          </IPI>
+          <PIS>
+            <PISOutr>
+              <CST>99</CST>
+              <qBCProd>0.0000</qBCProd>
+              <vAliqProd>0.0000</vAliqProd>
+              <vPIS>0</vPIS>
+            </PISOutr>
+          </PIS>
+          <COFINS>
+            <COFINSOutr>
+              <CST>99</CST>
+              <qBCProd>0.0000</qBCProd>
+              <vAliqProd>0.0000</vAliqProd>
+              <vCOFINS>0</vCOFINS>
+            </COFINSOutr>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>110.00</vProd>
+          <vFrete>0.00</vFrete>
+          <vSeg>0.00</vSeg>
+          <vDesc>0.00</vDesc>
+          <vII>0.00</vII>
+          <vIPI>0.00</vIPI>
+          <vPIS>0.00</vPIS>
+          <vCOFINS>0.00</vCOFINS>
+          <vOutro>0.00</vOutro>
+          <vNF>110.00</vNF>
+          <vTotTrib>37.53</vTotTrib>
+        </ICMSTot>
+      </total>
+      <transp>
+        <modFrete>9</modFrete>
+        <vol>
+          <qVol>1</qVol>
+          <esp>PECAS</esp>
+        </vol>
+      </transp>
+      <cobr>
+        <fat>
+          <nFat>1062</nFat>
+          <vOrig>110.00</vOrig>
+          <vLiq>110.00</vLiq>
+        </fat>
+        <dup>
+          <nDup>1062-1</nDup>
+          <dVenc>2015-02-11</dVenc>
+          <vDup>110.00</vDup>
+        </dup>
+      </cobr>
+      <infAdic>
+        <infCpl>;EMPRESA OPTANTE PELO SIMPLES NACIONAL</infCpl>
+      </infAdic>
+    </infNFe>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+        <Reference URI="#NFe42150101333652000100551000000010621264603500">
+          <Transforms>
+            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+          </Transforms>
+          <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+          <DigestValue>vZVPRgQkjxOQeqUsLZ0uMFMDmV0=</DigestValue>
+        </Reference>
+      </SignedInfo>
+      <SignatureValue>K8JuAZsblR2U6/DmsMYoEAJ45/CSwb2EgwTiD7VL6oq7uaSK6PBmHrgEbV5/tWXNrvPwugkP0g0JOR49wpkRELUGJo69UBnTFgK3t7JFWkgYZ1hnrLMqQhf4Ejq9DZgWWyXWhDPk+Hb6Cxpqs2LvosP8IWWcUJRHp7yn6/fxjJbG5XuUurzxwxsKtZJkXX/ZK3kDMMk+7i0pewLz9Zi2z8J+RDFP2iaK+jmpE25aKsQmnsZ+9WASdwhMP7643xbXT1MbZGXS/k2uW8/VC2XF70iqFKI2FjXZuqIdC7E5rePXjHu6/Bdx6wA5Su8o0wKyBLLqdIxJFwlAqN+ciPgGvw==</SignatureValue>
+      <KeyInfo>
+        <X509Data>
+          <X509Certificate>MIIIVDCCBjygAwIBAgIQGNvNte7gI/9ufWH/IYEfpDANBgkqhkiG9w0BAQsFADB4MQswCQYDVQQGEwJCUjETMBEGA1UEChMKSUNQLUJyYXNpbDE2MDQGA1UECxMtU2VjcmV0YXJpYSBkYSBSZWNlaXRhIEZlZGVyYWwgZG8gQnJhc2lsIC0gUkZCMRwwGgYDVQQDExNBQyBDZXJ0aXNpZ24gUkZCIEc0MB4XDTE0MDgxMjAwMDAwMFoXDTE1MDgxMTIzNTk1OVowgfwxCzAJBgNVBAYTAkJSMRMwEQYDVQQKFApJQ1AtQnJhc2lsMQswCQYDVQQIEwJTQzEQMA4GA1UEBxQHT1JMRUFOUzE2MDQGA1UECxQtU2VjcmV0YXJpYSBkYSBSZWNlaXRhIEZlZGVyYWwgZG8gQnJhc2lsIC0gUkZCMRYwFAYDVQQLFA1SRkIgZS1DTlBKIEExMSAwHgYDVQQLFBdBdXRlbnRpY2FkbyBwb3IgQVIgQUNJQzFHMEUGA1UEAxM+TUFSQ09OIEUgU1RSQURJT1RUTyBDT01FUkNJTyBERSBUSU5UQVMgTFREQSBFUFA6MDEzMzM2NTIwMDAxMDAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCRBcqqdy6uLqWy5Yhoxp51mNJcqfubP8HwClEppjGsM1PvlGO9rRyCW7SUuhm66kQGyxQuBWA0sMAzTJYw9kAQTmjFwA9/gOPoeESpTekpDLw4JH1QwE7+PM5nF+MLoXr21TNRYYvnx+BCy3ZYWBJ3BIl3QTtu+6V03OLBYrsR8hI0b1XSwH9mWzCY/zsuKf8q349RPGqcUYY4h8LOcC1fp6tiz6ZScJz0u6Ra6C6qyH7qfazjaqzfCfXN4uY6eHwqmt1fBVNBvo2RAz0IvnmkrNY4rpuHFilC4ICN3mDTUMk7N97MTk/SaorRb33DahMaBHbW2g8O1kcl2NmXUepfAgMBAAGjggNTMIIDTzCBuAYDVR0RBIGwMIGtoD0GBWBMAQMEoDQEMjMwMDcxOTYzNTIwMjUwNDc5OTEwMDAwMDAwMDAwMDAwMDAwMDAwMTMyNjU3MlNTUFNDoCEGBWBMAQMCoBgEFlBBVUxPIENFU0FSIFNUUkFESU9UVE+gGQYFYEwBAwOgEAQOMDEzMzM2NTIwMDAxMDCgFwYFYEwBAwegDgQMMDAwMDAwMDAwMDAwgRVtY2xvbGllZkB0ZXJyYS5jb20uYnIwCQYDVR0TBAIwADAfBgNVHSMEGDAWgBQukerWbeWyWYLcOIUpdjQWVjzQPjAOBgNVHQ8BAf8EBAMCBeAwfwYDVR0gBHgwdjB0BgZgTAECAQwwajBoBggrBgEFBQcCARZcaHR0cDovL2ljcC1icmFzaWwuY2VydGlzaWduLmNvbS5ici9yZXBvc2l0b3Jpby9kcGMvQUNfQ2VydGlzaWduX1JGQi9EUENfQUNfQ2VydGlzaWduX1JGQi5wZGYwggEWBgNVHR8EggENMIIBCTBXoFWgU4ZRaHR0cDovL2ljcC1icmFzaWwuY2VydGlzaWduLmNvbS5ici9yZXBvc2l0b3Jpby9sY3IvQUNDZXJ0aXNpZ25SRkJHNC9MYXRlc3RDUkwuY3JsMFagVKBShlBodHRwOi8vaWNwLWJyYXNpbC5vdXRyYWxjci5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDQ2VydGlzaWduUkZCRzQvTGF0ZXN0Q1JMLmNybDBWoFSgUoZQaHR0cDovL3JlcG9zaXRvcmlvLmljcGJyYXNpbC5nb3YuYnIvbGNyL0NlcnRpc2lnbi9BQ0NlcnRpc2lnblJGQkc0L0xhdGVzdENSTC5jcmwwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMIGbBggrBgEFBQcBAQSBjjCBizBfBggrBgEFBQcwAoZTaHR0cDovL2ljcC1icmFzaWwuY2VydGlzaWduLmNvbS5ici9yZXBvc2l0b3Jpby9jZXJ0aWZpY2Fkb3MvQUNfQ2VydGlzaWduX1JGQl9HNC5wN2MwKAYIKwYBBQUHMAGGHGh0dHA6Ly9vY3NwLmNlcnRpc2lnbi5jb20uYnIwDQYJKoZIhvcNAQELBQADggIBAIAWWM3qBMjvexxArDC748m+AMXv/9O2sQngpSQAFTnlh8hxE3Oph2S70gViTlz2ioU4hWP2p1EBP6VrNjD1pKJd92lwKD1oS3Kpr5a+ANsUqoTrIB7AxgzNfLVX81Qypf7ezFCD55FzFFMBB5IL15qtCvKDULtCrkFT95tr2AWsANWYIV6GOZKoUh95S5wGlnLJ4nFuDNYVoetBDADl5wI3NrBJVhMCmv73Do2bDDG6BBmjL743p6aOAOBL5AxGFuZvfwAR9j7Wd6S++TIIexwJuy1aaL83V+PAswguQe3wBSIBoDJrGICLLHqsCxqJxmzEHC8ORlMgwgoXL+0B2Xtovr8CPbuEH4kzoXuMb6wbB8yKccpXlpFNQ3+r3u7lfuTUeUmolpjBdl7hv34jpeRxCigLBdN95m955fFxJbG41g/Aqhwg+/P/oYhFrYv8hyn0UIrNd4V8nfLjWZ4oNo6PWelUgc3r6wh/lIBCzVVnAFwZd8DsJubQWildrU7Hq6AvzPHQ6YPVwrcZ8OhuOVFC2/LxlRFU+fj/NaDPRmsCXCBwlPNFJLPg7Da7Z28he7y7dKG+mVrGhADSjc8SIQeUJ/XkGhIvQgl2EHwWKBkffKShFo8s2li2YWih8q84mbObE0EuNcDUzghQZGspnoTfwZqYZe/efQ6kHcsX73aK</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </Signature>
+  </NFe>
+  <protNFe versao="3.10" xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infProt>
+      <tpAmb>2</tpAmb>
+      <verAplic>SVRS201411131054</verAplic>
+      <chNFe>42150101333652000100551000000010621264603500</chNFe>
+      <dhRecbto>2015-01-13T10:48:35-02:00</dhRecbto>
+      <nProt>342150000012795</nProt>
+      <digVal>vZVPRgQkjxOQeqUsLZ0uMFMDmV0=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+    </infProt>
+  </protNFe>
+</nfeProc>

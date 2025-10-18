@@ -1,0 +1,27 @@
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<PIXConsultaRequest versao="1.00">
+	<!--Data inicial do período da consulta - Intervalo entre data inicial e final deve ser de no máximo 5 dias-->
+	<StartDate>2023-11-19</StartDate>
+	<!--Data final do período da consulta - Intervalo entre data inicial e final deve ser de no máximo 5 dias-->
+	<EndDate>2023-11-23</EndDate>
+	<!--true=Cria a cobrança PIX em ambiente de teste. Nem todos bancos oferencem ambiente de teste, até o momento só BB e Bradesco oferecem-->
+	<Testing>false</Testing>
+	<!--Grupo de tag Beneficiario é obrigatória-->
+	<Beneficiario>
+		<!--CNPJ ou CPF do titular da conta do recebedor do PIX-->
+		<Inscricao>99999999999999</Inscricao>
+		<!--Nome do titular da conta do recebedor do PIX-->
+		<Nome>TESTE NOME DO BENEFICIARIO LTDA</Nome>
+		<!--Grupo de tag Conta é obrigatória-->
+		<Conta>
+			<!--Agencia da conta do recebedor do PIX-->
+			<Agencia>1111</Agencia>
+			<!--Numero da conta do recebedor do PIX-->
+			<Numero>11111</Numero>
+			<!--Código do banco do recebedor do PIX 756=Sicoob 748=Sicredi 33=Santander 1=BancoDoBrasil etc...-->
+			<Banco>111</Banco>
+		</Conta>
+	</Beneficiario>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>false</UseHomologServer>
+</PIXConsultaRequest>

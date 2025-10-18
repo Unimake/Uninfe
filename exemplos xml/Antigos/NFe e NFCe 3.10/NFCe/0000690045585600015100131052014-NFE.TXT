@@ -1,0 +1,25 @@
+NOTA FISCAL|1|
+A|3.10||
+B|51| |VENDA DE MERCADORIA ADQUIR. DE TERCEIROS..|0|65|001|000069|2014-05-31T08:23:10-04:00||1|1|5103403|4|1||1|1|1|1|0|3.1.0|
+B25A|1|
+C|V SOUZA COMERCIO                                  |EVELYN ARMARINHOS E PRESENTES                     |131603574||||3|
+C02|00455856000151|
+C05|AV MARECHAL DEODORO                               |S/N            |LOJA 32 2 PISO                                    |JARDIM INDEPENDENCIA                              |5103403|CUIABA|MT|78043072|1058|BRASIL|6512345678|
+E16a|2|
+H|1||
+I|1                ||BLUSA                                              -             |12092900  | |5102|UN|       1.0000|         1.0000|         1.00||UN|       1.0000|         1.0000| | || |1| | | |
+M|
+N|
+N08|0|60||         0.00|         0.00|
+Q|
+Q04|07|
+S|
+S04|07|
+W|
+W02|0.00|0.00 |0.00| 0.00|0.00|1.00 |0.00  |0.00| 0.00|0.00|0.00|0.00|0.00   |0.00| 1.00|0.00|
+X|9|
+Y|
+YA02|01|
+YA03|         1.00|
+Z|Vlr Aprox Tributo =  0.31  31.45 Fonte IBPT .....PROCON/MT DISQUE 151..Av Hist.R.Mendonca 917PEDIDO=00000201| / PRAZOS:0/|
+Z04|Email_Destinatario|EVELYNTESTE@HOTMAIL.COM                           |

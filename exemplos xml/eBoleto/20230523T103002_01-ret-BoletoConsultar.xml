@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoletoConsultarResponse>
+    <!--0=Consulta realizada com sucesso, 999=Erro-->
+	<Status>0</Status>
+	<Motivo>Boletos encontrados</Motivo>
+	<BoletoResponse>
+		<CodigoBarras/>
+		<DataEmissao>20-09-2018</DataEmissao>
+		<DataLiquidacao/>
+		<DataVencimento>20-09-2018</DataVencimento>
+		<NumeroNaEmpresa>1235512</NumeroNaEmpresa>
+		<NumeroNoBanco>-2147483648</NumeroNoBanco>
+		<Pagador>
+			<Codigo/>
+			<Nome/>
+			<Inscricao/>
+			<Telefone/>
+			<Email>pagador@dominio.com.br</Email>
+			<TipoInscricao>0</TipoInscricao>
+			<Endereco>
+				<Logradouro>Rua 87 Quadra 1 Lote 1 casa 1</Logradouro>
+				<Numero/>
+				<Complemento/>
+				<Bairro>Santa Rosa</Bairro>
+				<Cidade>Luziânia</Cidade>
+				<UF>DF</UF>
+				<CEP>72320000</CEP>
+			</Endereco>
+		</Pagador>
+		<PdfContent>
+			<Content/>
+			<Success>False</Success>
+			<Message/>
+		</PdfContent>
+		<QrCodeContent>
+			<Text>00020101021226950014br.gov.bcb.pix2573pix.sicoob.com.br/qr/payload/v2/cobv/e736df1b-1389-4b96-a070-c8dddac768de5204000053039865802BR5924JULIO PEREIRA DE OLIVEIRA6008Brasilia62070503***630435A3</Text>
+			<Image/>
+			<Success>False</Success>
+		</QrCodeContent>
+		<Situacao>9</Situacao>
+		<TipoLiquidacao>0</TipoLiquidacao>
+		<Valor>156.23</Valor>
+		<ValorAbatimento>0.00</ValorAbatimento>
+		<ValorDesconto>0.00</ValorDesconto>
+		<ValorJuros>0.00</ValorJuros>
+		<ValorLiquidado>156.23</ValorLiquidado>
+		<ValorMulta>0.00</ValorMulta>
+	</BoletoResponse>
+	<BoletoResponse>
+		<CodigoBarras/>
+		<DataEmissao>20-09-2018</DataEmissao>
+		<DataLiquidacao/>
+		<DataVencimento>20-09-2018</DataVencimento>
+		<NumeroNaEmpresa>1235512</NumeroNaEmpresa>
+		<NumeroNoBanco>-2147483648</NumeroNoBanco>
+		<Pagador>
+			<Codigo/>
+			<Nome/>
+			<Inscricao/>
+			<Telefone/>
+			<Email>pagador@dominio.com.br</Email>
+			<TipoInscricao>0</TipoInscricao>
+			<Endereco>
+				<Logradouro>Rua 87 Quadra 1 Lote 1 casa 1</Logradouro>
+				<Numero/>
+				<Complemento/>
+				<Bairro>Santa Rosa</Bairro>
+				<Cidade>Luziânia</Cidade>
+				<UF>DF</UF>
+				<CEP>72320000</CEP>
+			</Endereco>
+		</Pagador>
+		<PdfContent>
+			<Content/>
+			<Success>False</Success>
+			<Message/>
+		</PdfContent>
+		<QrCodeContent>
+			<Text>00020101021226950014br.gov.bcb.pix2573pix.sicoob.com.br/qr/payload/v2/cobv/e736df1b-1389-4b96-a070-c8dddac768de5204000053039865802BR5924JULIO PEREIRA DE OLIVEIRA6008Brasilia62070503***630435A3</Text>
+			<Image/>
+			<Success>False</Success>
+		</QrCodeContent>
+		<Situacao>9</Situacao>
+		<TipoLiquidacao>0</TipoLiquidacao>
+		<Valor>156.23</Valor>
+		<ValorAbatimento>0.00</ValorAbatimento>
+		<ValorDesconto>0.00</ValorDesconto>
+		<ValorJuros>0.00</ValorJuros>
+		<ValorLiquidado>156.23</ValorLiquidado>
+		<ValorMulta>0.00</ValorMulta>
+	</BoletoResponse>
+	<UniNFeVersao>5.1.0.136 | 25-03-2025 - 15:40:45</UniNFeVersao>
+</BoletoConsultarResponse>

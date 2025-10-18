@@ -1,0 +1,115 @@
+<CFe>
+	<infCFe Id="CFe23240414200166000166599000186190000016459016" versao="0.08" versaoDadosEnt="0.08" versaoSB="050068">
+		<ide>
+			<cUF>23</cUF>
+			<cNF>645901</cNF>
+			<mod>59</mod>
+			<nserieSAT>900018619</nserieSAT>
+			<nCFe>000001</nCFe>
+			<dEmi>20240424</dEmi>
+			<hEmi>195934</hEmi>
+			<cDV>6</cDV>
+			<tpAmb>2</tpAmb>
+			<CNPJ>10615281000140</CNPJ>
+			<signAC>CODIGO DE VINCULACAO AC DO MFE-CFE</signAC>
+			<assinaturaQRCODE>cN2+5hsempNwf048HoGzQx7lqdT7gCPPzyE0Bkd674C0UI1Wq4anQS/6mj0qpmbu15EB6C1b9HUIentW6Mh+c1W6A0LXXCuHLyfD1FD/sBf2PyTV12xfCtGUgtMvknHr+AYwGvoOmvcVNMlJiAkDLS4AMyuaMRgePSRbIfmLgcDxYPOh9N37IHt8oDTAAOJijwxTCONFOb7aJ5rnQzy2pdjvmRII+y7vKyv7Awzwi3RYGmw9ESqwRWAFOHDypF1AFkRrcTVpgAJsrYARfPorQHdIdmSpM04k4589hCEC9eeBPhg5S4b8y/8DD/7zr+EaFt8Dm+ibcvfLSlYeA05Yxg==</assinaturaQRCODE>
+			<numeroCaixa>001</numeroCaixa>
+		</ide>
+		<emit>
+			<CNPJ>14200166000166</CNPJ>
+			<xNome>ELGIN SA</xNome>
+			<xFant>ELGIN </xFant>
+			<enderEmit>
+				<xLgr>RUA 5</xLgr>
+				<nro>1000</nro>
+				<xBairro>ALDEOTA</xBairro>
+				<xMun>FORTALEZA</xMun>
+				<CEP>60150160</CEP>
+			</enderEmit>
+			<IE>1234567890</IE>
+			<cRegTrib>1</cRegTrib>
+			<indRatISSQN>N</indRatISSQN>
+		</emit>
+		<dest>
+			<xNome>CONSUMIDOR</xNome>
+		</dest>
+		<det nItem="1">
+			<prod>
+				<cProd>1</cProd>
+				<xProd>SALG COXINHA DE MANDIOCA COM FRANGO</xProd>
+				<NCM>19022000</NCM>
+				<CEST>1704802</CEST>
+				<CFOP>5101</CFOP>
+				<uCom>PC</uCom>
+				<qCom>1.0000</qCom>
+				<vUnCom>5.00</vUnCom>
+				<vProd>5.00</vProd>
+				<indRegra>A</indRegra>
+				<vItem>5.00</vItem>
+			</prod>
+			<imposto>
+				<vItem12741>1.11</vItem12741>
+				<ICMS>
+					<ICMSSN102>
+						<Orig>0</Orig>
+						<CSOSN>102</CSOSN>
+					</ICMSSN102>
+				</ICMS>
+				<PIS>
+					<PISSN>
+						<CST>49</CST>
+					</PISSN>
+				</PIS>
+				<COFINS>
+					<COFINSSN>
+						<CST>49</CST>
+					</COFINSSN>
+				</COFINS>
+			</imposto>
+		</det>
+		<total>
+			<ICMSTot>
+				<vICMS>0.00</vICMS>
+				<vProd>5.00</vProd>
+				<vDesc>0.00</vDesc>
+				<vPIS>0.00</vPIS>
+				<vCOFINS>0.00</vCOFINS>
+				<vPISST>0.00</vPISST>
+				<vCOFINSST>0.00</vCOFINSST>
+				<vOutro>0.00</vOutro>
+			</ICMSTot>
+			<vCFe>5.00</vCFe>
+			<vCFeLei12741>1.11</vCFeLei12741>
+		</total>
+		<pgto>
+			<MP>
+				<cMP>01</cMP>
+				<vMP>5.00</vMP>
+			</MP>
+			<vTroco>0.00</vTroco>
+		</pgto>
+		<infAdic>
+			<infCpl>ICMS REC. CONF. LC 123/2006 - SIMPLES NACIONAL;Valor Aproximado Tributos (Fonte IBPT/empresometro.com.br D529CB):;Federais: R$ 0,21(4,20%) - Estaduais: R$ 0,90(18,00%) - ;Operador: CAIXA - CAIXA;Pedido: 3076</infCpl>
+		</infAdic>
+	</infCFe>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+		<SignedInfo>
+			<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+			<SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+			<Reference URI="#CFe23240414200166000166599000186190000016459016">
+				<Transforms>
+					<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+					<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+				</Transforms>
+				<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+				<DigestValue>K4MB7jzr7GPOiVC55VVkDLBLYgFh9AL2tuL6SKd2lzI=</DigestValue>
+			</Reference>
+		</SignedInfo>
+		<SignatureValue>s08gyHlwALXdIF0xkyc7ofynSjbsZygOAAVOsDUk0Ma2F1ShD4LFmloQTtkVqrHvPXDkRZBCODiBdWhH75iJMPCHO5vIJ001t+U3Ym/12Snby4avocvQx+AQz0Ffl0qTa7Dkqh4etgofM21h6mZnCCs2ZmD43molTDcqmBXEjW7dsBovroFL/D+jrPayGHK/bi6/YZ/Ms4aEWn0YSfjkGJ4ArVVi09qrVwnLtuUmyqK7tVWQLDFSYz2PjYZSLYk+9DMZZ79COSr/R4cGqEOzxGG/wofKNPSNe++Qpwsn5D9/8WHsin/piehbHJLghODX3E3tQcFpWzZ3OUTaEGKEkA==</SignatureValue>
+		<KeyInfo>
+			<X509Data>
+				<X509Certificate>MIIDgzCCAmugAwIBAgIEDS2u3zANBgkqhkiG9w0BAQsFADBYMQswCQYDVQQGEwJicjELMAkGA1UECAwCc3AxDDAKBgNVBAcMA3NqYzEQMA4GA1UECgwHY29tcHNpczEMMAoGA1UECwwDZGV2MQ4wDAYDVQQDDAVzZWZhejAeFw0yMzA1MTAxODA0MzZaFw0yNTA0MzAxODA0MzZaMIGuMQswCQYDVQQGEwJCUjERMA8GA1UECgwIU0VGQVotU1AxGDAWBgNVBAsMD0FDIFNBVCBTRUZBWiBTUDEoMCYGA1UECwwfQXV0b3JpZGFkZSBkZSBSZWdpc3RybyBTRUZBWiBTUDEgMB4GA1UEAwwXRUxHSU4gU0E6MTQyMDAxNjYwMDAxNjYxEjAQBgNVBAgMCVNhbyBQYXVsbzESMBAGA1UEBQwJOTAwMDE4NjE5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtCvON94x7rESHL05oRoB5N4x83WqmAAVY88alFn23N78fFtRmslG8MAQ0oIaPBEmrAyMRHg4ofpLdIRcRUgJVi7gboCDpESuVD6ukFn0Y9wdP9rO6tKn6hM2Ho8y38dmMJgOzIThL354KjmY6eNZ5LI/rpPrCwaZD4COZ/vk95UP5dqghQ64V8gDpHDJglZSsqaGmouzlcbjrd0mbUoPjFOCW4X09ibJp1td9mnczy+oBqPd//A+k0pg14DzFx2yYEexcwrOKB1Z7L2MC6jIEHNtzKiY+nQaWIy29Dvqb2ikdNDaYm9ydttJXd4CVBWEjeT0XmbYnCzdVf6ej3E5bQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQB3s7HxVqp+nM3mg/2GRgUhsscDLKve5n7ailwsUaan9Pfc+N/s77N4pegcBxXXmZF31OLbrii+UE0qRLJv4xrdO4spgbdw7RtJ2jzN4lENA2JELFmZWD3vfturYrVK8KZi+lW2U432iZ+XGm9qTco7eRTffCWSPlwjmBECqTql5MOC/MPQso1fI7UN+qERvDx+oj2OfMsUbZQA3LPCAbkZUIa0B9DaGNCulJtFqBNmsNVWCOdc2Xd9mew23b3PPDfryyv36EUz1wTg+jOmnHrKVBtwtMEgLxlSVOqqe+te1t4RKJ8Kdp4nwg/KM6pcIaSGyYgdRPuXtFi/DMn2adi+</X509Certificate>
+			</X509Data>
+		</KeyInfo>
+	</Signature>
+</CFe>

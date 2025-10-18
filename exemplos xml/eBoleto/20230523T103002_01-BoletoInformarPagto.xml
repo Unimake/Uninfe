@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BoletoInformarPagto versao="1.00">
+	<!--Esta tag é obrigatória. ID da configuração da conta corrente no eBank. Este número é fornecido pela Unimake.-->
+	<ConfigurationId>ZCKWGQ55LTDXKYYC</ConfigurationId>
+	<!--Esta tag não é obrigatória-->
+	<NumeroNoBanco>string</NumeroNoBanco>
+	<!--Esta tag não é obrigatória. true=Somente teste - false=Produção-->
+	<Testing>true</Testing>
+	<!--Esta tag não é obrigatória, o valor dela por padrão é false. Só utilize quando é necessário fazer testes para possibilitar DEBUG do lado do eBank, naturalmente isso só pode ocorrer se um desenvolvedor do eBank solicitar esta tag no XML para facilitar depuração de código-->
+	<UseHomologServer>true</UseHomologServer>
+</BoletoInformarPagto>

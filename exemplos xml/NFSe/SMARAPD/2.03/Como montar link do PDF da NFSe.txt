@@ -1,0 +1,8 @@
+Município de Bauru-SP:
+https://tributario.bauru.sp.gov.br/loginWeb.jsp?execobj=NFENotaFiscalBuscarDireto&cnpj=55555555555&numero=1&chave=ANMI-ZETX
+
+Onde:
+
+cnpj: é o número do cnpj/cpf do prestador
+numero: é o número da nota fiscal
+chave: é a chave de validação da nota fiscal

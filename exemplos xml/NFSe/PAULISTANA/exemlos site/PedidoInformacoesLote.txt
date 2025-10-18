@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p1:PedidoInformacoesLote xmlns:p1="http://www.prefeitura.sp.gov.br/nfe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Cabecalho Versao="1">
+    <CPFCNPJRemetente>
+      <CNPJ>04642554000143</CNPJ>
+    </CPFCNPJRemetente>
+    <InscricaoPrestador>31000000</InscricaoPrestador>
+  </Cabecalho>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>nIocu5hcEZ7KDxxTrOh/SGDIc+k=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>kCiXIW78azpT1DzZaGOKAqKPOy9HmyuWi1M6FB06WMbCC4+1E7lQDcipHJ8YY+/Qa6pvja74hJZrqqI8KkDTbIzU1RDRqQKrn3G0giNSfKXab/1dNbiCaXcCxiwJlrlNfny6SOAeeZHDNHikZqYwIiTbUIhBvIbqReXBYJBYzWs=</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>MIIFUzCCBDugAwIBAgIQSUJS8pELZyjasDkgGzKm0TANBgkqhkiG9w0BAQUFADBuMQswCQYDVQQGEwJCUjETMBEGA1UEChMKSUNQLUJyYXNpbDEsMCoGA1UECxMjU2VjcmV0YXJpYSBkYSBSZWNlaXRhIEZlZGVyYWwgLSBTUkYxHDAaBgNVBAMTE0FDIENlcnRpU2lnbiBTUkYgVjMwHhcNMDYwNzE5MDAwMDAwWhcNMDkwNzE4MjM1OTU5WjCB1DELMAkGA1UEBhMCQlIxEzARBgNVBAoUCklDUC1CcmFzaWwxKjAoBgNVBAsTIVNlY3JldGFyaWEgZGEgUmVjZWl0YSBGZWRlcmFsLVNSRjETMBEGA1UECxQKU1JGIGUtQ05QSjELMAkGA1UECBMCUkoxFzAVBgNVBAcUDlJJTyBERSBKQU5FSVJPMUkwRwYDVQQDE0BUSVBMQU4gQ09OU1VMVE9SSUEgRSBTRVJWSUNPUyBFTSBJTkZPUk1BVElDQSBMVERBOjA0NjQyNTU0MDAwMTQzMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCx86LAoJRVmtQMzmtdWpyNgKy200+bwjtz/TuywNcTjvfw7qHFGIgTjipmuZ3zhX28CgYLYXp3tj1Dfh2B7EhjHdLJPfvoF4MgbN/dQGXmGpMpF5cNxYusOGCZiyASvI7Gqt/xE4xLSIalNr6kF6CaPLkpFgTNNe+WQkG0fMqsQQIDAQABo4ICCDCCAgQwgbEGA1UdEQSBqTCBpqA/BgVgTAEDBKA2DDQyNDA3MTk3NjA3MTM4NTM3Nzg2MDAwMDAwMDAwMDAwMDAwMDAwOTI5OTA2MjFDTkggIFJKoB8GBWBMAQMCoBYMFEZFUk5BTkRPIFNJTFZBIEJSQUdBoBkGBWBMAQMDoBAMDjA0NjQyNTU0MDAwMTQzoBEGBWBMAQMHoAgMBjIzOTU0OIEUZmJyYWdhQHRpcGxhbi5jb20uYnIwCQYDVR0TBAIwADBiBgNVHR8EWzBZMFegVaBThlFodHRwOi8vaWNwLWJyYXNpbC5jZXJ0aXNpZ24uY29tLmJyL3JlcG9zaXRvcmlvL2xjci9BQ0NlcnRpU2lnblNSRlYzL0xhdGVzdENSTC5jcmwwHwYDVR0jBBgwFoAU9p1ZXf6/xXLN3c7ELmYbLu4Iz3YwDgYDVR0PAQH/BAQDAgXgMFUGA1UdIAROMEwwSgYGYEwBAgMGMEAwPgYIKwYBBQUHAgEWMmh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vZHBjMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAjA4BggrBgEFBQcBAQQsMCowKAYIKwYBBQUHMAGGHGh0dHA6Ly9vY3NwLmNlcnRpc2lnbi5jb20uYnIwDQYJKoZIhvcNAQEFBQADggEBAC5w/CBXAykvPSbBGf+u0UPcWVJATL2ix0hCfNUVtHaCjMz8hRjgYqmhpefzDm2LCTvoCPzG6XQBYxAmnDhX1f/gyjHz+E1xJg451qtqcyCJ9861o9R2bHd4zR0DuyxCNGOTiYJ4Gc/Xa4xqECorAx5ktkk1T/HOc1K/ntRGpdL+llsO/jqSRmTOnRgdeNHcKkyXsOgL5BwxxgGNuIyqirgGXW0by4Io1GnSXtixxfvEOnqOicxBY6AcVS9HHuhmOBYiK9skAUp0Sm2v41hpsC8uIkfUeRxsJIp2CNZ4DjoyfmKwNLMCRZQAKpwMXyyHZlX1a4o/9iGTszNeeShw61g=</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</p1:PedidoInformacoesLote>

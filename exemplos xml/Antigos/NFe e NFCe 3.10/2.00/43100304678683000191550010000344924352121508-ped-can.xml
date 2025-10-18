@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cancNFe xmlns="http://www.portalfiscal.inf.br/nfe" versao="2.00">
+   <infCanc Id="ID43100304678683000191550010000344924352121508">
+      <tpAmb>2</tpAmb>
+      <xServ>CANCELAR</xServ>
+      <chNFe>43100304678683000191550010000344924352121508</chNFe>
+      <nProt>151080000194296</nProt>
+      <xJust>NFE emitida somente para testar o novo ambiente de homologacao da NFe 2.0</xJust>
+   </infCanc>
+</cancNFe>

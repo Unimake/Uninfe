@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe xmlns="http://www.portalfiscal.inf.br/cte" versao="4.00">
+  <infEvento Id="ID11018141131080568835000181570040000001081211931324001">
+    <cOrgao>41</cOrgao>
+    <tpAmb>2</tpAmb>
+    <CNPJ>80568835000181</CNPJ>
+    <chCTe>41131080568835000181570040000001081211931324</chCTe>
+    <dhEvento>2019-08-14T09:15:00-02:00</dhEvento>
+    <tpEvento>110181</tpEvento>
+    <nSeqEvento>1</nSeqEvento>
+    <detEvento versaoEvento="4.00">
+      <evCancCECTe>
+        <descEvento>Cancelamento do Comprovante de Entrega do CT-e</descEvento>
+        <nProt>141190000039741</nProt>
+        <nProtCE>125456584566458</nProtCE>     
+      </evCancCECTe>
+    </detEvento>
+  </infEvento>
+</eventoCTe>

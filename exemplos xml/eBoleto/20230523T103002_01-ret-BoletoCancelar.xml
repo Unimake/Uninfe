@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoletoCancelarResponse>
+ <!--0=Boleto cancelado com sucesso, 1 ou 999=Erro-->
+ <Status>999</Status>
+ <Motivo>Not Found</Motivo>
+ <UniNFeVersao>5.1.0.136 | 25-03-2025 - 11:08:16</UniNFeVersao>
+</BoletoCancelarResponse>

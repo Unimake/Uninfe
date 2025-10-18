@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTeOS xmlns="http://www.portalfiscal.inf.br/cte" versao="3.00">
+  <infCte Id="CTeOS41170384938430000149670010000000520000000497" versao="3.00">
+    <ide>
+      <cUF>41</cUF>
+      <cCT>00000049</cCT>
+      <CFOP>6353</CFOP>
+      <natOp>PRESTACAO DE SERVICO DE TRANSPORTE A ESTABELECIMENTO COMERCI</natOp>
+      <mod>67</mod>
+      <serie>1</serie>
+      <nCT>52</nCT>
+      <dhEmi>2017-03-28T10:35:23-03:00</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>7</cDV>
+      <tpAmb>2</tpAmb>
+      <tpCTe>0</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>WPER 7.01</verProc>
+      <cMunEnv>4106902</cMunEnv>
+      <xMunEnv>CURITIBA</xMunEnv>
+      <UFEnv>PR</UFEnv>
+      <modal>01</modal>
+      <tpServ>6</tpServ>
+      <indIEToma>9</indIEToma>
+    </ide>
+    <compl>
+      <xEmi>GARRA IND. MOV. E AC</xEmi>
+      <xObs>EMPRESA OPTANTE PELO REGIME SIMPLES NACIONAL NOS TERMOS DO ARTIGO 23 DA LEI COMPLEMENTAR 123/2006;Carga tributaria 16,06 % conforme fonte IBPT lei 12.741/12</xObs>
+      <ObsCont xCampo="Lei da Transparencia">
+        <xTexto>Valor aproximado dos tributos R$ 594,22 correpondente a percentuais aplicados por NCM - Fonte: IBPT (Instituto Brasileiro de Planejamento Tributario)</xTexto>
+      </ObsCont>
+    </compl>
+    <emit>
+      <CNPJ>84938430000149</CNPJ>
+      <IE>3210296556</IE>
+      <xNome>ICAVEL VEICULOS LTDA</xNome>
+      <xFant>ICAVEL VEICULOS LTDA</xFant>
+      <enderEmit>
+        <xLgr>RUA ARTHUR MARTINS FRANCO</xLgr>
+        <nro>00160</nro>
+        <xBairro>CIC</xBairro>
+        <cMun>4106902</cMun>
+        <xMun>CURITIBA</xMun>
+        <CEP>81350100</CEP>
+        <UF>PR</UF>
+        <fone>4132841019</fone>
+      </enderEmit>
+    </emit>
+    <vPrest>
+      <vTPrest>3700.00</vTPrest>
+      <vRec>3700.00</vRec>
+      <Comp>
+        <xNome>FRETE PESO</xNome>
+        <vComp>3700.00</vComp>
+      </Comp>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMS00>
+          <CST>00</CST>
+          <vBC>3700.00</vBC>
+          <pICMS>18.00</pICMS>
+          <vICMS>666.00</vICMS>
+        </ICMS00>
+      </ICMS>
+    </imp>
+    <infCTeNorm>
+      <infServico>
+        <xDescServ>TRANSPORTE</xDescServ>
+        <infQ>
+          <qCarga>2500.0000</qCarga>
+        </infQ>
+      </infServico>
+      <seg>
+        <respSeg>4</respSeg>
+      </seg>
+      <infModal versaoModal="3.00">
+        <rodo>
+          <RNTRC>11750721</RNTRC>
+          <dPrev>2015-03-24</dPrev>
+          <lota>1</lota>
+          <veic>
+            <cInt>C 001</cInt>
+            <RENAVAM>135152542</RENAVAM>
+            <placa>ATE1121</placa>
+            <tara>13700</tara>
+            <capKG>0</capKG>
+            <capM3>0</capM3>
+            <tpProp>P</tpProp>
+            <tpVeic>0</tpVeic>
+            <tpRod>01</tpRod>
+            <tpCar>01</tpCar>
+          </veic>
+        </rodo>
+      </infModal>
+    </infCTeNorm>
+  </infCte>
+</CTeOS>

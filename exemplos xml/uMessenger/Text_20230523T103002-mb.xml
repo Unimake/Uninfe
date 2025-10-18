@@ -1,0 +1,14 @@
+<uMessenger versao="1.00">
+    <SendTextMessage Id="01">
+        <InstanceName>1ff66742aa6044c1bbf88e0e1f143d8f</InstanceName>
+        <To>5544991423078</To>
+        <Text>Olá, Escreva a sua mensagem aqui ...</Text>
+        <Testing>false</Testing>
+        <Files>
+            <File>
+                <FullPath>d:\testenfe\teste.pdf</FullPath>
+                <MediaType>2</MediaType>
+            </File>
+        </Files>
+    </SendTextMessage>
+</uMessenger>

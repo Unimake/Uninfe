@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<envEvento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+  <idLote>000000000038313</idLote>
+  <evento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infEvento Id="ID1101103511125342047700019255055000003307121302827202">
+      <cOrgao>35</cOrgao>
+      <tpAmb>2</tpAmb>
+      <CNPJ>53420477000192</CNPJ>
+      <chNFe>35111253420477000192550550000033071213028272</chNFe>
+      <dhEvento>2011-12-20T16:55:00-02:00</dhEvento>
+      <tpEvento>110110</tpEvento>
+      <nSeqEvento>2</nSeqEvento>
+      <verEvento>1.00</verEvento>
+      <detEvento versao="1.00">
+        <descEvento>Carta de Correcao</descEvento>
+        <xCorrecao>Testando a carta de correção com várias sequencias, neste caso é a sequencia 2, vamos ver se registra corretamente no SEFAZ e como vai ficar a impressão deste documento depois para enviar ao destinatário da NFe</xCorrecao>
+        <xCondUso>A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.</xCondUso>
+      </detEvento>
+    </infEvento>
+  </evento>
+  <evento versao="1.00">
+    <infEvento Id="ID1101103511125342047700019255055000003307121302827203">
+      <cOrgao>35</cOrgao>
+      <tpAmb>2</tpAmb>
+      <CNPJ>53420477000192</CNPJ>
+      <chNFe>35111253420477000192550550000033071213028272</chNFe>
+      <dhEvento>2011-12-20T16:55:00-02:00</dhEvento>
+      <tpEvento>110110</tpEvento>
+      <nSeqEvento>3</nSeqEvento>
+      <verEvento>1.00</verEvento>
+      <detEvento versao="1.00">
+        <descEvento>Carta de Correcao</descEvento>
+        <xCorrecao>Testando a carta de correção com várias sequencias, neste caso é a sequencia 3, vamos ver se registra corretamente no SEFAZ e como vai ficar a impressão deste documento depois para enviar ao destinatário da NFe</xCorrecao>
+        <xCondUso>A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.</xCondUso>
+      </detEvento>
+    </infEvento>
+  </evento>
+  <evento versao="1.00">
+    <infEvento Id="ID1101103511125342047700019255055000003307121302827204">
+      <cOrgao>35</cOrgao>
+      <tpAmb>2</tpAmb>
+      <CNPJ>53420477000192</CNPJ>
+      <chNFe>35111253420477000192550550000033071213028272</chNFe>
+      <dhEvento>2011-12-20T16:55:00-02:00</dhEvento>
+      <tpEvento>110110</tpEvento>
+      <nSeqEvento>4</nSeqEvento>
+      <verEvento>1.00</verEvento>
+      <detEvento versao="1.00">
+        <descEvento>Carta de Correcao</descEvento>
+        <xCorrecao>Testando a carta de correção com várias sequencias, neste caso é a sequencia 4, vamos ver se registra corretamente no SEFAZ e como vai ficar a impressão deste documento depois para enviar ao destinatário da NFe</xCorrecao>
+        <xCondUso>A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.</xCondUso>
+      </detEvento>
+    </infEvento>
+  </evento>
+</envEvento>

@@ -1,0 +1,4 @@
+tpEmis|1
+tpAmb|2
+cUF|31
+versao|3.10

@@ -1,0 +1,13 @@
+﻿<CancelarNfseEnvio>
+	<Pedido>
+		<InfPedidoCancelamento>
+			<IdentificacaoNfse>
+				<Numero>NUM_NFSE</Numero>
+				<Cnpj>CNPJ_PRESTADOR</Cnpj>
+				<InscricaoMunicipal>IM_PRESTADOR</InscricaoMunicipal>
+				<CodigoMunicipio>COD_MUN_PRESTADOR</CodigoMunicipio>
+			</IdentificacaoNfse>
+			<CodigoCancelamento>COD_MOTIVO_CANCELAMENTO</CodigoCancelamento>
+		</InfPedidoCancelamento>
+	</Pedido>
+</CancelarNfseEnvio>

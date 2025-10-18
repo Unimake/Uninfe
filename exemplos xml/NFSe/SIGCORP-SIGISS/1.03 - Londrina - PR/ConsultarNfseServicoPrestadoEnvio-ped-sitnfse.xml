@@ -1,0 +1,9 @@
+<ConsultarNfseServicoPrestado>
+	<ConsultarNfseServicoPrestadoEnvio>
+		<ccm>2149052</ccm>
+		<cnpj>99999999999999</cnpj>
+		<cpf>99999999999999</cpf>
+		<senha>99999999999999</senha>
+		<numero_nfse>1</numero_nfse>
+	</ConsultarNfseServicoPrestadoEnvio>
+</ConsultarNfseServicoPrestado>

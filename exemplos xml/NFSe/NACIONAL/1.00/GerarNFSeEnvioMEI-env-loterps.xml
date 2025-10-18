@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DPS versao="1.00" xmlns="http://www.sped.fazenda.gov.br/nfse">
+    <infDPS Id="DPS410690225346459602030900900000000000000013">
+        <tpAmb>1</tpAmb>
+        <dhEmi>2024-07-03T10:12:17-03:00</dhEmi>
+        <verAplic>EmissorWeb_1.2.0.3</verAplic>
+        <serie>900</serie>
+        <nDPS>13</nDPS>
+        <dCompet>2024-07-03</dCompet>
+        <tpEmit>1</tpEmit>
+        <cLocEmi>2</cLocEmi>
+        <prest>
+            <CNPJ>2</CNPJ>
+            <fone>2</fone>
+            <email>1@2.com</email>
+            <regTrib>
+                <opSimpNac>2</opSimpNac>
+                <regEspTrib>0</regEspTrib>
+            </regTrib>
+        </prest>
+        <toma>
+            <CNPJ>2</CNPJ>
+            <xNome>2 2 2</xNome>
+            <end>
+                <endNac>
+                    <cMun>4106902</cMun>
+                    <CEP>80060230</CEP>
+                </endNac>
+                <xLgr>CONSELHEIRO ARAUJO</xLgr>
+                <nro>0</nro>
+                <xCpl>2 2  22</xCpl>
+                <xBairro>a</xBairro>
+            </end>
+            <email>a@a.COM</email>
+        </toma>
+        <serv>
+            <locPrest>
+                <cLocPrestacao>2</cLocPrestacao>
+            </locPrest>
+            <cServ>
+                <cTribNac>2</cTribNac>
+                <xDescServ>Serviços prestados</xDescServ>
+                <cNBS>2</cNBS>
+            </cServ>
+        </serv>
+        <valores>
+            <vServPrest>
+                <vServ>1.00</vServ>
+            </vServPrest>
+            <trib>
+                <tribMun>
+                    <tribISSQN>1</tribISSQN>
+                    <tpRetISSQN>1</tpRetISSQN>
+                </tribMun>
+                <totTrib>
+                    <indTotTrib>0</indTotTrib>
+                </totTrib>
+            </trib>
+        </valores>
+    </infDPS>
+</DPS>

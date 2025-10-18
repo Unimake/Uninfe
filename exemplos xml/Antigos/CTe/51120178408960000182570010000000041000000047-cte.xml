@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTe xmlns="http://www.portalfiscal.inf.br/cte">
+  <infCte Id="CTe51120178408960000182570010000000041000000047" versao="2.00">
+    <ide>
+      <cUF>51</cUF>
+      <cCT>00000004</cCT>
+      <CFOP>6353</CFOP>
+      <natOp>SERV. TRANSPORTE</natOp>
+      <forPag>1</forPag>
+      <mod>57</mod>
+      <serie>1</serie>
+      <nCT>4</nCT>
+      <dhEmi>2012-01-06T17:25:56</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>7</cDV>
+      <tpAmb>2</tpAmb>
+      <tpCTe>0</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>104</verProc>
+      <cMunEnv>4213609</cMunEnv>
+      <xMunEnv>PORTO UNIAO</xMunEnv>
+      <UFEnv>SC</UFEnv>
+      <modal>01</modal>
+      <tpServ>0</tpServ>
+      <cMunIni>4213609</cMunIni>
+      <xMunIni>PORTO UNIAO</xMunIni>
+      <UFIni>SC</UFIni>
+      <cMunFim>4128203</cMunFim>
+      <xMunFim>UNIAO DA VITORIA</xMunFim>
+      <UFFim>PR</UFFim>
+      <retira>1</retira>
+      <toma03>
+        <toma>3</toma>
+      </toma03>
+    </ide>
+    <emit>
+      <CNPJ>78408960000182</CNPJ>
+      <IE>251079554</IE>
+      <xNome>KERBER E CIA. LTDA.</xNome>
+      <xFant>PEDREIRA</xFant>
+      <enderEmit>
+        <xLgr>ESTRADA VELHA DE PALMAS</xLgr>
+        <nro>S/N</nro>
+        <xCpl>CAIXA POSTAL 268</xCpl>
+        <xBairro>RIO DA AREIA</xBairro>
+        <cMun>4213609</cMun>
+        <xMun>PORTO UNIAO</xMun>
+        <CEP>89400000</CEP>
+        <UF>SC</UF>
+        <fone>4235224933</fone>
+      </enderEmit>
+    </emit>
+    <rem>
+      <CNPJ>78408960000182</CNPJ>
+      <IE>251079554</IE>
+      <xNome>KERBER E CIA. LTDA.</xNome>
+      <xFant>PEDREIRA</xFant>
+      <fone>4235224933</fone>
+      <enderReme>
+        <xLgr>ESTRADA VELHA DE PALMAS</xLgr>
+        <nro>S/N</nro>
+        <xCpl>CAIXA POSTAL 268</xCpl>
+        <xBairro>RIO DA AREIA</xBairro>
+        <cMun>4213609</cMun>
+        <xMun>PORTO UNIAO</xMun>
+        <CEP>89400000</CEP>
+        <UF>SC</UF>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderReme>
+      <email>pedreira@kerberecia.com.br</email>
+      <locColeta>
+        <CPF>06783956911</CPF>
+        <xNome>RENAN BORGES</xNome>
+        <xLgr>RIO DA AREIA</xLgr>
+        <nro>4213609</nro>
+        <xCpl>PORTO UNIAO</xCpl>
+        <xBairro>89400000</xBairro>
+        <cMun>4213609</cMun>
+        <xMun>PORTO UNIAO</xMun>
+        <UF>SC</UF>
+      </locColeta>
+    </rem>
+    <exped>
+      <CNPJ>78408960000182</CNPJ>
+      <IE>251079554</IE>
+      <xNome>KERBER E CIA. LTDA.</xNome>
+      <fone>4235224933</fone>
+      <enderExped>
+        <xLgr>ESTRADA VELHA DE PALMAS</xLgr>
+        <nro>S/N</nro>
+        <xCpl>CAIXA POSTAL 268</xCpl>
+        <xBairro>RIO DA AREIA</xBairro>
+        <cMun>4213609</cMun>
+        <xMun>PORTO UNIAO</xMun>
+        <CEP>89400000</CEP>
+        <UF>SC</UF>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderExped>
+    </exped>
+    <receb>
+      <CNPJ>81639791000104</CNPJ>
+      <IE>3010264714</IE>
+      <xNome>HOBI E CIA LTDA. - MATRIZ</xNome>
+      <fone>4235211922</fone>
+      <enderReceb>
+        <xLgr>AUTO VIA JOAO REOLON</xLgr>
+        <nro>02105</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>4128203</cMun>
+        <xMun>UNIAO DA VITORIA</xMun>
+        <CEP>84600000</CEP>
+        <UF>PR</UF>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderReceb>
+    </receb>
+    <dest>
+      <CNPJ>81639791000104</CNPJ>
+      <IE>3010264714</IE>
+      <xNome>HOBI E CIA LTDA. - MATRIZ</xNome>
+      <fone>4235211922</fone>
+      <enderDest>
+        <xLgr>AUTO VIA JOAO REOLON</xLgr>
+        <nro>02105</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>4128203</cMun>
+        <xMun>UNIAO DA VITORIA</xMun>
+        <CEP>84600000</CEP>
+        <UF>PR</UF>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+      </enderDest>
+    </dest>
+    <vPrest>
+      <vTPrest>2300.00</vTPrest>
+      <vRec>2300.00</vRec>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMS00>
+          <CST>00</CST>
+          <vBC>2300.00</vBC>
+          <pICMS>12.00</pICMS>
+          <vICMS>276.00</vICMS>
+        </ICMS00>
+      </ICMS>
+    </imp>
+    <infCTeNorm>
+      <infCarga>
+        <vCarga>174.38</vCarga>
+        <proPred>Pedra Brita</proPred>
+        <xOutCat>Pedra Brita a Granel</xOutCat>
+        <infQ>
+          <cUnid>00</cUnid>
+          <tpMed>TON</tpMed>
+          <qCarga>9.3000</qCarga>
+        </infQ>
+      </infCarga>
+      <infModal versaoModal="2.00">
+        <rodo>
+          <RNTRC>04150238</RNTRC>
+          <dPrev>2012-01-06</dPrev>
+          <lota>0</lota>
+          <veic>
+            <cInt>001</cInt>
+            <RENAVAM>123123123</RENAVAM>
+            <placa>AML1353</placa>
+            <tara>13700</tara>
+            <capKG>0</capKG>
+            <capM3>0</capM3>
+            <tpProp>T</tpProp>
+            <tpVeic>0</tpVeic>
+            <tpRod>01</tpRod>
+            <tpCar>01</tpCar>
+            <UF>PR</UF>
+            <prop>
+              <CPF>00000000000</CPF>
+              <RNTRC>04151486</RNTRC>
+              <xNome>HOBI E CIA LTDA. - MATRIZ</xNome>
+              <IE>3010264714</IE>
+              <UF>PR</UF>
+              <tpProp>2</tpProp>
+            </prop>
+          </veic>
+          <moto>
+            <xNome>FRANCISCO CHIMANSKI</xNome>
+            <CPF>51055694900</CPF>
+          </moto>
+        </rodo>
+      </infModal>
+    </infCTeNorm>
+  </infCte>
+</CTe>

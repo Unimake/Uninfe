@@ -1,0 +1,59 @@
+<GerarNovaNfseEnvio>
+	<Prestador xmlns="http://www.sistema.com.br/Nfse/arquivos/nfse_3.xsd">
+		<Cnpj>99999999999999</Cnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</Prestador>
+	<InformacaoNfse xmlns="http://www.sistema.com.br/Nfse/arquivos/nfse_3.xsd">
+		<NaturezaOperacao>1</NaturezaOperacao>
+		<RegimeEspecialTributacao>3</RegimeEspecialTributacao>
+		<OptanteSimplesNacional>2</OptanteSimplesNacional>
+		<IncentivadorCultural>2</IncentivadorCultural>
+		<Status>1</Status>
+		<Competencia>2017-04-18</Competencia>
+		<Servico>
+			<Valores>
+				<ValorServicos>825.89</ValorServicos>
+				<IssRetido>2</IssRetido>
+				<ValorIss>41.29</ValorIss>
+				<ValorIssRetido>0.00</ValorIssRetido>
+				<BaseCalculo>825.89</BaseCalculo>
+				<Aliquota>5.00</Aliquota>
+				<ValorLiquidoNfse>825.89</ValorLiquidoNfse>
+			</Valores>
+			<ItemListaServico>14.01</ItemListaServico>
+			<CodigoCnae>4520001</CodigoCnae>
+			<Discriminacao>TESTE MO \n TESTE NFSE \n OS Nro: 2 - CP: 99 - VEND.: - REPR.: VENCTOS: 21/04/2017- R$ 825,89/n\ TESTE MO TESTE NFSE Num. do RPS: 24021</Discriminacao>
+			<CodigoMunicipio>3541406</CodigoMunicipio>
+			<ItensServico>
+				<Descricao>TESTE MO</Descricao>
+				<Quantidade>1</Quantidade>
+				<ValorUnitario>250.00</ValorUnitario>
+			</ItensServico>
+			<ItensServico>
+				<Descricao>TESTE NFSE</Descricao>
+				<Quantidade>1</Quantidade>
+				<ValorUnitario>575.89</ValorUnitario>
+			</ItensServico>
+		</Servico>
+		<Tomador>
+			<IdentificacaoTomador>
+				<CpfCnpj>
+					<Cpf>11.111.111-11</Cpf>
+				</CpfCnpj>
+		</IdentificacaoTomador>
+			<RazaoSocial>xxxxxxxx</RazaoSocial>
+			<Endereco>
+				<Endereco>xxxxxxxxxxx</Endereco>
+				<Numero>0</Numero>
+				<Bairro>CENTRO</Bairro>
+				<CodigoMunicipio>4127106</CodigoMunicipio>
+				<Uf>PR</Uf>
+				<Cep>99999999</Cep>
+			</Endereco>
+			<Contato>
+				<Telefone>99999999999999</Telefone>
+				<Email>xxxxxxxxxxxxxx@xxxxxxxxxx.com.br</Email>
+			</Contato>
+		</Tomador>
+	</InformacaoNfse>
+</GerarNovaNfseEnvio>

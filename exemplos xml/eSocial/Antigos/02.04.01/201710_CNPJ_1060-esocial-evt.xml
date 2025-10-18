@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtTabAmbiente/v02_04_01">
+  <evtTabAmbiente Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <infoAmbiente>
+      <inclusao>
+        <ideAmbiente>
+          <codAmb>str1234</codAmb>
+          <iniValid>2017-10</iniValid>
+          <fimValid>2017-10</fimValid>
+        </ideAmbiente>
+        <dadosAmbiente>
+          <dscAmb>str1234</dscAmb>
+          <localAmb>1</localAmb>
+          <tpInsc>1</tpInsc>
+          <nrInsc>00000000000000</nrInsc>
+          <fatorRisco>
+            <codFatRis>str1234</codFatRis>
+          </fatorRisco>
+        </dadosAmbiente>
+      </inclusao>
+    </infoAmbiente>
+  </evtTabAmbiente>
+</eSocial>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Reinf xmlns="http://www.reinf.esocial.gov.br/schemas/evtInfoContribuinte/v1_03_00">
+  <evtInfoContri id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <tpAmb>3</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>APP_TESTE_1.0</verProc>
+    </ideEvento>
+    <ideContri>
+      <tpInsc>1</tpInsc>
+      <nrInsc>06117473000150</nrInsc>
+    </ideContri>
+    <infoContri>
+      <inclusao>
+        <idePeriodo>
+          <iniValid>2017-10</iniValid>
+          <fimValid>2017-10</fimValid>
+        </idePeriodo>
+        <infoCadastro>
+          <classTrib>01</classTrib>
+          <indEscrituracao>0</indEscrituracao>
+          <indDesoneracao>0</indDesoneracao>
+          <indAcordoIsenMulta>0</indAcordoIsenMulta>
+          <indSitPJ>0</indSitPJ>
+          <contato>
+            <nmCtt>str1234</nmCtt>
+            <cpfCtt>00000000000</cpfCtt>
+            <foneFixo>str1234</foneFixo>
+            <foneCel>str1234</foneCel>
+            <email>str1234</email>
+          </contato>
+          <softHouse>
+            <cnpjSoftHouse>06117473000150</cnpjSoftHouse>
+            <nmRazao>str1234</nmRazao>
+            <nmCont>str1234</nmCont>
+            <telefone>str1234</telefone>
+            <email>str1234</email>
+          </softHouse>
+          <infoEFR>
+            <ideEFR>S</ideEFR>
+          </infoEFR>
+        </infoCadastro>
+      </inclusao>
+    </infoContri>
+  </evtInfoContri>
+</Reinf>

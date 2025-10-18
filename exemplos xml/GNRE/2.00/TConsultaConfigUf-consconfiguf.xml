@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TConsultaConfigUf xmlns="http://www.gnre.pe.gov.br" Versao="2.00">
+	<ambiente>2</ambiente>
+	<uf>PR</uf>
+	<receita courier="N">123456</receita>
+	<tiposGnre>S</tiposGnre>
+</TConsultaConfigUf>

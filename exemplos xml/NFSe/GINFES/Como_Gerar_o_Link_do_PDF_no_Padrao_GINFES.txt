@@ -1,0 +1,14 @@
+Como montar o link do PDF padrão GINFES
+
+Produção:
+https://sjrp.ginfes.com.br/report/consultarNota?__report=nfs_ver99&cdVerificacao=XXXXXXXXX&numNota=XXXX&cnpjPrestador=00.000.000/0000-00
+                           
+
+Homologação:
+http://sjrp.ginfesh.com.br/report/consultarNota?__report=nfs_ver9&cdVerificacao=XXXXXXXXX&numNota=XXXX&cnpjPrestador=00.000.000/0000-00
+
+
+Observações:
+- Onde estiver no link: &cdVerificacao=XXXXXXXXX substitua o XXXXXXXXX pelo código de verificação retornado na consulta do protocolo
+- Onde estiver no link: &numNota=XXXX substitua o XXXX pelo número da nfse retornado na consulta do protocolo
+- Onde estiver no link: &cnpjPrestado=00.000.000/0000-00 substitua 00.000.000/0000-00 pelo CNPJ do prestador/contribuinte emissor da NFSe

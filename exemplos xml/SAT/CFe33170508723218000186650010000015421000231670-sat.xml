@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CFe>
+  <infCFe versaoDadosEnt="0.08">
+    <ide>
+      <CNPJ>16716114000172</CNPJ>
+      <signAC>SGR-SAT SISTEMA DE GESTAO E RETAGUARDA DO SAT</signAC>
+      <numeroCaixa>001</numeroCaixa>
+    </ide>
+    <emit>
+      <CNPJ>08723218000186</CNPJ>
+      <IE>149626224113</IE>
+      <indRatISSQN>N</indRatISSQN>
+    </emit>
+    <dest>
+      <CPF>76850498720</CPF>
+      <xNome>MARCIO FICHER</xNome>
+    </dest>
+    <det nItem="1">
+      <prod>
+        <cProd>78933132</cProd>
+        <xProd>NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd>
+        <NCM>85011021</NCM>
+        <CFOP>5102</CFOP>
+        <uCom>UND</uCom>
+        <qCom>2.0000</qCom>
+        <vUnCom>8.00</vUnCom>
+        <indRegra>A</indRegra>
+      </prod>
+      <imposto>
+        <vItem12741>6.08</vItem12741>
+        <ICMS>
+          <ICMS40>
+            <Orig>0</Orig>
+            <CST>40</CST>
+          </ICMS40>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>06</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSNT>
+            <CST>06</CST>
+          </COFINSNT>
+        </COFINS>
+      </imposto>
+    </det>
+    <det nItem="2">
+      <prod>
+        <cProd>2002019</cProd>
+        <xProd>2019 - teste 2019 TESTE CARACTERISTICA</xProd>
+        <NCM>85011021</NCM>
+        <CFOP>5102</CFOP>
+        <uCom>UND</uCom>
+        <qCom>1.0000</qCom>
+        <vUnCom>10.00</vUnCom>
+        <indRegra>A</indRegra>
+      </prod>
+      <imposto>
+        <vItem12741>3.80</vItem12741>
+        <ICMS>
+          <ICMS00>
+            <Orig>0</Orig>
+            <CST>00</CST>
+            <pICMS>20.00</pICMS>
+          </ICMS00>
+        </ICMS>
+        <PIS>
+          <PISAliq>
+            <CST>01</CST>
+            <vBC>10.00</vBC>
+            <pPIS>0.0065</pPIS>
+          </PISAliq>
+        </PIS>
+        <COFINS>
+          <COFINSAliq>
+            <CST>01</CST>
+            <vBC>10.00</vBC>
+            <pCOFINS>0.0300</pCOFINS>
+          </COFINSAliq>
+        </COFINS>
+      </imposto>
+    </det>
+    <det nItem="3">
+      <prod>
+        <cProd>2002001</cProd>
+        <xProd>PRODUTO COM SUBST. TRIB. TESTE TESTE</xProd>
+        <NCM>19059010</NCM>
+        <CFOP>5405</CFOP>
+        <uCom>UND</uCom>
+        <qCom>2.0000</qCom>
+        <vUnCom>2.80</vUnCom>
+        <indRegra>A</indRegra>
+      </prod>
+      <imposto>
+        <vItem12741>1.40</vItem12741>
+        <ICMS>
+          <ICMS40>
+            <Orig>0</Orig>
+            <CST>60</CST>
+          </ICMS40>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>06</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSNT>
+            <CST>06</CST>
+          </COFINSNT>
+        </COFINS>
+      </imposto>
+    </det>
+    <total>
+      <vCFeLei12741>11.28</vCFeLei12741>
+    </total>
+    <pgto>
+      <MP>
+        <cMP>01</cMP>
+        <vMP>11.60</vMP>
+      </MP>
+      <MP>
+        <cMP>05</cMP>
+        <vMP>20.00</vMP>
+      </MP>
+    </pgto>
+    <infAdic>
+      <infCpl>Valor aproximado dos Tributos (Lei Federal 12.741/2012) total: R$ 11.28 Federal: R$ 4.11 Estadual: R$ 7.17 Municipal: R$ 0.00 Fonte: IBPT  Imposto recolhido anteriormente por ST. conforme Decreto 43.889-Anexo I, Livro II do RICMS.</infCpl>
+    </infAdic>
+  </infCFe>
+</CFe>

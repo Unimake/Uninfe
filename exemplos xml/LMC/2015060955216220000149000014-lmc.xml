@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<autorizacao xmlns="http://www.fazenda.pr.gov.br/sefaws">
+  <livroCombustivel xmlns="http://www.fazenda.pr.gov.br/sefaws">
+    <infLivroCombustivel versao="1.00" Id="LMC2015060955216220000149000014">
+      <tpAmb>1</tpAmb>
+      <cNumerico>00001</cNumerico>
+      <cDV>4</cDV>
+      <emit>
+        <IE>111530762114</IE>
+        <CNPJ>55216220000149</CNPJ>
+        <xNome>ALCEDINO MALACARNE &amp; CIA LTDA</xNome>
+      </emit>
+      <movimento dEmissao="2015-06-09">
+        <infMovimento nrProduto="4">
+          <volEstoqueAbertura>8820.000</volEstoqueAbertura>
+          <volumeRecebido>
+            <CNPJ>34274233037014</CNPJ>
+            <nNF>126288</nNF>
+            <dNF>2015-06-09</dNF>
+            <volVolume>5000.000</volVolume>
+            <xTanque>2</xTanque>
+          </volumeRecebido>
+          <volumeRecebido>
+            <CNPJ>34274233037014</CNPJ>
+            <nNF>126288</nNF>
+            <dNF>2015-06-09</dNF>
+            <volVolume>5000.000</volVolume>
+            <xTanque>4</xTanque>
+          </volumeRecebido>
+          <volumeRecebido>
+            <CNPJ>34274233037014</CNPJ>
+            <nNF>126292</nNF>
+            <dNF>2015-06-09</dNF>
+            <volVolume>5000.000</volVolume>
+            <xTanque>2</xTanque>
+          </volumeRecebido>
+          <volumeVendido>
+            <xTanque>2</xTanque>
+            <nrBico>1</nrBico>
+            <volFechamento>697339.800</volFechamento>
+            <volAbertura>696843.790</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>2</xTanque>
+            <nrBico>5</nrBico>
+            <volFechamento>1600706.250</volFechamento>
+            <volAbertura>1599913.920</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>2</xTanque>
+            <nrBico>7</nrBico>
+            <volFechamento>1511586.590</volFechamento>
+            <volAbertura>1511066.820</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>4</xTanque>
+            <nrBico>8</nrBico>
+            <volFechamento>1768920.450</volFechamento>
+            <volAbertura>1767086.620</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>2</xTanque>
+            <nrBico>10</nrBico>
+            <volFechamento>161956.810</volFechamento>
+            <volAbertura>160659.300</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volEstoqueFechamento>18987.000</volEstoqueFechamento>
+          <valVendasDiaBomba>17465.58</valVendasDiaBomba>
+          <valAcumuladoMes>140218.82</valAcumuladoMes>
+          <observacoes>teste de observações bla bla bla</observacoes>
+        </infMovimento>
+        <infMovimento nrProduto="2">
+          <volEstoqueAbertura>5185.000</volEstoqueAbertura>
+          <volumeVendido>
+            <xTanque>3</xTanque>
+            <nrBico>2</nrBico>
+            <volFechamento>154156.910</volFechamento>
+            <volAbertura>153775.470</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>3</xTanque>
+            <nrBico>6</nrBico>
+            <volFechamento>333407.060</volFechamento>
+            <volAbertura>333143.960</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>3</xTanque>
+            <nrBico>9</nrBico>
+            <volFechamento>14010.570</volFechamento>
+            <volAbertura>13922.780</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volEstoqueFechamento>4393.000</volEstoqueFechamento>
+          <valVendasDiaBomba>1810.85</valVendasDiaBomba>
+          <valAcumuladoMes>17974.89</valAcumuladoMes>
+          <observacoes>teste de observações bla bla bla</observacoes>
+        </infMovimento>
+        <infMovimento nrProduto="1">
+          <volEstoqueAbertura>6407.000</volEstoqueAbertura>
+          <volumeRecebido>
+            <CNPJ>34274233037014</CNPJ>
+            <nNF>126289</nNF>
+            <dNF>2015-06-09</dNF>
+            <volVolume>5000.000</volVolume>
+            <xTanque>1</xTanque>
+          </volumeRecebido>
+          <volumeRecebido>
+            <CNPJ>34274233037014</CNPJ>
+            <nNF>126291</nNF>
+            <dNF>2015-06-09</dNF>
+            <volVolume>5000.000</volVolume>
+            <xTanque>1</xTanque>
+          </volumeRecebido>
+          <volumeVendido>
+            <xTanque>1</xTanque>
+            <nrBico>3</nrBico>
+            <volFechamento>7157157.890</volFechamento>
+            <volAbertura>7156284.100</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volumeVendido>
+            <xTanque>1</xTanque>
+            <nrBico>4</nrBico>
+            <volFechamento>6505696.330</volFechamento>
+            <volAbertura>6505290.080</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volEstoqueFechamento>15101.000</volEstoqueFechamento>
+          <valVendasDiaBomba>3655.38</valVendasDiaBomba>
+          <valAcumuladoMes>55236.20</valAcumuladoMes>
+          <observacoes>teste de observações bla bla bla</observacoes>
+        </infMovimento>
+        <infMovimento nrProduto="9">
+          <volEstoqueAbertura>11799.000</volEstoqueAbertura>
+          <volumeVendido>
+            <xTanque>5</xTanque>
+            <nrBico>0</nrBico>
+            <volFechamento>1245891.510</volFechamento>
+            <volAbertura>1245367.500</volAbertura>
+            <volAfericoes>0.000</volAfericoes>
+          </volumeVendido>
+          <volEstoqueFechamento>11319.000</volEstoqueFechamento>
+          <valVendasDiaBomba>1566.27</valVendasDiaBomba>
+          <valAcumuladoMes>19382.40</valAcumuladoMes>
+          <observacoes>teste de observações bla bla bla</observacoes>
+        </infMovimento>
+      </movimento>
+    </infLivroCombustivel>
+  </livroCombustivel>
+</autorizacao>

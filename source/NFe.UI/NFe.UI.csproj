@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{37A93E14-D881-4957-AD44-3615ED65CD57}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NFe.UI</RootNamespace>
+    <AssemblyName>NFe.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_fw46</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release35_AnyCPU|AnyCPU'">
+    <OutputPath>bin\Release35_AnyCPU\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;_fw35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|AnyCPU'">
+    <OutputPath>bin\Release46_x86\</OutputPath>
+    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_fw46</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release35_AnyCPU|x86'">
+    <OutputPath>bin\x86\Release35_AnyCPU\</OutputPath>
+    <DefineConstants>TRACE;_fw35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
+    <OutputPath>bin\x86\Release46_x86\</OutputPath>
+    <DefineConstants>TRACE;_fw46;x86</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x64|x64'">
+    <OutputPath>bin\x64\Release46_x64\</OutputPath>
+    <DefineConstants>TRACE;_fw46;x64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.Cryptography, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.Cryptography.9.0.10\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Formats.Asn1, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Formats.Asn1.9.0.10\lib\net462\System.Formats.Asn1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.1\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Cng.5.0.0\lib\net47\System.Security.Cryptography.Cng.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.9.0.10\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.9.0.10\lib\net462\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unimake.Business.DFe, Version=2025.10.17.1918, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20251017.1918.39\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Cryptography, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20250912.1810.37\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Extensions, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20250912.1810.37\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Security.Platform, Version=2023.7.6.1027, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Security.Platform.20230706.1027.33\lib\net\Unimake.Security.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Utils, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20250912.1810.37\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Formularios\Dialogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Dialogs.Designer.cs">
+      <DependentUpon>Dialogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormDummy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormDummy.Designer.cs">
+      <DependentUpon>FormDummy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormNova.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormNova.Designer.cs">
+      <DependentUpon>FormNova.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormSenha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormSenha.Designer.cs">
+      <DependentUpon>FormSenha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormSpinner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormSpinner.Designer.cs">
+      <DependentUpon>FormSpinner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormUpdate.Designer.cs">
+      <DependentUpon>FormUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormVisual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormVisual.Designer.cs">
+      <DependentUpon>FormVisual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormWait.Designer.cs">
+      <DependentUpon>FormWait.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\menu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\menu.Designer.cs">
+      <DependentUpon>menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_certificado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_certificado.Designer.cs">
+      <DependentUpon>userConfiguracao_certificado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_danfe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_danfe.Designer.cs">
+      <DependentUpon>userConfiguracao_danfe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_diversos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_diversos.Designer.cs">
+      <DependentUpon>userConfiguracao_diversos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_Integracoes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_Integracoes.Designer.cs">
+      <DependentUpon>userConfiguracao_Integracoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_outrasconfiguracoes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_outrasconfiguracoes.Designer.cs">
+      <DependentUpon>userConfiguracao_outrasconfiguracoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_resptecnico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_resptecnico.Designer.cs">
+      <DependentUpon>userConfiguracao_resptecnico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_sat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_sat.Designer.cs">
+      <DependentUpon>userConfiguracao_sat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_ftp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_ftp.Designer.cs">
+      <DependentUpon>userConfiguracao_ftp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_geral.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracao_geral.Designer.cs">
+      <DependentUpon>userConfiguracao_geral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\UserConfiguracaoPastas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\UserConfiguracaoPastas.Designer.cs">
+      <DependentUpon>UserConfiguracaoPastas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userCadastro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userCadastro.Designer.cs">
+      <DependentUpon>userCadastro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userCadastroResult.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userCadastroResult.Designer.cs">
+      <DependentUpon>userCadastroResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userCadastroResultDados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userCadastroResultDados.Designer.cs">
+      <DependentUpon>userCadastroResultDados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracoes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userConfiguracoes.Designer.cs">
+      <DependentUpon>userConfiguracoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\UserControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\UserControl2.Designer.cs">
+      <DependentUpon>UserControl2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userLogs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userLogs.Designer.cs">
+      <DependentUpon>userLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userPedidoSituacao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userPedidoSituacao.Designer.cs">
+      <DependentUpon>userPedidoSituacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userSobre.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userSobre.Designer.cs">
+      <DependentUpon>userSobre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\userValidaXML.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Formularios\userValidaXML.Designer.cs">
+      <DependentUpon>userValidaXML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="uninfeDummy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroFramework\MetroFramework.Design\MetroFramework.Design.csproj">
+      <Project>{7316584d-9a16-4280-a8ab-6d45198c6e4d}</Project>
+      <Name>MetroFramework.Design</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroFramework\MetroFramework.Fonts\MetroFramework.Fonts.csproj">
+      <Project>{5a2fcae8-c2fa-41bd-90ea-16103ea07b26}</Project>
+      <Name>MetroFramework.Fonts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroFramework\MetroFramework\MetroFramework.csproj">
+      <Project>{bb41ac8b-cbed-4387-a7e0-4567edb3f57f}</Project>
+      <Name>MetroFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Components.Info\NFe.Components.Info.csproj">
+      <Project>{b7222c8a-6160-4d6f-bdc8-20134308175a}</Project>
+      <Name>NFe.Components.Info</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Components\NFe.Components.csproj">
+      <Project>{c199d582-6da4-4d00-8963-89ba04777872}</Project>
+      <Name>NFe.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.ConvertTxt\NFe.ConvertTxt.csproj">
+      <Project>{9f2e5401-1c0b-4613-ab7f-985c7f0f267a}</Project>
+      <Name>NFe.ConvertTxt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Service\NFe.Service.csproj">
+      <Project>{975c0cfb-c646-4a1d-8927-fd63869f2daf}</Project>
+      <Name>NFe.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Settings\NFe.Settings.csproj">
+      <Project>{a963e456-a54b-4c4d-a9de-e80c136c3554}</Project>
+      <Name>NFe.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Threadings\NFe.Threadings.csproj">
+      <Project>{f570942e-c531-497d-a860-f86a8c2a31c9}</Project>
+      <Name>NFe.Threadings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Validate\NFe.Validate.csproj">
+      <Project>{4a0d1e87-2994-4678-9af1-eebd093b7b44}</Project>
+      <Name>NFe.Validate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Formularios\Dialogs.resx">
+      <DependentUpon>Dialogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormDummy.resx">
+      <DependentUpon>FormDummy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormNova.resx">
+      <DependentUpon>FormNova.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormSenha.resx">
+      <DependentUpon>FormSenha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormSpinner.resx">
+      <DependentUpon>FormSpinner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormUpdate.resx">
+      <DependentUpon>FormUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormVisual.resx">
+      <DependentUpon>FormVisual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormWait.resx">
+      <DependentUpon>FormWait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\menu.resx">
+      <DependentUpon>menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_certificado.resx">
+      <DependentUpon>userConfiguracao_certificado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_danfe.resx">
+      <DependentUpon>userConfiguracao_danfe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_diversos.resx">
+      <DependentUpon>userConfiguracao_diversos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_Integracoes.resx">
+      <DependentUpon>userConfiguracao_Integracoes.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_outrasconfiguracoes.resx">
+      <DependentUpon>userConfiguracao_outrasconfiguracoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_resptecnico.resx">
+      <DependentUpon>userConfiguracao_resptecnico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_sat.resx">
+      <DependentUpon>userConfiguracao_sat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_ftp.resx">
+      <DependentUpon>userConfiguracao_ftp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracao_geral.resx">
+      <DependentUpon>userConfiguracao_geral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\UserConfiguracaoPastas.resx">
+      <DependentUpon>UserConfiguracaoPastas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userCadastro.resx">
+      <DependentUpon>userCadastro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userCadastroResult.resx">
+      <DependentUpon>userCadastroResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userCadastroResultDados.resx">
+      <DependentUpon>userCadastroResultDados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userConfiguracoes.resx">
+      <DependentUpon>userConfiguracoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\UserControl2.resx">
+      <DependentUpon>UserControl2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userLogs.resx">
+      <DependentUpon>userLogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userPedidoSituacao.resx">
+      <DependentUpon>userPedidoSituacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userSobre.resx">
+      <DependentUpon>userSobre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\userValidaXML.resx">
+      <DependentUpon>userValidaXML.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\NFe.Components.Municipio.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\_0013_Printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_0025_Ticket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_0047_ID.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_0049_Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e107-Delete.48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e10b-Accept.48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e112-Back.48 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e112-Back.48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e118-Download.48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kontact_todo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pdf1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pdf2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninfe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninfe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninfe128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninfse.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninfse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninfse128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\identity1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_orange_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\city48x48.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ClearLock_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BluePixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\palette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\atualizar.png" />
+    <Content Include="unimake.ico" />
+    <None Include="Resources\visual1.png" />
+    <None Include="Resources\atualizar1.png" />
+    <Content Include="Resources\cadastro.png" />
+    <None Include="Resources\cadastro1.png" />
+    <Content Include="Resources\config.png" />
+    <None Include="Resources\config1.png" />
+    <Content Include="Resources\documentacao.png" />
+    <None Include="Resources\documentacao1.png" />
+    <Content Include="Resources\excluir.png" />
+    <None Include="Resources\excluir1.png" />
+    <Content Include="Resources\imprimir.png" />
+    <None Include="Resources\imprimir1.png" />
+    <Content Include="Resources\info.png" />
+    <None Include="Resources\info1.png" />
+    <Content Include="Resources\log.png" />
+    <None Include="Resources\log1.png" />
+    <None Include="Resources\lupa_25x25.jpg" />
+    <None Include="Resources\Manuals.png" />
+    <Content Include="Resources\munucipios.png" />
+    <None Include="Resources\munucipios1.png" />
+    <Content Include="Resources\sefaz.png" />
+    <None Include="Resources\sefaz1.png" />
+    <Content Include="Resources\sefaz20.png" />
+    <None Include="Resources\sefaz201.png" />
+    <Content Include="Resources\situacao.png" />
+    <None Include="Resources\situacao1.png" />
+    <Content Include="Resources\update.png" />
+    <None Include="Resources\update1.png" />
+    <Content Include="Resources\validar.png" />
+    <None Include="Resources\validar1.png" />
+    <Content Include="Resources\visual.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

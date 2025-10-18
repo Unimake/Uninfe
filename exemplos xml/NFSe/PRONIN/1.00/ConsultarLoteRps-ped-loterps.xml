@@ -1,0 +1,7 @@
+﻿<ConsultarLoteRpsEnvio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Prestador>
+		<Cnpj>CNPJ_PRESTADOR</Cnpj>
+		<InscricaoMunicipal>IM_PRESTADOR</InscricaoMunicipal>
+	</Prestador>
+	<Protocolo>PROTOCOLO_RECEBIMENTO</Protocolo>
+</ConsultarLoteRpsEnvio>

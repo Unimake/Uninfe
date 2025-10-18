@@ -1,0 +1,10 @@
+tpAmb|2
+cUF|41
+ano|10
+CNPJ|76472349000430
+mod|65
+serie|1
+nNFIni|101
+nNFFin|101
+xJust|Ocorreu uma falha no sistema que pulou a sequencia de numeracao
+versao|4.00

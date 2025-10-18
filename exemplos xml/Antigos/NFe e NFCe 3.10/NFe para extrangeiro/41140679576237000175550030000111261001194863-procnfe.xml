@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="3.10">
+  <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infNFe Id="NFe41140679576237000175550030000111261001194863" versao="3.10">
+      <ide>
+        <cUF>41</cUF>
+        <cNF>00119486</cNF>
+        <natOp>EXPORTACAO</natOp>
+        <indPag>0</indPag>
+        <mod>55</mod>
+        <serie>3</serie>
+        <nNF>11126</nNF>
+        <dhEmi>2014-06-05T17:43:50-03:00</dhEmi>
+        <dhSaiEnt>2014-06-05T17:43:50-03:00</dhSaiEnt>
+        <tpNF>1</tpNF>
+        <idDest>3</idDest>
+        <cMunFG>4108304</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>3</cDV>
+        <tpAmb>2</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>1</indFinal>
+        <indPres>1</indPres>
+        <procEmi>0</procEmi>
+        <verProc>1.0</verProc>
+        <NFref>
+          <refNFe>41140679576237000175550030000111211001194743</refNFe>
+        </NFref>
+        <NFref>
+          <refNFe>41140679576237000175550030000111231001194810</refNFe>
+        </NFref>
+      </ide>
+      <emit>
+        <CNPJ>79576237000175</CNPJ>
+        <xNome>FARIAS E KLEIN LTDA.</xNome>
+        <xFant>FARIAS E KLEIN LTDA.</xFant>
+        <enderEmit>
+          <xLgr>RUA. MANOEL BANDEIRA</xLgr>
+          <nro>267</nro>
+          <xBairro>VILA BRASILIA</xBairro>
+          <cMun>4108304</cMun>
+          <xMun>Foz do Iguacu</xMun>
+          <UF>PR</UF>
+          <CEP>85864210</CEP>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+          <fone>4535287037</fone>
+        </enderEmit>
+        <IE>4220084707</IE>
+        <CRT>3</CRT>
+      </emit>
+      <dest>
+        <idEstrangeiro />
+        <xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+        <enderDest>
+          <xLgr>CALLE TAPE TUYA</xLgr>
+          <nro>498</nro>
+          <xBairro>SANTA ANA - CIUDAD DEL ESTE - PY</xBairro>
+          <cMun>9999999</cMun>
+          <xMun>EXTERIOR</xMun>
+          <UF>EX</UF>
+          <cPais>5860</cPais>
+          <xPais>PARAGUAI</xPais>
+        </enderDest>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>60243</cProd>
+          <cEAN />
+          <xProd>0.112 01 05 MATERIAL E MARKETING LOOK BOOK LOOK BOOK OSMOZE</xProd>
+          <NCM>52114290</NCM>
+          <CFOP>7501</CFOP>
+          <uCom>PC</uCom>
+          <qCom>1001.0000</qCom>
+          <vUnCom>0.01000000</vUnCom>
+          <vProd>10.01</vProd>
+          <cEANTrib />
+          <uTrib>PC</uTrib>
+          <qTrib>1001.0000</qTrib>
+          <vUnTrib>0.01000000</vUnTrib>
+          <indTot>1</indTot>
+          <detExport>
+            <exportInd>
+              <nRE>0</nRE>
+              <chNFe>41140679576237000175550030000111211001194743</chNFe>
+              <qExport>1000.0000</qExport>
+            </exportInd>
+          </detExport>
+          <detExport>
+            <exportInd>
+              <nRE>0</nRE>
+              <chNFe>41140679576237000175550030000111231001194810</chNFe>
+              <qExport>1.0000</qExport>
+            </exportInd>
+          </detExport>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS40>
+              <orig>0</orig>
+              <CST>41</CST>
+            </ICMS40>
+          </ICMS>
+          <PIS>
+            <PISNT>
+              <CST>08</CST>
+            </PISNT>
+          </PIS>
+          <COFINS>
+            <COFINSNT>
+              <CST>08</CST>
+            </COFINSNT>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>10.01</vProd>
+          <vFrete>0.00</vFrete>
+          <vSeg>0.00</vSeg>
+          <vDesc>0.00</vDesc>
+          <vII>0.00</vII>
+          <vIPI>0.00</vIPI>
+          <vPIS>0.00</vPIS>
+          <vCOFINS>0.00</vCOFINS>
+          <vOutro>0.00</vOutro>
+          <vNF>10.01</vNF>
+        </ICMSTot>
+      </total>
+      <transp>
+        <modFrete>1</modFrete>
+        <vol>
+          <qVol>1001</qVol>
+          <esp>1001-</esp>
+          <pesoL>100.100</pesoL>
+          <pesoB>100.100</pesoB>
+        </vol>
+      </transp>
+      <infAdic>
+        <infCpl>Isencao de IPI cfe. Art.44 Inciso I do Decreto 87.981de 23/12/82. ICMS cfe. Instrucao S.F. 535/76 Item I.;Fornecedor:B D VESTE CONFECCOES LTDA (434);CNPJ Fornec:02.656.196/0002-83 Cianorte/PR;05/06/2014-011121-(I1)(1.000PC) /\ 05/06/2014-011123-(I1)(1PC) /\ ;</infCpl>
+      </infAdic>
+      <exporta>
+        <UFSaidaPais>PR</UFSaidaPais>
+        <xLocExporta>FOZ DO IGUACU</xLocExporta>
+        <xLocDespacho>FOZ DO IGUACU</xLocDespacho>
+      </exporta>
+    </infNFe>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+        <Reference URI="#NFe41140679576237000175550030000111261001194863">
+          <Transforms>
+            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+          </Transforms>
+          <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+          <DigestValue>YPNtqJaOWCOESLJKxMbSAkXkaWs=</DigestValue>
+        </Reference>
+      </SignedInfo>
+      <SignatureValue>g8qXr+hpxZdb5HZex6/39AvqbA5l/LeFeeK5kJ46RLIXIzjJvp9gDUdalJoGJQ0sfy/x90XM6yLLRarNz/kO8oWjp4/6p2801Q44GfiTE9lfHAF+D05uUZOWZhmpoHZDVSp+UEGGCuULSTylAqoAfpj0MyFiyT3jfqJmaBuBlhObF/HFYY8ERkJ9duiSqSfmYhS014+D2xeEhDhg7cHQJ8ffif8shr06aw2s2h9vyY5HWbgV8cdZ7dZu/HfJHi8zqIFg7sLEMxr4L/rbKba9lhRGsUqfyG/zSJQ/ACQUfcf/sFH4nsNNJJ/RbSPSvwzcmC6Y0tqYEQ/ptJrZycyNcA==</SignatureValue>
+      <KeyInfo>
+        <X509Data>
+          <X509Certificate>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</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </Signature>
+  </NFe>
+  <protNFe versao="3.10">
+    <infProt Id="ID141140001099781">
+      <tpAmb>2</tpAmb>
+      <verAplic>PR-v3_0_6</verAplic>
+      <chNFe>41140679576237000175550030000111261001194863</chNFe>
+      <dhRecbto>2014-06-05T17:44:00-03:00</dhRecbto>
+      <nProt>141140001099781</nProt>
+      <digVal>YPNtqJaOWCOESLJKxMbSAkXkaWs=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+    </infProt>
+  </protNFe>
+</nfeProc>

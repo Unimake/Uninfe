@@ -1,0 +1,5 @@
+tpAmb|2
+chNFe|43100304678683000191550010000344924352121508
+nProt|151080000194296
+xJust|NFE emitida somente para testar o novo ambiente de homologacao da NFe 2.0
+tpEmis|1

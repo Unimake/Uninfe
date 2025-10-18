@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConsultarSituacaoNfseEnvio xmlns="https://nfse.sefaz.salvador.ba.gov.br/OnLine/XSD/ServicosComplementares.xsd">
+	<idNfse>
+		<Numero xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">99999999999999</Numero>
+		<Cnpj xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">99999999999999</Cnpj>
+		<InscricaoMunicipal xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">99999999999999</InscricaoMunicipal>
+		<CodigoMunicipio xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">2927408</CodigoMunicipio>
+	</idNfse>
+</ConsultarSituacaoNfseEnvio>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TLote_GNRE xmlns="http://www.gnre.pe.gov.br" versao="2.00">
+	<guias>
+		<TDadosGNRE versao="2.00">
+			<ufFavorecida>RS</ufFavorecida>
+			<tipoGnre>0</tipoGnre>
+			<contribuinteEmitente>
+				<identificacao>
+					<IE>0000000000</IE>
+				</identificacao>
+			</contribuinteEmitente>
+			<itensGNRE>
+				<item>
+					<receita>100099</receita>
+					<documentoOrigem tipo="22">00000000000000000000000000000000000000000000</documentoOrigem>
+					<dataVencimento>2021-03-13</dataVencimento>
+					<valor tipo="11">356.23</valor>
+					<contribuinteDestinatario>
+						<identificacao>
+							<IE>0000000000</IE>
+						</identificacao>
+					</contribuinteDestinatario>
+				</item>
+			</itensGNRE>
+			<valorGNRE>356.23</valorGNRE>
+			<dataPagamento>2021-03-13</dataPagamento>
+		</TDadosGNRE>
+	</guias>
+</TLote_GNRE>

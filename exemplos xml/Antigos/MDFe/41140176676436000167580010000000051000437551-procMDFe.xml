@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mdfeProc xmlns="http://www.portalfiscal.inf.br/mdfe" versao="1.0">
+  <MDFe xmlns="http://www.portalfiscal.inf.br/mdfe">
+    <infMDFe Id="MDFe41140176676436000167580010000000051000437551" versao="1.00">
+      <ide>
+        <cUF>41</cUF>
+        <tpAmb>2</tpAmb>
+        <tpEmit>2</tpEmit>
+        <mod>58</mod>
+        <serie>1</serie>
+        <nMDF>5</nMDF>
+        <cMDF>00043755</cMDF>
+        <cDV>1</cDV>
+        <modal>1</modal>
+        <dhEmi>2014-01-08T08:59:48</dhEmi>
+        <tpEmis>1</tpEmis>
+        <procEmi>0</procEmi>
+        <verProc>71411</verProc>
+        <UFIni>PR</UFIni>
+        <UFFim>SC</UFFim>
+        <infMunCarrega>
+          <cMunCarrega>4101804</cMunCarrega>
+          <xMunCarrega>ARAUCARIA</xMunCarrega>
+        </infMunCarrega>
+      </ide>
+      <emit>
+        <CNPJ>76676436000167</CNPJ>
+        <IE>1015495185</IE>
+        <xNome>SUL DEFENSIVOS AGRICOLAS LTDA</xNome>
+        <xFant>SUL AGRICOLA</xFant>
+        <enderEmit>
+          <xLgr>AV. DOS PINHEIRAIS</xLgr>
+          <nro>3451</nro>
+          <xBairro>JARDIM CONDOR</xBairro>
+          <cMun>4101804</cMun>
+          <xMun>ARAUCARIA</xMun>
+          <CEP>83705570</CEP>
+          <UF>PR</UF>
+          <fone>4121172288</fone>
+        </enderEmit>
+      </emit>
+      <infModal versaoModal="1.00">
+        <rodo>
+          <RNTRC>12345678</RNTRC>
+          <veicTracao>
+            <cInt>1</cInt>
+            <placa>AAA1234</placa>
+            <tara>15000</tara>
+            <condutor>
+              <xNome>MAURICIO ROBERTO MOLLER</xNome>
+              <CPF>03720677940</CPF>
+            </condutor>
+            <tpRod>03</tpRod>
+            <tpCar>00</tpCar>
+            <UF>PR</UF>
+          </veicTracao>
+          <veicReboque>
+            <placa>REE4343</placa>
+            <tara>7500</tara>
+            <capKG>42500</capKG>
+            <tpCar>02</tpCar>
+            <UF>AC</UF>
+          </veicReboque>
+          <veicReboque>
+            <placa>RER7878</placa>
+            <tara>7500</tara>
+            <capKG>42500</capKG>
+            <tpCar>02</tpCar>
+            <UF>RS</UF>
+          </veicReboque>
+        </rodo>
+      </infModal>
+      <infDoc>
+        <infMunDescarga>
+          <cMunDescarga>4209102</cMunDescarga>
+          <xMunDescarga>JOINVILLE</xMunDescarga>
+          <infNFe>
+            <chNFe>41140176676436000167550110000000661000424891</chNFe>
+          </infNFe>
+        </infMunDescarga>
+      </infDoc>
+      <tot>
+        <qNFe>1</qNFe>
+        <vCarga>33.19</vCarga>
+        <cUnid>01</cUnid>
+        <qCarga>10.0000</qCarga>
+      </tot>
+      <infAdic>
+        <infCpl>Distancia: 12 KM Passar por: BR105</infCpl>
+      </infAdic>
+    </infMDFe>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+        <Reference URI="#MDFe41140176676436000167580010000000051000437551">
+          <Transforms>
+            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+          </Transforms>
+          <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+          <DigestValue>qQtk9SmE9n3+LcaL5gCTBh/VESA=</DigestValue>
+        </Reference>
+      </SignedInfo>
+      <SignatureValue>eL3HPjWohAK7plA8ib1r1PIU9sLi2F7DE2/3DrZdRl1/qGRvN9g6oD4ei/bbH9omyrpe1zmIH42aYAYHxPYFxUYdg2ThVc1qhgAFcTTiKEOa5eG3WbShN+TOxQhN/gpnV7s1cgbDqhBr9dPCXxUVoaqCvKGl4IsqE/uMiAjWpTw9QKmtvNjXuaB6qDeak7VfpnP2hqt7QZKWDPAvNOEyjmJCd4jo8Je650v1LluOuN+XfWfp1VACZsZlRipickmv94ubMid6r894E2UtKBKOYU7b5qv7KSUecDyCU9Mp0wngv+4FDXQVhcXpkXRiP4mFiBMMt5Rupdt5D3z57qs+jw==</SignatureValue>
+      <KeyInfo>
+        <X509Data>
+          <X509Certificate>MIIITjCCBjagAwIBAgIQUqyOrumYtzMdklu+W+yD2zANBgkqhkiG9w0BAQsFADB0MQswCQYDVQQGEwJCUjETMBEGA1UEChMKSUNQLUJyYXNpbDEtMCsGA1UECxMkQ2VydGlzaWduIENlcnRpZmljYWRvcmEgRGlnaXRhbCBTLkEuMSEwHwYDVQQDExhBQyBDZXJ0aXNpZ24gTXVsdGlwbGEgRzUwHhcNMTMwMzEzMDAwMDAwWhcNMTQwMzEyMjM1OTU5WjCB0jELMAkGA1UEBhMCQlIxEzARBgNVBAoUCklDUC1CcmFzaWwxJjAkBgNVBAsUHUF1dGVudGljYWRvIHBvciBBUiBCREkgQnJhc2lsMRswGQYDVQQLFBJBc3NpbmF0dXJhIFRpcG8gQTExFTATBgNVBAsUDElEIC0gNDMwMTYxODEmMCQGA1UEAxMdU3VsIERlZmVuc2l2b3MgQWdyaWNvbGFzIEx0ZGExKjAoBgkqhkiG9w0BCQEWG2JlbmVkaXRvQHN1bGFncmljb2xhLmNvbS5icjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALY/f2UIZOlKigWDYgMmVUEAN1AE9Q4ciUzWbSvdfYZwV1MB+33VfyAzsd6SOq6Q3/q0llDi6f0/QTPl4ASbD6nTZWxxXUbfKL1PgCpmMnPQyYVz5SYVqjqy/l3KMKfSNHHPv24+QuqxbGFxbjgBMsHRC+f0dV+Fnhwa4BEKtJE7L/stAVG3FVnDZYvHgmJ9do8/6+wRh2Ptqsh4Bo3iLX4ixJU3GBf/PMkeB5Ipr6I8F27xG+CgA4XWxjeepohxArymL69eC/JJOFGR/jNsZTexUo0hRPSWorI223NPb0SguRD/JvM4pHNkcmUIUeyzd7gophRBOdF4NfAIaVJ44ssCAwEAAaOCA3swggN3MIHBBgNVHREEgbkwgbagPQYFYEwBAwSgNAQyMDYwMjE5NTUyNDc5ODU1MDkwNjAwMDAwMDAwMDAwMDAwMDAwMTMwODMyMDMyc3NwUFKgJAYFYEwBAwKgGwQZQ0VaQVIgSk9TRSBGRVJSRUlSQSBBTFZFU6AZBgVgTAEDA6AQBA43NjY3NjQzNjAwMDE2N6AXBgVgTAEDB6AOBAwwMDAwMDAwMDAwMDCBG2JlbmVkaXRvQHN1bGFncmljb2xhLmNvbS5icjAJBgNVHRMEAjAAMB8GA1UdIwQYMBaAFJ1Qz73/JMqvsTPrF+JCeo5pKo5TMA4GA1UdDwEB/wQEAwIF4DCBiQYDVR0gBIGBMH8wfQYGYEwBAgELMHMwcQYIKwYBBQUHAgEWZWh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vZHBjL0FDX0NlcnRpc2lnbl9NdWx0aXBsYS9EUENfQUNfQ2VydGlTaWduTXVsdGlwbGEucGRmMIIBJQYDVR0fBIIBHDCCARgwXKBaoFiGVmh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDQ2VydGlzaWduTXVsdGlwbGFHNS9MYXRlc3RDUkwuY3JsMFugWaBXhlVodHRwOi8vaWNwLWJyYXNpbC5vdXRyYWxjci5jb20uYnIvcmVwb3NpdG9yaW8vbGNyL0FDQ2VydGlzaWduTXVsdGlwbGFHNS9MYXRlc3RDUkwuY3JsMFugWaBXhlVodHRwOi8vcmVwb3NpdG9yaW8uaWNwYnJhc2lsLmdvdi5ici9sY3IvQ2VydGlzaWduL0FDQ2VydGlzaWduTXVsdGlwbGFHNS9MYXRlc3RDUkwuY3JsMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDCBoAYIKwYBBQUHAQEEgZMwgZAwZAYIKwYBBQUHMAKGWGh0dHA6Ly9pY3AtYnJhc2lsLmNlcnRpc2lnbi5jb20uYnIvcmVwb3NpdG9yaW8vY2VydGlmaWNhZG9zL0FDX0NlcnRpc2lnbl9NdWx0aXBsYV9HNS5wN2MwKAYIKwYBBQUHMAGGHGh0dHA6Ly9vY3NwLmNlcnRpc2lnbi5jb20uYnIwDQYJKoZIhvcNAQELBQADggIBAMesgAeGm395jKahWx7Oc4bQhmeMbvIHF26Sp3F9V69GPLlQd0KBZUT3iHKeULXZJfbDmDUyIvhkNUQS/CV74CWsnkc8quVuXesXPbyqIZ7hIgq7+7lfEPGCOWxuCEFQ5MTb38sOLYLeBzy9fV1JLoXbpUxBxB5f5c/JdMlicp6hPcwToG5fHmPMY2ZlkpzlKR5ifmFDy2vXCj2eY2WuzRDZ6dof7RGmnAMKRUz2nScetua1Uutmu+gOP5yZLtpwJ5lt7LkcgHEwbDGdcZnytHohCY+bL5jDUe+LHtL4wkV4c77evyqflKT0ctLc8X+xVRIx3I5mBdtodMbpuF4lSwkpq4jKnWditFYAcf6oC8aaZF1pPIOEszC97idZXFeCRh5/ujWEGUov9ApKxrw8OMyKXqllzNGtzr305Nr0sVeCTFQJ/demz6Vt7IuzFYdftzkUy7tcM2fBrUCcrwIojnTCcBQP10iwz6ctVCc8SuDhjLEYFYR8dMjylDGJ5LOzqt7cCkzsxDRjScYFALlMo0hbFeMtcBzQFCYYWX1dMNIgdyvTglr7iJLlteKZv1VNooUxwRabHkxncHZveoVV40m/cDuldgJxmfJSHWwLe5rFdVcxphlmit5d+hfEeFe2Qb0A/jjSlXCou6dtFV/hxdaoZo8K6pJBPUvMU3F0EJmA</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </Signature>
+  </MDFe>
+  <protMDFe versao="1.00" xmlns="http://www.portalfiscal.inf.br/mdfe">
+    <infProt Id="MDFe941140000000275">
+      <tpAmb>2</tpAmb>
+      <verAplic>RS20131223105437</verAplic>
+      <chMDFe>41140176676436000167580010000000051000437551</chMDFe>
+      <dhRecbto>2014-01-08T09:02:53</dhRecbto>
+      <nProt>941140000000275</nProt>
+      <digVal>qQtk9SmE9n3+LcaL5gCTBh/VESA=</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso do MDF-e</xMotivo>
+    </infProt>
+  </protMDFe>
+</mdfeProc>

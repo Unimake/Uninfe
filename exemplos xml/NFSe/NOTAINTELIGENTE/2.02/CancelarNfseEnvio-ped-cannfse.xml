@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CancelarNfseEnvio xmlns="https://homologacao.notainteligente.com/nfse_v2.02.xsd">
+	<Pedido>
+		<InfPedidoCancelamento Id="C7000">
+			<IdentificacaoNfse>
+				<Numero>58</Numero>
+				<CpfCnpj>
+					<Cnpj>99999999999999</Cnpj>
+				</CpfCnpj>
+				<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+				<CodigoMunicipio>99999999999999</CodigoMunicipio>
+			</IdentificacaoNfse>
+			<CodigoCancelamento>1</CodigoCancelamento>
+		</InfPedidoCancelamento>
+	</Pedido>
+</CancelarNfseEnvio>

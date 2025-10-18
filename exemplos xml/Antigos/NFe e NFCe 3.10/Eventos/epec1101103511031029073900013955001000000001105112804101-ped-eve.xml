@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<envEvento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+  <idLote>000000000015255</idLote>
+  <evento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infEvento Id="ID1101113511031029073900013955001000000001105112804102">
+      <cOrgao>35</cOrgao>
+      <tpAmb>2</tpAmb>
+      <CNPJ>10290739000139</CNPJ>
+      <chNFe>35110310290739000139550010000000011051128041</chNFe>
+      <dhEvento>2011-03-03T08:06:00-03:00</dhEvento>
+      <tpEvento>110140</tpEvento>
+      <nSeqEvento>1</nSeqEvento>
+      <verEvento>1.00</verEvento>
+      <detEvento versao="1.00">
+        <descEvento>EPEC</descEvento>
+        <cOrgaoAutor>35</cOrgaoAutor>
+        <tpAutor>1</tpAutor>
+        <verAplic>1.26</verAplic>
+        <dhEmi>2014-08-07T00:00:00-03:00</dhEmi>
+        <tpNF>1</tpNF>
+        <IE>495171423115</IE>
+        <dest>
+          <UF>SP</UF>
+          <CPF>00000000191</CPF>
+          <vNF>86.00</vNF>
+          <vICMS>6.02</vICMS>
+          <vST>0</vST>
+        </dest>
+      </detEvento>      
+    </infEvento>
+  </evento>
+</envEvento>

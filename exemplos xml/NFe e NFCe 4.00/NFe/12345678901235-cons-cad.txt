@@ -1,0 +1,4 @@
+﻿xServ|CONS-CAD
+UF|PR
+CNPJ|06117473000150
+Versao|2.00

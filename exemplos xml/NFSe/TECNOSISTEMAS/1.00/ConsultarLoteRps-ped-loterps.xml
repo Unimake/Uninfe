@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConsultarLoteRpsEnvio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd=" http://www.w3.org/2001/XMLSchema" xmlns="http://www.abrasf.org.br/nfse.xsd">
+	<Prestador>
+		<CpfCnpj>
+			<Cnpj>99999999999999</Cnpj>
+		</CpfCnpj>
+		<RazaoSocial>xxxxxxxxxxxxxxxxxxx</RazaoSocial>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+	</Prestador>
+	<Protocolo>9999999999999999999999999999</Protocolo>
+</ConsultarLoteRpsEnvio>

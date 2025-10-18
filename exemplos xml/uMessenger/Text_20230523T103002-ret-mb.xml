@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uMessengerResponse>
+	<Mensagem Id="01">
+		<Status>1</Status>
+		<Motivo>Mensagem enviada com sucesso.</Motivo>
+		<messageID>BAE572D1B77AFA4E</messageID>
+		<UniNFeVersao>5.1.0.138 | 07-04-2025 - 14:02:13</UniNFeVersao>
+	</Mensagem>
+	<Mensagem Id="02">
+		<Status>1</Status>
+		<Motivo>Mensagem enviada com sucesso.</Motivo>
+		<messageID>BAE5A16DBDB20899</messageID>
+		<UniNFeVersao>5.1.0.138 | 07-04-2025 - 14:02:13</UniNFeVersao>
+	</Mensagem>
+	<Mensagem Id="03">
+		<Status>1</Status>
+		<Motivo>Mensagem enviada com sucesso.</Motivo>
+		<messageID>BAE5CD7A5F00603C</messageID>
+		<UniNFeVersao>5.1.0.138 | 07-04-2025 - 14:02:13</UniNFeVersao>
+	</Mensagem>
+	<Mensagem Id="04">
+		<Status>1</Status>
+		<Motivo>Mensagem enviada com sucesso.</Motivo>
+		<messageID>BAE5456CBC7E4C7E</messageID>
+		<UniNFeVersao>5.1.0.138 | 07-04-2025 - 14:02:13</UniNFeVersao>
+	</Mensagem>
+</uMessengerResponse>

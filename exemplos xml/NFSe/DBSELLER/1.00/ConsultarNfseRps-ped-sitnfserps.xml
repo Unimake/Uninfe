@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConsultarNfsePorRps>
+	<ConsultarNfseRpsEnvio>
+		<IdentificacaoRps>
+			<Numero>0000</Numero>
+			<Serie>S</Serie>
+			<Tipo>1</Tipo>
+		</IdentificacaoRps>
+		<Prestador>
+			<Cnpj>00000000000000</Cnpj>
+			<InscricaoMunicipal>00000</InscricaoMunicipal>
+		</Prestador>
+	</ConsultarNfseRpsEnvio>
+</ConsultarNfsePorRps>

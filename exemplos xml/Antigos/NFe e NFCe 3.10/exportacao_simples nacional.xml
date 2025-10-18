@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc versao="3.10" xmlns="http://www.portalfiscal.inf.br/nfe">
+  <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infNFe versao="3.10" Id="NFe33160707064765000134550010000001941000004027">
+      <ide>
+        <cUF>33</cUF>
+        <cNF>00000402</cNF>
+        <natOp>VENDA PARA EXPORTA??O</natOp>
+        <indPag>0</indPag>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>194</nNF>
+        <dhEmi>2016-07-08T16:10:01-03:00</dhEmi>
+        <dhSaiEnt>2016-07-08T16:10:01-03:00</dhSaiEnt>
+        <tpNF>1</tpNF>
+        <idDest>3</idDest>
+        <cMunFG>3303401</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>7</cDV>
+        <tpAmb>1</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>1</indFinal>
+        <indPres>0</indPres>
+        <procEmi>0</procEmi>
+        <verProc>1.8.3</verProc>
+      </ide>
+      <emit>
+        <CNPJ>07064765000134</CNPJ>
+        <xNome>LAN INTIMA CONFECCOES LTDA</xNome>
+        <xFant>LANA &amp; LENE CONFEC??ES</xFant>
+        <enderEmit><xLgr>RUA EMILIA FALCHETO</xLgr>
+        <nro>170</nro>
+        <xCpl>LOTE 78 - D</xCpl>
+        <xBairro>CORDOEIRA</xBairro>
+        <cMun>3303401</cMun>
+        <xMun>Nova Friburgo</xMun>
+        <UF>RJ</UF>
+        <CEP>28613720</CEP>
+        <cPais>1058</cPais>
+        <xPais>Brasil</xPais>
+        <fone>2225238241</fone>
+      </enderEmit>
+      <IE>77839976</IE>
+      <CRT>1</CRT>
+    </emit>
+    <dest>
+      <idEstrangeiro/>
+      <xNome>IOGA ACTIVEWEAR,LLC</xNome>
+      <enderDest>
+        <xLgr>6208 TRANSYLVANIA BEACH RD</xLgr>
+        <nro>.</nro>
+        <xCpl>.</xCpl>
+        <xBairro>...</xBairro>
+        <cMun>9999999</cMun>
+        <xMun>EXTERIOR</xMun>
+        <UF>EX</UF>
+        <cPais>2496</cPais>
+        <xPais>Estados Unidos</xPais>
+        <fone>15028891023</fone>
+      </enderDest>
+      <indIEDest>9</indIEDest>
+      <email>iogaactivewear@gmail.com</email>
+    </dest>
+    <det nItem="1">
+      <prod>
+        <cProd>F-100 A</cProd>
+        <cEAN/>
+        <xProd>CAL?A SUPLEX POLIAMIDA</xProd>
+        <NCM>62046300</NCM>
+        <CFOP>7101</CFOP>
+        <uCom>UNID</uCom>
+        <qCom>60.0000</qCom>
+        <vUnCom>29.8000000000</vUnCom>
+        <vProd>1788.00</vProd>
+        <cEANTrib/>
+        <uTrib>UNID</uTrib>
+        <qTrib>60.0000</qTrib>
+        <vUnTrib>29.8000000000</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN102>
+            <orig>2</orig>
+            <CSOSN>300</CSOSN>
+          </ICMSSN102>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>08</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSOutr>
+            <CST>99</CST>
+            <vBC>0.00</vBC>
+            <pCOFINS>0.0000</pCOFINS>
+            <vCOFINS>0.00</vCOFINS>
+          </COFINSOutr>
+        </COFINS>
+      </imposto>
+    </det>
+    <total>
+      <ICMSTot>
+        <vBC>0.00</vBC>
+        <vICMS>0.00</vICMS>
+        <vICMSDeson>0.00</vICMSDeson>
+        <vBCST>0.00</vBCST>
+        <vST>0.00</vST>
+        <vProd>1788.00</vProd>
+        <vFrete>0.00</vFrete>
+        <vSeg>0.00</vSeg>
+        <vDesc>0.00</vDesc>
+        <vII>0.00</vII>
+        <vIPI>0.00</vIPI>
+        <vPIS>0.00</vPIS>
+        <vCOFINS>0.00</vCOFINS>
+        <vOutro>0.00</vOutro>
+        <vNF>1788.00</vNF>
+      </ICMSTot>
+    </total>
+    <transp>
+      <modFrete>9</modFrete>
+      <transporta>
+        <xNome>CORREIO</xNome>
+        <xMun>NOVA FRIBURGO</xMun>
+      </transporta>
+      <vol>
+        <qVol>1</qVol>
+        <esp>Caixa</esp>
+        <marca>.</marca>
+        <nVol>SN</nVol>
+        <lacres>
+          <nLacre>.</nLacre>
+        </lacres>
+      </vol>
+    </transp>
+    <cobr>
+      <fat>
+        <vOrig>1788.00</vOrig>
+        <vLiq>1788.00</vLiq>
+      </fat>
+    </cobr>
+    <infAdic>
+      <infCpl>DOCUMENTO EMITIDO POR ME OU EPP OPTANTE PELO SIMPLES NACIONAL NAO GERA DIREITO A CREDITO FISCAL DE IPI ;COMISSAO DA DEFESA DO CONSUMIDOR/ALERJ RUA 1.DE MARCO S/N-CENTRO-RJ-CEP20010-090TEL.21-2588-1418 ;PROCON/NOVA FRIBURGO/AV.ALBERTO BRAUNE225-CENTRO TEL.(22)2522-7866 ;CODECON ALERJ-RUA DA ALFANDEGA,N8/TERREO CENTRO,RJ-TEL 0800-2827060 ; Val Aprox Tributos R$ 549.81 ( Total dos Impostos / Total Nota) 0.31 %) Fonte: IBPT ; ;6208 TRANSYLVANIA BEACH RD PROSPECT-KY 40059-USA</infCpl>
+    </infAdic>
+    <exporta>
+      <UFSaidaPais>RJ</UFSaidaPais>
+      <xLocExporta>Nova Friburgo</xLocExporta>
+    </exporta>
+  </infNFe>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <Reference URI="#NFe33160707064765000134550010000001941000004027">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <DigestValue>6LTX3OypcrIUnuB5AZ5U8n2cFhg=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>dURpYGicotVfjkGaqI8tnWuOudEyVh+S8feQZxKVMWQXalULlU18vh4tQPM45q0IBM1Beydydm2uHslQAYBGpgXHz28kSZOTajg+Tv+20PFj1T4k/oz4dMO2RcdMDLVj3Dxxh56yAV0xnHBA/8NKVUcMGm+ffrcl5tl3tq8o5WQIvtsGyPu8+i7zanTrB5ZuXYCycuvMAm6Wq62QJq8q++KM3N2weu26Fktrzn9PEtDsm64Dnz0YRbfkmBgn5tE0ns7vSslSFFRXUFOKX+JTRB/BP7embZcumuiWAIkx4NqLACpIU0lifhNjWITeG3g+7d6YTTq6uTKN0DGJSjDAIg==</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>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</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</NFe>
+<protNFe versao="3.10">
+  <infProt>
+    <tpAmb>1</tpAmb>
+    <verAplic>SVRS201606290836</verAplic>
+    <chNFe>33160707064765000134550010000001941000004027</chNFe>
+    <dhRecbto>2016-07-08T16:11:07-03:00</dhRecbto>
+    <nProt>333160089727516</nProt>
+    <digVal>6LTX3OypcrIUnuB5AZ5U8n2cFhg=</digVal>
+    <cStat>100</cStat>
+    <xMotivo>Autorizado o uso da NF-e</xMotivo>
+  </infProt>
+</protNFe>
+</nfeProc>
+
+<!-- origin1.grp.bf1.yahoo.com Fri Jul  8 12:44:44 PDT 2016 -->
+
+<!-- origin1.grp.bf1.yahoo.com Fri Jul  8 12:44:44 PDT 2016 -->

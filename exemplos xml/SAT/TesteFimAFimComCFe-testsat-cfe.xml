@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CFe>
+	<infCFe versaoDadosEnt="0.06">
+		<ide>
+			<CNPJ>16716114000172</CNPJ>
+			<signAC>SGR-SAT SISTEMA DE GESTAO E RETAGUARDA DO SAT</signAC>
+			<numeroCaixa>001</numeroCaixa>
+		</ide>
+		<emit>
+			<CNPJ>08723218000186</CNPJ>
+			<IE>149626224113</IE>
+			<IM>0676934</IM>
+			<indRatISSQN>N</indRatISSQN>
+		</emit>
+		<dest>
+			<CNPJ>63473235000110</CNPJ>
+			<xNome>RENATO SILVA</xNome>
+		</dest>
+		<entrega>
+			<xLgr>Ru. Amelia Benebien</xLgr>
+			<nro>151</nro>
+			<xBairro>Papicu</xBairro>
+			<xMun>FORTALEZA</xMun>
+			<UF>CE</UF>
+		</entrega>
+		<det nItem="1">
+			<prod>
+				<cProd>000007</cProd>
+				<xProd>JARRO</xProd>
+				<NCM>63022200</NCM>
+				<CFOP>5102</CFOP>
+				<uCom>UN</uCom>
+				<qCom>1.0000</qCom>
+				<vUnCom>6.48</vUnCom>
+				<indRegra>A</indRegra>
+			</prod>
+			<imposto>
+				<vItem12741>1.37</vItem12741>
+				<ICMS>
+					<ICMS00>
+						<Orig>0</Orig>
+						<CST>00</CST>
+						<pICMS>17.00</pICMS>
+					</ICMS00>
+				</ICMS>
+				<PIS>
+					<PISNT>
+						<CST>07</CST>
+					</PISNT>
+				</PIS>
+				<COFINS>
+					<COFINSNT>
+						<CST>07</CST>
+					</COFINSNT>
+				</COFINS>
+			</imposto>
+		</det>
+		<total>
+			<vCFeLei12741>1.37</vCFeLei12741>
+		</total>
+		<pgto>
+			<MP> <cMP>01</cMP>
+				<vMP>25.90</vMP>
+			</MP>
+			<MP> <cMP>01</cMP>
+				<vMP>64.80</vMP>
+			</MP>
+			<MP> <cMP>01</cMP>
+				<vMP>6.48</vMP>
+			</MP>
+		</pgto>
+	</infCFe>
+</CFe>

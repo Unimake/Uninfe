@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<CTe xmlns="http://www.portalfiscal.inf.br/cte">
+	<infCte versao="3.00" Id="CTe31190727918066000111570000000053271570053276">
+		<ide>
+			<cUF>31</cUF>
+			<cCT>57005327</cCT>
+			<CFOP>6360</CFOP>
+			<natOp>SERV. DE TRANSP. PARA FORA DO ESTADO C/ S.T</natOp>
+			<mod>57</mod>
+			<serie>0</serie>
+			<nCT>5327</nCT>
+			<dhEmi>2019-07-30T11:41:51-03:00</dhEmi>
+			<tpImp>1</tpImp>
+			<tpEmis>1</tpEmis>
+			<cDV>6</cDV>
+			<tpAmb>2</tpAmb>
+			<tpCTe>0</tpCTe>
+			<procEmi>0</procEmi>
+			<verProc>3.00</verProc>
+			<cMunEnv>3116605</cMunEnv>
+			<xMunEnv>CLAUDIO</xMunEnv>
+			<UFEnv>MG</UFEnv>
+			<modal>01</modal>
+			<tpServ>0</tpServ>
+			<cMunIni>3116605</cMunIni>
+			<xMunIni>CLAUDIO</xMunIni>
+			<UFIni>MG</UFIni>
+			<cMunFim>3137700</cMunFim>
+			<xMunFim>LAJINHA</xMunFim>
+			<UFFim>MG</UFFim>
+			<retira>0</retira>
+			<indIEToma>1</indIEToma>
+			<toma3>
+				<toma>0</toma>
+			</toma3>
+		</ide>
+		<compl>
+			<fluxo/>
+			<Entrega>
+				<semData>
+					<tpPer>0</tpPer>
+				</semData>
+				<semHora>
+					<tpHor>0</tpHor>
+				</semHora>
+			</Entrega>
+			<xObs>Permite o aproveitamento do credito de ICMS no valor de R$      0,02;;</xObs>
+		</compl>
+		<emit>
+			<CNPJ>27918066000111</CNPJ>
+			<IE>0029816460017</IE>
+			<xNome>DEMONSTRACAO</xNome>
+			<enderEmit>
+				<xLgr>RUA PIRACEMA</xLgr>
+				<nro>230</nro>
+				<xBairro>BELA VISTA</xBairro>
+				<cMun>3116605</cMun>
+				<xMun>CLAUDIO</xMun>
+				<CEP>35530000</CEP>
+				<UF>MG</UF>
+				<fone>3733810858</fone>
+			</enderEmit>
+		</emit>
+		<rem>
+			<CNPJ>02988023000181</CNPJ>
+			<IE>1660095010080</IE>
+			<xNome>DISTRIBUIDORA CLAUDIENSE LTDA ME</xNome>
+			<fone>0037338116</fone>
+			<enderReme>
+				<xLgr>RUA MARIA ALEXNDRINA,240</xLgr>
+				<nro>0</nro>
+				<xBairro>ANGELINA QUIRINO</xBairro>
+				<cMun>3116605</cMun>
+				<xMun>CLAUDIO</xMun>
+				<CEP>35530000</CEP>
+				<UF>MG</UF>
+				<cPais>1058</cPais>
+				<xPais>BRASIL</xPais>
+			</enderReme>
+		</rem>
+		<dest>
+			<CNPJ>10563579000154</CNPJ>
+			<IE>0011049060024</IE>
+			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
+			<fone>0033334412</fone>
+			<enderDest>
+				<xLgr>AVENIDA DOUTOR BOECHAT DE OLIVEIRA,269</xLgr>
+				<nro>0</nro>
+				<xBairro>CENTRO</xBairro>
+				<cMun>3137700</cMun>
+				<xMun>LAJINHA</xMun>
+				<CEP>36980000</CEP>
+				<UF>MG</UF>
+				<cPais>1058</cPais>
+				<xPais>BRASIL</xPais>
+			</enderDest>
+		</dest>
+		<vPrest>
+			<vTPrest>0.60</vTPrest>
+			<vRec>0.60</vRec>
+			<Comp>
+				<xNome>FRETE</xNome>
+				<vComp>0.60</vComp>
+			</Comp>
+		</vPrest>
+		<imp>
+			<ICMS>
+				<ICMSSN>
+					<CST>90</CST>
+					<indSN>1</indSN>
+				</ICMSSN>
+			</ICMS>
+		</imp>
+		<infCTeNorm>
+			<infCarga>
+				<vCarga>6.00</vCarga>
+				<proPred>VOLUMES</proPred>
+				<infQ>
+					<cUnid>01</cUnid>
+					<tpMed>PESO BRUTO KG</tpMed>
+					<qCarga>0.3200</qCarga>
+				</infQ>
+				<infQ>
+					<cUnid>03</cUnid>
+					<tpMed>QUANTIDADE</tpMed>
+					<qCarga>1</qCarga>
+				</infQ>
+			</infCarga>
+			<infDoc>
+				<infNFe>
+					<chave>31190502988023000181550010000125461550125466</chave>
+				</infNFe>
+			</infDoc>
+			<infModal versaoModal="3.00">
+				<rodo>
+					<RNTRC>49486866</RNTRC>
+				</rodo>
+			</infModal>
+			<cobr>
+				<fat>
+					<nFat>005327</nFat>
+					<vOrig>0.60</vOrig>
+					<vLiq>0.60</vLiq>
+				</fat>
+				<dup>
+					<nDup>005327</nDup>
+					<dVenc>2019-07-30</dVenc>
+					<vDup>0.60</vDup>
+				</dup>
+			</cobr>
+		</infCTeNorm>
+	</infCte>
+</CTe>

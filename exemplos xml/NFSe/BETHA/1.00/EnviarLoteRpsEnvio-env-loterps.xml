@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EnviarLoteRpsEnvio xmlns="http://www.betha.com.br/e-nota-contribuinte-ws">
+	<LoteRps xmlns="" Id="AC41619">
+		<NumeroLote>41619</NumeroLote>
+		<Cnpj>99999999999999</Cnpj>
+		<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+		<QuantidadeRps>1</QuantidadeRps>
+		<ListaRps xmlns="">
+			<Rps>
+				<InfRps Id="ID5534">
+					<IdentificacaoRps>
+						<Numero>5534</Numero>
+						<Serie>1</Serie>
+						<Tipo>1</Tipo>
+					</IdentificacaoRps>
+					<DataEmissao>2013-05-27T08:53:00</DataEmissao>
+					<NaturezaOperacao>1</NaturezaOperacao>
+					<RegimeEspecialTributacao>1</RegimeEspecialTributacao>
+					<OptanteSimplesNacional>1</OptanteSimplesNacional>
+					<IncentivadorCultural>2</IncentivadorCultural>
+					<Status>1</Status>
+					<Servico>
+						<Valores>
+							<ValorServicos>500.00</ValorServicos>
+							<ValorDeducoes>0.00</ValorDeducoes>
+							<ValorPis>0.00</ValorPis>
+							<ValorCofins>0.00</ValorCofins>
+							<ValorInss>0.00</ValorInss>
+							<ValorIr>0.00</ValorIr>
+							<ValorCsll>0.00</ValorCsll>
+							<IssRetido>2</IssRetido>
+							<ValorIss>21.15</ValorIss>
+							<OutrasRetencoes>0.00</OutrasRetencoes>
+							<BaseCalculo>500.00</BaseCalculo>
+							<Aliquota>4.23</Aliquota>
+							<ValorLiquidoNfse>500.00</ValorLiquidoNfse>
+							<ValorIssRetido>0.00</ValorIssRetido>
+							<DescontoCondicionado>0.00</DescontoCondicionado>
+							<DescontoIncondicionado>0.00</DescontoIncondicionado>
+						</Valores>
+						<ItemListaServico>0107</ItemListaServico>
+						<CodigoCnae>6202300</CodigoCnae>
+						<Discriminacao>{[[Descricao=TAXA IMPLANTACAO DE SOFTWARE][Quantidade=1.0000][ValorUnitario=500.0000][Deducoes=0][DescontoCondicionado=0][DescontoIncondicionado=0]]}</Discriminacao>
+						<CodigoMunicipio>4118402</CodigoMunicipio>
+					</Servico>
+					<Prestador>
+						<Cnpj>99999999999999</Cnpj>
+						<InscricaoMunicipal>99999999999999</InscricaoMunicipal>
+					</Prestador>
+					<Tomador>
+						<IdentificacaoTomador>
+							<CpfCnpj>
+								<Cnpj>99999999999999</Cnpj>
+							</CpfCnpj>
+						</IdentificacaoTomador>
+						<RazaoSocial>TESTESTESTESTES</RazaoSocial>
+						<Endereco>
+							<Endereco>TESTESTESTESTES</Endereco>
+							<Numero>640</Numero>
+							<Bairro>TESTESTESTESTES</Bairro>
+							<CodigoMunicipio>4118402</CodigoMunicipio>
+							<Uf>PR</Uf>
+							<Cep>99999999</Cep>
+						</Endereco>
+						<Contato>
+							<Telefone>9999999999</Telefone>
+						</Contato>
+					</Tomador>
+					<ConstrucaoCivil>
+						<CodigoObra>1</CodigoObra>
+						<Art>1</Art>
+					</ConstrucaoCivil>
+				</InfRps>
+			</Rps>
+		</ListaRps>
+	</LoteRps>
+</EnviarLoteRpsEnvio>

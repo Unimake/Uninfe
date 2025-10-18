@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SDT_ConsultaProtocoloIn xmlns="NFe">>
+		<Protocolo>99999999999999</Protocolo>
+	<Login>
+		<CodigoUsuario>99999999999999</CodigoUsuario>
+		<CodigoContribuinte>99999999999999</CodigoContribuinte>
+	</Login>
+</SDT_ConsultaProtocoloIn>

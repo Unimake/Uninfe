@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTe xmlns="http://www.portalfiscal.inf.br/cte">
+  <infCte Id="CTe35131201067342000191570010000001111000001117 " versao="2.00">
+    <ide>
+      <cUF>35</cUF>
+      <cCT>00000111</cCT>
+      <CFOP>5353</CFOP>
+      <natOp>TRANSP.ESTAB.COML.</natOp>
+      <forPag>1</forPag>
+      <mod>57</mod>
+      <serie>1</serie>
+      <nCT>111</nCT>
+      <dhEmi>2013-12-10T17:00:30</dhEmi>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>7</cDV>
+      <tpAmb>1</tpAmb>
+      <tpCTe>0</tpCTe>
+      <procEmi>0</procEmi>
+      <verProc>1.0</verProc>
+      <refCTE>35131201067342000191570010000001111000001117</refCTE>
+      <cMunEnv>3548708</cMunEnv>
+      <xMunEnv>SAO BERNARDO DO CAMPO</xMunEnv>
+      <UFEnv>SP</UFEnv>
+      <modal>01</modal>
+      <tpServ>0</tpServ>
+      <cMunIni>3548708</cMunIni>
+      <xMunIni>SAO BERNARDO DO CAMPO</xMunIni>
+      <UFIni>SP</UFIni>
+      <cMunFim>3550308</cMunFim>
+      <xMunFim>SAO PAULO</xMunFim>
+      <UFFim>SP</UFFim>
+      <retira>1</retira>
+      <toma03>
+        <toma>3</toma>
+      </toma03>
+    </ide>
+    <compl>
+      <xEmi>ADMIN</xEmi>
+      <xObs>"Vencimento:30/12/2013;"</xObs>
+    </compl>
+    <emit>
+      <CNPJ>01067342000191</CNPJ>
+      <IE>635520070110</IE>
+      <xNome>AGUAMAR TRANSPORTES LTDA</xNome>
+      <xFant>AGUAMAR TRANSPORTES LTDA</xFant>
+      <enderEmit>
+        <xLgr>ESTRADA SAMUEL AIZEMBERG</xLgr>
+        <nro>1771</nro>
+        <xCpl>B</xCpl>
+        <xBairro>COOPERATIVA</xBairro>
+        <cMun>3548708</cMun>
+        <xMun>SAO BERNARDO DO CAMPO</xMun>
+        <CEP>09851550</CEP>
+        <UF>SP</UF>
+        <fone>1143923050</fone>
+      </enderEmit>
+    </emit>
+    <rem>
+      <CNPJ>01083951000134</CNPJ>
+      <IE>635520168110</IE>
+      <xNome>AGUAMAR COMERCIO DE AGUA LTDA</xNome>
+      <xFant>AGUAMAR COMERCIO DE AGUA LTDA</xFant>
+      <fone>1143923050</fone>
+      <enderReme>
+        <xLgr>ESTR SAMUEL AIZEMBERG</xLgr>
+        <nro>1855</nro>
+        <xBairro>COOPERATIVA</xBairro>
+        <cMun>3548708</cMun>
+        <xMun>SAO BERNARDO DO CAMPO</xMun>
+        <CEP>09851550</CEP>
+        <UF>SP</UF>
+      </enderReme>
+      <email>eni@aguamar.com.br</email>
+    </rem>
+    <receb>
+      <CNPJ>46566444000190</CNPJ>
+      <IE>115564323111</IE>
+      <xNome>RADIO NOVO MUNDO LTDA</xNome>
+      <fone>30531035</fone>
+      <enderReceb>
+        <xLgr>RUA NICOLA IMPERATO</xLgr>
+        <nro>0</nro>
+        <xBairro>JD. ELDORADO</xBairro>
+        <cMun>3513801</cMun>
+        <xMun>DIADEMA</xMun>
+        <CEP>00000000</CEP>
+        <UF>SP</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderReceb>
+    </receb>
+    <dest>
+      <CNPJ>46566444000190</CNPJ>
+      <IE>115564323111</IE>
+      <xNome>RADIO NOVO MUNDO LTDA</xNome>
+      <fone>30531035</fone>
+      <enderDest>
+        <xLgr>PRACA RODRIGUES DE ABREU</xLgr>
+        <nro>228</nro>
+        <xBairro>PARAISO</xBairro>
+        <cMun>3550308</cMun>
+        <xMun>SAO PAULO</xMun>
+        <CEP>04004080</CEP>
+        <UF>SP</UF>
+        <cPais>1058</cPais>
+        <xPais>BRASIL</xPais>
+      </enderDest>
+    </dest>
+    <vPrest>
+      <vTPrest>215.00</vTPrest>
+      <vRec>215.00</vRec>
+      <Comp>
+        <xNome>TRANSP. LIQ.GRA</xNome>
+        <vComp>215.00</vComp>
+      </Comp>
+    </vPrest>
+    <imp>
+      <ICMS>
+        <ICMS00>
+          <CST>00</CST>
+          <vBC>215.00</vBC>
+          <pICMS>12.00</pICMS>
+          <vICMS>25.80</vICMS>
+        </ICMS00>
+      </ICMS>
+      <vTotTrib>25.80</vTotTrib>
+    </imp>
+    <infCTeNorm>
+      <infCarga>
+        <vCarga>5.00</vCarga>
+        <proPred>AGUA POTAVEL</proPred>
+        <infQ>
+          <cUnid>00</cUnid>
+          <tpMed>LITRAGEM</tpMed>
+          <qCarga>10.0000</qCarga>
+        </infQ>
+      </infCarga>
+      <infDoc>
+        <infNF>
+          <mod>01</mod>
+          <serie>1</serie>
+          <nDoc>9224</nDoc>
+          <dEmi>2013-12-10</dEmi>
+          <vBC>5.00</vBC>
+          <vICMS>0.90</vICMS>
+          <vBCST>0.00</vBCST>
+          <vST>0.00</vST>
+          <vProd>5.00</vProd>
+          <vNF>5.00</vNF>
+          <nCFOP>5102</nCFOP>
+        </infNF>
+      </infDoc>
+      <seg>
+        <respSeg>4</respSeg>
+      </seg>
+      <infModal versaoModal="2.00">
+        <rodo>
+          <RNTRC>01443085</RNTRC>
+          <dPrev>2013-12-10</dPrev>
+          <lota>1</lota>
+          <veic>
+            <RENAVAM>00499670302</RENAVAM>
+            <placa>FBZ8110</placa>
+            <tara>23000</tara>
+            <capKG>15000</capKG>
+            <capM3>15</capM3>
+            <tpProp>P</tpProp>
+            <tpVeic>0</tpVeic>
+            <tpRod>01</tpRod>
+            <tpCar>00</tpCar>
+            <UF>SP</UF>
+          </veic>
+        </rodo>
+      </infModal>
+    </infCTeNorm>
+  </infCte>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="#CTe35131201067342000191570010000001111000001117 ">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>VOip+X3aZs5oMnUXtLvWHXW+mmk=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>SNWUnFuJ42Jv6OOpu/LoqQ/851pREUeC2m1Ih7gOYCzhpKcIrVa8TrvNA09GAzJ59eR42j5AKVCryrqVV/GTOCXnEpaoZFpl7bjKtuEyJZoYJH+BCocxrzmsKud1LPnkn6PbE+8JPHNHLbmepLfo6RqDFQFvPemwN9tLe5cP8hOnjgh9ddui4VSzyICZ5CiZcyZk+RipokUous6i60X2leWCIb3+lhhyGRtfluMOiFuNi+tldOB1gH/t8LJUrkpYXqQTjwWcwg13tZ/fSoV20eqreZROzIPCdWKzbnDLWtndwv5wSlYyuWedyB3IB+ATBwiKMCmneri2V5X9NftbXg==</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>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</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</CTe>

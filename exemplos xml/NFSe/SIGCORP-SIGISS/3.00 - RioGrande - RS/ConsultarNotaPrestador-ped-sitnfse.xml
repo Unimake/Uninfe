@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConsultarNotaPrestador>
+	<DadosPrestador>
+		<ccm>416738</ccm>
+		<cnpj>99999999999999</cnpj>
+		<senha>99999999999999</senha>
+	</DadosPrestador>
+	<Nota>1224</Nota>
+</ConsultarNotaPrestador>

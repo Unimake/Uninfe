@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoletoEnviarInstrucaoResponse>
+	<!--0=Instruções do boleto enviado com sucesso, 1 ou 999=Erro-->
+	<Status>0</Status>
+	<!--Mensagem de status-->
+	<Motivo>Instruções do boleto enviado com sucesso</Motivo>
+	<!--Versão do UNINFE-->
+	<UniNFeVersao>5.1.0.138 | 16-04-2025 - 14:02:12</UniNFeVersao>
+</BoletoEnviarInstrucaoResponse>

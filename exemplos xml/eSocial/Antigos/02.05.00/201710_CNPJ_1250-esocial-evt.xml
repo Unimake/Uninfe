@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtAqProd/v02_05_00">
+  <evtAqProd Id="ID1000000000000002017102608080800001">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <nrRecibo>str1234</nrRecibo>
+      <indApuracao>1</indApuracao>
+      <perApur>2017-10</perApur>
+      <tpAmb>1</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>str1234</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>00000000000000</nrInsc>
+    </ideEmpregador>
+    <infoAquisProd>
+      <ideEstabAdquir>
+        <tpInscAdq>1</tpInscAdq>
+        <nrInscAdq>12345678901234</nrInscAdq>
+        <tpAquis indAquis="1" vlrTotAquis="123.45">
+          <ideProdutor tpInscProd="1" nrInscProd="str1234" vlrBruto="123.45" vrCPDescPR="123.45" vrRatDescPR="123.45" vrSenarDesc="123.45" indOpcCP="1">
+            <nfs serie="str1234" nrDocto="str1234" dtEmisNF="2012-12-13" vlrBruto="123.45" vrCPDescPR="123.45" vrRatDescPR="123.45" vrSenarDesc="123.45">
+            </nfs>
+            <infoProcJud nrProcJud="str1234" codSusp="1234" vrCPNRet="123.45" vrRatNRet="123.45" vrSenarNRet="123.45">
+            </infoProcJud>
+          </ideProdutor>
+        </tpAquis>
+      </ideEstabAdquir>
+    </infoAquisProd>
+  </evtAqProd>
+</eSocial>
