@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 *.bak
+/setup/send-ftp-log-iuninfe5_beta.exe.xml
