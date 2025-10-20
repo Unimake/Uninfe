@@ -58,7 +58,7 @@ namespace NFe.UI
 
                 try
                 {
-                    if (validarXMLNew.Validar(arquivo, false, this.Emp))
+                    if (validarXMLNew.Validar(arquivo, false, Emp))
                     {
                         edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
                         textBox_resultado.Text = "XML validado com sucesso!";
