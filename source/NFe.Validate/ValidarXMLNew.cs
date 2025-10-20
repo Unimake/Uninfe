@@ -63,7 +63,7 @@ namespace NFe.Validate
             }
         }
 
-        public void GravarXmlRetornoWarnings(string arquivo, List<ValidatorDFeException> xMotivo)
+        private void GravarXmlRetornoWarnings(string arquivo, List<ValidatorDFeException> xMotivo)
         {
             var emp = Empresas.FindEmpresaByThread();
 
