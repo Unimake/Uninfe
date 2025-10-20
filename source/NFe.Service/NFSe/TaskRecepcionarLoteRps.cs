@@ -359,7 +359,7 @@ namespace NFe.Service.NFSe
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                             break;
                         case "GerarNfseEnvio":
-                        case "sis:GerarNovaNfseEnvio":
+                        case "GerarNovaNfseEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
                     }
