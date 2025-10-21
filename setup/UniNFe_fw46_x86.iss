@@ -10,8 +10,8 @@ SetupIconFile=d:\clipart\unimake\ICONES\Install.ico
 ;UninstallDisplayIcon={app}\MyProg.exe
 ;OutputDir=userdocs:Inno Setup Examples Output
 AppCopyright=Unimake Softwares
-InfoBeforeFile=..\doc\usuario\readme.txt
-LicenseFile=..\doc\usuario\licenca.txt
+InfoBeforeFile=readme.txt
+LicenseFile=licenca.txt
 AppPublisherURL=www.uninfe.com.br
 AppSupportURL=www.uninfe.com.br
 AppUpdatesURL=www.uninfe.com.br
@@ -61,7 +61,6 @@ Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Logging.d
 Source: ..\source\uninfe\bin\x86\Release46_x86\Microsoft.IdentityModel.Tokens.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.Info.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.Wsdl.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.XmlSerializers.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.Components.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.ConvertTxt.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\NFe.SAT.dll; DestDir: {app}; Flags: ignoreversion
