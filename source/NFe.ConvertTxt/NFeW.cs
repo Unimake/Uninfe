@@ -2214,7 +2214,7 @@ namespace NFe.ConvertTxt
                     wCampo(imposto.IBSCBS.gTransfCred.vCBS, TpcnTipoCampo.tcDouble2, TpcnResources.vCBS);
                 }
 
-                if (!string.IsNullOrEmpty(imposto.IBSCBS.gAjusteCompet.competApur)) 
+                if (!string.IsNullOrEmpty(imposto.IBSCBS.gAjusteCompet.competApur))
                 {
                     XmlElement gAjusteCompet = doc.CreateElement(TpcnResources.gAjusteCompet.ToString());
                     IBSCBS.AppendChild(gAjusteCompet);
@@ -2244,7 +2244,7 @@ namespace NFe.ConvertTxt
                     wCampo(imposto.IBSCBS.gCredPresOper.vBCCredPres, TpcnTipoCampo.tcDouble2, TpcnResources.vBCCredPres, ObOp.Obrigatorio);
                     wCampo(imposto.IBSCBS.gCredPresOper.cCredPres, TpcnTipoCampo.tcDouble2, TpcnResources.cCredPres, ObOp.Obrigatorio);
 
-                    if(imposto.IBSCBS.gCredPresOper.gIBSCredPres.vCredPres > 0 || imposto.IBSCBS.gCredPresOper.gIBSCredPres.vCredPresCondSus > 0)
+                    if (imposto.IBSCBS.gCredPresOper.gIBSCredPres.vCredPres > 0 || imposto.IBSCBS.gCredPresOper.gIBSCredPres.vCredPresCondSus > 0)
                     {
                         XmlElement gIBSCredPres = doc.CreateElement(TpcnResources.gIBSCredPres.ToString());
                         gCredPresOper.AppendChild(gIBSCredPres);
@@ -3637,13 +3637,16 @@ namespace NFe.ConvertTxt
                 #endregion --IBSCBSTot-->gMono
 
                 #region --IBSCBSTot-->gEstornoCred
-                XmlElement gEstornoCred = doc.CreateElement(TpcnResources.gEstornoCred.ToString());
-                IBSCBSTot.AppendChild(gEstornoCred);
+                if (NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred > 0 || NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred > 0)
+                {
+                    XmlElement gEstornoCred = doc.CreateElement(TpcnResources.gEstornoCred.ToString());
+                    IBSCBSTot.AppendChild(gEstornoCred);
 
-                nodeCurrent = gEstornoCred;
+                    nodeCurrent = gEstornoCred;
 
-                wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio);
-                wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio);
+                    wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio);
+                    wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio);
+                }
                 #endregion
             }
 
