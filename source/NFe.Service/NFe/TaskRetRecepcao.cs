@@ -383,6 +383,10 @@ namespace NFe.Service
                     {
                         strChaveNFe = "NFe" + infProtElemento.GetElementsByTagName(TpcnResources.chNFe.ToString())[0].InnerText;
                     }
+                    else
+                    {
+                        strChaveNFe = chNFe;
+                    }
 
                     if (infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0] != null)
                     {
@@ -392,28 +396,6 @@ namespace NFe.Service
                     if (infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0] != null)
                     {
                         xMotivo = infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0].InnerText;
-                    }
-
-                    if ((strStat != "100" && strStat != "150") && Empresas.Configuracoes[emp].UnidadeFederativaCodigo == 35) // SP
-                    {
-                        // Fazer a remoção abaixo, evita do DEV receber o erro de ter um XML de mesmo nome na pasta em processamento caso
-                        // ele tente enviar novamente o mesmo TXT/XML
-                        // Esse arquivo da pasta EmProcessamento é criado na task de origem: TaskNFeRecepcao
-                        
-                        var strArquivoNFeEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                        PastaEnviados.EmProcessamento.ToString() + "\\" + chNFe.Substring(3) + "-nfe.xml";
-
-                        Auxiliar.WriteLog("Arquivo: " + strArquivoNFeEmProcessamento + " - Codigo de retorno da SEFAZ <cStat>: " + strStat, false);
-                        //Mover o XML da NFE a pasta de XML´s com erro
-                        oAux.MoveArqErro(strArquivoNFeEmProcessamento);
-
-                        if (Empresas.Configuracoes[emp].DocumentosRejeitados)
-                        {
-                            var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                            sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Notas estão sendo rejeitadas");
-                        }
-
-                        break;
                     }
 
                     //Definir o nome do arquivo da NFe e seu caminho
@@ -426,7 +408,7 @@ namespace NFe.Service
                     // na pasta "EmProcessamento" assinada.
                     if (string.IsNullOrEmpty(strNomeArqNfe))
                     {
-                        if (string.IsNullOrEmpty(strChaveNFe))
+                        if (string.IsNullOrEmpty(strChaveNFe) && strStat == "100" || strStat == "150" || strStat == "110")
                         {
                             throw new Exception("LerRetornoLoteNFe(): Não pode obter o nome do arquivo");
                         }

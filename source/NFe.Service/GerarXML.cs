@@ -1198,26 +1198,7 @@ namespace NFe.Service
                                     ConteudoRetorno += ";";
                                     ConteudoRetorno += Functions.LerTag(retEnviNFeElemento, TpcnResources.cStat.ToString());
                                     ConteudoRetorno += Functions.LerTag(retEnviNFeElemento, TpcnResources.xMotivo.ToString());
-
-                                    #region Processo assíncrono
-
-                                    var infRecList = retEnviNFeElemento.GetElementsByTagName("infRec");
-                                    if (infRecList != null)
-                                    {
-                                        if (infRecList.Count > 0)   //danasa 23-9-2009
-                                        {
-                                            var infRecElemento = (XmlElement)infRecList.Item(0);
-                                            if (infRecElemento != null)   //danasa 23-9-2009
-                                            {
-                                                ConteudoRetorno += Functions.LerTag(infRecElemento, TpcnResources.nRec.ToString());
-                                                ConteudoRetorno += Functions.LerTag(infRecElemento, TpcnResources.dhRecbto.ToString());
-                                                ConteudoRetorno += Functions.LerTag(infRecElemento, TpcnResources.tMed.ToString());
-                                            }
-                                        }
-                                    }
-
-                                    #endregion
-
+                                    
                                     #region Processo síncrono
 
                                     var infProtList = retEnviNFeElemento.GetElementsByTagName("infProt");
@@ -1232,8 +1213,8 @@ namespace NFe.Service
                                                 var nProt = Functions.LerTag(infProtElemento, TpcnResources.nProt.ToString());
 
                                                 ConteudoRetorno += "\r\n";
-                                                ConteudoRetorno += chNFe.Substring(6, 14) + ";";
-                                                ConteudoRetorno += chNFe.Substring(25, 9) + ";";
+                                                ConteudoRetorno += (string.IsNullOrWhiteSpace(chNFe) ? "" : chNFe.Substring(6, 14)) + ";";
+                                                ConteudoRetorno += (string.IsNullOrWhiteSpace(chNFe) ? "" : chNFe.Substring(25, 9)) + ";";
                                                 ConteudoRetorno += chNFe;
                                                 ConteudoRetorno += Functions.LerTag(infProtElemento, TpcnResources.dhRecbto.ToString());
                                                 ConteudoRetorno += (string.IsNullOrWhiteSpace(nProt) ? "0;" : nProt);
