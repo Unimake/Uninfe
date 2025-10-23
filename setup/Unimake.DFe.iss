@@ -66,6 +66,7 @@ Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Re
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Cryptography.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\System.Security.Cryptography.Cng.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ;----------------------------------------------------------------------------------------------------
 ;DLLs net472
