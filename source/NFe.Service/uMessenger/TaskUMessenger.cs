@@ -150,11 +150,15 @@ namespace NFe.Service
                         });
                     }
 
+
+
                     var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
                     {
                         AppId = (Empresas.Configuracoes[emp].MesmosDadosEb_Mb ? Empresas.Configuracoes[emp].AppID : Empresas.Configuracoes[emp].AppID_UMessenger),
                         Secret = (Empresas.Configuracoes[emp].MesmosDadosEb_Mb ? Empresas.Configuracoes[emp].Secret : Empresas.Configuracoes[emp].Secret_UMessenger)
                     });
+
+
 
                     var service = new MessageService(MessagingService.WhatsApp);
 
@@ -265,11 +269,20 @@ namespace NFe.Service
                                 }
                             }
 
-                            var responseSendTextMessage = await service.SendTextMessageAsync(textMessage, authenticatedScope);
+                            if (textMessage.Files != null)
+                            {
+                                if (textMessage.Files.Count > 0)
+                                {
+                                    service.TimeoutInSeconds = 180; //Aumentar o tempo de timeout para 2 minutos, para envio de mensagens com arquivos maiores.
+                                }
+                            }
 
+                            var responseSendTextMessage = await service.SendTextMessageAsync(textMessage, authenticatedScope);
+                        
+         
                             returnMessageID = responseSendTextMessage.MessageId;
 
-                            break;
+                            break;  
                     }
 
                     authenticatedScope.Dispose();
