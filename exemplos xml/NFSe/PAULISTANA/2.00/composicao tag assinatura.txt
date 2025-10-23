@@ -16,8 +16,8 @@ A       B    C           D       EFGH              I              J    KL       
 | E-Tipo de Tributação do RPS              |   1 dígito  |
 | F-Status do RPS                          |   1 dígito  |
 | G-ISS Retido                             |   1 dígito  |
-| H-Valor dos Serviços                     |  15 dígitos |
-| I-Valor das deduções                     |  15 dígitos |
+| H-Valor dos Serviços                     |  15 dígitos sendo os dois ultimos casas decimais |
+| I-Valor das deduções                     |  15 dígitos sendo os dois ultimos casas decimais |
 | J-Código do Serviço Prestado             |   5 dígitos |
 | K-Indicador de CPF/CNPJ do tomador       |   1 dígito  |
 | L-CPF/CNPJ do tomador                    |  14 dígitos |

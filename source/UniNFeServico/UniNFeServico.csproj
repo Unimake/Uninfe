@@ -286,7 +286,7 @@
       <HintPath>..\packages\Unimake.AuthServer.20250707.1650.48\lib\netstandard2.0\Unimake.AuthServer.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Business.DFe, Version=2025.10.20.1346, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20251020.1346.41\lib\net472\Unimake.Business.DFe.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20251020.1346.42\lib\net472\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Cryptography, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20250912.1810.37\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
