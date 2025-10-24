@@ -82,7 +82,7 @@ namespace NFe.UI.Formularios
 
             var cnpj = empresa.CNPJ;
 
-            if (empresa.InscricaoEstadual != "")
+            if (! string.IsNullOrWhiteSpace(empresa.InscricaoEstadual))
             {
                 cnpj = empresa.CNPJ.Replace(empresa.InscricaoEstadual, "");
             }
