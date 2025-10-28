@@ -24,16 +24,11 @@ namespace NFe.Validate
             TipoArqXml = new TipoArquivoXML(arquivoXML, UFCod, soValidar);
         }
 
-        public ValidarXML(XmlDocument conteudoXML, int UFCod, bool soValidar)
-        {
-            TipoArqXml = new TipoArquivoXML("", conteudoXML, UFCod, soValidar);
-        }
 
         /// <summary>
         /// Construtor somente para gravar um XML de retorno de erro de validação, não use este construtor para fins de validação pois vai faltar conteúdo para outro fim.
         /// </summary>
-        /// <param name="Arquivo"></param>
-        /// <param name="cStat"></param>
+        /// <param name="arquivo"></param>
         /// <param name="xMotivo"></param>
         public ValidarXML(string arquivo, string xMotivo)
         {
@@ -54,8 +49,6 @@ namespace NFe.Validate
         private readonly string PastaSchema = Propriedade.PastaSchemas;
 
         private string cErro;
-
-
 
 
         /// <summary>
@@ -189,39 +182,6 @@ namespace NFe.Validate
         /// <summary>
         /// Valida o arquivo XML
         /// </summary>
-        /// <param name="arquivo">Nome do arquivo XML a ser validado</param>
-        /// <returns>
-        /// Se retornar uma string em branco, significa que o XML foi
-        /// validado com sucesso, ou seja, não tem nenhum erro. Se o retorno
-        /// tiver algo, algum erro ocorreu na validação.
-        /// </returns>
-        public string ValidarArqXML(string arquivo)
-        {
-            var cRetorna = "";
-
-            if (TipoArqXml.nRetornoTipoArq >= 1 && TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
-            {
-                Validar(arquivo);
-                if (Retorno != 0)
-                {
-                    cRetorna = "XML INCONSISTENTE!\r\n\r\n" + RetornoString;
-                }
-            }
-            else
-            {
-                cRetorna = "XML INCONSISTENTE!\r\n\r\n" + TipoArqXml.cRetornoTipoArq;
-            }
-
-            return cRetorna;
-        }
-
-        #endregion ValidarArqXML()
-
-        #region ValidarArqXML()
-
-        /// <summary>
-        /// Valida o arquivo XML
-        /// </summary>
         /// <param name="conteudoXML">Conteudo do XML a ser validado</param>
         /// <param name="arquivo">Nome do arquivo XML que será validado</param>
         /// <returns>
@@ -291,7 +251,6 @@ namespace NFe.Validate
 
                 if (TipoArqXml.nRetornoTipoArq >= 1 && TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
                 {
-                    // var tipoArquivo = new TipoArquivoXML(arquivo, Empresas.Configuracoes[emp].UnidadeFederativaCodigo, false);
                     X509Certificate2 certificado = Empresas.Configuracoes[emp].X509Certificado;
 
                     if (TipoArqXml.TargetNameSpace.Contains("reinf") &&

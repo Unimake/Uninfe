@@ -149,33 +149,30 @@ namespace NFe.UI
                             validarXML.TipoArqXml.cRetornoTipoArq + "\r\n" + ex.Message;
                     }
 
-                    if (lValidar == true)
+                    if (lValidar)
                     {
-                        // Validar o arquivo
-                        if (validarXML.TipoArqXml.nRetornoTipoArq >= 1 && validarXML.TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
+                        // Validar o arquivo e capturar o resultado
+                        string resultado = validarXML.ValidarArqXML(conteudoXML, arquivo);
+
+                        if (!string.IsNullOrEmpty(resultado))
                         {
-                            ///danasa: 12/2013
-                            validarXML.ValidarArqXML(arquivo);
-                            if (string.IsNullOrEmpty(validarXML.TipoArqXml.cArquivoSchema))
-                            {
-                                textBox_resultado.Text = "XML não possui schema de validação, sendo assim não é possível validar XML";
-                            }
-                            else if (validarXML.Retorno == 0 && string.IsNullOrEmpty(resultValidacao))
-                            {
-                                textBox_resultado.Text = "Arquivo validado com sucesso!";
-                            }
-                            else if (!string.IsNullOrEmpty(resultValidacao))
-                            {
-                                textBox_resultado.Text = resultValidacao;
-                            }
-                            else
-                            {
-                                textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.RetornoString;
-                            }
+                            textBox_resultado.Text = resultado;
+                        }
+                        else if (string.IsNullOrEmpty(validarXML.TipoArqXml.cArquivoSchema))
+                        {
+                            textBox_resultado.Text = "XML não possui schema de validação, sendo assim não é possível validar XML";
+                        }
+                        else if (validarXML.Retorno == 0 && string.IsNullOrEmpty(resultValidacao))
+                        {
+                            textBox_resultado.Text = "Arquivo validado com sucesso!";
+                        }
+                        else if (!string.IsNullOrEmpty(resultValidacao))
+                        {
+                            textBox_resultado.Text = resultValidacao;
                         }
                         else
                         {
-                            textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.TipoArqXml.cRetornoTipoArq;
+                            textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.RetornoString;
                         }
                     }
                 }

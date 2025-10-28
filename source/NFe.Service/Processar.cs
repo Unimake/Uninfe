@@ -1467,7 +1467,7 @@ namespace NFe.Service
 
                 if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (AssinarValidarNew(arquivo))
+                    if (new ValidarXMLNew().Validar(arquivo, true, emp))
                     {
                         return;
                     }
@@ -1594,18 +1594,6 @@ namespace NFe.Service
             {
                 new ValidarXML(arquivo, "Ocorreu um erro ao assinar o XML: " + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// Executa a validação utilizando os métodos para assinar e validar da DLL do UniNFe, de futuro só vai existir este.
-        /// </summary>
-        /// <returns>Retorna se a validação foi feita ou não (Se não conseguir detectar o arquivo ele não roda a validação)</returns>
-        private bool AssinarValidarNew(string arquivoXML)
-        {
-            var validarXML = new ValidarXMLNew();
-            var emp = Empresas.FindEmpresaByThread();
-
-            return validarXML.Validar(arquivoXML, true, emp);
         }
 
         #endregion AssinarValidar()

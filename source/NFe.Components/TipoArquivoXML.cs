@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Xml;
-using NFSe.Components;
 using Unimake.Business.DFe.Servicos;
 namespace NFe.Components
 {
@@ -58,11 +57,6 @@ namespace NFe.Components
                 conteudoXML.LoadXml(File.ReadAllText(rotaArqXML, System.Text.Encoding.UTF8));
             }
 
-            DefinirTipoArq(rotaArqXML, conteudoXML, UFCod, soValidar);
-        }
-
-        public TipoArquivoXML(string rotaArqXML, XmlDocument conteudoXML, int UFCod, bool soValidar)
-        {
             DefinirTipoArq(rotaArqXML, conteudoXML, UFCod, soValidar);
         }
 
@@ -142,7 +136,7 @@ namespace NFe.Components
                             case 3549904: //São José dos Campos-SP
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-3549904-";
                                 break;
- 
+
                             case 1502400: //São Pedro - SP
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-1502400-";
                                 break;
@@ -151,7 +145,7 @@ namespace NFe.Components
                             case 2507507: //João Pessoa - PB (padrão DSF)
                             case 2211001: //Teresina - PI (padrão DSF)
 
-                                string[] tagsServicos = { "ns1:ReqEnvioLoteRPS", "ns1:ConsultaSeqRps", "ns1:ReqConsultaNotas", 
+                                string[] tagsServicos = { "ns1:ReqEnvioLoteRPS", "ns1:ConsultaSeqRps", "ns1:ReqConsultaNotas",
                                     "ns1:ReqConsultaNFSeRPS", "ns1:ReqCancelamentoNFSe", "ns1:ReqConsultaLote" };
 
                                 if (tagsServicos.Any(conteudoXML.OuterXml.Contains))

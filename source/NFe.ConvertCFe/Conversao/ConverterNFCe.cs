@@ -1,12 +1,9 @@
 ﻿using NFe.Settings;
-using NFe.Validate;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Security.Cryptography;
-using System.Threading;
 using System.Xml;
 using Unimake.SAT.Servico.Envio;
 
@@ -42,7 +39,7 @@ namespace NFe.SAT.Conversao
         /// <param name="outputfile">onde será salvo o arquivo</param>
         public ConverterNFCe(string file, Empresa dadosEmpresa, string outputfile = null)
         {
-            if(outputfile == null)
+            if (outputfile == null)
                 outputfile = file;
 
             InputFile = file;
@@ -65,7 +62,7 @@ namespace NFe.SAT.Conversao
         {
             ObjEnvio = GerarLoteCFe();
 
-            if(File.Exists(OutputFile))
+            if (File.Exists(OutputFile))
                 File.Delete(OutputFile);
 
             XMLOutput = ObjEnvio.Serialize();
@@ -137,11 +134,11 @@ namespace NFe.SAT.Conversao
 
             var vOutro = GetValueXML("ICMSTot", "vOutro");
 
-            if(Convert.ToDecimal(vOutro) > 0)
+            if (Convert.ToDecimal(vOutro) > 0)
             {
                 retorna.infCFe.total.DescAcrEntr = new envCFeCFeInfCFeTotalDescAcrEntr();
 
-                if(Convert.ToDecimal(vOutro) > 0)
+                if (Convert.ToDecimal(vOutro) > 0)
                 {
                     retorna.infCFe.total.DescAcrEntr.ItemElementName = ItemChoiceType1.vAcresSubtot;
                     retorna.infCFe.total.DescAcrEntr.Item = vOutro;
@@ -161,21 +158,21 @@ namespace NFe.SAT.Conversao
             List<envCFeCFeInfCFeDet> result = new List<envCFeCFeInfCFeDet>();
 
             XmlNodeList nodes = Document.GetElementsByTagName("det");
-            foreach(XmlNode detNFCe in nodes)
+            foreach (XmlNode detNFCe in nodes)
             {
                 envCFeCFeInfCFeDet det = new envCFeCFeInfCFeDet();
                 det.nItem = detNFCe.Attributes["nItem"].Value;
 
-                foreach(XmlNode itensDet in detNFCe.ChildNodes)
+                foreach (XmlNode itensDet in detNFCe.ChildNodes)
                 {
 
-                    switch(itensDet.Name)
+                    switch (itensDet.Name)
                     {
                         case "prod":
                             string CEST = GetXML(itensDet.ChildNodes, "CEST");
 
                             List<envCFeCFeInfCFeDetProdObsFiscoDet> listObsFisco = new List<envCFeCFeInfCFeDetProdObsFiscoDet>();
-                            if(!string.IsNullOrEmpty(CEST) && DadosEmpresa.VersaoLayoutSAT == "0.07")
+                            if (!string.IsNullOrEmpty(CEST) && DadosEmpresa.VersaoLayoutSAT == "0.07")
                             {
                                 envCFeCFeInfCFeDetProdObsFiscoDet obsFisco = new envCFeCFeInfCFeDetProdObsFiscoDet();
                                 obsFisco.xCampoDet = "Cod. CEST";
@@ -184,10 +181,10 @@ namespace NFe.SAT.Conversao
                                 listObsFisco.Add(obsFisco);
                             }
 
-                            if(((XmlElement)itensDet).GetElementsByTagName("cProdANP").Count != 0 && DadosEmpresa.VersaoLayoutSAT == "0.08")
+                            if (((XmlElement)itensDet).GetElementsByTagName("cProdANP").Count != 0 && DadosEmpresa.VersaoLayoutSAT == "0.08")
                             {
                                 string cProdANP = ((XmlElement)itensDet).GetElementsByTagName("cProdANP")[0].InnerText;
-                                if(!string.IsNullOrEmpty(cProdANP))
+                                if (!string.IsNullOrEmpty(cProdANP))
                                 {
                                     envCFeCFeInfCFeDetProdObsFiscoDet obsFisco = new envCFeCFeInfCFeDetProdObsFiscoDet();
                                     obsFisco.xCampoDet = "Cod. Produto ANP";
@@ -198,7 +195,7 @@ namespace NFe.SAT.Conversao
                             }
 
                             string cEAN = GetXML(itensDet.ChildNodes, "cEAN");
-                            if(cEAN != null)
+                            if (cEAN != null)
                             {
                                 cEAN = (cEAN.Equals("SEM GTIN") ? "" : cEAN);
                             }
@@ -217,10 +214,10 @@ namespace NFe.SAT.Conversao
                                 obsFiscoDet = listObsFisco,
                             };
 
-                            if(!string.IsNullOrEmpty(CEST) && DadosEmpresa.VersaoLayoutSAT == "0.08")
+                            if (!string.IsNullOrEmpty(CEST) && DadosEmpresa.VersaoLayoutSAT == "0.08")
                                 det.prod.CEST = CEST;
 
-                            if(DadosEmpresa.TipoConversao == "Arredondamento")
+                            if (DadosEmpresa.TipoConversao == "Arredondamento")
                             {
                                 det.prod.indRegra = "A";
                             }
@@ -234,9 +231,9 @@ namespace NFe.SAT.Conversao
 
                         case "imposto":
                             det.imposto = new envCFeCFeInfCFeDetImposto();
-                            foreach(XmlNode n in itensDet.ChildNodes)
+                            foreach (XmlNode n in itensDet.ChildNodes)
                             {
-                                switch(n.Name)
+                                switch (n.Name)
                                 {
                                     case "vTotTrib":
                                         det.imposto.vItem12741 = n.InnerText;
@@ -281,7 +278,7 @@ namespace NFe.SAT.Conversao
 
             XmlNodeList detalhesPagamento = Document.GetElementsByTagName("detPag");
 
-            foreach(XmlNode detahePagamento in detalhesPagamento)
+            foreach (XmlNode detahePagamento in detalhesPagamento)
             {
                 envCFeCFeInfCFePgtoMP meiosPagamento = new envCFeCFeInfCFePgtoMP
                 {
@@ -306,9 +303,9 @@ namespace NFe.SAT.Conversao
         {
             T result = new T();
 
-            foreach(XmlNode tag in childs)
+            foreach (XmlNode tag in childs)
             {
-                switch(tag.Name)
+                switch (tag.Name)
                 {
                     #region ICMS00
 
@@ -552,7 +549,7 @@ namespace NFe.SAT.Conversao
         {
             PropertyInfo pi = result.GetType().GetProperty(propertyName);
 
-            if(pi != null && !String.IsNullOrEmpty(value.ToString()))
+            if (pi != null && !String.IsNullOrEmpty(value.ToString()))
             {
                 pi.SetValue(result, value, null);
             }
@@ -567,11 +564,11 @@ namespace NFe.SAT.Conversao
         private string GetXML(XmlNodeList nodes, string nameTag)
         {
             string value = "";
-            foreach(XmlNode n in nodes)
+            foreach (XmlNode n in nodes)
             {
-                if(n.NodeType == XmlNodeType.Element)
+                if (n.NodeType == XmlNodeType.Element)
                 {
-                    if(n.Name.Equals(nameTag))
+                    if (n.Name.Equals(nameTag))
                     {
                         value = n.InnerText;
                         break;
@@ -583,24 +580,6 @@ namespace NFe.SAT.Conversao
         }
 
         /// <summary>
-        /// Busca valor de uma tag a partir de um nó
-        /// </summary>
-        /// <param name="nodes">nó onde vai ser procurado a tag</param>
-        /// <param name="nameTag">nome da tag</param>
-        /// <returns></returns>
-        private string GetXMLZero(XmlNodeList nodes, string nameTag)
-        {
-            string retorna = GetXML(nodes, nameTag);
-
-            if(Convert.ToDecimal(retorna) <= 0)
-            {
-                retorna = null;
-            }
-
-            return retorna;
-        }
-
-        /// <summary>
         /// Localiza o numero do documento da pessoa
         /// </summary>
         /// <param name="parentTag"></param>
@@ -609,13 +588,13 @@ namespace NFe.SAT.Conversao
         {
             string result = GetValueXML("dest", "CNPJ");
 
-            if(!String.IsNullOrEmpty(result))
+            if (!String.IsNullOrEmpty(result))
                 result = result.PadLeft(14, '0');
             else
             {
                 result = GetValueXML("dest", "CPF");
 
-                if(DadosEmpresa.VersaoLayoutSAT == "0.08" && !String.IsNullOrEmpty(result))
+                if (DadosEmpresa.VersaoLayoutSAT == "0.08" && !String.IsNullOrEmpty(result))
                     result = result.PadLeft(11, '0');
             }
 
@@ -636,13 +615,13 @@ namespace NFe.SAT.Conversao
                 XmlNodeList nodes = Document.GetElementsByTagName(groupTag);
                 XmlNode node = nodes[0];
 
-                if(node != null)
+                if (node != null)
                 {
-                    foreach(XmlNode n in node)
+                    foreach (XmlNode n in node)
                     {
-                        if(n.NodeType == XmlNodeType.Element)
+                        if (n.NodeType == XmlNodeType.Element)
                         {
-                            if(n.Name.Equals(nameTag))
+                            if (n.Name.Equals(nameTag))
                             {
                                 value = n.InnerText;
                                 break;
@@ -653,61 +632,15 @@ namespace NFe.SAT.Conversao
 
                 return value;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return String.Empty;
             }
         }
 
-        /// <summary>
-        /// Retorna o dígito verificador do valor informado
-        /// </summary>
-        /// <param name="value">Valor para calcular o dígito verificador</param>
-        /// <returns></returns>
-        private int Modulus11Digit(string value)
-        {
-            int[] weigths = { 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-            int sum = 0;
-            int idx = 0;
-
-            for(int i = value.Length - 1; i >= 0; i--)
-            {
-                sum += Convert.ToInt32(value[i].ToString()) * weigths[idx];
-                if(idx == 9)
-                {
-                    idx = 2;
-                }
-                else
-                {
-                    idx++;
-                }
-            }
-
-            int rest = (sum * 10) % 11;
-            int result = rest;
-            if(result >= 10)
-                result = 0;
-
-            return result;
-        }
-
-        /// <summary>
-        /// Realiza validação do XML a partir dos schemas
-        /// </summary>
-        public void ValidarCFe()
-        {
-            ValidarXML validar = new ValidarXML(OutputFile, Convert.ToInt16(DadosEmpresa.UnidadeFederativaCodigo), true);
-            string cResultadoValidacao = validar.ValidarArqXML(OutputFile);
-            if(cResultadoValidacao != "")
-            {
-                throw new Exception(cResultadoValidacao);
-            }
-        }
-
         private double ToDouble(object value)
         {
-            if(value == null)
+            if (value == null)
             {
                 //TODO: Marcelo >>> Vai retornar zero por padrão mesmo?
                 return 0;
@@ -724,7 +657,7 @@ namespace NFe.SAT.Conversao
         {
             string retorno = perc;
             double percConv = ToDouble(perc);
-            if(percConv >= 1 || percConv.Equals(0.65))
+            if (percConv >= 1 || percConv.Equals(0.65))
             {
                 percConv = percConv / 100;
                 retorno = string.Format("{0:N4}", percConv).Replace(",", ".");
