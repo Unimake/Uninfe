@@ -54,7 +54,6 @@ DEL /S /Q %filesDir%\net472\Unimake.Business.DFe.dll
 copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcoreapp3.1\Unimake.Utils.dll %filesDir%\netstandard2.0
 copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcoreapp3.1\Unimake.Cryptography.dll %filesDir%\netstandard2.0
 copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcoreapp3.1\Unimake.Extensions.dll %filesDir%\netstandard2.0
-copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcoreapp3.1\System.Security.Cryptography.Cng.dll %filesDir%\netstandard2.0
 
 ::Ações
 @ECHO ----------------------------------------------------------------------------------
