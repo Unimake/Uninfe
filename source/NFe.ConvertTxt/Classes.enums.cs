@@ -205,19 +205,7 @@ namespace NFe.ConvertTxt
         taUsoPermitido = 0,
         taUsoRestrito = 1
     }
-    public enum TpcnCondicaoVeiculo
-    {
-        cvAcabado = 1,
-        cvInacabado = 2,
-        cvSemiAcabado = 3
-    }
-    public enum TpcnTipoOperacao
-    {
-        toVendaConcessionaria = 1,
-        toFaturamentoDireto = 2,
-        toVendaDireta = 3,
-        toOutros = 0
-    }
+
     public enum TpcnIndicadorEscala
     {
         [Description("Nenhum")]
@@ -313,14 +301,6 @@ namespace NFe.ConvertTxt
         tOperacaoEnteGovernamentalRecebimentoPagamento = 2
     }
 
-    public enum TpcnECFModRef
-    {
-        ECFModRefVazio,
-        ECFModRef2B,
-        ECFModRef2C,
-        ECFModRef2D /*'', '2B', '2C','2D'*/
-    }
-
     public enum tpEventos
     {
         [Description("Carta de Correcao")]
@@ -388,30 +368,6 @@ namespace NFe.ConvertTxt
         taRFB = 6,
         taOutros = 9
     }
-
-    public enum TpcnCSTIcms
-    {
-        cst00,
-        cst10,
-        cst20,
-        cst30,
-        cst40,
-        cst41,
-        cst45,
-        cst50,
-        cst51,
-        cst60,
-        cst70,
-        cst80,
-        cst81,
-        cst90,
-        cstPart10,
-        cstPart90,
-        cstRep41,
-        cstVazio,
-        cstICMSOutraUF,
-        cstICMSSN
-    } //80 e 81 apenas para CTe
 
     internal enum ObOp
     {
