@@ -376,20 +376,6 @@ namespace NFe.Settings
             }
         }
 
-        public static string GetUF(int codigoUnidade)
-        {
-            if (codigoUnidade < 100)    //desconsidera empresa que é só NFS-e
-            {
-                try
-                {
-                    return Propriedade.Estados.Where(p => p.CodigoMunicipio == codigoUnidade).Select(p => p.UF).First();
-                }
-                catch { }
-            }
-
-            return null;
-        }
-
         private static string CriaArquivoDeErro(Empresa empresa)
         {
             string cArqErro;
@@ -515,67 +501,6 @@ namespace NFe.Settings
         }
         #endregion
 
-        #region #10316
-        /*
-         * Solução para o problema do certificado do tipo A3
-         * Marcelo
-         * 29/07/2013
-         */
-        #region Reset certificado
-        /// <summary>
-        /// Reseta o certificado da empresa e recria o mesmo
-        /// </summary>
-        /// <param name="index">identificador da empresa</param>
-        /// <returns></returns>
-        public static X509Certificate2 ResetCertificado(int index)
-        {
-            var empresa = Empresas.Configuracoes[index];
-            if (empresa.UsaCertificado)
-            {
-                empresa.X509Certificado.Reset();
-
-                Thread.Sleep(0);
-
-                empresa.X509Certificado = null;
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-
-                //Ajustar o certificado digital de String para o tipo X509Certificate2
-                var store = new X509Store("MY", StoreLocation.CurrentUser);
-                store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                var collection = store.Certificates;
-                X509Certificate2Collection collection1;
-                if (!string.IsNullOrEmpty(empresa.CertificadoDigitalThumbPrint))
-                {
-                    collection1 = collection.Find(X509FindType.FindByThumbprint, empresa.CertificadoDigitalThumbPrint, false);
-                }
-                else
-                {
-                    collection1 = collection.Find(X509FindType.FindBySubjectDistinguishedName, empresa.Certificado, false);
-                }
-
-                for (var i = 0; i < collection1.Count; i++)
-                {
-                    //Verificar a validade do certificado
-                    if (DateTime.Compare(DateTime.Now, collection1[i].NotAfter) == -1)
-                    {
-                        empresa.X509Certificado = collection1[i];
-                        break;
-                    }
-                }
-
-                //Se não encontrou nenhum certificado com validade correta, vou pegar o primeiro certificado, porem vai travar na hora de tentar enviar a nota fiscal, por conta da validade. Wandrey 06/04/2011
-                if (empresa.X509Certificado == null && collection1.Count > 0)
-                {
-                    empresa.X509Certificado = collection1[0];
-                }
-            }
-            return empresa.X509Certificado;
-
-        }
-        #endregion
-        #endregion
-
         #region FindConfEmpresa()
         /// <summary>
         /// Procurar o cnpj na coleção das empresas
@@ -628,91 +553,6 @@ namespace NFe.Settings
         /// </summary>
         /// <returns></returns>
         public static int FindEmpresaByThread() => Convert.ToInt32(Thread.CurrentThread.Name);
-
-        /// <summary>
-        /// Localiza o código da empresa com base no nome pasta envio
-        /// </summary>
-        /// <param name="arquivo">Pasta + nome do arquivo que está sendo enviado</param>
-        /// <returns>Retorna o código da empresa</returns>
-        public static int FindEmpresaByFolder(string arquivo)
-        {
-            var fi = new FileInfo(arquivo);
-
-            var empresa = -1;
-
-            try
-            {
-                var fullName = ConfiguracaoApp.RemoveEndSlash(fi.Directory.FullName.ToLower());
-
-                /// "EndsWith" é para pegar apenas se terminar com, já que nas empresas pode ter um nome 'temp' no meio das definicoes das pastas
-                if (fullName.EndsWith("\\temp"))
-                {
-                    /// exclui o 'arquivo' temp.
-                    fullName = Path.GetDirectoryName(fullName);
-                }
-
-                for (var i = 0; i < Empresas.Configuracoes.Count; i++)
-                {
-                    if (fullName == Empresas.Configuracoes[i].PastaXmlEnvio.ToLower() ||
-                        fullName == Empresas.Configuracoes[i].PastaXmlEmLote.ToLower() ||
-                        fullName == Empresas.Configuracoes[i].PastaValidar.ToLower() ||
-                        fullName == Empresas.Configuracoes[i].PastaContingencia.ToLower())
-                    {
-                        empresa = i;
-                        break;
-                    }
-                }
-            }
-            catch
-            {
-            }
-
-            return empresa;
-        }
-
-        #region Valid()
-        /// <summary>
-        /// Retorna se o indice da coleção que foi pesquisado é valido ou não
-        /// </summary>
-        /// <param name="index">Indice a ser validado</param>
-        /// <returns>Retorna true or false</returns>
-        /// <remarks>
-        /// Autor: Wandrey Mundin Ferreira
-        /// Data: 30/07/2010
-        /// </remarks>
-        public static bool Valid(int index)
-        {
-            var retorna = true;
-            if (index.Equals(-1))
-            {
-                retorna = false;
-            }
-
-            return retorna;
-        }
-        #endregion
-
-        #region Valid()
-        /// <summary>
-        /// Retorna se o objeto da coleção que foi pesquisado é valido ou não
-        /// </summary>
-        /// <param name="empresa">Objeto da empresa</param>
-        /// <returns>Retorna true or false</returns>
-        /// <remarks>
-        /// Autor: Wandrey Mundin Ferreira
-        /// Data: 30/07/2010
-        /// </remarks>
-        public static bool Valid(Empresa empresa)
-        {
-            var retorna = true;
-            if (empresa.Equals(null))
-            {
-                retorna = false;
-            }
-
-            return retorna;
-        }
-        #endregion
 
         #region verificaPasta
         public static void VerificaPasta(Empresa empresa, XmlElement configElemento, string tagName, string descricao, bool isObrigatoria)

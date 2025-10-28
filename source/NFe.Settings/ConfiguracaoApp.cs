@@ -18,14 +18,6 @@ using Unimake.Business.DFe.Security;
 namespace NFe.Settings
 {
     #region Classe ConfiguracaoApp
-
-    public class ArquivoItem
-    {
-        public string Arquivo;
-        public bool Manual;
-        public long Size;
-    }
-
     /// <summary>
     /// Classe responsável por realizar algumas tarefas na parte de configurações da aplicação.
     /// Arquivo de configurações: UniNfeConfig.xml
