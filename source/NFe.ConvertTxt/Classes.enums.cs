@@ -392,6 +392,7 @@ namespace NFe.ConvertTxt
         modIntefinido = 99
     }
 
+
     public enum TpcnTipoViaTransp
     {
         [Description("Marítima")]

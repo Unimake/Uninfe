@@ -132,7 +132,6 @@
     <Compile Include="Servico\Envio\TesteFimAFim.cs" />
     <Compile Include="Servico\Envio\ExtrairLogs.cs" />
     <Compile Include="Servico\Envio\ConsultarSAT.cs" />
-    <Compile Include="Enum\ConversaoNFCe.cs" />
     <Compile Include="Contract\IServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

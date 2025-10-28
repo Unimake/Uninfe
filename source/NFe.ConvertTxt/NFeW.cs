@@ -3698,11 +3698,6 @@ namespace NFe.ConvertTxt
             nodeCurrent = gIBS;
         }
 
-        private void wCampo(object obj, TpcnTipoCampo Tipo, string TAG)
-        {
-            wCampo(obj, Tipo, TAG, ObOp.Obrigatorio, 0);
-        }
-
         private void wCampo(object obj, TpcnTipoCampo Tipo, string TAG, ObOp Obrigatorio)
         {
             wCampo(obj, Tipo, TAG, Obrigatorio, 0);
