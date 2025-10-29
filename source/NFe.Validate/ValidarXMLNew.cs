@@ -518,7 +518,12 @@ namespace NFe.Validate
 
                         if (modeloDoc == ((int)ModeloDFe.NFCe).ToString())
                         {
-                            if (xmlDoc.GetElementsByTagName("qrCode").Count == 0)
+                            if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe == 3)
+                            {
+                                configuracao.VersaoQRCodeNFCe = 3;
+                            }
+
+                            if (xmlDoc.GetElementsByTagName("qrCode").Count == 0 && Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3)
                             {
                                 if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
                                 {
@@ -527,9 +532,11 @@ namespace NFe.Validate
                             }
 
                             configuracao.TipoDFe = TipoDFe.NFCe;
-                            configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
-                            configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
-                            configuracao.VersaoQRCodeNFCe = Empresas.Configuracoes[emp].VersaoQRCodeNFCe >= 3 ? 3 : 2; // Define a versão do QR Code na configuracao para que seja a mesma da empresa atual.
+                            if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3)
+                            {
+                                configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
+                                configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
+                            }
 
                             var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, configuracao);
                             warnings = autorizacao.Warnings;
@@ -555,7 +562,12 @@ namespace NFe.Validate
 
                         if (modeloDocXml == ((int)ModeloDFe.NFCe).ToString())
                         {
-                            if (xmlDoc.GetElementsByTagName("qrCode").Count == 0)
+                            if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe == 3)
+                            {
+                                configuracao.VersaoQRCodeNFCe = 3;
+                            }
+
+                            if (xmlDoc.GetElementsByTagName("qrCode").Count == 0 && Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3) 
                             {
                                 if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
                                 {
@@ -564,8 +576,11 @@ namespace NFe.Validate
                             }
 
                             configuracao.TipoDFe = TipoDFe.NFCe;
-                            configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
-                            configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
+                            if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3)
+                            {
+                                configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
+                                configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
+                            }
 
                             var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlDoc.OuterXml, configuracao);
                             warnings = autorizacao.Warnings;
