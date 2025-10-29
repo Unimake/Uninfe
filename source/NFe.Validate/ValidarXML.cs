@@ -50,37 +50,6 @@ namespace NFe.Validate
 
         private string cErro;
 
-
-        /// <summary>
-        /// Método responsável por validar a estrutura do XML de acordo com o schema passado por parâmetro
-        /// </summary>
-        /// <param name="rotaArqXML">XML a ser validado</param>
-        /// <param name="cRotaArqSchema">Schema a ser utilizado na validação</param>
-        /// <param name="nsSchema">Namespace contendo a URL do schema</param>
-        private void Validar(string rotaArqXML)
-        {
-            var lArqXML = File.Exists(rotaArqXML);
-
-            if (File.Exists(rotaArqXML))
-            {
-                var doc = new XmlDocument();
-                try
-                {
-                    doc.Load(rotaArqXML);
-                }
-                catch
-                {
-                    doc.LoadXml(System.IO.File.ReadAllText(rotaArqXML, System.Text.Encoding.UTF8));
-                }
-                Validar(doc, rotaArqXML);
-            }
-            else
-            {
-                Retorno = 2;
-                RetornoString = "Arquivo XML não foi encontrato";
-            }
-        }
-
         /// <summary>
         /// Método responsável por validar a estrutura do XML de acordo com o schema passado por parâmetro
         /// </summary>
