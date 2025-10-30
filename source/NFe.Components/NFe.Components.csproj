@@ -329,7 +329,6 @@
     <Compile Include="Smf.cs" />
     <Compile Include="TipoArquivoXML.cs" />
     <Compile Include="UniNFeUpdate.cs" />
-    <Compile Include="WebServiceNFSe.cs" />
     <Compile Include="Propriedade.cs" />
     <Compile Include="DiretorioSalvarComo.cs" />
     <Compile Include="Enums.cs" />
