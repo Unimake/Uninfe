@@ -89,14 +89,6 @@ namespace NFe.UI
                 cmManual.Text = "Manual do " + Propriedade.NomeAplicacao;
                 cmManual.Enabled = File.Exists(Path.Combine(Propriedade.PastaExecutavel, Propriedade.NomeAplicacao + ".pdf"));
 
-                Propriedade.VerificaArquivos(out error, out var msg);
-                if (error)
-                {
-                    MetroFramework.MetroMessageBox.Show(this, msg, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                    return;
-                }
-
                 if (!servicoInstaladoErodando)     //danasa 12/8/2011
                 {
                     //Definir eventos de controles de execução das thread´s de serviços do UniNFe. Wandrey 26/07/2011

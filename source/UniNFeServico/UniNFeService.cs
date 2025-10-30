@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
 using System.Threading;
+using System.Windows.Interop;
 
 namespace UniNFeServico
 {
@@ -49,40 +50,24 @@ namespace UniNFeServico
 
             Empresas.CarregaConfiguracao(true);
 
-            Propriedade.VerificaArquivos(out var error, out var msg);
-            if (error)
+            foreach (var empresa in Empresas.Configuracoes)
             {
-                WriteLog(msg);
-            }
-            else
-            {
-                foreach (var empresa in Empresas.Configuracoes)
+                if (empresa.X509Certificado == null && empresa.UsaCertificado)
                 {
-                    if (empresa.X509Certificado == null && empresa.UsaCertificado)
-                    {
-                        msg = "Não pode ler o certificado da empresa: " + empresa.CNPJ + "=>" + empresa.Nome + "=>" + empresa.Servico.ToString();
+                    var msg = "Não pode ler o certificado da empresa: " + empresa.CNPJ + "=>" + empresa.Nome + "=>" + empresa.Servico.ToString();
 
-                        var f = Path.Combine(empresa.PastaXmlRetorno, "uninfeServico_" + DateTime.Now.ToString("yyyy-MMM-dd_hh-mm-ss") + ".err");
-                        File.WriteAllText(f, msg);
+                    var f = Path.Combine(empresa.PastaXmlRetorno, "uninfeServico_" + DateTime.Now.ToString("yyyy-MMM-dd_hh-mm-ss") + ".err");
+                    File.WriteAllText(f, msg);
 
-                        WriteLog(msg);
-                    }
+                    WriteLog(msg);
                 }
             }
+            // Executar as conversões de atualizações de versão quando tiver
+            Auxiliar.ConversaoNovaVersao(string.Empty);
 
-            if (!error)
-            {
-                // Executar as conversões de atualizações de versão quando tiver
-                Auxiliar.ConversaoNovaVersao(string.Empty);
+            ThreadService.Start();
 
-                ThreadService.Start();
-
-                new ThreadControlEvents();
-            }
-            else
-            {
-                WriteLog("Serviço do UniNFe não está sendo executado.");
-            }
+            new ThreadControlEvents();
         }
 
         private void pararServicosUniNFe()
@@ -116,7 +101,7 @@ namespace UniNFeServico
             }
             // Perform the default action.
             base.OnCustomCommand(command);
-        }               
+        }
 
         private void WriteLog(string msg)
         {

@@ -202,56 +202,6 @@ namespace NFe.Threadings
                     Exception exx = null;
 
                     ///
-                    /// Atualiza WSDL / Schemas
-                    ///
-                    var ext = Components.Propriedade.Extensao(Components.Propriedade.TipoEnvio.pedUpdatewsdl);
-                    if (arq.EndsWith(ext.EnvioTXT) || arq.EndsWith(ext.EnvioXML))
-                    {
-                        #region ---Atualiza WSDL e Schemas
-
-                        File.Delete(fi.FullName);
-
-                        Components.Functions.DeletarArquivo(Components.Propriedade.XMLVersaoWSDLXSD);
-
-                        var cerros = "";
-                        try
-                        {
-                            ConfiguracaoApp.ForceUpdateWSDL(false, ref cerros);
-
-                            if (!string.IsNullOrEmpty(cerros))
-                            {
-                                throw new Exception(cerros);
-                            }
-
-                            var ExtRet = (arq.EndsWith(".xml") ? ext.RetornoXML : ext.RetornoTXT);
-                            var arqRetorno = Components.Propriedade.PastaGeralRetorno + "\\" + Components.Functions.ExtrairNomeArq(fi.FullName, null) + ExtRet;
-                            const string rst = "Schemas atualizados com sucesso!!!";
-
-                            if (arq.EndsWith(".xml"))
-                            {
-                                var xml = new XDocument(new XDeclaration("1.0", "utf-8", null),
-                                    new XElement("UPDT",
-                                    new XElement("Result", rst)));
-                                xml.Save(arqRetorno);
-                            }
-                            else
-                            {
-                                File.WriteAllText(arqRetorno, rst);
-                            }
-
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            ExtRetorno = (arq.EndsWith(".xml") ? ext.EnvioXML : ext.EnvioTXT);
-                            finalArqErro = ext.EnvioXML.Replace(".xml", ".err");
-                            exx = ex;
-                        }
-
-                        #endregion ---Atualiza WSDL e Schemas
-                    }
-
-                    ///
                     /// restart o UniNFe
                     ///
                     var uext = Components.Propriedade.Extensao(Components.Propriedade.TipoEnvio.pedRestart);

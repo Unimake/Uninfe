@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -150,199 +149,72 @@ namespace NFe.Settings
                     ConfiguracaoApp.GravarLogOperacoesRealizadas = true;
                 }
 
-                if (AtualizarWSDL())
-                {
-                    Propriedade.Estados = null;
-
-                    try
-                    {
-                        var ass = Assembly.LoadFile(Propriedade.PastaExecutavel + "\\NFe.Components.Wsdl.dll");
-                        var x = ass.GetManifestResourceNames();
-                        if (x.GetLength(0) > 0)
-                        {
-                            string fileoutput = null;
-                            var okFiles = new List<string>();
-
-                            var afiles = (from d in x
-                                          where d.StartsWith("NFe.Components.Wsdl.NF")
-                                          select d);
-
-                            foreach (var s in afiles)
-                            {
-                                fileoutput = s.Replace("NFe.Components.Wsdl.", Propriedade.PastaExecutavel + "\\");
-                                if (fileoutput == null)
-                                {
-                                    continue;
-                                }
-
-                                if (fileoutput.ToLower().EndsWith(".xsd"))
-                                {
-                                    /// Ex: NFe.Components.Wsdl.NFe.NFe.xmldsig-core-schema_v1.01.xsd
-                                    ///
-                                    /// pesquisa pelo nome do XSD
-                                    var plast = fileoutput.ToLower().LastIndexOf("_v");
-                                    if (plast == -1)
-                                    {
-                                        plast = fileoutput.IndexOf(".xsd") - 1;
-                                    }
-
-                                    while (fileoutput[plast] != '.' && plast >= 0)
-                                    {
-                                        --plast;
-                                    }
-
-                                    var fn = fileoutput.Substring(plast + 1);
-                                    fileoutput = fileoutput.Substring(0, plast).Replace(".", "\\") + "\\" + fn;
-                                }
-                                else
-                                {
-                                    fileoutput = (fileoutput.Substring(0, fileoutput.LastIndexOf('.')) + "####" +
-                                                    fileoutput.Substring(fileoutput.LastIndexOf('.') + 1)).Replace(".", "\\").Replace("####", ".");
-                                }
-
-                                ExtractResourceToDisk(ass, s, fileoutput);
-                            }
-                            ///
-                            /// verifica a existencia dos XML's de configuracao dos WSDL's
-                            /// e dá um delay só para dar um tempo para que os WSDL's
-                            /// estejam totalmente gravados nas pastas.
-                            /// 
-                            /// Isto pode evitar que dê erro
-                            /// em NFe.Components.WebServiceProxy.CarregaWebServicesList() na E:\Usr\NFe\uninfe\a_uninfe\NFe.Components\WebServiceProxy.cs:linha 812
-                            /// 
-                            var passo = 0;
-                            while (!File.Exists(Propriedade.NomeArqXMLWebService_NFSe) &&
-                                    !File.Exists(Propriedade.NomeArqXMLWebService_NFe) &&
-                                    ++passo < 100)
-                            {
-                                Thread.Sleep(500);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        var xMotivo = "Não foi possível atualizar pacotes de Schemas/WSDLs.";
-
-                        Auxiliar.WriteLog(cErros = xMotivo + Environment.NewLine + ex.Message, false);
-
-                        if (Empresas.Configuracoes.Count > 0)
-                        {
-                            var emp = Empresas.FindEmpresaByThread();
-                            var oAux = new Auxiliar();
-                            oAux.GravarArqErroERP(Empresas.Configuracoes[emp].CNPJ + ".err", cErros);
-                        }
-                    }
-                    finally
-                    {
-                        WebServiceNFSe.SalvarXMLMunicipios();
-                    }
-                }
-            }
-
-            #region AtualizarWSDL()
-
-            /// <summary>
-            /// Verifica se é para atualizar os recursos contidos no NFe.Components.Wsdl.dll
-            /// </summary>
-            /// <returns>true=atualiza, false=não atualiza</returns>
-            private bool AtualizarWSDL()
-            {
-                var retorna = false;
+                Propriedade.Estados = null;
 
                 try
                 {
-                    var fi = new FileInfo(Propriedade.PastaExecutavel + "\\NFe.Components.Wsdl.dll");
-
-                    try
+                    var ass = Assembly.LoadFile(Propriedade.PastaExecutavel + "\\NFe.Components.Wsdl.dll");
+                    var x = ass.GetManifestResourceNames();
+                    if (x.GetLength(0) > 0)
                     {
-                        ///
-                        /// pega a pasta dos WSDL
-                        /// 
-                        var folderWSDL = Path.GetDirectoryName(Propriedade.NomeArqXMLWebService_NFe);
-                        ///
-                        /// verifica a existencia dp arquivo 'VersaoWSDLXSD.xml'
-                        /// e se a pasta dos arquivos WSDL's existe, pq o usuario 
-                        /// pode te-las excluido.
-                        /// 
-                        if (!File.Exists(Propriedade.XMLVersaoWSDLXSD) ||
-                            !Directory.Exists(folderWSDL))
+                        string fileoutput = null;
+                        var okFiles = new List<string>();
+
+                        var afiles = (from d in x
+                                      where d.StartsWith("NFe.Components.Wsdl.NF")
+                                      select d);
+
+                        foreach (var s in afiles)
                         {
-                            retorna = true;
-                        }
-                        else
-                        {
-                            var doc = new XmlDocument();
-                            doc.Load(Propriedade.XMLVersaoWSDLXSD);
-                            if (doc.GetElementsByTagName("dVersao")[0] == null)
+                            fileoutput = s.Replace("NFe.Components.Wsdl.", Propriedade.PastaExecutavel + "\\");
+                            if (fileoutput == null)
                             {
-                                retorna = true;
+                                continue;
+                            }
+
+                            if (fileoutput.ToLower().EndsWith(".xsd"))
+                            {
+                                /// Ex: NFe.Components.Wsdl.NFe.NFe.xmldsig-core-schema_v1.01.xsd
+                                ///
+                                /// pesquisa pelo nome do XSD
+                                var plast = fileoutput.ToLower().LastIndexOf("_v");
+                                if (plast == -1)
+                                {
+                                    plast = fileoutput.IndexOf(".xsd") - 1;
+                                }
+
+                                while (fileoutput[plast] != '.' && plast >= 0)
+                                {
+                                    --plast;
+                                }
+
+                                var fn = fileoutput.Substring(plast + 1);
+                                fileoutput = fileoutput.Substring(0, plast).Replace(".", "\\") + "\\" + fn;
                             }
                             else
                             {
-                                var versao = doc.GetElementsByTagName("dVersao")[0].InnerText;
-
-                                if (!fi.LastWriteTimeUtc.ToString().Equals(versao))
-                                {
-                                    retorna = true;
-                                }
+                                fileoutput = (fileoutput.Substring(0, fileoutput.LastIndexOf('.')) + "####" +
+                                                fileoutput.Substring(fileoutput.LastIndexOf('.') + 1)).Replace(".", "\\").Replace("####", ".");
                             }
-                        }
-                    }
-                    catch
-                    {
-                        retorna = true;
-                    }
 
-                    if (retorna)
-                    {
-                        XmlWriter xtw = null; // criar instância para xmltextwriter.
-
-                        try
-                        {
-                            var settings = new XmlWriterSettings();
-                            var c = new UTF8Encoding(false);
-
-                            settings.Encoding = c;
-                            settings.Indent = true;
-                            settings.IndentChars = "";
-                            settings.NewLineOnAttributes = false;
-                            settings.OmitXmlDeclaration = false;
-
-                            xtw = XmlWriter.Create(Propriedade.XMLVersaoWSDLXSD, settings); //atribuir arquivo, caminho e codificação
-                            xtw.WriteStartDocument(); //comaçar a escrever o documento
-                            xtw.WriteStartElement("VersaoWSDLXSD"); //Criar elemento raiz
-                            xtw.WriteElementString("dVersao", fi.LastWriteTimeUtc.ToString());
-                            xtw.WriteEndElement(); //encerrar tag DocumentosNFe
-                            xtw.Flush();
-                        }
-                        catch (Exception ex)
-                        {
-                            retorna = true;
-
-                            throw (ex);
-                        }
-                        finally
-                        {
-                            if (xtw != null)
-                            {
-                                if (xtw.WriteState != WriteState.Closed)
-                                {
-                                    xtw.Close(); //Fechar o arquivo e salvar
-                                }
-                            }
+                            ExtractResourceToDisk(ass, s, fileoutput);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    retorna = true;
-                    Auxiliar.WriteLog("Ocorreu um erro na hora de verificar a versão dos WSDL/XSD. Erro: " + ex.Message, true);
+                    var xMotivo = "Não foi possível atualizar pacotes de Schemas/WSDLs.";
+
+                    Auxiliar.WriteLog(cErros = xMotivo + Environment.NewLine + ex.Message, false);
+
+                    if (Empresas.Configuracoes.Count > 0)
+                    {
+                        var emp = Empresas.FindEmpresaByThread();
+                        var oAux = new Auxiliar();
+                        oAux.GravarArqErroERP(Empresas.Configuracoes[emp].CNPJ + ".err", cErros);
+                    }
                 }
-
-                return retorna;
             }
-
-            #endregion AtualizarWSDL()
 
             #endregion load()
         }
@@ -505,7 +377,7 @@ namespace NFe.Settings
             //Carregar a lista de webservices disponíveis
             try
             {
-                WebServiceProxy.CarregaWebServicesList();
+                Functions.CarregarMunicipio();
             }
             catch (Exception ex)
             {
@@ -2121,34 +1993,7 @@ namespace NFe.Settings
             }
         }
 
-        #endregion CertificadosInstalados()
-
-        #region ForceUpdateWSDL()
-
-        public static bool ForceUpdateWSDL(bool pergunta, ref string cerros)
-        {
-            if (!pergunta)
-            {
-                var c = new loadResources();
-                c.load();
-                cerros = c.cErros;
-                return true;
-            }
-
-            var msg = "Após confirmada esta função o UniNFe irá sobrepor todos os WSDLs e Schemas com as versões originais da Versão do UniNFe, sobrepondo assim possíveis arquivos que tenham sido atualizados manualmente.\r\n\r\nTem certeza que deseja continuar? ";
-
-            if (MessageBox.Show(msg, "ATENÇÂO! - Atualização dos WSDLs e SCHEMAS", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Functions.DeletarArquivo(Propriedade.XMLVersaoWSDLXSD);
-
-                new loadResources().load();
-
-                MessageBox.Show("WSDLs e Schemas atualizados com sucesso.", "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            return true;
-        }
-
-        #endregion ForceUpdateWSDL()
+        #endregion CertificadosInstalados()        
 
         private bool IsPastaEnviadoPath(string pasta, string PastaEnviado)
         {

@@ -97,7 +97,7 @@
 	<Estado ID="4211504" Nome="Nova Trento - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="2906501" Nome="Candeias - BA" UF="BA" Padrao="WEBISS"></Estado>
 	<Estado ID="3153608" Nome="Prudente de Morais - MG" UF="MG" Padrao="MEMORY"></Estado>
-	<Estado ID="4108304" Nome="Foz do Iguaçu - PR" UF="PR" Padrao="LEXSOM"></Estado>
+	<Estado ID="4108304" Nome="Foz do Iguaçu - PR" UF="PR" Padrao="WEBISS"></Estado>
 	<Estado ID="3162500" Nome="São João del Rei - MG" UF="MG" Padrao="SH3"></Estado>
 	<Estado ID="1100304" Nome="Vilhena - RO" UF="RO" Padrao="WEBISS"></Estado>
 	<Estado ID="4306403" Nome="Dois Irmãos - RS" UF="RS" Padrao="IPM"></Estado>

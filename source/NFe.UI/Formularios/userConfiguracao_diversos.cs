@@ -39,7 +39,7 @@ namespace NFe.UI.Formularios
                 try
                 {
                     arrUF = Functions.CarregaEstados();
-                    arrMunicipios = Functions.CarregaMunicipios();
+                    arrMunicipios = Functions.CarregarMunicipios();
                 }
                 catch (Exception ex)
                 {
@@ -447,12 +447,10 @@ namespace NFe.UI.Formularios
                     checkBoxRpsSincAssincTHEMA.Visible = false;
                 }
             }
-            
-            if (empresa.Servico == TipoAplicativo.GNREeDARE || empresa.Servico == TipoAplicativo.Nfe ||
-                empresa.Servico == TipoAplicativo.Cte || empresa.Servico == TipoAplicativo.Todos)
-            {
-                lbl_SenhaWS.Visible = true;
-                txtSenhaWS.Visible = true;
+            else
+            { 
+                lbl_SenhaWS.Visible = false;
+                txtSenhaWS.Visible = false;
             }
         }
 

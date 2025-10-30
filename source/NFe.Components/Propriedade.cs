@@ -78,11 +78,6 @@ namespace NFe.Components
         public const string NomeArqXmlFluxoNfe = "fluxonfe.xml";
 
         /// <summary>
-        /// Retorna o nome do XML dos municipios
-        /// </summary>
-        public static string NomeArqXMLMunicipios => Propriedade.PastaExecutavel + "\\UniNFeMunic.xml";
-
-        /// <summary>
         /// Retorna a pasta do executável
         /// </summary>
         /// <returns>Retorna a pasta onde está o executável</returns>
@@ -145,29 +140,6 @@ namespace NFe.Components
         public static string PastaGeralRetorno => Propriedade.PastaGeral + "\\Retorno";
 
         #endregion Pastas de comunicação geral do ERP com o UniNFe
-
-        /// <summary>
-        /// Retorna o XML contendos as definicoes dos webservices
-        /// </summary>
-        private static string _NomeArqXMLWebService_NFe = "";
-
-        public static string NomeArqXMLWebService_NFe
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_NomeArqXMLWebService_NFe))
-                {
-                    return Propriedade.PastaExecutavel + "\\NFe\\WSDL\\Webservice.xml";
-                }
-
-                return _NomeArqXMLWebService_NFe;
-            }
-            set => _NomeArqXMLWebService_NFe = value;
-        }
-
-        public static string XMLVersaoWSDLXSD = Propriedade.PastaExecutavel + "\\VersaoWSDLXSD.xml";
-
-        public static string NomeArqXMLWebService_NFSe => Propriedade.PastaExecutavel + "\\NFse\\WSDL\\Webservice.xml";
 
         public static TipoAplicativo TipoAplicativo { get; set; }
 
@@ -1832,8 +1804,7 @@ namespace NFe.Components
         }
 
         #endregion Versao
-
-        public static bool ServicoRodando   //danasa 22/7/2011
+                public static bool ServicoRodando   //danasa 22/7/2011
         {
             get
             {
@@ -1901,11 +1872,5 @@ namespace NFe.Components
         }
 
         #endregion DescricaoAplicacao
-
-        public static void VerificaArquivos(out bool error, out string msg)
-        {
-            error = !File.Exists(NomeArqXMLMunicipios) || !File.Exists(NomeArqXMLWebService_NFSe) || !File.Exists(Propriedade.NomeArqXMLWebService_NFe);
-            msg = "Arquivos '" + NomeArqXMLMunicipios + "', '" + NomeArqXMLWebService_NFSe + "' e/ou '" + NomeArqXMLWebService_NFe + "' não encontrados";
-        }
     }
 }

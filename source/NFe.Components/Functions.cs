@@ -9,7 +9,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Xml;
-using System.Xml.Linq;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Components
@@ -622,55 +621,53 @@ namespace NFe.Components
 
         #endregion getDateTime()
 
-        #region CarregaUF()
+        public static ArrayList CarregarMunicipios()
+        {
+            var municipios = new ArrayList();
+
+            Propriedade.Municipios.ForEach((mun) => { municipios.Add(new ComboElem(mun.UF, mun.CodigoMunicipio, mun.Nome)); });
+
+            municipios.Sort(new OrdenacaoPorNome());
+
+            return municipios;
+        }
 
         /// <summary>
-        /// Carrega os Estados que possuem serviço de NFE já disponível. Estes Estados são carregados a partir do XML Webservice.xml que fica na pasta do executável do UNINFE
+        /// Carrega os municípios do arquivo de configuração na lista de municípios
         /// </summary>
-        /// <returns>Retorna a lista de UF e seus ID´s</returns>
-        /// <remarks>
-        /// Autor: Wandrey Mundin Ferreira
-        /// Data: 01/03/2010
-        /// </remarks>
-        ///
-        public static ArrayList CarregaMunicipios()
+        public static void CarregarMunicipio()
         {
-            var UF = new ArrayList();
-
-            Propriedade.Municipios.ForEach((mun) => { UF.Add(new ComboElem(mun.UF, mun.CodigoMunicipio, mun.Nome)); });
-
-            if (File.Exists(Propriedade.NomeArqXMLWebService_NFSe))
+            if (Propriedade.Municipios == null)
             {
-                //Carregar os dados do arquivo XML de configurações da Aplicação
-                var axml = XElement.Load(Propriedade.NomeArqXMLWebService_NFSe);
-                var s = (from p in axml.Descendants(NFe.Components.NFeStrConstants.Estado)
-                         where (string)p.Attribute(TpcnResources.UF.ToString()) != "XX"
-                         select p);
-                foreach (var item in s)
-                {
-                    if (Convert.ToInt32("0" + OnlyNumbers(item.Attribute(TpcnResources.ID.ToString()).Value)) == 0)
-                    {
-                        continue;
-                    }
+                Propriedade.Municipios = new List<Municipio>();
+            }
 
-                    var temp = Propriedade.Municipios.FirstOrDefault(x => x.CodigoMunicipio == Convert.ToInt32(item.Attribute(TpcnResources.ID.ToString()).Value));
-                    if (temp == null)
+            if (Propriedade.Municipios.Count <= 0)
+            {
+                var doc = new XmlDocument();
+                var config = new Configuracao();
+                var stream = config.LoadXmlConfig(Unimake.Business.DFe.Configuration.ArquivoConfigGeral);
+
+                doc.Load(stream);
+
+                var arquivoList = doc.GetElementsByTagName("Arquivo");
+
+                foreach (XmlNode arquivoNode in arquivoList)
+                {
+                    var elemento = (XmlElement)arquivoNode;
+                    if (elemento.GetAttribute("ID").Length >= 3)
                     {
-                        UF.Add(new ComboElem(item.Attribute(TpcnResources.UF.ToString()).Value,
-                            Convert.ToInt32(item.Attribute(NFe.Components.TpcnResources.ID.ToString()).Value),
-                            item.Element(NFe.Components.NFeStrConstants.Nome).Value));
+                        int id = Convert.ToInt32(elemento.GetAttribute("ID"));
+                        string nome = elemento.GetElementsByTagName("Nome")[0].InnerText;
+                        string uf = elemento.GetElementsByTagName("UF")[0].InnerText;
+                        PadraoNFSe padrao = PadraoNFSe.None;
+                        string padraoStr = elemento.GetElementsByTagName("PadraoNFSe")[0].InnerText;
+                        padrao = (PadraoNFSe)Enum.Parse(typeof(PadraoNFSe), padraoStr, true);
+
+                        Propriedade.Municipios.Add(new Municipio(id, uf, nome, padrao));
                     }
                 }
             }
-            UF.Sort(new OrdenacaoPorNome());
-            return UF;
-        }
-
-        public static ArrayList CarregaUF()
-        {
-            var UF = new ArrayList();
-            UF = CarregaEstados();
-            return UF;
         }
 
         public static ArrayList CarregaEstados()
@@ -680,11 +677,11 @@ namespace NFe.Components
             {
                 UF.Add(new ComboElem(estado.UF, estado.CodigoMunicipio, estado.Nome));
             }
+
             UF.Sort(new OrdenacaoPorNome());
+
             return UF;
         }
-
-        #endregion CarregaUF()
 
         #region ComputeHexadecimal()
 
