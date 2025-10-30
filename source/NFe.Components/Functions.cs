@@ -419,31 +419,6 @@ namespace NFe.Components
 
         #endregion ExtrairNomeArq()
 
-        #region ExtraiPastaNomeArq()
-
-        /// <summary>
-        /// Extrai o nome do arquivo de uma determinada string mantendo a pasta que ele está localizado
-        /// </summary>
-        /// <param name="arquivo">string contendo o caminho e nome do arquivo que é para ser extraído o conteúdo desejado</param>
-        /// <param name="finalArq">string contendo o final do nome do arquivo que é para ser retirado do nome</param>
-        /// <returns>Retorna a pasta e o nome do arquivo de acordo com os parâmetros passado.</returns>
-        /// <example>
-        /// MessageBox.Show(ExtrairPastaNomeArq("C:\\TESTE\\NFE\\ENVIO\\ArqSituacao-ped-sta.xml", "-ped-sta.xml"));
-        /// //Será demonstrado no message a string "C:\\TESTE\\NFE\\ENVIO\\ArqSituacao"
-        ///
-        /// MessageBox.Show(ExtrairPastaNomeArq("C:\\TESTE\\NFE\\ENVIO\\ArqSituacao-ped-sta.xml", ".xml"));
-        /// //Será demonstrado no message a string "C:\\TESTE\\NFE\\ENVIO\\ArqSituacao-ped-sta"
-        /// </example>
-        public static string ExtraiPastaNomeArq(string arquivo, string finalArq)
-        {
-            var fi = new FileInfo(arquivo);
-            var ret = fi.FullName;
-            ret = ret.Substring(0, ret.Length - finalArq.Length);
-            return ret;
-        }
-
-        #endregion ExtraiPastaNomeArq()
-
         public static string ExtractExtension(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -562,41 +537,7 @@ namespace NFe.Components
         /// </summary>
         /// <returns></returns>
         public static bool HasInternetConnection(bool temProxy, string proxyServidor, string proxyUsuario, string proxySenha, int proxyPorta, bool proxyDetectarAutomaticamente = false) => Unimake.Net.Utility.HasInternetConnection((temProxy ? Unimake.Net.Utility.GetProxy(proxyServidor, proxyUsuario, proxySenha, proxyPorta, proxyDetectarAutomaticamente) : null));
-
-        #region XmlToString()
-
-        /// <summary>
-        /// Método responsável por ler o conteúdo de um XML e retornar em uma string
-        /// </summary>
-        /// <param name="parNomeArquivo">Caminho e nome do arquivo XML que é para pegar o conteúdo e retornar na string.</param>
-        /// <returns>Retorna uma string com o conteúdo do arquivo XML</returns>
-        /// <example>
-        /// string ConteudoXML;
-        /// ConteudoXML = THIS.XmltoString( @"c:\arquivo.xml" );
-        /// MessageBox.Show( ConteudoXML );
-        /// </example>
-        /// <by>Wandrey Mundin Ferreira</by>
-        /// <date>04/06/2008</date>
-        public static string XmlToString(string parNomeArquivo)
-        {
-            var conteudo_xml = string.Empty;
-
-            StreamReader SR = null;
-            try
-            {
-                SR = File.OpenText(parNomeArquivo);
-                conteudo_xml = SR.ReadToEnd();
-            }
-            finally
-            {
-                SR.Close();
-            }
-
-            return conteudo_xml;
-        }
-
-        #endregion XmlToString()
-
+                
         #region getDateTime()
 
         public static DateTime GetDateTime(string value)
@@ -681,58 +622,7 @@ namespace NFe.Components
             UF.Sort(new OrdenacaoPorNome());
 
             return UF;
-        }
-
-        #region ComputeHexadecimal()
-
-        /// <summary>
-        /// Calcula valor hexadecimal
-        /// Usado para calcular o Link do QRCode da NFCe
-        /// </summary>
-        /// <param name="input">Valor a ser convertido</param>
-        /// <returns></returns>
-        public static string ComputeHexadecimal(string input)
-        {
-            var hexOutput = "";
-            var values = input.ToCharArray();
-            foreach (var letter in values)
-            {
-                // Get the integral value of the character.
-                var value = Convert.ToInt32(letter);
-
-                // Convert the decimal value to a hexadecimal value in string form.
-                hexOutput += string.Format("{0:x}", value);
-            }
-
-            return hexOutput;
-        }
-
-        #endregion ComputeHexadecimal()
-
-        /// <summary>
-        /// Criptografar conteúdo com MD5
-        /// </summary>
-        /// <param name="input">Conteúdo a ser criptografado</param>
-        /// <returns>Conteúdo criptografado com MD5</returns>
-        public static string GetMD5Hash(string input)
-        {
-            var md5Hasher = MD5.Create();
-            var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
-            var sBuilder = new StringBuilder();
-
-            for (var i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
-        }
-
-        /// <summary>
-        /// Retorna a empresa pela thread atual
-        /// </summary>
-        /// <returns></returns>
-        public static int _FindEmpresaByThread() => Convert.ToInt32(Thread.CurrentThread.Name);
+        }              
 
         #region Ticket: #110
 
@@ -1049,17 +939,6 @@ namespace NFe.Components
             {
                 WriteLog(ex, false, true, "");
             }
-        }
-
-        /// <summary>
-        /// Codificar em base 64 um determinado valor
-        /// </summary>
-        /// <param name="value">Valor a ser codificado</param>
-        /// <returns></returns>
-        public static string Base64Encode(string value)
-        {
-            var encode = Encoding.UTF8.GetBytes(value);
-            return Convert.ToBase64String(encode);
         }
 
         /// <summary>

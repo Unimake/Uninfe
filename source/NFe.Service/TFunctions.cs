@@ -26,35 +26,6 @@ namespace NFe.Service
         /// <param name="exception">Exception gerada</param>
         public static void GravarArqErroServico(string arquivo, string finalArqEnvio, string finalArqErro, Exception exception) => GravarArqErroServico(arquivo, finalArqEnvio, finalArqErro, exception, ErroPadrao.ErroNaoDetectado, true);
 
-        /// <summary>
-        /// Grava um arquivo texto com os erros ocorridos durante as operações para que o ERP possa tratá-los
-        /// </summary>
-        /// <param name="arquivo">Nome do arquivo que está sendo processado</param>
-        /// <param name="finalArqEnvio">string final do nome do arquivo que é para ser substituida na gravação do arquivo de erro</param>
-        /// <param name="finalArqErro">string final do nome do arquivo que é para ser utilizado no nome do arquivo de erro</param>
-        /// <param name="exception">Exception gerada</param>
-        /// <param name="nomeArqRetorno">Nome do arquivo de retorno, caso não queira gravar um nome diferente do informado no parametro "arquivo"</param>
-        public static void GravarArqErroServico(string arquivo, string finalArqEnvio, string finalArqErro, Exception exception, string nomeArqRetorno) => GravarArqErroServico(arquivo, finalArqEnvio, finalArqErro, exception, ErroPadrao.ErroNaoDetectado, true, nomeArqRetorno);
-
-        #endregion GravarArqErroServico()
-
-        #region GravarArqErroServico()
-
-        /// <summary>
-        /// Grava um arquivo texto com um erros ocorridos durante as operações para que o ERP possa tratá-los
-        /// </summary>
-        /// <param name="arquivo">Nome do arquivo que está sendo processado</param>
-        /// <param name="finalArqEnvio">string final do nome do arquivo que é para ser substituida na gravação do arquivo de Erro</param>
-        /// <param name="finalArqErro">string final do nome do arquivo que é para ser utilizado no nome do arquivo de erro</param>
-        /// <param name="exception">Exception gerada</param>
-        /// <param name="errorCode">Código do erro</param>
-        /// <param name="moveArqErro">Move o arquivo informado no parametro "arquivo" para a pasta de XML com ERRO</param>
-        /// <remarks>
-        /// Autor: Wandrey Mundin Ferreira
-        /// Data: 02/06/2011
-        /// </remarks>
-        public static void GravarArqErroServico(string arquivo, string finalArqEnvio, string finalArqErro, Exception exception, bool moveArqErro) => GravarArqErroServico(arquivo, finalArqEnvio, finalArqErro, exception, ErroPadrao.ErroNaoDetectado, moveArqErro);
-
         #endregion GravarArqErroServico()
 
         #region GravarArqErroServico()
@@ -563,19 +534,6 @@ namespace NFe.Service
         }
 
         #endregion ExcluirArqAuxiliar()
-
-        #region ExecutaUniDanfe_ForcaEmail
-
-        public static void ExecutaUniDanfe_ForcaEmail(int emp)
-        {
-            if (Empresas.Configuracoes[emp].PastaExeUniDanfe != string.Empty &&
-                File.Exists(Empresas.Configuracoes[emp].PastaExeUniDanfe + "\\unidanfe.exe"))
-            {
-                System.Diagnostics.Process.Start(Empresas.Configuracoes[emp].PastaExeUniDanfe + "\\unidanfe.exe", "envia_email=1");
-            }
-        }
-
-        #endregion ExecutaUniDanfe_ForcaEmail
 
         #region RenomearXmlReport()
 
@@ -1609,41 +1567,6 @@ namespace NFe.Service
 
         #endregion RemoveSomenteLeitura()
 
-        #region CompressXML()
-
-        public static void CompressXML(FileInfo fileToCompress)
-        {
-            using (var fromZipFile = fileToCompress.OpenRead())
-            {
-                using (var toZipFile = File.Create(fileToCompress.FullName + ".gz"))
-                {
-                    using (var zip = new GZipStream(toZipFile, CompressionMode.Compress))
-                    {
-                        fromZipFile.CopyTo(zip);
-
-                        Console.WriteLine("Zipado {0} de {1} para {2} bytes.",
-                            fileToCompress.Name, fileToCompress.Length.ToString(), toZipFile.Length.ToString());
-                    }
-                }
-            }
-        }
-
-        public static string CompressXML(XmlDocument conteudoXML)
-        {
-            var value = conteudoXML.InnerXml;
-
-            var buffer = Encoding.UTF8.GetBytes(value);
-            var ms = new MemoryStream();
-            using (var zip = new GZipStream(ms, CompressionMode.Compress))
-            {
-                zip.Write(buffer, 0, buffer.Length);
-            }
-
-            return Convert.ToBase64String(ms.GetBuffer());
-        }
-
-        #endregion CompressXML()
-
         #region Decompress
 
         public static string Decompress(string input)
@@ -1664,43 +1587,7 @@ namespace NFe.Service
             }
         }
 
-        /*
-                public static string Decompress(string compressedValue)
-                {
-                    byte[] gZipBuffer = Convert.FromBase64String(compressedValue);
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
-                        memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
-
-                        var buffer = new byte[dataLength];
-
-                        memoryStream.Position = 0;
-                        using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
-                        {
-                            gZipStream.Read(buffer, 0, buffer.Length);
-                        }
-
-                        return Encoding.UTF8.GetString(buffer);
-                    }
-                }
-        */
-
         #endregion Decompress
-
-        /// <summary>
-        /// Lucas A. Araujo
-        /// Criptografa uma string.
-        /// </summary>
-        /// <param name="messageString">String</param>
-        /// <returns>Texto criptografado</returns>
-        public static string EncryptSHA1(string messageString)
-        {
-            var mySHA1 = SHA1Managed.Create();
-            var hashValue = mySHA1.ComputeHash(UnicodeEncoding.UTF8.GetBytes(messageString));
-
-            return Convert.ToBase64String(hashValue);
-        }
 
         public static void CriarArquivosParaServico()
         {
@@ -1871,6 +1758,7 @@ namespace NFe.Service
             var node = element.GetElementsByTagName(tagName);
             return node.Count > 0 ? node[0].InnerText : string.Empty;
         }
+
         public static bool GetXmlBoolValue(XmlElement element, string tagName)
         {
             var value = GetXmlValue(element, tagName);
