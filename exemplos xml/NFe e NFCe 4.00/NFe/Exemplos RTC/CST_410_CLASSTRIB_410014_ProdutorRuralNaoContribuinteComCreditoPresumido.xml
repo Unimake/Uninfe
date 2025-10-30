@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe42251999999999999999550010000078951329455520">
+	<infNFe versao="4.00" Id="NFe42251999999999999999550010000078941529025510">
 		<ide>
 			<cUF>42</cUF>
-			<cNF>32945552</cNF>
-			<natOp>VENDA PRODUC.DO ESTABELEC</natOp>
+			<cNF>52902551</cNF>
+			<natOp>COMPRA PARA INDUSTRIALIZACAO</natOp>
 			<mod>55</mod>
 			<serie>1</serie>
-			<nNF>7895</nNF>
-			<dhEmi>2025-10-29T15:45:16-03:00</dhEmi>
-			<dhSaiEnt>2025-10-29T15:45:16-03:00</dhSaiEnt>
-			<tpNF>1</tpNF>
-			<idDest>3</idDest>
+			<nNF>7894</nNF>
+			<dhEmi>2025-10-29T15:12:01-03:00</dhEmi>
+			<dhSaiEnt>2025-10-29T15:12:01-03:00</dhSaiEnt>
+			<tpNF>0</tpNF>
+			<idDest>1</idDest>
 			<cMunFG>4218400</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
 			<cDV>0</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
-			<indFinal>1</indFinal>
+			<indFinal>0</indFinal>
 			<indPres>1</indPres>
 			<procEmi>0</procEmi>
 			<verProc>UNICO V8.0</verProc>
@@ -43,92 +43,86 @@
 			<CRT>3</CRT>
 		</emit>
 		<dest>
-			<idEstrangeiro/>
+			<CPF>65401042949</CPF>
 			<xNome>XXXXXX</xNome>
 			<enderDest>
 				<xLgr>XXXXXX</xLgr>
 				<nro>XXXXXX</nro>
 				<xBairro>XXXXXX</xBairro>
-				<cMun>9999999</cMun>
-				<xMun>CIDADE DE LEST</xMun>
-				<UF>EX</UF>
+				<cMun>4204251</cMun>
+				<xMun>COCAL DO SUL</xMun>
+				<UF>SC</UF>
 				<CEP>XXXXXX</CEP>
-				<cPais>5860</cPais>
-				<xPais>PARAGUAI</xPais>
+				<cPais>1058</cPais>
+				<xPais>BRASIL</xPais>
+				<fone>XXXXXX</fone>
 			</enderDest>
-			<indIEDest>9</indIEDest>
+			<indIEDest>1</indIEDest>
+			<IE>XXXXXX</IE>
 		</dest>
 		<det nItem="1">
 			<prod>
-				<cProd>02605</cProd>
-				<cEAN>7896333045121</cEAN>
-				<xProd>F. DE MANDIOCA EL FOGONERO 1KG BRANCA (PAPEL)</xProd>
-				<NCM>11062000</NCM>
-				<cBenef>SC999999</cBenef>
-				<CFOP>7101</CFOP>
+				<cProd>00001</cProd>
+				<cEAN>SEM GTIN</cEAN>
+				<xProd>RAIZ DE MANDIOCA</xProd>
+				<NCM>07141000</NCM>
+				<CFOP>1101</CFOP>
 				<uCom>KG</uCom>
-				<qCom>1</qCom>
-				<vUnCom>1000.0000000000</vUnCom>
+				<qCom>1000</qCom>
+				<vUnCom>1.0000000000</vUnCom>
 				<vProd>1000.00</vProd>
-				<cEANTrib>7896333045121</cEANTrib>
+				<cEANTrib>SEM GTIN</cEANTrib>
 				<uTrib>KG</uTrib>
-				<qTrib>1</qTrib>
-				<vUnTrib>1000.0000000000</vUnTrib>
+				<qTrib>1000</qTrib>
+				<vUnTrib>1.0000000000</vUnTrib>
 				<indTot>1</indTot>
-				<rastro>
-					<nLote>06/10/2025</nLote>
-					<qLote>1.000</qLote>
-					<dFab>2025-10-06</dFab>
-					<dVal>2026-10-06</dVal>
-				</rastro>
 			</prod>
 			<imposto>
-				<vTotTrib>112.00</vTotTrib>
 				<ICMS>
-					<ICMS40>
+					<ICMS51>
 						<orig>0</orig>
-						<CST>41</CST>
-					</ICMS40>
+						<CST>51</CST>
+						<modBC>3</modBC>
+						<pRedBC>0.0000</pRedBC>
+						<vBC>0.00</vBC>
+						<pICMS>0.0000</pICMS>
+						<vICMSOp>0.00</vICMSOp>
+						<pDif>100.0000</pDif>
+						<vICMSDif>0.00</vICMSDif>
+						<vICMS>0.00</vICMS>
+					</ICMS51>
 				</ICMS>
 				<PIS>
-					<PISNT>
-						<CST>08</CST>
-					</PISNT>
+					<PISOutr>
+						<CST>70</CST>
+						<vBC>0.00</vBC>
+						<pPIS>0.0000</pPIS>
+						<vPIS>0.00</vPIS>
+					</PISOutr>
 				</PIS>
 				<COFINS>
-					<COFINSNT>
-						<CST>08</CST>
-					</COFINSNT>
+					<COFINSOutr>
+						<CST>70</CST>
+						<vBC>0.00</vBC>
+						<pCOFINS>0.0000</pCOFINS>
+						<vCOFINS>0.00</vCOFINS>
+					</COFINSOutr>
 				</COFINS>
 				<IBSCBS>
-					<CST>550</CST>
-					<cClassTrib>550001</cClassTrib>
-					<gIBSCBS>
-						<vBC>1000.00</vBC>
-						<gIBSUF>
-							<pIBSUF>0.0000</pIBSUF>
-							<vIBSUF>0.00</vIBSUF>
-						</gIBSUF>
-						<gIBSMun>
-							<pIBSMun>0.0000</pIBSMun>
-							<vIBSMun>0.00</vIBSMun>
-						</gIBSMun>
-						<vIBS>0.00</vIBS>
-						<gCBS>
-							<pCBS>0.0000</pCBS>
-							<vCBS>0.00</vCBS>
-						</gCBS>
-						<gTribRegular>
-							<CSTReg>200</CSTReg>
-							<cClassTribReg>200038</cClassTribReg>
-							<pAliqEfetRegIBSUF>0.0400</pAliqEfetRegIBSUF>
-							<vTribRegIBSUF>0.40</vTribRegIBSUF>
-							<pAliqEfetRegIBSMun>0.0000</pAliqEfetRegIBSMun>
-							<vTribRegIBSMun>0.00</vTribRegIBSMun>
-							<pAliqEfetRegCBS>0.3600</pAliqEfetRegCBS>
-							<vTribRegCBS>3.60</vTribRegCBS>
-						</gTribRegular>
-					</gIBSCBS>
+					<CST>410</CST>
+					<cClassTrib>410014</cClassTrib>
+					<gCredPresOper>
+						<vBCCredPres>1000.00</vBCCredPres>
+						<cCredPres>01</cCredPres>
+						<gIBSCredPres>
+							<pCredPres>0.10</pCredPres>
+							<vCredPres>1.00</vCredPres>
+						</gIBSCredPres>
+						<gCBSCredPres>
+							<pCredPres>0.90</pCredPres>
+							<vCredPres>9.00</vCredPres>
+						</gCBSCredPres>
+					</gCredPresOper>
 				</IBSCBS>
 			</imposto>
 			<vItem>1000.00</vItem>
@@ -154,10 +148,9 @@
 				<vCOFINS>0.00</vCOFINS>
 				<vOutro>0.00</vOutro>
 				<vNF>1000.00</vNF>
-				<vTotTrib>112.00</vTotTrib>
 			</ICMSTot>
 			<IBSCBSTot>
-				<vBCIBSCBS>1000.00</vBCIBSCBS>
+				<vBCIBSCBS>0.00</vBCIBSCBS>
 				<gIBS>
 					<gIBSUF>
 						<vDif>0.00</vDif>
@@ -170,14 +163,14 @@
 						<vIBSMun>0.00</vIBSMun>
 					</gIBSMun>
 					<vIBS>0.00</vIBS>
-					<vCredPres>0.00</vCredPres>
+					<vCredPres>1.00</vCredPres>
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gIBS>
 				<gCBS>
 					<vDif>0.00</vDif>
 					<vDevTrib>0.00</vDevTrib>
 					<vCBS>0.00</vCBS>
-					<vCredPres>0.00</vCredPres>
+					<vCredPres>9.00</vCredPres>
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gCBS>
 				<gMono>
@@ -195,35 +188,19 @@
 			<modFrete>0</modFrete>
 			<transporta/>
 			<vol>
-				<esp>FD</esp>
-				<marca>EL FOGONER</marca>
-				<pesoL>1.000</pesoL>
-				<pesoB>1.000</pesoB>
+				<qVol>1000</qVol>
+				<esp>KG</esp>
+				<marca>DIVERSOS</marca>
+				<pesoL>1000.000</pesoL>
+				<pesoB>1000.000</pesoB>
 			</vol>
 		</transp>
-		<cobr>
-			<fat>
-				<nFat>007895</nFat>
-				<vOrig>1000.00</vOrig>
-				<vDesc>0.00</vDesc>
-				<vLiq>1000.00</vLiq>
-			</fat>
-			<dup>
-				<nDup>001</nDup>
-				<dVenc>2025-11-28</dVenc>
-				<vDup>1000.00</vDup>
-			</dup>
-		</cobr>
 		<pag>
 			<detPag>
-				<indPag>1</indPag>
+				<indPag>0</indPag>
 				<tPag>05</tPag>
-				<vPag>1000.00</vPag>
+				<vPag>985.00</vPag>
 			</detPag>
 		</pag>
-		<exporta>
-			<UFSaidaPais>SC</UFSaidaPais>
-			<xLocExporta>TREZE DE MAIO</xLocExporta>
-		</exporta>
 	</infNFe>
 </NFe>
