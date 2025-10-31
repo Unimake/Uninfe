@@ -80,8 +80,6 @@ namespace NFe.Validate
                 new XElement("Validacao",
                 new XElement("Warnings", warnings)));
             xml.Save(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + arquivoRetorno);
-            xMotivo.Clear();
-            warnings.Clear();
 
         }
 
