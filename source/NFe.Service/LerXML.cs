@@ -380,56 +380,5 @@ namespace NFe.Service
 
         #endregion Metodos
 
-        #region Métodos para leitura dos XML´s da NFS-e (Nota Fiscal de Serviços Eletrônica)
-
-        #region PedLoteRps()
-
-        /// <summary>
-        /// Fazer a leitura do conteúdo do XML de consulta lote rps e disponibilizar conteúdo em um objeto para analise
-        /// </summary>
-        /// <param name="arquivoXML">Arquivo XML que é para efetuar a leitura</param>
-        public void PedLoteRps(string arquivoXML)
-        {
-            //int emp = Empresas.FindEmpresaByThread();
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(arquivoXML);
-
-            XmlNodeList infConsList = doc.GetElementsByTagName("ConsultarLoteRpsEnvio");
-
-            foreach (XmlNode infConsNode in infConsList)
-            {
-                XmlElement infConsElemento = (XmlElement)infConsNode;
-                oDadosPedLoteRps.Protocolo = Functions.LerTag(infConsElemento, "Protocolo", false);
-
-                XmlElement infPrestadorElemento = (XmlElement)infConsElemento.GetElementsByTagName("Prestador").Item(0);
-                if (infPrestadorElemento.GetElementsByTagName("tipos:Cnpj")[0] != null)
-                    oDadosPedLoteRps.Cnpj = Functions.LerTag(infPrestadorElemento, "tipos:Cnpj", false);
-                else if (infPrestadorElemento.GetElementsByTagName("Cnpj")[0] != null)
-                    oDadosPedLoteRps.Cnpj = infPrestadorElemento.GetElementsByTagName("Cnpj")[0].InnerText;
-
-                if (infPrestadorElemento.GetElementsByTagName("tipos:InscricaoMunicipal")[0] != null)
-                    oDadosPedLoteRps.InscricaoMunicipal = infPrestadorElemento.GetElementsByTagName("tipos:InscricaoMunicipal")[0].InnerText;
-                else if (infPrestadorElemento.GetElementsByTagName("InscricaoMunicipal")[0] != null)
-                    oDadosPedLoteRps.InscricaoMunicipal = infPrestadorElemento.GetElementsByTagName("InscricaoMunicipal")[0].InnerText;
-            }
-        }
-
-        #endregion PedLoteRps()
-
-        #region PedSitNfseRps()
-
-        /// <summary>
-        /// Fazer a leitura do conteúdo do XML de consulta nfse por rps e disponibiliza conteúdo em um objeto para analise
-        /// </summary>
-        /// <param name="arquivoXML">Arquivo XML que é para efetuar a leitura</param>
-        public void PedSitNfseRps(string arquivoXML)
-        {
-            //int emp = Empresas.FindEmpresaByThread();
-        }
-
-        #endregion PedSitNfseRps()
-
-        #endregion Métodos para leitura dos XML´s da NFS-e (Nota Fiscal de Serviços Eletrônica)
     }
 }
