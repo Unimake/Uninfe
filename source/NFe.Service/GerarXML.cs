@@ -314,19 +314,6 @@ namespace NFe.Service
 
         #endregion PopulateNomeArqLote()
 
-        /// <summary>
-        /// Somente gera o Número do lote no caso de CTeOS para manter compatibilidade com o processo do ERP, facilitando integração.
-        /// </summary>
-        /// <returns>Número do lote</returns>
-        public int GerarLoteCTeOS(string nomeArquivoXML)
-        {
-            var numeroLote = ProximoNumeroLote();
-
-            GravarXMLLoteRetERP(numeroLote, nomeArquivoXML);
-
-            return numeroLote;
-        }
-
         #region ProximoNumeroLote()
 
         /// <summary>
@@ -1826,101 +1813,9 @@ namespace NFe.Service
             }
         }
 
-        /// <summary>
-        /// Criar o arquivo XML de distribuição das Inutilizações de Números de NFe´s com o protocolo de autorização anexado
-        /// </summary>
-        /// <param name="nomeArqInut">Nome arquivo XML de Inutilização</param>
-        /// <param name="strRetInut">Conteúdo retornado pela SEFAZ com o protocolo da inutilização</param>
-        /// <param name="conteudoXML">Conteúdo do XML de inutilização já assinado</param>
-        /// <param name="versao">Versão do schema do XML</param>
-        public void XmlDistInutCTe(XmlDocument conteudoXML, string strRetInut, string nomeArqInut, string versao)
-        {
-            var emp = EmpIndex;
-            StreamWriter swProc = null;
-
-            try
-            {
-                var InutNFeList = conteudoXML.GetElementsByTagName("inutCTe");
-                var InutNFeNode = InutNFeList[0];
-                var strInutNFe = InutNFeNode.OuterXml;
-
-                //Montar o XML -procCancCTe.xml
-                var strXmlProcInutNfe = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                    "<procInutCTe xmlns=\"" + NFeStrConstants.NAME_SPACE_CTE + "\" versao=\"" + versao + "\">" +
-                    strInutNFe +
-                    strRetInut +
-                    "</procInutCTe>";
-
-                //Montar o nome do arquivo -proc-NFe.xml
-                var strNomeArqProcInutNFe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                    PastaEnviados.EmProcessamento.ToString() + "\\" +
-                    Functions.ExtrairNomeArq(nomeArqInut, Propriedade.Extensao(Propriedade.TipoEnvio.PedInu).EnvioXML) +
-                    Propriedade.ExtRetorno.ProcInutCTe;
-
-                //Gravar o XML em uma linha só (sem quebrar as tag's linha a linha) ou dá erro na hora de validar o XML pelos Schemas. Wandrey 13/05/2009
-                swProc = File.CreateText(strNomeArqProcInutNFe);
-                swProc.Write(strXmlProcInutNfe);
-
-                XmlParaFTP(emp, strNomeArqProcInutNFe);
-            }
-            finally
-            {
-                if (swProc != null)
-                {
-                    swProc.Close();
-                }
-            }
-        }
-
         #endregion XMLDistInut()
 
-        #region XmlPedRec()
-
-        /// <summary>
-        /// Gera o XML de pedido de consulta do recibo do lote
-        /// </summary>
-        /// <param name="mod">Modelo do documento fiscal</param>
-        /// <param name="recibo">Número do recibo a ser consultado o lote</param>
-        public XmlDocument XmlPedRec(string mod, string recibo, string versao)
-        {
-            var dadosXML = new XmlDocument();
-
-            switch (mod)
-            {
-                case "65": //NFC-e
-                case "55": //NF-e
-                    dadosXML = XmlPedRecNFe(recibo, versao, mod, EmpIndex);
-                    break;
-
-                case "57": //CT-e
-                    dadosXML = XmlPedRecCTe(recibo, versao, EmpIndex);
-                    break;
-
-                case "58": //MDF-e
-                    dadosXML = XmlPedRecMDFe(recibo, versao, EmpIndex);
-                    break;
-            }
-
-            #region Gravar arquivo na pasta
-
-            //TODO: WANDREY - De futuro não quero mais gravar o recibo na pasta para melhorar desempenho, mas por conta do código da empresa agora não é possível, tem muita coisa para ajustar.
-            var nomeArqPedRec = Empresas.Configuracoes[EmpIndex].PastaXmlEnvio + "\\" + recibo + Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML;
-            var nomeArqPedRecTemp = Empresas.Configuracoes[EmpIndex].PastaXmlEnvio + "\\Temp\\" + recibo + Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML;
-
-            var fiTemp = new FileInfo(nomeArqPedRecTemp);
-
-            if (!File.Exists(nomeArqPedRec) && (!File.Exists(nomeArqPedRecTemp) || fiTemp.CreationTime <= DateTime.Now.AddMinutes(-1)))
-            {
-                GravarArquivoParaEnvio(nomeArqPedRec, dadosXML.OuterXml);
-            }
-
-            #endregion Gravar arquivo na pasta
-
-            return dadosXML;
-        }
-
-        #endregion XmlPedRec()
-
+ 
         #region XmlPedRecNFe()
 
         /// <summary>
@@ -1949,52 +1844,6 @@ namespace NFe.Service
         }
 
         #endregion XmlPedRecNFe()
-
-        #region XmlPedRecCTe()
-
-        /// <summary>
-        /// Gera o XML de pedido de analise do recibo do lote
-        /// </summary>
-        /// <param name="emp">Código da empresa</param>
-        /// <param name="recibo">Número do recibo a ser consultado o lote</param>
-        /// <param name="versao">Versão do schema do XML</param>
-        /// <returns>Retorna a string do XML a ser gravado</returns>
-        public XmlDocument XmlPedRecCTe(string recibo, string versao, int emp)
-        {
-            var xml = new XmlCTe.ConsReciCTe
-            {
-                NRec = recibo,
-                TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
-                Versao = versao
-            };
-
-            return xml.GerarXML();
-        }
-
-        #endregion XmlPedRecCTe()
-
-        #region XmlPedRecMDFe()
-
-        /// <summary>
-        /// Gera o XML de pedido de analise do recibo do lote
-        /// </summary>
-        /// <param name="emp">Código da empresa</param>
-        /// <param name="recibo">Número do recibo a ser consultado o lote</param>
-        /// <param name="versao">Versão do schema do XML</param>
-        /// <returns>Retorna a string do XML a ser gravado</returns>
-        public XmlDocument XmlPedRecMDFe(string recibo, string versao, int emp)
-        {
-            var xml = new XmlMDFe.ConsReciMDFe
-            {
-                NRec = recibo,
-                TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
-                Versao = versao
-            };
-
-            return xml.GerarXML();
-        }
-
-        #endregion XmlPedRecMDFe()
 
         #region XMLDistNFe()
 
@@ -2359,28 +2208,6 @@ namespace NFe.Service
         }
 
         #endregion XmlDistNFCom()
-
-        #region EnvioConsultaNFeDest
-
-        public void EnvioConsultaNFeDest(string pArquivo, DadosConsultaNFeDest dadosConsulta)
-        {
-            var doc = new XmlDocument();
-            doc.InsertBefore(doc.CreateXmlDeclaration("1.0", "UTF-8", ""), doc.DocumentElement);
-            XmlNode envConsulta = doc.CreateElement("consNFeDest");
-            envConsulta.Attributes.Append(CriaAttribute(doc, TpcnResources.versao.ToString(), NFe.ConvertTxt.versoes.VersaoXMLEnvConsultaNFeDest));
-            envConsulta.Attributes.Append(CriaAttribute(doc, TpcnResources.xmlns.ToString(), NFeStrConstants.NAME_SPACE_NFE));
-            envConsulta.AppendChild(CriaElemento(doc, TpcnResources.tpAmb.ToString(), dadosConsulta.tpAmb.ToString()));
-            envConsulta.AppendChild(CriaElemento(doc, TpcnResources.xServ.ToString(), string.IsNullOrEmpty(dadosConsulta.xServ) ? "CONSULTAR NFE DEST" : dadosConsulta.xServ));
-            envConsulta.AppendChild(CriaElemento(doc, TpcnResources.CNPJ.ToString(), dadosConsulta.CNPJ));
-            envConsulta.AppendChild(CriaElemento(doc, TpcnResources.indNFe.ToString(), dadosConsulta.indNFe.ToString()));
-            envConsulta.AppendChild(CriaElemento(doc, TpcnResources.indEmi.ToString(), dadosConsulta.indEmi.ToString()));
-            envConsulta.AppendChild(CriaElemento(doc, TpcnResources.ultNSU.ToString(), dadosConsulta.ultNSU.ToString()));
-            doc.AppendChild(envConsulta);
-
-            GravarArquivoParaEnvio(pArquivo, doc.OuterXml, true);
-        }
-
-        #endregion EnvioConsultaNFeDest
 
         #region -- Evento
 
