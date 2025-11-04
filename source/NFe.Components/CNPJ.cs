@@ -44,10 +44,6 @@ namespace NFe.Components
         /// </summary>
         /// <param name="provider">CurrentCulture</param>
         /// <returns>somente os números</returns>
-        public string ToString(IFormatProvider provider)
-        {
-            return Functions.OnlyNumbers(mValue, ".,-").ToString();
-        }
 
         /// <summary>
         /// Converte para string.
@@ -237,12 +233,5 @@ namespace NFe.Exceptions
             mCnpj = cnpj;
         }
 
-        public override string Message
-        {
-            get
-            {
-                return "O CNPJ informado não é válido\nCNPJ: " + mCnpj;
-            }
-        }
     }
 }

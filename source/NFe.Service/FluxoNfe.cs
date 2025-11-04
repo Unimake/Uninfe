@@ -906,23 +906,6 @@ namespace NFe.Service
         /// <returns>Retorna o conteúdo da TAG</returns>
         /// <by>Wandrey Mundin Ferreira</by>
         /// <date>20/04/2009</date>
-        public string LerTag(string strChaveNFe, ElementoEditavel Tag)
-        {
-            var strConteudo = string.Empty;
-            strConteudo = LerTag(strChaveNFe, Tag.ToString());
-            return strConteudo;
-        }
-        #endregion
-
-        #region LerTag() - Sobrecarga
-        /// <summary>
-        /// Ler conteúdo da Tag de uma determinada NFe que já está no controle de fluxo de notas sendo enviadas
-        /// </summary>
-        /// <param name="strChaveNFe">Chave da NFe que é para ler a tag</param>
-        /// <param name="Tag">Nome da tag a ser lida</param>
-        /// <returns>Retorna o conteúdo da TAG</returns>
-        /// <by>Wandrey Mundin Ferreira</by>
-        /// <date>20/04/2009</date>
         public string LerTag(string strChaveNFe, ElementoFixo Tag)
         {
             var strConteudo = string.Empty;

@@ -101,49 +101,7 @@ namespace NFe.Service.NFSe
                 }
             }
         }
-        //Atualmente não funciona a geração de integridade. Estamos comentando para caso algum dia formos utilizar e alguns desenvolvedores conseguiram desenvolver em PHP.
-
-        //private void GerarTagIntegracao(string token)
-        //{
-        //    var doc = new XmlDocument();
-        //    doc.Load(NomeArquivoXML);
-        //    string conteudoXML, integridade;
-        //    conteudoXML = doc.GetElementsByTagName("Rps")[0].OuterXml;
-        //    conteudoXML = Regex.Replace(conteudoXML, "[^\x20-\x7E]+", "");
-        //    conteudoXML = Regex.Replace(conteudoXML, "[ ]+", "");
-        //    integridade = Criptografia.GerarRSASHA512(conteudoXML + token, true);
-
-        //    foreach(var item in ConteudoXML)
-        //    {
-        //        if(typeof(XmlElement) == item.GetType())
-        //        {
-        //            XmlNode gerarNfseEnvio = (XmlElement)ConteudoXML.GetElementsByTagName("GerarNfseEnvio")[0];
-        //            XmlNode tagintegridade = ConteudoXML.CreateElement("Integridade", ConteudoXML.DocumentElement.NamespaceURI);
-
-        //            tagintegridade.InnerXml = (integridade.Trim()).Trim();
-
-        //            gerarNfseEnvio.AppendChild(tagintegridade);
-
-        //            conteudoXML = gerarNfseEnvio.OuterXml;
-
-        //            break;
-        //        }
-        //    }
-        //    try
-        //    {
-        //        // Atualizar a string do XML já assinada
-        //        var StringXMLAssinado = conteudoXML;
-
-        //        // Gravar o XML Assinado no HD
-        //        var SW_2 = File.CreateText(NomeArquivoXML);
-        //        SW_2.Write(StringXMLAssinado);
-        //        SW_2.Close();
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
+        
 
         #region EnvLoteRps()
 

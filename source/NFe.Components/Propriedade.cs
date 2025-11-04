@@ -182,33 +182,6 @@ namespace NFe.Components
                         }
 
                     }
-
-                   /* 
-                    if (File.Exists(NomeArqXMLWebService_NFe))
-                    {
-                        var axml = XElement.Load(NomeArqXMLWebService_NFe);
-                        var s = (from p in axml.Descendants(NFe.Components.NFeStrConstants.Estado)
-                                 where (int)p.Attribute(NFe.Components.TpcnResources.ID.ToString()) < 900
-                                 orderby p.Attribute(NFe.Components.NFeStrConstants.Nome).Value
-                                 select new
-                                 {
-                                     Nome = (string)p.Attribute(NFeStrConstants.Nome),
-                                     ID = (int)p.Attribute(TpcnResources.ID.ToString()),
-                                     UF = (string)p.Attribute(TpcnResources.UF.ToString()),
-                                     SVC = (string)p.Attribute(NFeStrConstants.SVC)
-                                 });
-                        foreach (var item in s)
-                        {
-                            _Estados.Add(new Municipio
-                            {
-                                CodigoMunicipio = item.ID,
-                                Nome = item.Nome,
-                                UF = item.UF,
-                                svc = EnumHelper.StringToEnum<TipoEmissao>(item.SVC)
-
-                            });
-                        }
-                    }*/
                 }
                 return _Estados;
             }

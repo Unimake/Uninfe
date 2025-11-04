@@ -49,42 +49,6 @@ namespace NFe.Components
                 throw;
             }
         }
-        public static void ContinueService(string serviceName, int timeoutMilliseconds)
-        {
-            ServiceController service = new ServiceController(serviceName);
-            try
-            {
-                if (service.Status == ServiceControllerStatus.Paused)
-                {
-                    TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
-
-                    service.Continue();
-                    service.WaitForStatus(ServiceControllerStatus.Running, timeout);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        public static void PauseService(string serviceName, int timeoutMilliseconds)
-        {
-            ServiceController service = new ServiceController(serviceName);
-            try
-            {
-                if (service.Status == ServiceControllerStatus.Running)
-                {
-                    TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
-
-                    service.Pause();
-                    service.WaitForStatus(ServiceControllerStatus.Paused, timeout);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-        }
         public static void RestartService(string serviceName, int timeoutMilliseconds)
         {
             ServiceController service = new ServiceController(serviceName);

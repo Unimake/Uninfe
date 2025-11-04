@@ -15,12 +15,6 @@ namespace NFe.Components
             Nome = nome;
         }
 
-        public ComboElem(string valor, int codigo)
-        {
-            Valor = valor;
-            Codigo = codigo;
-        }
-
         string _valor;
         int _Codigo;
         string _nome;

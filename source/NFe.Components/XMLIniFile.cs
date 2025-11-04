@@ -28,14 +28,6 @@ namespace NFe.Components
 		const string stxmlini_CannotCreatePath = "Cannot create '{0}'";
 		const string stxmlini_Version = "Version";
 
-		public XMLIniFile()
-		{
-			xmldoc = new XmlDocument();
-			DocElementname = "Principal";
-			DocElementVersion = 1;
-			XmlFormat = Store.SameElement;
-		}
-
 		public XMLIniFile(string filename)
 		{
 			xmlfilename = filename;
@@ -51,40 +43,12 @@ namespace NFe.Components
 			Modified = false;
 		}
 
-		public XMLIniFile(string aaDocElementname, int aaVersion, Store aaStore)
-		{
-			xmldoc = new XmlDocument();
-			DocElementname = aaDocElementname;
-			DocElementVersion = aaVersion;
-			XmlFormat = aaStore;
-		}
-
-		public XMLIniFile(string aaDocElementname, int aaVersion, Store aaStore, string filename)
-		{
-			xmldoc = new XmlDocument();
-			xmlfilename = filename;
-			DocElementname = aaDocElementname;
-			DocElementVersion = aaVersion;
-			XmlFormat = aaStore;
-			Modified = false;
-			try
-			{
-				xmldoc.Load(filename);
-			}
-			catch{}
-		}
         ~XMLIniFile()
         {
             this.Save();
         }
 
 		#region Property
-
-		public string Filename
-		{
-			get{return xmlfilename;}
-			set{xmlfilename = value;}
-		}
 
 		public string DocElementname
 		{
@@ -97,18 +61,6 @@ namespace NFe.Components
 			get{return aDocElementVersion;}
 			set{aDocElementVersion = value;}
 		}
-
-		public Store XmlFormat
-		{
-			get{return aXmlFormat;}
-			set{aXmlFormat = value;}
-		}
-
-        //public bool ReplaceValue
-        //{
-        //    get { return _replaceValue; }
-        //    set { _replaceValue = value; }
-        //}
 
 		#endregion
 
@@ -132,66 +84,11 @@ namespace NFe.Components
 			}
 		}
 
-		public void SaveAs(string filename)
-		{
-            if (string.IsNullOrEmpty(filename))
-                return;
-
-			try
-			{
-				xmldoc.Save(filename);
-                Modified = false;
-            }
-			catch//(Exception ex)
-			{
-				//MessageBox.Show("SaveAs: "+ex.Message);
-			}
-		}
-
 		#endregion
 
-		#region Load Functions
-
-        /*
-		public void Load()
-		{
-			this.Load(this.xmlfilename);
-			Modified = false;
-		}
-
-		public void Load(string aFileName)
-		{
-			xmlfilename = aFileName;
-			xmldoc.Load(aFileName);
-			Modified = false;
-		}*/
-
-        #endregion
-
+		
         #region Delete Functions
-        /*
-        public bool DeletePath(string Path)	// OK
-		{
-			XmlNode n = GetPathNode(Path, false);
-			if (n != null)
-			{
-				n.RemoveAll();
-                this.Modified = true;
-
-				XmlNode _RootNode = xmldoc.DocumentElement;
-				if (_RootNode!=null)
-				{
-					try
-					{
-						_RootNode.RemoveChild(n);
-					}
-					catch{}
-					return true;
-				}
-			}
-			return (n!=null);
-		}*/
-
+       
 		public void DeleteValue(string Path, string ValueSection)   //ok
 		{
 			XmlNode n = GetPathNode(Path, false);
@@ -218,92 +115,6 @@ namespace NFe.Components
 		#endregion
 
 		#region Read Functions
-        /*
-		public System.Drawing.Color ReadValue(string Path, string ValueSection, System.Drawing.Color Default)
-		{
-            string value = this.ReadThisValue(Path, ValueSection, Default.ToString());
-
-			value = value.Replace("]","");
-			value = value.Replace("Color [","");
-
-			return System.Drawing.Color.FromName( value );
-		}
-
-		public Font ReadValue(string Path, Font Value)
-		{
-			if (ValueExists(Path, "Name"))
-			{
-				FontStyle style = FontStyle.Regular;
-
-                string FontName = this.ReadThisValue(Translate(Path), "Name", Value.Name);
-
-				float Size = (float)Convert.ToDouble( ReadThisValue( Translate(Path), "Size", Value.Size.ToString() ) );
-				if (this.ReadThisValue( Translate(Path), "Bold", Value.Bold.ToString() )=="True")
-					style |= FontStyle.Bold;
-                if (this.ReadThisValue(Translate(Path), "Italic", Value.Italic.ToString()) == "True")
-					style |= FontStyle.Italic;
-                if (this.ReadThisValue(Translate(Path), "Underline", Value.Underline.ToString()) == "True")
-					style |= FontStyle.Underline;
-                if (this.ReadThisValue(Translate(Path), "Strikeout", Value.Strikeout.ToString()) == "True")
-					style |= FontStyle.Strikeout;
-
-				return new Font(FontName, Size, style);
-			}
-			else
-				return Value;
-		}*/
-
-		public bool ReadValue(string Path, string ValueSection, bool Default)
-		{
-            try
-            {
-                if (ValueExists(Path, ValueSection))
-                    return Convert.ToBoolean(ReadThisValue(Path, ValueSection));
-            }
-            catch { }
-
-            return Default;
-		}
-
-		public DateTime ReadValue(string Path, string ValueSection, DateTime Default)
-		{
-            try
-            {
-                if (ValueExists(Path, ValueSection))
-                    return Convert.ToDateTime(ReadThisValue(Path, ValueSection));
-            }
-            catch { }
-
-			return Default;
-		}
-
-		public double ReadValue(string Path, string ValueSection, double Default)
-		{
-            try
-            {
-                if (ValueExists(Path, ValueSection))
-                    return Convert.ToDouble("0" + ReadThisValue(Path, ValueSection));
-            }
-            catch { }
-
-			return Default;
-		}
-
-        public Single ReadValue(string Path, string ValueSection, Single Default)
-        {
-            try
-            {
-                if (ValueExists(Path, ValueSection))
-                {
-                    string str = ReadThisValue(Path, ValueSection).Replace(".", ",");
-                    if (str != "")
-                        return Convert.ToSingle(str);
-                }
-            }
-            catch { }
-
-            return Default;
-        }
 
         public Int32 ReadValue(string Path, string ValueSection, Int32 Default)
 		{
@@ -338,148 +149,6 @@ namespace NFe.Components
 			return Default;
 		}
 
-        /*
-        public ArrayList ReadSections()
-        {
-            ArrayList List = new ArrayList();
-            this.ReadSections(List);
-            return List;
-        }
-        */
-
-        /*
-        public void ReadSections(ArrayList List)	//ok
-		{
-			List.Clear();
-			CheckInitialized();
-			XmlNode _RootNode = xmldoc.DocumentElement;
-			if (_RootNode!=null)
-				for (int i = 0; i < _RootNode.ChildNodes.Count; ++i)
-					if (_RootNode.ChildNodes[i].NodeType == XmlNodeType.Element)
-						List.Add( _RootNode.ChildNodes[i].LocalName );
-		}*/
-
-        /*
-        public ArrayList ReadFullSections(string path)
-        {
-            ArrayList List = new ArrayList();
-            XmlNode _RootNode = GetPathNode(path, false);
-            if (_RootNode != null)
-            {
-                for (int i = 0; i < _RootNode.ChildNodes.Count; ++i)
-                {
-                    string _path = path + "\\" + _RootNode.ChildNodes[i].Name;
-                    if (List.IndexOf(_path)<0)
-                        List.Add(_path);
-                }
-            }
-            return List;
-        }
-
-        public void ReadSections(string Path, ArrayList List, bool IncludePath)
-		{
-			List.Clear();
-			XmlNode _RootNode = GetPathNode(Path, false);
-			if (_RootNode!=null)
-                for (int i = 0; i < _RootNode.ChildNodes.Count; ++i)
-                {
-                    if (_RootNode.ChildNodes[i].NodeType == XmlNodeType.Element)
-                    {
-                        List.Add((IncludePath) ?
-                            Path + @"\\" + _RootNode.ChildNodes[i].LocalName :
-                            _RootNode.ChildNodes[i].LocalName);
-                    }
-                }
-		}
-
-        public ArrayList ReadSections(string Path, bool IncludePath)
-		{
-			ArrayList List = new ArrayList();
-			this.ReadSections(Path, List, IncludePath);
-			return List;
-		}
-
-		public ArrayList ReadSection(string Path)
-		{
-			ArrayList List = new ArrayList();
-			this.ReadSection(Path, List);
-			return List;
-		}
-
-		public void ReadSection(string Path, ArrayList List)
-		{
-			List.Clear();
-			try
-			{
-				int C = Convert.ToInt16( ReadThisValue( Path,"ItemCount" ) );
-				for (int I = 0; I < C; ++I)
-				{
-					string _Section = "Item"+Convert.ToString(I);
-					string _Path = Path + "\\" + _Section;
-
-					if (ValueExists(Path, _Section))
-						List.Add( _Path + "=" + ReadThisValue( Path, _Section ));
-				}
-			}
-			catch{}
-		}
-
-		public ArrayList ReadSectionValues(string Path)
-		{
-			ArrayList List = new ArrayList();
-			this.ReadSectionValues(Path, List);
-			return List;
-		}
-
-		public void ReadSectionValues(string Path, ArrayList List)
-		{
-			int I,C;
-			string Section;
-
-			List.Clear();
-			try
-			{
-				C = Convert.ToInt16( ReadThisValue( Path,"ItemCount" ) );
-				for (I = 0; I < C; ++I)
-				{
-					Section = "Item"+Convert.ToString(I);
-					if (ValueExists(Path, Section))
-						List.Add(ReadThisValue( Path, Section ));
-				}
-			}
-			catch{}
-		}
-
-        public string ReadInnerXml(string path)	//ok
-        {
-            CheckInitialized();
-            XmlNode _RootNode = GetPathNode(path, false);
-            if (_RootNode != null)
-                return _RootNode.InnerXml;
-            return "";
-        }
-
-        public string ReadValue(string Path)
-		{
-			XmlNode n = GetPathNode(Path, false);
-			if (n != null)
-				return n.InnerText;
-			else
-				return "";
-		}*/
-
-        protected string ReadThisValue(string Path, string ValueSection, string Default)	//OK
-		{
-            try
-            {
-                if (ValueExists(Path, ValueSection))
-                    Default = this.ReadThisValue(Path, ValueSection);
-            }
-            catch { }
-
-			return Default;
-		}
-
         protected string ReadThisValue(string Path, string ValueSection)	//OK
 		{
 			XmlNode n = GetPathNode(Path, false);
@@ -510,32 +179,6 @@ namespace NFe.Components
 
         #region Write Functions
 
-        /*        public void WriteFontValue(string Path, Font Value)
-		{
-			WriteThisValue( Translate(Path), "Name", Value.Name );
-			WriteThisValue( Translate(Path), "Size", Value.Size.ToString() );
-			WriteThisValue( Translate(Path), "Bold", Value.Bold.ToString() );
-			WriteThisValue( Translate(Path), "Italic", Value.Italic.ToString() );
-			WriteThisValue( Translate(Path), "Underline", Value.Underline.ToString() );
-			WriteThisValue( Translate(Path), "Strikeout", Value.Strikeout.ToString() );
-			//WriteThisValue( Translate(Path), "Style", Value.Style.ToString() );
-		}
-		public void WriteValue(string Path, string ValueSection, bool Value)	//ok
-		{
-			WriteThisValue( Translate(Path), Translate(ValueSection), Convert.ToString(Value) );
-		}
-
-        public void WriteValue(string Path, string ValueSection, DateTime Value)
-		{
-			WriteThisValue( Translate(Path), Translate(ValueSection), Convert.ToString(Value) );
-		}
-
-        public void WriteValue(string Path, string ValueSection, int Value)	//ok
-		{
-			WriteThisValue( Translate(Path), Translate(ValueSection), Convert.ToString(Value) );
-		}
-*/
-
         public void WriteValue(string Path, string ValueSection, double Value)	//ok
 		{
 			WriteThisValue( Translate(Path), Translate(ValueSection), Convert.ToString(Value) );//.Replace(',','.') );
@@ -544,73 +187,6 @@ namespace NFe.Components
         {
             WriteThisValue(Translate(Path), Translate(ValueSection), Value);
         }
-
-        /*
-                public void WriteValue(string Path, ArrayList List)	//ok
-                {
-                    DeletePath(Path);
-                    WriteThisValue( Path,"ItemCount", List.Count.ToString());
-                    for (int I = 0; I < List.Count; ++I)
-                        WriteThisValue( Path, "Item"+Convert.ToString(I), List[I].ToString());
-                }
-
-        public void WriteValue(string Path, string Value)	//ok
-		{
-			try
-			{
-				XmlNode n = GetPathNode(Path, true);
-                if (n != null)
-                {
-                    Modified = true;
-                    if (!string.IsNullOrEmpty(Value))
-                        n.InnerText = Value;
-                }
-			}
-			catch
-			{
-				MessageBox.Show( String.Format(stxmlini_CannotCreatePath, Path) );
-			}
-		}
-
-        public void WriteInnerXml(string Path, string Value)	//ok
-        {
-            try
-            {
-                XmlNode n = GetPathNode(Path, true);
-                if (n != null)
-                {
-                    Modified = true;
-                    n.InnerXml = Value;
-                }
-            }
-            catch
-            {
-                MessageBox.Show(String.Format(stxmlini_CannotCreatePath, Path));
-            }
-        }
-
-        public void WriteAttribute(string Path, string ValueSection, string Value)
-        {
-				XmlNode node = GetPathNode(Path, true);
-                if (node != null)
-                {
-                    Modified = true;
-                    if (node.Attributes.GetNamedItem(ValueSection) != null)
-                    {
-                        node = node.Attributes.GetNamedItem(ValueSection);
-                        node.Value = Value;
-                    }
-                    else
-                    {
-                        XmlAttribute xmlSection;
-
-                        xmlSection = xmldoc.CreateAttribute(ValueSection);
-                        xmlSection.Value = Value;
-                        node.Attributes.Append(xmlSection);
-                    }
-                }
-        }
-        */
 
         protected void WriteThisValue(string Path, string ValueSection, string Value)
 		{
@@ -782,29 +358,6 @@ namespace NFe.Components
 			}
 		}
 
-        /*
-        public string XmlText
-        {
-            get
-            {
-                try
-                {
-                    CheckInitialized();
-                    return xmldoc.DocumentElement.OuterXml;
-                }
-                catch
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                xmldoc.LoadXml(value);
-                Modified = true;
-            }
-        }*/
-
-
         protected void CheckInitialized()	//ok
 		{
 			if (xmldoc.DocumentElement == null)
@@ -905,10 +458,6 @@ namespace NFe.Components
 			return slist;
 		}
 
-        public void AddValue(XmlNode node, string Path, string Section, string value)
-        {
-        }
-
 		public XmlNode GetPathNode(string NodePath, bool CanCreate)
 		{
 			XmlNode lnode;
@@ -960,63 +509,6 @@ namespace NFe.Components
 			return false;
 		}
 
-		public string FullPathNode(XmlNode node)
-		{
-			string result = "";
-			while (node.ParentNode!=null)
-			{
-				result = node.LocalName + "\\" + result;
-				node = node.ParentNode;
-			}
-			return result;
-		}
-
 		#endregion
-    
-
-    }
-
-    public class IniFile   // revision 10
-    {
-        string Path;
-        string EXE = Assembly.GetExecutingAssembly().GetName().Name;
-
-        [DllImport("kernel32")]
-        static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
-
-        [DllImport("kernel32")]
-        static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
-
-        public IniFile(string IniPath = null)
-        {
-            Path = new FileInfo(IniPath ?? EXE + ".ini").FullName.ToString();
-        }
-
-        public string Read(string Key, string Section = null)
-        {
-            var RetVal = new StringBuilder(255);
-            GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
-            return RetVal.ToString();
-        }
-
-        public void Write(string Key, string Value, string Section = null)
-        {
-            WritePrivateProfileString(Section ?? EXE, Key, Value, Path);
-        }
-
-        public void DeleteKey(string Key, string Section = null)
-        {
-            Write(Key, null, Section ?? EXE);
-        }
-
-        public void DeleteSection(string Section = null)
-        {
-            Write(null, null, Section ?? EXE);
-        }
-
-        public bool KeyExists(string Key, string Section = null)
-        {
-            return Read(Key, Section).Length > 0;
-        }
     }
 }
