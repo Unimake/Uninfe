@@ -2062,13 +2062,12 @@ namespace NFe.Settings
 
             try
             {
-
-                var regex = new System.Text.RegularExpressions.Regex(@"\b(?:\d{14}|\d{11})\b");
-                var match = regex.Match(certificado);
-
-                if (match.Success)
+                var m = Regex.Match(certificado, @"\b(\d{10,14})\b");
+                if (m.Success)
                 {
-                    return match.Groups[0].Value;
+                    string digits = m.Groups[1].Value;
+                    int target = digits.Length <= 11 ? 11 : 14; 
+                    return digits.PadLeft(target, '0');
                 }
             }
             catch
