@@ -6,7 +6,6 @@ using System.IO;
 using System.ServiceModel;
 using System.Threading;
 using System.Xml;
-using static NFe.Components.Security.SOAPSecurity;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service.NFSe

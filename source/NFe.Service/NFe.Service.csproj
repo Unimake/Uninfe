@@ -384,7 +384,6 @@
     <Compile Include="PIX\TaskPIXCobrancaCreateRequest.cs" />
     <Compile Include="Processar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\SOAPSecurity.cs" />
     <Compile Include="SendMessageToWhatsApp.cs" />
     <Compile Include="TaskAbst.cs" />
     <Compile Include="NFe\TaskAssinarValidarNFe.cs" />

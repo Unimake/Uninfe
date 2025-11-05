@@ -500,16 +500,6 @@ namespace NFe.Service
             #endregion Verificar se os valores das tag´s que compõe a chave da nfe estão batendo com as informadas na chave
         }
 
-        private bool ValidarInformacaoContingencia(DadosNFeClass dadosNFe)
-        {
-            if (string.IsNullOrEmpty(dadosNFe.dhCont) || string.IsNullOrEmpty(dadosNFe.xJust))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         #endregion ValidacoesGerais()
 
         #region LoteNfe()
