@@ -6,40 +6,6 @@ using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service
 {
-    #region Classe ParametroThread
-
-    /// <summary>
-    /// Classe para auxiliar na execução de várias thread´s com parâmetros
-    /// </summary>
-    public class ParametroThread
-    {
-        #region Propriedades
-
-        /// <summary>
-        /// Serviço que será executado
-        /// </summary>
-        public Servicos Servico { get; private set; }
-
-        /// <summary>
-        /// Arquivo que é para ser destinado/enviado/analisado
-        /// </summary>
-        public string Arquivo { get; private set; }
-
-        #endregion Propriedades
-
-        #region Construtores
-
-        public ParametroThread(Servicos servico, string arquivo)
-        {
-            Servico = servico;
-            Arquivo = arquivo;
-        }
-
-        #endregion Construtores
-    }
-
-    #endregion Classe ParametroThread
-
     #region infCad & RetConsCad
 
     public class enderConsCadInf
@@ -97,13 +63,6 @@ namespace NFe.Service
 
     #endregion infCad & RetConsCad
 
-    /// <summary>
-    /// Classe utilizada para permitir o lock na hora de gravar os arquivos de fluxo da NFe
-    /// </summary>
-    public class FluxoNfeLock
-    {
-    }
-
     #region Classe com os Dados do XML da Consulta Cadastro do Contribuinte
 
     public class DadosConsCad
@@ -130,117 +89,6 @@ namespace NFe.Service
                 this.cUF = 0;// string.Empty;
 
                 this.cUF = Functions.UFParaCodigo(value.Trim());
-                /*
-                switch (this.mUF.ToUpper().Trim())
-                {
-                    case "AC":
-                        this.cUF = 12;
-                        break;
-
-                    case "AL":
-                        this.cUF = 27;
-                        break;
-
-                    case "AP":
-                        this.cUF = 16;
-                        break;
-
-                    case "AM":
-                        this.cUF = 13;
-                        break;
-
-                    case "BA":
-                        this.cUF = 29;
-                        break;
-
-                    case "CE":
-                        this.cUF = 23;
-                        break;
-
-                    case "DF":
-                        this.cUF = 53;
-                        break;
-
-                    case "ES":
-                        this.cUF = 32;
-                        break;
-
-                    case "GO":
-                        this.cUF = 52;
-                        break;
-
-                    case "MA":
-                        this.cUF = 21;
-                        break;
-
-                    case "MG":
-                        this.cUF = 31;
-                        break;
-
-                    case "MS":
-                        this.cUF = 50;
-                        break;
-
-                    case "MT":
-                        this.cUF = 51;
-                        break;
-
-                    case "PA":
-                        this.cUF = 15;
-                        break;
-
-                    case "PB":
-                        this.cUF = 25;
-                        break;
-
-                    case "PE":
-                        this.cUF = 26;
-                        break;
-
-                    case "PI":
-                        this.cUF = 22;
-                        break;
-
-                    case "PR":
-                        this.cUF = 41;
-                        break;
-
-                    case "RJ":
-                        this.cUF = 33;
-                        break;
-
-                    case "RN":
-                        this.cUF = 24;
-                        break;
-
-                    case "RO":
-                        this.cUF = 11;
-                        break;
-
-                    case "RR":
-                        this.cUF = 14;
-                        break;
-
-                    case "RS":
-                        this.cUF = 43;
-                        break;
-
-                    case "SC":
-                        this.cUF = 42;
-                        break;
-
-                    case "SE":
-                        this.cUF = 28;
-                        break;
-
-                    case "SP":
-                        this.cUF = 35;
-                        break;
-
-                    case "TO":
-                        this.cUF = 17;
-                        break;
-                }*/
             }
         }
 
@@ -435,10 +283,6 @@ namespace NFe.Service
         /// </summary>
         public int tMed { get; set; }
 
-        /// <summary>
-        /// Versão do XML
-        /// </summary>
-        public string versao { get; set; }
     }
 
     #endregion Classe com os dados do XML do retorno do envio do Lote de NFe
@@ -621,11 +465,7 @@ namespace NFe.Service
 
         public EventoCancelamentoConciliacaoFinanceira cancelamentoConciliacaoFinanceira { get; set; }
 
-        public string mod
-        {
-            get { return chNFe.Substring(20, 2); }
-        }
-
+   
         /// <summary>
         /// Prorrogacao de ICMS
         /// </summary>
@@ -769,52 +609,7 @@ namespace NFe.Service
 
     #endregion Classe com os dados do XML do registro de eventos
 
-    #region Classe com os dados do XML do registro de download de nfe
-
-    public class DadosenvDownload
-    {
-        public int tpAmb { get; set; }
-        public string chNFe { get; set; }
-        public string CNPJ { get; set; }
-    }
-
-    #endregion Classe com os dados do XML do registro de download de nfe
-
-    #region Classe com os dados do XML do registro de consulta de nfe de destinatario
-
-    public class DadosConsultaNFeDest
-    {
-        public int tpAmb { get; set; }
-        public string xServ { get; set; }
-        public string CNPJ { get; set; }
-        public int indNFe { get; set; }
-        public int indEmi { get; set; }
-        public string ultNSU { get; set; }
-    }
-
-    #endregion Classe com os dados do XML do registro de consulta de nfe de destinatario
-
     #region Classe para receber os dados dos XML´s da NFS-e
-
-    public class Municipio
-    {
-        public int CodigoMunicipio { get; set; }
-        public string UF { get; set; }
-        public string Nome { get; set; }
-        public string PadraoStr { get; set; }   //usado para manutencao
-        public PadraoNFSe Padrao { get; set; }
-
-        public Municipio(int _cod, string _uf, string _nome, PadraoNFSe _padrao)
-        {
-            this.Nome = _nome;
-            if (!_nome.Trim().EndsWith(" - " + _uf))
-                this.Nome = _nome.Trim() + " - " + _uf;
-            this.CodigoMunicipio = _cod;
-            this.Padrao = _padrao;
-            this.PadraoStr = _padrao.ToString();
-            this.UF = _uf;
-        }
-    }
 
     #region DadosPedLoteRps
 
@@ -826,9 +621,6 @@ namespace NFe.Service
         public int cMunicipio { get; set; }
         public int tpAmb { get; set; }
         public int tpEmis { get; set; }
-        public string Protocolo { get; set; }
-        public string Cnpj { get; set; }
-        public string InscricaoMunicipal { get; set; }
 
         public DadosPedLoteRps(int emp)
         {
@@ -880,26 +672,6 @@ namespace NFe.Service
     }
 
     #endregion DadosPedSitNfse
-
-    #region DadosPedStaNfse
-    /// <summary>
-    /// Classe com os dados do XML da consulta de status da nfse por numero da nfse
-    /// </summary>
-    public class DadosPedStaNfse
-    {
-        public int cMunicipio { get; set; }
-        public int tpAmb { get; set; }
-        public int tpEmis { get; set; }
-
-        public DadosPedStaNfse(int emp)
-        {
-            tpEmis = Empresas.Configuracoes[emp].tpEmis;
-            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
-            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
-        }
-    }
-
-    #endregion DadosPedStaNfse
 
     #region DadosPedSitNfseRps
 
@@ -985,27 +757,6 @@ namespace NFe.Service
 
     #endregion Classe com os dados do XML do Lote RPS
 
-    #region DadosPedURLNfse
-
-    /// <summary>
-    /// Classe com os dados do XML da consulta da URL da Nfse
-    /// </summary>
-    public class DadosPedURLNfse
-    {
-        public int cMunicipio { get; set; }
-        public int tpAmb { get; set; }
-        public int tpEmis { get; set; }
-
-        public DadosPedURLNfse(int emp)
-        {
-            tpEmis = Empresas.Configuracoes[emp].tpEmis;
-            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
-            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
-        }
-    }
-
-    #endregion DadosPedURLNfse
-
     #region DadosPedSeqLoteNotaRPS
 
     /// <summary>
@@ -1030,17 +781,6 @@ namespace NFe.Service
     #endregion Classe para receber os dados dos XML´s da NFS-e
 
     #region Classe para receber dados do XML de Distribuição do DFe
-
-    public class distDFeInt
-    {
-        public string versao { get; set; }
-        public int tpAmb { get; set; }
-        public string cUFAutor { get; set; }
-        public string CNPJ { get; set; }
-        public string CPF { get; set; }
-        public string ultNSU { get; set; }
-        public string NSU { get; set; }
-    }
 
     #endregion Classe para receber dados do XML de Distribuição do DFe
 }
