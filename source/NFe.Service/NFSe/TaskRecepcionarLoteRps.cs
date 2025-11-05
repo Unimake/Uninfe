@@ -1,13 +1,9 @@
 ﻿using NFe.Components;
 using NFe.Settings;
-using NFe.Validate;
-using NFSe.Components;
 using System;
 using System.IO;
-using System.ServiceModel;
 using System.Threading;
 using System.Xml;
-using static NFe.Components.Security.SOAPSecurity;
 using Unimake.Business.DFe.Servicos;
 namespace NFe.Service.NFSe
 {
@@ -101,7 +97,7 @@ namespace NFe.Service.NFSe
                 }
             }
         }
-        
+
 
         #region EnvLoteRps()
 
@@ -133,11 +129,11 @@ namespace NFe.Service.NFSe
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
 
-            var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
+            var configuracao = new Configuracao
             {
-                TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
+                TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                TipoAmbiente = (TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = TFunctions.DefiniMunicioPadrao(padraoNFSe, municipio),
                 Servico = servico,
                 SchemaVersao = versaoXML,
@@ -635,7 +631,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
-                    if ((codMunicipio == 3509502 && ConteudoXML.OuterXml.Contains("ns1:ReqEnvioLoteRPS") || codMunicipio == 5002704 || 
+                    if ((codMunicipio == 3509502 && ConteudoXML.OuterXml.Contains("ns1:ReqEnvioLoteRPS") || codMunicipio == 5002704 ||
                         codMunicipio == 3303500 || codMunicipio == 2111300))
                     {
                         versaoXML = "1.00";
@@ -722,9 +718,17 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GINFES:
-                case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
                     break;
+
+                case PadraoNFSe.PUBLICA:
+                    versaoXML = "3.00";
+                    if (ConteudoXML.InnerXml.Contains("versao=\"3.01\""))
+                    {
+                        versaoXML = "3.01";
+                    }
+                    break;
+
                 case PadraoNFSe.SIGCORP:
                     if (xmlDoc.DocumentElement.Name.Contains("GerarNota"))
                     {
