@@ -359,6 +359,7 @@ namespace NFe.Service
         /// </summary>
         public void FinalizarNFe(XmlNodeList protNFeList, FluxoNfe fluxoNFe, int emp, XmlDocument conteudoXMLLote)
         {
+            var veioDaConsultaRecibo = conteudoXMLLote == null;
             var oLerXml = new LerXML();
 
             foreach (XmlNode protNFeNode in protNFeList)
@@ -453,7 +454,11 @@ namespace NFe.Service
                                 {
                                     if (!File.Exists(strArquivoNFeProc))
                                     {
-                                        Auxiliar.WriteLog("TaskNFeRetRecepcao: Gerou o arquivo de distribuição através da consulta recibo.", false);
+                                        if (veioDaConsultaRecibo)
+                                        {
+                                            Auxiliar.WriteLog("TaskNFeRetRecepcao: Gerou o arquivo de distribuição através da consulta recibo.", false);
+                                        }
+
                                         oGerarXML.XmlDistNFe(strArquivoNFe, strProtNfe, Propriedade.ExtRetorno.ProcNFe, oLerXml.oDadosNfe.versao);
                                     }
                                 }
