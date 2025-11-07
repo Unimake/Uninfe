@@ -81,6 +81,7 @@ namespace NFe.Validate
                 new XElement("Warnings", warnings)));
             xml.Save(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + arquivoRetorno);
 
+            xMotivo.Clear();
         }
 
         private void Validar(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
