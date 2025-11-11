@@ -114,15 +114,7 @@ namespace NFe.Components
             }
         }
 
-        /// <summary>
-        /// gravação de dados
-        /// </summary>
-        /// <param name="provider">CurrentCulture</param>
-        /// <returns>somente os números</returns>
-        public string ToString(IFormatProvider provider)
-        {
-            return Functions.OnlyNumbers(_value, ".-").ToString();
-        }
+        
 
         /// <summary>
         /// Converte para o formato string

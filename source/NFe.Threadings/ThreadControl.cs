@@ -8,35 +8,7 @@ using Unimake.Business.DFe.Security;
 
 namespace NFe.Threadings
 {
-    #region Semaphore
-
-    /// <summary>
-    /// controla a posição em que thread está no momento
-    /// </summary>
-    public enum Semaphore
-    {
-        /// <summary>
-        /// adicionada. Podemos executar
-        /// </summary>
-        Added,
-
-        /// <summary>
-        /// Está sendo processada
-        /// </summary>
-        Started,
-
-        /// <summary>
-        /// finalizou a execução
-        /// </summary>
-        Finished,
-
-        /// <summary>
-        /// Terminou, pode ser removida da lista
-        /// </summary>
-        Released
-    }
-
-    #endregion Semaphore
+   
 
     #region #21040
 

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Security.Cryptography;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
 
 namespace NFe.Components
 {
@@ -154,60 +150,6 @@ namespace NFe.Components
             }
         }
 
-        public static bool compararStrings(string num01, string num02)
-        {
-            bool stringValor;
-            if (num01.Equals(num02))
-            {
-                stringValor = true;
-            }
-            else
-            {
-                stringValor = false;
-            }
-            return stringValor;
-        }
-
-        /// <summary>
-        /// Assina a string utilizando RSA-SHA1
-        /// </summary>
-        /// <param name="cert">certificado utilizado para assinar a string</param>
-        /// <param name="value">Valor a ser assinado</param>
-        /// <returns></returns>
-        public static string SignWithRSASHA1(X509Certificate2 cert, String value)
-        {
-            //Regras retiradas da página 39 do manual da Prefeitura Municipal de Blumenau
-            // Converta a cadeia de caracteres ASCII para bytes. 
-            ASCIIEncoding asciiEncoding = new ASCIIEncoding();
-            byte[] asciiBytes = asciiEncoding.GetBytes(value);
-
-            // Gere o HASH (array de bytes) utilizando SHA1
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-            byte[] sha1Hash = sha1.ComputeHash(asciiBytes);
-
-            //- Assine o HASH (array de bytes) utilizando RSA-SHA1.
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa = cert.PrivateKey as RSACryptoServiceProvider;
-            asciiBytes = rsa.SignHash(sha1Hash, "SHA1");
-            string result = Convert.ToBase64String(asciiBytes);
-            return result;
-        }
-
-        public static string GerarRSASHA512(string value, bool lower = false)
-        {
-            var sha512 = SHA512.Create();
-            var bytes = Encoding.UTF8.GetBytes(value);
-            var hash = sha512.ComputeHash(bytes);
-
-            var result = new StringBuilder();
-            for(var i = 0; i < hash.Length; i++)
-            {
-                result.Append(hash[i].ToString($"{(lower ? "x" : "X")}2"));
-            }
-
-            return result.ToString();
-        }
-
 
         public static string GetSHA1HashData(string data)
         {
@@ -228,21 +170,6 @@ namespace NFe.Components
             }
 
             return builder.ToString();
-        }
-
-        public static bool ValidateSHA1HashData(string inputData, string storedHashData)
-        {
-            //hash input text and save it string variable
-            string getHashInputData = GetSHA1HashData(inputData);
-
-            if (string.Compare(getHashInputData, storedHashData) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

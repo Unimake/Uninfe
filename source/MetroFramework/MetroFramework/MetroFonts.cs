@@ -23,10 +23,6 @@
  */
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Drawing.Text;
 using System;
 
 namespace MetroFramework
@@ -220,11 +216,6 @@ namespace MetroFramework
         public static Font Title
         {
             get { return DefaultLight(24f); }
-        }
-
-        public static Font Subtitle
-        {
-            get { return Default(14f); }
         }
 
         public static Font Tile(MetroTileTextSize labelSize, MetroTileTextWeight labelWeight)
