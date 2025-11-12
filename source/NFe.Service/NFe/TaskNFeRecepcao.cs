@@ -227,11 +227,11 @@ namespace NFe.Service
             }
             catch (ExceptionEnvioXML ex)
             {
-                TrataException(ex, ler.oDadosNfe);
+                TrataException(ex, ler.oDadosNfe, emp);
             }
             catch (ExceptionSemInternet ex)
             {
-                TrataException(ex, ler.oDadosNfe);
+                TrataException(ex, ler.oDadosNfe,emp);
             }
             catch (ValidarXMLException ex)
             {
@@ -239,7 +239,7 @@ namespace NFe.Service
             }
             catch (Exception ex)
             {
-                TrataException(ex, ler.oDadosNfe);
+                TrataException(ex, ler.oDadosNfe, emp);
             }
         }
 
@@ -280,7 +280,7 @@ namespace NFe.Service
         /// </summary>
         /// <param name="ex">Objeto com a exception</param>
         /// <param name="dadosNFe">Dados da NFe/NFCe</param>
-        private void TrataException(Exception ex, DadosNFeClass dadosNFe)
+        private void TrataException(Exception ex, DadosNFeClass dadosNFe, int emp)
         {
             try
             {
@@ -294,6 +294,9 @@ namespace NFe.Service
                 {
                     TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec_ERR, ex);
                 }
+
+                MoverArquivoErroTemp(emp);
+
             }
             catch
             {
@@ -463,5 +466,48 @@ namespace NFe.Service
                 throw (ex);
             }
         }
+
+        private void MoverArquivoErroTemp(int emp)
+        {
+            var msgLog = "";
+            try
+            {
+                Empresas.Configuracoes[emp].CriarSubPastaEnviado();
+
+                var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
+
+                foreach (var nodeNFe in nodeListNFe)
+                {
+                    var xmlElementNFe = (XmlElement)nodeNFe;
+                    var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
+
+                    var fluxoNFe = new FluxoNfe();
+                    var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+
+                    //Se não encontrar o nome do arquivo da NFe no FluxoNFe.XML, vou tentar pegar o nome do arquivo pelos XMLs que estão na pasta TEMP
+                    if (string.IsNullOrWhiteSpace(nomeArqNFe))
+                    {
+                        nomeArqNFe = NomeArquivoXMLTemp(Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnvio, "temp"), chaveNFe, "NFe", "infNFe");
+
+                        if (string.IsNullOrWhiteSpace(nomeArqNFe))
+                        {
+                            nomeArqNFe = NomeArquivoXMLTemp(Path.Combine(Empresas.Configuracoes[emp].PastaXmlEmLote, "temp"), chaveNFe, "NFe", "infNFe");
+                        }
+                    }
+
+                    var caminho = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnvio, "temp", nomeArqNFe);
+                    TFunctions.MoveArqErro(caminho);
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(ex.Message + "\r\n" + msgLog, true);
+                throw (ex);
+            }
+        }
+
+
     }
 }
