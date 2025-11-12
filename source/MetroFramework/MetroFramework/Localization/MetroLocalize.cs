@@ -85,13 +85,6 @@ namespace MetroFramework.Localization
             }
         }
 
-        private string convertVar(object var)
-        {
-            if (var == null)
-                return "";
-
-            return var.ToString();
-        }
 
         public string translate(string key)
         {
@@ -116,41 +109,6 @@ namespace MetroFramework.Localization
             return languageRows[0]["Value"].ToString();
         }
 
-        public string translate(string key, object var1)
-        {
-            string str = translate(key);
-            return str.Replace("#1", convertVar(var1));
-        }
 
-        public string translate(string key, object var1, object var2)
-        {
-            string str = translate(key);
-            str = str.Replace("#1", convertVar(var1));
-            return str.Replace("#2", convertVar(var2));
-        }
-        public string getValue(string key, object var1, object var2, object var3)
-        {
-            string str = translate(key);
-            str = str.Replace("#1", convertVar(var1));
-            str = str.Replace("#2", convertVar(var2));
-            return str.Replace("#3", convertVar(var3));
-        }
-        public string getValue(string key, object var1, object var2, object var3, object var4)
-        {
-            string str = translate(key);
-            str = str.Replace("#1", convertVar(var1));
-            str = str.Replace("#2", convertVar(var2));
-            str = str.Replace("#3", convertVar(var3));
-            return str.Replace("#4", convertVar(var4));
-        }
-        public string getValue(string key, object var1, object var2, object var3, object var4, object var5)
-        {
-            string str = translate(key);
-            str = str.Replace("#1", convertVar(var1));
-            str = str.Replace("#2", convertVar(var2));
-            str = str.Replace("#3", convertVar(var3));
-            str = str.Replace("#4", convertVar(var4));
-            return str.Replace("#5", convertVar(var5));
-        }
     }
 }

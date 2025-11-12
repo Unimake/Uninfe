@@ -82,7 +82,7 @@ namespace NFe.Threadings
         /// Retorna true se este objeto foi descarregado
         /// </summary>	
         public bool Disposed { get; private set; }
-
+     
         ~ThreadControlEvents()
         {
             Dispose(false);

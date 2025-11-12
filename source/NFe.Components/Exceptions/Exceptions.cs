@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace NFe.Components.Exceptions
 {
@@ -53,18 +51,6 @@ namespace NFe.Components.Exceptions
     public class CertificadoDigitalException : Exception
     {
         public ErroPadrao ErrorCode { get; private set; }
-
-        /// <summary>
-        /// Construtor que já define uma mensagem pré-definida de exceção
-        /// </summary>
-        /// <param name="codigoErro">Código da mensagem de erro (Classe MsgErro)</param>
-        /// <by>Wandrey Mundin Ferreira</by>
-        /// <date>24/11/2009</date>
-        public CertificadoDigitalException(ErroPadrao codigoErro)
-            : base(MsgErro.ErroPreDefinido(codigoErro))
-        {
-            this.ErrorCode = codigoErro;
-        }
 
         /// <summary>
         /// Construtor que já define uma mensagem pré-definida de exceção com possibilidade de complemento da mensagem

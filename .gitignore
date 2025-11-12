@@ -419,3 +419,5 @@ FodyWeavers.xsd
 *.bak
 /setup/send-ftp-log-iuninfe5_beta.exe.xml
 /setup/send-ftp-log-Install_Unimake.DFe.exe.xml
+/setup/send-ftp-log-iuninfe5.exe.xml
+/setup/send-ftp-log-iuninfe5_fw46_x86.exe.xml

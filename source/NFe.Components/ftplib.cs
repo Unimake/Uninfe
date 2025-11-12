@@ -209,60 +209,7 @@ namespace NFe.Components
                 return false;
             }
         }
-        /// <summary>
-        /// Returns true if the message buffer has data in it
-        /// </summary>
-        public bool MessagesAvailable
-        {
-            get
-            {
-                if (messages.Length > 0)
-                    return true;
-                return false;
-            }
-        }
-        /// <summary>
-        /// Server messages if any, buffer is cleared after you access this property
-        /// </summary>
-        public string Messages
-        {
-            get
-            {
-                string tmp = messages;
-                messages = "";
-                return tmp;
-            }
-        }
-        /// <summary>
-        /// The response string from the last issued command
-        /// </summary>
-        public string ResponseString
-        {
-            get
-            {
-                return responseStr;
-            }
-        }
-        /// <summary>
-        /// The total number of bytes sent/recieved in a transfer
-        /// </summary>
-        public long BytesTotal		// #######################################
-        {
-            get
-            {
-                return bytes_total;
-            }
-        }
-        /// <summary>
-        /// The size of the file being downloaded/uploaded (Can possibly be 0 if no size is available)
-        /// </summary>
-        public long FileSize		// #######################################
-        {
-            get
-            {
-                return file_size;
-            }
-        }
+ 
         /// <summary>
         /// True:  Passive mode [default]
         /// False: Active Mode

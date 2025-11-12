@@ -95,8 +95,6 @@ namespace NFe.Components
 
         public override string ToString() => Format(_cei);
 
-        public string ToString(IFormatProvider provider) => Functions.OnlyNumbers(_cei, "./").ToString();
-
         #endregion Public Methods
 
         #region Private Methods

@@ -367,19 +367,7 @@ namespace MetroFramework.Controls
             }
         }
 
-        private Size MeasureText(string text)
-        {
-            Size preferredSize;
-            using (Graphics g = CreateGraphics())
-            {
-                Size proposedSize = new Size(int.MaxValue, int.MaxValue);
-                preferredSize = TextRenderer.MeasureText(g, text, MetroFonts.TabControl(metroLabelSize, metroLabelWeight),
-                                                         proposedSize,
-                                                         MetroPaint.GetTextFormatFlags(TextAlign) |
-                                                         TextFormatFlags.NoPadding);
-            }
-            return preferredSize;
-        }
+
 
         private void DrawTab(int index, Graphics graphics)
         {
@@ -541,37 +529,10 @@ namespace MetroFramework.Controls
                     }
                 }
             }
-            
+
             base.OnMouseWheel(e);
         }
 
-        protected override void OnCreateControl()
-        {
-            base.OnCreateControl();
-            this.OnFontChanged(EventArgs.Empty);
-            FindUpDown();
-        }
-
-        protected override void OnControlAdded(ControlEventArgs e)
-        {
- 	         base.OnControlAdded(e);
-             FindUpDown();
-             UpdateUpDown();
-        }
-
-        protected override void OnControlRemoved(ControlEventArgs e)
-        {
- 	        base.OnControlRemoved(e);
-            FindUpDown();
-            UpdateUpDown();
-        }
-
-        protected override void  OnSelectedIndexChanged(EventArgs e)
-        {
- 	        base.OnSelectedIndexChanged(e);
-            UpdateUpDown();
-            Invalidate();
-        }
 
         //send font change to properly resize tab page header rects
         //http://www.codeproject.com/Articles/13305/Painting-Your-Own-Tabs?msg=2707590#xx2707590xx
@@ -658,9 +619,9 @@ namespace MetroFramework.Controls
 
                     Graphics g = Graphics.FromHdc(hDC);
 
-					DrawUpDown(g);
+                    DrawUpDown(g);
 
-					g.Dispose();
+                    g.Dispose();
 
                     WinApi.ReleaseDC(scUpDown.Handle, hDC);
 
