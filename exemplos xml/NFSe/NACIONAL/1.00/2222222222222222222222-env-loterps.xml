@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DPS versao="1.00" xmlns="http://www.sped.fazenda.gov.br/nfse">
+    <infDPS Id="DPS330455721111111111111100001000000000095663">
+        <tpAmb>2</tpAmb>
+        <dhEmi>2025-10-28T08:30:05-03:00</dhEmi>
+        <verAplic>20251027</verAplic>
+        <serie>00001</serie>
+        <nDPS>95663</nDPS>
+        <dCompet>2025-10-28</dCompet>
+        <tpEmit>1</tpEmit>
+        <cLocEmi>3304557</cLocEmi>
+        <prest>
+            <CNPJ>11111111111111</CNPJ>
+            <regTrib>
+                <opSimpNac>3</opSimpNac>
+                <regApTribSN>1</regApTribSN>
+                <regEspTrib>0</regEspTrib>
+            </regTrib>
+        </prest>
+        <toma>
+            <CNPJ>11111111111111</CNPJ>
+            <xNome>XXXXXXXXXXXXXXXXXXXXXXXXX</xNome>
+            <end>
+                <xLgr>XXXXXXXXXXXXXXXXX</xLgr>
+                <nro>66</nro>
+                <xBairro>CENTRO</xBairro>
+            </end>
+        </toma>
+        <serv>
+            <locPrest>
+                <cLocPrestacao>3304557</cLocPrestacao>
+            </locPrest>
+            <cServ>
+                <cTribNac>010701</cTribNac>
+                <cTribMun>001</cTribMun>
+                <xDescServ>N/REF: 1-11111/25;S/REF: REF. CLI. TESTE;DI: 11/111111-1 </xDescServ>
+                <cNBS>115013000</cNBS>
+            </cServ>
+        </serv>
+        <valores>
+            <vServPrest>
+                <vServ>2631.58</vServ>
+            </vServPrest>
+            <trib>
+                <tribMun>
+                    <tribISSQN>1</tribISSQN>
+                    <tpRetISSQN>1</tpRetISSQN>
+                </tribMun>
+                <totTrib>
+                    <pTotTrib>
+                        <pTotTribFed>15.00</pTotTribFed>
+                        <pTotTribEst>10.00</pTotTribEst>
+                        <pTotTribMun>18.00</pTotTribMun>
+                    </pTotTrib>
+                </totTrib>
+            </trib>
+        </valores>
+    </infDPS>
+</DPS>
