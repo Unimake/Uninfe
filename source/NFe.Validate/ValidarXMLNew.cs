@@ -547,6 +547,7 @@ namespace NFe.Validate
                         else
                         {
                             configuracao.TipoDFe = TipoDFe.NFe;
+                            AppDomain.CurrentDomain.AssemblyResolve += Unimake.Business.DFe.Xml.AssemblyResolver.AssemblyResolve;
                             var autorizacao = new ServicosNFe.Autorizacao(xmlNFe, configuracao);
                             warnings = autorizacao.Warnings;
                             xmlDoc = autorizacao.ConteudoXMLAssinado;
