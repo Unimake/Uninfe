@@ -87,8 +87,6 @@ namespace NFe.Service
                 var cStat = 0;
                 var xMotivo = string.Empty;
 
-                Auxiliar.WriteLog("Passei aqui...", false);
-
                 if (ler.oDadosNfe.mod == "65")
                 {
                     // Se na configuração foi informado o número 3, vai configurar para o QrCode novo
@@ -117,9 +115,7 @@ namespace NFe.Service
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = autorizacao.RetornoWSString;
-
-                    Auxiliar.WriteLog(vStrXmlRetorno, false);
-
+                    
                     EnviNFe = autorizacao.EnviNFe;
 
                     cStat = autorizacao.Result.CStat;
@@ -127,18 +123,11 @@ namespace NFe.Service
                 }
                 else
                 {
-                    Auxiliar.WriteLog("Passei aqui...2", false);
-
                     var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, configuracao);
-                    Auxiliar.WriteLog("Passei aqui...3", false);
-                    autorizacao.Executar();
-                    Auxiliar.WriteLog("Passei aqui...4", false);
 
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = autorizacao.RetornoWSString;
-
-                    Auxiliar.WriteLog(vStrXmlRetorno, false);
 
                     EnviNFe = autorizacao.EnviNFe;
 
@@ -147,9 +136,6 @@ namespace NFe.Service
                 }
 
                 SalvarArquivoEmProcessamento(emp);
-
-                oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
-
 
                 if (ler.oDadosNfe.indSinc)
                 {
@@ -164,7 +150,7 @@ namespace NFe.Service
 
                 #region Parte que trata o retorno do lote, ou seja, o número do recibo ou protocolo
 
-                if (dadosRec.cStat == "104" || dadosRec.cStat == "100")
+                if (dadosRec.cStat == "104")
                 {
                     FinalizarNFeSincrono(vStrXmlRetorno, emp, ler.oDadosNfe.chavenfe);
 
