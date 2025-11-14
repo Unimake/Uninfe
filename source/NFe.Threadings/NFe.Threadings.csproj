@@ -214,8 +214,8 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Business.DFe, Version=2025.11.12.1003, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20251112.1003.58\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    <Reference Include="Unimake.Business.DFe, Version=2025.11.14.1129, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20251114.1129.60\lib\net472\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Cryptography, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20250912.1810.37\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>

@@ -204,14 +204,14 @@
     <Reference Include="Unimake.AuthServer, Version=2025.7.7.1650, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.AuthServer.20250707.1650.48\lib\netstandard2.0\Unimake.AuthServer.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Business.DFe, Version=2025.11.12.1003, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20251112.1003.58\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    <Reference Include="Unimake.Business.DFe, Version=2025.11.14.1129, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20251114.1129.60\lib\net472\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Cryptography, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20250912.1810.37\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.EBank.Solutions, Version=2025.11.6.1529, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.EBank.Solutions.20251106.1529.36\lib\netstandard2.0\Unimake.EBank.Solutions.dll</HintPath>
+    <Reference Include="Unimake.EBank.Solutions, Version=2025.11.14.208, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.EBank.Solutions.20251114.208.14\lib\netstandard2.0\Unimake.EBank.Solutions.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Extensions, Version=2025.9.12.1810, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Extensions.20250912.1810.37\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
