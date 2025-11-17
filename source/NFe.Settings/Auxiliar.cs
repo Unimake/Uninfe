@@ -101,7 +101,7 @@ namespace NFe.Settings
 
                     Functions.Move(arquivo, vNomeArquivo);
 
-                    Auxiliar.WriteLog("O arquivo " + arquivo + " foi movido para " + vNomeArquivo, true);
+                    Auxiliar.WriteLog("O arquivo " + arquivo + " foi movido para " + vNomeArquivo, false);
                 }
                 else
                 {
