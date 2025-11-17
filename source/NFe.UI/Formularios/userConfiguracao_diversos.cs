@@ -220,7 +220,8 @@ namespace NFe.UI.Formularios
                     checkBoxValidarDigestValue.Checked = this.empresa.CompararDigestValueDFeRetornadoSEFAZ;
                 }
 
-                if (this.empresa.Servico.Equals(TipoAplicativo.NFCe) ||
+                if (this.empresa.Servico.Equals(TipoAplicativo.Nfe) ||
+                    this.empresa.Servico.Equals(TipoAplicativo.NFCe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.MDFe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.Cte) ||
                     this.empresa.Servico.Equals(TipoAplicativo.Todos) ||
@@ -373,7 +374,8 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NF3e ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom;
 
-            checkBoxGravarWarnings.Visible = (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
+            checkBoxGravarWarnings.Visible = (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCe ||
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Cte ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.MDFe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Todos ||
