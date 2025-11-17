@@ -115,7 +115,7 @@ namespace NFe.Service
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = autorizacao.RetornoWSString;
-                    
+
                     EnviNFe = autorizacao.EnviNFe;
 
                     cStat = autorizacao.Result.CStat;
@@ -124,6 +124,7 @@ namespace NFe.Service
                 else
                 {
                     var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, configuracao);
+                    autorizacao.Executar();
 
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
@@ -136,6 +137,11 @@ namespace NFe.Service
                 }
 
                 SalvarArquivoEmProcessamento(emp);
+
+                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                {
+                    throw new Exception("A SEFAZ, Receita ou prefeitura está com instabilidade, pois o XML retornado pelo Web-Service não pode ser reconhecido. Conteúdo retornado: " + (vStrXmlRetorno ?? "null"));
+                }
 
                 if (ler.oDadosNfe.indSinc)
                 {
@@ -230,7 +236,7 @@ namespace NFe.Service
             }
             catch (ExceptionSemInternet ex)
             {
-                TrataException(ex, ler.oDadosNfe,emp);
+                TrataException(ex, ler.oDadosNfe, emp);
             }
             catch (ValidarXMLException ex)
             {
@@ -294,7 +300,7 @@ namespace NFe.Service
                     TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec_ERR, ex);
                 }
 
-                //MoverArquivoErroTemp(emp);
+                MoverArquivoErroTemp(emp);
             }
             catch
             {
@@ -465,6 +471,10 @@ namespace NFe.Service
             }
         }
 
+        /// <summary>
+        /// Em caso de erro move o arquivo, se ainda estiver na pasta temp, para a pasta de erro
+        /// </summary>
+        /// <param name="emp">Empresa</param>
         private void MoverArquivoErroTemp(int emp)
         {
             var msgLog = "";
@@ -495,8 +505,6 @@ namespace NFe.Service
 
                     var caminho = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnvio, "temp", nomeArqNFe);
                     TFunctions.MoveArqErro(caminho);
-
-
                 }
             }
             catch (Exception ex)

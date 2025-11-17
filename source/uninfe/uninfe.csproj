@@ -315,6 +315,7 @@
     </Reference>
     <Reference Include="Unimake.SAT, Version=1.0.9116.18050, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\Unimake.SAT.20241216.1021.56\lib\net\x86\Unimake.SAT.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Unimake.Security.Platform, Version=2023.7.6.1027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Security.Platform.20230706.1027.33\lib\net\Unimake.Security.Platform.dll</HintPath>
@@ -431,13 +432,6 @@
 START $(SolutionDir)build.bat "$(SolutionPath)"
  :doNothing</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -445,4 +439,11 @@ START $(SolutionDir)build.bat "$(SolutionPath)"
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+  </Target>
 </Project>
