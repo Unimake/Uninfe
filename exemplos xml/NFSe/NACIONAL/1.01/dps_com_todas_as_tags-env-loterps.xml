@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DPS versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+  <infDPS Id="DPS410690211234567800019500001000000000000001">
+    <tpAmb>2</tpAmb>
+    <dhEmi>2025-11-18T15:23:56-03:00</dhEmi>
+    <verAplic>1.01.01</verAplic>
+    <serie>1</serie>
+    <nDPS>1</nDPS>
+    <dCompet>2025-11-18</dCompet>
+    <tpEmit>1</tpEmit>
+    <cMotivoEmisTI>1</cMotivoEmisTI>
+    <chNFSeRej>11111111111111111111111111111111111111111111111111</chNFSeRej>
+    <cLocEmi>4106902</cLocEmi>
+    <subst>
+      <chSubstda>22222222222222222222222222222222222222222222222222</chSubstda>
+      <cMotivo>01</cMotivo>
+      <xMotivo>Motivo de substituição de teste</xMotivo>
+    </subst>
+    <prest>
+      <CNPJ>12345678000195</CNPJ>
+      <CAEPF>12345678000195</CAEPF>
+      <IM>12345</IM>
+      <xNome>Prestadora de Serviços Exemplo Ltda</xNome>
+      <end>
+        <endNac>
+          <cMun>4106902</cMun>
+          <CEP>87020000</CEP>
+        </endNac>
+        <xLgr>Rua das Flores</xLgr>
+        <nro>100</nro>
+        <xCpl>Sala 01</xCpl>
+        <xBairro>Centro</xBairro>
+      </end>
+      <fone>44999999999</fone>
+      <email>contato@empresa.com.br</email>
+      <regTrib>
+        <opSimpNac>1</opSimpNac>
+        <regApTribSN>1</regApTribSN>
+        <regEspTrib>0</regEspTrib>
+      </regTrib>
+    </prest>
+    <toma>
+      <CNPJ>11222333000199</CNPJ>
+      <CAEPF>12345678000195</CAEPF>
+      <IM>54321</IM>
+      <xNome>Tomador de Serviços Exemplo Ltda</xNome>
+      <end>
+        <endNac>
+          <cMun>4106902</cMun>
+          <CEP>87030000</CEP>
+        </endNac>
+        <xLgr>Avenida Brasil</xLgr>
+        <nro>200</nro>
+        <xCpl>Conjunto 2</xCpl>
+        <xBairro>Centro</xBairro>
+      </end>
+      <fone>44999999999</fone>
+      <email>contato@tomador.com.br</email>
+    </toma>
+    <interm>
+      <CNPJ>22333444000199</CNPJ>
+      <CAEPF>12345678000195</CAEPF>
+      <IM>67890</IM>
+      <xNome>Intermediário de Serviços Exemplo Ltda</xNome>
+      <end>
+        <endNac>
+          <cMun>4106902</cMun>
+          <CEP>87040000</CEP>
+        </endNac>
+        <xLgr>Rua das Palmeiras</xLgr>
+        <nro>300</nro>
+        <xCpl>Conjunto 3</xCpl>
+        <xBairro>Jardim das Nações</xBairro>
+      </end>
+      <fone>44999999999</fone>
+      <email>contato@intermediario.com.br</email>
+    </interm>
+    <serv>
+      <locPrest>
+        <cLocPrestacao>4106902</cLocPrestacao>
+      </locPrest>
+      <cServ>
+        <cTribNac>000101</cTribNac>
+        <cTribMun>101</cTribMun>
+        <xDescServ>Prestação de serviços de consultoria em tecnologia da informação</xDescServ>
+        <cNBS>115029000</cNBS>
+        <cIntContrib>1001</cIntContrib>
+      </cServ>
+      <comExt>
+        <mdPrestacao>0</mdPrestacao>
+        <vincPrest>0</vincPrest>
+        <tpMoeda>790</tpMoeda>
+        <vServMoeda>1000.00</vServMoeda>
+        <mecAFComexP>00</mecAFComexP>
+        <mecAFComexT>00</mecAFComexT>
+        <movTempBens>0</movTempBens>
+        <nDI>123456</nDI>
+        <nRE>654321</nRE>
+        <mdic>0</mdic>
+      </comExt>
+      <lsadppu>
+        <categ>1</categ>
+        <objeto>1</objeto>
+        <extensao>1000</extensao>
+        <nPostes>10</nPostes>
+      </lsadppu>
+      <obra>
+        <inscImobFisc>12345678901234</inscImobFisc>
+        <cObra>123456</cObra>
+      </obra>
+      <atvEvento>
+        <xNome>Evento corporativo de tecnologia</xNome>
+        <dtIni>2025-11-18</dtIni>
+        <dtFim>2025-11-18</dtFim>
+        <idAtvEvt>EVT001</idAtvEvt>
+      </atvEvento>
+      <explRod>
+        <categVeic>00</categVeic>
+        <nEixos>2</nEixos>
+        <rodagem>1</rodagem>
+        <sentido>IDA</sentido>
+        <placa>ABC1234</placa>
+        <codAcessoPed>A1B2C3D4E5</codAcessoPed>
+        <codContrato>C123</codContrato>
+      </explRod>
+      <infoCompl>
+        <idDocTec>DOC001</idDocTec>
+        <docRef>REF001</docRef>
+        <xPed>Pedido referência</xPed>
+        <gItemPed>
+          <xItemPed>Item 1</xItemPed>
+          <xItemPed>Item 2</xItemPed>
+          <xItemPed>Item 3</xItemPed>
+        </gItemPed>
+        <xInfComp>Informações complementares do serviço prestado</xInfComp>
+      </infoCompl>
+    </serv>
+    <valores>
+      <vServPrest>
+        <vReceb>1000.00</vReceb>
+        <vServ>1000.00</vServ>
+      </vServPrest>
+      <vDescCondIncond>
+        <vDescIncond>0.00</vDescIncond>
+        <vDescCond>0.00</vDescCond>
+      </vDescCondIncond>
+      <vDedRed>
+        <pDR>0.00</pDR>
+      </vDedRed>
+      <trib>
+        <tribMun>
+          <tribISSQN>1</tribISSQN>
+          <cPaisResult>BR</cPaisResult>
+          <tpImunidade>0</tpImunidade>
+          <exigSusp>
+            <tpSusp>1</tpSusp>
+            <nProcesso>111111111111111111111111111111</nProcesso>
+          </exigSusp>
+          <BM>
+            <nBM>11111111111111</nBM>
+            <vRedBCBM>0.00</vRedBCBM>
+          </BM>
+          <tpRetISSQN>1</tpRetISSQN>
+          <pAliq>5.00</pAliq>
+        </tribMun>
+        <tribFed>
+          <piscofins>
+            <CST>01</CST>
+            <vBCPisCofins>1000.00</vBCPisCofins>
+            <pAliqPis>1.65</pAliqPis>
+            <pAliqCofins>7.60</pAliqCofins>
+            <vPis>16.50</vPis>
+            <vCofins>76.00</vCofins>
+            <tpRetPisCofins>1</tpRetPisCofins>
+          </piscofins>
+          <vRetCP>0.00</vRetCP>
+          <vRetIRRF>0.00</vRetIRRF>
+          <vRetCSLL>0.00</vRetCSLL>
+        </tribFed>
+        <totTrib>
+          <vTotTrib>
+            <vTotTribFed>92.50</vTotTribFed>
+            <vTotTribEst>0.00</vTotTribEst>
+            <vTotTribMun>50.00</vTotTribMun>
+          </vTotTrib>
+        </totTrib>
+      </trib>
+    </valores>
+    <IBSCBS>
+      <finNFSe>0</finNFSe>
+      <indFinal>0</indFinal>
+      <cIndOp>000001</cIndOp>
+      <tpOper>1</tpOper>
+      <gRefNFSe>
+        <refNFSe>33333333333333333333333333333333333333333333333333</refNFSe>
+        <refNFSe>33333333333333333333333333333333333333333333333333</refNFSe>
+        <refNFSe>33333333333333333333333333333333333333333333333333</refNFSe>
+      </gRefNFSe>
+      <tpEnteGov>1</tpEnteGov>
+      <indDest>0</indDest>
+      <dest>
+        <CNPJ>33444555000199</CNPJ>
+        <xNome>Destinatário Exemplo S.A.</xNome>
+        <end>
+          <endNac>
+            <cMun>4106902</cMun>
+            <CEP>87050000</CEP>
+          </endNac>
+          <xLgr>Alameda Central</xLgr>
+          <nro>400</nro>
+          <xCpl>Andar 5</xCpl>
+          <xBairro>Zona 01</xBairro>
+        </end>
+        <fone>44999999999</fone>
+        <email>contato@destinatario.com.br</email>
+      </dest>
+      <imovel>
+        <inscImobFisc>98765432109876</inscImobFisc>
+        <cCIB>12345678</cCIB>
+      </imovel>
+      <valores>
+        <gReeRepRes>
+          <documentos>
+            <dFeNacional>
+              <tipoChaveDFe>1</tipoChaveDFe>
+              <xTipoChaveDFe>NFe</xTipoChaveDFe>
+              <chaveDFe>35191111111111111111550010000000011000000011</chaveDFe>
+            </dFeNacional>
+            <fornec>
+              <CNPJ>12345678000195</CNPJ>
+              <xNome>Fornecedor 1 Exemplo Ltda</xNome>
+            </fornec>
+            <dtEmiDoc>2025-11-01</dtEmiDoc>
+            <dtCompDoc>2025-11-01</dtCompDoc>
+            <tpReeRepRes>01</tpReeRepRes>
+            <xTpReeRepRes>Reembolso de despesas</xTpReeRepRes>
+            <vlrReeRepRes>100.00</vlrReeRepRes>
+          </documentos>
+          <documentos>
+            <dFeNacional>
+              <tipoChaveDFe>2</tipoChaveDFe>
+              <xTipoChaveDFe>CTe</xTipoChaveDFe>
+              <chaveDFe>35192222222222222222570020000000022000000022</chaveDFe>
+            </dFeNacional>
+            <fornec>
+              <CNPJ>22333444000199</CNPJ>
+              <xNome>Fornecedor 2 Exemplo Ltda</xNome>
+            </fornec>
+            <dtEmiDoc>2025-11-05</dtEmiDoc>
+            <dtCompDoc>2025-11-05</dtCompDoc>
+            <tpReeRepRes>02</tpReeRepRes>
+            <xTpReeRepRes>Ressarcimento</xTpReeRepRes>
+            <vlrReeRepRes>200.00</vlrReeRepRes>
+          </documentos>
+          <documentos>
+            <dFeNacional>
+              <tipoChaveDFe>3</tipoChaveDFe>
+              <xTipoChaveDFe>NFCe</xTipoChaveDFe>
+              <chaveDFe>35193333333333333333590030000000033000000033</chaveDFe>
+            </dFeNacional>
+            <fornec>
+              <CNPJ>33444555000199</CNPJ>
+              <xNome>Fornecedor 3 Exemplo S.A.</xNome>
+            </fornec>
+            <dtEmiDoc>2025-11-10</dtEmiDoc>
+            <dtCompDoc>2025-11-10</dtCompDoc>
+            <tpReeRepRes>03</tpReeRepRes>
+            <xTpReeRepRes>Restauração</xTpReeRepRes>
+            <vlrReeRepRes>300.00</vlrReeRepRes>
+          </documentos>
+        </gReeRepRes>
+        <trib>
+          <gIBSCBS>
+            <CST>101</CST>
+            <cClassTrib>000001</cClassTrib>
+            <cCredPres>01</cCredPres>
+            <gTribRegular>
+              <CSTReg>101</CSTReg>
+              <cClassTribReg>000002</cClassTribReg>
+            </gTribRegular>
+            <gDif>
+              <pDifUF>0.00</pDifUF>
+              <pDifMun>0.00</pDifMun>
+              <pDifCBS>0.00</pDifCBS>
+            </gDif>
+          </gIBSCBS>
+        </trib>
+      </valores>
+    </IBSCBS>
+  </infDPS>
+</DPS>
