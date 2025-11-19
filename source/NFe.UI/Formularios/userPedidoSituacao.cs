@@ -11,11 +11,25 @@ using System.Windows.Forms;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 
+using CTeConsStatServ = Unimake.Business.DFe.Xml.CTe.ConsStatServCte;
+using CTeStatusServico = Unimake.Business.DFe.Servicos.CTe.StatusServico;
+using MDFeConsStatServ = Unimake.Business.DFe.Xml.MDFe.ConsStatServMDFe;
+using MDFeStatusServico = Unimake.Business.DFe.Servicos.MDFe.StatusServico;
+using NF3eConsStatServ = Unimake.Business.DFe.Xml.NF3e.ConsStatServNF3e;
+using NF3eStatusServico = Unimake.Business.DFe.Servicos.NF3e.StatusServico;
+using NFComConsStatServ = Unimake.Business.DFe.Xml.NFCom.ConsStatServNFCom;
+using NFComStatusServico = Unimake.Business.DFe.Servicos.NFCom.StatusServico;
+using NFeConsStatServ = Unimake.Business.DFe.Xml.NFe.ConsStatServ;
+using NFeStatusServico = Unimake.Business.DFe.Servicos.NFe.StatusServico;
+using NFCeStatusServico = Unimake.Business.DFe.Servicos.NFCe.StatusServico;
+
+
 namespace NFe.UI
 {
     public partial class userPedidoSituacao : UserControl1
     {
         private int Emp;
+        private bool todasEmpresas;
 
         public userPedidoSituacao()
         {
@@ -26,47 +40,47 @@ namespace NFe.UI
         {
             base.UpdateControles();
 
-            this.cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
-            this.cbEmpresa.SelectedIndexChanged -= cbEmpresa_SelectedIndexChanged;
+            cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
+            cbEmpresa.SelectedIndexChanged -= cbEmpresa_SelectedIndexChanged;
             try
             {
-                this.cbAmbiente.DataSource = EnumHelper.ToList(typeof(TipoAmbiente), true, true);
-                this.cbAmbiente.DisplayMember = "Value";
-                this.cbAmbiente.ValueMember = "Key";
+                cbAmbiente.DataSource = EnumHelper.ToList(typeof(TipoAmbiente), true, true);
+                cbAmbiente.DisplayMember = "Value";
+                cbAmbiente.ValueMember = "Key";
 
                 var lista = EnumHelper.ToList(typeof(TipoEmissao), true, true, "2,4,5,9");
 
-                this.cbEmissao.DataSource = lista;
-                this.cbEmissao.DisplayMember = "Value";
-                this.cbEmissao.ValueMember = "Key";
+                cbEmissao.DataSource = lista;
+                cbEmissao.DisplayMember = "Value";
+                cbEmissao.ValueMember = "Key";
 
-                this.cbServico.DataSource = uninfeDummy.DatasouceTipoAplicativo(true);
-                this.cbServico.DisplayMember = "Value";
-                this.cbServico.ValueMember = "Key";
+                cbServico.DataSource = uninfeDummy.DatasouceTipoAplicativo(true);
+                cbServico.DisplayMember = "Value";
+                cbServico.ValueMember = "Key";
 
-                this.cbEmpresa.DataSource = Auxiliar.CarregaEmpresa(true, true);
-                this.cbEmpresa.ValueMember = "Key";
-                this.cbEmpresa.DisplayMember = NFeStrConstants.Nome;
+                cbEmpresa.DataSource = Auxiliar.CarregaEmpresa(true, true);
+                cbEmpresa.ValueMember = "Key";
+                cbEmpresa.DisplayMember = NFeStrConstants.Nome;
 
-                this.comboUf.DisplayMember = "nome";
-                this.comboUf.ValueMember = "valor";
-                this.comboUf.DataSource = Functions.CarregaEstados();
+                comboUf.DisplayMember = "nome";
+                comboUf.ValueMember = "valor";
+                comboUf.DataSource = Functions.CarregaEstados();
 
-                int posicao = uninfeDummy.xmlParams.ReadValue(this.GetType().Name, "last_empresa", 0);
-                if (posicao > (this.cbEmpresa.DataSource as System.Collections.ArrayList).Count)
+                int posicao = uninfeDummy.xmlParams.ReadValue(GetType().Name, "last_empresa", 0);
+                if (posicao > (cbEmpresa.DataSource as System.Collections.ArrayList).Count)
                     posicao = 0;
 
-                this.cbEmpresa.SelectedIndex = posicao;
-                this.cbVersao.SelectedIndex = 0;
+                cbEmpresa.SelectedIndex = posicao;
+                cbVersao.SelectedIndex = 0;
             }
             finally
             {
-                this.cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
-                this.cbEmpresa.SelectedIndexChanged += cbEmpresa_SelectedIndexChanged;
+                cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
+                cbEmpresa.SelectedIndexChanged += cbEmpresa_SelectedIndexChanged;
 
                 cbEmpresa_SelectedIndexChanged(null, null);
                 if (cbServico.SelectedValue == null)
-                {                    
+                {
                     ChangeVersao(Empresas.Configuracoes[0].Servico);
                 }
                 else
@@ -78,47 +92,47 @@ namespace NFe.UI
 
         private void cbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.Emp = -1;
-            this.cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
-            this.cbServico.Enabled = true;
+            Emp = -1;
+            cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
+            cbServico.Enabled = true;
 
             try
             {
-                if (!this.cbEmpresa.SelectedValue.Equals("Todos"))
+                if (!cbEmpresa.SelectedValue.Equals("Todos"))
                 {
-                    var list = (this.cbEmpresa.DataSource as System.Collections.ArrayList)[this.cbEmpresa.SelectedIndex] as ComboElem;
-                    this.Emp = Empresas.FindConfEmpresaIndex(list.Valor, EnumHelper.StringToEnum<TipoAplicativo>(list.Servico));
-                    if (this.Emp >= 0)
+                    var list = (cbEmpresa.DataSource as System.Collections.ArrayList)[cbEmpresa.SelectedIndex] as ComboElem;
+                    Emp = Empresas.FindConfEmpresaIndex(list.Valor, EnumHelper.StringToEnum<TipoAplicativo>(list.Servico));
+                    if (Emp >= 0)
                     {
-                        uninfeDummy.xmlParams.WriteValue(this.GetType().Name, "last_empresa", this.cbEmpresa.SelectedIndex);
+                        uninfeDummy.xmlParams.WriteValue(GetType().Name, "last_empresa", cbEmpresa.SelectedIndex);
                         uninfeDummy.xmlParams.Save();
 
-                        this.comboUf.SelectedValue = Functions.CodigoParaUF(Empresas.Configuracoes[this.Emp].UnidadeFederativaCodigo).Trim();
+                        comboUf.SelectedValue = Functions.CodigoParaUF(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo).Trim();
 
                         //Posicionar o elemento da combo Ambiente
-                        this.cbAmbiente.SelectedValue = Empresas.Configuracoes[this.Emp].AmbienteCodigo;
+                        cbAmbiente.SelectedValue = Empresas.Configuracoes[Emp].AmbienteCodigo;
 
                         //Exibir CNPJ da empresa
                         txtCNPJ.Text = uninfeDummy.FmtCnpjCpf(Empresas.Configuracoes[Emp].CNPJ, true);
 
                         //Posicionar o elemento da combo tipo de emissão
-                        if(Empresas.Configuracoes[this.Emp].tpEmis == 1 || Empresas.Configuracoes[this.Emp].tpEmis == 6 ||
-                            Empresas.Configuracoes[this.Emp].tpEmis == 7 || Empresas.Configuracoes[this.Emp].tpEmis == 8)
+                        if (Empresas.Configuracoes[Emp].tpEmis == 1 || Empresas.Configuracoes[Emp].tpEmis == 6 ||
+                            Empresas.Configuracoes[Emp].tpEmis == 7 || Empresas.Configuracoes[Emp].tpEmis == 8)
                         {
-                            this.cbEmissao.SelectedValue = Empresas.Configuracoes[this.Emp].tpEmis;
+                            cbEmissao.SelectedValue = Empresas.Configuracoes[Emp].tpEmis;
                         }
 
-                        this.ChangeVersao(Empresas.Configuracoes[this.Emp].Servico);
+                        ChangeVersao(Empresas.Configuracoes[Emp].Servico);
 
                         //Posicionar o elemento da combo tipo de servico
-                        if (Empresas.Configuracoes[this.Emp].Servico != TipoAplicativo.Todos)
+                        if (Empresas.Configuracoes[Emp].Servico != TipoAplicativo.Todos)
                         {
-                            this.cbServico.SelectedValue = (int)Empresas.Configuracoes[this.Emp].Servico;
+                            cbServico.SelectedValue = (int)Empresas.Configuracoes[Emp].Servico;
                         }
                         else
                         {
-                            this.cbServico.SelectedValue = (int)TipoAplicativo.Nfe;
-                            this.cbServico.Enabled = true;
+                            cbServico.SelectedValue = (int)TipoAplicativo.Nfe;
+                            cbServico.Enabled = true;
                         }
                     }
                 }
@@ -131,23 +145,23 @@ namespace NFe.UI
             }
             catch (Exception ex)
             {
-                this.cbServico.Enabled = false;
+                cbServico.Enabled = false;
                 MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "");
             }
             finally
             {
-                this.cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
-                this.buttonPesquisa.Enabled =
-                    this.cbAmbiente.Enabled =
-                    this.cbEmissao.Enabled =
-                    this.cbVersao.Enabled =
-                    this.cbServico.Enabled =
-                    this.comboUf.Enabled = Emp >= 0;
+                cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
+                buttonPesquisa.Enabled =
+                    cbAmbiente.Enabled =
+                    cbEmissao.Enabled =
+                    cbVersao.Enabled =
+                    cbServico.Enabled =
+                    comboUf.Enabled = Emp >= 0;
 
                 if (cbEmpresa.SelectedValue.Equals("Todos"))
                 {
-                    this.cbAmbiente.Enabled = true;
-                    this.buttonPesquisa.Enabled = true;
+                    cbAmbiente.Enabled = true;
+                    buttonPesquisa.Enabled = true;
                 }
                 else
                 {
@@ -213,40 +227,40 @@ namespace NFe.UI
             if (cbServico.SelectedValue != null)
             {
                 TipoAplicativo servico = (TipoAplicativo)cbServico.SelectedValue;
-                this.ChangeVersao(servico);
+                ChangeVersao(servico);
             }
         }
 
         private void buttonPesquisa_Click(object sender, EventArgs e)
         {
-            this.Refresh();
+            Refresh();
             txtMensagem.Clear();
             metroGridSituacao.Rows.Clear();
 
-            bool todasEmpresas = cbEmpresa.SelectedValue.Equals("Todos");
+            todasEmpresas = cbEmpresa.SelectedValue.Equals("Todos");
 
             try
             {
-                TipoEmissao tpEmis = (TipoEmissao)this.cbEmissao.SelectedValue;
+                TipoEmissao tpEmis = (TipoEmissao)cbEmissao.SelectedValue;
                 int amb = (int)cbAmbiente.SelectedValue;
-                string versao = this.cbVersao.SelectedItem.ToString();
+                string versao = cbVersao.SelectedItem.ToString();
                 TipoAplicativo servico = TipoAplicativo.Nulo;
                 int cUF = 0;
 
                 if (!todasEmpresas)
                 {
                     servico = (TipoAplicativo)cbServico.SelectedValue;
-                    cUF = Functions.UFParaCodigo(this.comboUf.SelectedValue.ToString());
+                    cUF = Functions.UFParaCodigo(comboUf.SelectedValue.ToString());
 
                     switch (servico)
                     {
                         case TipoAplicativo.Cte:
-                            if (tpEmis == TipoEmissao.ContingenciaSVCAN)// this.cbEmissao.SelectedIndex == 4)
+                            if (tpEmis == TipoEmissao.ContingenciaSVCAN)// cbEmissao.SelectedIndex == 4)
                                 throw new Exception("CT-e não dispõe do tipo de contingência SVCAN.");
                             break;
 
                         case TipoAplicativo.Nfe:
-                            if (tpEmis == TipoEmissao.ContingenciaSVCSP)// this.cbEmissao.SelectedIndex == 3)
+                            if (tpEmis == TipoEmissao.ContingenciaSVCSP)// cbEmissao.SelectedIndex == 3)
                                 throw new Exception("NF-e não dispõe do tipo de contingência SVCSP.");
                             break;
 
@@ -258,80 +272,188 @@ namespace NFe.UI
                         case TipoAplicativo.NFCe:
                             if (tpEmis != TipoEmissao.Normal)
                                 throw new Exception("NFC-e só dispõe do tipo de emissão Normal.");
-                        break;
+                            break;
                     }
                 }
 
                 Formularios.Wait.Show("Consulta a situação do serviço...");
 
-                List<ConsultaRealizada> consultasRealizadas = new List<ConsultaRealizada>();
-
                 if (todasEmpresas)
                 {
-                    tpEmis = TipoEmissao.Normal;
-
                     for (int i = 0; i < Empresas.Configuracoes.Count; i++)
                     {
                         int emp = Empresas.FindConfEmpresaIndex(Empresas.Configuracoes[i].CNPJ, Empresas.Configuracoes[i].Servico);
+
+                        servico = Empresas.Configuracoes[emp].Servico;
                         cUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
 
-                        switch (Empresas.Configuracoes[emp].Servico)
+                        switch (servico)
                         {
                             case TipoAplicativo.Todos:
-                                GerarConsulta(emp, TipoAplicativo.Nfe, (int)tpEmis, cUF, amb, "4.00", consultasRealizadas);
-                                GerarConsulta(emp, TipoAplicativo.NFCe, (int)tpEmis, cUF, amb, "4.00", consultasRealizadas);
-                                GerarConsulta(emp, TipoAplicativo.MDFe, (int)tpEmis, cUF, amb, "3.00", consultasRealizadas);
-                                GerarConsulta(emp, TipoAplicativo.Cte, (int)tpEmis, cUF, amb, "4.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.Nfe, amb, cUF, "4.00");
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.NFCe, amb, cUF, "4.00");
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.MDFe, amb, cUF, "3.00");
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.Cte, amb, cUF, "4.00");
                                 break;
 
                             case TipoAplicativo.Nfe:
-                                GerarConsulta(emp, TipoAplicativo.Nfe, (int)tpEmis, cUF, amb, "4.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.Nfe, amb, cUF, "4.00");
                                 break;
 
                             case TipoAplicativo.Cte:
-                                GerarConsulta(emp, TipoAplicativo.Cte, (int)tpEmis, cUF, amb, "4.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.Cte, amb, cUF, "4.00");
                                 break;
 
                             case TipoAplicativo.MDFe:
-                                GerarConsulta(emp, TipoAplicativo.MDFe, (int)tpEmis, cUF, amb, "3.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.MDFe, amb, cUF, "3.00");
                                 break;
 
                             case TipoAplicativo.NFCe:
-                                GerarConsulta(emp, TipoAplicativo.NFCe, (int)tpEmis, cUF, amb, "4.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.NFCe, amb, cUF, "4.00");
                                 break;
 
                             case TipoAplicativo.NF3e:
-                                GerarConsulta(emp, TipoAplicativo.NF3e, (int)tpEmis, cUF, amb, "1.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.NF3e, amb, cUF, "1.00");
                                 break;
 
                             case TipoAplicativo.NFCom:
-                                GerarConsulta(emp, TipoAplicativo.NFCom, (int)tpEmis, cUF, amb, "1.00", consultasRealizadas);
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.NFCom, amb, cUF, "1.00");
                                 break;
                         }
                     }
                 }
                 else
                 {
-                    GerarConsulta(Emp, servico, (int)tpEmis, cUF, amb, versao, consultasRealizadas);
-                }
-
-                //Demonstrar o status do serviço
-                for (int i = 0; i < consultasRealizadas.Count; i++)
-                {
-                    string nomeEmpresa = consultasRealizadas[i].Empresa.Nome;
-                    string tipoServico = consultasRealizadas[i].Servico.ToString();
-                    string uf = Functions.CodigoParaUF(consultasRealizadas[i].Empresa.UnidadeFederativaCodigo);
-                    string result = VerStatusServico(consultasRealizadas[i].ArquivoRetorno, consultasRealizadas[i].Emp);
-
-                    metroGridSituacao.Rows.Add(new object[] { nomeEmpresa, uf, tipoServico, result });
+                    AdicionarConsultaNaGrid(Emp, servico, amb, cUF, versao);
                 }
             }
             catch (Exception ex)
             {
-                Formularios.Wait.Close();
                 txtMensagem.Text = ex.Message;
             }
+            finally
+            {
+                Formularios.Wait.Close();
+            }
         }
+
+
+        private void AdicionarConsultaNaGrid(int emp, TipoAplicativo servico, int amb, int cUF, string versao)
+        {
+            var empresa = Empresas.Configuracoes[emp];
+            string nomeEmpresa = empresa.Nome;
+            string uf = Functions.CodigoParaUF(empresa.UnidadeFederativaCodigo);
+            string tipoServico = servico.ToString();
+
+            // Executa a consulta diretamente pela DLL e obtém o resultado
+            string result = ExecutarConsulta(emp, servico, amb, cUF, versao);
+
+            metroGridSituacao.Rows.Add(new object[] { nomeEmpresa, uf, tipoServico, result });
+            Application.DoEvents();
+        }
+
+        private string ExecutarConsulta(int emp, TipoAplicativo servico, int amb, int cUF, string versao)
+        {
+            try
+            {
+                var configuracao = todasEmpresas ? ToConfiguracaoPorEmpresa(Empresas.Configuracoes[emp], versao, cUF, amb) :
+                                    ToConfiguracao(Empresas.Configuracoes[emp], versao);
+
+
+                switch (servico)
+                {
+                    case TipoAplicativo.Nfe:
+                        {
+                            var consStatServ = new NFeConsStatServ
+                            {
+                                Versao = versao,
+                                TpAmb = (TipoAmbiente)amb,
+                                CUF = (UFBrasil)cUF,
+                                XServ = "STATUS"
+                            };
+                            var statusServico = new NFeStatusServico(consStatServ, configuracao);
+                            statusServico.Executar();
+                            return statusServico.Result.XMotivo;
+                        }
+
+                    case TipoAplicativo.NFCe:
+                        {
+                            var consStatServ = new NFeConsStatServ
+                            {
+                                Versao = versao,
+                                TpAmb = (TipoAmbiente)amb,
+                                CUF = (UFBrasil)cUF,
+                                XServ = "STATUS"
+                            };
+                            var statusServico = new NFCeStatusServico(consStatServ, configuracao);
+                            statusServico.Executar();
+                            return statusServico.Result.XMotivo;
+                        }
+
+                    case TipoAplicativo.Cte:
+                        {
+                            var consStatServ = new CTeConsStatServ
+                            {
+                                Versao = versao,
+                                TpAmb = (TipoAmbiente)amb,
+                                CUF = (UFBrasil)cUF,
+                                XServ = "STATUS"
+                            };
+                            var statusServico = new CTeStatusServico(consStatServ, configuracao);
+                            statusServico.Executar();
+                            return statusServico.Result.XMotivo;
+                        }
+
+                    case TipoAplicativo.MDFe:
+                        {
+                            var consStatServ = new MDFeConsStatServ
+                            {
+                                Versao = versao,
+                                TpAmb = (TipoAmbiente)amb,
+                                XServ = "STATUS"
+                            };
+                            var statusServico = new MDFeStatusServico(consStatServ, configuracao);
+                            statusServico.Executar();
+                            return statusServico.Result.XMotivo;
+                        }
+
+                    case TipoAplicativo.NFCom:
+                        {
+                            var consStatServ = new NFComConsStatServ
+                            {
+                                Versao = versao,
+                                TpAmb = (TipoAmbiente)amb,
+                                XServ = "STATUS"
+                            };
+                            var statusServico = new NFComStatusServico(consStatServ, configuracao);
+                            statusServico.Executar();
+                            return statusServico.Result.XMotivo;
+                        }
+
+                    case TipoAplicativo.NF3e:
+                        {
+                            var consStatServ = new NF3eConsStatServ
+                            {
+                                Versao = versao,
+                                TpAmb = (TipoAmbiente)amb,
+                                XServ = "STATUS"
+                            };
+                            var statusServico = new NF3eStatusServico(consStatServ, configuracao);
+                            statusServico.Executar();
+                            return statusServico.Result.XMotivo;
+                        }
+
+                    default:
+                        return "Serviço de consulta não disponível para este modelo de documento.";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Retorna a mensagem de exceção para ser exibida na grid
+                return ex.Message;
+            }
+        }
+
 
         private void metroGridSituacao_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -341,190 +463,65 @@ namespace NFe.UI
             txtMensagem.Text = metroGridSituacao.SelectedRows[0].Cells[columnSitucao.Index].Value.ToString();
         }
 
-        #region VerStatusServico()
-
-        /// <summary>
-        /// Verifica e retorna o Status do Servido da NFE. Para isso este método gera o arquivo XML necessário
-        /// para obter o status do serviõ e faz a leitura do XML de retorno, disponibilizando uma string com a mensagem
-        /// obtida.
-        /// </summary>
-        /// <returns>Retorna uma string com a mensagem obtida do webservice de status do serviço da NFe</returns>
-        /// <example>string vPastaArq = this.CriaArqXMLStatusServico();</example>
-        /// <by>Wandrey Mundin Ferreira</by>
-        /// <date>17/06/2008</date>
-        private string VerStatusServico(string XmlNfeDadosMsg, int emp)
+        private Configuracao ToConfiguracao(Empresa empresa, string schemaVersao)
         {
-            string result = string.Empty;
 
-            string ArqXMLRetorno = Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
-                      Functions.ExtrairNomeArq(XmlNfeDadosMsg, Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML) +
-                      Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).RetornoXML;//.ExtRetorno.Sta_XML;
-
-            string ArqERRRetorno = Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
-                      Functions.ExtrairNomeArq(XmlNfeDadosMsg, Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML) +
-                      Propriedade.ExtRetorno.Sta_ERR;
-
-            try
+            var config = new Configuracao
             {
-                result = (string)EnviaArquivoERecebeResposta(ArqXMLRetorno, ArqERRRetorno);
-            }
-            finally
-            {
-                Functions.DeletarArquivo(ArqERRRetorno);
-                Functions.DeletarArquivo(ArqXMLRetorno);
+                TipoDFe = (TipoDFe)MapearServicoParaTipoDFe((TipoAplicativo)cbServico.SelectedValue),
+                TipoEmissao = (TipoEmissao)Convert.ToInt32(cbEmissao.SelectedValue),
+                CodigoUF = Functions.UFParaCodigo(comboUf.SelectedValue.ToString()),
+                TipoAmbiente = (TipoAmbiente)cbAmbiente.SelectedValue,
+                SchemaVersao = cbVersao.SelectedItem.ToString(),
+                CertificadoDigital = empresa.X509Certificado
+            };
 
-                Formularios.Wait.Close();
+            if (!string.IsNullOrEmpty(ConfiguracaoApp.ProxyServidor))
+            {
+                config.HasProxy = true;
+                config.ProxyUser = ConfiguracaoApp.ProxyUsuario;
+                config.ProxyPassword = ConfiguracaoApp.ProxySenha;
             }
-            return result;
+
+            return config;
         }
 
-        /// <summary>
-        /// Função Callback que analisa a resposta do Status do Servido
-        /// </summary>
-        /// <param name="elem"></param>
-        /// <by>Marcos Diez</by>
-        /// <date>30/8/2009</date>
-        /// <returns></returns>
-        private static string ProcessaStatusServico(string cArquivoXML)//XmlTextReader elem)
+        private Configuracao ToConfiguracaoPorEmpresa(Empresa empresa, string schemaVersao, int cUF, int amb)
         {
-            string rst = "Erro na leitura do XML " + cArquivoXML;
-            XmlTextReader elem = new XmlTextReader(cArquivoXML);
-            try
+            var config = new Configuracao
+
             {
-                while (elem.Read())
-                {
-                    if (elem.NodeType == XmlNodeType.Element)
-                    {
-                        if (elem.Name == TpcnResources.xMotivo.ToString())
-                        {
-                            elem.Read();
-                            rst = elem.Value;
-                            break;
-                        }
-                    }
-                }
-            }
-            finally
+                TipoDFe = (TipoDFe)MapearServicoParaTipoDFe(empresa.Servico),
+                TipoEmissao = (TipoEmissao)empresa.tpEmis,
+                CodigoUF = cUF,
+                TipoAmbiente = (TipoAmbiente)amb,
+                SchemaVersao = schemaVersao,
+                CertificadoDigital = empresa.X509Certificado
+            };
+
+            if (!string.IsNullOrEmpty(ConfiguracaoApp.ProxyServidor))
             {
-                elem.Close();
+                config.HasProxy = true;
+                config.ProxyUser = ConfiguracaoApp.ProxyUsuario;
+                config.ProxyPassword = ConfiguracaoApp.ProxySenha;
             }
 
-            return rst;
+            return config;
         }
 
-        /// <summary>
-        /// Envia um arquivo para o webservice da NFE e recebe a resposta.
-        /// </summary>
-        /// <returns>Retorna uma string com a mensagem obtida do webservice de status do serviço da NFe</returns>
-        /// <example>string vPastaArq = this.CriaArqXMLStatusServico();</example>
-        /// <by>Wandrey Mundin Ferreira</by>
-        /// <date>17/06/2009</date>
-        private object EnviaArquivoERecebeResposta(string arqXMLRetorno, string arqERRRetorno)
+
+        private TipoDFe MapearServicoParaTipoDFe(TipoAplicativo servico)
         {
-            object vStatus = uninfeDummy.vStatus;
-            DateTime startTime;
-            DateTime stopTime;
-            TimeSpan elapsedTime;
-
-            long elapsedMillieconds;
-            startTime = DateTime.Now;
-
-            while (true)
+            switch (servico)
             {
-                stopTime = DateTime.Now;
-                elapsedTime = stopTime.Subtract(startTime);
-                elapsedMillieconds = (int)elapsedTime.TotalMilliseconds;
-                Application.DoEvents();
-
-                if (elapsedMillieconds >= 60000)
-                {
-                    break;
-                }
-
-                if (File.Exists(arqXMLRetorno))
-                {
-                    if (!Functions.FileInUse(arqXMLRetorno))
-                    {
-                        try
-                        {
-                            //Ler o status do serviço no XML retornado pelo WebService
-                            try
-                            {
-                                vStatus = ProcessaStatusServico(arqXMLRetorno);
-                            }
-                            catch (Exception ex)
-                            {
-                                vStatus = ex.Message;
-                                break;
-                                //Se não conseguir ler o arquivo vai somente retornar ao loop para tentar novamente, pois
-                                //pode ser que o arquivo esteja em uso ainda.
-                            }
-
-                            //Detetar o arquivo de retorno
-                            try
-                            {
-                                FileInfo oArquivoDel = new FileInfo(arqXMLRetorno);
-                                oArquivoDel.Delete();
-                                break;
-                            }
-                            catch
-                            {
-                                //Somente deixa fazer o loop novamente e tentar deletar
-                            }
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-                else if (File.Exists(arqERRRetorno))
-                {
-                    //Retornou um arquivo com a extensão .ERR, ou seja, deu um erro,
-                    //futuramente tem que retornar esta mensagem para a MessageBox do usuário.
-
-                    //Detetar o arquivo de retorno
-                    try
-                    {
-                        vStatus += File.ReadAllText(arqERRRetorno, Encoding.Default);
-                        File.Delete(arqERRRetorno);
-                        break;
-                    }
-                    catch
-                    {
-                        //Somente deixa fazer o loop novamente e tentar deletar
-                    }
-                }
-                Thread.Sleep(100);
+                case TipoAplicativo.Nfe: return TipoDFe.NFe;
+                case TipoAplicativo.NFCe: return TipoDFe.NFCe;
+                case TipoAplicativo.Cte: return TipoDFe.CTe;
+                case TipoAplicativo.MDFe: return TipoDFe.MDFe;
+                case TipoAplicativo.NF3e: return TipoDFe.NF3e;
+                case TipoAplicativo.NFCom: return TipoDFe.NFCom;
+                default: return TipoDFe.Desconhecido;
             }
-            //Retornar o status do serviço
-            return vStatus;
         }
-
-        #endregion VerStatusServico()
-
-        private void GerarConsulta(int emp, TipoAplicativo servico, int tpEmis, int cUF, int amb, string versao, List<ConsultaRealizada> consultasRealizadas)
-        {
-            GerarXML oGerar = new GerarXML(emp);
-
-            string XmlNfeDadosMsg = Empresas.Configuracoes[emp].PastaXmlEnvio + "\\" + oGerar.StatusServico(servico, tpEmis, cUF, amb, versao);
-
-            consultasRealizadas.Add(new ConsultaRealizada
-            {
-                ArquivoRetorno = XmlNfeDadosMsg,
-                Empresa = Empresas.Configuracoes[emp],
-                Emp = emp,
-                Servico = servico
-            });
-
-            Thread.Sleep(1000);
-        }
-    }
-
-    public class ConsultaRealizada
-    {
-        public string ArquivoRetorno { get; set; }
-        public Empresa Empresa { get; set; }
-        public int Emp { get; set; }
-        public TipoAplicativo Servico { get; set; }
     }
 }
