@@ -311,6 +311,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.MEGASOFT:
+                case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
                     break;
 

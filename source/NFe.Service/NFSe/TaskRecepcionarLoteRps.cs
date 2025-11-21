@@ -297,6 +297,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.BETHA_CLOUD:
+                case PadraoNFSe.FUTURIZE:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
