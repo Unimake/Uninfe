@@ -315,6 +315,7 @@ namespace NFe.Service.NFSe
                             break;
                         case "GerarNfseEnvio":
                         case "GerarNovaNfseEnvio":
+                        case "DPS":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
                     }
@@ -613,9 +614,14 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || codMunicipio == 4202404)
+                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !ConteudoXML.OuterXml.Contains("DPS")))
                     {
                         versaoXML = "2.03";
+                        break;
+                    }
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
+                    {
+                        versaoXML = "1.00";
                         break;
                     }
                     versaoXML = "3.00";
