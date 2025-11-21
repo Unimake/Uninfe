@@ -310,6 +310,42 @@ namespace NFe.Components
         /// </summary>
         [Description("Consultar Situacaodo Cancelamento da NFS-e")]
         NFSeConsultarSituacaoCancelamento,
+
+        ///<summary>
+        ///Consultar Convênio Municipal da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar Convênio Municipal da NFSe NACIONAL")]
+        NFSeConsultarConvenioMunicipal,
+
+        ///<summary>
+        ///Consultar Alíquotas Municipais da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar Alíquotas Municipais da NFSe NACIONAL")]
+        NFSeConsultarAliquotasMunicipais,
+
+        ///<summary>
+        ///Consultar Histórico de Alíquotas Municipais da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar Histórico de Alíquotas Municipais da NFSe NACIONAL")]
+        NFSeConsultarHistoricoAliquotasMunicipais,
+
+        ///<summary>
+        ///Consultar Regimes Especiais Municipais da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar Regimes Especiais Municipais da NFSe NACIONAL")]
+        NFSeConsultarRegimesEspeciaisMunicipais,
+
+        ///<summary>
+        ///Consultar Retenções Municipais da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar Retenções Municipais da NFSe NACIONAL")]
+        NFSeConsultarRetencoesMunicipais,
+
+        ///<summary>
+        ///Consultar Benefícios Municipais da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar Benefícios Municipais da NFSe NACIONAL")]
+        NFSeConsultarBeneficioMunicipal,
         #endregion NFSe
 
         #region CFSe

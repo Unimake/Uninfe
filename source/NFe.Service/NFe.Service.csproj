@@ -358,6 +358,12 @@
     <Compile Include="NFCom\TaskConsultaStatusNFCom.cs" />
     <Compile Include="NFCom\TaskNFComEventos.cs" />
     <Compile Include="NFCom\TaskNFComRecepcaoSinc.cs" />
+    <Compile Include="NFSe\TaksConsultarConveioMunicipial.cs" />
+    <Compile Include="NFSe\TaskConsultarAliquotaMunicipal.cs" />
+    <Compile Include="NFSe\TaskConsultarBeneficiosMunicipais.cs" />
+    <Compile Include="NFSe\TaskConsultarHistoricoAliquotaMunicipal.cs" />
+    <Compile Include="NFSe\TaskConsultarRegimesEspeciais.cs" />
+    <Compile Include="NFSe\TaskConsultarRetencoesMunicipais.cs" />
     <Compile Include="uMessenger\TaskUMessenger.cs" />
     <Compile Include="NFe\ConverterTXT.cs" />
     <Compile Include="FluxoNfe.cs" />

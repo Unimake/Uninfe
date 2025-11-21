@@ -136,6 +136,30 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarNfseTomados(arquivo));
                             break;
 
+                        case Servicos.NFSeConsultarConvenioMunicipal:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskNFSeConsultarConvenioMunicipal());
+                            break;
+
+                        case Servicos.NFSeConsultarAliquotasMunicipais:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskNFSeConsultarAliquotaMunicipal());
+                            break;
+
+                        case Servicos.NFSeConsultarHistoricoAliquotasMunicipais:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskNFSeConsultarHistoricoAliquotaMunicipal());
+                            break;
+
+                        case Servicos.NFSeConsultarRegimesEspeciaisMunicipais:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarRegimesEspeciais());
+                            break;
+
+                        case Servicos.NFSeConsultarRetencoesMunicipais:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarRetencoesMunicipais());
+                            break;
+
+                        case Servicos.NFSeConsultarBeneficioMunicipal:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskNFSeConsultarBeneficiosMunicipais());
+                            break;
+
                         #endregion NFS-e
 
                         #region SAT/CF-e
@@ -1288,6 +1312,30 @@ namespace NFe.Service
                                 {
                                     tipoServico = Servicos.NFSeConsultarSituacaoCancelamento;
                                 }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedConvenio).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarConvenioMunicipal;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedAliquotas).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarAliquotasMunicipais;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedHistorico).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarHistoricoAliquotasMunicipais;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedRegimes).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarRegimesEspeciaisMunicipais;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedRetencoes).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarRetencoesMunicipais;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedBeneficio).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarBeneficioMunicipal;
+                                }
 
                                 #endregion NFS-e
 
@@ -2351,6 +2399,36 @@ namespace NFe.Service
                 case Servicos.NFSeCancelar:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.CanNfse_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarConvenioMunicipal:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedConvenio).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Convenio_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarAliquotasMunicipais:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedAliquotas).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Aliquotas_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarHistoricoAliquotasMunicipais:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedHistorico).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Historico_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarRegimesEspeciaisMunicipais:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedRegimes).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Regimes_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarRetencoesMunicipais:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedRetencoes).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Retencoes_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarBeneficioMunicipal:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedBeneficio).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Beneficio_ERR;
                     break;
 
                 #endregion NFSe

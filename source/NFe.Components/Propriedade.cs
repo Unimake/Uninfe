@@ -167,7 +167,7 @@ namespace NFe.Components
                     Console.WriteLine(arquivoList.Count);
 
 
-                    foreach(XmlNode arquivoNode in arquivoList)
+                    foreach (XmlNode arquivoNode in arquivoList)
                     {
                         var elemento = (XmlElement)arquivoNode;
                         if (elemento.GetAttribute("ID").Length > 3 || elemento.GetElementsByTagName("UF")[0].InnerText == "SVRS" || elemento.GetElementsByTagName("UF")[0].InnerText == "AN")
@@ -282,6 +282,12 @@ namespace NFe.Components
             PedSitNFSeTom,
             PedStaNFse,
             PedNFSeEmit,
+            PedConvenio,
+            PedAliquotas,
+            PedHistorico,
+            PedRegimes,
+            PedRetencoes,
+            PedBeneficio,
 
             /// <summary>
             /// CFSe
@@ -728,6 +734,42 @@ namespace NFe.Components
                 "-ped-sitcannfse.err",
                 "Consultar Situação do cancelamento da NFSe"
                 ));
+
+            ListaExtensoes.Add(TipoEnvio.PedConvenio, new ExtensaoClass(
+                "-ped-convenio.xml", "",
+                "-convenio.xml", "",
+                "-convenio.err",
+                "Pedido de Convênio"));
+
+            ListaExtensoes.Add(TipoEnvio.PedAliquotas, new ExtensaoClass(
+                "-ped-aliquotas.xml", "",
+                "-aliquotas.xml", "",
+                "-aliquotas.err",
+                "Pedido de Alíquotas"));
+
+            ListaExtensoes.Add(TipoEnvio.PedHistorico, new ExtensaoClass(
+                "-ped-historico.xml", "",
+                "-historico.xml", "",
+                "-historico.err",
+                "Pedido de Histórico"));
+
+            ListaExtensoes.Add(TipoEnvio.PedRegimes, new ExtensaoClass(
+                "-ped-regimes.xml", "",
+                "-regimes.xml", "",
+                "-regimes.err",
+                "Pedido de Regimes Especiais"));
+
+            ListaExtensoes.Add(TipoEnvio.PedRetencoes, new ExtensaoClass(
+                "-ped-retencoes.xml", "",
+                "-retencoes.xml", "",
+                "-retencoes.err",
+                "Pedido de Retenções"));
+
+            ListaExtensoes.Add(TipoEnvio.PedBeneficio, new ExtensaoClass(
+                "-ped-beneficio.xml", "",
+                "-beneficio.xml", "",
+                "-beneficio.err",
+                "Pedido de Benefício"));
 
             #endregion Extensoes da NFSe
 
@@ -1268,6 +1310,36 @@ namespace NFe.Components
             /// </summary>
             public static string PedNfsePDF = Extensao(TipoEnvio.PedNFSePDF).EnvioXML;
 
+            /// <summary>
+            /// -ped-convenio.xml
+            /// </summary>
+            public static string PedConvenio = Extensao(TipoEnvio.PedConvenio).EnvioXML;
+
+            /// <summary>
+            /// -ped-aliquotas.xml
+            /// </summary>
+            public static string PedAliquotas = Extensao(TipoEnvio.PedAliquotas).EnvioXML;
+
+            /// <summary>
+            /// -ped-historico.xml
+            /// </summary>
+            public static string PedHistorico = Extensao(TipoEnvio.PedHistorico).EnvioXML;
+
+            /// <summary>
+            /// -ped-regimes.xml
+            /// </summary>
+            public static string PedRegimes = Extensao(TipoEnvio.PedRegimes).EnvioXML;
+
+            /// <summary>
+            /// -ped-retencoes.xml
+            /// </summary>
+            public static string PedRetencoes = Extensao(TipoEnvio.PedRetencoes).EnvioXML;
+
+            /// <summary>
+            /// -ped-beneficio.xml
+            /// </summary>
+            public static string PedBeneficio = Extensao(TipoEnvio.PedBeneficio).EnvioXML;
+
             #endregion Extensões da NFS-e
 
             #region Extensões MDF-e
@@ -1638,6 +1710,66 @@ namespace NFe.Components
             /// </summary>
             public const string SeqLoteNotaRPS_ERR = "-seqlotenotarps.err";
 
+            /// <summary>
+            /// -convenio.xml
+            /// </summary>
+            public static string Convenio = Extensao(TipoEnvio.PedConvenio).RetornoXML;
+
+            /// <summary>
+            /// -convenio.err
+            /// </summary>
+            public const string Convenio_ERR = "-convenio.err";
+
+            /// <summary>
+            /// -aliquotas.xml
+            /// </summary>
+            public static string Aliquotas = Extensao(TipoEnvio.PedAliquotas).RetornoXML;
+
+            /// <summary>
+            /// -aliquotas.err
+            /// </summary>
+            public const string Aliquotas_ERR = "-aliquotas.err";
+
+            /// <summary>
+            /// -historico.xml
+            /// </summary>
+            public static string Historico = Extensao(TipoEnvio.PedHistorico).RetornoXML;
+
+            /// <summary>
+            /// -historico.err
+            /// </summary>
+            public const string Historico_ERR = "-historico.err";
+
+            /// <summary>
+            /// -regimes.xml
+            /// </summary>
+            public static string Regimes = Extensao(TipoEnvio.PedRegimes).RetornoXML;
+
+            /// <summary>
+            /// -regimes.err
+            /// </summary>
+            public const string Regimes_ERR = "-regimes.err";
+
+            /// <summary>
+            /// -retencoes.xml
+            /// </summary>
+            public static string Retencoes = Extensao(TipoEnvio.PedRetencoes).RetornoXML;
+
+            /// <summary>
+            /// -retencoes.err
+            /// </summary>
+            public const string Retencoes_ERR = "-retencoes.err";
+
+            /// <summary>
+            /// -beneficio.xml
+            /// </summary>
+            public static string Beneficio = Extensao(TipoEnvio.PedBeneficio).RetornoXML;
+
+            /// <summary>
+            /// -beneficio.err
+            /// </summary>
+            public const string Beneficio_ERR = "-beneficio.err";
+
             #endregion Extensões NFSe
 
             #region Extensoes de DFe
@@ -1777,7 +1909,7 @@ namespace NFe.Components
         }
 
         #endregion Versao
-                public static bool ServicoRodando   //danasa 22/7/2011
+        public static bool ServicoRodando   //danasa 22/7/2011
         {
             get
             {
