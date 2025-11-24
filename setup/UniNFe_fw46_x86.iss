@@ -81,7 +81,6 @@ Source: ..\source\uninfe\bin\x86\Release46_x86\System.IO.Pipelines.dll; DestDir:
 Source: ..\source\uninfe\bin\x86\Release46_x86\System.Memory.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\System.Numerics.Vectors.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Cng.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Xml.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\System.Text.Encodings.Web.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\x86\Release46_x86\System.Text.Json.dll; DestDir: {app}; Flags: ignoreversion
