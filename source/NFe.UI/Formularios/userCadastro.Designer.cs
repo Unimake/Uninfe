@@ -104,34 +104,7 @@
             this.comboUf.FormattingEnabled = true;
             this.comboUf.IntegralHeight = false;
             this.comboUf.ItemHeight = 19;
-            this.comboUf.Items.AddRange(new object[] {
-            "AC Acre\",",
-            "AL Alagoas\",",
-            "AM Amazonas\",",
-            "AP Amapá\",",
-            "BA Bahia\",",
-            "CE Ceará\",",
-            "DF Distrito Federal\",",
-            "ES Espírito Santo\",",
-            "GO Goiás\",",
-            "MA Maranhão\",",
-            "MG Minas Gerais\",",
-            "MS Mato Grosso do Sul\"",
-            "MT Mato Grosso\",",
-            "PA Pará\",",
-            "PB Paraiba\",",
-            "PE Pernambuco\",",
-            "PI Piauí\",",
-            "PR Paraná\",",
-            "RJ Rio de Janeiro\",",
-            "RN Rio Grande do Norte",
-            "RO Rondonia\",",
-            "RR Roraima\",",
-            "RS Rio Grande do Sul\",",
-            "SC Santa Catarina\",",
-            "SE Sergipe\",",
-            "SP São Paulo\",",
-            "TO Tocantins\","});
+
             this.comboUf.Location = new System.Drawing.Point(0, 127);
             this.comboUf.MaxDropDownItems = 15;
             this.comboUf.Name = "comboUf";
@@ -152,7 +125,7 @@
             // 
             // cbEmpresa
             // 
-            this.cbEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbEmpresa.FontSize = MetroFramework.MetroComboBoxSize.Small;
             this.cbEmpresa.FormattingEnabled = true;
@@ -233,8 +206,8 @@
             // 
             // textResultado
             // 
-            this.textResultado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.textResultado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textResultado.Lines = new string[0];
             this.textResultado.Location = new System.Drawing.Point(0, 249);

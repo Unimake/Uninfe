@@ -1,19 +1,15 @@
-﻿using System;
+﻿using NFe.Components;
+using NFe.Service;
+using NFe.Settings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-
-using System.IO;
 using System.Threading;
-using System.Xml;
-
-using NFe.Components;
-using NFe.Settings;
-using NFe.Service;
+using System.Windows.Forms;
+using Unimake.Business.DFe.Servicos;
 
 namespace NFe.UI
 {
@@ -23,6 +19,43 @@ namespace NFe.UI
         public userCadastro()
         {
             InitializeComponent();
+            CarregarUFs();
+        }
+
+        private void CarregarUFs()
+        {
+            comboUf.DataSource = null;
+            comboUf.Items.Clear();
+
+            var excluir = new HashSet<UFBrasil>
+            {
+                UFBrasil.AN,
+                UFBrasil.SVRS,
+                UFBrasil.SVCSP,
+                UFBrasil.SVCRS,
+                UFBrasil.SincChavesRSparaSVSP,
+                UFBrasil.SUFRAMA,
+                UFBrasil.EX,
+                UFBrasil.NaoDefinido
+            };
+
+            var lista = Enum.GetValues(typeof(UFBrasil))
+                .Cast<UFBrasil>()
+                .Where(uf => !excluir.Contains(uf))
+                .OrderBy(uf => uf.ToString())
+                .Select(uf => new
+                {
+                    Nome = uf.ToString() // DisplayMember
+                })
+                .ToList();
+
+            foreach (var uf in lista)
+                comboUf.Items.Add(uf);
+
+            // Define propriedades do ComboBox
+            comboUf.DisplayMember = "Nome";
+            comboUf.ValueMember = "Nome";
+            comboUf.DataSource = lista;
         }
 
         private userCadastroResult rst;
@@ -39,9 +72,9 @@ namespace NFe.UI
                 this.cbEmpresa.ValueMember = "Key";
                 this.cbEmpresa.DataSource = Auxiliar.CarregaEmpresa(true);
 
-                this.comboUf.DisplayMember = NFe.Components.NFeStrConstants.Nome.ToLower();
-                this.comboUf.ValueMember = "valor";
-                comboUf.DataSource = Functions.CarregaEstados();
+                //this.comboUf.DisplayMember = NFe.Components.NFeStrConstants.Nome.ToLower();
+                //this.comboUf.ValueMember = "valor";
+                //comboUf.DataSource = Functions.CarregaEstados();
 
                 int posicao = uninfeDummy.xmlParams.ReadValue(this.GetType().Name, "last_empresa", 0);
                 if (posicao > (this.cbEmpresa.DataSource as System.Collections.ArrayList).Count - 1)
@@ -79,7 +112,7 @@ namespace NFe.UI
         {
             FocusF();
 
-            this.textResultado.Text = "Consultando o servidor. Aguarde...."; 
+            this.textResultado.Text = "Consultando o servidor. Aguarde....";
             this.Refresh();
 
             RetConsCad vConsCad = null;
@@ -94,9 +127,9 @@ namespace NFe.UI
                     vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, this.textConteudo.Text, string.Empty, string.Empty);
                 else
                     if (rbCPF.Checked)
-                        vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, string.Empty, string.Empty, this.textConteudo.Text);
-                    else
-                        vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, string.Empty, this.textConteudo.Text, string.Empty);
+                    vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, string.Empty, string.Empty, this.textConteudo.Text);
+                else
+                    vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, string.Empty, this.textConteudo.Text, string.Empty);
 
                 if (vvConsCad is RetConsCad)
                 {
