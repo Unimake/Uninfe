@@ -482,6 +482,9 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
+                case PadraoNFSe.NACIONAL:
+                    versaoXML = (xmlDoc.GetElementsByTagName(xmlDoc.DocumentElement.Name)[0]).Attributes.GetNamedItem("versao").Value;
+                    break;
 
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
@@ -491,7 +494,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.BAUHAUS:
-                case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.TINUS:
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:

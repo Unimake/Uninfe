@@ -187,9 +187,12 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
+                case PadraoNFSe.NACIONAL:
+                    versaoXML = (xmlDoc.GetElementsByTagName(xmlDoc.DocumentElement.Name)[0]).Attributes.GetNamedItem("versao").Value;
+                    break;
+
                 case PadraoNFSe.GIF:
                 case PadraoNFSe.PROPRIOBARUERISP:
-                case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.PRIMAX:
                     versaoXML = "1.00";
                     break;

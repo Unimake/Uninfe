@@ -253,12 +253,15 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
+                case PadraoNFSe.NACIONAL:
+                    versaoXML = (xmlDoc.GetElementsByTagName(xmlDoc.DocumentElement.Name)[0]).Attributes.GetNamedItem("versao").Value;
+                    break;
+
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
                 case PadraoNFSe.OBARATEC:
                 case PadraoNFSe.GIF:
                 case PadraoNFSe.EQUIPLANO:
-                case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TECNOSISTEMAS:
