@@ -587,6 +587,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
+                    if (codMunicipio == 3507001)
+                    {
+                        versaoXML = "1.01";
+                    }
                     break; ;
 
                 case PadraoNFSe.DSF:

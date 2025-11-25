@@ -422,6 +422,7 @@ namespace NFe.Service.NFSe
                             break;
 
                         case "GerarNfseEnvio":
+                        case "DPS":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
                     }
@@ -693,6 +694,10 @@ namespace NFe.Service.NFSe
                         codMunicipio == 4122404)
                     {
                         versaoXML = "1.00";
+                    }
+                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    {
+                        versaoXML = "1.01";
                     }
                     break;
 
