@@ -416,10 +416,6 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new TaskConsultasReinf(arquivo));
                             break;
 
-                        case Servicos.ConsultaFechamento2099Reinf:
-                            DirecionarArquivo(emp, true, true, arquivo, new TaskConsultaFechamento2099(arquivo));
-                            break;
-
                         case Servicos.ConsultaLoteAssincReinf:
                             DirecionarArquivo(emp, true, true, arquivo, new TaskConsultaLoteAssincronoReinf(arquivo));
                             break;

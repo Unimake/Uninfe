@@ -8,7 +8,7 @@ using Unimake.Business.DFe.Utility;
 using XmlReinf = Unimake.Business.DFe.Xml.EFDReinf;
 using ServicoReinf = Unimake.Business.DFe.Servicos.EFDReinf;
 
-namespace NFe.Service
+namespace NFe.Service.EFDReinf
 {
     public class TaskConsultasReinf : TaskAbst
     {

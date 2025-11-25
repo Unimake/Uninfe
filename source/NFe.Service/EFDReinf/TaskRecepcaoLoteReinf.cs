@@ -7,7 +7,7 @@ using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Xml.EFDReinf;
 
-namespace NFe.Service
+namespace NFe.Service.EFDReinf
 {
     public class TaskRecepcaoLoteReinf : TaskAbst
     {
