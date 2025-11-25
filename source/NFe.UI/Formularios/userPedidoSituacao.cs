@@ -1,14 +1,8 @@
 ﻿using NFe.Components;
-using NFe.Service;
 using NFe.Settings;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
-using System.Xml;
 using Unimake.Business.DFe.Servicos;
 
 using CTeConsStatServ = Unimake.Business.DFe.Xml.CTe.ConsStatServCte;
@@ -17,11 +11,11 @@ using MDFeConsStatServ = Unimake.Business.DFe.Xml.MDFe.ConsStatServMDFe;
 using MDFeStatusServico = Unimake.Business.DFe.Servicos.MDFe.StatusServico;
 using NF3eConsStatServ = Unimake.Business.DFe.Xml.NF3e.ConsStatServNF3e;
 using NF3eStatusServico = Unimake.Business.DFe.Servicos.NF3e.StatusServico;
+using NFCeStatusServico = Unimake.Business.DFe.Servicos.NFCe.StatusServico;
 using NFComConsStatServ = Unimake.Business.DFe.Xml.NFCom.ConsStatServNFCom;
 using NFComStatusServico = Unimake.Business.DFe.Servicos.NFCom.StatusServico;
 using NFeConsStatServ = Unimake.Business.DFe.Xml.NFe.ConsStatServ;
 using NFeStatusServico = Unimake.Business.DFe.Servicos.NFe.StatusServico;
-using NFCeStatusServico = Unimake.Business.DFe.Servicos.NFCe.StatusServico;
 
 
 namespace NFe.UI
@@ -163,63 +157,32 @@ namespace NFe.UI
                     cbAmbiente.Enabled = true;
                     buttonPesquisa.Enabled = true;
                 }
-                else
-                {
-                }
             }
         }
 
-        private void ChangeVersao(TipoAplicativo Servico)
+        private static readonly Dictionary<TipoAplicativo, string[]> VersoesPorServico = new Dictionary<TipoAplicativo, string[]>
         {
-            switch (Servico)
-            {
-                case TipoAplicativo.Todos:
-                    cbVersao.Enabled = cbServico.Enabled = true;
-                    cbVersao.Items.Clear();
-                    cbVersao.Items.AddRange(new object[] { "4.00", "3.00", "1.00" });
-                    cbVersao.SelectedItem = "4.00";
-                    break;
+            { TipoAplicativo.Todos, new[] { "4.00", "3.00", "1.00" } },
+            { TipoAplicativo.Nfe,  new[] { "4.00" } },
+            { TipoAplicativo.NFCe, new[] { "4.00" } },
+            { TipoAplicativo.Cte,  new[] { "4.00" } },
+            { TipoAplicativo.MDFe, new[] { "3.00" } },
+            { TipoAplicativo.NF3e, new[] { "1.00" } },
+            { TipoAplicativo.NFCom,new[] { "1.00" } }
+        };
 
-                case TipoAplicativo.Nfe:
-                    cbVersao.Enabled = true;
-                    cbVersao.Items.Clear();
-                    cbVersao.Items.AddRange(new object[] { "4.00" });
-                    cbVersao.SelectedItem = "4.00";
-                    break;
+        private void ChangeVersao(TipoAplicativo servico)
+        {
+            cbVersao.Enabled = servico != TipoAplicativo.SATeMFE;
 
-                case TipoAplicativo.NFCe:
-                    cbVersao.Enabled = true;
-                    cbVersao.Items.Clear();
-                    cbVersao.Items.AddRange(new object[] { "4.00" });
-                    cbVersao.SelectedItem = "4.00";
-                    break;
+            cbVersao.Items.Clear();
 
-                case TipoAplicativo.Cte:
-                    cbVersao.Enabled = true;
-                    cbVersao.Items.Clear();
-                    cbVersao.Items.AddRange(new object[] { "4.00" });
-                    cbVersao.SelectedItem = "4.00";
-                    break;
+            if (VersoesPorServico.TryGetValue(servico, out var versoes))
+                cbVersao.Items.AddRange(versoes);
+            else
+                cbVersao.Items.Add("4.00");
 
-                case TipoAplicativo.MDFe:
-                    cbVersao.Enabled = true;
-                    cbVersao.Items.Clear();
-                    cbVersao.Items.AddRange(new object[] { "3.00" });
-                    cbVersao.SelectedItem = "3.00";
-                    break;
-
-                case TipoAplicativo.SATeMFE:
-                    cbVersao.Enabled = false;
-                    break;
-
-                case TipoAplicativo.NF3e:
-                case TipoAplicativo.NFCom:
-                    cbVersao.Enabled = true;
-                    cbVersao.Items.Clear();
-                    cbVersao.Items.AddRange(new object[] { "1.00" });
-                    cbVersao.SelectedItem = "1.00";
-                    break;
-            }
+            cbVersao.SelectedIndex = 0;
         }
 
         private void cbServico_SelectedIndexChanged(object sender, EventArgs e)
@@ -342,13 +305,13 @@ namespace NFe.UI
         {
             var empresa = Empresas.Configuracoes[emp];
             string nomeEmpresa = empresa.Nome;
-            string uf = Functions.CodigoParaUF(empresa.UnidadeFederativaCodigo);
+            string nomeUF = Functions.CodigoParaUF(cUF);
             string tipoServico = servico.ToString();
 
             // Executa a consulta diretamente pela DLL e obtém o resultado
             string result = ExecutarConsulta(emp, servico, amb, cUF, versao);
 
-            metroGridSituacao.Rows.Add(new object[] { nomeEmpresa, uf, tipoServico, result });
+            metroGridSituacao.Rows.Add(new object[] { nomeEmpresa, nomeUF, tipoServico, result });
             Application.DoEvents();
         }
 
@@ -356,9 +319,7 @@ namespace NFe.UI
         {
             try
             {
-                var configuracao = todasEmpresas ? ToConfiguracaoPorEmpresa(Empresas.Configuracoes[emp], versao, cUF, amb) :
-                                    ToConfiguracao(Empresas.Configuracoes[emp], versao);
-
+                var configuracao = CriarConfiguracao(Empresas.Configuracoes[emp], servico, versao, cUF, amb);
 
                 switch (servico)
                 {
@@ -463,39 +424,16 @@ namespace NFe.UI
             txtMensagem.Text = metroGridSituacao.SelectedRows[0].Cells[columnSitucao.Index].Value.ToString();
         }
 
-        private Configuracao ToConfiguracao(Empresa empresa, string schemaVersao)
+        private Configuracao CriarConfiguracao(Empresa empresa, TipoAplicativo servico, string versao, int? cUF = null, int? ambiente = null)
         {
 
             var config = new Configuracao
             {
-                TipoDFe = (TipoDFe)MapearServicoParaTipoDFe((TipoAplicativo)cbServico.SelectedValue),
-                TipoEmissao = (TipoEmissao)Convert.ToInt32(cbEmissao.SelectedValue),
-                CodigoUF = Functions.UFParaCodigo(comboUf.SelectedValue.ToString()),
-                TipoAmbiente = (TipoAmbiente)cbAmbiente.SelectedValue,
-                SchemaVersao = cbVersao.SelectedItem.ToString(),
-                CertificadoDigital = empresa.X509Certificado
-            };
-
-            if (!string.IsNullOrEmpty(ConfiguracaoApp.ProxyServidor))
-            {
-                config.HasProxy = true;
-                config.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                config.ProxyPassword = ConfiguracaoApp.ProxySenha;
-            }
-
-            return config;
-        }
-
-        private Configuracao ToConfiguracaoPorEmpresa(Empresa empresa, string schemaVersao, int cUF, int amb)
-        {
-            var config = new Configuracao
-
-            {
-                TipoDFe = (TipoDFe)MapearServicoParaTipoDFe(empresa.Servico),
+                TipoDFe = MapearServicoParaTipoDFe(servico),
                 TipoEmissao = (TipoEmissao)empresa.tpEmis,
-                CodigoUF = cUF,
-                TipoAmbiente = (TipoAmbiente)amb,
-                SchemaVersao = schemaVersao,
+                CodigoUF = cUF ?? Functions.UFParaCodigo(comboUf.SelectedValue.ToString()),
+                TipoAmbiente = (TipoAmbiente)(ambiente ?? (int)cbAmbiente.SelectedValue),
+                SchemaVersao = versao,
                 CertificadoDigital = empresa.X509Certificado
             };
 
@@ -508,7 +446,6 @@ namespace NFe.UI
 
             return config;
         }
-
 
         private TipoDFe MapearServicoParaTipoDFe(TipoAplicativo servico)
         {
