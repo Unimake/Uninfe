@@ -142,58 +142,63 @@ namespace NFe.ConvertTxt
                 {
                     case "infnfesupl":
                         //<qrCode><![CDATA[http://www.sefaz.mt.gov.br/nfce/consultanfce?chNFe=51160417625687000153650020000006611000006615&nVersao=100&tpAmb=1&cDest=32622775091&dhEmi=323031362d30342d32375431353a31343a32362d30343a3030&vNF=2.00&vICMS=0.00&digVal=7169746e59786b51753950376e4e716536686e3859596b327354773d&cIdToken=000001&cHashQRCode=C0C48B5D9353FEDDBC40E4ECBF931D32E95D977B]]></qrCode>
-                        foreach(XmlNode nodeinfNFe in nodeNFe.ChildNodes)
+                        try
                         {
-                            var minhaCultura = new CultureInfo("pt-BR"); //pt-BR usada como base
-                            minhaCultura.NumberFormat.NumberDecimalSeparator = ".";
-
-                            var data = nodeinfNFe.InnerText.Replace("<![CDATA[", "").Replace("]]>", "");
-                            nfe.qrCode.Link = data;
-                            var split = data.Split(new char[] { '&' });
-
-                            if(split[0].Contains("chNFe"))
+                            foreach (XmlNode nodeinfNFe in nodeNFe.ChildNodes)
                             {
-                                foreach(var s in split)
-                                {
-                                    Console.WriteLine(s);
-                                    if(s.Contains("chNFe"))
-                                        nfe.qrCode.chNFe = s.Split('?')[1].Substring(6);
-                                    else if(s.StartsWith("nVersao")) nfe.qrCode.nVersao = s.Split('=')[1];
-                                    else if(s.StartsWith("tpAmb")) nfe.qrCode.tpAmb = (TipoAmbiente)Convert.ToInt16(s.Split('=')[1]);
-                                    else if(s.StartsWith("cDest")) nfe.qrCode.cDest = s.Split('=')[1];
-                                    else if(s.StartsWith("digVal")) nfe.qrCode.digVal = s.Split('=')[1];
-                                    else if(s.StartsWith("cIdToken")) nfe.qrCode.cIdToken = s.Split('=')[1];
-                                    else if(s.StartsWith("cHashQRCode")) nfe.qrCode.cHashQRCode = s.Split('=')[1];
-                                    else if(s.StartsWith("vICMS")) nfe.qrCode.vICMS = Convert.ToDecimal(s.Split('=')[1], minhaCultura);
-                                    else if(s.StartsWith("vNF")) nfe.qrCode.vNF = Convert.ToDecimal(s.Split('=')[1], minhaCultura);
-                                    else if(s.StartsWith("dhEmi")) nfe.qrCode.dhEmi = FromHex(s.Split('=')[1]);
-                                }
-                            }
-                            else
-                            {
-                                split = data.Split(new char[] { '|' });
-                                nfe.qrCode.chNFe = split[0].Split('?')[1].Substring(2);
-                                nfe.qrCode.nVersao = split[1].PadRight(3, '0');
-                                nfe.qrCode.tpAmb = (TipoAmbiente)Convert.ToInt16(split[2]);
+                                var minhaCultura = new CultureInfo("pt-BR"); //pt-BR usada como base
+                                minhaCultura.NumberFormat.NumberDecimalSeparator = ".";
 
-                                if(nfe.ide.tpEmis.Equals(TipoEmissao.Normal))
-                                {
-                                    nfe.qrCode.cIdToken = split[3].PadLeft(6, '0');
-                                    nfe.qrCode.cHashQRCode = split[4];
-                                }
-                                else if(nfe.ide.tpEmis.Equals(TipoEmissao.ContingenciaOffLine))
-                                {
-                                    var dataHoraEmissao = Convert.ToDateTime(nfe.ide.dhEmi);
-                                    nfe.qrCode.dhEmi = new DateTime(dataHoraEmissao.Year, dataHoraEmissao.Month, Convert.ToInt16(split[3]));
-                                    nfe.qrCode.vNF = Convert.ToDecimal(split[4], minhaCultura);
-                                    nfe.qrCode.digVal = split[5];
-                                    nfe.qrCode.cIdToken = split[6].PadLeft(6, '0');
-                                    nfe.qrCode.cHashQRCode = split[7];
-                                }
-                            }
+                                var data = nodeinfNFe.InnerText.Replace("<![CDATA[", "").Replace("]]>", "");
+                                nfe.qrCode.Link = data;
+                                var split = data.Split(new char[] { '&' });
 
-                            break;
+                                if (split[0].Contains("chNFe"))
+                                {
+                                    foreach (var s in split)
+                                    {
+                                        Console.WriteLine(s);
+                                        if (s.Contains("chNFe"))
+                                            nfe.qrCode.chNFe = s.Split('?')[1].Substring(6);
+                                        else if (s.StartsWith("nVersao")) nfe.qrCode.nVersao = s.Split('=')[1];
+                                        else if (s.StartsWith("tpAmb")) nfe.qrCode.tpAmb = (TipoAmbiente)Convert.ToInt16(s.Split('=')[1]);
+                                        else if (s.StartsWith("cDest")) nfe.qrCode.cDest = s.Split('=')[1];
+                                        else if (s.StartsWith("digVal")) nfe.qrCode.digVal = s.Split('=')[1];
+                                        else if (s.StartsWith("cIdToken")) nfe.qrCode.cIdToken = s.Split('=')[1];
+                                        else if (s.StartsWith("cHashQRCode")) nfe.qrCode.cHashQRCode = s.Split('=')[1];
+                                        else if (s.StartsWith("vICMS")) nfe.qrCode.vICMS = Convert.ToDecimal(s.Split('=')[1], minhaCultura);
+                                        else if (s.StartsWith("vNF")) nfe.qrCode.vNF = Convert.ToDecimal(s.Split('=')[1], minhaCultura);
+                                        else if (s.StartsWith("dhEmi")) nfe.qrCode.dhEmi = FromHex(s.Split('=')[1]);
+                                    }
+                                }
+                                else
+                                {
+                                    split = data.Split(new char[] { '|' });
+                                    nfe.qrCode.chNFe = split[0].Split('?')[1].Substring(2);
+                                    nfe.qrCode.nVersao = split[1].PadRight(3, '0');
+                                    nfe.qrCode.tpAmb = (TipoAmbiente)Convert.ToInt16(split[2]);
+
+                                    if (nfe.ide.tpEmis.Equals(TipoEmissao.Normal))
+                                    {
+                                        nfe.qrCode.cIdToken = split[3].PadLeft(6, '0');
+                                        nfe.qrCode.cHashQRCode = split[4];
+                                    }
+                                    else if (nfe.ide.tpEmis.Equals(TipoEmissao.ContingenciaOffLine))
+                                    {
+                                        var dataHoraEmissao = Convert.ToDateTime(nfe.ide.dhEmi);
+                                        nfe.qrCode.dhEmi = new DateTime(dataHoraEmissao.Year, dataHoraEmissao.Month, Convert.ToInt16(split[3]));
+                                        nfe.qrCode.vNF = Convert.ToDecimal(split[4], minhaCultura);
+                                        nfe.qrCode.digVal = split[5];
+                                        nfe.qrCode.cIdToken = split[6].PadLeft(6, '0');
+                                        nfe.qrCode.cHashQRCode = split[7];
+                                    }
+                                }
+
+
+                                break;
+                            }
                         }
+                        catch { }
                         break;
 
                     case "infnfe":
