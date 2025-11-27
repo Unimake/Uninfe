@@ -344,6 +344,7 @@ namespace NFe.Service.NFSe
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfse":
+                        case "NFSe":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
                             break;
                         case "pedidoLoteNFSe":
@@ -483,7 +484,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.THEMA:
-                case PadraoNFSe.GIF:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
@@ -708,6 +708,15 @@ namespace NFe.Service.NFSe
                         break;
                     }
                     versaoXML = "3.00";
+                    break;
+
+                case PadraoNFSe.GIF:
+                    if (xmlDoc.DocumentElement.Name.Contains("NFSe"))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    versaoXML = "1.00";
                     break;
 
                 default:

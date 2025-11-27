@@ -221,10 +221,22 @@ namespace NFe.Service.NFSe
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelaNota;
                     break;
 
-                case PadraoNFSe.GIF:
                 case PadraoNFSe.PRIMAX:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal;
                     break;
+
+                case PadraoNFSe.GIF:
+                    if(doc.DocumentElement.Name == "pedRegEvento")
+                    {
+                        result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse;
+                        break;
+                    }
+                    else
+                    {
+                        result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal;
+                        break;
+                    }
+                    
             }
 
             return result;
@@ -260,7 +272,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
                 case PadraoNFSe.OBARATEC:
-                case PadraoNFSe.GIF:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.BAUHAUS:
@@ -520,6 +531,15 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.01";
                     }
+                    break;
+
+                case PadraoNFSe.GIF:
+                    if (xmlDoc.DocumentElement.Name.Contains("pedRegEvento"))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    versaoXML = "1.00";
                     break;
 
                 default:
