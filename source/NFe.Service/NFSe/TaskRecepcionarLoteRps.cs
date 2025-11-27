@@ -378,6 +378,11 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GIF:
+                    if(doc.DocumentElement.Name == "DPS")
+                    {
+                        result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                        break;
+                    }
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeEnviarLoteNotas;
                     break;
 
@@ -490,7 +495,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
                 case PadraoNFSe.OBARATEC:
-                case PadraoNFSe.GIF:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
@@ -792,6 +796,15 @@ namespace NFe.Service.NFSe
                         versaoXML = "2.01";
                     }
                     break;
+
+                case PadraoNFSe.GIF:
+                    if(ConteudoXML.OuterXml.Contains("DPS"))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    versaoXML = "1.00";
+                    break;  
 
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Enivo / Gerar NFS-e.");
