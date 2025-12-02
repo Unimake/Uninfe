@@ -469,6 +469,10 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
+                    if (xmlDoc.GetElementsByTagName("CodigoVerificacao").Count > 0)
+                    {
+                        versaoXML = "3.01";
+                    }
                     break;
 
                 case PadraoNFSe.SIGCORP:
