@@ -498,6 +498,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.LEXSOM:
+                case PadraoNFSe.PAULISTANA:
                     versaoXML = "1.00";
                     break;
 
@@ -518,7 +519,6 @@ namespace NFe.Service.NFSe
                     break;
 
 
-                case PadraoNFSe.PAULISTANA:
                 case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.CENTI:

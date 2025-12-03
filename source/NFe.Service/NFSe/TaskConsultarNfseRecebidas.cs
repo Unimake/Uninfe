@@ -132,17 +132,18 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.LIBRE:
+                case PadraoNFSe.PAULISTANA:
                     versaoXML = "1.00";
                     break;
-                case PadraoNFSe.PAULISTANA:
-                    versaoXML = "2.00";
-                    break;
+
                 case PadraoNFSe.FINTEL:
                     versaoXML = "2.01";
                     break;
+
                 case PadraoNFSe.FISCO:
                     versaoXML = "2.03";
                     break;
+
                 case PadraoNFSe.SMARAPD:
                 case PadraoNFSe.ISSNET:
                     versaoXML = "2.04";

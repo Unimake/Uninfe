@@ -133,7 +133,7 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.PAULISTANA:
-                    versaoXML = "2.00";
+                    versaoXML = "1.00";
                     break;
 
                 default:
