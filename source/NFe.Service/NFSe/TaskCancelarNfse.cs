@@ -433,9 +433,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SMARAPD:
                     versaoXML = "2.03";
 
+
                     if (codMunicipio == 3551702 || codMunicipio == 3202405)
                     {
                         versaoXML = "1.00";
+                    }
+                    else if(codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infPedReg"))
+                    {
+                        versaoXML = "1.01";
                     }
                     else if (codMunicipio == 3205002 || codMunicipio == 3516200)
                     {

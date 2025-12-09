@@ -713,6 +713,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
+                    else if(codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infDPS"))
+                    {
+                        versaoXML = "1.01";
+                    }
                     else if (codMunicipio == 3205002 || codMunicipio == 3516200)
                     {
                         versaoXML = "2.04";
