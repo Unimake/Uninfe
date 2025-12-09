@@ -2004,9 +2004,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSUF);
                     }
 
-                    if (imposto.IBSCBS.gIBSCBS.gIBSUF.gRed.pAliqEfet > 0 ||
-                        imposto.IBSCBS.gIBSCBS.gIBSUF.gRed.pRedAliq > 0 ||
-                        (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) // CST 510 - Diferimento
+                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515") //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gIBSUF);
                     }
@@ -2035,9 +2033,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSMun);
                     }
 
-                    if (imposto.IBSCBS.gIBSCBS.gIBSMun.gRed.pAliqEfet > 0 ||
-                        imposto.IBSCBS.gIBSCBS.gIBSMun.gRed.pRedAliq > 0 ||
-                        (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) // CST 510 - Diferimento
+                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515") //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gIBSMun);
                     }
@@ -2069,9 +2065,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gCBS);
                     }
 
-                    if (imposto.IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet > 0 ||
-                        imposto.IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq > 0 ||
-                        (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) // CST 510 - Diferimento
+                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515") //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gCBS);
                     }
