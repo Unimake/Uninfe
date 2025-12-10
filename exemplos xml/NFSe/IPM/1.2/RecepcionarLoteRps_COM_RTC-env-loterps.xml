@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nfse>
+	<nfse_teste>1</nfse_teste>
+	<nf>
+		<serie_nfse>1</serie_nfse>
+		<valor_total>250,00</valor_total>
+		<valor_desconto>0,00</valor_desconto>
+		<valor_ir>0,00</valor_ir>
+		<valor_inss>0,00</valor_inss>
+		<valor_contribuicao_social>0,00</valor_contribuicao_social>
+		<valor_rps>0,00</valor_rps>
+		<valor_pis>0,00</valor_pis>
+		<valor_cofins>0,00</valor_cofins>
+		<observacao>Emissão de teste para Reforma Tributária (IBS e CBS) - NT 122/2025</observacao>
+		<IBSCBS>
+			<pRedutor>0,00</pRedutor>
+			<valores>
+				<vBC>1,00</vBC>
+				<uf>
+					<pIBSUF>0,00</pIBSUF>
+					<pRedAliqUF>0,00</pRedAliqUF>
+					<pAliqEfetUF>0,00</pAliqEfetUF>
+				</uf>
+				<mun>
+					<pIBSMun>0,00</pIBSMun>
+					<pRedAliqMun>0,00</pRedAliqMun>
+					<pAliqEfetMun>0,00</pAliqEfetMun>
+				</mun>
+				<fed>
+					<pCBS>0,01</pCBS>
+					<pRedAliqCBS>0,00</pRedAliqCBS>
+					<pAliqEfetCBS>0,00</pAliqEfetCBS>
+				</fed>
+			</valores>
+			<totCIBS>
+				<vTotNF>0,00</vTotNF>
+				<gTribRegular>
+					<pAliqEfeRegIBSUF>0,00</pAliqEfeRegIBSUF>
+					<vTribRegIBSUF>0,00</vTribRegIBSUF>
+					<pAliqEfeRegIBSMun>0,00</pAliqEfeRegIBSMun>
+					<vTribRegIBSMun>0,00</vTribRegIBSMun>
+					<pAliqEfeRegCBS>0,00</pAliqEfeRegCBS>
+					<vTribRegCBS>0,00</vTribRegCBS>
+				</gTribRegular>
+				<gIBS>
+					<vIBSTot>0,00</vIBSTot>
+					<gIBSUFTot>
+						<vDifUF>0,00</vDifUF>
+						<vIBSUF>0,00</vIBSUF>
+					</gIBSUFTot>
+					<gIBSMunTot>
+						<vDifMun>0,00</vDifMun>
+						<vIBSMun>0,00</vIBSMun>
+					</gIBSMunTot>
+				</gIBS>
+				<gCBS>
+					<vDifCBS>0,00</vDifCBS>
+					<vCBS>0,00</vCBS>
+				</gCBS>
+			</totCIBS>
+		</IBSCBS>
+	</nf>
+	<prestador>
+		<cpfcnpj>06117473000150</cpfcnpj>
+		<cidade>4118402</cidade>
+	</prestador>
+	<tomador>
+		<tipo>J</tipo>
+		<cpfcnpj>11587309000146</cpfcnpj>
+		<ie>9051089215</ie>
+		<nome_razao_social>MORAES INDUSTRIA E COMERCIO DE EMBALAGENS LTDA</nome_razao_social>
+		<sobrenome_nome_fantasia>IKATUPLAST EMBALAGENS</sobrenome_nome_fantasia>
+		<logradouro>RUA ANTONIO DA COSTA CORDEIRO</logradouro>
+		<email>adm@ikatuplast.com.br</email>
+		<numero_residencia>171</numero_residencia>
+		<complemento/>
+		<ponto_referencia/>
+		<bairro>SUBDIVISAO DO LOTE 19-A</bairro>
+		<cidade>00045</cidade>
+		<cep>87708721</cep>
+		<ddd_fone_comercial>044</ddd_fone_comercial>
+		<fone_comercial>34227555</fone_comercial>
+		<ddd_fone_residencial/>
+		<fone_residencial/>
+		<ddd_fax/>
+		<fone_fax/>
+	</tomador>
+	<itens>
+		<lista>
+			<codigo_local_prestacao_servico>7749</codigo_local_prestacao_servico>
+			<codigo_item_lista_servico>101</codigo_item_lista_servico>
+			<descritivo>1) TAXA DE SERVICO REF. ATUALIZACAO DO MUNICIPIO DE BAURU-SP DE PADRAO SMARAPD.</descritivo>
+			<aliquota_item_lista_servico>5,0000</aliquota_item_lista_servico>
+			<situacao_tributaria>0</situacao_tributaria>
+			<valor_tributavel>250,00</valor_tributavel>
+			<valor_deducao>0,00</valor_deducao>
+			<valor_issrf>0,00</valor_issrf>
+			<valor_desconto_incondicional>0,00</valor_desconto_incondicional>
+			<tributa_municipio_prestador>S</tributa_municipio_prestador>
+		</lista>
+	</itens>
+</nfse>
