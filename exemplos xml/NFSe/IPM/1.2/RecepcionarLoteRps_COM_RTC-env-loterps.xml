@@ -61,25 +61,24 @@
 		</IBSCBS>
 	</nf>
 	<prestador>
-		<cpfcnpj>06117473000150</cpfcnpj>
+		<cpfcnpj>99999999999999</cpfcnpj>
 		<cidade>4118402</cidade>
 	</prestador>
 	<tomador>
-		<tipo>J</tipo>
-		<cpfcnpj>11587309000146</cpfcnpj>
-		<ie>9051089215</ie>
-		<nome_razao_social>MORAES INDUSTRIA E COMERCIO DE EMBALAGENS LTDA</nome_razao_social>
-		<sobrenome_nome_fantasia>IKATUPLAST EMBALAGENS</sobrenome_nome_fantasia>
-		<logradouro>RUA ANTONIO DA COSTA CORDEIRO</logradouro>
-		<email>adm@ikatuplast.com.br</email>
-		<numero_residencia>171</numero_residencia>
+		<tipo>F</tipo>
+		<cpfcnpj>99999999999999</cpfcnpj>
+		<ie/>
+		<nome_razao_social>EMPRESA TESTE</nome_razao_social>
+		<sobrenome_nome_fantasia>EMPRESA TESTE</sobrenome_nome_fantasia>
+		<logradouro>KM47</logradouro>
+		<email/>
 		<complemento/>
 		<ponto_referencia/>
-		<bairro>SUBDIVISAO DO LOTE 19-A</bairro>
-		<cidade>00045</cidade>
-		<cep>87708721</cep>
+		<bairro>RURAL</bairro>
+		<cidade>7829</cidade>
+		<cep>87800000</cep>
 		<ddd_fone_comercial>044</ddd_fone_comercial>
-		<fone_comercial>34227555</fone_comercial>
+		<fone_comercial>36721722</fone_comercial>
 		<ddd_fone_residencial/>
 		<fone_residencial/>
 		<ddd_fax/>
@@ -89,7 +88,7 @@
 		<lista>
 			<codigo_local_prestacao_servico>7749</codigo_local_prestacao_servico>
 			<codigo_item_lista_servico>101</codigo_item_lista_servico>
-			<descritivo>1) TAXA DE SERVICO REF. ATUALIZACAO DO MUNICIPIO DE BAURU-SP DE PADRAO SMARAPD.</descritivo>
+			<descritivo>1) TAXA DE SERVICO REF. ATUALIZACAO DO MUNICIPIO.</descritivo>
 			<aliquota_item_lista_servico>5,0000</aliquota_item_lista_servico>
 			<situacao_tributaria>0</situacao_tributaria>
 			<valor_tributavel>250,00</valor_tributavel>
