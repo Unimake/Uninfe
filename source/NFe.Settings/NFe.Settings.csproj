@@ -211,7 +211,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Unimake.Business.DFe, Version=2025.12.8.1618, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20251208.1618.13\lib\net472\Unimake.Business.DFe.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20251208.1618.14\lib\net472\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Cryptography, Version=2025.11.19.239, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20251119.239.8\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
