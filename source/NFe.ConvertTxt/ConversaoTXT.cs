@@ -2796,50 +2796,50 @@ namespace NFe.ConvertTxt
                 case "UB84":
                     //layout = "UB84|vTotIBSMonoItem|vTotCBSMonoItem|"
                     
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.vTotIBSMonoItem = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vTotIBSMonoItem, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.vTotCBSMonoItem = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vTotCBSMonoItem, ObOp.Obrigatorio, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.vTotIBSMonoItem = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vTotIBSMonoItem, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.vTotCBSMonoItem = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vTotCBSMonoItem, ObOp.Opcional, 1, 15);
                     break;
 
                 case "UB85":
                     //layout = "UB85|qBCMono|adRemIBS|adRemCBS|vIBSMono|vCBSMono|"
 
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qBCMono, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.adRemIBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIBS, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.adRemCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemCBS, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMono, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMono, ObOp.Obrigatorio, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qBCMono, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.adRemIBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIBS, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.adRemCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemCBS, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMono, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMono, ObOp.Opcional, 1, 15);
 
                     break;
 
                 case "UB91":
                     //layout = "UB91|qBCMonoReten|adRemIBSReten|vIBSMonoReten|adRemCBSReten|vCBSMonoReten|"
 
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.qBCMonoReten = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qBCMonoReten, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.adRemIBSReten = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIBSReten, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.vIBSMonoReten = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoReten, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.adRemCBSReten = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemCBSReten, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.vCBSMonoReten = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoReten, ObOp.Obrigatorio, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.qBCMonoReten = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qBCMonoReten, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.adRemIBSReten = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIBSReten, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.vIBSMonoReten = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoReten, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.adRemCBSReten = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemCBSReten, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoReten.vCBSMonoReten = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoReten, ObOp.Opcional, 1, 15);
 
                     break;
 
                 case "UB95":
                     //layout = "UB95|qBCMonoRet|adRemIBSRet|vIBSMonoRet|adRemCBSRet|vCBSMonoRet|"
 
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.qBCMonoRet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qBCMonoRet, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.adRemIBSRet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIBSRet, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.vIBSMonoRet = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoRet, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.adRemCBSRet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemCBSRet, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.vCBSMonoRet = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoRet, ObOp.Obrigatorio, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.qBCMonoRet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qBCMonoRet, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.adRemIBSRet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIBSRet, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.vIBSMonoRet = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoRet, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.adRemCBSRet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemCBSRet, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoRet.vCBSMonoRet = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoRet, ObOp.Opcional, 1, 15);
 
                     break;
 
                 case "UB100":
                     //layout = "UB100|pDifIBS|vIBSMonoDif|pDifCBS|vCBSMonoDif|"
 
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.pDifIBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDifIBS, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.vIBSMonoDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoDif, ObOp.Obrigatorio, 1, 15);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.pDifCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDifCBS, ObOp.Obrigatorio, 1, 7);
-                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.vCBSMonoDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoDif, ObOp.Obrigatorio, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.pDifIBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDifIBS, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.vIBSMonoDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoDif, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.pDifCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDifCBS, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBSMono.gMonoDif.vCBSMonoDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoDif, ObOp.Opcional, 1, 15);
 
                     break;
 

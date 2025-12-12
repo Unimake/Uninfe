@@ -3608,25 +3608,25 @@ namespace NFe.ConvertTxt
 
                 #region --IBSCBSTot-->gMono
 
-                //if ((NFe.Total.IBSCBSTot.gMono.vIBSMono > 0) ||
-                //    (NFe.Total.IBSCBSTot.gMono.vCBSMono > 0) ||
-                //    (NFe.Total.IBSCBSTot.gMono.vIBSMonoReten > 0) ||
-                //    (NFe.Total.IBSCBSTot.gMono.vCBSMonoReten > 0) ||
-                //    (NFe.Total.IBSCBSTot.gMono.vIBSMonoRet > 0) ||
-                //    (NFe.Total.IBSCBSTot.gMono.vCBSMonoRet > 0))
-                //{
-                XmlElement gMono = doc.CreateElement(TpcnResources.gMono.ToString());
-                IBSCBSTot.AppendChild(gMono);
+                if ((NFe.Total.IBSCBSTot.gMono.vIBSMono > 0) ||
+                    (NFe.Total.IBSCBSTot.gMono.vCBSMono > 0) ||
+                    (NFe.Total.IBSCBSTot.gMono.vIBSMonoReten > 0) ||
+                    (NFe.Total.IBSCBSTot.gMono.vCBSMonoReten > 0) ||
+                    (NFe.Total.IBSCBSTot.gMono.vIBSMonoRet > 0) ||
+                    (NFe.Total.IBSCBSTot.gMono.vCBSMonoRet > 0))
+                {
+                    XmlElement gMono = doc.CreateElement(TpcnResources.gMono.ToString());
+                    IBSCBSTot.AppendChild(gMono);
 
-                nodeCurrent = gMono;
+                    nodeCurrent = gMono;
 
-                wCampo(NFe.Total.IBSCBSTot.gMono.vIBSMono, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMono);
-                wCampo(NFe.Total.IBSCBSTot.gMono.vCBSMono, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMono);
-                wCampo(NFe.Total.IBSCBSTot.gMono.vIBSMonoReten, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoReten);
-                wCampo(NFe.Total.IBSCBSTot.gMono.vCBSMonoReten, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoReten);
-                wCampo(NFe.Total.IBSCBSTot.gMono.vIBSMonoRet, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoRet);
-                wCampo(NFe.Total.IBSCBSTot.gMono.vCBSMonoRet, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoRet);
-                //}
+                    wCampo(NFe.Total.IBSCBSTot.gMono.vIBSMono, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMono);
+                    wCampo(NFe.Total.IBSCBSTot.gMono.vCBSMono, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMono);
+                    wCampo(NFe.Total.IBSCBSTot.gMono.vIBSMonoReten, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoReten);
+                    wCampo(NFe.Total.IBSCBSTot.gMono.vCBSMonoReten, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoReten);
+                    wCampo(NFe.Total.IBSCBSTot.gMono.vIBSMonoRet, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSMonoRet);
+                    wCampo(NFe.Total.IBSCBSTot.gMono.vCBSMonoRet, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSMonoRet);
+                }
 
                 #endregion --IBSCBSTot-->gMono
 

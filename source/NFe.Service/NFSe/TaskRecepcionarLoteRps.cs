@@ -316,6 +316,7 @@ namespace NFe.Service.NFSe
                         case "GerarNfseEnvio":
                         case "GerarNovaNfseEnvio":
                         case "DPS":
+                        case "e:RecepcionarDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
                     }
@@ -547,6 +548,11 @@ namespace NFe.Service.NFSe
                         {
                             versaoXML = "2.02";
                         }
+                    }
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
+                    {
+                        versaoXML = "1.01";
+                        break;
                     }
 
                     if (!versaoXML.Equals("2.02"))
