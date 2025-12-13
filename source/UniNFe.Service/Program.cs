@@ -11,43 +11,52 @@ namespace UniNFe.Service
     {
         private static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += Unimake.Business.DFe.Xml.AssemblyResolver.AssemblyResolve;
-
-            //Esta deve ser a primeira linha do Main, não coloque nada antes dela. Wandrey 31/07/2009
-            Propriedade.AssemblyEXE = Assembly.GetExecutingAssembly();
-
-            if (Aplicacao.UniNFeSevicoAppExecutando())
+            try
             {
-                return;
-            }
+                AppDomain.CurrentDomain.AssemblyResolve += Unimake.Business.DFe.Xml.AssemblyResolver.AssemblyResolve;
 
-            ///
-            /// https://macoratti.net/18/05/c_servtop1.htm
-            ///
-            /// http://topshelf-project.com/
-            /// https://github.com/Topshelf/Topshelf
-            /// 
-            HostFactory.Run(p =>
-            {
-                p.Service<UniNFeService>(s =>
+                //Esta deve ser a primeira linha do Main, não coloque nada antes dela. Wandrey 31/07/2009
+                Propriedade.AssemblyEXE = Assembly.GetExecutingAssembly();
+
+                if (Aplicacao.UniNFeSevicoAppExecutando())
                 {
-                    s.ConstructUsing(st => new UniNFeService());
-                    s.WhenContinued(st => st.Start());
-                    s.WhenStarted(st => st.Start());
+                    return;
+                }
 
-                    s.WhenPaused(st => st.Stop());
-                    s.WhenStopped(st => st.Stop());
-                    s.WhenShutdown(st => st.OnShutdown());
+                ///
+                /// https://macoratti.net/18/05/c_servtop1.htm
+                ///
+                /// http://topshelf-project.com/
+                /// https://github.com/Topshelf/Topshelf
+                /// 
+                HostFactory.Run(p =>
+                {
+                    p.Service<UniNFeService>(s =>
+                    {
+                        s.ConstructUsing(st => new UniNFeService());
+                        s.WhenContinued(st => st.Start());
+                        s.WhenStarted(st => st.Start());
+
+                        s.WhenPaused(st => st.Stop());
+                        s.WhenStopped(st => st.Stop());
+                        s.WhenShutdown(st => st.OnShutdown());
+                    });
+                    p.RunAsLocalService();
+
+                    p.SetDescription("UniNFe - Nota fiscal eletrônica");
+                    p.SetDisplayName("UniNFeServico");
+                    p.SetServiceName("UniNFeServico");
                 });
-                p.RunAsLocalService();
-
-                p.SetDescription("UniNFe - Nota fiscal eletrônica");
-                p.SetDisplayName("UniNFeServico");
-                p.SetServiceName("UniNFeServico");
-            });
+            }
+            catch (Exception ex)
+            {
+                WriteLog($"Erro crítico no serviço: {ex}");
+                throw;
+            }
         }
 
-        private static void WriteLog(string msg)
+        // Centralizado para uso futuro, se necessário
+        public static void WriteLog(string msg)
         {
             var o = ConfiguracaoApp.GravarLogOperacoesRealizadas;
             ConfiguracaoApp.GravarLogOperacoesRealizadas = true;

@@ -1,0 +1,696 @@
+{
+  "settings": {
+    "components": {
+      "code": false,
+      "binaries": false
+    },
+    "targetId": "net481",
+    "targetDisplayName": ".NETFramework,Version=v4.8.1"
+  },
+  "analysisStartTime": "2025-12-13T16:45:23.8575773Z",
+  "analysisEndTime": "2025-12-13T16:45:25.3358678Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 16,
+      "issues": 1,
+      "incidents": 16,
+      "effort": 16
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 16,
+        "Optional": 0,
+        "Potential": 0,
+        "Information": 0
+      },
+      "category": {
+        "Project": 16
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "MetroFramework\\MetroFramework\\MetroFramework.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "MetroFramework",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 90,
+        "numberOfCodeFiles": 83,
+        "linesTotal": 28223,
+        "linesOfCode": 27611,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "ce94c7e0-b718-48de-bd55-8cbecc36a4d4",
+          "ruleId": "Project.0001",
+          "projectPath": "MetroFramework\\MetroFramework\\MetroFramework.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "MetroFramework\\MetroFramework\\MetroFramework.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "MetroFramework\\MetroFramework.Demo\\MetroFramework.Demo.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "MetroFramework.Demo",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 12,
+        "numberOfCodeFiles": 9,
+        "linesTotal": 2030,
+        "linesOfCode": 1651,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "c99de3a4-2724-422a-99f6-5e559eadf0be",
+          "ruleId": "Project.0001",
+          "projectPath": "MetroFramework\\MetroFramework.Demo\\MetroFramework.Demo.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "MetroFramework\\MetroFramework.Demo\\MetroFramework.Demo.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "MetroFramework\\MetroFramework.Design\\MetroFramework.Design.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "MetroFramework.Design",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 17,
+        "numberOfCodeFiles": 17,
+        "linesTotal": 1304,
+        "linesOfCode": 1304,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "7acbac60-4d90-4db7-bbf3-6dfb9432dbf9",
+          "ruleId": "Project.0001",
+          "projectPath": "MetroFramework\\MetroFramework.Design\\MetroFramework.Design.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "MetroFramework\\MetroFramework.Design\\MetroFramework.Design.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "MetroFramework\\MetroFramework.Fonts\\MetroFramework.Fonts.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "MetroFramework.Fonts",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 5,
+        "numberOfCodeFiles": 2,
+        "linesTotal": 6646,
+        "linesOfCode": 135,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "6aacc9f2-64b3-427b-ab55-945e4d1dfee4",
+          "ruleId": "Project.0001",
+          "projectPath": "MetroFramework\\MetroFramework.Fonts\\MetroFramework.Fonts.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "MetroFramework\\MetroFramework.Fonts\\MetroFramework.Fonts.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Components\\NFe.Components.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Components",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 96,
+        "numberOfCodeFiles": 96,
+        "linesTotal": 20031,
+        "linesOfCode": 20031,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "805b5955-e599-4ce7-9617-c33ebc3d7474",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Components\\NFe.Components.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Components\\NFe.Components.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Components.Info\\NFe.Components.Info.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Components.Info",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 4,
+        "numberOfCodeFiles": 3,
+        "linesTotal": 475,
+        "linesOfCode": 358,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "a70fc52a-27b3-46d5-bfb7-afce5790c6b4",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Components.Info\\NFe.Components.Info.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Components.Info\\NFe.Components.Info.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Components.Wsdl\\NFe.Components.Wsdl.csproj",
+      "startingProject": false,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Components.Wsdl",
+        "projectKind": "ClassicClassLibrary",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 529,
+        "numberOfCodeFiles": 1,
+        "linesTotal": 174573,
+        "linesOfCode": 36,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "19d93c36-6ffa-438e-acf2-322fe853ec39",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Components.Wsdl\\NFe.Components.Wsdl.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Components.Wsdl\\NFe.Components.Wsdl.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.ConvertTxt\\NFe.ConvertTxt.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.ConvertTxt",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 49,
+        "numberOfCodeFiles": 47,
+        "linesTotal": 12108,
+        "linesOfCode": 11871,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "08f1aeb7-7ca4-448c-a206-b25611d69a6a",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.ConvertTxt\\NFe.ConvertTxt.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.ConvertTxt\\NFe.ConvertTxt.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.ConvertCFe\\NFe.SAT.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.SAT",
+        "projectKind": "ClassicClassLibrary",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 19,
+        "numberOfCodeFiles": 19,
+        "linesTotal": 2254,
+        "linesOfCode": 2254,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "598163b2-1f35-4a28-8338-4717e688990f",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.ConvertCFe\\NFe.SAT.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.ConvertCFe\\NFe.SAT.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Service\\NFe.Service.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Service",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 96,
+        "numberOfCodeFiles": 93,
+        "linesTotal": 32184,
+        "linesOfCode": 32011,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "4ca845b5-f862-4eeb-9cef-3b97af75532a",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Service\\NFe.Service.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Service\\NFe.Service.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Settings\\NFe.Settings.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Settings",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 7,
+        "numberOfCodeFiles": 6,
+        "linesTotal": 4779,
+        "linesOfCode": 4662,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "0f536927-908c-4698-a53e-825252a44408",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Settings\\NFe.Settings.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Settings\\NFe.Settings.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Threadings\\NFe.Threadings.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Threadings",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 6,
+        "numberOfCodeFiles": 5,
+        "linesTotal": 1280,
+        "linesOfCode": 1163,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "ab564bc0-1d76-4937-a201-e411ba14fff4",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Threadings\\NFe.Threadings.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Threadings\\NFe.Threadings.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.UI\\NFe.UI.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.UI",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 114,
+        "numberOfCodeFiles": 66,
+        "linesTotal": 23142,
+        "linesOfCode": 17500,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "986763fe-d7be-4b51-b5b4-0a86ba71ffdb",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.UI\\NFe.UI.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.UI\\NFe.UI.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "NFe.Validate\\NFe.Validate.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "NFe.Validate",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 5,
+        "numberOfCodeFiles": 4,
+        "linesTotal": 1517,
+        "linesOfCode": 1400,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "510a2869-e63a-4502-acd2-ee4c1ad7d91a",
+          "ruleId": "Project.0001",
+          "projectPath": "NFe.Validate\\NFe.Validate.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "NFe.Validate\\NFe.Validate.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "uninfe\\UniNFe.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "UniNFe",
+        "projectKind": "ClassicWinForms",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 9,
+        "numberOfCodeFiles": 4,
+        "linesTotal": 646,
+        "linesOfCode": 371,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "5558d415-98a1-4257-9128-802e44900dbf",
+          "ruleId": "Project.0001",
+          "projectPath": "uninfe\\UniNFe.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "uninfe\\UniNFe.csproj"
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "UniNFe.Service\\UniNFe.Service.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "UniNFe.Service",
+        "projectKind": "ClassicDotNetApp",
+        "frameworks": [
+          "net481"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": false,
+        "numberOfFiles": 6,
+        "numberOfCodeFiles": 3,
+        "linesTotal": 333,
+        "linesOfCode": 185,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "056a56b8-9fb1-43e0-a04d-edaba5616844",
+          "ruleId": "Project.0001",
+          "projectPath": "UniNFe.Service\\UniNFe.Service.csproj",
+          "state": "Active",
+          "location": {
+            "kind": "File",
+            "path": "UniNFe.Service\\UniNFe.Service.csproj"
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "Project.0001": {
+      "id": "Project.0001",
+      "isFeature": false,
+      "description": "Project file needs to be converted to SDK-style. Modern .NET framework projects require a change in the project file format and use SDK corresponding to project flavor and functionality.",
+      "label": "Project file needs to be converted to SDK-style",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}

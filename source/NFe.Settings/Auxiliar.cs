@@ -195,7 +195,7 @@ namespace NFe.Settings
         /// Alguns ajustes que são necessários serem executados automaticamente
         /// para evitar falhas no aplicativo
         /// </summary>
-        public static string ConversaoNovaVersao(string cnpjEmpresa)    //danasa 20-9-2010
+        public static string ConversaoNovaVersao(string cnpjEmpresa)
         {
             #region Estamos sem nenhuma conversão no momento
             return "";
