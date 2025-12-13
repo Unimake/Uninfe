@@ -1589,49 +1589,6 @@ namespace NFe.Service
 
         #endregion Decompress
 
-        public static void CriarArquivosParaServico()
-        {
-            var arqServicoIniciar = Path.Combine(Propriedade.PastaExecutavel, "servico_iniciar.bat");
-            if (!File.Exists(arqServicoIniciar))
-            {
-                try
-                {
-                    var binPath = "\"" + Propriedade.PastaExecutavel + "\\uninfeservico.exe\"";
-
-                    File.WriteAllText(Path.Combine(Propriedade.PastaExecutavel, "servico_iniciar.bat"),
-                        "net start UniNFeServico" +
-                        "\r\npause");
-
-                    File.WriteAllText(Path.Combine(Propriedade.PastaExecutavel, "servico_parar.bat"),
-                        "net stop UniNFeServico" +
-                        "\r\npause");
-
-                    File.WriteAllText(Path.Combine(Propriedade.PastaExecutavel, "servico_reiniciar.bat"),
-                        "net stop UniNFeServico" +
-                        "\r\n" +
-                        "timeout 60 > null" +
-                        "\r\n" +
-                        "net start UniNFeServico"); //  +
-                                                    //                        "\r\npause");
-
-                    File.WriteAllText(Path.Combine(Propriedade.PastaExecutavel, "servico_remover.bat"),
-                        "sc delete UniNFeServico" +
-                        "\r\npause");
-
-                    File.WriteAllText(Path.Combine(Propriedade.PastaExecutavel, "servico_instalar.bat"),
-                        "sc create UniNFeServico binPath= " + binPath + " DisplayName= " + "\"UniNfe Servico\" start= auto" +
-                        "\r\npause");
-
-                    File.WriteAllText(Path.Combine(Propriedade.PastaExecutavel, "servico_testar.bat"),
-                        "call servico_instalar\r\n" +
-                        "call servico_iniciar\r\n" +
-                        "call servico_parar\r\n" +
-                        "call servico_remover\r\n");
-                }
-                catch { }
-            }
-        }
-
         public static T ToEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
 
         public static int DefiniMunicioPadrao(PadraoNFSe padraoNFse, int municipio)

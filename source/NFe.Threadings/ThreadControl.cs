@@ -387,8 +387,6 @@ namespace NFe.Threadings
 
         public static void Start()
         {
-            TFunctions.CriarArquivosParaServico();
-
             Empresas.CarregaConfiguracao();
 
             #region Ticket #110
