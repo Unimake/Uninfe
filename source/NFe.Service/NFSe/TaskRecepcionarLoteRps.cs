@@ -1,6 +1,8 @@
 ﻿using NFe.Components;
 using NFe.Settings;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Xml;
@@ -65,10 +67,11 @@ namespace NFe.Service.NFSe
 
                 oDadosEnvLoteRps = new DadosEnvLoteRps(emp);
 
-                EnvLoteRps(emp, NomeArquivoXML);
                 var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosEnvLoteRps.cMunicipio);
 
                 ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
+
+                AnalisarRetorno(vStrXmlRetorno, padraoNFSe, emp);
             }
             catch (Exception ex)
             {
@@ -98,18 +101,94 @@ namespace NFe.Service.NFSe
             }
         }
 
-
-        #region EnvLoteRps()
-
         /// <summary>
-        /// Fazer a leitura do conteúdo do XML de lote rps e disponibiliza o conteúdo em um objeto para analise
+        /// Analisar o XML retornado se for ambiente nacional e se a nota tiver sido autorizada vamos salvar o XML na pasta autorizados
         /// </summary>
-        /// <param name="arquivoXML">Arquivo XML que é para efetuar a leitura</param>
-        private void EnvLoteRps(int emp, string arquivoXML)
+        /// <param name="vStrXmlRetorno">XML Retornado</param>
+        /// <param name="padraoNFSe">Padrão da NFSe</param>
+        /// <param name="emp">Codigo da empresa</param>
+        private void AnalisarRetorno(string vStrXmlRetorno, PadraoNFSe padraoNFSe, int emp)
         {
-        }
+            if (padraoNFSe != PadraoNFSe.NACIONAL)
+            {
+                return;
+            }
 
-        #endregion EnvLoteRps()
+            var pastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado;
+            if (string.IsNullOrWhiteSpace(pastaEnviado))
+            {
+                return;
+            }
+
+            try
+            {
+                var autorizou = false;
+                var doc = new XmlDocument();
+                doc.LoadXml(vStrXmlRetorno);
+                var nfseNodes = doc.GetElementsByTagName("NFSe");
+                foreach (XmlElement nfse in nfseNodes)
+                {
+                    var infNFSe = nfse["infNFSe"] as XmlElement;
+                    if (infNFSe == null)
+                    {
+                        continue;
+                    }
+
+                    var cStat = infNFSe["cStat"]?.InnerText;
+                    var autorizados = new HashSet<string> { "100", "101", "102", "103", "107" }; // Somente autorizadas
+                    if (!autorizados.Contains(cStat))
+                    {
+                        continue;
+                    }
+                    autorizou = true;
+
+                    var dps = infNFSe["DPS"] as XmlElement;
+                    var infDPS = dps?["infDPS"] as XmlElement;
+                    var dhEmiTexto = infDPS?["dhEmi"]?.InnerText;
+                    if (string.IsNullOrWhiteSpace(dhEmiTexto))
+                    {
+                        continue;
+                    }
+
+                    if (!DateTimeOffset.TryParseExact(dhEmiTexto, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dhEmiOffset))
+                    {
+                        continue;
+                    }
+
+                    var dhEmi = dhEmiOffset.DateTime;
+
+                    var id = infNFSe.GetAttribute("Id");
+                    if (string.IsNullOrWhiteSpace(id) || id.Length <= 3)
+                    {
+                        continue;
+                    }
+
+                    var nameArq = id.Substring(3) + "-procnfse.xml";
+                    var pathFile = Path.Combine(pastaEnviado, PastaEnviados.Autorizados.ToString(), Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dhEmi), nameArq);
+
+                    var dir = Path.GetDirectoryName(pathFile);
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+
+                    if (!File.Exists(pathFile))
+                    {
+                        File.WriteAllText(pathFile, vStrXmlRetorno);
+                    }
+                }
+
+                if (!autorizou)
+                {
+                    Functions.Move(NomeArquivoXML, Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(NomeArquivoXML))); //Move o arquivo para a pasta de erro
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logar erro se necessário, mas não lançar para não interromper o fluxo
+                Auxiliar.WriteLog($"Erro ao salvar o XML da NFSe autorizado: {ex.Message}", false);
+            }
+        }
 
         /// <summary>
         /// Executa o serviço utilizando a DLL do UniNFe.
@@ -269,6 +348,7 @@ namespace NFe.Service.NFSe
         /// <param name="municipio">Código do município para onde será enviado o XML</param>
         /// <param name="doc">Conteúdo do XML da NFSe</param>
         /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
+        /// <param name="emp">Empresa que está enviando o XML</param>
         /// <returns>Retorna o tipo de serviço de envio da NFSe da prefeitura será utilizado</returns>
         private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc, PadraoNFSe padraoNFSe, int emp)
         {
