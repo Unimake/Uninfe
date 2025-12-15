@@ -229,7 +229,7 @@ namespace NFe.Service.NFSe
 
                     if (codMunicipio == 3304003)
                     {
-                        versaoXML = "1.00";
+                        versaoXML = "2.03";
                     }
                     break;
 
