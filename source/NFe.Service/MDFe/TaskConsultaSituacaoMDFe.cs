@@ -68,6 +68,8 @@ namespace NFe.Service
                 LerRetornoSitMDFe(dadosPedSit.chNFe);
 
                 XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
+
+                consultaProtocolo.Dispose();
             }
             catch (Exception ex)
             {

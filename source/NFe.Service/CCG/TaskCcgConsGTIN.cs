@@ -77,7 +77,6 @@ namespace NFe.Service.CCG
                     }
                 }
 
-
                 /// grava o arquivo no FTP
                 var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
                     Functions.ExtrairNomeArq(NomeArquivoXML,
@@ -87,6 +86,8 @@ namespace NFe.Service.CCG
                 {
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
                 }
+
+                ccgConsGTIN.Dispose();
             }
             catch (Exception ex)
             {

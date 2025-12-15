@@ -118,6 +118,8 @@ namespace NFe.Service.NFSe
             {
                 new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
             }
+
+            substituirNfse.Dispose();
         }
 
         /// <summary>

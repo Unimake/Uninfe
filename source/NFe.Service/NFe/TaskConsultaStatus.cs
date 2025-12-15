@@ -66,6 +66,8 @@ namespace NFe.Service
 
                         vStrXmlRetorno = statusServico.RetornoWSString;
                         XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).RetornoXML);
+
+                        statusServico.Dispose();
                     }
                     else
                     {
@@ -74,6 +76,8 @@ namespace NFe.Service
 
                         vStrXmlRetorno = statusServico.RetornoWSString;
                         XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).RetornoXML);
+
+                        statusServico.Dispose();
                     }
                 }
                 else

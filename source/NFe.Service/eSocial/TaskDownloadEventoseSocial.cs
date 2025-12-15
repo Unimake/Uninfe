@@ -46,6 +46,8 @@ namespace NFe.Service
                     ConteudoXML = servicoDownloadESocial.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = servicoDownloadESocial.RetornoWSString;
+
+                    servicoDownloadESocial.Dispose();
                 }
 
                 else if (ConteudoXML.OuterXml.Contains("solicDownloadEventosPorNrRecibo"))
@@ -60,6 +62,8 @@ namespace NFe.Service
                     ConteudoXML = servicoDownloadESocial.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = servicoDownloadESocial.RetornoWSString;
+
+                    servicoDownloadESocial.Dispose();
                 }
 
                 XmlRetorno(finalArqEnvio, finalArqRetorno);

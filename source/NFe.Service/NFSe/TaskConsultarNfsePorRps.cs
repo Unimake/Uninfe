@@ -132,6 +132,8 @@ namespace NFe.Service.NFSe
                     consultarNfsePorRps.Executar();
 
                     vStrXmlRetorno = consultarNfsePorRps.RetornoWSString;
+
+                    consultarNfsePorRps.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNotaFiscal:
@@ -139,6 +141,8 @@ namespace NFe.Service.NFSe
                     consultaNotaFiscal.Executar();
 
                     vStrXmlRetorno = consultaNotaFiscal.RetornoWSString;
+
+                    consultaNotaFiscal.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRpsServicoPrestado:
@@ -146,6 +150,8 @@ namespace NFe.Service.NFSe
                     consultarRpsServicoPrestado.Executar();
 
                     vStrXmlRetorno = consultarRpsServicoPrestado.RetornoWSString;
+
+                    consultarRpsServicoPrestado.Dispose();
                     break;
 
             }

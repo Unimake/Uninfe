@@ -321,100 +321,91 @@ namespace NFe.UI
             {
                 var configuracao = CriarConfiguracao(Empresas.Configuracoes[emp], servico, versao, cUF, amb);
 
+                object consStatServ = null;
+                IDisposable statusServico = null;
+                string xMotivo = string.Empty;
+
                 switch (servico)
                 {
                     case TipoAplicativo.Nfe:
+                        consStatServ = new NFeConsStatServ
                         {
-                            var consStatServ = new NFeConsStatServ
-                            {
-                                Versao = versao,
-                                TpAmb = (TipoAmbiente)amb,
-                                CUF = (UFBrasil)cUF,
-                                XServ = "STATUS"
-                            };
-                            var statusServico = new NFeStatusServico(consStatServ, configuracao);
-                            statusServico.Executar();
-                            return statusServico.Result.XMotivo;
-                        }
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            CUF = (UFBrasil)cUF,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new NFeStatusServico((NFeConsStatServ)consStatServ, configuracao);
+                        break;
 
                     case TipoAplicativo.NFCe:
+                        consStatServ = new NFeConsStatServ
                         {
-                            var consStatServ = new NFeConsStatServ
-                            {
-                                Versao = versao,
-                                TpAmb = (TipoAmbiente)amb,
-                                CUF = (UFBrasil)cUF,
-                                XServ = "STATUS"
-                            };
-                            var statusServico = new NFCeStatusServico(consStatServ, configuracao);
-                            statusServico.Executar();
-                            return statusServico.Result.XMotivo;
-                        }
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            CUF = (UFBrasil)cUF,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new NFCeStatusServico((NFeConsStatServ)consStatServ, configuracao);
+                        break;
 
                     case TipoAplicativo.Cte:
+                        consStatServ = new CTeConsStatServ
                         {
-                            var consStatServ = new CTeConsStatServ
-                            {
-                                Versao = versao,
-                                TpAmb = (TipoAmbiente)amb,
-                                CUF = (UFBrasil)cUF,
-                                XServ = "STATUS"
-                            };
-                            var statusServico = new CTeStatusServico(consStatServ, configuracao);
-                            statusServico.Executar();
-                            return statusServico.Result.XMotivo;
-                        }
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            CUF = (UFBrasil)cUF,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new CTeStatusServico((CTeConsStatServ)consStatServ, configuracao);
+                        break;
 
                     case TipoAplicativo.MDFe:
+                        consStatServ = new MDFeConsStatServ
                         {
-                            var consStatServ = new MDFeConsStatServ
-                            {
-                                Versao = versao,
-                                TpAmb = (TipoAmbiente)amb,
-                                XServ = "STATUS"
-                            };
-                            var statusServico = new MDFeStatusServico(consStatServ, configuracao);
-                            statusServico.Executar();
-                            return statusServico.Result.XMotivo;
-                        }
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new MDFeStatusServico((MDFeConsStatServ)consStatServ, configuracao);
+                        break;
 
                     case TipoAplicativo.NFCom:
+                        consStatServ = new NFComConsStatServ
                         {
-                            var consStatServ = new NFComConsStatServ
-                            {
-                                Versao = versao,
-                                TpAmb = (TipoAmbiente)amb,
-                                XServ = "STATUS"
-                            };
-                            var statusServico = new NFComStatusServico(consStatServ, configuracao);
-                            statusServico.Executar();
-                            return statusServico.Result.XMotivo;
-                        }
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new NFComStatusServico((NFComConsStatServ)consStatServ, configuracao);
+                        break;
 
                     case TipoAplicativo.NF3e:
+                        consStatServ = new NF3eConsStatServ
                         {
-                            var consStatServ = new NF3eConsStatServ
-                            {
-                                Versao = versao,
-                                TpAmb = (TipoAmbiente)amb,
-                                XServ = "STATUS"
-                            };
-                            var statusServico = new NF3eStatusServico(consStatServ, configuracao);
-                            statusServico.Executar();
-                            return statusServico.Result.XMotivo;
-                        }
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new NF3eStatusServico((NF3eConsStatServ)consStatServ, configuracao);
+                        break;
 
                     default:
                         return "Serviço de consulta não disponível para este modelo de documento.";
                 }
+
+                using (statusServico)
+                {
+                    dynamic servicoDyn = statusServico;
+                    servicoDyn.Executar();
+                    return servicoDyn.Result.XMotivo;
+                }
             }
             catch (Exception ex)
             {
-                // Retorna a mensagem de exceção para ser exibida na grid
                 return ex.Message;
             }
         }
-
 
         private void metroGridSituacao_CellClick(object sender, DataGridViewCellEventArgs e)
         {

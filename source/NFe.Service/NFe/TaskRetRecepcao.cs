@@ -102,6 +102,8 @@ namespace NFe.Service
                 LerRetornoLoteNFe(emp);
 
                 XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML);
+
+                retAutorizacao.Dispose();
             }
             catch (Exception ex)
             {

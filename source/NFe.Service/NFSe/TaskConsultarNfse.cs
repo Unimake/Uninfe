@@ -167,6 +167,8 @@ namespace NFe.Service.NFSe
                     consultarNfseLote.Executar();
 
                     vStrXmlRetorno = consultarNfseLote.RetornoWSString;
+
+                    consultarNfseLote.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse:
@@ -174,6 +176,8 @@ namespace NFe.Service.NFSe
                     consultarNfse.Executar();
 
                     vStrXmlRetorno = consultarNfse.RetornoWSString;
+
+                    consultarNfse.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa:
@@ -181,6 +185,8 @@ namespace NFe.Service.NFSe
                     consultarNfseFaixa.Executar();
 
                     vStrXmlRetorno = consultarNfseFaixa.RetornoWSString;
+
+                    consultarNfseFaixa.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNotaPrestador:
@@ -188,6 +194,8 @@ namespace NFe.Service.NFSe
                     consultarNotaPrestador.Executar();
 
                     vStrXmlRetorno = consultarNotaPrestador.RetornoWSString;
+
+                    consultarNotaPrestador.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado:
@@ -195,6 +203,8 @@ namespace NFe.Service.NFSe
                     consultarNfseServicoPrestado.Executar();
 
                     vStrXmlRetorno = consultarNfseServicoPrestado.RetornoWSString;
+
+                    consultarNfseServicoPrestado.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRpsServicoPrestado:
@@ -202,12 +212,17 @@ namespace NFe.Service.NFSe
                     ConsultarRpsServicoPrestado.Executar();
 
                     vStrXmlRetorno = ConsultarRpsServicoPrestado.RetornoWSString;
+
+                    ConsultarRpsServicoPrestado.Dispose();
                     break;
+
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps:
                     var NFSeConsultarNfsePorRps = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNfsePorRps(conteudoXML, configuracao);
                     NFSeConsultarNfsePorRps.Executar();
 
                     vStrXmlRetorno = NFSeConsultarNfsePorRps.RetornoWSString;
+
+                    NFSeConsultarNfsePorRps.Dispose();
                     break;
             }
 

@@ -66,6 +66,8 @@ namespace NFe.Service
                     vStrXmlRetorno = inutilizacao.RetornoWSString;
 
                     XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.ConsCad).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.ConsCad).RetornoXML);
+
+                    inutilizacao.Dispose();
                 }
                 else
                 {

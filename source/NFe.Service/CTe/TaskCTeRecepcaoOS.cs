@@ -88,6 +88,8 @@ namespace NFe.Service
                 }
 
                 #endregion
+
+                autorizacao.Dispose();
             }
             catch (Exception ex)
             {

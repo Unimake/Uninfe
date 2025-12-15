@@ -63,6 +63,8 @@ namespace NFe.Service.NFCom
 
                 vStrXmlRetorno = statusServico.RetornoWSString;
                 XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).RetornoXML);
+
+                statusServico.Dispose();
             }
             catch (Exception ex)
             {

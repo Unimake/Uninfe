@@ -71,6 +71,8 @@ namespace NFe.Service
 
                         ConteudoXML = inutilizacao.ConteudoXMLAssinado;
                         vStrXmlRetorno = inutilizacao.RetornoWSString;
+
+                        inutilizacao.Dispose();
                     }
                     else
                     {
@@ -79,6 +81,8 @@ namespace NFe.Service
 
                         ConteudoXML = inutilizacao.ConteudoXMLAssinado;
                         vStrXmlRetorno = inutilizacao.RetornoWSString;
+
+                        inutilizacao.Dispose();
                     }
 
                     LerRetornoInut();

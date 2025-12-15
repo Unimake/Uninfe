@@ -49,6 +49,7 @@ namespace NFe.Service
 
                     vStrXmlRetorno = servicoConsultaESocial.RetornoWSString;
 
+                    servicoConsultaESocial.Dispose();
                 }
                 else if (ConteudoXML.OuterXml.Contains("consultaEvtsEmpregador"))
                 {
@@ -63,6 +64,7 @@ namespace NFe.Service
 
                     vStrXmlRetorno = servicoConsultaESocial.RetornoWSString;
 
+                    servicoConsultaESocial.Dispose();
                 }
                 else if (ConteudoXML.OuterXml.Contains("consultaEvtsTabela"))
                 {
@@ -77,6 +79,7 @@ namespace NFe.Service
 
                     vStrXmlRetorno = servicoConsulta.RetornoWSString;
 
+                    servicoConsulta.Dispose();
                 }
 
                 XmlRetorno(finalArqEnvio, finalArqRetorno);

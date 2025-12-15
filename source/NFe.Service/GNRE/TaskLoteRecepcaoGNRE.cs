@@ -57,6 +57,8 @@ namespace NFe.Service.GNRE
                 {
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
                 }
+
+                loteRecepcao.Dispose();
             }
             catch(Exception ex)
             {
