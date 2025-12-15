@@ -804,10 +804,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.TIPLAN:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3304003)
-                    {
-                        versaoXML = "1.00";
-                    }
                     if (codMunicipio == 2611606)
                     {
                         versaoXML = "2.01";
