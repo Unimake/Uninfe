@@ -55,7 +55,10 @@ namespace UniNFe.Service
             }
         }
 
-        // Centralizado para uso futuro, se necessário
+        /// <summary>
+        /// Gerar LOG
+        /// </summary>
+        /// <param name="msg">Mensagem a ser grava no LOG</param>
         public static void WriteLog(string msg)
         {
             var o = ConfiguracaoApp.GravarLogOperacoesRealizadas;
