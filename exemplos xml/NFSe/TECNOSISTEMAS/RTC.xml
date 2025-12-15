@@ -1,0 +1,44 @@
+﻿<!-->
+O padrão TECNOSISTEMAS não vai alterar link, apenas adicionar algumas tags no serviço de Enviar Lote RPS Síncrono.
+
+As mudanças são no grupo <tcDadosServico>
+<-->
+<tcDadosServico>
+	<Valores>
+		<BaseCalculoCRS>0.00</BaseCalculoCRS>
+		<IrrfIndenizacao>0.00</IrrfIndenizacao>
+		<ValorServicos>20.00</ValorServicos>
+		<ValorDeducoes>0.00</ValorDeducoes>
+		<ValorPis>0.00</ValorPis>
+		<ValorCofins>0.00</ValorCofins>
+		<ValorInss>0.00</ValorInss>
+		<ValorIr>0.00</ValorIr>
+		<ValorCsll>0.00</ValorCsll>
+		<OutrasRetencoes>0.00</OutrasRetencoes>
+		<ValorIss>0.60</ValorIss>
+		<Aliquota>3.00</Aliquota>
+		<DescontoIncondicionado>0.00</DescontoIncondicionado>
+		<DescontoCondicionado>0.00</DescontoCondicionado>
+		<!--> As tags abaixo são novas da RTC<-->
+		<IbsMunicipal>0</IbsMunicipal>
+		<ValorIbsMunicipal>0.00</ValorIbsMunicipal>
+		<IbsEstadual>0</IbsEstadual>
+		<ValorIbsEstadual>0.00</ValorIbsEstadual>
+		<Cbs>0</Cbs>
+		<ValorCbs>0.00</ValorCbs>
+	</Valores>
+	<IssRetido>2</IssRetido>
+	<ResponsavelRetencao>2</ResponsavelRetencao>
+	<ItemListaServico>14.01</ItemListaServico>
+	<CodigoCnae>0</CodigoCnae>
+	<CodigoTributacaoMunicipio>0</CodigoTributacaoMunicipio>
+	<Discriminacao>Teste</Discriminacao>
+	<CodigoMunicipio>4305108</CodigoMunicipio>
+	<CodigoPais>1058</CodigoPais>
+	<ExigibilidadeISS>1</ExigibilidadeISS>
+	<MunicipioIncidencia>4319505</MunicipioIncidencia>
+	<NumeroProcesso/>
+	<!--> As tags abaixo são novas da RTC<-->
+	<CodigoNBS>1.0401.11.19</CodigoNBS>
+	<CodigoServicoNacional>160102</CodigoServicoNacional>
+</tcDadosServico>
