@@ -379,7 +379,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GIF:
-                    if(doc.DocumentElement.Name == "DPS")
+                    if (doc.DocumentElement.Name == "DPS")
                     {
                         result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                         break;
@@ -628,7 +628,8 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !ConteudoXML.OuterXml.Contains("DPS")))
+                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !ConteudoXML.OuterXml.Contains("DPS")) ||
+                        (codMunicipio == 3148103 && !ConteudoXML.OuterXml.Contains("DPS")))
                     {
                         versaoXML = "2.03";
                         break;
@@ -719,7 +720,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    else if(codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infDPS"))
+                    else if (codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infDPS"))
                     {
                         versaoXML = "1.01";
                     }
@@ -815,13 +816,13 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GIF:
-                    if(ConteudoXML.OuterXml.Contains("DPS"))
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                         break;
                     }
                     versaoXML = "1.00";
-                    break;  
+                    break;
 
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Enivo / Gerar NFS-e.");
