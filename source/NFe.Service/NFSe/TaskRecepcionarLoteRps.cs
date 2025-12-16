@@ -756,10 +756,11 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
-                    else if (codMunicipio == 3549904 && ConteudoXML.OuterXml.Contains("ginfes"))
+                    else if (ConteudoXML.InnerXml.Contains("versao=\"3.00\""))
                     {
                         versaoXML = "3.00";
                     }
+
                     break;
 
                 case PadraoNFSe.FISCO:
