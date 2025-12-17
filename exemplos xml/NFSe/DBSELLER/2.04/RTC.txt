@@ -1,0 +1,34 @@
+
+<!--
+Na versão 2.04, será alterada a TAG de endereço do tomador estrangeiro
+(<EnderecoCompletoExterior>?</EnderecoCompletoExterior> que está dentro da tag
+<EnderecoExterior> ), que deverá ser susbtituida por:
+-->
+<!--
+Tag 																	Observação
+-->											
+Dentro de <EnderecoExterior> quando estrangeiro
+<xLgr>0</xLgr> 															Tipo e nome do logradouro do tomador do serviço
+<nro>?</nro> 															Número do endereço do tomador de serviço
+<xBairro>?</xBairro> 													Bairro do endereço do tomador de serviço
+<cEndPost>0<cEndPost> 													Código alfanumérico do Endereçamento Postal no exterior do tomador do serviço.
+<xCidade>nome<xCidade> 													Nome da cidade no exterior do tomador do serviço.
+<xEstProvReg>nome<xEstProvReg> 											Estado, província ou região da cidade no exterior do tomador do serviço.
+
+
+<!-- Anteriormente a Tag de <EnderecoExterior> era assim -->
+
+<EnderecoExterior>
+	<CodigoPais>?</CodigoPais>
+	<EnderecoCompletoExterior>?</EnderecoCompletoExterior>
+</EnderecoExterior>
+
+<!-- agora está assim -->
+<EnderecoExterior>
+	<xLgr>xxxx</xLgr>
+	<nro>1212</nro>
+	<xBairro>xxxxx</xBairro>
+	<cEndPost>0</cEndPost>
+	<xCidade>nome</xCidade>
+	<xEstProvReg>xxxx</xEstProvReg>
+</EnderecoExterior>
