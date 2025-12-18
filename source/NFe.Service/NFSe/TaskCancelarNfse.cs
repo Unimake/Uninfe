@@ -417,10 +417,15 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || codMunicipio == 4202404)
+                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !xmlDoc.DocumentElement.Name.Contains("pedRegEvento")))
 
                     {
                         versaoXML = "2.03";
+                        break;
+                    }
+                    if (xmlDoc.DocumentElement.Name.Contains("pedRegEvento"))
+                    {
+                        versaoXML = "1.01";
                         break;
                     }
                     versaoXML = "3.00";
