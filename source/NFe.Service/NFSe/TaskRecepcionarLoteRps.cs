@@ -730,7 +730,7 @@ namespace NFe.Service.NFSe
                     }
                     if (ConteudoXML.OuterXml.Contains("DPS"))
                     {
-                        versaoXML = "1.00";
+                        versaoXML = "1.01";
                         break;
                     }
                     versaoXML = "3.00";
