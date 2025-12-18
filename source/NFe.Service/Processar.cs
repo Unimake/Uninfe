@@ -1773,6 +1773,8 @@ namespace NFe.Service
         /// <param name="nfe">Objeto da classe servico NFe</param>
         public void GerarXMLPedRec(object nfe)
         {
+            var oNFe = (TaskNFeGerarXMLPedRec)nfe;
+
             while (true)
             {
                 for (var i = 0; i < Empresas.Configuracoes.Count; i++)
@@ -1781,7 +1783,7 @@ namespace NFe.Service
 
                     if (!string.IsNullOrEmpty(empresa.PastaEmpresa) && empresa.Servico != TipoAplicativo.Nfse)
                     {
-                        GerarXMLPedRec(i, nfe);
+                        GerarXMLPedRec(i, oNFe);
                     }
                 }
 
@@ -2036,69 +2038,46 @@ namespace NFe.Service
         /// <param name="empresa">Index da empresa que é para gerar os pedidos de consulta do recibo do lote da nfe</param>
         /// <param name="nfe">Objeto da classe ServicoNfe</param>
         /// <by>Wandrey Mundin Ferreira</by>
-        private void GerarXMLPedRec(int empresa, object nfe)
+        private void GerarXMLPedRec(int empresa, TaskNFeGerarXMLPedRec nfe)
         {
-            //Criar a lista dos recibos a serem consultados no SEFAZ
-            var recibos = new List<ReciboCons>();
-
             var fluxoNfe = new FluxoNfe(empresa);
 
             try
             {
-                recibos = fluxoNfe.CriarListaRec();
+                //Criar a lista dos recibos a serem consultados no SEFAZ
+                var recibos = fluxoNfe.CriarListaRec();
+
+                for (var i = 0; i < recibos.Count; i++)
+                {
+                    var reciboCons = recibos[i];
+                    var tempoConsulta = reciboCons.tMed;
+
+                    if (tempoConsulta > 30)
+                    {
+                        tempoConsulta = 30; //Tempo previsto no manual da SEFAZ, isso foi feito pq o ambiente SVAN está retornando na consulta recibo, tempo superior a 160, mas não está com problema, é erro no calculo deste tempo. Wandrey
+                    }
+
+                    if (tempoConsulta < Empresas.Configuracoes[empresa].TempoConsulta)
+                    {
+                        tempoConsulta = Empresas.Configuracoes[empresa].TempoConsulta;
+                    }
+
+                    if (tempoConsulta < 3)
+                    {
+                        tempoConsulta = 3;
+                    }
+
+                    if (DateTime.Now.Subtract(reciboCons.dPedRec).Seconds >= tempoConsulta)
+                    {
+                        //Atualizar a tag da data e hora da ultima consulta do recibo aumentando 180 segundos (3 minutos) para evitar consumo indevido
+                        fluxoNfe.AtualizarDPedRec(reciboCons.nRec, DateTime.Now.AddSeconds(180));
+                        nfe.XmlPedRec(empresa, reciboCons.nRec, reciboCons.versao, reciboCons.mod);
+                    }
+                }
             }
             catch
             {
-                //Não precisa fazer nada se não conseguiu criar a lista, somente con
-            }
-
-            var tipoServico = nfe.GetType();
-
-            for (var i = 0; i < recibos.Count; i++)
-            {
-                var reciboCons = recibos[i];
-                var tempoConsulta = reciboCons.tMed;
-
-                if (tempoConsulta > 30)
-                {
-                    tempoConsulta = 30; //Tempo previsto no manual da SEFAZ, isso foi feito pq o ambiente SVAN está retornando na consulta recibo, tempo superior a 160, mas não está com problema, é erro no calculo deste tempo. Wandrey
-                }
-
-                if (tempoConsulta < Empresas.Configuracoes[empresa].TempoConsulta)
-                {
-                    tempoConsulta = Empresas.Configuracoes[empresa].TempoConsulta;
-                }
-
-                if (tempoConsulta < 3)
-                {
-                    tempoConsulta = 3;
-                }
-
-                if (DateTime.Now.Subtract(reciboCons.dPedRec).Seconds >= tempoConsulta)
-                {
-                    //Atualizar a tag da data e hora da ultima consulta do recibo aumentando 180 segundos (3 minutos) para evitar consumo indevido
-                    fluxoNfe.AtualizarDPedRec(reciboCons.nRec, DateTime.Now.AddSeconds(180));
-                    _ = (XmlDocument)tipoServico.InvokeMember("XmlPedRec", BindingFlags.InvokeMethod, null, nfe, new object[] { empresa, reciboCons.nRec, reciboCons.versao, reciboCons.mod });
-
-                    //TODO: WANDREY - não apague o código abaixo, de futuro eu vou tentar utilizar ele, pois não quero mais gravar o XML de consulta do recibo na pasta e processar direto, por hora não consigo por conta do código da empresa no nome da thread.
-                    /*
-                    switch (reciboCons.mod)
-                    {
-                        case "65": //NFC-e
-                        case "55": //NF-e
-                            new TaskNFeRetRecepcao(dadosXMLRec, empresa).Execute(empresa);
-                            break;
-
-                        case "57": //CT-e
-                            new TaskCTeRetRecepcao(dadosXMLRec, empresa).Execute(empresa);
-                            break;
-
-                        case "58": //MDF-e
-                            new TaskMDFeRetRecepcao(dadosXMLRec, empresa).Execute(empresa);
-                            break;
-                    }
-                    */
-                }
+                
             }
         }
 

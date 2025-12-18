@@ -8,9 +8,9 @@ using System.Threading;
 using System.Xml;
 using XmlCTe = Unimake.Business.DFe.Xml.CTe;
 using XmlMDFe = Unimake.Business.DFe.Xml.MDFe;
-using XmlNFe = Unimake.Business.DFe.Xml.NFe;
 using XmlNF3e = Unimake.Business.DFe.Xml.NF3e;
 using XmlNFCom = Unimake.Business.DFe.Xml.NFCom;
+using XmlNFe = Unimake.Business.DFe.Xml.NFe;
 
 namespace NFe.Service
 {
@@ -640,7 +640,7 @@ namespace NFe.Service
                 Versao = versao
             };
 
-            
+
 
             return xml.GerarXML().OuterXml;
         }
@@ -1185,7 +1185,7 @@ namespace NFe.Service
                                     ConteudoRetorno += ";";
                                     ConteudoRetorno += Functions.LerTag(retEnviNFeElemento, TpcnResources.cStat.ToString());
                                     ConteudoRetorno += Functions.LerTag(retEnviNFeElemento, TpcnResources.xMotivo.ToString());
-                                    
+
                                     #region Processo síncrono
 
                                     var infProtList = retEnviNFeElemento.GetElementsByTagName("infProt");
@@ -1815,7 +1815,7 @@ namespace NFe.Service
 
         #endregion XMLDistInut()
 
- 
+
         #region XmlPedRecNFe()
 
         /// <summary>
@@ -2479,7 +2479,7 @@ namespace NFe.Service
 
                             detEvento.AppendChild(detPag);
                         }
-                        
+
                         break;
 
                     case ConvertTxt.tpEventos.tpEvCancelamentoConciliacaoFinanceiraNFe:
@@ -3926,6 +3926,39 @@ namespace NFe.Service
         }
 
         #endregion XML para consulta do DFe destinado
+
+        #region XmlPedRec()
+
+        /// <summary>
+        /// Gera o XML de pedido de consulta do recibo do lote
+        /// </summary>
+        /// <param name="mod">Modelo do documento fiscal</param>
+        /// <param name="recibo">Número do recibo a ser consultado o lote</param>
+        public XmlDocument XmlPedRec(string mod, string recibo, string versao)
+        {
+            var dadosXML = new XmlDocument();
+
+            switch (mod)
+            {
+                case "55": //NF-e
+                    dadosXML = XmlPedRecNFe(recibo, versao, mod, EmpIndex);
+                    break;
+            }
+
+            var nomeArqPedRec = Empresas.Configuracoes[EmpIndex].PastaXmlEnvio + "\\" + recibo + Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML;
+            var nomeArqPedRecTemp = Empresas.Configuracoes[EmpIndex].PastaXmlEnvio + "\\Temp\\" + recibo + Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML;
+
+            var fiTemp = new FileInfo(nomeArqPedRecTemp);
+
+            if (!File.Exists(nomeArqPedRec) && (!File.Exists(nomeArqPedRecTemp) || fiTemp.CreationTime <= DateTime.Now.AddMinutes(-1)))
+            {
+                GravarArquivoParaEnvio(nomeArqPedRec, dadosXML.OuterXml);
+            }
+
+            return dadosXML;
+        }
+
+        #endregion XmlPedRec()
     }
 
     public class ArquivoXMLDFe
