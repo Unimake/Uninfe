@@ -1,12 +1,11 @@
 ﻿using NFe.Components;
 using NFe.Settings;
-using NFe.Validate;
-using NFSe.Components;
 using System;
+using System.Globalization;
 using System.IO;
-using System.ServiceModel;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Xml.NFSe.NACIONAL;
 
 namespace NFe.Service.NFSe
 {
@@ -53,6 +52,8 @@ namespace NFe.Service.NFSe
                 var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosPedCanNfse.cMunicipio);
 
                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
+
+                AnalisarRetorno(vStrXmlRetorno, padraoNFSe, emp);
             }
             catch (Exception ex)
             {
@@ -79,6 +80,87 @@ namespace NFe.Service.NFSe
                     //não posso fazer mais nada, o UniNFe vai tentar mandar o arquivo novamente para o webservice, pois ainda não foi excluido.
                     //Wandrey 31/08/2011
                 }
+            }
+        }
+
+        /// <summary>
+        /// Analisar o XML retornado se for ambiente nacional e se o evento  tiver sido autorizado vamos salvar o XML na pasta autorizados
+        /// </summary>
+        /// <param name="vStrXmlRetorno">XML Retornado</param>
+        /// <param name="padraoNFSe">Padrão da NFSe</param>
+        /// <param name="emp">Codigo da empresa</param>
+        private void AnalisarRetorno(string vStrXmlRetorno, PadraoNFSe padraoNFSe, int emp)
+        {
+            if (padraoNFSe != PadraoNFSe.NACIONAL)
+            {
+                return;
+            }
+
+            var pastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado;
+            if (string.IsNullOrWhiteSpace(pastaEnviado))
+            {
+                return;
+            }
+
+            try
+            {
+                var autorizou = false;
+                var doc = new XmlDocument();
+                doc.LoadXml(vStrXmlRetorno);
+                var eventoNodes = doc.GetElementsByTagName("evento");
+
+                foreach (XmlElement evento in eventoNodes)
+                {
+                    var infEvento = evento["infEvento"] as XmlElement;
+                    if (infEvento == null)
+                    {
+                        continue;
+                    }
+
+                    autorizou = true;
+
+                    var dhProcTexto = infEvento?["dhProc"]?.InnerText;
+                    if (string.IsNullOrWhiteSpace(dhProcTexto))
+                    {
+                        continue;
+                    }
+
+                    if (!DateTimeOffset.TryParseExact(dhProcTexto, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dhProcOffset))
+                    {
+                        continue;
+                    }
+
+                    var dhProc = dhProcOffset.DateTime;
+                    var id = infEvento.GetAttribute("Id");
+                    if (string.IsNullOrWhiteSpace(id) || id.Length <= 3)
+                    {
+                        continue;
+                    }
+
+                    var nameArq = id.Substring(3) + "-proceventonfse.xml";
+                    var pathFile = Path.Combine(pastaEnviado, PastaEnviados.Autorizados.ToString(), Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dhProc), nameArq);
+
+                    var dir = Path.GetDirectoryName(pathFile);
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+
+                    if (!File.Exists(pathFile))
+                    {
+                        File.WriteAllText(pathFile, vStrXmlRetorno);
+                    }
+                }
+
+                if (!autorizou)
+                {
+                    Functions.Move(NomeArquivoXML, Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(NomeArquivoXML))); //Move o arquivo para a pasta de erro
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logar erro se necessário, mas não lançar para não interromper o fluxo
+                Auxiliar.WriteLog($"Erro ao salvar o XML do Evento da NFSe autorizado: {ex.Message}", false);
             }
         }
 
@@ -234,7 +316,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GIF:
-                    if(doc.DocumentElement.Name == "pedRegEvento")
+                    if (doc.DocumentElement.Name == "pedRegEvento")
                     {
                         result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse;
                         break;
@@ -244,7 +326,7 @@ namespace NFe.Service.NFSe
                         result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal;
                         break;
                     }
-                    
+
             }
 
             return result;
@@ -455,7 +537,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    else if(codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infPedReg"))
+                    else if (codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infPedReg"))
                     {
                         versaoXML = "1.01";
                     }
