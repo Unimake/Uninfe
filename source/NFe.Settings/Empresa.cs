@@ -1198,7 +1198,7 @@ namespace NFe.Settings
             PastaXmlErro = ConfiguracaoApp.RemoveEndSlash(PastaXmlErro);
             PastaXmlRetorno = ConfiguracaoApp.RemoveEndSlash(PastaXmlRetorno);
             PastaValidar = ConfiguracaoApp.RemoveEndSlash(PastaValidar);
-            PastaXmlEnviado = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.RemoveEndSlash(PastaXmlEnviado);
+            PastaXmlEnviado = ConfiguracaoApp.RemoveEndSlash(PastaXmlEnviado);
             PastaBackup = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.RemoveEndSlash(PastaBackup);
             PastaXmlEmLote = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.RemoveEndSlash(PastaXmlEmLote);
             PastaDownloadNFeDest = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.RemoveEndSlash(PastaDownloadNFeDest);
@@ -1216,7 +1216,7 @@ namespace NFe.Settings
             PastaXmlErro = ConfiguracaoApp.FixAbsolutePath(PastaXmlErro);
             PastaXmlRetorno = ConfiguracaoApp.FixAbsolutePath(PastaXmlRetorno);
             PastaValidar = ConfiguracaoApp.FixAbsolutePath(PastaValidar);
-            PastaXmlEnviado = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.FixAbsolutePath(PastaXmlEnviado);
+            PastaXmlEnviado = ConfiguracaoApp.FixAbsolutePath(PastaXmlEnviado);
             PastaBackup = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.FixAbsolutePath(PastaBackup);
             PastaXmlEmLote = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.FixAbsolutePath(PastaXmlEmLote);
             PastaDownloadNFeDest = Servico == TipoAplicativo.Nfse ? "" : ConfiguracaoApp.FixAbsolutePath(PastaDownloadNFeDest);
