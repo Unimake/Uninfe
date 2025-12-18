@@ -1,0 +1,6 @@
+DPS                     -> Fixo
+4314902                 -> <cLocEmi>4314902</cLocEmi>
+2                       -> Tipo da Inscrição federal 2-CNPJ 1-CPF
+01878890000100          -> <Cnpj>01878890000100</Cnpj>
+00010                   -> <serie>010</serie>, mas com 5 digitos, neste caso tem que ficar assim: 00010
+0000000000009147        -> <nDPS>00009147</nDPS>, mas com 15 dígitos, neste caso tem que ficar assim: 000000000009147
