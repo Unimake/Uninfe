@@ -62,6 +62,9 @@ namespace NFe.Service.EFDReinf
                                                   Propriedade.Extensao(Propriedade.TipoEnvio.Reinf_consloteevt).EnvioXML) + "\\" + Propriedade.Extensao(Propriedade.TipoEnvio.Reinf_consloteevt).RetornoXML);
                 if (File.Exists(filenameFTP))
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+
+
+                autorizacaoConsultaLoteReinf.Dispose();
             }
             catch (Exception ex)
             {

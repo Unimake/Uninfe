@@ -63,6 +63,8 @@ namespace NFe.Service.DARE
                 {
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
                 }
+
+                receitaDARE.Dispose();
             }
             catch (Exception ex)
             {

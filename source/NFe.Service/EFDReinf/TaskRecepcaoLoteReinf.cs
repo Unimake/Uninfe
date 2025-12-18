@@ -67,6 +67,8 @@ namespace NFe.Service.EFDReinf
                 {
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
                 }
+
+                autorizacaoLoteReinf.Dispose();
             }
             catch (Exception ex)
             {

@@ -106,6 +106,8 @@ namespace NFe.Service.NFSe
                     NFSeConsultarRpsDisponivel.Executar();
 
                     vStrXmlRetorno = NFSeConsultarRpsDisponivel.RetornoWSString;
+
+                    NFSeConsultarRpsDisponivel.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSequenciaLoteNotaRPS:
@@ -113,10 +115,10 @@ namespace NFe.Service.NFSe
                     NFSeConsultaLoteNotaRPS.Executar();
 
                     vStrXmlRetorno = NFSeConsultaLoteNotaRPS.RetornoWSString;
+
+                    NFSeConsultaLoteNotaRPS.Dispose();
                     break;
-
             }
-
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 

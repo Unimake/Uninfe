@@ -148,24 +148,32 @@ namespace NFe.Service.NFSe
                     var cancelarNfse = new Unimake.Business.DFe.Servicos.NFSe.CancelarNfse(conteudoXML, configuracao);
                     cancelarNfse.Executar();
                     vStrXmlRetorno = cancelarNfse.RetornoWSString;
+
+                    cancelarNfse.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeCancelamentoNfe:
                     var cancelamentoNfe = new Unimake.Business.DFe.Servicos.NFSe.CancelamentoNfe(conteudoXML, configuracao);
                     cancelamentoNfe.Executar();
                     vStrXmlRetorno = cancelamentoNfe.RetornoWSString;
+
+                    cancelamentoNfe.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeCancelaNota:
                     var cancelaNota = new Unimake.Business.DFe.Servicos.NFSe.CancelaNota(conteudoXML, configuracao);
                     cancelaNota.Executar();
                     vStrXmlRetorno = cancelaNota.RetornoWSString;
+
+                    cancelaNota.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal:
                     var cancelarNotaFiscal = new Unimake.Business.DFe.Servicos.NFSe.CancelarNotaFiscal(conteudoXML, configuracao);
                     cancelarNotaFiscal.Executar();
                     vStrXmlRetorno = cancelarNotaFiscal.RetornoWSString;
+
+                    cancelarNotaFiscal.Dispose();
                     break;
             }
 

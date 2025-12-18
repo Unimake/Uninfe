@@ -100,6 +100,8 @@ namespace NFe.Service
                 {
                     File.Delete(NomeArquivoXML);
                 }
+
+                autorizacaoSimp.Dispose();
             }
             catch (Exception ex)
             {

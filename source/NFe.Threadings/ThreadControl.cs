@@ -8,7 +8,7 @@ using Unimake.Business.DFe.Security;
 
 namespace NFe.Threadings
 {
-   
+
 
     #region #21040
 
@@ -367,7 +367,7 @@ namespace NFe.Threadings
                 t.Abort();
             }
             Threads.Clear();
-            
+
             for (int i = 0; i < MonitoraPasta.fsw.Count; i++)
             {
                 try
@@ -418,14 +418,6 @@ namespace NFe.Threadings
             t3.IsBackground = true;
             t3.Start(new TaskNFeGerarXMLPedRec());
             Threads.Add(t3);
-
-            /*
-            //Executa a thread que roda a manifestação do destinatário
-            Thread t4 = new Thread(new Processar().ConsultaDFe);
-            t4.IsBackground = true;
-            t4.Start();
-            Threads.Add(t4);
-            */
         }
     }
 

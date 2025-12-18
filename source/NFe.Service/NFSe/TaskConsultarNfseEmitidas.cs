@@ -117,6 +117,8 @@ namespace NFe.Service.NFSe
             {
                 new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
             }
+
+            consultaNFeEmitidas.Dispose();
         }
 
         /// <summary>

@@ -143,6 +143,8 @@ namespace NFe.Service
 
                             ConteudoXML = recepcaoEvento.ConteudoXMLAssinado;
                             vStrXmlRetorno = recepcaoEvento.RetornoWSString;
+
+                            recepcaoEvento.Dispose();
                         }
                         else
                         {
@@ -151,6 +153,8 @@ namespace NFe.Service
 
                             ConteudoXML = recepcaoEvento.ConteudoXMLAssinado;
                             vStrXmlRetorno = recepcaoEvento.RetornoWSString;
+
+                            recepcaoEvento.Dispose();
                         }
                     }
                     else

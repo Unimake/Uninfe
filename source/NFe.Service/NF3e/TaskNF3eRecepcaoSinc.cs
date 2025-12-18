@@ -66,7 +66,6 @@ namespace NFe.Service
                     configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
                 }
 
-
                 var autorizacaoSinc = new Unimake.Business.DFe.Servicos.NF3e.AutorizacaoSinc(xmlNF3e, configuracao);
                 autorizacaoSinc.Executar();
 
@@ -97,6 +96,8 @@ namespace NFe.Service
                 {
                     File.Delete(NomeArquivoXML);
                 }
+
+                autorizacaoSinc.Dispose();
             }
             catch (Exception ex)
             {

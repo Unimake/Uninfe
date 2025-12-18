@@ -60,6 +60,7 @@ namespace NFe.Service.DARE
                         GravarXmlDistribuicao(envioDareLote, emp);
                     }
 
+                    envioDareLote.Dispose();
                 }
                 else
                 {
@@ -81,6 +82,8 @@ namespace NFe.Service.DARE
 
                         GravarXmlDistribuicao(envioDare, emp);
                     }
+
+                    envioDare.Dispose();
                 }
 
                 /// grava o arquivo no FTP

@@ -312,12 +312,12 @@ namespace NFe.UI
             oempresa.PastaXmlRetorno = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaXmlRetorno, oempresa);
             oempresa.PastaXmlErro = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaXmlErro, oempresa);
             oempresa.PastaValidar = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaValidar, oempresa);
+            oempresa.PastaXmlEnviado = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaXmlEnviado, oempresa);
             if (oempresa.Servico != TipoAplicativo.Nfse)
             {
                 if (empresa.Servico != TipoAplicativo.Nfse)
                 {
                     oempresa.PastaXmlEmLote = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaXmlEmLote, oempresa);
-                    oempresa.PastaXmlEnviado = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaXmlEnviado, oempresa);
                     oempresa.PastaBackup = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaBackup, oempresa);
                     oempresa.PastaDownloadNFeDest = CopiaPastaDeEmpresa(empresa.CNPJ, empresa.PastaDownloadNFeDest, oempresa);
                 }
@@ -325,7 +325,6 @@ namespace NFe.UI
                 {
                     string folder = Path.GetDirectoryName(ConfiguracaoApp.RemoveEndSlash(oempresa.PastaXmlEnvio));
 
-                    oempresa.PastaXmlEnviado = Path.Combine(folder, "Enviado");
                     oempresa.PastaXmlEmLote = Path.Combine(folder, "EnvioEmLote");
                     oempresa.PastaDownloadNFeDest = Path.Combine(folder, "DownloadNFe");
                     oempresa.PastaBackup = Path.Combine(folder, "Backup");
@@ -424,9 +423,9 @@ namespace NFe.UI
                         oempresa.PastaXmlRetorno = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\Retorno");
                         oempresa.PastaXmlErro = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\Erro");
                         oempresa.PastaValidar = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\Validar");
+                        oempresa.PastaXmlEnviado = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\Enviado");
                         if (oempresa.Servico != TipoAplicativo.Nfse)
                         {
-                            oempresa.PastaXmlEnviado = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\Enviado");
                             oempresa.PastaXmlEmLote = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\EnvioEmLote");
                             oempresa.PastaDownloadNFeDest = Path.Combine(Propriedade.PastaExecutavel, subpasta + "\\DownloadNFe");
                         }

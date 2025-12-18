@@ -94,6 +94,8 @@ namespace NFe.Service
                 {
                     File.Delete(NomeArquivoXML);
                 }
+
+                autorizacaoSinc.Dispose();
             }
             catch (Exception ex)
             {

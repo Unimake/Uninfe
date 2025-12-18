@@ -62,6 +62,8 @@ namespace NFe.Service.EFDReinf
                 if (File.Exists(filenameFTP))
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
 
+                servicoConsultaRecibo.Dispose();
+
             }
             catch (Exception ex)
             {

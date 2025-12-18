@@ -145,6 +145,8 @@ namespace NFe.Service
                     LeRetornoDFe(emp, distribuicaoDFe.RetornoWSXML);
 
                     XmlRetorno(ExtEnvioDFe, ExtRetornoDFe);
+
+                    distribuicaoDFe.Dispose();
                 }
             }
             catch (Exception ex)

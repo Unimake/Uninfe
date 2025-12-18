@@ -50,6 +50,8 @@ namespace NFe.Service
 
                 vStrXmlRetorno = consNaoEnc.RetornoWSString;
                 XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.MDFeConsNaoEncerrados).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFeConsNaoEncerrados).RetornoXML);
+
+                consNaoEnc.Dispose();
             }
             catch (Exception ex)
             {

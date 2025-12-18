@@ -120,6 +120,8 @@ namespace NFe.Service
 
                     cStat = autorizacao.Result.CStat;
                     xMotivo = autorizacao.Result.XMotivo;
+
+                    autorizacao.Dispose();
                 }
                 else
                 {
@@ -134,6 +136,8 @@ namespace NFe.Service
 
                     cStat = autorizacao.Result.CStat;
                     xMotivo = autorizacao.Result.XMotivo;
+
+                    autorizacao.Dispose();
                 }
 
                 SalvarArquivoEmProcessamento(emp);

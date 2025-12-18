@@ -1,0 +1,12 @@
+O ambiente de produção do ISSNET será liberado apenas em 05/01/2026, e o ambiente "Abrasf 2.04" será desligado em 01/02/2026, tendo até 31/01/2026 para se adequar à Reforma Tributária.
+
+Até a data da criação dos exemplos na pasta 1.01 e deste manual, a validação está sendo feita neste link:
+
+https://nfse.issnetonline.com.br/wsnfsenacional/homologacao/validarxml
+
+Sendo necessário o cabeçalho:
+
+<cabecalho versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse"><versaoDados>1.01</versaoDados></cabecalho>
+
+
+E o corpo do XML, com OU sem assinatura.

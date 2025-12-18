@@ -63,6 +63,8 @@ namespace NFe.Service
                                                   Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_consloteevt).EnvioXML) + "\\" + Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_consloteevt).RetornoXML);
                 if (File.Exists(filenameFTP))
                     new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+
+                autorizacao.Dispose();
             }
             catch (Exception ex)
             {

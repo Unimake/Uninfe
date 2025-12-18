@@ -993,5 +993,16 @@ namespace NFe.Service
             }
         }
 
+        /// <summary>
+        /// Gerar o XML de consulta do recibo do lote da nfe
+        /// </summary>
+        /// <param name="empresa">Código da empresa</param>
+        /// <param name="nRec">Número do recibo a ser inserido no XML de consulta</param>
+        /// <param name="versao">Versao do Schema XML</param>
+        /// <param name="mod">Modelo do documento fiscal</param>
+        public XmlDocument XmlPedRec(int empresa, string nRec, string versao, string mod)
+        {
+            return new GerarXML(empresa).XmlPedRec(mod, nRec, versao);
+        }
     }
 }

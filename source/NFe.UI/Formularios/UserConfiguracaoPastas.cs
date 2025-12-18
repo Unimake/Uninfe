@@ -102,7 +102,6 @@ namespace NFe.UI.Formularios
             if (empresa.Servico.Equals(TipoAplicativo.Nfse))
             {
                 empresa.PastaDownloadNFeDest =
-                empresa.PastaXmlEnviado =
                 empresa.PastaBackup =
                 empresa.PastaXmlEmLote = string.Empty;
             }
@@ -189,6 +188,7 @@ namespace NFe.UI.Formularios
                 cbCriaPastas.Checked = DirNotExists(this.textBox_PastaXmlEnvio.Text) ||
                                        DirNotExists(this.textBox_PastaXmlRetorno.Text) ||
                                        DirNotExists(this.textBox_PastaXmlErro.Text) ||
+                                       DirNotExists(this.textBox_PastaXmlEnviado.Text) ||
                                        DirNotExists(this.textBox_PastaValidar.Text);
             else
                 cbCriaPastas.Checked = DirNotExists(this.textBox_PastaBackup.Text) ||
@@ -299,9 +299,9 @@ namespace NFe.UI.Formularios
                             SetNewDir(textBox_PastaXmlRetorno, baseDir, "Retorno");
                             SetNewDir(textBox_PastaXmlErro, baseDir, "Erro");
                             SetNewDir(textBox_PastaValidar, baseDir, "Validar");
+                            SetNewDir(textBox_PastaXmlEnviado, baseDir, "Enviados");
                             if (this.empresa.Servico != TipoAplicativo.Nfse)
                             {
-                                SetNewDir(textBox_PastaXmlEnviado, baseDir, "Enviados");
                                 SetNewDir(textBox_PastaBackup, baseDir, "Backup");
                                 SetNewDir(textBox_PastaXmlEmLote, baseDir, "EnvioEmLote");
                                 SetNewDir(textBox_PastaDownloadNFeDest, baseDir, "DownloadNFe");
@@ -324,8 +324,8 @@ namespace NFe.UI.Formularios
                     lbl_textBox_PastaDownload.Visible = false;
                     textBox_PastaBackup.Visible = false;
                     lbl_textBox_PastaBackup.Visible = false;
-                    textBox_PastaXmlEnviado.Visible = false;
-                    lbl_textBox_PastaEnviados.Visible = false;
+                    textBox_PastaXmlEnviado.Visible = true;
+                    lbl_textBox_PastaEnviados.Visible = true;
                     textBox_PastaXmlEnvio.Visible = true;
                     textBox_PastaXmlRetorno.Visible = true;
                     textBox_PastaXmlErro.Visible = true;

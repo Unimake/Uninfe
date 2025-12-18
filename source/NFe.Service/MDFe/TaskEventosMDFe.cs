@@ -44,6 +44,8 @@ namespace NFe.Service
                 XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).RetornoXML);
 
                 LerRetornoEvento(emp);
+
+                recepcaoEvento.Dispose();
             }
             catch (Exception ex)
             {

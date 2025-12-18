@@ -57,6 +57,8 @@ namespace NFe.Service.NF3e
                     LerRetornoSitNF3e(xmlConsSitNF3e, consultaProtocolo.Result, emp);
 
                     XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
+
+                    consultaProtocolo.Dispose();
                 }
             }
             catch (Exception ex)

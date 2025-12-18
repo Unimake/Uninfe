@@ -131,6 +131,8 @@ namespace NFe.Service.NFSe
                     consultaInformacoesLote.Executar();
 
                     vStrXmlRetorno = consultaInformacoesLote.RetornoWSString;
+
+                    consultaInformacoesLote.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSituacaoLoteRps:
@@ -138,6 +140,8 @@ namespace NFe.Service.NFSe
                     consultarSituacaoLoteRps.Executar();
 
                     vStrXmlRetorno = consultarSituacaoLoteRps.RetornoWSString;
+
+                    consultarSituacaoLoteRps.Dispose();
                     break;
 
 
@@ -146,6 +150,8 @@ namespace NFe.Service.NFSe
                     obterCriticaLote.Executar();
 
                     vStrXmlRetorno = obterCriticaLote.RetornoWSString;
+
+                    obterCriticaLote.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRequerimentoCancelamento:
@@ -153,6 +159,8 @@ namespace NFe.Service.NFSe
                     consultarRequerimentoCancelamento.Executar();
 
                     vStrXmlRetorno = consultarRequerimentoCancelamento.RetornoWSString;
+
+                    consultarRequerimentoCancelamento.Dispose();
                     break;
             }
 

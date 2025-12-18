@@ -125,6 +125,8 @@ namespace NFe.Service.NFSe
                     consultarNotaValida.Executar();
 
                     vStrXmlRetorno = consultarNotaValida.RetornoWSString;
+
+                    consultarNotaValida.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarLoteRps:
@@ -132,6 +134,8 @@ namespace NFe.Service.NFSe
                     consultarLoteRps.Executar();
 
                     vStrXmlRetorno = consultarLoteRps.RetornoWSString;
+
+                    consultarLoteRps.Dispose();
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaLote:
@@ -139,6 +143,8 @@ namespace NFe.Service.NFSe
                     consultaLote.Executar();
 
                     vStrXmlRetorno = consultaLote.RetornoWSString;
+
+                    consultaLote.Dispose();
                     break;
             }
 

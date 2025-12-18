@@ -70,6 +70,8 @@ namespace NFe.Service
                         consultaProtocolo.Executar();
 
                         vStrXmlRetorno = consultaProtocolo.RetornoWSString;
+
+                        consultaProtocolo.Dispose();
                     }
                     else
                     {
@@ -77,6 +79,8 @@ namespace NFe.Service
                         consultaProtocolo.Executar();
 
                         vStrXmlRetorno = consultaProtocolo.RetornoWSString;
+
+                        consultaProtocolo.Dispose();
                     }
 
                     LerRetornoSitNFe(dadosPedSit.chNFe);

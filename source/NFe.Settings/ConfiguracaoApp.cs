@@ -577,9 +577,9 @@ namespace NFe.Settings
                         {
                             if ((erro = AddEmpresaNaLista(emp.PastaValidar)) == "")
                             {
-                                if (emp.Servico != TipoAplicativo.Nfse)
+                                if ((erro = AddEmpresaNaLista(emp.PastaXmlEnviado)) == "")
                                 {
-                                    if ((erro = AddEmpresaNaLista(emp.PastaXmlEnviado)) == "")
+                                    if (emp.Servico != TipoAplicativo.Nfse)
                                     {
                                         if ((erro = AddEmpresaNaLista(emp.PastaXmlEmLote)) == "")
                                         {
@@ -595,13 +595,13 @@ namespace NFe.Settings
                     }
                 }
 
+                if (IsPastaEnviadoPath(emp.PastaXmlRetorno, emp.PastaXmlEnviado))
+                {
+                    erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de retorno.";
+                }
+
                 if (emp.Servico != TipoAplicativo.Nfse && !string.IsNullOrWhiteSpace(emp.PastaXmlEnviado))
                 {
-                    if (IsPastaEnviadoPath(emp.PastaXmlRetorno, emp.PastaXmlEnviado))
-                    {
-                        erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de retorno.";
-                    }
-
                     if (IsPastaEnviadoPath(emp.PastaXmlErro, emp.PastaXmlEnviado))
                     {
                         erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de xml com erros.";
@@ -666,6 +666,7 @@ namespace NFe.Settings
                             _xValids.Add(new xValid(empresa.PastaXmlRetorno, "Informe a pasta de envio dos arquivos XML.", "A pasta de retorno dos arquivos XML informada não existe.", true));
                             _xValids.Add(new xValid(empresa.PastaXmlErro, "Informe a pasta para arquivamento temporário dos arquivos XML que apresentaram erros.", "A pasta para arquivamento temporário dos arquivos XML com erro informada não existe.", true));
                             _xValids.Add(new xValid(empresa.PastaValidar, "Informe a pasta onde será gravado os arquivos XML somente para ser validado pela aplicação.", "A pasta para validação de XML´s informada não existe.", true));
+                            //_xValids.Add(new xValid(empresa.PastaXmlEnviado, "Informe a pasta para arquivamento dos arquivos XML enviados.", "A pasta para arquivamento dos arquivos XML enviados informada não existe.", true));
                             break;
 
                         case TipoAplicativo.EFDReinf:
@@ -2066,7 +2067,7 @@ namespace NFe.Settings
                 if (m.Success)
                 {
                     string digits = m.Groups[1].Value;
-                    int target = digits.Length <= 11 ? 11 : 14; 
+                    int target = digits.Length <= 11 ? 11 : 14;
                     return digits.PadLeft(target, '0');
                 }
             }
