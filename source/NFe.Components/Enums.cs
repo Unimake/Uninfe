@@ -346,6 +346,13 @@ namespace NFe.Components
         /// </summary>
         [Description("Consultar Benefícios Municipais da NFSe NACIONAL")]
         NFSeConsultarBeneficioMunicipal,
+
+        ///<summary>
+        ///Recepcionar Eventos Diversos da NFSe NACIONAL
+        /// </summary>
+        [Description("Recepcionar Eventos Diversos da NFSe NACIONAL")]
+        NFSeRecepcionarEventosDiversos,
+
         #endregion NFSe
 
         #region CFSe
