@@ -360,6 +360,7 @@
     <Compile Include="NFSe\TaskConsultarHistoricoAliquotaMunicipal.cs" />
     <Compile Include="NFSe\TaskConsultarRegimesEspeciais.cs" />
     <Compile Include="NFSe\TaskConsultarRetencoesMunicipais.cs" />
+    <Compile Include="NFSe\TaskRecepcionarEventos.cs" />
     <Compile Include="uMessenger\TaskUMessenger.cs" />
     <Compile Include="NFe\ConverterTXT.cs" />
     <Compile Include="FluxoNfe.cs" />
