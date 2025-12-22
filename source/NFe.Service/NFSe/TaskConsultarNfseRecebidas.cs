@@ -134,8 +134,15 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.LIBRE:
+                    versaoXML = "1.00";
+                    break;
+
                 case PadraoNFSe.PAULISTANA:
                     versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("Versao=\"2\"") || xmlDoc.InnerXml.Contains("Versao=\"2.00\""))
+                    {
+                        versaoXML = "2.00";
+                    }
                     break;
 
                 case PadraoNFSe.FINTEL:

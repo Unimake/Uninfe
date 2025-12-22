@@ -240,9 +240,17 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.LEXSOM:
-                case PadraoNFSe.PAULISTANA:
                     versaoXML = "1.00";
                     break;
+
+                case PadraoNFSe.PAULISTANA:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("Versao=\"2\"") || xmlDoc.InnerXml.Contains("Versao=\"2.00\""))
+                    {
+                        versaoXML = "2.00";
+                    }
+                    break;
+
 
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
