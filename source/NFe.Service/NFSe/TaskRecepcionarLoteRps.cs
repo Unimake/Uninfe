@@ -682,7 +682,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.BSITBR:
                 case PadraoNFSe.CENTI:
-                case PadraoNFSe.CONAM:
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SOFTPLAN:
                     versaoXML = "2.00";
@@ -921,6 +920,16 @@ namespace NFe.Service.NFSe
                         break;
                     }
                     versaoXML = "1.00";
+                    break;
+
+                case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+
+                    if (codMunicipio == 3506102)
+                    {
+                        versaoXML = "4.00";
+                    }
+
                     break;
 
                 default:

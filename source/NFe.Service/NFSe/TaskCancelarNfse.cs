@@ -426,7 +426,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.BSITBR:
-                case PadraoNFSe.CONAM:
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SOFTPLAN:
                 case PadraoNFSe.CENTI:
@@ -653,8 +652,21 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
+                case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+                    
+                    if (codMunicipio == 3506102)
+                    {
+                        versaoXML = "4.00";
+                    }
+
+                    break;
+
+
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Cancelamento de NFSe.");
+
+               
 
             }
 

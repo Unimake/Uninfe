@@ -200,6 +200,14 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+
+                    if (codMunicipio == 3506102)
+                    {
+                        versaoXML = "4.00";
+                    }
+
+                    break;
                 case PadraoNFSe.SIGISSWEB:
                     versaoXML = "2.00";
                     break;
@@ -207,6 +215,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODATA:
                     versaoXML = "2.01";
                     break;
+
 
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de PDF de NFS-e.");
