@@ -195,7 +195,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.GIF:
                 case PadraoNFSe.PROPRIOBARUERISP:
-                case PadraoNFSe.PRIMAX:
                     versaoXML = "1.00";
                     break;
 
@@ -215,6 +214,18 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODATA:
                     versaoXML = "2.01";
                     break;
+
+                case PadraoNFSe.PRIMAX:
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    else
+                    {
+                        versaoXML = "1.00";
+                        break;
+                    }
 
 
                 default:

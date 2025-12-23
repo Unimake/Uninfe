@@ -383,7 +383,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CECAM:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
-                case PadraoNFSe.PRIMAX:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.PUBLICENTER:
@@ -398,6 +397,18 @@ namespace NFe.Service.NFSe
                         versaoXML = "2.00";
                     }
                     break;
+
+                case PadraoNFSe.PRIMAX:
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    else
+                    {
+                        versaoXML = "1.00";
+                        break;
+                    }
 
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
