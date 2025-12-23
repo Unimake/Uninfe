@@ -146,13 +146,24 @@ namespace NFe.Service.NFSe
             {
                 case PadraoNFSe.GIF:
                 case PadraoNFSe.WEBFISCO:
-                case PadraoNFSe.PRIMAX:
                     versaoXML = "1.00";
                     break;
 
                 case PadraoNFSe.SIGISSWEB:
                     versaoXML = "2.00";
                     break;
+
+                case PadraoNFSe.PRIMAX:
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    else
+                    {
+                        versaoXML = "1.00";
+                        break;
+                    }
 
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Obtenção de NFS-e.");
