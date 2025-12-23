@@ -834,9 +834,16 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.ISSNET:
                 case PadraoNFSe.IIBRASIL:
                     versaoXML = "2.04";
+                    break;
+
+                case PadraoNFSe.ISSNET:
+                    versaoXML = "2.04";
+                    if (ConteudoXML.OuterXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.GISSONLINE:
