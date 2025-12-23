@@ -160,6 +160,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskNFSeConsultarBeneficiosMunicipais());
                             break;
 
+                        case Servicos.NFSeRecepcionarEventosDiversos:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskRecepcionarEventos());
+                            break;
+
                         #endregion NFS-e
 
                         #region SAT/CF-e
@@ -1332,6 +1336,10 @@ namespace NFe.Service
                                 {
                                     tipoServico = Servicos.NFSeConsultarBeneficioMunicipal;
                                 }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedRegEvento).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeRecepcionarEventosDiversos;
+                                }
 
                                 #endregion NFS-e
 
@@ -2404,6 +2412,11 @@ namespace NFe.Service
                 case Servicos.NFSeConsultarBeneficioMunicipal:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedBeneficio).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.Beneficio_ERR;
+                    break;
+
+                case Servicos.NFSeRecepcionarEventosDiversos:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedRegEvento).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.PedRegEvento_ERR;
                     break;
 
                 #endregion NFSe

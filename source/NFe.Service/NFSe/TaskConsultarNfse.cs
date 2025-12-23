@@ -292,6 +292,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.FUTURIZE:
+                case PadraoNFSe.CONAM:
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfseServicoPrestadoEnvio":
@@ -518,10 +519,16 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.LEXSOM:
-                case PadraoNFSe.PAULISTANA:
                     versaoXML = "1.00";
                     break;
 
+                case PadraoNFSe.PAULISTANA:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("Versao=\"2\"") || xmlDoc.InnerXml.Contains("Versao=\"2.00\""))
+                    {
+                        versaoXML = "2.00";
+                    }
+                    break;
 
                 case PadraoNFSe.IPM:
                     versaoXML = "2.04";
@@ -733,6 +740,16 @@ namespace NFe.Service.NFSe
                         break;
                     }
                     versaoXML = "1.00";
+                    break;
+
+                case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+
+                    if (codMunicipio == 3506102)
+                    {
+                        versaoXML = "4.00";
+                    }
+
                     break;
 
                 default:

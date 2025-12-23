@@ -240,9 +240,17 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.LEXSOM:
-                case PadraoNFSe.PAULISTANA:
                     versaoXML = "1.00";
                     break;
+
+                case PadraoNFSe.PAULISTANA:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("Versao=\"2\"") || xmlDoc.InnerXml.Contains("Versao=\"2.00\""))
+                    {
+                        versaoXML = "2.00";
+                    }
+                    break;
+
 
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
@@ -256,7 +264,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.BSITBR:
-                case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
                     break;
 
@@ -429,6 +436,16 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.01";
                     }
+                    break;
+
+                case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+
+                    if (codMunicipio == 3506102)
+                    {
+                        versaoXML = "4.00";
+                    }
+
                     break;
 
                 default:

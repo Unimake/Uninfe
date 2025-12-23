@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PedidoEnvioRPS xmlns="http://www.prefeitura.sp.gov.br/nfe">
+	<Cabecalho Versao="1" xmlns="">
+		<CPFCNPJRemetente>
+			<CNPJ>99999999999999</CNPJ>
+		</CPFCNPJRemetente>
+	</Cabecalho>
+	<RPS xmlns="">
+		<Assinatura>31000000OL03  00000000000120070103TNN00000000205000000000000050000002658100013167474254</Assinatura>
+		<ChaveRPS>
+			<InscricaoPrestador>39616924</InscricaoPrestador>
+			<SerieRPS>BB</SerieRPS>
+			<NumeroRPS>4105</NumeroRPS>
+		</ChaveRPS>
+		<TipoRPS>RPS-M</TipoRPS>
+		<DataEmissao>2015-01-20</DataEmissao>
+		<StatusRPS>N</StatusRPS>
+		<TributacaoRPS>T</TributacaoRPS>
+		<ValorServicos>20500</ValorServicos>
+		<ValorDeducoes>5000</ValorDeducoes>
+		<ValorPIS>10</ValorPIS>
+		<ValorCOFINS>10</ValorCOFINS>
+		<ValorINSS>10</ValorINSS>
+		<ValorIR>10</ValorIR>
+		<ValorCSLL>10</ValorCSLL>
+		<CodigoServico>7617</CodigoServico>
+		<AliquotaServicos>0.05</AliquotaServicos>
+		<ISSRetido>false</ISSRetido>
+		<CPFCNPJTomador>
+			<CPF>99999999999999</CPF>
+		</CPFCNPJTomador>
+		<RazaoSocialTomador>TOMADOR PF</RazaoSocialTomador>
+		<EnderecoTomador>
+			<TipoLogradouro>Av</TipoLogradouro>
+			<Logradouro>xxxxx</Logradouro>
+			<NumeroEndereco>100</NumeroEndereco>
+			<ComplementoEndereco>xxxxx</ComplementoEndereco>
+			<Bairro>Bela Vista</Bairro>
+			<Cidade>3550308</Cidade>
+			<UF>SP</UF>
+			<CEP>99999999999999</CEP>
+		</EnderecoTomador>
+		<EmailTomador>tomador@teste.com.br</EmailTomador>
+		<Discriminacao>Desenvolvimento de Web Site Pessoal.</Discriminacao>
+	</RPS>
+</PedidoEnvioRPS>

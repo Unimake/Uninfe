@@ -778,6 +778,27 @@ namespace NFe.Service
 
     #endregion DadosPedSeqLoteNotaRPS
 
+    #region DadosPedRegEvento
+
+    /// <summary>
+    /// Classe com os dados do XML do pedido de registro de evento da NFSe
+    /// </summary>
+    public class DadosPedRegEvento
+    {
+        public int cMunicipio { get; set; }
+        public int tpAmb { get; set; }
+        public int tpEmis { get; set; }
+
+        public DadosPedRegEvento(int emp)
+        {
+            tpEmis = Empresas.Configuracoes[emp].tpEmis;
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+        }
+    }
+
+    #endregion DadosPedRegEvento
+
     #endregion Classe para receber os dados dos XML´s da NFS-e
 
     #region Classe para receber dados do XML de Distribuição do DFe
