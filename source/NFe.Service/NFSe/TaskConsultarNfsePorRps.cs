@@ -193,8 +193,17 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.GIF:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNotaFiscal;
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "pedConsultaTrans":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNotaFiscal;
+                            break;
+                        case "DPS":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps;
+                            break;
+                    }
                     break;
+
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.PORTAL_FACIL:
@@ -258,7 +267,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
-                case PadraoNFSe.GIF:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
@@ -477,6 +485,15 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.01";
                     }
+                    break;
+
+                case PadraoNFSe.GIF:
+                    if (xmlDoc.DocumentElement.Name.Contains("DPS"))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    versaoXML = "1.00";
                     break;
 
                 default:
