@@ -18,7 +18,7 @@ namespace NFe.Components
         private readonly string pastaInstalar;
         private string localArq;
         private string url;
-        private static readonly HttpClient StaticHttpClient = new HttpClient();
+        private readonly HttpClient httpClient = new HttpClient();
 
         #endregion Private Fields
 
@@ -60,7 +60,7 @@ namespace NFe.Components
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                     localArq = Path.Combine(Application.StartupPath, nomeInstalador);
 
-                    var webRequest = (HttpWebRequest)WebRequest.Create(url); // NÃO usar using
+                    var webRequest = (HttpWebRequest)WebRequest.Create(url);
                     try
                     {
                         if (Proxy != null)
@@ -74,16 +74,15 @@ namespace NFe.Components
                         using (var strLocal = new FileStream(localArq, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
                             var fileSize = webResponse.ContentLength;
-                            var downBuffer = new byte[8192]; // buffer maior para performance
+                            var downBuffer = new byte[8192];
                             int bytesSize;
                             var updateProgressArgs = new UpdateProgessEventArgs { BytesRead = 0, TotalBytes = fileSize };
                             while ((bytesSize = strResponse.Read(downBuffer, 0, downBuffer.Length)) > 0)
                             {
                                 strLocal.Write(downBuffer, 0, bytesSize);
                                 updateProgressArgs.BytesRead = strLocal.Length;
-                                updateProgressAction?.Invoke(updateProgressArgs);
+                                InvokeProgress(updateProgressAction, updateProgressArgs);
                             }
-
                             downloadCompleto = true;
                         }
                     }
@@ -129,7 +128,7 @@ namespace NFe.Components
         /// </summary>
         private List<string> BuscaURL()
         {
-            var client = StaticHttpClient;
+            var client = httpClient;
             client.BaseAddress = new Uri("https://www.unimake.com.br/webapi/autoupdate/dv/v2/req_getdownloadservers.php");
             if (!client.DefaultRequestHeaders.Contains("X-token"))
             {
@@ -166,8 +165,7 @@ namespace NFe.Components
         private void DownloadArquivo(string url, string destino, Action<UpdateProgessEventArgs> updateProgressAction = null)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-
-            var webRequest = (HttpWebRequest)WebRequest.Create(url); // NÃO usar using
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
             try
             {
                 if (Proxy != null)
@@ -186,13 +184,26 @@ namespace NFe.Components
                     {
                         strLocal.Write(downBuffer, 0, bytesSize);
                         updateProgressArgs.BytesRead = strLocal.Length;
-                        updateProgressAction?.Invoke(updateProgressArgs);
+                        InvokeProgress(updateProgressAction, updateProgressArgs);
                     }
                 }
             }
             finally
             {
                 webRequest.Abort();
+            }
+        }
+
+        private void InvokeProgress(Action<UpdateProgessEventArgs> callback, UpdateProgessEventArgs args)
+        {
+            if (callback == null) return;
+            if (callback.Target is Control control && control.InvokeRequired)
+            {
+                control.Invoke(callback, args);
+            }
+            else
+            {
+                callback(args);
             }
         }
 
@@ -209,7 +220,7 @@ namespace NFe.Components
                     Download(updateProgressAction);
 
                     var parametros = "/SILENT /DIR=\"" + pastaInstalar + "\"";
-                    Process.Start(localArq, parametros);
+                    //Process.Start(localArq, parametros);
                 }
             }
             catch (Exception ex)
