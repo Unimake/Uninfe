@@ -413,6 +413,13 @@ namespace NFe.Service.NFSe
                         case "e:RecepcionarDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
+
+                        case "NFSe":
+                            if (padraoNFSe == PadraoNFSe.SMARAPD)
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            }
+                            break;
                     }
                     break;
                 case PadraoNFSe.SIGCORP:
