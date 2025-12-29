@@ -207,8 +207,9 @@ namespace NFe.Components
                 if (!Propriedade.ServicoRodando)
                 {
                     Download(updateProgressAction);
+
                     var parametros = "/SILENT /DIR=\"" + pastaInstalar + "\"";
-                    //Process.Start(localArq, parametros);
+                    Process.Start(localArq, parametros);
                 }
             }
             catch (Exception ex)
