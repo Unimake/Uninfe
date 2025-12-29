@@ -14,14 +14,11 @@ namespace NFe.Components
     {
         #region Private Fields
 
-        private Stream strLocal;
-        private Stream strResponse;
-        private HttpWebRequest webRequest;
-        private HttpWebResponse webResponse;
         private readonly string nomeInstalador;
         private readonly string pastaInstalar;
         private string localArq;
         private string url;
+        private static readonly HttpClient StaticHttpClient = new HttpClient();
 
         #endregion Private Fields
 
@@ -53,125 +50,76 @@ namespace NFe.Components
 
         private void Download(Action<UpdateProgessEventArgs> updateProgressAction = null)
         {
-            using (var Client = new WebClient())
+            var links = BuscaURL();
+            foreach (var link in links)
             {
-                var links = BuscaURL();
-
-                for (var i = 0; i < links.Count; i++)
+                url = link + "/" + nomeInstalador;
+                var downloadCompleto = false;
+                try
                 {
-                    url = links[i] + "/" + nomeInstalador;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                    localArq = Path.Combine(Application.StartupPath, nomeInstalador);
 
-                    var downloadCompleto = false;
-
+                    var webRequest = (HttpWebRequest)WebRequest.Create(url); // NÃO usar using
                     try
                     {
-                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-
-                        localArq = Path.Combine(Application.StartupPath, nomeInstalador);
-
-                        // Criar um pedido do arquivo que será baixado
-                        webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-                        // Definir dados da conexao do proxy
                         if (Proxy != null)
                         {
                             webRequest.Proxy = Proxy;
                         }
 
-                        // Atribuir autenticação padrão para a recuperação do arquivo
                         webRequest.Credentials = CredentialCache.DefaultCredentials;
-
-                        // Obter a resposta do servidor
-                        webResponse = (HttpWebResponse)webRequest.GetResponse();
-
-                        // Perguntar ao servidor o tamanho do arquivo que será baixado
-                        var fileSize = webResponse.ContentLength;
-
-                        // Abrir a URL para download
-                        strResponse = Client.OpenRead(url);
-
-                        if (!File.Exists(localArq))
+                        using (var webResponse = (HttpWebResponse)webRequest.GetResponse())
+                        using (var strResponse = webResponse.GetResponseStream())
+                        using (var strLocal = new FileStream(localArq, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            File.Create(localArq).Close();
-                        }
-
-                        // Criar um novo arquivo a partir do fluxo de dados que será salvo na local disk
-                        strLocal = new FileStream(localArq, FileMode.Create, FileAccess.Write, FileShare.None);
-
-                        // Ele irá armazenar o número atual de bytes recuperados do servidor
-                        var bytesSize = 0;
-
-                        // Um buffer para armazenar e gravar os dados recuperados do servidor
-                        var downBuffer = new byte[2048];
-
-                        var updateProgressArgs = new UpdateProgessEventArgs
-                        {
-                            BytesRead = bytesSize,
-                            TotalBytes = fileSize
-                        };
-
-                        // Loop através do buffer - Até que o buffer esteja vazio
-                        while ((bytesSize = strResponse.Read(downBuffer, 0, downBuffer.Length)) > 0)
-                        {
-                            // Gravar os dados do buffer no disco rigido
-                            strLocal.Write(downBuffer, 0, bytesSize);
-                            updateProgressArgs.BytesRead = strLocal.Length;
-
-                            // Invocar um método para atualizar a barra de progresso
-                            if (updateProgressAction != null)
+                            var fileSize = webResponse.ContentLength;
+                            var downBuffer = new byte[8192]; // buffer maior para performance
+                            int bytesSize;
+                            var updateProgressArgs = new UpdateProgessEventArgs { BytesRead = 0, TotalBytes = fileSize };
+                            while ((bytesSize = strResponse.Read(downBuffer, 0, downBuffer.Length)) > 0)
                             {
-                                updateProgressAction.Invoke(updateProgressArgs);
+                                strLocal.Write(downBuffer, 0, bytesSize);
+                                updateProgressArgs.BytesRead = strLocal.Length;
+                                updateProgressAction?.Invoke(updateProgressArgs);
                             }
-                        }
 
-                        downloadCompleto = true;
-                    }
-                    catch (IOException)
-                    {
-                        if (i + 1 >= links.Count)
-                        {
-                            throw;
+                            downloadCompleto = true;
                         }
                     }
-                    catch (WebException)
-                    {
-                        if (i + 1 >= links.Count)
-                        {
-                            throw;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        if (i + 1 >= links.Count)
-                        {
-                            throw;
-                        }
-                    }
-
                     finally
                     {
-                        // Encerrar as streams
-                        if (strResponse != null)
-                        {
-                            strResponse.Close();
-                        }
-
-                        if (strLocal != null)
-                        {
-                            strLocal.Close();
-                        }
-
-                        if (webRequest != null)
-                        {
-                            webRequest.Abort();
-                            webResponse.Close();
-                        }
+                        webRequest.Abort();
                     }
-
-                    if (downloadCompleto)
+                }
+                catch (IOException ex)
+                {
+                    Functions.WriteLog($"Erro de IO ao baixar update: {ex.Message}", true, true, "");
+                    if (link == links[links.Count - 1])
                     {
-                        break;
+                        throw;
                     }
+                }
+                catch (WebException ex)
+                {
+                    Functions.WriteLog($"Erro de Web ao baixar update: {ex.Message}", true, true, "");
+                    if (link == links[links.Count - 1])
+                    {
+                        throw;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Functions.WriteLog($"Erro inesperado ao baixar update: {ex.Message}", true, true, "");
+                    if (link == links[links.Count - 1])
+                    { 
+                        throw; 
+                    }
+                }
+
+                if (downloadCompleto)
+                {
+                    break;
                 }
             }
         }
@@ -179,49 +127,73 @@ namespace NFe.Components
         /// <summary>
         /// Busca a URL para download da atualização do UniNFe
         /// </summary>
-        private Dictionary<int, string> BuscaURL()
+        private List<string> BuscaURL()
         {
-            var Request = new HttpClient
+            var client = StaticHttpClient;
+            client.BaseAddress = new Uri("https://www.unimake.com.br/webapi/autoupdate/dv/v2/req_getdownloadservers.php");
+            if (!client.DefaultRequestHeaders.Contains("X-token"))
             {
-                BaseAddress = new Uri("https://www.unimake.com.br/webapi/autoupdate/dv/v2/req_getdownloadservers.php")
-            };
-            Request.DefaultRequestHeaders.Add("X-token", "49edd27c-175d-801b-96b9-c4c0961e6a5a");
-            var ResponseString = Request.GetStringAsync("").Result.ToString();
-
-            var Response = new XmlDocument();
-            Response.LoadXml(ResponseString);
-
-            var node = Response.GetElementsByTagName("enderecohttp");
-
-            var Links = new Dictionary<int, string>();
-            var i = 0;
+                client.DefaultRequestHeaders.Add("X-token", "49edd27c-175d-801b-96b9-c4c0961e6a5a");
+            }
+            
+            var responseString = client.GetStringAsync("").Result;
+            var response = new XmlDocument();
+            response.LoadXml(responseString);
+            var node = response.GetElementsByTagName("enderecohttp");
+            var links = new List<string>();
             foreach (XmlElement link in node)
             {
-                Links.Add(i, link.InnerText);
-                i++;
+                links.Add(link.InnerText);
             }
 
-            return Links;
+            return links;
         }
 
         private DateTime AtualizaData(DateTime data)
         {
             localArq = Path.Combine(Application.StartupPath, "UltimaAtualizacao.xml");
-
-            //Adiciona 30 dias após a atualização para verificar se passou o tempo mínimo para atualizar
             data = data.AddDays(30);
-
-            //cria o arquivo xml com a primeira tag "Ultima atualização"
+            
             var xml = new XDocument(new XDeclaration("1.0", "utf-8", null));
             var xmlElement = new XElement("UltimaAtualizacao");
-
             xmlElement.Add(new XElement("data", data));
-
-
             xml.Add(xmlElement);
             xml.Save(localArq);
 
             return data;
+        }
+
+        private void DownloadArquivo(string url, string destino, Action<UpdateProgessEventArgs> updateProgressAction = null)
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+            var webRequest = (HttpWebRequest)WebRequest.Create(url); // NÃO usar using
+            try
+            {
+                if (Proxy != null)
+                    webRequest.Proxy = Proxy;
+
+                webRequest.Credentials = CredentialCache.DefaultCredentials;
+                using (var webResponse = (HttpWebResponse)webRequest.GetResponse())
+                using (var strResponse = webResponse.GetResponseStream())
+                using (var strLocal = new FileStream(destino, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    var fileSize = webResponse.ContentLength;
+                    var downBuffer = new byte[8192];
+                    int bytesSize;
+                    var updateProgressArgs = new UpdateProgessEventArgs { BytesRead = 0, TotalBytes = fileSize };
+                    while ((bytesSize = strResponse.Read(downBuffer, 0, downBuffer.Length)) > 0)
+                    {
+                        strLocal.Write(downBuffer, 0, bytesSize);
+                        updateProgressArgs.BytesRead = strLocal.Length;
+                        updateProgressAction?.Invoke(updateProgressArgs);
+                    }
+                }
+            }
+            finally
+            {
+                webRequest.Abort();
+            }
         }
 
         #endregion Private Methods
@@ -232,191 +204,65 @@ namespace NFe.Components
         {
             try
             {
-                // TODO WANDREY: Resolver atualização quando serviço. - Por hora não vai funcionar com serviços, vou ter que analisar melhor. Wandrey
                 if (!Propriedade.ServicoRodando)
                 {
                     Download(updateProgressAction);
-
-                    //Se estiver rodando o Uninfe como serviço, no windows, temos que parar o serviço antes.
-                    //if (Propriedade.ServicoRodando)
-                    //{
-                    //    var servico = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "servico_reiniciar.bat");
-                    //    Process.Start(servico);
-                    //}
-
-                    var parametros = "/SILENT /DIR=" + "\"" + pastaInstalar + "\"";
-                    Process.Start(localArq, parametros);
+                    var parametros = "/SILENT /DIR=\"" + pastaInstalar + "\"";
+                    //Process.Start(localArq, parametros);
                 }
             }
-            catch (IOException)
+            catch (Exception ex)
             {
-                throw;
-            }
-            catch (WebException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
+                Functions.WriteLog($"Erro ao instalar update: {ex.Message}", true, true, "");
                 throw;
             }
         }
 
         public void VerificaVersao()
         {
-            //path do arquivo em que fica salvo a data da ultima atualizacao
             localArq = Path.Combine(Application.StartupPath, "UltimaAtualizacao.xml");
-
-            //variável para trabalhar na condição de tempo
             var data = new DateTime();
-
             if (File.Exists(localArq))
             {
-                //carrega o xml, caso ele exista
                 var xml = new XmlDocument();
                 xml.Load(localArq);
-
-                //Recupera o valor do nó dentro do xml
                 var no = xml.GetElementsByTagName("data")[0];
-
-                //Recupera a data como tipo DateTime para fazer a comparação
                 data = DateTime.Parse(no.InnerText);
             }
             else
             {
-                //"AtualizaData" também cria o primeiro arquivo de configuração de versão do UniNFe; A função de atualizar a data, serve para depois que atualizar o UniNFe  
                 data = AtualizaData(DateTime.Now);
-
             }
-
             if (data <= DateTime.Now)
             {
-                using (var Client = new WebClient())
+                var links = BuscaURL();
+                foreach (var link in links)
                 {
-                    var links = BuscaURL();
-                    var downloadCompleto = false;
-
-                    for (var i = 0; i < links.Count; i++)
+                    try
                     {
-                        try
+                        var versaoUrl = link + "/versaouninfe.xml";
+                        var destino = Path.Combine(Application.StartupPath, "versaouninfe.xml");
+                        DownloadArquivo(versaoUrl, destino);
+
+                        var xml = new XmlDocument();
+                        xml.Load(destino);
+                        XmlNode NoVersao = xml.GetElementsByTagName("versao")[0];
+                        if (Convert.ToInt64(NoVersao.InnerText.Replace(".", "")) > Convert.ToInt64(Propriedade.Versao.Replace(".", "")))
                         {
-                            url = links[i] + "/versaouninfe.xml";
-                            localArq = Path.Combine(Application.StartupPath, "versaouninfe.xml");
-
-                            // Criar um pedido do arquivo que será baixado
-                            webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-                            // Definir dados da conexao do proxy
-                            if (Proxy != null)
+                            var Result = MessageBox.Show("Deseja atualizar agora?", "Existe uma nova atualização do UniNFe", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (Result == DialogResult.Yes)
                             {
-                                webRequest.Proxy = Proxy;
-                            }
-
-                            // Atribuir autenticação padrão para a recuperação do arquivo
-                            webRequest.Credentials = CredentialCache.DefaultCredentials;
-
-                            // Obter a resposta do servidor
-                            webResponse = (HttpWebResponse)webRequest.GetResponse();
-
-                            // Perguntar ao servidor o tamanho do arquivo que será baixado
-                            var fileSize = webResponse.ContentLength;
-
-                            // Abrir a URL para download
-                            strResponse = Client.OpenRead(url);
-
-                            if (!File.Exists(localArq))
-                            {
-                                File.Create(localArq).Close();
-                            }
-
-                            // Criar um novo arquivo a partir do fluxo de dados que será salvo na local disk
-                            strLocal = new FileStream(localArq, FileMode.Create, FileAccess.Write, FileShare.None);
-
-                            // Ele irá armazenar o número atual de bytes recuperados do servidor
-                            var bytesSize = 0;
-
-                            // Um buffer para armazenar e gravar os dados recuperados do servidor
-                            var downBuffer = new byte[2048];
-
-                            var updateProgressArgs = new UpdateProgessEventArgs
-                            {
-                                BytesRead = bytesSize,
-                                TotalBytes = fileSize
-                            };
-
-                            // Loop através do buffer - Até que o buffer esteja vazio
-                            while ((bytesSize = strResponse.Read(downBuffer, 0, downBuffer.Length)) > 0)
-                            {
-                                // Gravar os dados do buffer no disco rigido
-                                strLocal.Write(downBuffer, 0, bytesSize);
-                                updateProgressArgs.BytesRead = strLocal.Length;
-                            }
-                            strLocal.Close();
-
-                            downloadCompleto = true;
-
-                            //--------------------------------------//
-                            //   ler os dados do xml e comparar 
-                            //--------------------------------------//
-                            //carregando o arquivo
-                            var xml = new XmlDocument();
-                            xml.Load(localArq);
-
-                            //nó para a leitura
-                            XmlNode NoVersao = null;
-                            NoVersao = xml.GetElementsByTagName("versao")[0];
-
-                            //Atualiza o Uninfe se a versão atual != da última versão disponibilizada
-                            if (Convert.ToInt64(NoVersao.InnerText.Replace(".", "")) > Convert.ToInt64(Propriedade.Versao.Replace(".", "")))
-                            {
-                                var Result = MessageBox.Show("Deseja atualizar agora?", "Existe uma nova atualização do UniNFe", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                                if (Result == DialogResult.Yes)
-                                {
-                                    //atualiza a data dentro do xml para conferir a versão do UniNFe apenas daqui a 30 dias
-                                    data = AtualizaData(DateTime.Now);
-
-                                    Instalar();
-                                }
-                            }
-
-                        }
-                        catch (IOException)
-                        {
-                            throw;
-                        }
-                        catch (WebException)
-                        {
-                            throw;
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
-                        finally
-                        {
-                            // Encerrar as streams
-                            if (strResponse != null)
-                            {
-                                strResponse.Close();
-                            }
-
-                            if (strLocal != null)
-                            {
-                                strLocal.Close();
-                            }
-
-                            if (webRequest != null)
-                            {
-                                webRequest.Abort();
-                                webResponse.Close();
+                                data = AtualizaData(DateTime.Now);
+                                Instalar();
                             }
                         }
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Functions.WriteLog($"Erro ao verificar versão: {ex.Message}", true, true, "");
 
-                        if (downloadCompleto)
-                        {
-                            break;
-                        }
+                        if (link == links[links.Count - 1]) throw;
                     }
                 }
             }
@@ -429,27 +275,9 @@ namespace NFe.Components
 
     public class UpdateProgessEventArgs : EventArgs
     {
-        /// <summary>
-        /// Bytes a serem lidos
-        /// </summary>
         public long BytesRead;
-
-        /// <summary>
-        /// Total de bytes (tamanho) do arquivo que está sendo efetuado o download
-        /// </summary>
         public long TotalBytes;
-
-        /// <summary>
-        /// Porcentagem de progresso do download do arquivo
-        /// </summary>
-        public int ProgressPercentage
-        {
-            get
-            {
-                var result = TotalBytes == 0 ? 0 : Convert.ToInt32((BytesRead * 100) / TotalBytes);
-                return result;
-            }
-        }
+        public int ProgressPercentage => TotalBytes == 0 ? 0 : Convert.ToInt32((BytesRead * 100) / TotalBytes);
     }
 
     #endregion Argumentos

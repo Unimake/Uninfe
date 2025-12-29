@@ -53,8 +53,14 @@
    goto gerarInstaladores  
    
 :gerarInstaladores   
+   cls
    "c:\Program Files (x86)\Inno Setup 6\ISCC.exe" UniNFe.iss
+	pause
+	
+   cls
    "c:\Program Files (x86)\Inno Setup 6\ISCC.exe" UniNFe_fw46_x86.iss
+	Pause
+	
    copy "C:\projetos\instaladores\iuninfe5.exe" %caminhoAssinarArquivos%
    copy "C:\projetos\instaladores\iuninfe5_fw46_x86.exe" %caminhoAssinarArquivos%
    echo. > "%caminhoAssinar%\assinar.txt"
@@ -112,11 +118,21 @@
    goto fim   
 
 :release   
+	cls
    python "c:\program files (x86)\s3cmd\s3cmd" put c:\projetos\instaladores\iuninfe5.exe s3://unimakedownload/iuninfe5.exe --acl-public
+	pause 
+
+	cls
    python "c:\program files (x86)\s3cmd\s3cmd" put c:\projetos\instaladores\iuninfe5_fw46_x86.exe s3://unimakedownload/iuninfe5_fw46_x86.exe --acl-public
+	pause
    
+	cls
    call sendftp.bat "iuninfe5.exe"
+	pause
+	
+	cls	
    call sendftp.bat "iuninfe5_fw46_x86.exe"
+	pause
    
    goto fim
    

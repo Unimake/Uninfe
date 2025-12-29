@@ -99,7 +99,6 @@ Source: ..\source\uninfe\bin\Release\Unimake.Utils.dll; DestDir: {app}; Flags: i
 
 Source: ..\source\uninfe\bin\Release\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\UniNFeServico.exe; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\source\uninfe\UniNfeSobre.xml; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\NFe.Components.Wsdl\NFe\WSDL\*.*; DestDir: {app}\nfe\wsdl; Flags: ignoreversion recursesubdirs

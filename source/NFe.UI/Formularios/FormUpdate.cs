@@ -70,7 +70,7 @@ namespace NFe.UI.Formularios
                         prgDownload.Value = updateProgressArgs.ProgressPercentage;
                     });
 
-                    Auxiliar.WriteLog("Processo de download da atualização do UniNFe pelo foi concluído.", false);
+                    Auxiliar.WriteLog("Processo de download da atualização do UniNFe foi concluído.", false);
 
                     //Forçar o encerramento da aplicação
                     Application.Exit();
@@ -78,14 +78,17 @@ namespace NFe.UI.Formularios
             }
             catch (IOException ex)
             {
+                Auxiliar.WriteLog("Falha no UPDATE no UniNFe. Erro: " + ex.Message, true);
                 MetroFramework.MetroMessageBox.Show(null, "Ocorreu um erro ao tentar fazer o download do instalador do aplicativo.\r\n\r\nErro: " + ex.Message, "");
             }
             catch (WebException ex)
             {
+                Auxiliar.WriteLog("Falha no UPDATE no UniNFe. Erro: " + ex.Message, true);
                 MetroFramework.MetroMessageBox.Show(null, "Ocorreu um erro ao tentar fazer o download do instalador do aplicativo.\r\n\r\nErro: " + ex.Message, "");
             }
             catch (Exception ex)
             {
+                Auxiliar.WriteLog("Falha no UPDATE no UniNFe. Erro: " + ex.Message, true);
                 MetroFramework.MetroMessageBox.Show(null, "Ocorreu um erro ao tentar fazer o download do instalador do aplicativo.\r\n\r\nErro: " + ex.Message, "");
             }
         }
