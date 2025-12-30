@@ -2004,7 +2004,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSUF);
                     }
 
-                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515") //Somente estes CSTs podem ter redução
+                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515" || (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gIBSUF);
                     }
@@ -2033,7 +2033,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSMun);
                     }
 
-                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515") //Somente estes CSTs podem ter redução
+                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515" || (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) //Somente estes CSTs podem ter redução) //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gIBSMun);
                     }
@@ -2065,7 +2065,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gCBS);
                     }
 
-                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515") //Somente estes CSTs podem ter redução
+                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515" || (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gCBS);
                     }
