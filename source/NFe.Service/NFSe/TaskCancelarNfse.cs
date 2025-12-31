@@ -554,7 +554,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    else if (codMunicipio == 3506003 && xmlDoc.OuterXml.Contains("infPedReg"))
+                    else if ((codMunicipio == 3506003 || codMunicipio == 3201308 || codMunicipio == 3530607) && xmlDoc.OuterXml.Contains("infPedReg"))
                     {
                         versaoXML = "1.01";
                     }
