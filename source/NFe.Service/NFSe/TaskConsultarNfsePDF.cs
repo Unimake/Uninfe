@@ -227,6 +227,9 @@ namespace NFe.Service.NFSe
                         break;
                     }
 
+                case PadraoNFSe.SMARAPD:
+                    versaoXML = "1.01";
+                    break;
 
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de PDF de NFS-e.");
