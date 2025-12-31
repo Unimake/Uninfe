@@ -445,7 +445,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PRODATA:
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.SYSTEMPRO:
@@ -455,6 +454,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
+                    break;
+
+                case PadraoNFSe.QUASAR:
+                    versaoXML = "2.01";
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.NOTAINTELIGENTE:
