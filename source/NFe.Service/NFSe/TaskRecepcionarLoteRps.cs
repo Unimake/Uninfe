@@ -706,7 +706,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
@@ -717,6 +716,15 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
+                    break;
+
+                case PadraoNFSe.QUASAR:
+                    versaoXML = "2.01";
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
                     break;
 
                 case PadraoNFSe.NOTAINTELIGENTE:
