@@ -262,10 +262,12 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIMPLISS:   //Versão 2.03 não possui esse serviço -> Blumenau - SC e Volta Redonda - RJ
                 case PadraoNFSe.GINFES:
                 case PadraoNFSe.DSF:        //DSF não possui este serviço, porém, São José dos Campos - SP aceita layout do padrão GINFES e aceita este serviço na versão 3.00
-                case PadraoNFSe.PUBLICA:
                     versaoXML = "3.01";
                     break;
 
+                case PadraoNFSe.PUBLICA:
+                    versaoXML = "3.00";
+                    break;
                 case PadraoNFSe.ABACO:
                     versaoXML = "2.04";
 
