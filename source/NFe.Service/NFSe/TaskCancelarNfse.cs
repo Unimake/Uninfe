@@ -566,9 +566,16 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.ISSNET:
                 case PadraoNFSe.GISSONLINE:
                     versaoXML = "2.04";
+                    break;
+
+                case PadraoNFSe.ISSNET:
+                    versaoXML = "2.04";
+                    if (xmlDoc.GetElementsByTagName("pedRegEvento").Count > 0)
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.ABACO:
@@ -665,7 +672,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
-                    
+
                     if (codMunicipio == 3506102)
                     {
                         versaoXML = "4.00";
@@ -677,7 +684,7 @@ namespace NFe.Service.NFSe
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Cancelamento de NFSe.");
 
-               
+
 
             }
 
