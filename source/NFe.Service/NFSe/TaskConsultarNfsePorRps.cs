@@ -437,10 +437,17 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.ISSNET:
                 case PadraoNFSe.IIBRASIL:
                 case PadraoNFSe.GISSONLINE:
                     versaoXML = "2.04";
+                    break;
+
+                case PadraoNFSe.ISSNET:
+                    versaoXML = "1.01";
+                    if (xmlDoc.GetElementsByTagName("Pedido").Count > 0)
+                    {
+                        versaoXML = "2.04";
+                    }
                     break;
 
                 case PadraoNFSe.EL:
