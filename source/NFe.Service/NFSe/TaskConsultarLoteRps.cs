@@ -398,8 +398,15 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GINFES:
+                    versaoXML = "3.00";
+                    break;
+
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
+                    if (codMunicipio == 4209102)
+                    {
+                        versaoXML = "3.01";
+                    }
                     break;
 
                 case PadraoNFSe.SIGISSWEB:

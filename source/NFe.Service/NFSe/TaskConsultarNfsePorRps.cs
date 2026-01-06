@@ -307,7 +307,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
@@ -317,6 +316,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
+                    break;
+
+                case PadraoNFSe.QUASAR:
+                    versaoXML = "2.01";
+                    if (xmlDoc.DocumentElement.Name.Contains("DPS"))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.AVMB:
@@ -463,8 +470,15 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GINFES:
+                    versaoXML = "3.00";
+                    break;
+
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
+                    if (codMunicipio == 4209102)
+                    {
+                        versaoXML = "3.01";
+                    }
                     break;
 
                 case PadraoNFSe.FINTEL:
