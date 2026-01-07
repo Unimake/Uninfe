@@ -889,20 +889,8 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GINFES:
-                    versaoXML = "3.00";
-                    
-                    if (xmlDoc.OuterXml.Contains("ns3:IBSCBS"))
-                    {
-                        versaoXML = "4.00";
-                    }
-                    break;
-
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
-                    if (ConteudoXML.InnerXml.Contains("versao=\"3.01\""))
-                    {
-                        versaoXML = "3.01";
-                    }
                     break;
 
                 case PadraoNFSe.SIGCORP:
