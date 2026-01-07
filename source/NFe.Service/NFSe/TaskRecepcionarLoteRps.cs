@@ -28,7 +28,7 @@ namespace NFe.Service.NFSe
             ConteudoXML.PreserveWhitespace = false;
             ConteudoXML.Load(arquivo);
         }
-
+        
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
@@ -755,8 +755,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !ConteudoXML.OuterXml.Contains("DPS")) ||
-                        (codMunicipio == 3148103 && !ConteudoXML.OuterXml.Contains("DPS")))
+                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !ConteudoXML.OuterXml.Contains("DPS")))
                     {
                         versaoXML = "2.03";
                         break;
@@ -891,6 +890,11 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
+                    
+                    if (xmlDoc.OuterXml.Contains("ns3:IBSCBS"))
+                    {
+                        versaoXML = "4.00";
+                    }
                     break;
 
                 case PadraoNFSe.PUBLICA:
