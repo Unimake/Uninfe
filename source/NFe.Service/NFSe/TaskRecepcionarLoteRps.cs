@@ -28,7 +28,7 @@ namespace NFe.Service.NFSe
             ConteudoXML.PreserveWhitespace = false;
             ConteudoXML.Load(arquivo);
         }
-        
+
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
@@ -889,6 +889,14 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GINFES:
+                    versaoXML = "3.00";
+
+                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
+                    {
+                        versaoXML = "4.00";
+                    }
+                    break;
+
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
                     break;
