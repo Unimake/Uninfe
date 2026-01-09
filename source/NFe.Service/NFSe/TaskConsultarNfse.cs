@@ -390,27 +390,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
-                    if (versaoXML == "2.02")
-                    {
-                        switch(doc.DocumentElement.Name)
-                        {
-                            case "ConsultarNfseServicoPrestadoEnvio":
-                                result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado;
-                                break;
-
-                            case "ConsultarNfseFaixaEnvio":
-                                result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
-                                break;
-                        }
-                    }
-                    if(versaoXML == "1.00" || versaoXML == "1.01")
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
-                        break;
-                    }
-                        break;
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.AGILI:
@@ -477,7 +456,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "2.02";
                     if (xmlDoc.DocumentElement.Name.Contains("e:ConsultarDpsEnvio"))
                     {
@@ -488,7 +466,9 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    
+
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.NACIONAL:
