@@ -220,7 +220,6 @@ namespace NFe.Service.NFSe
                             break;
                     }
                     break;
-
             }
 
             return result;
