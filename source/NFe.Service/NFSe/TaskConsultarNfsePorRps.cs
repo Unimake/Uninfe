@@ -226,7 +226,8 @@ namespace NFe.Service.NFSe
                         result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps;
                         break;
                     }
-                    if (versaoXML == "2.02"){
+                    if (versaoXML == "2.02")
+                    {
                         result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRpsServicoPrestado;
                         break;
                     }
@@ -364,6 +365,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
+                    else if (codMunicipio == 3506003)
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.DSF:
@@ -403,7 +408,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if(codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                     }
