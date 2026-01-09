@@ -144,14 +144,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
 
-                case PadraoNFSe.BETHA_CLOUD:
-                    versaoXML = "1.01";
-                    break;
-
                     if (codMunicipio == 4319901 || codMunicipio == 4321600)
                     {
                         versaoXML = "2.04";
                     }
+                    break;
+
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.DIGIFRED:

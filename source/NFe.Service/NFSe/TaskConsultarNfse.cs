@@ -457,15 +457,12 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.BETHA:
                     versaoXML = "2.02";
-                    if (xmlDoc.DocumentElement.Name.Contains("e:ConsultarDpsEnvio"))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
+                    
                     if (xmlDoc.DocumentElement.Name.Contains("e:"))
                     {
                         versaoXML = "1.00";
                     }
+                    break;
 
                 case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "1.01";
