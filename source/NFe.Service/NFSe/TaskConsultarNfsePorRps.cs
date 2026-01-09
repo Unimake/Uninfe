@@ -220,18 +220,6 @@ namespace NFe.Service.NFSe
                             break;
                     }
                     break;
-                case PadraoNFSe.BETHA_CLOUD:
-                    if (versaoXML == "1.00")
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps;
-                        break;
-                    }
-                    if (versaoXML == "2.02")
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRpsServicoPrestado;
-                        break;
-                    }
-                    break;
 
             }
 
@@ -253,7 +241,6 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "2.02";
 
                     if (xmlDoc.DocumentElement.Name.Contains("e:"))

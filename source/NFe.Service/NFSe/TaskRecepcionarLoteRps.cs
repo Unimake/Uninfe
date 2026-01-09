@@ -660,25 +660,23 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = Functions.GetAttributeXML("LoteRps", "versao", NomeArquivoXML);
                     if (string.IsNullOrWhiteSpace(versaoXML))
                     {
                         if (xmlDoc.GetElementsByTagName("GerarNfseEnvio").Count > 0)
                         {
                             versaoXML = "2.02";
+                            break;
                         }
                     }
-                    if (ConteudoXML.OuterXml.Contains("DPS"))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
-
                     if (!versaoXML.Equals("2.02"))
                     {
                         versaoXML = "1.00";
                     }
+                    break;
+
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.IPM:
