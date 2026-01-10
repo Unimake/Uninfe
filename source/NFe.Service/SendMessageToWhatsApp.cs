@@ -1,6 +1,5 @@
 ﻿using NFe.Settings;
 using System;
-using Unimake.AuthServer.Authentication;
 using Unimake.AuthServer.Security.Scope;
 using Unimake.MessageBroker.Primitives.Model.Notifications;
 using Unimake.MessageBroker.Services;
