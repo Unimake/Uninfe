@@ -304,25 +304,6 @@ namespace NFe.Components
             ConsDadosCadCFSe,
 
             /// <summary>
-            /// Extensões para SAT/CFe
-            /// </summary>
-            ConsultarSAT,
-
-            ExtrairLogsSAT,
-            ConsultarStatusOperacionalSAT,
-            TesteFimAFimSAT,
-            TrocarCodigoDeAtivacaoSAT,
-            EnviarDadosVendaSAT,
-            ConverterSAT,
-            CancelarUltimaVendaSAT,
-            ConfigurarInterfaceDeRedeSAT,
-            AssociarAssinaturaSAT,
-            AtivarSAT,
-            BloquearSAT,
-            DesbloquearSAT,
-            ConsultarNumeroSessaoSAT,
-
-            /// <summary>
             /// Extensões em comum entre NFe, CTe e MDF-e
             /// </summary>
             ConsCad,
@@ -497,94 +478,6 @@ namespace NFe.Components
             ));
 
             #endregion Extensões da NFe
-
-            #region Extensões SAT/CFe
-
-            ListaExtensoes.Add(TipoEnvio.ConsultarSAT, new ExtensaoClass(
-                "-sat-cons.xml", "-sat-cons.txt",
-                "-sat-cons-ret.xml", "-sat-cons-ret.txt",
-                "",
-                "Consulta SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.ConsultarNumeroSessaoSAT, new ExtensaoClass(
-                "-sat-sescons.xml", "-sat-sescons.txt",
-                "-sat-sescons-ret.xml", "-sat-sescons-ret.txt",
-                "",
-                "Consulta Numero Sessão SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.ExtrairLogsSAT, new ExtensaoClass(
-                "-sat-extlog.xml", "-sat-extlog.txt",
-                "-sat-extlog-ret.xml", "-sat-extlog-ret.txt",
-                "",
-                "Extrair Logs do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.ConsultarStatusOperacionalSAT, new ExtensaoClass(
-                "-sat-statop.xml", "-sat-statop.txt",
-                "-sat-statop-ret.xml", "-sat-statop-ret.txt",
-                "",
-                "Consultar Status Operacional do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.TesteFimAFimSAT, new ExtensaoClass(
-                "-testsat-cfe.xml", "-testsat-cfe.txt",
-                "-testsat-cfe-ret.xml", "-testsat-cfe-ret.txt",
-                "",
-                "Teste Fim a Fim do SAT com XML de CFe"));
-
-            ListaExtensoes.Add(TipoEnvio.TrocarCodigoDeAtivacaoSAT, new ExtensaoClass(
-                "-sat-trocativ.xml", "-sat-trocativ.txt",
-                "-sat-trocativ-ret.xml", "-sat-trocativ-ret.txt",
-                "",
-                "Troca de código de ativação do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.EnviarDadosVendaSAT, new ExtensaoClass(
-                "-sat.xml", "-sat.txt",
-                "-sat-ret.xml", "-sat-ret.txt",
-                "",
-                "Envio da venda do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.ConverterSAT, new ExtensaoClass(
-                "-sat-conv.xml", "-sat-conv.txt",
-                "-sat-conv-ret.xml", "-sat-conv-ret.txt",
-                "",
-                "Conversão de NFCe para CFe/SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.CancelarUltimaVendaSAT, new ExtensaoClass(
-                "-sat-canc.xml", "-sat-canc.txt",
-                "-sat-canc-ret.xml", "-sat-canc-ret.txt",
-                "",
-                "Cancelamento de Ultima Venda do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.ConfigurarInterfaceDeRedeSAT, new ExtensaoClass(
-                "-sat-confrede.xml", "-sat-confrede.txt",
-                "-sat-confrede-ret.xml", "-sat-confrede-ret.txt",
-                "",
-                "Configurar Interface de Rede do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.AssociarAssinaturaSAT, new ExtensaoClass(
-                "-sat-assin.xml", "-sat-assin.txt",
-                "-sat-assin-ret.xml", "-sat-assin-ret.txt",
-                "",
-                "Associar Assinatura do SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.AtivarSAT, new ExtensaoClass(
-                "-sat-atv.xml", "-sat-atv.txt",
-                "-sat-atv-ret.xml", "-sat-atv-ret.txt",
-                "",
-                "Ativar SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.BloquearSAT, new ExtensaoClass(
-                "-sat-bloq.xml", "-sat-bloq.txt",
-                "-sat-bloq-ret.xml", "-sat-bloq-ret.txt",
-                "",
-                "Bloquear SAT"));
-
-            ListaExtensoes.Add(TipoEnvio.DesbloquearSAT, new ExtensaoClass(
-                "-sat-desbloq.xml", "-sat-desbloq.txt",
-                "-sat-desbloq-ret.xml", "-sat-desbloq-ret.txt",
-                "",
-                "Bloquear SAT"));
-
-            #endregion Extensões SAT/CFe
 
             #region Extensões do CTe
 

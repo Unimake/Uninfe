@@ -36,18 +36,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
-    <OutputPath>..\uninfe\bin\x86\Release46_x86\</OutputPath>
-    <DefineConstants>TRACE;_fw46;x86</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>
-    </NoWarn>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>uninfe.ico</ApplicationIcon>
   </PropertyGroup>
@@ -244,23 +232,6 @@
     <Content Include="unimake.ico" />
     <Content Include="uninfe.ico" />
   </ItemGroup>
-  <Choose>
-    <When Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
-      <ItemGroup>
-        <Reference Include="Unimake.SAT">
-          <HintPath>..\packages\Unimake.SAT.20220624.1005.36\lib\net\x86\Unimake.SAT.dll</HintPath>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Unimake.SAT">
-          <HintPath>..\packages\Unimake.SAT.20220624.1005.36\lib\net\Any CPU\Unimake.SAT.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Components.Info\NFe.Components.Info.csproj">
       <Project>{b7222c8a-6160-4d6f-bdc8-20134308175a}</Project>

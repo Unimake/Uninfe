@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
@@ -697,7 +696,6 @@ namespace NFe.Settings
                         case TipoAplicativo.Cte:
                         case TipoAplicativo.MDFe:
                         case TipoAplicativo.NFCe:
-                        case TipoAplicativo.SATeMFE:
                         case TipoAplicativo.Todos:
                         case TipoAplicativo.Nulo:
                         default:
@@ -1025,7 +1023,7 @@ namespace NFe.Settings
                 {
                     Empresas.CanRun(empresaValidada);
                 }
-                catch (NFe.Components.Exceptions.AppJaExecutando ex)
+                catch (Components.Exceptions.AppJaExecutando ex)
                 {
                     erro = ex.Message;
                 }
@@ -1410,8 +1408,8 @@ namespace NFe.Settings
                     {
                         var xml = new XDocument(new XDeclaration("1.0", "utf-8", null),
                                                 new XElement("retAltConfUniNFe",
-                                                    new XElement(NFe.Components.TpcnResources.cStat.ToString(), cStat),
-                                                    new XElement(NFe.Components.TpcnResources.xMotivo.ToString(), xMotivo),
+                                                    new XElement(TpcnResources.cStat.ToString(), cStat),
+                                                    new XElement(TpcnResources.xMotivo.ToString(), xMotivo),
                                                     new XElement("CertificadoDigitalThumbPrint", Empresas.Configuracoes[emp].CertificadoDigitalThumbPrint)));
                         xml.Save(cArqRetorno);
                     }
@@ -1636,9 +1634,9 @@ namespace NFe.Settings
 
                     #region CNPJ
 
-                    if (!string.IsNullOrEmpty(dadosEmpresa.GetAttribute(NFe.Components.TpcnResources.CNPJ.ToString())))
+                    if (!string.IsNullOrEmpty(dadosEmpresa.GetAttribute(TpcnResources.CNPJ.ToString())))
                     {
-                        cnpj = dadosEmpresa.GetAttribute(NFe.Components.TpcnResources.CNPJ.ToString());
+                        cnpj = dadosEmpresa.GetAttribute(TpcnResources.CNPJ.ToString());
                         temEmpresa = true;
                     }
                     else if (!string.IsNullOrEmpty(dadosEmpresa.GetAttribute("cnpj")))
@@ -1712,48 +1710,46 @@ namespace NFe.Settings
 
                 if (char.IsLetter(servico, 0))
                 {
-                    var lista = NFe.Components.EnumHelper.ToStrings(typeof(TipoAplicativo));
+                    var lista = EnumHelper.ToStrings(typeof(TipoAplicativo));
                     if (!lista.Contains(servico))
                     {
-                        throw new Exception(string.Format("Serviço deve ser ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11} ou {12})",
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Nfe),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Cte),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Nfse),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.MDFe),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.NFCe),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.SATeMFE),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.EFDReinf),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.eSocial),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.EFDReinfeSocial),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.GNREeDARE),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Todos),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.NF3e),
-                            NFe.Components.EnumHelper.GetDescription(TipoAplicativo.NFCom)));
+                        throw new Exception(string.Format("Serviço deve ser ({0}, {1}, {2}, {3}, {4}, {6}, {7}, {8}, {9}, {10}, {11} ou {12})",
+                                                          EnumHelper.GetDescription(TipoAplicativo.Nfe),
+                                                          EnumHelper.GetDescription(TipoAplicativo.Cte),
+                                                          EnumHelper.GetDescription(TipoAplicativo.Nfse),
+                                                          EnumHelper.GetDescription(TipoAplicativo.MDFe),
+                                                          EnumHelper.GetDescription(TipoAplicativo.NFCe),
+                                                          EnumHelper.GetDescription(TipoAplicativo.EFDReinf),
+                                                          EnumHelper.GetDescription(TipoAplicativo.eSocial),
+                                                          EnumHelper.GetDescription(TipoAplicativo.EFDReinfeSocial),
+                                                          EnumHelper.GetDescription(TipoAplicativo.GNREeDARE),
+                                                          EnumHelper.GetDescription(TipoAplicativo.Todos),
+                                                          EnumHelper.GetDescription(TipoAplicativo.NF3e),
+                                                          EnumHelper.GetDescription(TipoAplicativo.NFCom)));
                     }
 
                     ///
                     /// veio como 'NFe, NFCe, CTe, MDFe ou NFSe
                     /// converte para numero correspondente
-                    servico = ((int)NFe.Components.EnumHelper.StringToEnum<TipoAplicativo>(servico)).ToString();
+                    servico = ((int)EnumHelper.StringToEnum<TipoAplicativo>(servico)).ToString();
                 }
                 else
                 {
-                    if (!("0,1,2,3,4,5,6,7,8,9,10,11,12").Contains(servico))
+                    if (!("0,1,2,3,4,6,7,8,9,10,11,12").Contains(servico))
                     {
-                        throw new Exception(string.Format("Serviço deve ser ({0} p/{1}, {2} p/{3}, {4} p/{5}, {6} p/{7}, {8} p/{9}, {10} p/{11}, {12} p/{13}, {14} p/{15}, {16} p/{17}, {18} p/{19}, {20} p/{21}, {22} p/{23}, {24} p/{25})",
-                            (int)TipoAplicativo.Nfe, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Nfe),
-                            (int)TipoAplicativo.Cte, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Cte),
-                            (int)TipoAplicativo.Nfse, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Nfse),
-                            (int)TipoAplicativo.MDFe, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.MDFe),
-                            (int)TipoAplicativo.NFCe, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.NFCe),
-                            (int)TipoAplicativo.SATeMFE, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.SATeMFE),
-                            (int)TipoAplicativo.EFDReinf, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.EFDReinf),
-                            (int)TipoAplicativo.eSocial, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.eSocial),
-                            (int)TipoAplicativo.EFDReinfeSocial, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.EFDReinfeSocial),
-                            (int)TipoAplicativo.GNREeDARE, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.GNREeDARE),
-                            (int)TipoAplicativo.Todos, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.Todos),
-                            (int)TipoAplicativo.NF3e, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.NF3e),
-                            (int)TipoAplicativo.NFCom, NFe.Components.EnumHelper.GetDescription(TipoAplicativo.NFCom)));
+                        throw new Exception(string.Format("Serviço deve ser ({0} p/{1}, {2} p/{3}, {4} p/{5}, {6} p/{7}, {8} p/{9}, {10} p/{11}, {12} p/{13}, {14} p/{15}, {16} p/{17}, {18} p/{19}, {20} p/{21}, {22} p/{23})",
+                            (int)TipoAplicativo.Nfe, EnumHelper.GetDescription(TipoAplicativo.Nfe),
+                            (int)TipoAplicativo.Cte, EnumHelper.GetDescription(TipoAplicativo.Cte),
+                            (int)TipoAplicativo.Nfse, EnumHelper.GetDescription(TipoAplicativo.Nfse),
+                            (int)TipoAplicativo.MDFe, EnumHelper.GetDescription(TipoAplicativo.MDFe),
+                            (int)TipoAplicativo.NFCe, EnumHelper.GetDescription(TipoAplicativo.NFCe),
+                            (int)TipoAplicativo.EFDReinf, EnumHelper.GetDescription(TipoAplicativo.EFDReinf),
+                            (int)TipoAplicativo.eSocial, EnumHelper.GetDescription(TipoAplicativo.eSocial),
+                            (int)TipoAplicativo.EFDReinfeSocial, EnumHelper.GetDescription(TipoAplicativo.EFDReinfeSocial),
+                            (int)TipoAplicativo.GNREeDARE, EnumHelper.GetDescription(TipoAplicativo.GNREeDARE),
+                            (int)TipoAplicativo.Todos, EnumHelper.GetDescription(TipoAplicativo.Todos),
+                            (int)TipoAplicativo.NF3e, EnumHelper.GetDescription(TipoAplicativo.NF3e),
+                            (int)TipoAplicativo.NFCom, EnumHelper.GetDescription(TipoAplicativo.NFCom)));
                     }
                 }
                 if (Empresas.FindConfEmpresa(cnpj.Trim(), (TipoAplicativo)Convert.ToInt16(servico)) == null)
@@ -1964,8 +1960,8 @@ namespace NFe.Settings
 
                         var xml = new XDocument(new XDeclaration("1.0", "utf-8", null),
                                                 new XElement("retCadConfUniNFe",
-                                                    new XElement(NFe.Components.TpcnResources.cStat.ToString(), cStat),
-                                                    new XElement(NFe.Components.TpcnResources.xMotivo.ToString(), xMotivo)));
+                                                    new XElement(TpcnResources.cStat.ToString(), cStat),
+                                                    new XElement(TpcnResources.xMotivo.ToString(), xMotivo)));
                         xml.Save(cArqRetorno);
                     }
                     else

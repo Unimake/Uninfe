@@ -3,7 +3,6 @@ using NFe.Components.Exceptions;
 using NFe.Components.Info;
 using NFe.ConvertTxt;
 using NFe.Exceptions;
-using NFe.SAT;
 using NFe.Service.CCG;
 using NFe.Service.DARE;
 using NFe.Service.EFDReinf;
@@ -165,123 +164,6 @@ namespace NFe.Service
                             break;
 
                         #endregion NFS-e
-
-                        #region SAT/CF-e
-
-                        case Servicos.SATConsultar:
-                            var consulta = new SATProxy(Servicos.SATConsultar, Empresas.Configuracoes[emp], arquivo);
-                            consulta.Enviar();
-                            consulta.SaveResponse();
-                            break;
-
-                        case Servicos.SATExtrairLogs:
-                            var extrairLog = new SATProxy(Servicos.SATExtrairLogs, Empresas.Configuracoes[emp], arquivo);
-                            extrairLog.Enviar();
-                            extrairLog.SaveResponse();
-                            break;
-
-                        case Servicos.SATConsultarStatusOperacional:
-                            var consultaOp = new SATProxy(Servicos.SATConsultarStatusOperacional, Empresas.Configuracoes[emp], arquivo);
-                            consultaOp.Enviar();
-                            consultaOp.SaveResponse();
-                            break;
-
-                        case Servicos.SATTesteFimAFim:
-                            var testeFim = new SATProxy(Servicos.SATTesteFimAFim, Empresas.Configuracoes[emp], arquivo);
-                            testeFim.Enviar();
-                            testeFim.SaveResponse();
-                            break;
-
-                        case Servicos.SATTrocarCodigoDeAtivacao:
-                            var trocaCodigo = new SATProxy(Servicos.SATTrocarCodigoDeAtivacao, Empresas.Configuracoes[emp], arquivo);
-                            trocaCodigo.Enviar();
-                            trocaCodigo.SaveResponse();
-                            break;
-
-                        case Servicos.SATEnviarDadosVenda:
-                            var enviaVenda = new SATProxy(Servicos.SATEnviarDadosVenda, Empresas.Configuracoes[emp], arquivo);
-                            enviaVenda.Enviar();
-                            var xmlVenda = enviaVenda.GerarXmlSATAutorizado();
-
-                            if (!string.IsNullOrEmpty(xmlVenda))
-                            {
-                                var strArquivoDist = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                    PastaEnviados.Autorizados.ToString() + "\\" +
-                                    Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(DateTime.Now) +
-                                    Path.GetFileName(xmlVenda);
-
-                                TFunctions.MoverArquivo(xmlVenda, PastaEnviados.Autorizados);
-                                new GerarXML(emp).XmlParaFTP(emp, strArquivoDist); //Mover para FTP
-
-                                if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].PastaExeUniDanfe))
-                                {
-                                    TFunctions.ExecutaUniDanfe(strArquivoDist, DateTime.Now, Empresas.Configuracoes[emp]);
-                                }
-                            }
-
-                            enviaVenda.SaveRetorno();
-                            break;
-
-                        case Servicos.SATConverterNFCe:
-                            var converte = new SATProxy(Servicos.SATConverterNFCe, Empresas.Configuracoes[emp], arquivo);
-                            converte.Enviar();
-                            converte.SaveResponse();
-                            break;
-
-                        case Servicos.SATCancelarUltimaVenda:
-                            var cancela = new SATProxy(Servicos.SATCancelarUltimaVenda, Empresas.Configuracoes[emp], arquivo);
-                            cancela.Enviar();
-                            var xmlCancelamento = cancela.SaveResponse();
-
-                            if (!string.IsNullOrEmpty(xmlCancelamento))
-                            {
-                                var strArquivoDist = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                    PastaEnviados.Autorizados.ToString() + "\\" +
-                                    Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(DateTime.Now) +
-                                    Path.GetFileName(xmlCancelamento);
-
-                                TFunctions.MoverArquivo(xmlCancelamento, PastaEnviados.Autorizados);
-                                TFunctions.ExecutaUniDanfe(strArquivoDist, DateTime.Today, Empresas.Configuracoes[emp]);
-                            }
-                            break;
-
-                        case Servicos.SATConfigurarInterfaceDeRede:
-                            var configuraRede = new SATProxy(Servicos.SATConfigurarInterfaceDeRede, Empresas.Configuracoes[emp], arquivo);
-                            configuraRede.Enviar();
-                            configuraRede.SaveResponse();
-                            break;
-
-                        case Servicos.SATAssociarAssinatura:
-                            var associar = new SATProxy(Servicos.SATAssociarAssinatura, Empresas.Configuracoes[emp], arquivo);
-                            associar.Enviar();
-                            associar.SaveResponse();
-                            break;
-
-                        case Servicos.SATAtivar:
-                            var ativa = new SATProxy(Servicos.SATAtivar, Empresas.Configuracoes[emp], arquivo);
-                            ativa.Enviar();
-                            ativa.SaveResponse();
-                            break;
-
-                        case Servicos.SATBloquear:
-                            var bloquear = new SATProxy(Servicos.SATBloquear, Empresas.Configuracoes[emp], arquivo);
-                            bloquear.Enviar();
-                            bloquear.SaveResponse();
-                            break;
-
-                        case Servicos.SATDesbloquear:
-                            var desbloquear = new SATProxy(Servicos.SATDesbloquear, Empresas.Configuracoes[emp], arquivo);
-                            desbloquear.Enviar();
-                            desbloquear.SaveResponse();
-                            break;
-
-                        case Servicos.SATConsultarNumeroSessao:
-                            var consultaSessao = new SATProxy(Servicos.SATConsultarNumeroSessao, Empresas.Configuracoes[emp], arquivo);
-                            consultaSessao.Enviar();
-                            consultaSessao.SaveResponse();
-                            break;
-
-                        #endregion SAT/CF-e
 
                         #region NFe
 
@@ -631,9 +513,6 @@ namespace NFe.Service
                 {
                     switch (servico)
                     {
-                        case Servicos.SATConsultar:
-                        case Servicos.SATEnviarDadosVenda:
-                        case Servicos.SATConverterNFCe:
                         case Servicos.NFeConsultaStatusServico:
                         case Servicos.UniNFeUpdate:
                         case Servicos.Nulo:
@@ -973,11 +852,6 @@ namespace NFe.Service
                                 break;
 
                             case "NFe":
-                                if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ConverterSAT).EnvioXML) >= 0)
-                                {
-                                    goto default;
-                                }
-
                                 if (pastaArq == pastaLote)
                                 {
                                     tipoServico = Servicos.NFeAssinarValidarEnvioEmLote;
@@ -1380,67 +1254,6 @@ namespace NFe.Service
 
                                 #endregion CFS-e
 
-                                #region SAT/CFe
-
-                                if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ConsultarSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATConsultar;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ExtrairLogsSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATExtrairLogs;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.TesteFimAFimSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATTesteFimAFim;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ConsultarStatusOperacionalSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATConsultarStatusOperacional;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.TrocarCodigoDeAtivacaoSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATTrocarCodigoDeAtivacao;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.EnviarDadosVendaSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATEnviarDadosVenda;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ConverterSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATConverterNFCe;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.CancelarUltimaVendaSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATCancelarUltimaVenda;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ConfigurarInterfaceDeRedeSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATConfigurarInterfaceDeRede;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AssociarAssinaturaSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATAssociarAssinatura;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.BloquearSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATBloquear;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AtivarSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATAtivar;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.DesbloquearSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATDesbloquear;
-                                }
-                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.ConsultarNumeroSessaoSAT).EnvioXML) >= 0)
-                                {
-                                    tipoServico = Servicos.SATConsultarNumeroSessao;
-                                }
-
-                                #endregion SAT/CFe
-
                                 break;
                         }
                     }
@@ -1721,7 +1534,6 @@ namespace NFe.Service
                 for (var i = 0; i < Empresas.Configuracoes.Count; i++)
                 {
                     if (Empresas.Configuracoes[i].Servico == TipoAplicativo.Nfse ||
-                        Empresas.Configuracoes[i].Servico == TipoAplicativo.SATeMFE ||
                         Empresas.Configuracoes[i].Servico == TipoAplicativo.eSocial ||
                         Empresas.Configuracoes[i].Servico == TipoAplicativo.EFDReinf ||
                         Empresas.Configuracoes[i].Servico == TipoAplicativo.EFDReinfeSocial ||

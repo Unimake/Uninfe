@@ -456,71 +456,6 @@ namespace NFe.Settings
             !string.IsNullOrEmpty(FTPSenha);
         #endregion
 
-        #region Propriedades de configuração do equipamento SAT
-        /// <summary>
-        /// Maraca do equipamento SAT
-        /// </summary>
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string MarcaSAT { get; set; }
-
-        /// <summary>
-        /// Código de ativação do equipamento SAT
-        /// </summary>
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string CodigoAtivacaoSAT { get; set; }
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public bool UtilizaConversaoCFe { get; set; }
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string CNPJSoftwareHouse { get; set; }
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string SignACSAT { get; set; }
-
-        private string numeroCaixa;
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string NumeroCaixa
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(numeroCaixa))
-                {
-                    numeroCaixa = "001";
-                }
-
-                return numeroCaixa;
-            }
-            set => numeroCaixa = value;
-        }
-
-        private RegTribISSQN regTribISSQNSAT;
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public RegTribISSQN RegTribISSQNSAT
-        {
-            get
-            {
-                if (regTribISSQNSAT == 0)
-                {
-                    regTribISSQNSAT = RegTribISSQN.MicroEmpresaMunicipal;
-                }
-
-                return regTribISSQNSAT;
-            }
-            set => regTribISSQNSAT = value;
-        }
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public IndRatISSQN IndRatISSQNSAT { get; set; }
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string VersaoLayoutSAT { get; set; }
-
-        [AttributeTipoAplicacao(TipoAplicativo.SATeMFE)]
-        public string TipoConversao { get; set; }
-
         /// <summary>
         /// Código da aplicação que está cadastrada para acessar os serviços REST do município de Florianópolis-SC
         /// </summary>
@@ -578,8 +513,6 @@ namespace NFe.Settings
         /// Número do CSRT do responsável técnico
         /// </summary>
         public string RespTecCSRT { get; set; }
-
-        #endregion
 
         #region Propriedades EBank / uMessenger
 

@@ -35,7 +35,6 @@ namespace NFe.UI
             _tpEmpresa_pastas,
             _tpEmpresa_cert,
             _tpEmpresa_ftp,
-            _tpEmpresa_sat,
             _tpEmpresa_resptecnico,
             _tpEmpresa_outrasconfiguracoes,
             _tpEmpresa_EbankPix;
@@ -49,7 +48,6 @@ namespace NFe.UI
         private Formularios.userConfiguracao_ftp uce_ftp;
         private Formularios.userConfiguracao_geral uc_geral = null;
         public Formularios.UserConfiguracaoPastas uce_pastas;
-        private Formularios.userConfiguracao_sat uce_sat;
         private Formularios.userConfiguracao_Integracoes uc_EbankPixUMessenger;
         private Formularios.userConfiguracao_resptecnico uce_resptecnico;
         private Formularios.userConfiguracao_outrasconfiguracoes uce_outrasconfiguracoes;
@@ -105,13 +103,6 @@ namespace NFe.UI
                     uce_danfe = new Formularios.userConfiguracao_danfe();
                     uce_danfe.changeEvent += changed_Modificado;
                     tpage.Controls.Add(uce_danfe);
-                    break;
-
-                case 5:
-                    tpage.Text = "SAT";
-                    uce_sat = new Formularios.userConfiguracao_sat();
-                    uce_sat.changeEvent += changed_Modificado;
-                    tpage.Controls.Add(uce_sat);
                     break;
 
                 case 6:
@@ -176,7 +167,6 @@ namespace NFe.UI
                     if (_e.TabPage == _tpEmpresa_cert) uce_cert.FocusFirstControl();
                     if (_e.TabPage == _tpEmpresa_ftp) uce_ftp.FocusFirstControl();
                     if (_e.TabPage == _tpEmpresa_danfe) uce_danfe.FocusFirstControl();
-                    if (_e.TabPage == _tpEmpresa_sat) uce_sat.FocusFirstControl();
                     if (_e.TabPage == _tpEmpresa_resptecnico) uce_resptecnico.FocusFirstControl();
                     if (_e.TabPage == _tpEmpresa_outrasconfiguracoes) uce_outrasconfiguracoes.FocusFirstControl();
                     if (_e.TabPage == _tpEmpresa_EbankPix) uc_EbankPixUMessenger.FocusFirstControl();
@@ -206,7 +196,6 @@ namespace NFe.UI
                 tc_empresa.TabPages.Add(_tpEmpresa_cert = createtpage(2));
                 tc_empresa.TabPages.Add(_tpEmpresa_ftp = createtpage(3));
                 tc_empresa.TabPages.Add(_tpEmpresa_danfe = createtpage(4));
-                tc_empresa.TabPages.Add(_tpEmpresa_sat = createtpage(5));
                 tc_empresa.TabPages.Add(_tpEmpresa_resptecnico = createtpage(6));
                 tc_empresa.TabPages.Add(_tpEmpresa_EbankPix = createtpage(7));
                 tc_empresa.TabPages.Add(_tpEmpresa_outrasconfiguracoes = createtpage(8));
@@ -342,15 +331,6 @@ namespace NFe.UI
             oempresa.GravarEventosNaPastaEnviadosNFe = empresa.GravarEventosNaPastaEnviadosNFe;
             oempresa.GravarEventosCancelamentoNaPastaEnviadosNFe = empresa.GravarEventosCancelamentoNaPastaEnviadosNFe;
             oempresa.GravarEventosDeTerceiros = empresa.GravarEventosDeTerceiros;
-
-            oempresa.CodigoAtivacaoSAT = empresa.CodigoAtivacaoSAT;
-            oempresa.MarcaSAT = empresa.MarcaSAT;
-            oempresa.UtilizaConversaoCFe = empresa.UtilizaConversaoCFe;
-            oempresa.CNPJSoftwareHouse = empresa.CNPJSoftwareHouse;
-            oempresa.SignACSAT = empresa.SignACSAT;
-            oempresa.NumeroCaixa = empresa.NumeroCaixa;
-            oempresa.IndRatISSQNSAT = empresa.IndRatISSQNSAT;
-            oempresa.RegTribISSQNSAT = empresa.RegTribISSQNSAT;
 
             oempresa.CriaPastasAutomaticamente = true;
         }
@@ -544,12 +524,6 @@ namespace NFe.UI
 
                 switch (currentEmpresa.Servico)
                 {
-                    case TipoAplicativo.SATeMFE:
-                        uce_ftp.Validar();
-                        uce_danfe.Validar();
-                        uce_sat.Validar();
-                        uc_EbankPixUMessenger.Validar();
-                        break;
                     case TipoAplicativo.Nfse:
                         uce_ftp.Validar();
                         uce_cert.Validar();
@@ -713,7 +687,7 @@ namespace NFe.UI
                         /// salva a configuracao da empresa
                         ///
 
-                        currentEmpresa.SalvarConfiguracao((currentEmpresa.Servico == TipoAplicativo.SATeMFE ? false : true), true);
+                        currentEmpresa.SalvarConfiguracao(true, true);
 
                         pastaBackupValida = ValidarPastaBackup();
 
@@ -928,21 +902,8 @@ namespace NFe.UI
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = tc_empresa;
                     _tpEmpresa_danfe.Parent = null;
-                    _tpEmpresa_sat.Parent = null;
                     _tpEmpresa_resptecnico.Parent = null;
                     _tpEmpresa_outrasconfiguracoes.Parent = tc_empresa;
-                    break;
-                case TipoAplicativo.SATeMFE:
-                    uce_divs.Populate(empresa, novaempresa);
-                    uce_pastas.Populate(empresa);
-                    uce_ftp.Populate(empresa);
-                    uce_danfe.Populate(empresa);
-                    uce_sat.Populate(empresa);
-                    uc_EbankPixUMessenger.Populate(empresa);
-                    _tpEmpresa_sat.Parent = tc_empresa;
-                    _tpEmpresa_cert.Parent = null;
-                    _tpEmpresa_resptecnico.Parent = null;
-                    _tpEmpresa_outrasconfiguracoes.Parent = null;
                     break;
                 case TipoAplicativo.EFDReinf:
                 case TipoAplicativo.eSocial:
@@ -954,7 +915,6 @@ namespace NFe.UI
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = null;
                     _tpEmpresa_danfe.Parent = null;
-                    _tpEmpresa_sat.Parent = null;
                     _tpEmpresa_resptecnico.Parent = null;
                     _tpEmpresa_outrasconfiguracoes.Parent = null;
                     break;
@@ -979,7 +939,6 @@ namespace NFe.UI
                     _tpEmpresa_resptecnico.Parent = tc_empresa;
                     _tpEmpresa_outrasconfiguracoes.Parent = null;
                     _tpEmpresa_outrasconfiguracoes.Parent = tc_empresa;
-                    _tpEmpresa_sat.Parent = null;
                     break;
                 default:
                     uce_divs.Populate(empresa, novaempresa);
@@ -991,7 +950,6 @@ namespace NFe.UI
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = tc_empresa;
                     _tpEmpresa_danfe.Parent = tc_empresa;
-                    _tpEmpresa_sat.Parent = null;
                     _tpEmpresa_resptecnico.Parent = null;
                     _tpEmpresa_outrasconfiguracoes.Parent = null;
                     break;

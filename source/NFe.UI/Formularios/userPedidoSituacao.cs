@@ -173,7 +173,7 @@ namespace NFe.UI
 
         private void ChangeVersao(TipoAplicativo servico)
         {
-            cbVersao.Enabled = servico != TipoAplicativo.SATeMFE;
+            cbVersao.Enabled = true;
 
             cbVersao.Items.Clear();
 

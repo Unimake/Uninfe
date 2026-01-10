@@ -238,8 +238,7 @@ namespace NFe.Threadings
                     if (emp >= 0)
                     {
                         if (fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioXML) >= 0 ||
-                            fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioTXT) >= 0 ||
-                            Empresas.Configuracoes[emp].Servico == TipoAplicativo.SATeMFE)
+                            fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioTXT) >= 0)
                         {
                             Empresas.Configuracoes[emp].CriarFilaProcesamento = true;
                         }
