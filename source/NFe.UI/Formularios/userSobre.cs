@@ -23,6 +23,9 @@ namespace NFe.UI
 
             lblDescricaoAplicacao.Text = Propriedade.DescricaoAplicacao;
             lblNomeAplicacao.Text = Propriedade.NomeAplicacao;
+#if _BETA
+            lblNomeAplicacao.Text += " - Versão BETA";
+#endif
             labelTitle.Text = "Sobre o " + Propriedade.NomeAplicacao;
 
             //Atualizar o texto da licença de uso

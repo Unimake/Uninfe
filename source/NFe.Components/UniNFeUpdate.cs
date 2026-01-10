@@ -32,7 +32,11 @@ namespace NFe.Components
 
         public UniNFeUpdate(IWebProxy proxy)
         {
+#if _BETA
+            nomeInstalador = "iuninfe5_beta.exe";
+#else
             nomeInstalador = "iuninfe5.exe";
+#endif
 
             pastaInstalar = Application.StartupPath;
             localArq = Path.Combine(Application.StartupPath, nomeInstalador);
