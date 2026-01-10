@@ -56,6 +56,15 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
@@ -141,9 +150,6 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Business.DFe, Version=2026.1.9.1835, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260109.1835.39\lib\net472\Unimake.Business.DFe.dll</HintPath>
-    </Reference>
     <Reference Include="Unimake.Cryptography, Version=2025.11.19.239, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20251119.239.8\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
@@ -176,6 +182,21 @@
       <Name>NFe.Settings</Name>
     </ProjectReference>
   </ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<Reference Include="Unimake.Business.DFe, Version=2026.1.9.1835, Culture=neutral, processorArchitecture=MSIL">
+			<HintPath>..\packages\Unimake.DFe.20260109.1835.39\lib\net472\Unimake.Business.DFe.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Beta'">
+		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+			<Name>Unimake.Business.DFe</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+			<Name>Unimake.Business.DFe</Name>
+		</ProjectReference>
+	</ItemGroup>    
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
