@@ -401,7 +401,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    if (codMunicipio == 3507001 && xmlDoc.GetElementsByTagName("infDPS").Count > 0)
                     {
                         versaoXML = "1.01";
                     }
