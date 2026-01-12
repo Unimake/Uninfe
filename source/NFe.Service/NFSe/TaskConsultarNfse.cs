@@ -721,6 +721,11 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
                     if (codMunicipio == 3306305 || codMunicipio == 4202404)
                     {
                         versaoXML = "2.03";
