@@ -447,29 +447,6 @@ namespace NFe.Components
 
         #endregion MDFe
 
-        #region SAT/CFe
-
-        /// <summary>
-        /// Consultar SAT
-        /// </summary>
-        SATConsultar,
-
-        SATExtrairLogs,
-        SATConsultarStatusOperacional,
-        SATTesteFimAFim,
-        SATTrocarCodigoDeAtivacao,
-        SATEnviarDadosVenda,
-        SATConverterNFCe,
-        SATCancelarUltimaVenda,
-        SATConfigurarInterfaceDeRede,
-        SATAssociarAssinatura,
-        SATAtivar,
-        SATBloquear,
-        SATDesbloquear,
-        SATConsultarNumeroSessao,
-
-        #endregion SAT/CFe
-
         #region Serviços em comum NFe, CTe, MDFe e NFSe
 
         /// <summary>
@@ -728,12 +705,6 @@ namespace NFe.Components
         NFCe = 4,
 
         /// <summary>
-        /// Aplicativo ou serviços para processamento dos XMLs do SAT e MFE
-        /// </summary>
-        [Description("SAT e MFE")]
-        SATeMFE = 5,
-
-        /// <summary>
         /// Aplicativo ou serviços para processamento dos XMLs do EFD Reinf
         /// </summary>
         [Description("EFD Reinf")]
@@ -758,7 +729,7 @@ namespace NFe.Components
         GNREeDARE = 9,
 
         /// <summary>
-        /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto SAT, MFe e NFSe)
+        /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto NFSe)
         /// </summary>
         [Description("NF-e, NFC-e, NF3-e, NFCom, CT-e, MDF-e, GNRE, DARE e EFD Reinf e eSocial")]
         Todos = 10,

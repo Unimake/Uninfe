@@ -220,18 +220,6 @@ namespace NFe.Service.NFSe
                             break;
                     }
                     break;
-                case PadraoNFSe.BETHA_CLOUD:
-                    if (versaoXML == "1.00")
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps;
-                        break;
-                    }
-                    if (versaoXML == "2.02"){
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRpsServicoPrestado;
-                        break;
-                    }
-                    break;
-
             }
 
             return result;
@@ -252,7 +240,6 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "2.02";
 
                     if (xmlDoc.DocumentElement.Name.Contains("e:"))
@@ -364,6 +351,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
+                    else if (codMunicipio == 3506003)
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.DSF:
@@ -403,7 +394,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if(codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                     }
@@ -471,6 +462,11 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
+
+                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
+                    {
+                        versaoXML = "4.00";
+                    }
                     break;
 
                 case PadraoNFSe.PUBLICA:

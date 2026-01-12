@@ -193,7 +193,6 @@ namespace NFe.Service.NFSe
                     versaoXML = (xmlDoc.GetElementsByTagName(xmlDoc.DocumentElement.Name)[0]).Attributes.GetNamedItem("versao").Value;
                     break;
 
-                case PadraoNFSe.GIF:
                 case PadraoNFSe.PROPRIOBARUERISP:
                     versaoXML = "1.00";
                     break;
@@ -215,6 +214,7 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.01";
                     break;
 
+                case PadraoNFSe.GIF:
                 case PadraoNFSe.PRIMAX:
                     if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
                     {

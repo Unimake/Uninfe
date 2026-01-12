@@ -269,11 +269,6 @@ namespace NFe.UI.Formularios
                     throw new Exception("Não pode mudar para esse tipo de serviço (NFSe)");
                 }
 
-                if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.SATeMFE)
-                {
-                    throw new Exception("Não pode mudar para esse tipo de serviço (SAT)");
-                }
-
                 var e = Empresas.FindConfEmpresa(cnpj, (TipoAplicativo)cbServico.SelectedValue);
                 if (e != null)
                 {
@@ -606,37 +601,6 @@ namespace NFe.UI.Formularios
                     checkBoxValidarDigestValue.Visible = false;
                     lbl_udDiasLimpeza.Location = new System.Drawing.Point(3, 247);
                     udDiasLimpeza.Location = new System.Drawing.Point(3, 266);
-                    checkBoxRpsSincAssincTHEMA.Visible = false;
-                    checkBoxGravarWarnings.Visible = false;
-                    break;
-
-                case TipoAplicativo.SATeMFE:
-                    labelUF.Visible = true;
-                    labelUF.Text = "Unidade Federativa (UF)";
-                    comboBox_UF.Visible = true;
-                    cboDiretorioSalvarComo.Visible = false;
-                    lbl_DiretorioSalvarComo.Visible = false;
-                    comboBox_tpEmis.Visible = false;
-                    metroLabel11.Visible = false;
-                    checkBoxGravarEventosNaPastaEnviadosNFe.Visible = false;
-                    checkBoxRetornoNFETxt.Visible = false;
-                    checkBoxGravarEventosDeTerceiros.Visible = false;
-                    checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Visible = false;
-                    udTempoConsulta.Visible = lbl_udTempoConsulta.Visible = false;
-                    metroLabel10.Visible = false;
-                    comboBox_Ambiente.Visible = false;
-                    lbl_CodMun.Visible = false;
-                    edtCodMun.Visible = false;
-                    edtPadrao.Visible = false;
-                    lbl_Padrao.Visible = false;
-                    lblClienteID.Visible = false;
-                    lblClientSecret.Visible = false;
-                    txtClienteID.Visible = false;
-                    txtClientSecret.Visible = false;
-                    checkBoxArqNSU.Visible = false;
-                    checkBoxValidarDigestValue.Visible = false;
-                    lbl_udDiasLimpeza.Location = new System.Drawing.Point(3, 147);
-                    udDiasLimpeza.Location = new System.Drawing.Point(3, 166);
                     checkBoxRpsSincAssincTHEMA.Visible = false;
                     checkBoxGravarWarnings.Visible = false;
                     break;

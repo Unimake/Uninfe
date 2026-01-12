@@ -41,10 +41,9 @@ Name: brazilianportuguese; MessagesFile: compiler:Languages\BrazilianPortuguese.
 [Files]
 Source: ..\source\uninfe\bin\Release\BouncyCastle.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\EBank.Solutions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.Design.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\MetroFramework.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.Fonts.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\MetroFramework.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Microsoft.Bcl.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Microsoft.Bcl.Memory.dll; DestDir: {app}; Flags: ignoreversion
@@ -60,23 +59,22 @@ Source: ..\source\uninfe\bin\Release\Microsoft.IdentityModel.Abstractions.dll; D
 Source: ..\source\uninfe\bin\Release\Microsoft.IdentityModel.JsonWebTokens.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Microsoft.IdentityModel.Logging.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Microsoft.IdentityModel.Tokens.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\Newtonsoft.Json.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\NFe.Components.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.Components.Info.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.Components.Wsdl.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\NFe.Components.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.ConvertTxt.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\NFe.SAT.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.Service.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.Settings.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.Threadings.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.UI.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\NFe.Validate.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\Newtonsoft.Json.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Buffers.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.ComponentModel.Annotations.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Diagnostics.DiagnosticSource.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Formats.Asn1.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\System.IdentityModel.Tokens.Jwt.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.IO.Pipelines.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\System.IdentityModel.Tokens.Jwt.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Memory.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Numerics.Vectors.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
@@ -90,12 +88,12 @@ Source: ..\source\uninfe\bin\Release\Unimake.Business.DFe.dll; DestDir: {app}; F
 Source: ..\source\uninfe\bin\Release\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.EBank.Solutions.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\Unimake.MessageBroker.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.MessageBroker.Primitives.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\Unimake.MessageBroker.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Primitives.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\Unimake.SAT.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Security.Platform.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Utils.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\source\uninfe\bin\Release\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion

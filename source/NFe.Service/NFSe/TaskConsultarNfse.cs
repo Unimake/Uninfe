@@ -390,27 +390,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
-                    if (versaoXML == "2.02")
-                    {
-                        switch(doc.DocumentElement.Name)
-                        {
-                            case "ConsultarNfseServicoPrestadoEnvio":
-                                result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado;
-                                break;
-
-                            case "ConsultarNfseFaixaEnvio":
-                                result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
-                                break;
-                        }
-                    }
-                    if(versaoXML == "1.00" || versaoXML == "1.01")
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
-                        break;
-                    }
-                        break;
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.AGILI:
@@ -477,18 +456,16 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "2.02";
-                    if (xmlDoc.DocumentElement.Name.Contains("e:ConsultarDpsEnvio"))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
+                    
                     if (xmlDoc.DocumentElement.Name.Contains("e:"))
                     {
                         versaoXML = "1.00";
                     }
-                    
+                    break;
+
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.NACIONAL:
@@ -666,10 +643,18 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.GINFES:
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
 
+                    break;
+
+                case PadraoNFSe.GINFES:
+                    versaoXML = "3.00";
+
+                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
+                    {
+                        versaoXML = "4.00";
+                    }
                     break;
 
                 case PadraoNFSe.SIGISSWEB:

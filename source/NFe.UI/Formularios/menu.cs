@@ -24,6 +24,9 @@ namespace NFe.UI
             metroLink_unimake.Visible = !string.IsNullOrEmpty(ConfiguracaoApp.Site);
             metroLink_unimake.Text = ConfiguracaoApp.Site;
             uninfeDummy.mainForm.Text = Propriedade.NomeAplicacao + " - Monitor DF-e";
+#if _BETA
+            uninfeDummy.mainForm.Text += " - Versão BETA";
+#endif
             metroTile_update.Text = "Atualizar o " + Propriedade.NomeAplicacao;
 
             var Components = Controls.Cast<object>()

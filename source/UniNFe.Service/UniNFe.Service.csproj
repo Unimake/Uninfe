@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\uninfe\bin\Release\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;_fw46</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -32,24 +32,22 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\uninfe\bin\Release\</OutputPath>
-    <DefineConstants>TRACE;_fw46</DefineConstants>
+    <DefineConstants>TRACE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
-    <OutputPath>..\uninfe\bin\x86\Release46_x86\</OutputPath>
-    <DefineConstants>TRACE;_fw46;x86</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>
-    </NoWarn>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>uninfe.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;_BETA;</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -201,9 +199,6 @@
     <Reference Include="Unimake.AuthServer, Version=2025.7.7.1650, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.AuthServer.20250707.1650.48\lib\netstandard2.0\Unimake.AuthServer.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Business.DFe, Version=2026.1.7.1628, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260107.1628.37\lib\net472\Unimake.Business.DFe.dll</HintPath>
-    </Reference>
     <Reference Include="Unimake.Cryptography, Version=2025.11.19.239, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20251119.239.8\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
@@ -230,6 +225,21 @@
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<Reference Include="Unimake.Business.DFe, Version=2026.1.9.1835, Culture=neutral, processorArchitecture=MSIL">
+			<HintPath>..\packages\Unimake.DFe.20260109.1835.39\lib\net472\Unimake.Business.DFe.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Beta'">
+		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+			<Name>Unimake.Business.DFe</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+			<Name>Unimake.Business.DFe</Name>
+		</ProjectReference>
+	</ItemGroup>    
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,23 +254,6 @@
     <Content Include="unimake.ico" />
     <Content Include="uninfe.ico" />
   </ItemGroup>
-  <Choose>
-    <When Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
-      <ItemGroup>
-        <Reference Include="Unimake.SAT">
-          <HintPath>..\packages\Unimake.SAT.20220624.1005.36\lib\net\x86\Unimake.SAT.dll</HintPath>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Unimake.SAT">
-          <HintPath>..\packages\Unimake.SAT.20220624.1005.36\lib\net\Any CPU\Unimake.SAT.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Components.Info\NFe.Components.Info.csproj">
       <Project>{b7222c8a-6160-4d6f-bdc8-20134308175a}</Project>

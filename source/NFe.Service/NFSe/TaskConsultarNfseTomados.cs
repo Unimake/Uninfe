@@ -156,7 +156,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.EMBRAS:

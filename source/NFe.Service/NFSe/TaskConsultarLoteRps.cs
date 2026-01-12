@@ -207,7 +207,6 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.BETHA:
-                case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "2.02";
 
                     if (xmlDoc.DocumentElement.Name.Contains("e:"))
@@ -399,6 +398,11 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
+
+                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
+                    {
+                        versaoXML = "4.00";
+                    }
                     break;
 
                 case PadraoNFSe.PUBLICA:

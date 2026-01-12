@@ -363,7 +363,6 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.Cte:
                 case TipoAplicativo.MDFe:
                 case TipoAplicativo.NFCe:
-                case TipoAplicativo.SATeMFE:
                 case TipoAplicativo.Todos:
                 case TipoAplicativo.Nulo:
                 default:

@@ -11,9 +11,6 @@
    set "caminhoAssinar=\\192.168.0.48\assinar"
    set "caminhoAssinarArquivos=%caminhoAssinar%\arquivos"
    set "caminhoDLLRelease=..\source\uninfe\bin\release"
-   set "caminhoDLLReleaseX86=..\source\uninfe\bin\x86\Release46_x86"
-   
-   if /i "%2"=="betax86" goto copiarDLLReleaseX86Assinar
    
    goto copiarDLLReleaseAssinar
    
@@ -33,47 +30,23 @@
    del "%caminhoAssinarArquivos%\*.dll" /q
    del "%caminhoAssinarArquivos%\*.exe" /q
    
-   if /i "%2"=="beta" goto gerarInstaladores
-   
-   goto copiarDLLReleaseX86Assinar
-
-:copiarDLLReleaseX86Assinar   
-   cls 
-   copy "%caminhoDLLReleaseX86%\*.dll" "%caminhoAssinarArquivos%" /y
-   copy "%caminhoDLLReleaseX86%\*.exe" "%caminhoAssinarArquivos%" /y     
-   echo. > "%caminhoAssinar%\assinar.txt"
-   goto loopAssinadoReleaseX86
-   
-:copiarDLLReleaseX86
-   cls
-   copy "%caminhoAssinarArquivos%\*.dll" "%caminhoDLLReleaseX86%" /y
-   copy "%caminhoAssinarArquivos%\*.exe" "%caminhoDLLReleaseX86%" /y
-   del "%caminhoAssinarArquivos%\*.dll" /q
-   del "%caminhoAssinarArquivos%\*.exe" /q
-   goto gerarInstaladores  
+   goto gerarInstaladores
    
 :gerarInstaladores   
    cls
    "c:\Program Files (x86)\Inno Setup 6\ISCC.exe" UniNFe.iss
 	pause
 	
-   cls
-   "c:\Program Files (x86)\Inno Setup 6\ISCC.exe" UniNFe_fw46_x86.iss
-	Pause
-	
    copy "C:\projetos\instaladores\iuninfe5.exe" %caminhoAssinarArquivos%
-   copy "C:\projetos\instaladores\iuninfe5_fw46_x86.exe" %caminhoAssinarArquivos%
    echo. > "%caminhoAssinar%\assinar.txt"
    goto loopGerarInstaladores
    
 :copiarInstaladores
    copy "%caminhoAssinarArquivos%\iuninfe5.exe" "C:\projetos\instaladores" /y
-   copy "%caminhoAssinarArquivos%\iuninfe5_fw46_x86.exe" "C:\projetos\instaladores" /y
    del "%caminhoAssinarArquivos%\*.dll" /q
    del "%caminhoAssinarArquivos%\*.exe" /q
    
    if /i "%2"=="beta" goto beta   
-   if /i "%2"=="betax86" goto betax86
    goto release   
 
 :loopAssinadoRelease
@@ -83,14 +56,6 @@
    if not exist "%caminhoAssinar%\assinado.txt" goto loopAssinadoRelease
    del "%caminhoAssinar%\assinado.txt" /q
    goto copiarDLLRelease
-   
-:loopAssinadoReleaseX86
-   cls
-   echo Aguardando arquivos serem assinados...
-   timeout /t 5 >nul  
-   if not exist "%caminhoAssinar%\assinado.txt" goto loopAssinadoReleaseX86
-   del "%caminhoAssinar%\assinado.txt" /q
-   goto copiarDLLReleaseX86
    
 :loopGerarInstaladores
    cls
@@ -109,29 +74,14 @@
    call sendftp.bat "iuninfe5_beta.exe"
    
    goto fim
-   
-:betax86
-   del c:\projetos\instaladores\iuninfe5_beta.exe
-   del c:\projetos\instaladores\iuninfe5_fw46_x86_beta.exe
-   copy c:\projetos\instaladores\iuninfe5_fw46_x86.exe c:\projetos\instaladores\iuninfe5_fw46_x86_beta.exe
-   
-   goto fim   
 
 :release   
 	cls
    python "c:\program files (x86)\s3cmd\s3cmd" put c:\projetos\instaladores\iuninfe5.exe s3://unimakedownload/iuninfe5.exe --acl-public
 	pause 
-
-	cls
-   python "c:\program files (x86)\s3cmd\s3cmd" put c:\projetos\instaladores\iuninfe5_fw46_x86.exe s3://unimakedownload/iuninfe5_fw46_x86.exe --acl-public
-	pause
    
 	cls
    call sendftp.bat "iuninfe5.exe"
-	pause
-	
-	cls	
-   call sendftp.bat "iuninfe5_fw46_x86.exe"
 	pause
    
    goto fim

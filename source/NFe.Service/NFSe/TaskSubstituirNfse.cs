@@ -150,6 +150,10 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
+                    break;
+
                 case PadraoNFSe.DIGIFRED:
                     versaoXML = "2.00";
                     break;
@@ -173,7 +177,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.BETHA_CLOUD:
                 case PadraoNFSe.BETHA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
