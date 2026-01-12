@@ -601,7 +601,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.BAUHAUS:
-                case PadraoNFSe.TINUS:
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.THEMA:
@@ -644,6 +643,14 @@ namespace NFe.Service.NFSe
                         break;
                     }
 
+                case PadraoNFSe.TINUS:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
+                    {
+                        versaoXML = "2.03";
+                        break;
+                    }
+                    break;
 
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";

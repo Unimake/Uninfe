@@ -217,7 +217,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.BHISS:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
-                case PadraoNFSe.TINUS:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.MANAUS_AM:
@@ -255,6 +254,15 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 4115200)
                     {
                         versaoXML = "2.01";
+                    }
+                    break;
+
+                case PadraoNFSe.TINUS:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
+                    {
+                        versaoXML = "2.03";
+                        break;
                     }
                     break;
 
