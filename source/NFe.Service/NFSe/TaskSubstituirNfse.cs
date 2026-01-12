@@ -236,7 +236,12 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SMARAPD:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3205002 || codMunicipio == 3516200)
+                    if (codMunicipio == 3506003 || codMunicipio == 3201308 || codMunicipio == 3530607 || codMunicipio == 3205200)
+                    {
+                        versaoXML = "1.01";
+                    }
+
+                    else if (codMunicipio == 3205002 || codMunicipio == 3516200)
                     {
                         versaoXML = "2.04";
                     }
