@@ -176,6 +176,16 @@ namespace NFe.Service.NFSe
                     {
                         File.WriteAllText(pathFile, vStrXmlRetorno);
                     }
+
+                    //Disparar UniDANFE
+                    try
+                    {
+                        TFunctions.ExecutaUniDanfe(pathFile, dhEmi, Empresas.Configuracoes[emp]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Auxiliar.WriteLog("TaskRecepcionarLoteRps: (Falha na execução do UniDANFe) " + ex.Message, false);
+                    }
                 }
 
                 if (!autorizou)
@@ -839,7 +849,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if ((codMunicipio == 3507001 || codMunicipio == 3118601) && ConteudoXML.OuterXml.Contains("DPS"))
+                    if ((codMunicipio == 3507001 || codMunicipio == 3118601 || codMunicipio == 4322509) && ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                     }

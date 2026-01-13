@@ -526,6 +526,7 @@ namespace NFe.UI
                 {
                     case TipoAplicativo.Nfse:
                         uce_ftp.Validar();
+                        uce_danfe.Validar();
                         uce_cert.Validar();
                         uc_EbankPixUMessenger.Validar();
                         uce_outrasconfiguracoes.Validar();
@@ -897,11 +898,12 @@ namespace NFe.UI
                     uce_pastas.Populate(empresa);
                     uce_cert.Populate(empresa);
                     uce_ftp.Populate(empresa);
+                    uce_danfe.Populate(empresa);
                     uc_EbankPixUMessenger.Populate(empresa);
                     uce_outrasconfiguracoes.Populate(empresa);
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = tc_empresa;
-                    _tpEmpresa_danfe.Parent = null;
+                    _tpEmpresa_danfe.Parent = tc_empresa;
                     _tpEmpresa_resptecnico.Parent = null;
                     _tpEmpresa_outrasconfiguracoes.Parent = tc_empresa;
                     break;
