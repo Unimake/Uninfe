@@ -839,7 +839,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    if ((codMunicipio == 3507001 || codMunicipio == 3118601) && ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                     }

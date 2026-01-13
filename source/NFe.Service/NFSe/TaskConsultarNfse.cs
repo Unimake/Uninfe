@@ -591,11 +591,11 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001)
+                    if (codMunicipio == 3507001 || codMunicipio == 3118601)
                     {
                         versaoXML = "1.01";
                     }
-                    break; ;
+                    break;
 
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
