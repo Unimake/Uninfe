@@ -176,6 +176,16 @@ namespace NFe.Service.NFSe
                     {
                         File.WriteAllText(pathFile, vStrXmlRetorno);
                     }
+
+                    //Disparar UniDANFE
+                    try
+                    {
+                        TFunctions.ExecutaUniDanfe(pathFile, dhEmi, Empresas.Configuracoes[emp]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Auxiliar.WriteLog("TaskRecepcionarLoteRps: (Falha na execução do UniDANFe) " + ex.Message, false);
+                    }
                 }
 
                 if (!autorizou)

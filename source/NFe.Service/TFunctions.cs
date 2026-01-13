@@ -663,6 +663,11 @@ namespace NFe.Service
 
                 switch (doc.DocumentElement.Name)
                 {
+                    case "NFSe":
+                        arqProcNFe = nomeArquivoRecebido;
+                        tipo = "nfse";
+                        break;
+
                     case "procInutNFe":
                         arqProcNFe = nomeArquivoRecebido;
                         tipo = "inut";
