@@ -369,7 +369,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TECNOSISTEMAS:
-                case PadraoNFSe.TINUS:
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.WEBFISCO:
@@ -408,6 +407,15 @@ namespace NFe.Service.NFSe
                         versaoXML = "1.00";
                         break;
                     }
+
+                case PadraoNFSe.TINUS:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
+                    {
+                        versaoXML = "2.03";
+                        break;
+                    }
+                    break;
 
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
@@ -560,7 +568,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    else if ((codMunicipio == 3506003 || codMunicipio == 3201308 || codMunicipio == 3530607) && xmlDoc.OuterXml.Contains("infPedReg"))
+                    else if (xmlDoc.OuterXml.Contains("infPedReg"))
                     {
                         versaoXML = "1.01";
                     }

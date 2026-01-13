@@ -224,7 +224,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
-                case PadraoNFSe.TINUS:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.AGILI:
@@ -259,6 +258,15 @@ namespace NFe.Service.NFSe
                         versaoXML = "2.04";
                     }
 
+                    break;
+
+                case PadraoNFSe.TINUS:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
+                    {
+                        versaoXML = "2.03";
+                        break;
+                    }
                     break;
 
                 case PadraoNFSe.DIGIFRED:

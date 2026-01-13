@@ -258,7 +258,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.BAUHAUS:
-                case PadraoNFSe.TINUS:
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.AGILI:
@@ -284,7 +283,15 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
+                    break;
 
+                case PadraoNFSe.TINUS:
+                    versaoXML = "1.00";
+                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
+                    {
+                        versaoXML = "2.03";
+                        break;
+                    }
                     break;
 
                 case PadraoNFSe.DIGIFRED:
@@ -394,7 +401,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    if (codMunicipio == 3507001 && xmlDoc.GetElementsByTagName("infDPS").Count > 0)
                     {
                         versaoXML = "1.01";
                     }
