@@ -595,7 +595,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001 || codMunicipio == 3118601 || codMunicipio == 4322509)
+                    if (xmlDoc.OuterXml.Contains(versaoXML="\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }
