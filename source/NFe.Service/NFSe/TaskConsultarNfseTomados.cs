@@ -191,6 +191,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
+                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.ADM_SISTEMAS:

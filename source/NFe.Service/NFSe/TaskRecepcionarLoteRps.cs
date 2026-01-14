@@ -405,6 +405,7 @@ namespace NFe.Service.NFSe
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
+                        case "EnviarLoteDpsSincronoEnvio":
                         case "ns1:ReqEnvioLoteRPS":
                             if (municipio == 2111300)
                             {
@@ -415,6 +416,7 @@ namespace NFe.Service.NFSe
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
                             break;
                         case "EnviarLoteRpsEnvio":
+                        case "EnviarLoteDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                             break;
                         case "GerarNfseEnvio":
@@ -789,6 +791,10 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 3300407)
                     {
                         versaoXML = "2.02";
+                    }
+                    if (ConteudoXML.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
+                    {
+                        versaoXML = "1.01";
                     }
                     break;
 
