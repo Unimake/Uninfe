@@ -231,7 +231,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.MANAUS_AM:
                 case PadraoNFSe.LIBRE:
-                case PadraoNFSe.NATALENSE:
                 case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
@@ -239,6 +238,10 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.LEXSOM:
                     versaoXML = "1.00";
+                    break;
+
+                case PadraoNFSe.NATALENSE:
+                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:

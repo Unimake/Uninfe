@@ -220,7 +220,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.MANAUS_AM:
-                case PadraoNFSe.NATALENSE:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
@@ -228,6 +227,10 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.LEXSOM:
                 case PadraoNFSe.PRONIM:
                     versaoXML = "1.00";
+                    break;
+
+                case PadraoNFSe.NATALENSE:
+                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:
