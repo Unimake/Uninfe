@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Utility;
 
 namespace NFe.ConvertTxt
 {
@@ -78,7 +79,7 @@ namespace NFe.ConvertTxt
                 ///
                 /// gera codigo aleatorio
                 ///
-                NFe.ide.cNF = GerarCodigoNumerico(NFe.ide.nNF);
+                NFe.ide.cNF = XMLUtility.GerarCodigoNumerico(NFe.ide.nNF);
             }
             string ccChave = cChave +
                              NFe.ide.serie.ToString("000") +
@@ -405,23 +406,7 @@ namespace NFe.ConvertTxt
             }
 
             wCampo(nfe.vTroco, TpcnTipoCampo.tcDouble2, TpcnResources.vTroco, ObOp.Opcional);
-        }
-
-        /// <summary>
-        /// GerarCodigoNumerico
-        /// </summary>
-        /// <param name="numeroNF"></param>
-        /// <returns></returns>
-        public int GerarCodigoNumerico(int numeroNF)
-        {
-            int codigoRetorno = 0;
-            while (codigoRetorno == 0)
-            {
-                Random rnd = new Random(numeroNF);
-                codigoRetorno = Convert.ToInt32(rnd.Next(1, 99999999).ToString("00000000"));
-            }
-            return codigoRetorno;
-        }
+        }        
 
         /// <summary>
         /// GerarCana
@@ -1090,6 +1075,7 @@ namespace NFe.ConvertTxt
 
                 GerarDetImpostoISSQN(nfe, imposto, nodeImposto);
             }
+
             GerarDetImpostoPIS(nfe, imposto.PIS, nodeImposto);
             GerarDetImpostoPISST(nfe, imposto.PISST, nodeImposto);
             GerarDetImpostoCOFINS(nfe, imposto.COFINS, nodeImposto);
@@ -1963,7 +1949,7 @@ namespace NFe.ConvertTxt
         /// </summary>
         private void GerarDetImpostoIBSCBS(NFe nfe, Imposto imposto, XmlElement nodeImposto)
         {
-            if (!string.IsNullOrEmpty(imposto.IBSCBS.CST))
+            if (!string.IsNullOrWhiteSpace(imposto.IBSCBS.CST) || !string.IsNullOrWhiteSpace(imposto.IBSCBS.cClassTrib))
             {
                 temIBSCBSNosItens = true;
 
@@ -4245,7 +4231,7 @@ namespace NFe.ConvertTxt
                     ///
                     /// gera codigo aleatorio
                     ///
-                    cNF = GerarCodigoNumerico(nNF);
+                    cNF = XMLUtility.GerarCodigoNumerico(nNF); 
                 }
 
                 ///
