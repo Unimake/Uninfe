@@ -199,6 +199,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.DSF:

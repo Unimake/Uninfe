@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pedRegEvento xmlns="http://www.sped.fazenda.gov.br/nfse" versao="1.01">
-      <infPedReg xmlns="http://www.sped.fazenda.gov.br/nfse" Id="PRE14001591201761135000132000000000000022096100197260101101001">
-        <tpAmb>2</tpAmb>
-        <verAplic>Teste_0.1.0</verAplic>
-        <dhEvento>2022-09-28T13:50:29-03:00</dhEvento>
-        <CNPJAutor>01761135000132</CNPJAutor>
-        <chNFSe>14001591201761135000132000000000000022096100197260</chNFSe>
-        <nPedRegEvento>001</nPedRegEvento>
-        <e101101>
-          <xDesc>Cancelamento de NFS-e</xDesc>
-          <cMotivo>1</cMotivo>
-          <xMotivo>xMotivo___teste____1</xMotivo>
-        </e101101>
-      </infPedReg>
+	<infPedReg xmlns="http://www.sped.fazenda.gov.br/nfse" Id="PRE42046082283661074000104000000000000826013838668449101101">
+		<tpAmb>1</tpAmb>
+		<verAplic>Teste_0.1.0</verAplic>
+		<dhEvento>2025-01-01T11:58:29-03:00</dhEvento>
+		<CNPJAutor>83661074000104</CNPJAutor>
+		<chNFSe>42046082283661074000104000000000000826013838668449</chNFSe>
+		<e101101>
+			<xDesc>Cancelamento de NFS-e</xDesc>
+			<cMotivo>1</cMotivo>
+			<xMotivo>Nota emitida com informações incorretas</xMotivo>
+		</e101101>
+	</infPedReg>
 </pedRegEvento>

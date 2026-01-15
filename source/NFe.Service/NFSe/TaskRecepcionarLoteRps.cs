@@ -176,6 +176,16 @@ namespace NFe.Service.NFSe
                     {
                         File.WriteAllText(pathFile, vStrXmlRetorno);
                     }
+
+                    //Disparar UniDANFE
+                    try
+                    {
+                        TFunctions.ExecutaUniDanfe(pathFile, dhEmi, Empresas.Configuracoes[emp]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Auxiliar.WriteLog("TaskRecepcionarLoteRps: (Falha na execução do UniDANFe) " + ex.Message, false);
+                    }
                 }
 
                 if (!autorizou)
@@ -395,6 +405,7 @@ namespace NFe.Service.NFSe
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
+                        case "EnviarLoteDpsSincronoEnvio":
                         case "ns1:ReqEnvioLoteRPS":
                             if (municipio == 2111300)
                             {
@@ -405,6 +416,7 @@ namespace NFe.Service.NFSe
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
                             break;
                         case "EnviarLoteRpsEnvio":
+                        case "EnviarLoteDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                             break;
                         case "GerarNfseEnvio":
@@ -783,6 +795,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
+                    if (ConteudoXML.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.DSF:
@@ -842,7 +858,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001 && ConteudoXML.OuterXml.Contains("DPS"))
+                    if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }

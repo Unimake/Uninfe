@@ -352,6 +352,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
+                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.SMARAPD:
@@ -404,7 +408,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001 && xmlDoc.GetElementsByTagName("infDPS").Count > 0)
+                    if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }

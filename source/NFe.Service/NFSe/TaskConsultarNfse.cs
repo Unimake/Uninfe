@@ -568,6 +568,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
+                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.RLZ_INFORMATICA:
@@ -594,11 +598,11 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (codMunicipio == 3507001)
+                    if (xmlDoc.OuterXml.Contains(versaoXML="\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }
-                    break; ;
+                    break;
 
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
