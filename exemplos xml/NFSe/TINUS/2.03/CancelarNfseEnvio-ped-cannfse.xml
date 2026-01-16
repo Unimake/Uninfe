@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CancelarNfseEnvio xmlns="http://www.tinus.com.br" versao="2.03">
+<CancelarNfseEnvio xmlns="http://www.tinus.com.br">
 	<Pedido>
 		<InfPedidoCancelamento id="ID49">
 			<IdentificacaoNfse>
