@@ -755,7 +755,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.SH3:
-                case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
@@ -798,6 +797,14 @@ namespace NFe.Service.NFSe
                     if (ConteudoXML.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
                     {
                         versaoXML = "1.01";
+                    }
+                    break;
+
+                case PadraoNFSe.MODERNIZACAO_PUBLICA:
+                    versaoXML = "2.02";
+                    if (xmlDoc.InnerXml.Contains("versao=\"3.02\""))
+                    {
+                        versaoXML = "3.02";
                     }
                     break;
 
