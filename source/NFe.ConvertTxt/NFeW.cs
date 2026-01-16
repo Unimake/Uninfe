@@ -34,12 +34,16 @@ namespace NFe.ConvertTxt
         /// </summary>
         private bool temISNosItens = false;
 
+        private string ArqTXT;
+
         /// <summary>
         /// GerarXml
         /// </summary>
         /// <param name="NFe"></param>
-        public void GerarXml(NFe NFe, string folderDestino)
+        public void GerarXml(NFe NFe, string folderDestino, string cArquivo)
         {
+            ArqTXT = cArquivo;
+
             doc = new XmlDocument();
             XmlDeclaration node = doc.CreateXmlDeclaration("1.0", "UTF-8", "");
 
@@ -1082,7 +1086,12 @@ namespace NFe.ConvertTxt
             GerarDetImpostoCOFINSST(nfe, imposto.COFINSST, nodeImposto);
             GerarDetImpostoICMSUFDest(nfe, imposto, nodeImposto);
             GerarDetImpostoIS(nfe, imposto, nodeImposto);
+
+            Auxiliar.WriteLog("ConverterTXT (" + ArqTXT + ") - NFeW: Vai executar o método GerarDetImpostoIBSCBS.", false);
+
             GerarDetImpostoIBSCBS(nfe, imposto, nodeImposto);
+
+            Auxiliar.WriteLog("ConverterTXT (" + ArqTXT + ") - NFeW: Executou o método GerarDetImpostoIBSCBS.", false);
         }
 
         /// <summary>
@@ -1949,8 +1958,12 @@ namespace NFe.ConvertTxt
         /// </summary>
         private void GerarDetImpostoIBSCBS(NFe nfe, Imposto imposto, XmlElement nodeImposto)
         {
+            Auxiliar.WriteLog("ConverterTXT (" + ArqTXT + ") - NFeW: Antes do IF para gerar o grupo IBSCBS do item.", false);
+
             if (!string.IsNullOrWhiteSpace(imposto.IBSCBS.CST) || !string.IsNullOrWhiteSpace(imposto.IBSCBS.cClassTrib))
             {
+                Auxiliar.WriteLog("ConverterTXT (" + ArqTXT + ") - NFeW: Depois do IF para gerar o grupo IBSCBS do item.", false);
+
                 temIBSCBSNosItens = true;
 
                 XmlNode xmlCurrent = nodeCurrent;
