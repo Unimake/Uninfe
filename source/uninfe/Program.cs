@@ -20,8 +20,11 @@ namespace uninfe
         private static void Main(string[] args)
         {
             //GerarEmpresa();
-
             AppDomain.CurrentDomain.AssemblyResolve += Unimake.Business.DFe.Xml.AssemblyResolver.AssemblyResolve;
+
+            //Esta deve ser a primeira linha do Main, não coloque nada antes dela. Wandrey 31/07/2009
+            Propriedade.AssemblyEXE = Assembly.GetExecutingAssembly();
+            ConfiguracaoApp.StartVersoes();
 
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler((sender, e) =>
             {
@@ -46,9 +49,6 @@ namespace uninfe
             {
                 Auxiliar.WriteLog(e.ExceptionObject.ToString(), false);
             });
-
-            //Esta deve ser a primeira linha do Main, não coloque nada antes dela. Wandrey 31/07/2009
-            Propriedade.AssemblyEXE = Assembly.GetExecutingAssembly();
 
             bool silencioso = false;
 

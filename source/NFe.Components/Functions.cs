@@ -536,7 +536,7 @@ namespace NFe.Components
         /// </summary>
         /// <returns></returns>
         public static bool HasInternetConnection(bool temProxy, string proxyServidor, string proxyUsuario, string proxySenha, int proxyPorta, bool proxyDetectarAutomaticamente = false) => Unimake.Net.Utility.HasInternetConnection((temProxy ? Unimake.Net.Utility.GetProxy(proxyServidor, proxyUsuario, proxySenha, proxyPorta, proxyDetectarAutomaticamente) : null));
-                
+
         #region getDateTime()
 
         public static DateTime GetDateTime(string value)
@@ -621,7 +621,7 @@ namespace NFe.Components
             UF.Sort(new OrdenacaoPorNome());
 
             return UF;
-        }              
+        }
 
         #region Ticket: #110
 
@@ -887,8 +887,14 @@ namespace NFe.Components
                             msg += "\r\n" + Environment.StackTrace;
                         }
 
+#if _BETA
+                        var versaoBeta = true;
+#else
+                        var versaoBeta = false;
+#endif
+
                         arquivoWS = new StreamWriter(fileName, true, Encoding.UTF8);
-                        arquivoWS.WriteLine(DateTime.Now.ToLongTimeString() + " - [Versão UniNFe: " + Propriedade.Versao + "] - " + msg);
+                        arquivoWS.WriteLine(DateTime.Now.ToLongTimeString() + " - [Versão UniNFe" + (versaoBeta ? " (BETA)" : "") + ": " + Propriedade.Versao + "] - " + msg);
                         arquivoWS.Flush();
                         arquivoWS.Close();
                         break;
