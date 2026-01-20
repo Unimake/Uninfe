@@ -1,10 +1,10 @@
-﻿using System;
+﻿using NFe.Components;
+using NFe.Settings;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 using System.Xml;
-
-using NFe.Components;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.ConvertTxt
@@ -339,6 +339,8 @@ namespace NFe.ConvertTxt
         /// </summary>
         private Dictionary<int, List<string>> xConteudoArquivo;
 
+        private string ArqTXT;
+
         #endregion
 
         public ConversaoTXT()
@@ -354,6 +356,8 @@ namespace NFe.ConvertTxt
         /// </summary>
         private bool CarregarArquivo(string cArquivo)
         {
+            ArqTXT = cArquivo;
+
             if (File.Exists(cArquivo))
             {
                 TextReader txt = new StreamReader(cArquivo, Encoding.Default, true);
@@ -455,7 +459,7 @@ namespace NFe.ConvertTxt
                             ///
                             /// gera o XML da nota
                             /// 
-                            nfew.GerarXml(NFe, cFolderDestino);
+                            nfew.GerarXml(NFe, cFolderDestino, cArquivo);
                             if (nfew.cFileName != "")
                             {
                                 ///
@@ -2721,6 +2725,8 @@ namespace NFe.ConvertTxt
 
                 case "UB12":
                     //layout = "UB12|CST|cClassTrib|"
+                    Auxiliar.WriteLog("ConverterTXT (" + ArqTXT + ") - ConversaoTXT: Achou o UB12 no TXT.", false);
+
 
                     NFe.det[nProd].Imposto.IBSCBS.CST = this.LerString(TpcnResources.CST, ObOp.Obrigatorio, 1, 3);
                     NFe.det[nProd].Imposto.IBSCBS.cClassTrib = this.LerString(TpcnResources.cClassTrib, ObOp.Obrigatorio, 1, 6);
@@ -2728,6 +2734,7 @@ namespace NFe.ConvertTxt
 
                 case "UB15":
                     //layout = "UB15|vBC|vIBS|"
+                    Auxiliar.WriteLog("ConverterTXT (" + ArqTXT + ") - ConversaoTXT: Achou o UB15 no TXT.", false);
 
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.vBC = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vBC, ObOp.Obrigatorio, 1, 15);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.vIBS = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBS, ObOp.Obrigatorio, 15, true);

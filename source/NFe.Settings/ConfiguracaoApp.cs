@@ -132,23 +132,22 @@ namespace NFe.Settings
 
         internal class loadResources
         {
-            public string cErros { get; private set; }
-
-            #region load()
+#if DEBUG
+            private string cErros { get; set; }
+#endif
 
             /// <summary>
             /// Exporta os WSDLs e Schemas da DLL para as pastas do UniNFe
             /// </summary>
             public void load()
             {
+                Propriedade.Estados = null;
+
+#if DEBUG
                 if (Empresas.Configuracoes.Count == 0)
                 {
-                    ///
-                    /// OPS!!! nenhuma empresa ainda cadastrada, então gravamos o log na pasta de log do uninfe
                     ConfiguracaoApp.GravarLogOperacoesRealizadas = true;
                 }
-
-                Propriedade.Estados = null;
 
                 try
                 {
@@ -213,9 +212,8 @@ namespace NFe.Settings
                         oAux.GravarArqErroERP(Empresas.Configuracoes[emp].CNPJ + ".err", cErros);
                     }
                 }
+#endif
             }
-
-            #endregion load()
         }
 
         #endregion Extrae os arquivos necessarios a executacao
@@ -224,10 +222,9 @@ namespace NFe.Settings
 
         public static void StartVersoes()
         {
-            new loadResources().load();
-
             ConfiguracaoApp.CarregarDados();
-            //ConfiguracaoApp.DownloadArquivoURLConsultaDFe();
+
+            new loadResources().load();
 
             if (!Propriedade.ServicoRodando || Propriedade.ExecutandoPeloUniNFe)
             {
