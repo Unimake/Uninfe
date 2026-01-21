@@ -660,7 +660,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.TINUS:
                     versaoXML = "1.00";
-                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
+                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\"") || xmlDoc.InnerXml.Contains("abrasf"))
                     {
                         versaoXML = "2.03";
                         break;
