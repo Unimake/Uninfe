@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DPS versao="1.00" xmlns="http://www.sped.fazenda.gov.br/nfse">
-	<infDPS Id="DPS420290929999999999999900001000000000000200">
-		<tpAmb>1</tpAmb>
-		<dhEmi>2025-09-29T15:23:56-03:00</dhEmi>
-		<verAplic>1.00</verAplic>
+<DPS versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+	<infDPS Id="DPS410690211234567800019500001000000000000001">
+		<tpAmb>2</tpAmb>
+		<dhEmi>2025-11-18T15:23:56-03:00</dhEmi>
+		<verAplic>1.01.01</verAplic>
 		<serie>1</serie>
-		<nDPS>200</nDPS>
-		<dCompet>2025-09-29</dCompet>
+		<nDPS>1</nDPS>
+		<dCompet>2025-11-18</dCompet>
 		<tpEmit>1</tpEmit>
 		<cLocEmi>4202909</cLocEmi>
 		<prest>
@@ -38,6 +38,7 @@
 			<cServ>
 				<cTribNac>140101</cTribNac>
 				<xDescServ>CALAFETACAO PARABRISA VEICULO PASSEIO 1.00 10.00   Valor dos tributos R$:0,00 (18,14%)</xDescServ>
+				<cNBS>115029000</cNBS>
 				<cIntContrib>00001</cIntContrib>
 			</cServ>
 		</serv>
@@ -59,5 +60,31 @@
 				</totTrib>
 			</trib>
 		</valores>
+		<IBSCBS>
+			<finNFSe>0</finNFSe>
+			<indFinal>0</indFinal>
+			<cIndOp>000001</cIndOp>
+			<tpOper>1</tpOper>
+			<tpEnteGov>1</tpEnteGov>
+			<indDest>0</indDest>
+			<valores>
+				<trib>
+					<gIBSCBS>
+						<CST>101</CST>
+						<cClassTrib>000001</cClassTrib>
+						<cCredPres>01</cCredPres>
+						<gTribRegular>
+							<CSTReg>101</CSTReg>
+							<cClassTribReg>000002</cClassTribReg>
+						</gTribRegular>
+						<gDif>
+							<pDifUF>0.00</pDifUF>
+							<pDifMun>0.00</pDifMun>
+							<pDifCBS>0.00</pDifCBS>
+						</gDif>
+					</gIBSCBS>
+				</trib>
+			</valores>
+		</IBSCBS>
 	</infDPS>
 </DPS>
