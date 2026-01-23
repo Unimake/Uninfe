@@ -523,6 +523,16 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
+                case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+
+                    if (codMunicipio == 3506102)
+                    {
+                        versaoXML = "4.00";
+                    }
+
+                    break;
+
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de NFSe por RPS.");
             }
