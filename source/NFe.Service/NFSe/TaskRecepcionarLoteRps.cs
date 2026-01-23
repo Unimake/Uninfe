@@ -774,7 +774,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !ConteudoXML.OuterXml.Contains("DPS")))
+                    if ((codMunicipio == 3306305 || codMunicipio == 4202404) && !ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "2.03";
                         break;
