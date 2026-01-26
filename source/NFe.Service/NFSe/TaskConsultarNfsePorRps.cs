@@ -288,6 +288,10 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
+                    break;
+
                 case PadraoNFSe.TINUS:
                     versaoXML = "1.00";
                     if (xmlDoc.InnerXml.Contains("versao=\"2.03\"") || xmlDoc.InnerXml.Contains("abrasf"))
