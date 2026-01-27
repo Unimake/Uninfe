@@ -610,6 +610,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
 
+                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
+                    {
+                        versaoXML = "3.01";
+                    }
+
                     if (xmlDoc.GetElementsByTagName("Prestador").Count > 0)
                     {
                         versaoXML = "2.00";
