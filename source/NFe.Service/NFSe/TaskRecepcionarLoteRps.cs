@@ -1,57 +1,75 @@
 ﻿using NFe.Components;
 using NFe.Settings;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
-using Unimake.Business.DFe.Xml.NFSe.NACIONAL;
-
 namespace NFe.Service.NFSe
 {
-    public class TaskNFSeCancelar : TaskAbst
+    public class TaskNFSeRecepcionarLoteRps : TaskAbst
     {
-        #region Private Fields
+        #region Objeto com os dados do XML de lote rps
 
         /// <summary>
-        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do pedido de cancelamento
+        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do lote rps
         /// </summary>
-        private DadosPedCanNfse oDadosPedCanNfse;
+        private DadosEnvLoteRps oDadosEnvLoteRps;
 
-        #endregion Private Fields
+        #endregion Objeto com os dados do XML de lote rps
 
-        #region Private Methods
-
-        /// <summary>
-        /// Fazer a leitura do conteúdo do XML de cancelamento de NFS-e e disponibilizar conteúdo em um objeto para analise
-        /// </summary>
-        /// <param name="arquivoXML">Arquivo XML que é para efetuar a leitura</param>
-        private void PedCanNfse(int emp, string arquivoXML)
+        public TaskNFSeRecepcionarLoteRps(string arquivo)
         {
+            Servico = Servicos.NFSeRecepcionarLoteRps;
+
+            NomeArquivoXML = arquivo;
+            ConteudoXML.PreserveWhitespace = false;
+            ConteudoXML.Load(arquivo);
         }
-
-        #endregion Private Methods
-
-        #region Public Methods
 
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
 
+            if (Empresas.Configuracoes[emp].TempoEnvioNFSe > 0)
+            {
+                while (true)
+                {
+                    lock (Smf.RecepcionarLoteRps)
+                    {
+                        if (Empresas.Configuracoes[emp].DataHoraUltimoEnvioNFSe != DateTime.MinValue)
+                        {
+                            var diferenca = DateTime.Now - Empresas.Configuracoes[emp].DataHoraUltimoEnvioNFSe;
+                            var segundosPassados = diferenca.TotalSeconds;
+
+                            if (segundosPassados < Empresas.Configuracoes[emp].TempoEnvioNFSe)
+                            {
+                                Thread.Sleep((Empresas.Configuracoes[emp].TempoEnvioNFSe - Convert.ToInt32(segundosPassados)) * 1000);
+                            }
+                        }
+
+                        Empresas.Configuracoes[emp].DataHoraUltimoEnvioNFSe = DateTime.Now;
+                        break;
+                    }
+                }
+            }
+
             //Definir o serviço que será executado para a classe
-            Servico = Servicos.NFSeCancelar;
+            Servico = Servicos.NFSeRecepcionarLoteRps;
 
             try
             {
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
-                                         Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML) + Propriedade.ExtRetorno.CanNfse_ERR);
+                                         Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML) + Propriedade.ExtRetorno.RetEnvLoteRps_ERR);
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
 
-                oDadosPedCanNfse = new DadosPedCanNfse(emp);
-                PedCanNfse(emp, NomeArquivoXML);
-                var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosPedCanNfse.cMunicipio);
+                oDadosEnvLoteRps = new DadosEnvLoteRps(emp);
 
-                ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
+                var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosEnvLoteRps.cMunicipio);
+
+                ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
 
                 AnalisarRetorno(vStrXmlRetorno, padraoNFSe, emp);
             }
@@ -60,7 +78,7 @@ namespace NFe.Service.NFSe
                 try
                 {
                     //Gravar o arquivo de erro de retorno para o ERP, caso ocorra
-                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML, Propriedade.ExtRetorno.CanNfse_ERR, ex);
+                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML, Propriedade.ExtRetorno.RetEnvLoteRps_ERR, ex);
                 }
                 catch
                 {
@@ -84,7 +102,7 @@ namespace NFe.Service.NFSe
         }
 
         /// <summary>
-        /// Analisar o XML retornado se for ambiente nacional e se o evento  tiver sido autorizado vamos salvar o XML na pasta autorizados
+        /// Analisar o XML retornado se for ambiente nacional e se a nota tiver sido autorizada vamos salvar o XML na pasta autorizados
         /// </summary>
         /// <param name="vStrXmlRetorno">XML Retornado</param>
         /// <param name="padraoNFSe">Padrão da NFSe</param>
@@ -107,38 +125,46 @@ namespace NFe.Service.NFSe
                 var autorizou = false;
                 var doc = new XmlDocument();
                 doc.LoadXml(vStrXmlRetorno);
-                var eventoNodes = doc.GetElementsByTagName("evento");
-
-                foreach (XmlElement evento in eventoNodes)
+                var nfseNodes = doc.GetElementsByTagName("NFSe");
+                foreach (XmlElement nfse in nfseNodes)
                 {
-                    var infEvento = evento["infEvento"] as XmlElement;
-                    if (infEvento == null)
+                    var infNFSe = nfse["infNFSe"] as XmlElement;
+                    if (infNFSe == null)
                     {
                         continue;
                     }
 
+                    var cStat = infNFSe["cStat"]?.InnerText;
+                    var autorizados = new HashSet<string> { "100", "101", "102", "103", "107" }; // Somente autorizadas
+                    if (!autorizados.Contains(cStat))
+                    {
+                        continue;
+                    }
                     autorizou = true;
 
-                    var dhProcTexto = infEvento?["dhProc"]?.InnerText;
-                    if (string.IsNullOrWhiteSpace(dhProcTexto))
+                    var dps = infNFSe["DPS"] as XmlElement;
+                    var infDPS = dps?["infDPS"] as XmlElement;
+                    var dhEmiTexto = infDPS?["dhEmi"]?.InnerText;
+                    if (string.IsNullOrWhiteSpace(dhEmiTexto))
                     {
                         continue;
                     }
 
-                    if (!DateTimeOffset.TryParseExact(dhProcTexto, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dhProcOffset))
+                    if (!DateTimeOffset.TryParseExact(dhEmiTexto, "yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dhEmiOffset))
                     {
                         continue;
                     }
 
-                    var dhProc = dhProcOffset.DateTime;
-                    var id = infEvento.GetAttribute("Id");
+                    var dhEmi = dhEmiOffset.DateTime;
+
+                    var id = infNFSe.GetAttribute("Id");
                     if (string.IsNullOrWhiteSpace(id) || id.Length <= 3)
                     {
                         continue;
                     }
 
-                    var nameArq = id.Substring(3) + "-proceventonfse.xml";
-                    var pathFile = Path.Combine(pastaEnviado, PastaEnviados.Autorizados.ToString(), Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dhProc), nameArq);
+                    var nameArq = id.Substring(3) + "-procnfse.xml";
+                    var pathFile = Path.Combine(pastaEnviado, PastaEnviados.Autorizados.ToString(), Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dhEmi), nameArq);
 
                     var dir = Path.GetDirectoryName(pathFile);
                     if (!Directory.Exists(dir))
@@ -150,6 +176,16 @@ namespace NFe.Service.NFSe
                     {
                         File.WriteAllText(pathFile, vStrXmlRetorno);
                     }
+
+                    //Disparar UniDANFE
+                    try
+                    {
+                        TFunctions.ExecutaUniDanfe(pathFile, dhEmi, Empresas.Configuracoes[emp]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Auxiliar.WriteLog("TaskRecepcionarLoteRps: (Falha na execução do UniDANFe) " + ex.Message, false);
+                    }
                 }
 
                 if (!autorizou)
@@ -160,11 +196,9 @@ namespace NFe.Service.NFSe
             catch (Exception ex)
             {
                 // Logar erro se necessário, mas não lançar para não interromper o fluxo
-                Auxiliar.WriteLog($"Erro ao salvar o XML do Evento da NFSe autorizado: {ex.Message}", false);
+                Auxiliar.WriteLog($"Erro ao salvar o XML da NFSe autorizado: {ex.Message}", false);
             }
         }
-
-        #endregion Public Methods
 
         /// <summary>
         /// Executa o serviço utilizando a DLL do UniNFe.
@@ -177,18 +211,18 @@ namespace NFe.Service.NFSe
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(NomeArquivoXML);
 
-            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML;
-            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).RetornoXML;
-            var servico = DefinirServico(municipio, conteudoXML);
+            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML;
+            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML;
+            var servico = DefinirServico(municipio, conteudoXML, padraoNFSe, emp);
             var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
 
-            var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
+            var configuracao = new Configuracao
             {
-                TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
+                TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                TipoAmbiente = (TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = TFunctions.DefiniMunicioPadrao(padraoNFSe, municipio),
                 Servico = servico,
                 SchemaVersao = versaoXML,
@@ -226,36 +260,66 @@ namespace NFe.Service.NFSe
 
             switch (servico)
             {
-                case Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse:
-                    var cancelarNfse = new Unimake.Business.DFe.Servicos.NFSe.CancelarNfse(conteudoXML, configuracao);
-                    cancelarNfse.Executar();
-                    vStrXmlRetorno = cancelarNfse.RetornoWSString;
+                case Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse:
+                    var gerarNfse = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
+                    gerarNfse.Executar();
+                    vStrXmlRetorno = gerarNfse.RetornoWSString;
 
-                    cancelarNfse.Dispose();
+                    gerarNfse.Dispose();
                     break;
 
-                case Unimake.Business.DFe.Servicos.Servico.NFSeCancelamentoNfe:
-                    var cancelamentoNfe = new Unimake.Business.DFe.Servicos.NFSe.CancelamentoNfe(conteudoXML, configuracao);
-                    cancelamentoNfe.Executar();
-                    vStrXmlRetorno = cancelamentoNfe.RetornoWSString;
+                case Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps:
+                    var recepcionarLoteRps = new Unimake.Business.DFe.Servicos.NFSe.RecepcionarLoteRps(conteudoXML, configuracao);
+                    recepcionarLoteRps.Executar();
+                    vStrXmlRetorno = recepcionarLoteRps.RetornoWSString;
 
-                    cancelamentoNfe.Dispose();
+                    recepcionarLoteRps.Dispose();
                     break;
 
-                case Unimake.Business.DFe.Servicos.Servico.NFSeCancelaNota:
-                    var cancelaNota = new Unimake.Business.DFe.Servicos.NFSe.CancelaNota(conteudoXML, configuracao);
-                    cancelaNota.Executar();
-                    vStrXmlRetorno = cancelaNota.RetornoWSString;
+                case Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono:
+                    var recepcionarLoteRpsSincrono = new Unimake.Business.DFe.Servicos.NFSe.RecepcionarLoteRpsSincrono(conteudoXML, configuracao);
+                    recepcionarLoteRpsSincrono.Executar();
+                    vStrXmlRetorno = recepcionarLoteRpsSincrono.RetornoWSString;
 
-                    cancelaNota.Dispose();
+                    recepcionarLoteRpsSincrono.Dispose();
                     break;
 
-                case Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal:
-                    var cancelarNotaFiscal = new Unimake.Business.DFe.Servicos.NFSe.CancelarNotaFiscal(conteudoXML, configuracao);
-                    cancelarNotaFiscal.Executar();
-                    vStrXmlRetorno = cancelarNotaFiscal.RetornoWSString;
+                case Unimake.Business.DFe.Servicos.Servico.NFSeEnvioLoteRps:
+                    var envioLoteRps = new Unimake.Business.DFe.Servicos.NFSe.EnvioLoteRps(conteudoXML, configuracao);
+                    envioLoteRps.Executar();
+                    vStrXmlRetorno = envioLoteRps.RetornoWSString;
 
-                    cancelarNotaFiscal.Dispose();
+                    envioLoteRps.Dispose();
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeEnvioRps:
+                    var envioRps = new Unimake.Business.DFe.Servicos.NFSe.EnvioRps(conteudoXML, configuracao);
+                    envioRps.Executar();
+                    vStrXmlRetorno = envioRps.RetornoWSString;
+
+                    envioRps.Dispose();
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeTesteEnvioLoteRps:
+                    var testeEnvioLoteRps = new Unimake.Business.DFe.Servicos.NFSe.TesteEnvioLoteRps(conteudoXML, configuracao);
+                    testeEnvioLoteRps.Executar();
+                    vStrXmlRetorno = testeEnvioLoteRps.RetornoWSString;
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeEmissaoNota:
+                    var emissaoNota = new Unimake.Business.DFe.Servicos.NFSe.EmissaoNota(conteudoXML, configuracao);
+                    emissaoNota.Executar();
+                    vStrXmlRetorno = emissaoNota.RetornoWSString;
+
+                    emissaoNota.Dispose();
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeEnviarLoteNotas:
+                    var enviarLoteNotas = new Unimake.Business.DFe.Servicos.NFSe.EnviarLoteNotas(conteudoXML, configuracao);
+                    enviarLoteNotas.Executar();
+                    vStrXmlRetorno = enviarLoteNotas.RetornoWSString;
+
+                    enviarLoteNotas.Dispose();
                     break;
             }
 
@@ -280,7 +344,7 @@ namespace NFe.Service.NFSe
 
             /// grava o arquivo no FTP
             var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
-                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).RetornoXML);
+                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML);
 
             if (File.Exists(filenameFTP))
             {
@@ -294,39 +358,233 @@ namespace NFe.Service.NFSe
         /// <param name="municipio">Código do município para onde será enviado o XML</param>
         /// <param name="doc">Conteúdo do XML da NFSe</param>
         /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
+        /// <param name="emp">Empresa que está enviando o XML</param>
         /// <returns>Retorna o tipo de serviço de envio da NFSe da prefeitura será utilizado</returns>
-        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc)
+        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc, PadraoNFSe padraoNFSe, int emp)
         {
-            var result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse;
-
-            var padraoNFSe = Functions.BuscaPadraoNFSe(municipio);
+            var result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.PAULISTANA:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelamentoNfe;
+                case PadraoNFSe.NOTAINTELIGENTE:
+                case PadraoNFSe.BETHA:
+                case PadraoNFSe.PRODATA:
+                case PadraoNFSe.AVMB:
+                case PadraoNFSe.WEBISS:
+                case PadraoNFSe.COPLAN:
+                case PadraoNFSe.PROPRIOJOINVILLESC:
+                case PadraoNFSe.SIMPLISS:
+                case PadraoNFSe.SONNER:
+                case PadraoNFSe.EL:
+                case PadraoNFSe.SMARAPD:
+                case PadraoNFSe.BHISS:
+                case PadraoNFSe.TRIBUTUS:
+                case PadraoNFSe.DSF:
+                case PadraoNFSe.DIGIFRED:
+                case PadraoNFSe.VERSATEC:
+                case PadraoNFSe.QUASAR:
+                case PadraoNFSe.ISSNET:
+                case PadraoNFSe.ABASE:
+                case PadraoNFSe.FIORILLI:
+                case PadraoNFSe.EMBRAS:
+                case PadraoNFSe.CARIOCA:
+                case PadraoNFSe.PUBLICA:
+                case PadraoNFSe.GISSONLINE:
+                case PadraoNFSe.TIPLAN:
+                case PadraoNFSe.PRODEB:
+                case PadraoNFSe.PORTAL_FACIL:
+                case PadraoNFSe.ELOTECH:
+                case PadraoNFSe.E_RECEITA:
+                case PadraoNFSe.ABACO:
+                case PadraoNFSe.FINTEL:
+                case PadraoNFSe.SH3:
+                case PadraoNFSe.MODERNIZACAO_PUBLICA:
+                case PadraoNFSe.INDAIATUBA_SP:
+                case PadraoNFSe.BETHA_CLOUD:
+                case PadraoNFSe.FUTURIZE:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "EnviarLoteRpsSincronoEnvio":
+                        case "EnviarLoteDpsSincronoEnvio":
+                        case "ns1:ReqEnvioLoteRPS":
+                            if (municipio == 2111300)
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                                break;
+                            }
+
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
+                            break;
+                        case "EnviarLoteRpsEnvio":
+                        case "EnviarLoteDpsEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                            break;
+                        case "GerarNfseEnvio":
+                        case "GerarNovaNfseEnvio":
+                        case "DPS":
+                        case "e:RecepcionarDpsEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+
+                        case "NFSe":
+                            if (padraoNFSe == PadraoNFSe.SMARAPD)
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            }
+                            break;
+                    }
+                    break;
+                case PadraoNFSe.SIGCORP:
+                case PadraoNFSe.SYSTEMPRO:
+                case PadraoNFSe.FISCO:
+                case PadraoNFSe.DESENVOLVECIDADE:
+                case PadraoNFSe.VITORIA_ES:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "EnviarLoteRpsSincronoEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
+                            break;
+                        case "EnviarLoteRpsEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                            break;
+                        case "GerarNfseEnvio":
+                        case "GerarNota":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+                    }
                     break;
 
-                case PadraoNFSe.OBARATEC:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelaNota;
+                case PadraoNFSe.GIAP:
+                case PadraoNFSe.PROPRIOGOIANIA:
+                case PadraoNFSe.BAUHAUS:
+                case PadraoNFSe.NACIONAL:
+                case PadraoNFSe.BSITBR:
+                case PadraoNFSe.PROPRIOBARUERISP:
+                case PadraoNFSe.CENTI:
+                case PadraoNFSe.AGILI:
+                case PadraoNFSe.IIBRASIL:
+                case PadraoNFSe.MEGASOFT:
+                case PadraoNFSe.SINSOFT:
+                case PadraoNFSe.SIGISSWEB:
+                case PadraoNFSe.SOFTPLAN:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                     break;
 
-                case PadraoNFSe.PRIMAX:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal;
+                case PadraoNFSe.IPM:
+                case PadraoNFSe.ADM_SISTEMAS:
+                case PadraoNFSe.RLZ_INFORMATICA:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "DPS":
+                        case "GerarNfseEnvio":
+                        case "nfse":
+                        case "nota":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+
+                        case "EnviarLoteRpsEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                            break;
+
+                        case "EnviarLoteRpsSincronoEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
+                            break;
+                    }
                     break;
 
                 case PadraoNFSe.GIF:
-                    if (doc.DocumentElement.Name == "pedRegEvento")
+                    if (doc.DocumentElement.Name == "DPS")
                     {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse;
+                        result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                         break;
+                    }
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeEnviarLoteNotas;
+                    break;
+
+                case PadraoNFSe.PAULISTANA:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "PedidoEnvioLoteRPS":
+
+                            if (Empresas.Configuracoes[Empresas.FindEmpresaByThread()].AmbienteCodigo == (int)TipoAmbiente.Homologacao)
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeTesteEnvioLoteRps;
+                            }
+                            else
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioLoteRps;
+                            }
+                            break;
+
+                        case "PedidoEnvioRPS":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioRps;
+                            break;
+                    }
+                    break;
+
+                case PadraoNFSe.OBARATEC:
+                case PadraoNFSe.PRIMAX:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeEmissaoNota;
+                    break;
+
+                case PadraoNFSe.TECNOSISTEMAS:
+                case PadraoNFSe.WEBFISCO:
+                case PadraoNFSe.JLSOFT:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
+                    break;
+
+                case PadraoNFSe.PRONIM:
+                case PadraoNFSe.SUPERNOVA:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "EnviarLoteRpsEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                            break;
+
+                        case "GerarNfseEnvio":
+                        case "DPS":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+                    }
+                    break;
+
+                case PadraoNFSe.EGOVERNEISS:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "EmissaoNotaFiscalLoteRequest":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioLoteRps;
+                            break;
+
+                        case "EmissaoNotaFiscalRequest":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioRps;
+                            break;
+                    }
+                    break;
+
+                case PadraoNFSe.PUBLICENTER:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "tcGrcNFSe":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+
+                        case "tcLoteRps":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                            break;
+                    }
+                    break;
+
+                case PadraoNFSe.THEMA:
+                    if (Empresas.Configuracoes[emp].RpsSincAssincTHEMA)
+                    {
+                        result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
                     }
                     else
                     {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal;
-                        break;
+                        result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                     }
 
+                    break;
             }
 
             return result;
@@ -345,19 +603,6 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.BETHA:
-                    versaoXML = "2.02";
-
-                    if (xmlDoc.DocumentElement.Name.Contains("e:"))
-                    {
-                        versaoXML = "1.00";
-                    }
-                    break;
-
-                case PadraoNFSe.BETHA_CLOUD:
-                    versaoXML = "1.01";
-                    break;
-
                 case PadraoNFSe.NACIONAL:
                     versaoXML = (xmlDoc.GetElementsByTagName(xmlDoc.DocumentElement.Name)[0]).Attributes.GetNamedItem("versao").Value;
                     break;
@@ -367,13 +612,16 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.OBARATEC:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TECNOSISTEMAS:
+                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.SIMPLE:
+                case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
+                case PadraoNFSe.SALVADOR_BA:
+                case PadraoNFSe.MANAUS_AM:
                 case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.EGOVERNE:
@@ -430,31 +678,56 @@ namespace NFe.Service.NFSe
 
                     break;
 
-                case PadraoNFSe.IPM:
-                    versaoXML = "1.20";
+                case PadraoNFSe.PRODATA:
+                    versaoXML = "2.01";
+                    break;
 
-                    if (xmlDoc.InnerXml.Contains("<CancelarNfseEnvio>"))
+                case PadraoNFSe.BETHA:
+                    versaoXML = Functions.GetAttributeXML("LoteRps", "versao", NomeArquivoXML);
+                    if (string.IsNullOrWhiteSpace(versaoXML))
                     {
-                        versaoXML = "2.04";
+                        if (xmlDoc.GetElementsByTagName("GerarNfseEnvio").Count > 0)
+                        {
+                            versaoXML = "2.02";
+                            break;
+                        }
                     }
-                    else if (codMunicipio == 4309308 || codMunicipio == 4316006 || codMunicipio == 4314050 ||
-                             codMunicipio == 4320206)
+                    if (!versaoXML.Equals("2.02"))
                     {
                         versaoXML = "1.00";
+                    }
+                    break;
+
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
+                    break;
+
+                case PadraoNFSe.IPM:
+                    versaoXML = "2.04";
+
+                    if (xmlDoc.InnerXml.Contains("<nfse"))
+                    {
+                        versaoXML = "1.20";
+
+                        if (codMunicipio == 4309308 || codMunicipio == 4316006 || codMunicipio == 4314050 ||
+                            codMunicipio == 4320206)
+                        {
+                            versaoXML = "1.00";
+                        }
                     }
                     break;
 
                 case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.BSITBR:
+                case PadraoNFSe.CENTI:
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SOFTPLAN:
-                case PadraoNFSe.CENTI:
                     versaoXML = "2.00";
                     break;
 
-                case PadraoNFSe.PRODATA:
                 case PadraoNFSe.SONNER:
+                case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.SYSTEMPRO:
@@ -468,9 +741,10 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.QUASAR:
                     versaoXML = "2.01";
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
+                        break;
                     }
                     break;
 
@@ -482,27 +756,36 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.SH3:
-                case PadraoNFSe.MODERNIZACAO_PUBLICA:
+                case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
                     break;
 
-
-                case PadraoNFSe.FISCO:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.DESENVOLVECIDADE:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
                     break;
 
-                case PadraoNFSe.RLZ_INFORMATICA:
-                    versaoXML = "2.03";
+                case PadraoNFSe.FINTEL:
+                    versaoXML = "2.02";
 
-                    if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    if (codMunicipio == 4115200)
+                    {
+                        versaoXML = "2.01";
+                    }
+                    break;
+
+                case PadraoNFSe.SIMPLISS:
+                    if ((codMunicipio == 3306305 || codMunicipio == 4202404) && !ConteudoXML.OuterXml.Contains("DPS"))
+                    {
+                        versaoXML = "2.03";
+                        break;
+                    }
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                         break;
                     }
+                    versaoXML = "3.00";
                     break;
 
                 case PadraoNFSe.COPLAN:
@@ -512,16 +795,23 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
-                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
+                    if (ConteudoXML.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
                     {
                         versaoXML = "1.01";
                     }
                     break;
 
+                case PadraoNFSe.MODERNIZACAO_PUBLICA:
+                    versaoXML = "2.02";
+                    if (xmlDoc.InnerXml.Contains("versao=\"3.02\""))
+                    {
+                        versaoXML = "3.02";
+                    }
+                    break;
+
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
-
-                    if ((codMunicipio == 3509502 && xmlDoc.OuterXml.Contains("ns1:ReqCancelamentoNFSe") || codMunicipio == 5002704 ||
+                    if ((codMunicipio == 3509502 && ConteudoXML.OuterXml.Contains("ns1:ReqEnvioLoteRPS") || codMunicipio == 5002704 ||
                         codMunicipio == 3303500 || codMunicipio == 2111300))
                     {
                         versaoXML = "1.00";
@@ -530,10 +820,18 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
-                    else if (codMunicipio == 3549904 && xmlDoc.OuterXml.Contains("ginfes"))
+                    else if (ConteudoXML.InnerXml.Contains("versao=\"3.00\""))
                     {
                         versaoXML = "3.00";
                     }
+
+                    break;
+
+                case PadraoNFSe.FISCO:
+                case PadraoNFSe.DESENVOLVECIDADE:
+                case PadraoNFSe.INDAIATUBA_SP:
+                    versaoXML = "2.03";
+
                     break;
 
                 case PadraoNFSe.ADM_SISTEMAS:
@@ -545,19 +843,19 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !xmlDoc.DocumentElement.Name.Contains("pedRegEvento")))
+                case PadraoNFSe.RLZ_INFORMATICA:
+                    versaoXML = "2.03";
 
+                    if (codMunicipio == 3557105)
                     {
-                        versaoXML = "2.03";
+                        versaoXML = "1.00";
                         break;
                     }
-                    if (xmlDoc.DocumentElement.Name.Contains("pedRegEvento"))
+                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                         break;
                     }
-                    versaoXML = "3.00";
                     break;
 
                 case PadraoNFSe.PRONIM:
@@ -574,17 +872,20 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
+                    if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.SMARAPD:
                     versaoXML = "2.03";
 
-
                     if (codMunicipio == 3551702 || codMunicipio == 3202405)
                     {
                         versaoXML = "1.00";
                     }
-                    else if (xmlDoc.OuterXml.Contains("infPedReg"))
+                    else if (xmlDoc.OuterXml.Contains("infDPS"))
                     {
                         versaoXML = "1.01";
                     }
@@ -596,20 +897,29 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.GISSONLINE:
+                case PadraoNFSe.IIBRASIL:
                     versaoXML = "2.04";
                     break;
 
                 case PadraoNFSe.ISSNET:
                     versaoXML = "2.04";
-                    if (xmlDoc.GetElementsByTagName("pedRegEvento").Count > 0)
+                    if (ConteudoXML.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }
                     break;
 
+                case PadraoNFSe.GISSONLINE:
+                    versaoXML = "2.04";
+                    if (ConteudoXML.InnerXml.Contains("versao=\"2.05\""))
+                    {
+                        versaoXML = "2.05";
+                    }
+                    break;
+
                 case PadraoNFSe.ABACO:
                     versaoXML = "2.04";
+
                     if (codMunicipio == 5108402)
                     {
                         versaoXML = "2.01";
@@ -619,9 +929,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
 
-                    if (xmlDoc.GetElementsByTagName("Prestador").Count > 0)
+                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
                     {
-                        versaoXML = "2.00";
+                        versaoXML = "3.01";
+                    }
+
+                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
+                    {
+                        versaoXML = "4.00";
                     }
                     break;
 
@@ -630,7 +945,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIGCORP:
-                    if (xmlDoc.DocumentElement.Name.Contains("CancelarNota"))
+                    if (xmlDoc.DocumentElement.Name.Contains("GerarNota"))
                     {
                         if (codMunicipio == 4113700)
                         {
@@ -641,9 +956,11 @@ namespace NFe.Service.NFSe
                             versaoXML = "3.00";
                         }
                     }
-                    else if (!xmlDoc.DocumentElement.Name.Contains("CancelarNota"))
+                    else if (!xmlDoc.DocumentElement.Name.Contains("GerarNota"))
                     {
-                        if (codMunicipio == 4204202)
+                        if (codMunicipio == 4204202 || codMunicipio == 3131307 ||
+                            codMunicipio == 3530805 || codMunicipio == 3145208 ||
+                            codMunicipio == 3300704)
                         {
                             versaoXML = "2.04";
                         }
@@ -652,12 +969,6 @@ namespace NFe.Service.NFSe
                             versaoXML = "2.03";
                         }
                     }
-                    if (codMunicipio == 3131307 || codMunicipio == 3530805 ||
-                        codMunicipio == 3145208 || codMunicipio == 3300704)
-                    {
-                        versaoXML = "2.04";
-                    }
-
                     break;
 
                 case PadraoNFSe.EL:
@@ -666,15 +977,6 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 3201506 || codMunicipio == 3204203)
                     {
                         versaoXML = "1.00";
-                    }
-                    break;
-
-                case PadraoNFSe.FINTEL:
-                    versaoXML = "2.02";
-
-                    if (codMunicipio == 4115200)
-                    {
-                        versaoXML = "2.01";
                     }
                     break;
 
@@ -688,7 +990,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GIF:
-                    if (xmlDoc.DocumentElement.Name.Contains("pedRegEvento"))
+                    if (ConteudoXML.OuterXml.Contains("DPS"))
                     {
                         versaoXML = "1.01";
                         break;
@@ -699,19 +1001,15 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
 
-                    if (codMunicipio == 3506102)
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007)
                     {
                         versaoXML = "4.00";
                     }
 
                     break;
 
-
                 default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Cancelamento de NFSe.");
-
-
-
+                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Enivo / Gerar NFS-e.");
             }
 
             return versaoXML;
