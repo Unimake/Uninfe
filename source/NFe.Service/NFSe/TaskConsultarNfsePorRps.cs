@@ -288,6 +288,10 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
+                    break;
+
                 case PadraoNFSe.TINUS:
                     versaoXML = "1.00";
                     if (xmlDoc.InnerXml.Contains("versao=\"2.03\"") || xmlDoc.InnerXml.Contains("abrasf"))
@@ -487,6 +491,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
 
+                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
+                    {
+                        versaoXML = "3.01";
+                    }
+
                     if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
                     {
                         versaoXML = "4.00";
@@ -531,6 +540,16 @@ namespace NFe.Service.NFSe
                         break;
                     }
                     versaoXML = "1.00";
+                    break;
+
+                case PadraoNFSe.CONAM:
+                    versaoXML = "2.00";
+
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007)
+                    {
+                        versaoXML = "4.00";
+                    }
+
                     break;
 
                 default:

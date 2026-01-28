@@ -663,6 +663,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
 
+                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
+                    {
+                        versaoXML = "3.01";
+                    }
+
                     if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
                     {
                         versaoXML = "4.00";
@@ -758,7 +763,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
 
-                    if (codMunicipio == 3506102)
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007)
                     {
                         versaoXML = "4.00";
                     }

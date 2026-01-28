@@ -546,7 +546,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || (codMunicipio == 4202404 && !xmlDoc.DocumentElement.Name.Contains("pedRegEvento")))
+                    if ((codMunicipio == 3306305 || codMunicipio == 4202404) && !xmlDoc.DocumentElement.Name.Contains("pedRegEvento"))
 
                     {
                         versaoXML = "2.03";
@@ -618,6 +618,11 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
+
+                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
+                    {
+                        versaoXML = "3.01";
+                    }
 
                     if (xmlDoc.GetElementsByTagName("Prestador").Count > 0)
                     {
@@ -699,7 +704,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
 
-                    if (codMunicipio == 3506102)
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007) 
                     {
                         versaoXML = "4.00";
                     }

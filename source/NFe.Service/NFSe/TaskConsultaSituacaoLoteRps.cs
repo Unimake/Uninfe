@@ -229,6 +229,10 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
+                case PadraoNFSe.BETHA_CLOUD:
+                    versaoXML = "1.01";
+                    break;
+
                 case PadraoNFSe.NATALENSE:
                     versaoXML = "2.00";
                     break;
