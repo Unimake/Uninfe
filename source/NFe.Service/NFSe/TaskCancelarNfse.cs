@@ -663,7 +663,12 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    break;
+                    else if (xmlDoc.OuterXml.Contains("infPedReg"))
+                    {
+                        versaoXML = "1.01";
+                    }
+
+                        break;
 
                 case PadraoNFSe.FINTEL:
                     versaoXML = "2.02";

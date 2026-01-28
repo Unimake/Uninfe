@@ -971,6 +971,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
+                    else if (xmlDoc.OuterXml.Contains("infDPS"))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.TIPLAN:
