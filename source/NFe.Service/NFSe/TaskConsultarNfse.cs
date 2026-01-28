@@ -457,7 +457,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.BETHA:
                     versaoXML = "2.02";
-                    
+
                     if (xmlDoc.DocumentElement.Name.Contains("e:"))
                     {
                         versaoXML = "1.00";
@@ -580,8 +580,13 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 3557105)
                     {
                         versaoXML = "1.00";
+                        break;
                     }
-
+                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
                     break;
 
                 case PadraoNFSe.PRONIM:
@@ -598,7 +603,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
-                    if (xmlDoc.OuterXml.Contains(versaoXML="\"1.01\""))
+                    if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }

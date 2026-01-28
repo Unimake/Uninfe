@@ -478,6 +478,7 @@ namespace NFe.Service.NFSe
                         case "GerarNfseEnvio":
                         case "nfse":
                         case "nota":
+                        case "DPS":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
 
@@ -848,157 +849,162 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 3557105)
                     {
                         versaoXML = "1.00";
+                        break;
                     }
-                    break;
-
-                case PadraoNFSe.PRONIM:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 3131703 ||
-                        codMunicipio == 4303004 || codMunicipio == 4300109 || codMunicipio == 3143302 ||
-                        codMunicipio == 4306932 || codMunicipio == 3302205 || codMunicipio == 3530300)
-                    {
-                        versaoXML = "2.02";
-                    }
-                    if (codMunicipio == 3535804 || codMunicipio == 4304507 || codMunicipio == 4321709 ||
-                        codMunicipio == 4122404)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                    }
-                    break;
-
-                case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3551702 || codMunicipio == 3202405)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    else if (xmlDoc.OuterXml.Contains("infDPS"))
-                    {
-                        versaoXML = "1.01";
-                    }
-                    else if (codMunicipio == 3205002 || codMunicipio == 3516200)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.PROPRIOJOINVILLESC:
-                case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.IIBRASIL:
-                    versaoXML = "2.04";
-                    break;
-
-                case PadraoNFSe.ISSNET:
-                    versaoXML = "2.04";
-                    if (ConteudoXML.OuterXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                    }
-                    break;
-
-                case PadraoNFSe.GISSONLINE:
-                    versaoXML = "2.04";
-                    if (ConteudoXML.InnerXml.Contains("versao=\"2.05\""))
-                    {
-                        versaoXML = "2.05";
-                    }
-                    break;
-
-                case PadraoNFSe.ABACO:
-                    versaoXML = "2.04";
-
-                    if (codMunicipio == 5108402)
-                    {
-                        versaoXML = "2.01";
-                    }
-                    break;
-
-                case PadraoNFSe.GINFES:
-                    versaoXML = "3.00";
-
-                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
-                    {
-                        versaoXML = "4.00";
-                    }
-                    break;
-
-                case PadraoNFSe.PUBLICA:
-                    versaoXML = "3.00";
-                    break;
-
-                case PadraoNFSe.SIGCORP:
-                    if (xmlDoc.DocumentElement.Name.Contains("GerarNota"))
-                    {
-                        if (codMunicipio == 4113700)
-                        {
-                            versaoXML = "1.03";
-                        }
-                        else
-                        {
-                            versaoXML = "3.00";
-                        }
-                    }
-                    else if (!xmlDoc.DocumentElement.Name.Contains("GerarNota"))
-                    {
-                        if (codMunicipio == 4204202 || codMunicipio == 3131307 ||
-                            codMunicipio == 3530805 || codMunicipio == 3145208 ||
-                            codMunicipio == 3300704)
-                        {
-                            versaoXML = "2.04";
-                        }
-                        else
-                        {
-                            versaoXML = "2.03";
-                        }
-                    }
-                    break;
-
-                case PadraoNFSe.EL:
-                    versaoXML = "2.04";
-
-                    if (codMunicipio == 3201506 || codMunicipio == 3204203)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    break;
-
-                case PadraoNFSe.TIPLAN:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 2611606)
-                    {
-                        versaoXML = "2.01";
-                    }
-                    break;
-
-                case PadraoNFSe.GIF:
-                    if (ConteudoXML.OuterXml.Contains("DPS"))
+                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                         break;
-                    }
-                    versaoXML = "1.00";
-                    break;
+                    }break;
 
-                case PadraoNFSe.CONAM:
-                    versaoXML = "2.00";
+                case PadraoNFSe.PRONIM:
+                            versaoXML = "2.03";
 
-                    if (codMunicipio == 3506102)
-                    {
-                        versaoXML = "4.00";
-                    }
+                            if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 3131703 ||
+                                codMunicipio == 4303004 || codMunicipio == 4300109 || codMunicipio == 3143302 ||
+                                codMunicipio == 4306932 || codMunicipio == 3302205 || codMunicipio == 3530300)
+                            {
+                                versaoXML = "2.02";
+                            }
+                            if (codMunicipio == 3535804 || codMunicipio == 4304507 || codMunicipio == 4321709 ||
+                                codMunicipio == 4122404)
+                            {
+                                versaoXML = "1.00";
+                            }
+                            if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
+                            {
+                                versaoXML = "1.01";
+                            }
+                            break;
 
-                    break;
+                        case PadraoNFSe.SMARAPD:
+                            versaoXML = "2.03";
 
-                default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Enivo / Gerar NFS-e.");
-            }
+                            if (codMunicipio == 3551702 || codMunicipio == 3202405)
+                            {
+                                versaoXML = "1.00";
+                            }
+                            else if (xmlDoc.OuterXml.Contains("infDPS"))
+                            {
+                                versaoXML = "1.01";
+                            }
+                            else if (codMunicipio == 3205002 || codMunicipio == 3516200)
+                            {
+                                versaoXML = "2.04";
+                            }
+                            break;
+
+                        case PadraoNFSe.PROPRIOJOINVILLESC:
+                        case PadraoNFSe.TRIBUTUS:
+                        case PadraoNFSe.IIBRASIL:
+                            versaoXML = "2.04";
+                            break;
+
+                        case PadraoNFSe.ISSNET:
+                            versaoXML = "2.04";
+                            if (ConteudoXML.OuterXml.Contains("versao=\"1.01\""))
+                            {
+                                versaoXML = "1.01";
+                            }
+                            break;
+
+                        case PadraoNFSe.GISSONLINE:
+                            versaoXML = "2.04";
+                            if (ConteudoXML.InnerXml.Contains("versao=\"2.05\""))
+                            {
+                                versaoXML = "2.05";
+                            }
+                            break;
+
+                        case PadraoNFSe.ABACO:
+                            versaoXML = "2.04";
+
+                            if (codMunicipio == 5108402)
+                            {
+                                versaoXML = "2.01";
+                            }
+                            break;
+
+                        case PadraoNFSe.GINFES:
+                            versaoXML = "3.00";
+
+                            if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
+                            {
+                                versaoXML = "4.00";
+                            }
+                            break;
+
+                        case PadraoNFSe.PUBLICA:
+                            versaoXML = "3.00";
+                            break;
+
+                        case PadraoNFSe.SIGCORP:
+                            if (xmlDoc.DocumentElement.Name.Contains("GerarNota"))
+                            {
+                                if (codMunicipio == 4113700)
+                                {
+                                    versaoXML = "1.03";
+                                }
+                                else
+                                {
+                                    versaoXML = "3.00";
+                                }
+                            }
+                            else if (!xmlDoc.DocumentElement.Name.Contains("GerarNota"))
+                            {
+                                if (codMunicipio == 4204202 || codMunicipio == 3131307 ||
+                                    codMunicipio == 3530805 || codMunicipio == 3145208 ||
+                                    codMunicipio == 3300704)
+                                {
+                                    versaoXML = "2.04";
+                                }
+                                else
+                                {
+                                    versaoXML = "2.03";
+                                }
+                            }
+                            break;
+
+                        case PadraoNFSe.EL:
+                            versaoXML = "2.04";
+
+                            if (codMunicipio == 3201506 || codMunicipio == 3204203)
+                            {
+                                versaoXML = "1.00";
+                            }
+                            break;
+
+                        case PadraoNFSe.TIPLAN:
+                            versaoXML = "2.03";
+
+                            if (codMunicipio == 2611606)
+                            {
+                                versaoXML = "2.01";
+                            }
+                            break;
+
+                        case PadraoNFSe.GIF:
+                            if (ConteudoXML.OuterXml.Contains("DPS"))
+                            {
+                                versaoXML = "1.01";
+                                break;
+                            }
+                            versaoXML = "1.00";
+                            break;
+
+                        case PadraoNFSe.CONAM:
+                            versaoXML = "2.00";
+
+                            if (codMunicipio == 3506102)
+                            {
+                                versaoXML = "4.00";
+                            }
+
+                            break;
+
+                        default:
+                            throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Enivo / Gerar NFS-e.");
+                        }
 
             return versaoXML;
         }

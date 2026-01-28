@@ -338,11 +338,21 @@ namespace NFe.Service.NFSe
 
 
                 case PadraoNFSe.FISCO:
-                case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
                 case PadraoNFSe.DESENVOLVECIDADE:
                 case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
+                    break;
+
+
+                case PadraoNFSe.RLZ_INFORMATICA:
+                    versaoXML = "2.03";
+
+                    if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
                     break;
 
                 case PadraoNFSe.COPLAN:
