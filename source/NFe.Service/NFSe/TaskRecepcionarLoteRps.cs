@@ -475,6 +475,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.RLZ_INFORMATICA:
                     switch (doc.DocumentElement.Name)
                     {
+                        case "DPS":
                         case "GerarNfseEnvio":
                         case "nfse":
                         case "nota":
@@ -848,6 +849,12 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 3557105)
                     {
                         versaoXML = "1.00";
+                        break;
+                    }
+                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
                     }
                     break;
 

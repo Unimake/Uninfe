@@ -580,8 +580,13 @@ namespace NFe.Service.NFSe
                     if (codMunicipio == 3557105)
                     {
                         versaoXML = "1.00";
+                        break;
                     }
-
+                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
                     break;
 
                 case PadraoNFSe.PRONIM:

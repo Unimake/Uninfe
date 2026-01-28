@@ -274,8 +274,17 @@ namespace NFe.Service.NFSe
                     break;
 
 
-                case PadraoNFSe.SIMPLISS:   //Versão 2.03 não possui esse serviço -> Blumenau - SC e Volta Redonda - RJ
                 case PadraoNFSe.GINFES:
+                    versaoXML = "3.00";
+
+                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
+                    {
+                        versaoXML = "3.01";
+                    }
+
+                    break;
+
+                case PadraoNFSe.SIMPLISS:   //Versão 2.03 não possui esse serviço -> Blumenau - SC e Volta Redonda - RJ
                 case PadraoNFSe.DSF:        //DSF não possui este serviço, porém, São José dos Campos - SP aceita layout do padrão GINFES e aceita este serviço na versão 3.00
                     versaoXML = "3.01";
                     break;
