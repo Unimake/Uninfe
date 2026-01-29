@@ -729,7 +729,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
-                case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
@@ -737,6 +736,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
+                    break;
+
+                case PadraoNFSe.FIORILLI:
+                    versaoXML = "2.01";
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.00\""))
+                    {
+                        versaoXML = "1.00";
+                    }
                     break;
 
                 case PadraoNFSe.QUASAR:
