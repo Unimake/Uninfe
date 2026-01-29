@@ -289,6 +289,7 @@ namespace NFe.Components
             PedRetencoes,
             PedBeneficio,
             PedRegEvento,
+            PedConsEventosNfse,
 
             /// <summary>
             /// CFSe
@@ -670,6 +671,12 @@ namespace NFe.Components
                 "-regev.xml", "",
                 "-regev.err",
                 "Pedido de Registro de Evento da NFSe"));
+
+            ListaExtensoes.Add(TipoEnvio.PedConsEventosNfse, new ExtensaoClass(
+                "-ped-consevennfse.xml", "",
+                "-consevennfse.xml", "",
+                "-consevennfse.err",
+                "Pedido de Consulta de Eventos da NFSe"));
 
             #endregion Extensoes da NFSe
 
@@ -1679,6 +1686,16 @@ namespace NFe.Components
             /// -regev.err
             /// </summary>
             public const string PedRegEvento_ERR = "-regev.err";
+
+            /// <summary>
+            /// -consecennfse.xml
+            /// </summary>
+            public static string ConsEventosNfse = Extensao(TipoEnvio.PedConsEventosNfse).RetornoXML;
+
+            /// <summary>
+            /// -consevennfse.err
+            /// </summary>
+            public const string ConsEventosNfse_ERR = "-consevennfse.err";
 
             #endregion Extensões NFSe
 

@@ -353,6 +353,12 @@ namespace NFe.Components
         [Description("Recepcionar Eventos Diversos da NFSe NACIONAL")]
         NFSeRecepcionarEventosDiversos,
 
+        ///<summary>
+        ///Consutlar Eventos Diversos da NFSe NACIONAL
+        /// </summary>
+        [Description("Consutlar Eventos Diversos da NFSe NACIONAL")]
+        NFSeConsultarEventosDiversos,
+
         #endregion NFSe
 
         #region CFSe
