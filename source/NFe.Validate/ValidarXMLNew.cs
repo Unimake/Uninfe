@@ -63,25 +63,25 @@ namespace NFe.Validate
             }
         }
 
-        private void GravarXmlRetornoWarnings(string arquivo, List<ValidatorDFeException> xMotivo)
+        private void GravarXmlRetornoWarnings(string arquivo, List<ValidatorDFeException> warnings)
         {
             var emp = Empresas.FindEmpresaByThread();
 
             var arquivoRetorno = Functions.ExtrairNomeArq(arquivo, ".xml") + "-warning.xml";
 
-            var warnings = new List<XElement>();
+            var warningsElement = new List<XElement>();
 
-            foreach (var warning in xMotivo)
+            foreach (var warning in warnings)
             {
-                warnings.Add(new XElement("Warning", warning.Message));
+                warningsElement.Add(new XElement("Warning", warning.Message));
             }
 
             var xml = new XDocument(new XDeclaration("1.0", "utf-8", null),
                 new XElement("Validacao",
-                new XElement("Warnings", warnings)));
+                new XElement("Warnings", warningsElement)));
             xml.Save(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + arquivoRetorno);
 
-            xMotivo.Clear();
+            warnings.Clear();
         }
 
         private void Validar(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
