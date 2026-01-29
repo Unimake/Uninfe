@@ -407,6 +407,7 @@ namespace NFe.Service.NFSe
                         case "EnviarLoteRpsSincronoEnvio":
                         case "EnviarLoteDpsSincronoEnvio":
                         case "ns1:ReqEnvioLoteRPS":
+                        case "nfse:RecepcionarLoteDpsSincronoEnvio":
                             if (municipio == 2111300)
                             {
                                 result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
@@ -417,12 +418,14 @@ namespace NFe.Service.NFSe
                             break;
                         case "EnviarLoteRpsEnvio":
                         case "EnviarLoteDpsEnvio":
+                        case "nfse:RecepcionarLoteDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                             break;
                         case "GerarNfseEnvio":
                         case "GerarNovaNfseEnvio":
                         case "DPS":
                         case "e:RecepcionarDpsEnvio":
+                        case "nfse:RecepcionarDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
 
