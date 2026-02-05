@@ -400,7 +400,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.ISSNET:
                     versaoXML = "1.01";
-                    if (xmlDoc.GetElementsByTagName("Pedido").Count > 0)
+                    if (xmlDoc.InnerXml.Contains("ConsultarLoteRpsEnvio"))
                     {
                         versaoXML = "2.04";
                     }
