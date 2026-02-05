@@ -230,6 +230,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.BETHA_CLOUD:
+                case PadraoNFSe.QUASAR:
                     versaoXML = "1.01";
                     break;
 
