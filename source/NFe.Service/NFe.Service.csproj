@@ -69,11 +69,11 @@
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="EBank.Solutions.Primitives, Version=2026.1.15.1200, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.EBank.Primitives.20260115.1200.18\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
+    <Reference Include="EBank.Solutions.Primitives, Version=2026.2.4.551, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.EBank.Primitives.20260204.551.5\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.13.5, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.5\lib\net461\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.2\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -106,8 +106,8 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=10.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.10.0.2\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Abstractions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Abstractions.10.0.0\lib\net462\Microsoft.Identity.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Abstractions, Version=11.0.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Abstractions.11.0.0\lib\net462\Microsoft.Identity.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.15.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
@@ -225,8 +225,8 @@
     <Reference Include="Unimake.Cryptography, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20260116.1838.31\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.EBank.Solutions, Version=2026.1.15.1205, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.EBank.Solutions.20260115.1205.59\lib\netstandard2.0\Unimake.EBank.Solutions.dll</HintPath>
+    <Reference Include="Unimake.EBank.Solutions, Version=2026.2.4.622, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.EBank.Solutions.20260204.622.6\lib\netstandard2.0\Unimake.EBank.Solutions.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Extensions, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Extensions.20260116.1838.31\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
@@ -246,10 +246,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Unimake.Business.DFe, Version=2026.1.29.1047, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260129.1047.45\lib\net472\Unimake.Business.DFe.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+    <Reference Include="Unimake.Business.DFe, Version=2026.2.6.1905, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20260206.1905.46\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    </Reference>	 
+  </ItemGroup>    
   <ItemGroup Condition="'$(Configuration)' == 'Beta'">
     <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
       <Name>Unimake.Business.DFe</Name>
