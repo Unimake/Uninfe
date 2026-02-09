@@ -152,10 +152,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Unimake.Business.DFe, Version=2026.1.29.1047, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260129.1047.45\lib\net472\Unimake.Business.DFe.dll</HintPath>
-    </Reference>
-  </ItemGroup>  <ItemGroup Condition="'$(Configuration)' == 'Beta'">
+    <Reference Include="Unimake.Business.DFe, Version=2026.2.6.1905, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20260206.1905.46\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    </Reference>	 
+  </ItemGroup>    
+  <ItemGroup Condition="'$(Configuration)' == 'Beta'">
     <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
       <Name>Unimake.Business.DFe</Name>
     </ProjectReference>
