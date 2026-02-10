@@ -2011,13 +2011,23 @@ namespace NFe.Settings
         }
 
         /// <summary>
+        /// Classe para armazenar documentos extraídos do certificado
+        /// </summary>
+        private class DocumentosCertificado
+        {
+            public string CPF { get; set; }
+            public string CNPJ { get; set; }
+
+            public bool TemDocumento => !string.IsNullOrEmpty(CPF) || !string.IsNullOrEmpty(CNPJ);
+        }
+
+        /// <summary>
         /// Verifica se CNPJ do certificado é o mesmo da empresa e exibe aviso
         /// </summary>
         /// <param name="certificado">Certificado a ser verificado</param>
         /// <param name="docCadastroEmpresa"> CNPJ ou CPF da empresa cadastrado</param>
         public bool EhIgualDocumento(string certificado, string docCadastroEmpresa)
         {
-
             if (certificado == null || string.IsNullOrEmpty(docCadastroEmpresa))
             {
                 throw new Exception("Ocorreu um erro ao tentar ler o certificado ou a documentação da empresa");
@@ -2025,87 +2035,145 @@ namespace NFe.Settings
 
             try
             {
-                var docCertificado = ExtrairCNPJCPFCertificado(certificado);
+                var docsCertificado = ExtrairCNPJCPFCertificado(certificado);
 
-                if (string.IsNullOrEmpty(docCertificado))
+                if (!docsCertificado.TemDocumento)
                 {
                     throw new Exception("O certificado digital não contém CNPJ ou CPF válido.");
                 }
-                if (!CNPJCPFMesmaRaiz(docCertificado, docCadastroEmpresa))
+
+                var docCadastro = Regex.Replace(docCadastroEmpresa, @"[^\d]", "");
+
+                if (docCadastro.Length == 14)
                 {
-                    return false;
+                    if (!string.IsNullOrEmpty(docsCertificado.CNPJ))
+                    {
+                        return CNPJMesmaRaiz(docsCertificado.CNPJ, docCadastro);
+                    }
+                }
+                else if (docCadastro.Length == 11)
+                {
+                    if (!string.IsNullOrEmpty(docsCertificado.CPF))
+                    {
+                        return docsCertificado.CPF == docCadastro;
+                    }
                 }
 
+                return false;
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocorreu um erro ao tentar ler o conteúdo do CNPJ: " + ex.Message);
+                throw new Exception("Ocorreu um erro ao tentar ler o conteúdo do CNPJ/CPF: " + ex.Message);
             }
-
-            return true;
         }
 
         /// <summary>
-        /// Extrair CNPJ do certificado
+        /// Extrair CNPJ e CPF do certificado
         /// </summary>
-        /// <param name="certificado">Certificado</param>
-        /// <returns>CNPJ encontrado no certificado, ou string vazia</returns>
-        private string ExtrairCNPJCPFCertificado(string certificado)
+        /// <param name="certificado">Subject do certificado</param>
+        /// <returns>Objeto contendo CPF e/ou CNPJ encontrados</returns>
+        private DocumentosCertificado ExtrairCNPJCPFCertificado(string certificado)
         {
-            if (certificado == null)
+            var resultado = new DocumentosCertificado();
+
+            if (string.IsNullOrEmpty(certificado))
             {
-                return string.Empty;
+                return resultado;
             }
 
             try
             {
-                var m = Regex.Match(certificado, @"\b(\d{10,14})\b");
-                if (m.Success)
+                var doisDocumentosMatch = Regex.Match(certificado, @"(\d{11,14})[:\s](\d{11,14})");
+                if (doisDocumentosMatch.Success)
                 {
-                    string digits = m.Groups[1].Value;
-                    int target = digits.Length <= 11 ? 11 : 14;
-                    return digits.PadLeft(target, '0');
+                    var doc1 = doisDocumentosMatch.Groups[1].Value;
+                    var doc2 = doisDocumentosMatch.Groups[2].Value;
+
+                    if (doc1.Length == 11 && doc2.Length == 14)
+                    {
+                        resultado.CPF = doc1;
+                        resultado.CNPJ = doc2;
+                        return resultado;
+                    }
+                    else if (doc1.Length == 14 && doc2.Length == 11)
+                    {
+                        resultado.CNPJ = doc1;
+                        resultado.CPF = doc2;
+                        return resultado;
+                    }
+                    else if (doc1.Length == 14 && doc2.Length == 14)
+                    {
+                        resultado.CNPJ = doc1;
+                        return resultado;
+                    }
+                    else if (doc1.Length == 11 && doc2.Length == 11)
+                    {
+                        resultado.CPF = doc1;
+                        return resultado;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(resultado.CNPJ) && string.IsNullOrEmpty(resultado.CPF))
+                {
+                    var cnpjMatch = Regex.Match(certificado, @"\b(\d{14})\b");
+                    if (cnpjMatch.Success)
+                    {
+                        resultado.CNPJ = cnpjMatch.Groups[1].Value;
+                    }
+
+                    if (string.IsNullOrEmpty(resultado.CNPJ))
+                    {
+                        var cpfMatch = Regex.Match(certificado, @"\b(\d{11})\b");
+                        if (cpfMatch.Success)
+                        {
+                            resultado.CPF = cpfMatch.Groups[1].Value;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(resultado.CNPJ) && string.IsNullOrEmpty(resultado.CPF))
+                {
+                    var cpfMatch = Regex.Match(certificado, @"\b(\d{11})\b");
+                    if (cpfMatch.Success)
+                    {
+                        if (!resultado.CNPJ.Contains(cpfMatch.Groups[1].Value))
+                        {
+                            resultado.CPF = cpfMatch.Groups[1].Value;
+                        }
+                    }
                 }
             }
             catch
             {
-                //Caso erro, não interrompe o processo
+                // Caso erro, retorna objeto vazio
             }
 
-            return string.Empty;
-
+            return resultado;
         }
 
         /// <summary>
         /// Verifica se os CNPJs possuem a mesma raiz (8 primeiros dígitos)
         /// </summary>
-        /// <param name="docCertificado">CNPJ ou CPF do certificado</param>
-        /// <param name="docCadastroEmpresa">CNPJ ou CPF da empresa</param>
+        /// <param name="cnpj1">Primeiro CNPJ</param>
+        /// <param name="cnpj2">Segundo CNPJ</param>
         /// <returns>True se mesma raiz, false se contrário</returns>
-        private bool CNPJCPFMesmaRaiz(string docCertificado, string docCadastroEmpresa)
+        private bool CNPJMesmaRaiz(string cnpj1, string cnpj2)
         {
-            if (string.IsNullOrEmpty(docCertificado) || string.IsNullOrEmpty(docCadastroEmpresa))
+            if (string.IsNullOrEmpty(cnpj1) || string.IsNullOrEmpty(cnpj2))
             {
                 return false;
             }
 
-            docCertificado = Regex.Replace(docCertificado, @"[^\d]", "");
-            docCadastroEmpresa = Regex.Replace(docCadastroEmpresa, @"[^\d]", "");
+            cnpj1 = Regex.Replace(cnpj1, @"[^\d]", "");
+            cnpj2 = Regex.Replace(cnpj2, @"[^\d]", "");
 
-            if (docCadastroEmpresa.Length == 14 && docCertificado.Length == 14)
+            if (cnpj1.Length != 14 || cnpj2.Length != 14)
             {
-                return docCertificado.Substring(0, 8) == docCadastroEmpresa.Substring(0, 8);
+                return false;
             }
-            else if (docCadastroEmpresa.Length == 11 && docCertificado.Length == 11)
-            {
-                return docCertificado == docCadastroEmpresa;
-            }
-            else
-            {
-                return false; // CNPJ e CPF devem ter o mesmo tamanho
-            }
+
+            return cnpj1.Substring(0, 8) == cnpj2.Substring(0, 8);
         }
-
 
         #endregion Métodos gerais
     }
