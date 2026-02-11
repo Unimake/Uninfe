@@ -127,17 +127,37 @@ namespace NFe.Components
 
         public static PadraoNFSe BuscaPadraoNFSe(int municipio)
         {
-            var result = PadraoNFSe.None;
-
-            foreach (var mun in Propriedade.Municipios)
+            if (municipio < 100)
             {
-                if (mun.CodigoMunicipio == municipio)
-                {
-                    result = mun.Padrao;
-                }
+                return PadraoNFSe.None;
             }
 
-            return result;
+            PadraoNFSe BuscarNoCache()
+            {
+                var municipios = Propriedade.Municipios;
+                for (int i = 0; i < municipios.Count; i++)
+                {
+                    var mun = municipios[i];
+                    if (mun.CodigoMunicipio == municipio)
+                    {
+                        return mun.Padrao;
+                    }
+                }
+
+                return PadraoNFSe.None;
+            }
+
+            var result = BuscarNoCache();
+            if (result != PadraoNFSe.None)
+            {
+                return result;
+            }
+
+            // Algo falhou, não deveria, vamos tentar recarregar os municípios.
+            Propriedade.Municipios.Clear();
+            CarregarMunicipio();
+
+            return BuscarNoCache();
         }
 
         #endregion PadraoNFe()
@@ -586,23 +606,28 @@ namespace NFe.Components
             {
                 var doc = new XmlDocument();
                 var config = new Configuracao();
-                var stream = config.LoadXmlConfig(Unimake.Business.DFe.Configuration.ArquivoConfigGeral);
 
-                doc.Load(stream);
+                using (var stream = config.LoadXmlConfig(Unimake.Business.DFe.Configuration.ArquivoConfigGeral))
+                {
+                    doc.Load(stream);
+                }
 
                 var arquivoList = doc.GetElementsByTagName("Arquivo");
-
-                foreach (XmlNode arquivoNode in arquivoList)
+                foreach (XmlElement elemento in arquivoList)
                 {
-                    var elemento = (XmlElement)arquivoNode;
-                    if (elemento.GetAttribute("ID").Length >= 3)
+                    var idAttr = elemento.GetAttribute("ID");
+                    if (idAttr.Length >= 3)
                     {
-                        int id = Convert.ToInt32(elemento.GetAttribute("ID"));
+                        int id = Convert.ToInt32(idAttr);
                         string nome = elemento.GetElementsByTagName("Nome")[0].InnerText;
                         string uf = elemento.GetElementsByTagName("UF")[0].InnerText;
-                        PadraoNFSe padrao = PadraoNFSe.None;
-                        string padraoStr = elemento.GetElementsByTagName("PadraoNFSe")[0].InnerText;
-                        padrao = (PadraoNFSe)Enum.Parse(typeof(PadraoNFSe), padraoStr, true);
+                        string padraoStr = elemento.GetElementsByTagName("PadraoNFSe")[0].InnerText.ToUpper();
+                        var padrao = (PadraoNFSe)Enum.Parse(typeof(PadraoNFSe), padraoStr, true);
+
+                        if (padrao == PadraoNFSe.None)
+                        {
+                            WriteLog($"CarregarMunicipio() - Padrão NFSe não encontrado para o município: {nome}.", true, true, "");
+                        }
 
                         Propriedade.Municipios.Add(new Municipio(id, uf, nome, padrao));
                     }

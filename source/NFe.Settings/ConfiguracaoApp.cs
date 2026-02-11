@@ -257,6 +257,16 @@ namespace NFe.Settings
         /// </remarks>
         public static void CarregarDados()
         {
+            //Carregar a lista de webservices disponíveis
+            try
+            {
+                Functions.CarregarMunicipio();
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(ex.Message, false);
+            }
+
             var vArquivoConfig = Propriedade.PastaExecutavel + "\\" + Propriedade.NomeArqConfig;
             XmlDocument doc = null;
             if (File.Exists(vArquivoConfig))
@@ -370,16 +380,6 @@ namespace NFe.Settings
             {
                 ChecarConexaoInternet = true;
             }
-            //Carregar a lista de webservices disponíveis
-            try
-            {
-                Functions.CarregarMunicipio();
-            }
-            catch (Exception ex)
-            {
-                Auxiliar.WriteLog(ex.Message, false);
-            }
-
         }
 
         #endregion CarregarDados()
