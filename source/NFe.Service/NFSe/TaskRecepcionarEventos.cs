@@ -93,7 +93,7 @@ namespace NFe.Service.NFSe
                 MunicipioUsuario = Empresas.Configuracoes[emp].UsuarioWS
             };
 
-            var registrarEvento = new Unimake.Business.DFe.Servicos.NFSe.RecepcionarEventosNfse(conteudoXML, configuracao);
+            var registrarEvento = new Unimake.Business.DFe.Servicos.NFSe.RecepcionarEvento(conteudoXML, configuracao);
             registrarEvento.Executar();
 
             vStrXmlRetorno = registrarEvento.RetornoWSString;

@@ -90,7 +90,7 @@ namespace NFe.Service.NFSe
                 SchemaVersao = versaoXML
             };
 
-            var consultarEventos = new Unimake.Business.DFe.Servicos.NFSe.ConsultarEventosNfse(conteudoXML, configuracao);
+            var consultarEventos = new Unimake.Business.DFe.Servicos.NFSe.ConsultarEvento(conteudoXML, configuracao);
             consultarEventos.Executar();
 
             vStrXmlRetorno = consultarEventos.RetornoWSString;
