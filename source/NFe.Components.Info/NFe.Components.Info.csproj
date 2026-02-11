@@ -153,21 +153,31 @@
       <HintPath>..\packages\Unimake.Utils.20260116.1838.31\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Unimake.Business.DFe, Version=2026.2.6.1905, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260206.1905.46\lib\net472\Unimake.Business.DFe.dll</HintPath>
-    </Reference>	 
-  </ItemGroup>    
-  <ItemGroup Condition="'$(Configuration)' == 'Beta'">
-    <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-      <Name>Unimake.Business.DFe</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-      <Name>Unimake.Business.DFe</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DFeProjectConfiguration>Debug</DFeProjectConfiguration>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
+    <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.2.6.1905, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260206.1905.46\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+          <Name>Unimake.Business.DFe</Name>
+          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+          <Private>true</Private>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <Compile Include="Aplicacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
