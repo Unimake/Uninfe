@@ -418,17 +418,16 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.04";
                     break;
 
+                case PadraoNFSe.PROPRIOFORTALEZACE:
+                    versaoXML = "4.00";
+                    break;
+
                 case PadraoNFSe.GINFES:
                     versaoXML = "3.00";
 
                     if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
                     {
                         versaoXML = "3.01";
-                    }
-
-                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
-                    {
-                        versaoXML = "4.00";
                     }
                     break;
 
