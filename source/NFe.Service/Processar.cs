@@ -287,11 +287,11 @@ namespace NFe.Service
                         #region DFe
 
                         case Servicos.DFeEnviar:
-                            DirecionarArquivo(emp, false, true, arquivo, new TaskDFeRecepcao(arquivo));
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskDFeRecepcao(arquivo));
                             break;
 
                         case Servicos.CTeDistribuicaoDFe:
-                            DirecionarArquivo(emp, false, true, arquivo, new TaskDFeRecepcaoCTe(arquivo));
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskDFeRecepcaoCTe(arquivo));
                             break;
 
                         #endregion DFe
