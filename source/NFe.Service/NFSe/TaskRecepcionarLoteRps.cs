@@ -708,8 +708,8 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.IPM:
                     versaoXML = "2.04";
 
-                    if (xmlDoc.InnerXml.Contains("<nfse") && !(xmlDoc.DocumentElement.Name == "EnviarLoteRpsSincronoEnvio" || 
-                                                               xmlDoc.DocumentElement.Name == "EnviarLoteRpsEnvio" || 
+                    if (xmlDoc.InnerXml.Contains("<nfse") && !(xmlDoc.DocumentElement.Name == "EnviarLoteRpsSincronoEnvio" ||
+                                                               xmlDoc.DocumentElement.Name == "EnviarLoteRpsEnvio" ||
                                                                xmlDoc.DocumentElement.Name == "GerarNfseEnvio"))
                     {
                         versaoXML = "1.20";
@@ -936,6 +936,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.01";
                     }
+                    break;
+
+                case PadraoNFSe.PROPRIOFORTALEZACE:
+                    versaoXML = "4.00";
                     break;
 
                 case PadraoNFSe.GINFES:

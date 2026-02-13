@@ -657,7 +657,10 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PUBLICA:
                     versaoXML = "3.00";
+                    break;
 
+                case PadraoNFSe.PROPRIOFORTALEZACE:
+                    versaoXML = "4.00";
                     break;
 
                 case PadraoNFSe.GINFES:
