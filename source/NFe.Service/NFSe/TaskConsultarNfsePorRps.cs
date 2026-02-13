@@ -497,11 +497,11 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GINFES:
-                    versaoXML = "3.00";
+                    versaoXML = "3.01";
 
-                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
+                    if (xmlDoc.InnerXml.Contains("versao=\"4.00\""))
                     {
-                        versaoXML = "3.01";
+                        versaoXML = "4.00";
                     }
                     break;
 
