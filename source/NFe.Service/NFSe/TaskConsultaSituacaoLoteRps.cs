@@ -276,13 +276,7 @@ namespace NFe.Service.NFSe
 
 
                 case PadraoNFSe.GINFES:
-                    versaoXML = "3.00";
-
-                    if (xmlDoc.InnerXml.Contains("xmlns:ns1"))
-                    {
-                        versaoXML = "3.01";
-                    }
-
+                    versaoXML = "3.01";
                     break;
 
                 case PadraoNFSe.SIMPLISS:   //Versão 2.03 não possui esse serviço -> Blumenau - SC e Volta Redonda - RJ
