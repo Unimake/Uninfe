@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -221,6 +220,7 @@ namespace NFe.Settings
                                 case 1:
                                     erro = true;
                                     throw new Exception(rc);
+
                                 case 2: //Não localizou o certificado digital na hora de chamar o empresa.BuscaConfiguracao()
                                     //Quando é pelo serviço ele testa o certificado digital em outro ponto, justamente para não gerar o erro, dando tempo para o windows carregar o que é necessário para o bom funcionamento antes.
                                     if (!uniNFeServico)
@@ -346,34 +346,39 @@ namespace NFe.Settings
 
         public static bool AbrirArqEmpresa(string nomeArq = "")
         {
-            var abriu = false;
-
             try
             {
                 var axml = XElement.Load(Propriedade.NomeArqEmpresas);
-                abriu = true;
+                return true;
             }
             catch
             {
                 if (!string.IsNullOrWhiteSpace(nomeArq))
                 {
-                    CopiarSalvaEmpresa(nomeArq);
+                    return CopiarSalvaEmpresa(nomeArq);
                 }
             }
 
-            return abriu;
+            return false;
         }
 
-        private static void CopiarSalvaEmpresa(string nomeArq)
+        private static bool CopiarSalvaEmpresa(string nomeArq)
         {
             if (TestarArqEmpresa(nomeArq, false)) //Neste ponto o segundo parâmetro sempre tem que ser falso, pois não posso testar a igualdade do arquivo principal com o de backup, pois neste ponto entende-se que o principal está danificado, ou nem teria chegado aqui.
             {
                 try
                 {
                     File.Copy(nomeArq, Propriedade.NomeArqEmpresas, true);
+                    var axml = XElement.Load(Propriedade.NomeArqEmpresas);
+                    return true;
                 }
-                catch { }
+                catch
+                {
+                    return false;
+                }
             }
+
+            return false;
         }
 
         private static string CriaArquivoDeErro(Empresa empresa)
@@ -572,10 +577,10 @@ namespace NFe.Settings
                 }
                 else
                     if (!Directory.Exists(node.InnerText.Trim()) && node.InnerText.Trim() != "")
-                {
-                    Empresas.ExisteErroDiretorio = true;
-                    ErroCaminhoDiretorio += "Empresa: " + empresa.Nome + "   Pasta: " + node.InnerText.Trim() + "\r\n";
-                }
+                    {
+                        Empresas.ExisteErroDiretorio = true;
+                        ErroCaminhoDiretorio += "Empresa: " + empresa.Nome + "   Pasta: " + node.InnerText.Trim() + "\r\n";
+                    }
             }
             else
             {
