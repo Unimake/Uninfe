@@ -75,10 +75,9 @@ namespace NFe.Settings
 
         #region Propriedades para tela de sobre
 
-        public static string NomeEmpresa { get; set; }
-        public static string Site { get; set; }
-        public static string SiteProduto { get; set; }
-        public static string Email { get; set; }
+        public static string NomeEmpresa { get; set; } = "Unimake Software";
+        public static string Site { get; set; } = "www.unimake.com.br";
+        public static string SiteProduto { get; set; } = "www.uninfe.com.br";
 
         #endregion Propriedades para tela de sobre
 
@@ -225,11 +224,6 @@ namespace NFe.Settings
             ConfiguracaoApp.CarregarDados();
 
             new loadResources().load();
-
-            if (!Propriedade.ServicoRodando || Propriedade.ExecutandoPeloUniNFe)
-            {
-                ConfiguracaoApp.CarregarDadosSobre();
-            }
 
             try
             {
@@ -383,68 +377,6 @@ namespace NFe.Settings
         }
 
         #endregion CarregarDados()
-
-        #region CarregarDadosSobre()
-
-        /// <summary>
-        /// Carrega informações da tela de sobre
-        /// </summary>
-        /// <remarks>
-        /// Autor: Leandro Souza
-        /// </remarks>
-        public static void CarregarDadosSobre()
-        {
-            var vArquivoConfig = Propriedade.PastaExecutavel + "\\" + Propriedade.NomeArqConfigSobre;
-
-            //ConfiguracaoApp.NomeEmpresa = "Unimake Software";
-            //ConfiguracaoApp.Site = "www.unimake.com.br";
-            //ConfiguracaoApp.SiteProduto = ConfiguracaoApp.Site + "/uninfe";
-            //ConfiguracaoApp.Email = "nfe@unimake.com.br";
-
-            if (File.Exists(vArquivoConfig))
-            {
-                XmlTextReader oLerXml = null;
-                try
-                {
-                    //Carregar os dados do arquivo XML de configurações da Aplicação
-                    oLerXml = new XmlTextReader(vArquivoConfig);
-
-                    while (oLerXml.Read())
-                    {
-                        if (oLerXml.NodeType == XmlNodeType.Element)
-                        {
-                            if (oLerXml.Name == NFeStrConstants.nfe_configuracoes)
-                            {
-                                while (oLerXml.Read())
-                                {
-                                    if (oLerXml.NodeType == XmlNodeType.Element)
-                                    {
-                                        if (oLerXml.Name == "NomeEmpresa") { oLerXml.Read(); ConfiguracaoApp.NomeEmpresa = oLerXml.Value; }
-                                        else if (oLerXml.Name == "Site") { oLerXml.Read(); ConfiguracaoApp.Site = oLerXml.Value.Trim(); }
-                                        else if (oLerXml.Name == "SiteProduto") { oLerXml.Read(); ConfiguracaoApp.SiteProduto = oLerXml.Value.Trim(); }
-                                        else if (oLerXml.Name == "Email") { oLerXml.Read(); ConfiguracaoApp.Email = oLerXml.Value.Trim(); }
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    if (oLerXml != null)
-                    {
-                        oLerXml.Close();
-                    }
-                }
-            }
-        }
-
-        #endregion CarregarDadosSobre()
 
         #region Gravar XML com as empresas cadastradas
 
@@ -723,21 +655,21 @@ namespace NFe.Settings
                         }
                         else
                             if (!string.IsNullOrEmpty(val.folder))
-                        {
-                            if (!Directory.Exists(val.folder))
                             {
-                                if (empresa.CriaPastasAutomaticamente)
+                                if (!Directory.Exists(val.folder))
                                 {
-                                    Directory.CreateDirectory(val.folder);
-                                }
-                                else
-                                {
-                                    erro = val.msg2 + xNomeCNPJ;
-                                    validou = false;
-                                    break;
+                                    if (empresa.CriaPastasAutomaticamente)
+                                    {
+                                        Directory.CreateDirectory(val.folder);
+                                    }
+                                    else
+                                    {
+                                        erro = val.msg2 + xNomeCNPJ;
+                                        validou = false;
+                                        break;
+                                    }
                                 }
                             }
-                        }
                     }
 
 #if f
@@ -779,10 +711,10 @@ namespace NFe.Settings
                         }
                         else
                             if (string.IsNullOrEmpty(empresa.FTPPastaRetornos))
-                        {
-                            erro = "Informe a pasta do FTP de destino dos retornos" + xNomeCNPJ;
-                            validou = false;
-                        }
+                            {
+                                erro = "Informe a pasta do FTP de destino dos retornos" + xNomeCNPJ;
+                                validou = false;
+                            }
                     }
 
                     #endregion Verificar se tem alguma pasta em branco
@@ -1076,7 +1008,6 @@ namespace NFe.Settings
                     lErro = false;
 
                     ConfiguracaoApp.CarregarDados();
-                    ConfiguracaoApp.CarregarDadosSobre();
                     Empresas.CarregaConfiguracao();
                 }
                 else
@@ -1431,7 +1362,6 @@ namespace NFe.Settings
                 if (lErro)
                 {
                     ConfiguracaoApp.CarregarDados();
-                    ConfiguracaoApp.CarregarDadosSobre();
                     Empresas.CarregaConfiguracao();
 
                     #region Ticket: #110

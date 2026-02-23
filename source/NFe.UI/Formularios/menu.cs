@@ -19,8 +19,6 @@ namespace NFe.UI
         {
             base.OnLoad(e);
 
-            ConfiguracaoApp.CarregarDadosSobre();
-
             metroLink_unimake.Visible = !string.IsNullOrEmpty(ConfiguracaoApp.Site);
             metroLink_unimake.Text = ConfiguracaoApp.Site;
             uninfeDummy.mainForm.Text = Propriedade.NomeAplicacao + " - Monitor DF-e";

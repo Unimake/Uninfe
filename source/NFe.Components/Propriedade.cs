@@ -43,11 +43,6 @@ namespace NFe.Components
         public const string NomeArqConfig = "UniNfeConfig.xml";
 
         /// <summary>
-        /// Nome do arquivo XML de configurações da tela de sobre
-        /// </summary>
-        public const string NomeArqConfigSobre = "UniNfeSobre.xml";
-
-        /// <summary>
         /// Nome do arquivo XML que é gravado as empresas cadastradas
         /// </summary>
         public static string NomeArqEmpresas => Propriedade.PastaExecutavel + "\\UniNfeEmpresa.xml";
