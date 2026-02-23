@@ -133,6 +133,15 @@ namespace NFe.Components
 
         #endregion NFe
 
+        #region NFCe
+
+        /// <summary>
+        /// Download de XML da NFCe
+        /// </summary>
+        NFCeDownloadXML,
+
+        #endregion NFCE
+
         #region CTe
 
         /// <summary>

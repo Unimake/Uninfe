@@ -220,6 +220,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new TaskNFeConsultaSituacao(arquivo));
                             break;
 
+                        case Servicos.NFCeDownloadXML:
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskDownloadNFCe(arquivo));
+                            break;
+
                         #endregion NFe
 
                         #region MDFe
@@ -1106,6 +1110,10 @@ namespace NFe.Service
 
                             case "EnviarFTP":
                                 tipoServico = Servicos.EnviarFTP;
+                                break;
+
+                            case "nfceDownloadXML":
+                                tipoServico = Servicos.NFCeDownloadXML;
                                 break;
 
                             #endregion Geral
@@ -2168,6 +2176,11 @@ namespace NFe.Service
                 case Servicos.EventoCancelamento:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.EnvCancelamento).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.retCancelamento_ERR;
+                    break;
+
+                case Servicos.NFCeDownloadXML:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.DownloadNFCe_ERR;
                     break;
 
                 #endregion NFe / CTe / MDFe

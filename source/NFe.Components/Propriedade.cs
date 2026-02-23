@@ -236,6 +236,7 @@ namespace NFe.Components
             EnvCancelamento,
             EnvCCe,
             EnvManifestacao,
+            DownloadNFCe,
 
             /// <summary>
             /// CTe
@@ -471,6 +472,13 @@ namespace NFe.Components
                 "-nfe-ret.xml", "",
                 "",
                 "Pedido de envio de NFe/NFCe"
+            ));
+
+            ListaExtensoes.Add(TipoEnvio.DownloadNFCe, new ExtensaoClass(
+                "-download-nfce.xml", "",
+                "-ret-download-nfce.xml", "",
+                "-ret-download-nfce.err",
+                "Download de XML da NFCe"
             ));
 
             #endregion Extensões da NFe
@@ -1455,6 +1463,16 @@ namespace NFe.Components
             /// -ret-manif.err
             /// </summary>
             public const string retManifestacao_ERR = "-ret-env-manif.err";
+
+            /// <summary>
+            /// -ret-download-nfce.xml
+            /// </summary>
+            public static string DownloadNFCe = Extensao(TipoEnvio.DownloadNFCe).RetornoXML;
+
+            /// <summary>
+            /// -ret-download-nfce.err
+            /// </summary>
+            public const string DownloadNFCe_ERR = "-ret-download-nfce.err";
 
             #endregion Extensões NFe
 

@@ -609,6 +609,26 @@ namespace NFe.Service
 
     #endregion Classe com os dados do XML do registro de eventos
 
+    #region Classe de dados do XML de Download de XML da NFCe
+
+    /// <summary>
+    /// Classe com os dados do XML de download da NFCe
+    /// </summary>
+    public class DadosDownloadNFCe
+    {
+        public int tpAmb { get; set; }
+        public string chNFCe { get; set; }
+        public int cUF { get; set; }
+
+        public DadosDownloadNFCe(int emp)
+        {
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+            cUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+        }
+    }
+
+    #endregion Classe de dados do XML de Download de XML da NFCe
+
     #region Classe para receber os dados dos XML´s da NFS-e
 
     #region DadosPedLoteRps
