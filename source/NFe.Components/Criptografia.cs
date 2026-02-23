@@ -52,12 +52,12 @@ namespace NFe.Components
                 byte[] byteHash, byteBuff;
                 string strTempKey = chave;
 
-                byteHash = objcriptoMd5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(strTempKey));
+                byteHash = objcriptoMd5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(strTempKey));
                 objcriptoMd5 = null;
                 objcriptografaSenha.Key = byteHash;
                 objcriptografaSenha.Mode = CipherMode.ECB;
 
-                byteBuff = ASCIIEncoding.ASCII.GetBytes(senhaCripto);
+                byteBuff = System.Text.Encoding.UTF8.GetBytes(senhaCripto);
                 return Convert.ToBase64String(objcriptografaSenha.CreateEncryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
             }
             catch (Exception ex)
@@ -76,13 +76,13 @@ namespace NFe.Components
                 byte[] byteHash, byteBuff;
                 string strTempKey = chave;
 
-                byteHash = objcriptoMd5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(strTempKey));
+                byteHash = objcriptoMd5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(strTempKey));
                 objcriptoMd5 = null;
                 objdescriptografaSenha.Key = byteHash;
                 objdescriptografaSenha.Mode = CipherMode.ECB;
 
                 byteBuff = Convert.FromBase64String(strCriptografada);
-                string strDecrypted = ASCIIEncoding.ASCII.GetString(objdescriptografaSenha.CreateDecryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
+                string strDecrypted = System.Text.Encoding.UTF8.GetString(objdescriptografaSenha.CreateDecryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
                 objdescriptografaSenha = null;
 
                 return strDecrypted;
@@ -133,13 +133,13 @@ namespace NFe.Components
                 byte[] byteHash, byteBuff;
                 string strTempKey = chave;
 
-                byteHash = objcriptoMd5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(strTempKey));
+                byteHash = objcriptoMd5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(strTempKey));
                 objcriptoMd5 = null;
                 objdescriptografaSenha.Key = byteHash;
                 objdescriptografaSenha.Mode = CipherMode.ECB;
 
                 byteBuff = Convert.FromBase64String(strCriptografada);
-                string strDecrypted = ASCIIEncoding.ASCII.GetString(objdescriptografaSenha.CreateDecryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
+                string strDecrypted = System.Text.Encoding.UTF8.GetString(objdescriptografaSenha.CreateDecryptor().TransformFinalBlock(byteBuff, 0, byteBuff.Length));
                 objdescriptografaSenha = null;
 
                 return true;
