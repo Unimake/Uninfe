@@ -316,6 +316,7 @@
     <Compile Include="NFCom\TaskNFComEventos.cs" />
     <Compile Include="NFCom\TaskNFComRecepcaoSinc.cs" />
     <Compile Include="NFe\TaskDownloadNFCe.cs" />
+    <Compile Include="NFe\TaskConsultaChavesNFCe.cs" />
     <Compile Include="NFSe\TaksConsultarConveioMunicipial.cs" />
     <Compile Include="NFSe\TaskConsultarEventosDiversosNfse.cs" />
     <Compile Include="NFSe\TaskConsultarAliquotaMunicipal.cs" />

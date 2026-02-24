@@ -237,6 +237,7 @@ namespace NFe.Components
             EnvCCe,
             EnvManifestacao,
             DownloadNFCe,
+            ConsultaChavesNFCe,
 
             /// <summary>
             /// CTe
@@ -479,6 +480,13 @@ namespace NFe.Components
                 "-ret-download-nfce.xml", "",
                 "-ret-download-nfce.err",
                 "Download de XML da NFCe"
+            ));
+
+            ListaExtensoes.Add(TipoEnvio.ConsultaChavesNFCe, new ExtensaoClass(
+                "-ped-chave-nfce.xml", "",
+                "-ret-ped-chave-nfce.xml", "",
+                "-ret-ped-chave-nfce.err",
+                "Consulta de Lista de Chaves da NFCe"
             ));
 
             #endregion Extensões da NFe
@@ -1473,6 +1481,16 @@ namespace NFe.Components
             /// -ret-download-nfce.err
             /// </summary>
             public const string DownloadNFCe_ERR = "-ret-download-nfce.err";
+
+            /// <summary>
+            /// "-ret-ped-chave-nfce"
+            /// </summary>
+            public const string ConsultaChavesNFCe = "-ret-ped-chave-nfce";
+
+            /// <summary>
+            /// "-ret-ped-chave-nfce.err"
+            /// </summary>
+            public const string ConsultaChavesNFCe_ERR = "-ret-ped-chave-nfce.err";
 
             #endregion Extensões NFe
 

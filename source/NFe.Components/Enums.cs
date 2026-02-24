@@ -140,6 +140,11 @@ namespace NFe.Components
         /// </summary>
         NFCeDownloadXML,
 
+        /// <summary>
+        /// Consultar Lista de Chaves da NFCe
+        /// </summary>
+        NFCeConsultaChaves,
+
         #endregion NFCE
 
         #region CTe

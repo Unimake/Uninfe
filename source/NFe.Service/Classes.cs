@@ -629,6 +629,25 @@ namespace NFe.Service
 
     #endregion Classe de dados do XML de Download de XML da NFCe
 
+    #region Classe de dados do XML de Download de XML da NFCe
+
+    /// <summary>
+    /// Classe com os dados do XML de consulta de chaves da NFCe
+    /// </summary>
+    public class DadosConsultaChaveNFCe
+    {
+        public int tpAmb { get; set; }
+        public DateTimeOffset dataHoraInicial { get; set; }
+        public DateTimeOffset dataHoraFinal { get; set; }
+
+        public DadosConsultaChaveNFCe(int emp)
+        {
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+        }
+    }
+
+    #endregion Classe de dados do XML de Download de XML da NFCe
+
     #region Classe para receber os dados dos XML´s da NFS-e
 
     #region DadosPedLoteRps

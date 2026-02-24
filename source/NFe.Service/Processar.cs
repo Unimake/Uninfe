@@ -224,6 +224,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new TaskDownloadNFCe(arquivo));
                             break;
 
+                        case Servicos.NFCeConsultaChaves:
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskConsultaChavesNFCe(arquivo));
+                            break;
+
                         #endregion NFe
 
                         #region MDFe
@@ -1114,6 +1118,10 @@ namespace NFe.Service
 
                             case "nfceDownloadXML":
                                 tipoServico = Servicos.NFCeDownloadXML;
+                                break;
+
+                            case "nfceListagemChaves":
+                                tipoServico = Servicos.NFCeConsultaChaves;
                                 break;
 
                             #endregion Geral
@@ -2181,6 +2189,11 @@ namespace NFe.Service
                 case Servicos.NFCeDownloadXML:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.DownloadNFCe_ERR;
+                    break;
+
+                case Servicos.NFCeConsultaChaves:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.ConsultaChavesNFCe).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.ConsultaChavesNFCe_ERR;
                     break;
 
                 #endregion NFe / CTe / MDFe
