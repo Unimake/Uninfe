@@ -150,7 +150,6 @@ namespace NFe.UI
             finally
             {
                 VisibleChanged += menu_VisibleChanged;
-                //NFe.UI.uninfeDummy.showError = true;
             }
             return _novo;
         }
@@ -209,7 +208,7 @@ namespace NFe.UI
 
         private void metroLink3_Click(object sender, EventArgs e)
         {
-            StartPage("http://" + ConfiguracaoApp.Site);
+            StartPage("https://" + ConfiguracaoApp.Site);
         }
 
         private void StartPage(string url)
