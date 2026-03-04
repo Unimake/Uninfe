@@ -202,7 +202,7 @@ namespace NFe.Settings
                 {
                     var xMotivo = "Não foi possível atualizar pacotes de Schemas/WSDLs.";
 
-                    Auxiliar.WriteLog(cErros = xMotivo + Environment.NewLine + ex.Message, false);
+                    Auxiliar.WriteLog(cErros = xMotivo + Environment.NewLine + ex.Message, false, true);
 
                     if (Empresas.Configuracoes.Count > 0)
                     {
@@ -258,7 +258,7 @@ namespace NFe.Settings
             }
             catch (Exception ex)
             {
-                Auxiliar.WriteLog(ex.Message, false);
+                Auxiliar.WriteLog(ex.Message, false, true);
             }
 
             var vArquivoConfig = Propriedade.PastaExecutavel + "\\" + Propriedade.NomeArqConfig;

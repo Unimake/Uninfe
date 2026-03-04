@@ -29,6 +29,20 @@ namespace NFe.UI
             uninfeDummy.UltimoAcessoConfiguracao = DateTime.MinValue;
         }
 
+        private void EnsureMenu()
+        {
+            if (_menu == null || _menu.IsDisposed || !Controls.Contains(_menu))
+            {
+                _menu?.Dispose();
+                _menu = new menu();
+                Controls.Add(_menu);
+                _menu.Dock = DockStyle.Fill;
+            }
+
+            _menu.Visible = true;
+            _menu.BringToFront();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             var error = false;
@@ -75,11 +89,16 @@ namespace NFe.UI
                 Visible = false;
                 ShowInTaskbar = false;
 
-                ConfiguracaoApp.StartVersoes();
+                try
+                {
+                    ConfiguracaoApp.StartVersoes();
+                }
+                catch (Exception ex)
+                {
+                    Auxiliar.WriteLog("Falha ao carregar as configurações do UniNFe. " + ex.Message, true, true);
+                }
 
-                _menu = new menu();
-                Controls.Add(_menu);
-                _menu.Dock = DockStyle.Fill;
+                EnsureMenu();
 
                 notifyIcon1.Icon = Icon = Properties.Resources.uninfe_icon;
 
@@ -279,6 +298,7 @@ namespace NFe.UI
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            EnsureMenu();
             if (!_formloaded)
             {
                 _maximized = false;

@@ -680,12 +680,16 @@ namespace NFe.Settings
                 }
                 catch (Exception ex)
                 {
+                    string mensagemErro = "Ocorreu um erro ao efetuar a leitura das configurações da empresa " +
+                        CNPJ + "=" + Nome.Trim() + ". Por favor entre na tela de configurações desta empresa e reconfigure.\r\n\r\nErro: " + ex.Message; 
+
+                    Auxiliar.WriteLog($"{mensagemErro}\r\n\r\nNome arquivo de configuração com falha {NomeArquivoConfig}", true, true);
+
                     //Não vou mais fazer isso pois estava gerando problemas com Certificados A3 - Renan 18/06/2013
                     //empresa.Certificado = string.Empty;
                     //empresa.CertificadoThumbPrint = string.Empty;
                     tipoerro = 2;
-                    return "Ocorreu um erro ao efetuar a leitura das configurações da empresa " +
-                        CNPJ + "=" + Nome.Trim() + ". Por favor entre na tela de configurações desta empresa e reconfigure.\r\n\r\nErro: " + ex.Message;
+                    return mensagemErro;
                 }
                 return null;
             }
