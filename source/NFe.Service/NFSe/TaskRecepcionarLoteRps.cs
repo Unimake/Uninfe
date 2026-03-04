@@ -430,11 +430,12 @@ namespace NFe.Service.NFSe
                             break;
 
                         case "NFSe":
-                            if (padraoNFSe == PadraoNFSe.SMARAPD)
+                            if (padraoNFSe == PadraoNFSe.SMARAPD || padraoNFSe == PadraoNFSe.DIGIFRED)
                             {
                                 result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             }
-                            break;
+                            
+                                break;
                     }
                     break;
                 case PadraoNFSe.SIGCORP:
