@@ -1569,7 +1569,7 @@ namespace NFe.ConvertTxt
 
                     DI diItem = new DI();
 
-                    diItem.nDI = this.LerString(TpcnResources.nDI, ObOp.Obrigatorio, 1, 12);
+                    diItem.nDI = this.LerString(TpcnResources.nDI, ObOp.Obrigatorio, 1, 15);
                     diItem.dDI = (DateTime)this.LerCampo(TpcnTipoCampo.tcDatYYYY_MM_DD, TpcnResources.dDI, ObOp.Obrigatorio, 10, 10, true, false);
                     diItem.xLocDesemb = this.LerString(TpcnResources.xLocDesemb, ObOp.Obrigatorio, 1, 60);
                     diItem.UFDesemb = this.LerString(TpcnResources.UFDesemb, ObOp.Obrigatorio, 2, 2);
