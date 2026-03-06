@@ -212,188 +212,212 @@ namespace NFe.Service
         {
             var emp = Empresas.FindEmpresaByThread();
 
-            #region Criar pastas que receberão os arquivos
-
-            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
-
-            //Criar Pasta do Mês para gravar arquivos enviados autorizados ou denegados
-            var nomePastaEnviado = string.Empty;
-            var destinoArquivo = string.Empty;
-            switch (subPastaXMLEnviado)
+            try
             {
-                case PastaEnviados.EmProcessamento:
-                    nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString();
-                    destinoArquivo = nomePastaEnviado + "\\" + (string.IsNullOrEmpty(nomeArquivoDestino) ? Path.GetFileName(arquivo) : nomeArquivoDestino);
-                    break;
 
-                case PastaEnviados.Autorizados:
-                    nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                       PastaEnviados.Autorizados.ToString() + "\\" +
-                                       Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
-                    destinoArquivo = nomePastaEnviado + Path.GetFileName(arquivo);
-                    goto default;
+                #region Criar pastas que receberão os arquivos
 
-                case PastaEnviados.Denegados:
-                    nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                       PastaEnviados.Denegados.ToString() + "\\" +
-                                       Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+                Empresas.Configuracoes[emp].CriarSubPastaEnviado();
 
-                    if (arquivo.ToLower().EndsWith(Propriedade.ExtRetorno.Den))
-                    {
-                        destinoArquivo = Path.Combine(nomePastaEnviado, Path.GetFileName(arquivo));
-                    }
-                    else
-                    {
-                        destinoArquivo = Path.Combine(nomePastaEnviado, Functions.ExtrairNomeArq(arquivo, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML) + Propriedade.ExtRetorno.Den);
-                    }
-
-                    goto default;
-
-                case PastaEnviados.Originais:
-                    nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                       PastaEnviados.Originais.ToString() + "\\" +
-                                       Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
-
-                    destinoArquivo = nomePastaEnviado + Path.GetFileName(arquivo);
-                    goto default;
-
-                default:
-                    if (!Directory.Exists(nomePastaEnviado))
-                    {
-                        Directory.CreateDirectory(nomePastaEnviado);
-                    }
-                    break;
-            }
-
-            #endregion Criar pastas que receberão os arquivos
-
-            //Se conseguiu criar a pasta ele move o arquivo, caso contrário
-            if (Directory.Exists(nomePastaEnviado))
-            {
-                #region Mover o XML para a pasta de XML´s enviados
-
-                //Se for para mover para a Pasta EmProcessamento
-                if (subPastaXMLEnviado == PastaEnviados.EmProcessamento)
+                //Criar Pasta do Mês para gravar arquivos enviados autorizados ou denegados
+                var nomePastaEnviado = string.Empty;
+                var destinoArquivo = string.Empty;
+                switch (subPastaXMLEnviado)
                 {
-                    //Se já existir o arquivo na pasta EmProcessamento vamos mover
-                    //ele para a pasta com erro antes para evitar exceção. Wandrey 05/07/2011
-                    if (File.Exists(destinoArquivo))
-                    {
-                        var destinoErro = Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(arquivo);
-                        File.Move(destinoArquivo, destinoErro);
+                    case PastaEnviados.EmProcessamento:
+                        nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString();
+                        destinoArquivo = nomePastaEnviado + "\\" + (string.IsNullOrEmpty(nomeArquivoDestino) ? Path.GetFileName(arquivo) : nomeArquivoDestino);
+                        break;
 
-                        //danasa 11-4-2012
-                        Auxiliar.WriteLog("Arquivo \"" + destinoArquivo + "\" movido para a pasta \"" + Empresas.Configuracoes[emp].PastaXmlErro + "\".", true);
-                    }
+                    case PastaEnviados.Autorizados:
+                        nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                           PastaEnviados.Autorizados.ToString() + "\\" +
+                                           Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+                        destinoArquivo = nomePastaEnviado + Path.GetFileName(arquivo);
+                        goto default;
 
-                    File.Move(arquivo, destinoArquivo);
+                    case PastaEnviados.Denegados:
+                        nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                           PastaEnviados.Denegados.ToString() + "\\" +
+                                           Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+
+                        if (arquivo.ToLower().EndsWith(Propriedade.ExtRetorno.Den))
+                        {
+                            destinoArquivo = Path.Combine(nomePastaEnviado, Path.GetFileName(arquivo));
+                        }
+                        else
+                        {
+                            destinoArquivo = Path.Combine(nomePastaEnviado, Functions.ExtrairNomeArq(arquivo, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML) + Propriedade.ExtRetorno.Den);
+                        }
+
+                        goto default;
+
+                    case PastaEnviados.Originais:
+                        nomePastaEnviado = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                           PastaEnviados.Originais.ToString() + "\\" +
+                                           Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+
+                        destinoArquivo = nomePastaEnviado + Path.GetFileName(arquivo);
+                        goto default;
+
+                    default:
+                        GarantirDiretorio(nomePastaEnviado, "TFunctions.MoverArquivo - pasta de destino");
+                        break;
                 }
-                else
+
+                #endregion Criar pastas que receberão os arquivos
+
+                //Se conseguiu criar a pasta ele move o arquivo, caso contrário
+                if (Directory.Exists(nomePastaEnviado))
                 {
-                    //Se já existir o arquivo na pasta autorizados ou denegado, não vou mover o novo arquivo para lá, pois posso estar sobrepondo algum arquivo importante
-                    //Sendo assim se o usuário quiser forçar mover, tem que deletar da pasta autorizados ou denegados manualmente, com isso evitamos perder um XML importante.
-                    //Wandrey 05/07/2011
-                    if (!File.Exists(destinoArquivo))
+                    #region Mover o XML para a pasta de XML´s enviados
+
+                    //Se for para mover para a Pasta EmProcessamento
+                    if (subPastaXMLEnviado == PastaEnviados.EmProcessamento)
                     {
+                        //Se já existir o arquivo na pasta EmProcessamento vamos mover
+                        //ele para a pasta com erro antes para evitar exceção. Wandrey 05/07/2011
+                        if (File.Exists(destinoArquivo))
+                        {
+                            var destinoErro = Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(arquivo);
+                            File.Move(destinoArquivo, destinoErro);
+
+                            //danasa 11-4-2012
+                            Auxiliar.WriteLog("Arquivo \"" + destinoArquivo + "\" movido para a pasta \"" + Empresas.Configuracoes[emp].PastaXmlErro + "\".", true);
+                        }
+
                         File.Move(arquivo, destinoArquivo);
                     }
                     else
                     {
-                        var destinoErro = Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(arquivo);
-                        File.Move(arquivo, destinoErro);
-
-                        //danasa 11-4-2012
-                        Auxiliar.WriteLog("Arquivo \"" + arquivo + "\" movido para a pasta \"" + Empresas.Configuracoes[emp].PastaXmlErro + "\".", true);
-                    }
-                }
-
-                #endregion Mover o XML para a pasta de XML´s enviados
-
-                if (subPastaXMLEnviado == PastaEnviados.Autorizados || subPastaXMLEnviado == PastaEnviados.Denegados)
-                {
-                    #region Copiar XML para a pasta de BACKUP
-                    try
-                    {
-
-                        //Fazer um backup do XML que foi copiado para a pasta de enviados
-                        //para uma outra pasta para termos uma maior segurança no arquivamento
-                        //Normalmente esta pasta é em um outro computador ou HD
-                        if (Empresas.Configuracoes[emp].PastaBackup.Trim() != "")
+                        //Se já existir o arquivo na pasta autorizados ou denegado, não vou mover o novo arquivo para lá, pois posso estar sobrepondo algum arquivo importante
+                        //Sendo assim se o usuário quiser forçar mover, tem que deletar da pasta autorizados ou denegados manualmente, com isso evitamos perder um XML importante.
+                        //Wandrey 05/07/2011
+                        if (!File.Exists(destinoArquivo))
                         {
-                            //Criar Pasta do Mês para gravar arquivos enviados
-                            var nomePastaBackup = string.Empty;
-                            switch (subPastaXMLEnviado)
-                            {
-                                case PastaEnviados.Autorizados:
-                                    nomePastaBackup = Empresas.Configuracoes[emp].PastaBackup + "\\" +
-                                        PastaEnviados.Autorizados.ToString() + "\\" +
-                                        Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
-                                    goto default;
+                            File.Move(arquivo, destinoArquivo);
+                        }
+                        else
+                        {
+                            var destinoErro = Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(arquivo);
+                            File.Move(arquivo, destinoErro);
 
-                                case PastaEnviados.Denegados:
-                                    nomePastaBackup = Empresas.Configuracoes[emp].PastaBackup + "\\" +
-                                        PastaEnviados.Denegados.ToString() + "\\" +
-                                        Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
-                                    goto default;
-
-                                case PastaEnviados.Originais:
-                                    nomePastaBackup = Empresas.Configuracoes[emp].PastaBackup + "\\" +
-                                        PastaEnviados.Originais.ToString() + "\\" +
-                                        Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
-                                    goto default;
-
-                                default:
-                                    if (!Directory.Exists(nomePastaBackup))
-                                    {
-                                        Directory.CreateDirectory(nomePastaBackup);
-                                    }
-                                    break;
-                            }
-
-                            //Se conseguiu criar a pasta ele move o arquivo, caso contrário
-                            if (Directory.Exists(nomePastaBackup))
-                            {
-                                //Mover o arquivo da nota fiscal para a pasta de backup
-                                var destinoBackup = nomePastaBackup + Path.GetFileName(arquivo);
-                                if (File.Exists(destinoBackup))
-                                {
-                                    File.Delete(destinoBackup);
-                                }
-                                File.Copy(destinoArquivo, destinoBackup);
-                            }
-                            else
-                            {
-                                throw new Exception("Pasta de backup informada nas configurações não existe. (Pasta: " + nomePastaBackup + ")");
-                            }
+                            //danasa 11-4-2012
+                            Auxiliar.WriteLog("Arquivo \"" + arquivo + "\" movido para a pasta \"" + Empresas.Configuracoes[emp].PastaXmlErro + "\".", true);
                         }
                     }
-                    catch (Exception ex)
+
+                    #endregion Mover o XML para a pasta de XML´s enviados
+
+                    if (subPastaXMLEnviado == PastaEnviados.Autorizados || subPastaXMLEnviado == PastaEnviados.Denegados)
                     {
-                        Auxiliar.WriteLog("Não foi possível copiar o XML para pasta de backup. Erro: " + ex.GetAllMessages(), true);
+                        #region Copiar XML para a pasta de BACKUP
+                        try
+                        {
+
+                            //Fazer um backup do XML que foi copiado para a pasta de enviados
+                            //para uma outra pasta para termos uma maior segurança no arquivamento
+                            //Normalmente esta pasta é em um outro computador ou HD
+                            if (Empresas.Configuracoes[emp].PastaBackup.Trim() != "")
+                            {
+                                //Criar Pasta do Mês para gravar arquivos enviados
+                                var nomePastaBackup = string.Empty;
+                                switch (subPastaXMLEnviado)
+                                {
+                                    case PastaEnviados.Autorizados:
+                                        nomePastaBackup = Empresas.Configuracoes[emp].PastaBackup + "\\" +
+                                            PastaEnviados.Autorizados.ToString() + "\\" +
+                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+                                        goto default;
+
+                                    case PastaEnviados.Denegados:
+                                        nomePastaBackup = Empresas.Configuracoes[emp].PastaBackup + "\\" +
+                                            PastaEnviados.Denegados.ToString() + "\\" +
+                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+                                        goto default;
+
+                                    case PastaEnviados.Originais:
+                                        nomePastaBackup = Empresas.Configuracoes[emp].PastaBackup + "\\" +
+                                            PastaEnviados.Originais.ToString() + "\\" +
+                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(emissao);
+                                        goto default;
+
+                                    default:
+                                        if (!Directory.Exists(nomePastaBackup))
+                                        {
+                                            Directory.CreateDirectory(nomePastaBackup);
+                                        }
+                                        break;
+                                }
+
+                                //Se conseguiu criar a pasta ele move o arquivo, caso contrário
+                                if (Directory.Exists(nomePastaBackup))
+                                {
+                                    //Mover o arquivo da nota fiscal para a pasta de backup
+                                    var destinoBackup = nomePastaBackup + Path.GetFileName(arquivo);
+                                    if (File.Exists(destinoBackup))
+                                    {
+                                        File.Delete(destinoBackup);
+                                    }
+                                    File.Copy(destinoArquivo, destinoBackup);
+                                }
+                                else
+                                {
+                                    throw new Exception("Pasta de backup informada nas configurações não existe. (Pasta: " + nomePastaBackup + ")");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Auxiliar.WriteLog("Não foi possível copiar o XML para pasta de backup. Erro: " + ex.GetAllMessages(), true);
+                        }
+
+                        #endregion
+
+                        #region Copiar o XML para a pasta do DanfeMon, se configurado para isso
+
+                        CopiarXMLPastaDanfeMon(destinoArquivo);
+
+                        #endregion Copiar o XML para a pasta do DanfeMon, se configurado para isso
+
+                        #region Copiar o XML para o FTP
+
+                        new GerarXML(emp).XmlParaFTP(emp, destinoArquivo);
+
+                        #endregion Copiar o XML para o FTP
                     }
-
-                    #endregion
-
-                    #region Copiar o XML para a pasta do DanfeMon, se configurado para isso
-
-                    CopiarXMLPastaDanfeMon(destinoArquivo);
-
-                    #endregion Copiar o XML para a pasta do DanfeMon, se configurado para isso
-
-                    #region Copiar o XML para o FTP
-
-                    new GerarXML(emp).XmlParaFTP(emp, destinoArquivo);
-
-                    #endregion Copiar o XML para o FTP
+                }
+                else
+                {
+                    throw new Exception("Pasta para arquivamento dos XML´s enviados não existe. (Pasta: " + nomePastaEnviado + ")");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("Pasta para arquivamento dos XML´s enviados não existe. (Pasta: " + nomePastaEnviado + ")");
+                Auxiliar.WriteLog("TFunctions.MoverArquivo: Falha ao mover arquivo. Arquivo=" + arquivo + ", SubPasta=" + subPastaXMLEnviado + ", Emissao=" + emissao.ToString("yyyy-MM-dd") + ". Erro: " + ex.GetAllMessages(), true);
+                throw;
             }
         }
 
         #endregion MoverArquivo()
+
+        private static void GarantirDiretorio(string diretorio, string contexto)
+        {
+            if (string.IsNullOrWhiteSpace(diretorio))
+            {
+                throw new Exception(contexto + ": Caminho do diretório vazio.");
+            }
+
+            if (!Directory.Exists(diretorio))
+            {
+                Directory.CreateDirectory(diretorio);
+            }
+
+            if (!Directory.Exists(diretorio))
+            {
+                throw new Exception(contexto + ": Não foi possível criar ou localizar o diretório " + diretorio);
+            }
+        }
 
         #region MoverArquivo()
 
@@ -986,12 +1010,12 @@ namespace NFe.Service
                     else
 
                         if (Path.GetDirectoryName(arqProcNFe) == "")
-                    {
-                        ///
-                        /// o nome pode ter sido atribuido pela leitura do evento, então não tem 'path'
-                        ///
-                        arqProcNFe = Path.Combine(nomePastaEnviado, arqProcNFe);
-                    }
+                        {
+                            ///
+                            /// o nome pode ter sido atribuido pela leitura do evento, então não tem 'path'
+                            ///
+                            arqProcNFe = Path.Combine(nomePastaEnviado, arqProcNFe);
+                        }
 
                     if (!File.Exists(arqProcNFe))
                     {
@@ -1291,13 +1315,13 @@ namespace NFe.Service
                         }
                         else
                             if (epecTipo.Equals("procEventoCTe"))
-                        {
-                            Args += " T=dacte";
-                        }
-                        else
-                        {
-                            Args += " T=danfe";
-                        }
+                            {
+                                Args += " T=dacte";
+                            }
+                            else
+                            {
+                                Args += " T=danfe";
+                            }
 
                         configDanfe = emp.ConfiguracaoDanfe;
                     }

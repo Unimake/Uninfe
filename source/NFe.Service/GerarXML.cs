@@ -1895,6 +1895,15 @@ namespace NFe.Service
                     swProc = File.CreateText(nomeArqProcNFe);
                     swProc.Write(strXmlProcNfe);
                 }
+                else
+                {
+                    Auxiliar.WriteLog("GerarXML.XmlDistNFe: Arquivo XML da NFe não localizado para gerar distribuição. Arquivo=" + arqNFe, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog("GerarXML.XmlDistNFe: Falha ao gerar XML de distribuição. Arquivo=" + arqNFe + ", Versão=" + versao + ", Extensão=" + extensao + ". Erro: " + ex.GetAllMessages(), true);
+                throw;
             }
             finally
             {

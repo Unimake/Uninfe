@@ -147,9 +147,11 @@ namespace NFe.Service
                     throw new Exception("A SEFAZ, Receita ou prefeitura está com instabilidade, pois o XML retornado pelo Web-Service não pode ser reconhecido. Conteúdo retornado: " + (vStrXmlRetorno ?? "null"));
                 }
 
-                if (ler.oDadosNfe.indSinc)
+                if (ler.oDadosNfe.indSinc || EnviNFe.NFe.Count <= 1)
                 {
                     Protocolo(vStrXmlRetorno);
+
+                    Auxiliar.WriteLog("TaskNFeRecepcao: Resultado leitura protocolo. cStat=" + dadosRec.cStat + ", nRec=" + dadosRec.nRec, false);
                 }
                 else
                 {
@@ -160,7 +162,7 @@ namespace NFe.Service
 
                 #region Parte que trata o retorno do lote, ou seja, o número do recibo ou protocolo
 
-                if (dadosRec.cStat == "104")
+                if (dadosRec.cStat == "104" || dadosRec.cStat == "100") //Tem estado que retorna como 100? Autorizado neste ponto? Não deveria, mas vai que.
                 {
                     FinalizarNFeSincrono(vStrXmlRetorno, emp, ler.oDadosNfe.chavenfe);
 
@@ -373,21 +375,38 @@ namespace NFe.Service
                 dadosRec.nRec = string.Empty;
             dadosRec.tMed = 0;
 
-            var xml = new XmlDocument();
-            xml.Load(Functions.StringXmlToStream(strXml));
-
-            var retEnviNFeList = xml.GetElementsByTagName(xml.FirstChild.Name);
-
-            foreach (XmlNode retEnviNFeNode in retEnviNFeList)
+            try
             {
-                var retEnviNFeElemento = (XmlElement)retEnviNFeNode;
+                var xml = new XmlDocument();
+                xml.Load(Functions.StringXmlToStream(strXml));
 
-                dadosRec.cStat = retEnviNFeElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
+                var nomeTagRetorno = xml.DocumentElement != null ? xml.DocumentElement.Name : "retEnviNFe";
+                var retEnviNFeList = xml.GetElementsByTagName(nomeTagRetorno);
 
-                if (retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0] != null)
+                foreach (XmlNode retEnviNFeNode in retEnviNFeList)
                 {
-                    dadosRec.nRec = retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0].InnerText;
+                    var retEnviNFeElemento = (XmlElement)retEnviNFeNode;
+
+                    if (retEnviNFeElemento.GetElementsByTagName(TpcnResources.cStat.ToString()).Count > 0)
+                    {
+                        dadosRec.cStat = retEnviNFeElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
+                    }
+
+                    if (retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString()).Count > 0)
+                    {
+                        dadosRec.nRec = retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0].InnerText;
+                    }
                 }
+
+                if (string.IsNullOrWhiteSpace(dadosRec.cStat))
+                {
+                    Auxiliar.WriteLog("TaskNFeRecepcao.Protocolo: Não foi possível identificar a tag cStat no retorno do envio síncrono.", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog("TaskNFeRecepcao.Protocolo: Erro ao ler retorno do protocolo. " + ex.Message, true);
+                throw;
             }
         }
 
@@ -402,18 +421,33 @@ namespace NFe.Service
         /// <param name="emp">Código da empresa para buscar as configurações</param>
         private void FinalizarNFeSincrono(string xmlRetorno, int emp, string chNFe)
         {
-            var xml = new XmlDocument();
-            xml.Load(Functions.StringXmlToStream(xmlRetorno));
-
-            var protNFe = xml.GetElementsByTagName("protNFe");
-
-            var fluxoNFe = new FluxoNfe();
-
-            var retRecepcao = new TaskNFeRetRecepcao
+            try
             {
-                chNFe = chNFe
-            };
-            retRecepcao.FinalizarNFe(protNFe, fluxoNFe, emp, ConteudoXML);
+                var xml = new XmlDocument();
+                xml.Load(Functions.StringXmlToStream(xmlRetorno));
+
+                var protNFe = xml.GetElementsByTagName("protNFe");
+
+                if (protNFe == null || protNFe.Count == 0)
+                {
+                    Auxiliar.WriteLog("TaskNFeRecepcao.FinalizarNFeSincrono: XML de retorno sem tag protNFe. Chave=" + chNFe, true);
+                    throw new Exception("Não foi possível localizar a tag protNFe no retorno do envio síncrono.");
+                }
+
+                var fluxoNFe = new FluxoNfe();
+
+                var retRecepcao = new TaskNFeRetRecepcao
+                {
+                    chNFe = chNFe
+                };
+
+                retRecepcao.FinalizarNFe(protNFe, fluxoNFe, emp, ConteudoXML);
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog("TaskNFeRecepcao.FinalizarNFeSincrono: Erro ao finalizar NFe síncrona. " + ex.Message, true);
+                throw;
+            }
         }
 
         #endregion FinalizarNFeSincrono()
