@@ -82,7 +82,6 @@ Source: ..\source\uninfe\bin\Release\System.Security.Cryptography.Xml.dll; DestD
 Source: ..\source\uninfe\bin\Release\System.Text.Encodings.Web.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Text.Json.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.AuthServer.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
@@ -96,7 +95,9 @@ Source: ..\source\uninfe\bin\Release\Unimake.Utils.dll; DestDir: {app}; Flags: i
 Source: ..\source\uninfe\bin\Release\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\source\uninfe\bin\Release\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
+
+Source: ..\source\uninfe.service\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\source\NFe.Components.Wsdl\NFe\WSDL\*.*; DestDir: {app}\nfe\wsdl; Flags: ignoreversion recursesubdirs
 Source: ..\source\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
