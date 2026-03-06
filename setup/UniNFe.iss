@@ -35,6 +35,9 @@ VersionInfoProductVersion=5.1
 OutputDir=\projetos\instaladores
 DisableDirPage=false
 
+[Tasks]
+Name: "instalarservico"; Description: "Instalar serviço do UniNFe"; Flags: unchecked
+
 [Languages]
 Name: brazilianportuguese; MessagesFile: compiler:Languages\BrazilianPortuguese.isl
 
@@ -108,6 +111,8 @@ Source: ..\source\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\sche
 Name: {group}\UniNFe - Monitor DF-e; Filename: {app}\uninfe.exe; WorkingDir: {app}; IconFilename: {app}\uninfe.exe; IconIndex: 0; Languages: ; Comment: Aplicativo responsável por monitorar os arquivos de documentos fiscais eletrônicos (NF-e, NFC-e, CT-e, MDF-e, NFS-e, etc.) para assinar, validar e enviar ao SEFAZ.
 
 [Run]
+//Filename: "{app}\Uninfe.Service.exe"; Parameters: "uninstall"; WorkingDir: "{app}"; Flags: runhidden waituntilterminated; Tasks: instalarservico
+Filename: "{app}\Uninfe.Service.exe"; Parameters: "install"; WorkingDir: "{app}"; Flags: runhidden waituntilterminated; Tasks: instalarservico
 Filename: {app}\uninfe.exe; WorkingDir: {app}; Flags: postinstall shellexec; Parameters: /updatewsdl
 
 [LangOptions]
