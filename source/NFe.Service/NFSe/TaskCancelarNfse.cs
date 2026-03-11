@@ -465,7 +465,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.DESENVOLVECIDADE:
                     versaoXML = "2.03";
                     break;
 

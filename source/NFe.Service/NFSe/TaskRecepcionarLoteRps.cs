@@ -413,7 +413,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.FISCO:
-                case PadraoNFSe.DESENVOLVECIDADE:
                 case PadraoNFSe.VITORIA_ES:
                     switch (doc.DocumentElement.Name)
                     {
@@ -801,7 +800,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.FISCO:
-                case PadraoNFSe.DESENVOLVECIDADE:
                     versaoXML = "2.03";
 
                     break;

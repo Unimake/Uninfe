@@ -177,7 +177,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.DESENVOLVECIDADE:
                 case PadraoNFSe.TIPLAN:
                     versaoXML = "2.03";
                     break;
