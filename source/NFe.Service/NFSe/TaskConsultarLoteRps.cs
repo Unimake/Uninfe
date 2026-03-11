@@ -185,7 +185,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.PAULISTANA:
-                case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaLote;
                     break;
             }
@@ -233,7 +232,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.LIBRE:
                 case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
-                case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
                     versaoXML = "1.00";
