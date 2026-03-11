@@ -161,7 +161,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.QUASAR:
                 case PadraoNFSe.FIORILLI:
-                case PadraoNFSe.SUPERNOVA:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:

@@ -151,7 +151,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 

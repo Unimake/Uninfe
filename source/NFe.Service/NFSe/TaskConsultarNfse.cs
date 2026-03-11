@@ -292,7 +292,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ELOTECH:
                 case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.SUPERNOVA:
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfseServicoPrestadoEnvio":
@@ -519,7 +518,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
                 case PadraoNFSe.SINSOFT:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 

@@ -510,7 +510,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.PRONIM:
-                case PadraoNFSe.SUPERNOVA:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsEnvio":
@@ -718,7 +717,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VITORIA_ES:
                 case PadraoNFSe.JLSOFT:
                 case PadraoNFSe.SINSOFT:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 
