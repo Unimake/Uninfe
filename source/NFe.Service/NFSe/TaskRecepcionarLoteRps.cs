@@ -536,19 +536,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.PUBLICENTER:
-                    switch (doc.DocumentElement.Name)
-                    {
-                        case "tcGrcNFSe":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
-                            break;
-
-                        case "tcLoteRps":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
-                            break;
-                    }
-                    break;
-
                 case PadraoNFSe.THEMA:
                     if (Empresas.Configuracoes[emp].RpsSincAssincTHEMA)
                     {
@@ -605,7 +592,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.PUBLICENTER:
                     versaoXML = "1.00";
                     break;
 
