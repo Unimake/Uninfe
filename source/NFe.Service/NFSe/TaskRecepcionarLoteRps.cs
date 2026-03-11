@@ -439,7 +439,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.IIBRASIL:
                 case PadraoNFSe.MEGASOFT:
-                case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SIGISSWEB:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                     break;
@@ -699,7 +698,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
                 case PadraoNFSe.JLSOFT:
-                case PadraoNFSe.SINSOFT:
                     versaoXML = "2.01";
                     break;
 

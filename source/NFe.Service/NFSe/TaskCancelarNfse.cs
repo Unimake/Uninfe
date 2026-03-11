@@ -437,7 +437,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
                 case PadraoNFSe.JLSOFT:
-                case PadraoNFSe.SINSOFT:
                     versaoXML = "2.01";
                     break;
 

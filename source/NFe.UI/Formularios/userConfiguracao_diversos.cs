@@ -404,9 +404,7 @@ namespace NFe.UI.Formularios
                     padraoNfse == PadraoNFSe.ADM_SISTEMAS || padraoNfse == PadraoNFSe.MEMORY || padraoNfse == PadraoNFSe.MODERNIZACAO_PUBLICA ||
                     padraoNfse == PadraoNFSe.WEBFISCO || padraoNfse == PadraoNFSe.IIBRASIL || padraoNfse == PadraoNFSe.CENTI ||
                     padraoNfse == PadraoNFSe.FINTEL || padraoNfse == PadraoNFSe.SIGISSWEB || padraoNfse == PadraoNFSe.SIMPLE ||
-                    padraoNfse == PadraoNFSe.CONAM || padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.SINSOFT ||
-                    padraoNfse == PadraoNFSe.GIAP)
-
+                    padraoNfse == PadraoNFSe.CONAM || padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.GIAP)
                 {
                     lbl_UsuarioWS.Visible = true;
                     txtUsuarioWS.Visible = true;

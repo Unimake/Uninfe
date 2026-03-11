@@ -310,7 +310,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.SH3:
-                case PadraoNFSe.SINSOFT:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
                     break;
 
@@ -515,7 +514,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.SINSOFT:
                     versaoXML = "2.01";
                     break;
 
