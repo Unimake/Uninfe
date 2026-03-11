@@ -179,7 +179,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ELOTECH:
                 case PadraoNFSe.DESENVOLVECIDADE:
                 case PadraoNFSe.TIPLAN:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
                     break;
 

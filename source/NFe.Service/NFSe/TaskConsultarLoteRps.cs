@@ -309,7 +309,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
                 case PadraoNFSe.DESENVOLVECIDADE:
-                case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.FISCO:
                     versaoXML = "2.03";
 

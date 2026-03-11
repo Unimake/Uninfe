@@ -372,7 +372,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FINTEL:
                 case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.BETHA_CLOUD:
                 case PadraoNFSe.FUTURIZE:
                     switch (doc.DocumentElement.Name)
@@ -803,7 +802,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.DESENVOLVECIDADE:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
 
                     break;

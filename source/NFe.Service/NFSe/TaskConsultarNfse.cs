@@ -290,7 +290,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.ADM_SISTEMAS:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                     switch (doc.DocumentElement.Name)
                     {
@@ -533,7 +532,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
                     break;
 
