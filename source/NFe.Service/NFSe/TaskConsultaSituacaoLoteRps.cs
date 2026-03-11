@@ -224,7 +224,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.LEXSOM:
                 case PadraoNFSe.PRONIM:
                     versaoXML = "1.00";
                     break;

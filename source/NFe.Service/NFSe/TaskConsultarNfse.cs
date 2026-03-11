@@ -465,7 +465,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.LEXSOM:
                     versaoXML = "1.00";
                     break;
 

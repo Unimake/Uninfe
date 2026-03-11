@@ -242,7 +242,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.PUBLICENTER:
-                case PadraoNFSe.LEXSOM:
                     versaoXML = "1.00";
                     break;
 
