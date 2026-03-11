@@ -113,18 +113,6 @@ namespace NFe.Service.NFSe
                 MunicipioUsuario = Empresas.Configuracoes[emp].UsuarioWS
             };
 
-            if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                configuracao.ClientID = Empresas.Configuracoes[emp].ClientID;
-                configuracao.ClientSecret = Empresas.Configuracoes[emp].ClientSecret;
-
-                if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].TokenNFse))
-                {
-                    configuracao.MunicipioToken = Empresas.Configuracoes[emp].TokenNFse;
-                    configuracao.MunicipioTokenValidade = Empresas.Configuracoes[emp].TokenNFSeExpire;
-                }
-            }
-
             switch (servico)
             {
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps:
@@ -154,23 +142,6 @@ namespace NFe.Service.NFSe
                     consultarRpsServicoPrestado.Dispose();
                     break;
 
-            }
-
-            if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                var tokenGeradoUniNFe = Empresas.Configuracoes[emp].TokenNFse;
-                var tokenGeradoDLL = configuracao.MunicipioToken.Replace("Bearer ", "");
-
-                if (tokenGeradoUniNFe != tokenGeradoDLL)
-                {
-                    Empresas.Configuracoes[emp].SalvarConfiguracoesNFSeSoftplan(configuracao.MunicipioUsuario,
-                                                                                configuracao.MunicipioSenha,
-                                                                                configuracao.ClientID,
-                                                                                configuracao.ClientSecret,
-                                                                                Empresas.Configuracoes[emp].CNPJ,
-                                                                                configuracao.MunicipioTokenValidade,
-                                                                                tokenGeradoDLL);
-                }
             }
 
 
@@ -312,7 +283,6 @@ namespace NFe.Service.NFSe
 
 
                 case PadraoNFSe.BSITBR:
-                case PadraoNFSe.SOFTPLAN:
                     versaoXML = "2.00";
                     break;
 

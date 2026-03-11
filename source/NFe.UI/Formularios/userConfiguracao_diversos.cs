@@ -414,18 +414,6 @@ namespace NFe.UI.Formularios
                     txtSenhaWS.Visible = true;
                     checkBoxRpsSincAssincTHEMA.Visible = false;
                 }
-                else if (padraoNfse == PadraoNFSe.SOFTPLAN)
-                {
-                    lblClienteID.Visible = true;
-                    lblClientSecret.Visible = true;
-                    txtClienteID.Visible = true;
-                    txtClientSecret.Visible = true;
-                    lbl_UsuarioWS.Visible = true;
-                    txtUsuarioWS.Visible = true;
-                    lbl_SenhaWS.Visible = true;
-                    txtSenhaWS.Visible = true;
-                    checkBoxRpsSincAssincTHEMA.Visible = false;
-                }
                 else if (padraoNfse == PadraoNFSe.BAUHAUS || padraoNfse == PadraoNFSe.TRIBUTUS)
                 {
                     lbl_SenhaWS.Visible = true;

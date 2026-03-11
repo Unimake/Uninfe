@@ -246,17 +246,6 @@ namespace NFe.Service.NFSe
 
                 conteudoXML.AppendChild(root);
             }
-            else if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                configuracao.ClientID = Empresas.Configuracoes[emp].ClientID;
-                configuracao.ClientSecret = Empresas.Configuracoes[emp].ClientSecret;
-
-                if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].TokenNFse))
-                {
-                    configuracao.MunicipioToken = Empresas.Configuracoes[emp].TokenNFse;
-                    configuracao.MunicipioTokenValidade = Empresas.Configuracoes[emp].TokenNFSeExpire;
-                }
-            }
 
             switch (servico)
             {
@@ -323,22 +312,6 @@ namespace NFe.Service.NFSe
                     break;
             }
 
-            if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                var tokenGeradoUniNFe = Empresas.Configuracoes[emp].TokenNFse;
-                var tokenGeradoDLL = configuracao.MunicipioToken.Replace("Bearer ", "");
-
-                if (tokenGeradoUniNFe != tokenGeradoDLL)
-                {
-                    Empresas.Configuracoes[emp].SalvarConfiguracoesNFSeSoftplan(configuracao.MunicipioUsuario,
-                                                                                configuracao.MunicipioSenha,
-                                                                                configuracao.ClientID,
-                                                                                configuracao.ClientSecret,
-                                                                                Empresas.Configuracoes[emp].CNPJ,
-                                                                                configuracao.MunicipioTokenValidade,
-                                                                                tokenGeradoDLL);
-                }
-            }
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
@@ -470,7 +443,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SIGISSWEB:
-                case PadraoNFSe.SOFTPLAN:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                     break;
 
@@ -735,7 +707,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.BSITBR:
                 case PadraoNFSe.CENTI:
                 case PadraoNFSe.SIGISSWEB:
-                case PadraoNFSe.SOFTPLAN:
                     versaoXML = "2.00";
                     break;
 
