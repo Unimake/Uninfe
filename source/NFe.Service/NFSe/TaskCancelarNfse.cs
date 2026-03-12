@@ -347,7 +347,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.EGOVERNEISS:

@@ -258,7 +258,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FINTEL:
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.HM2SOLUCOES:
@@ -452,7 +451,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.INTERSOL:

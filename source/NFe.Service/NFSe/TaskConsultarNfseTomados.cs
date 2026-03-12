@@ -137,7 +137,6 @@ namespace NFe.Service.NFSe
             {
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.GIF:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                     versaoXML = "1.00";
                     break;
