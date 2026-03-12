@@ -411,7 +411,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.FISCO:
-                case PadraoNFSe.VITORIA_ES:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -690,7 +689,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
-                case PadraoNFSe.VITORIA_ES:
                     versaoXML = "2.01";
                     break;
 
