@@ -250,9 +250,9 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 3131703 ||
-                        codMunicipio == 4303004 || codMunicipio == 4300109 || codMunicipio == 3143302 ||
-                        codMunicipio == 4306932 || codMunicipio == 3302205 || codMunicipio == 3530300)
+                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 4303004 ||
+                        codMunicipio == 4300109 || codMunicipio == 4306932 || codMunicipio == 3302205 || 
+                        codMunicipio == 3530300)
                     {
                         versaoXML = "2.02";
                     }
