@@ -801,12 +801,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.RLZ_INFORMATICA:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3557105)
-                    {
-                        versaoXML = "1.00";
-                        break;
-                    }
-                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                         break;
