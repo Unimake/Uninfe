@@ -501,7 +501,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.WEBFISCO:
-                case PadraoNFSe.JLSOFT:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
                     break;
 
@@ -695,7 +694,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.JLSOFT:
                     versaoXML = "2.01";
                     break;
 
