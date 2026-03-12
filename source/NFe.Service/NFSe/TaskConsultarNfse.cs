@@ -259,7 +259,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
                 case PadraoNFSe.LIBRE:
-                case PadraoNFSe.NATALENSE:
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.HM2SOLUCOES:
@@ -453,16 +452,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.MANAUS_AM:
                 case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.INTERSOL:
                     versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.NATALENSE:
-                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:

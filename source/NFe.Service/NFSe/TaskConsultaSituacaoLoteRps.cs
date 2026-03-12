@@ -219,7 +219,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.MANAUS_AM:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.INTERSOL:
@@ -230,10 +229,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.BETHA_CLOUD:
                 case PadraoNFSe.QUASAR:
                     versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.NATALENSE:
-                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:
