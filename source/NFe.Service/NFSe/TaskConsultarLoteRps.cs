@@ -438,11 +438,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.FINTEL:
                     versaoXML = "2.02";
-
-                    if (codMunicipio == 4115200)
-                    {
-                        versaoXML = "2.01";
-                    }
                     break;
 
                 case PadraoNFSe.TIPLAN:

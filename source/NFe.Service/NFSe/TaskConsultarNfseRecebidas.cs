@@ -141,10 +141,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.FINTEL:
-                    versaoXML = "2.01";
-                    break;
-
                 case PadraoNFSe.FISCO:
                     versaoXML = "2.03";
                     break;
