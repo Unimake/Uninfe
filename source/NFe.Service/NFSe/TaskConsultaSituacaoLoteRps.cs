@@ -310,7 +310,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
 
-                    if (codMunicipio == 4319901 || codMunicipio == 4321600)
+                    if (codMunicipio == 4319901)
                     {
                         versaoXML = "2.04";
                     }
