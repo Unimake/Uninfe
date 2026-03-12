@@ -430,7 +430,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TINUS:
-                case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:

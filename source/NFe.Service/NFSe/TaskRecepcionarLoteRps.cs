@@ -555,7 +555,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.BAUHAUS:
-                case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
