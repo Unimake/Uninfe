@@ -148,17 +148,6 @@ namespace NFe.Service.NFSe
 
                 conteudoXML.AppendChild(root);
             }
-            else if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                configuracao.ClientID = Empresas.Configuracoes[emp].ClientID;
-                configuracao.ClientSecret = Empresas.Configuracoes[emp].ClientSecret;
-
-                if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].TokenNFse))
-                {
-                    configuracao.MunicipioToken = Empresas.Configuracoes[emp].TokenNFse;
-                    configuracao.MunicipioTokenValidade = Empresas.Configuracoes[emp].TokenNFSeExpire;
-                }
-            }
 
             switch (servico)
             {
@@ -226,23 +215,6 @@ namespace NFe.Service.NFSe
                     break;
             }
 
-            if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                var tokenGeradoUniNFe = Empresas.Configuracoes[emp].TokenNFse;
-                var tokenGeradoDLL = configuracao.MunicipioToken.Replace("Bearer ", "");
-
-                if (tokenGeradoUniNFe != tokenGeradoDLL)
-                {
-                    Empresas.Configuracoes[emp].SalvarConfiguracoesNFSeSoftplan(configuracao.MunicipioUsuario,
-                                                                                configuracao.MunicipioSenha,
-                                                                                configuracao.ClientID,
-                                                                                configuracao.ClientSecret,
-                                                                                Empresas.Configuracoes[emp].CNPJ,
-                                                                                configuracao.MunicipioTokenValidade,
-                                                                                tokenGeradoDLL);
-                }
-            }
-
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
@@ -286,8 +258,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FINTEL:
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
-                case PadraoNFSe.LIBRE:
-                case PadraoNFSe.NATALENSE:
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.HM2SOLUCOES:
@@ -318,9 +288,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.ADM_SISTEMAS:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.SUPERNOVA:
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfseServicoPrestadoEnvio":
@@ -338,9 +306,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.SYSTEMPRO:
-                case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
-                case PadraoNFSe.SINSOFT:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
                     break;
 
@@ -486,20 +451,10 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.MANAUS_AM:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
-                case PadraoNFSe.EGOVERNE:
-                case PadraoNFSe.CECAM:
                 case PadraoNFSe.METROPOLIS:
-                case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.LEXSOM:
                     versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.NATALENSE:
-                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:
@@ -527,9 +482,16 @@ namespace NFe.Service.NFSe
 
 
                 case PadraoNFSe.DIGIFRED:
+                    versaoXML = "2.00";
+                    if (xmlDoc.InnerXml.Contains("<NFSe versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                        break;
+                    }
+                    break;
+
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.CENTI:
-                case PadraoNFSe.SOFTPLAN:
                     versaoXML = "2.00";
                     break;
 
@@ -538,9 +500,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
-                case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.SINSOFT:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 
@@ -548,8 +507,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.EMBRAS:
-                case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
@@ -557,7 +514,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
                     break;
 
@@ -577,12 +533,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.RLZ_INFORMATICA:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3557105)
-                    {
-                        versaoXML = "1.00";
-                        break;
-                    }
-                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                         break;

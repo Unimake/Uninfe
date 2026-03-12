@@ -136,7 +136,6 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.BAUHAUS:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.TECNOSISTEMAS:
                     versaoXML = "1.00";
                     break;
@@ -144,7 +143,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
 
-                    if (codMunicipio == 4319901 || codMunicipio == 4321600)
+                    if (codMunicipio == 4319901)
                     {
                         versaoXML = "2.04";
                     }
@@ -161,10 +160,8 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.QUASAR:
                 case PadraoNFSe.FIORILLI:
-                case PadraoNFSe.SUPERNOVA:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
-                case PadraoNFSe.VITORIA_ES:
                     versaoXML = "2.01";
                     break;
 
@@ -174,8 +171,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
-                case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.BETHA:
                 case PadraoNFSe.FUTURIZE:
@@ -187,7 +182,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
                 case PadraoNFSe.TIPLAN:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
                     break;
 

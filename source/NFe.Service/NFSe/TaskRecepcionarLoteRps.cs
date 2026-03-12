@@ -246,17 +246,6 @@ namespace NFe.Service.NFSe
 
                 conteudoXML.AppendChild(root);
             }
-            else if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                configuracao.ClientID = Empresas.Configuracoes[emp].ClientID;
-                configuracao.ClientSecret = Empresas.Configuracoes[emp].ClientSecret;
-
-                if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].TokenNFse))
-                {
-                    configuracao.MunicipioToken = Empresas.Configuracoes[emp].TokenNFse;
-                    configuracao.MunicipioTokenValidade = Empresas.Configuracoes[emp].TokenNFSeExpire;
-                }
-            }
 
             switch (servico)
             {
@@ -323,22 +312,6 @@ namespace NFe.Service.NFSe
                     break;
             }
 
-            if (padraoNFSe == PadraoNFSe.SOFTPLAN)
-            {
-                var tokenGeradoUniNFe = Empresas.Configuracoes[emp].TokenNFse;
-                var tokenGeradoDLL = configuracao.MunicipioToken.Replace("Bearer ", "");
-
-                if (tokenGeradoUniNFe != tokenGeradoDLL)
-                {
-                    Empresas.Configuracoes[emp].SalvarConfiguracoesNFSeSoftplan(configuracao.MunicipioUsuario,
-                                                                                configuracao.MunicipioSenha,
-                                                                                configuracao.ClientID,
-                                                                                configuracao.ClientSecret,
-                                                                                Empresas.Configuracoes[emp].CNPJ,
-                                                                                configuracao.MunicipioTokenValidade,
-                                                                                tokenGeradoDLL);
-                }
-            }
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
@@ -394,12 +367,9 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.ABACO:
                 case PadraoNFSe.FINTEL:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.BETHA_CLOUD:
                 case PadraoNFSe.FUTURIZE:
                     switch (doc.DocumentElement.Name)
@@ -430,18 +400,17 @@ namespace NFe.Service.NFSe
                             break;
 
                         case "NFSe":
-                            if (padraoNFSe == PadraoNFSe.SMARAPD)
+                            if (padraoNFSe == PadraoNFSe.SMARAPD || padraoNFSe == PadraoNFSe.DIGIFRED)
                             {
                                 result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             }
-                            break;
+                            
+                                break;
                     }
                     break;
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.FISCO:
-                case PadraoNFSe.DESENVOLVECIDADE:
-                case PadraoNFSe.VITORIA_ES:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -467,9 +436,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.IIBRASIL:
                 case PadraoNFSe.MEGASOFT:
-                case PadraoNFSe.SINSOFT:
                 case PadraoNFSe.SIGISSWEB:
-                case PadraoNFSe.SOFTPLAN:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                     break;
 
@@ -532,12 +499,10 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.WEBFISCO:
-                case PadraoNFSe.JLSOFT:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
                     break;
 
                 case PadraoNFSe.PRONIM:
-                case PadraoNFSe.SUPERNOVA:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsEnvio":
@@ -560,19 +525,6 @@ namespace NFe.Service.NFSe
 
                         case "EmissaoNotaFiscalRequest":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioRps;
-                            break;
-                    }
-                    break;
-
-                case PadraoNFSe.PUBLICENTER:
-                    switch (doc.DocumentElement.Name)
-                    {
-                        case "tcGrcNFSe":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
-                            break;
-
-                        case "tcLoteRps":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                             break;
                     }
                     break;
@@ -624,22 +576,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.MANAUS_AM:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
-                case PadraoNFSe.EGOVERNE:
-                case PadraoNFSe.CECAM:
                 case PadraoNFSe.METROPOLIS:
-                case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.PUBLICENTER:
-                case PadraoNFSe.LEXSOM:
                     versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.NATALENSE:
-                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:
@@ -674,7 +615,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
 
-                    if (codMunicipio == 4319901 || codMunicipio == 4321600)
+                    if (codMunicipio == 4319901)
                     {
                         versaoXML = "2.04";
                     }
@@ -723,11 +664,17 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.DIGIFRED:
+                    versaoXML = "2.00";
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
+                    break;
+
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.BSITBR:
                 case PadraoNFSe.CENTI:
                 case PadraoNFSe.SIGISSWEB:
-                case PadraoNFSe.SOFTPLAN:
                     versaoXML = "2.00";
                     break;
 
@@ -736,10 +683,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
-                case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.JLSOFT:
-                case PadraoNFSe.SINSOFT:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 
@@ -766,8 +709,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
-                case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
@@ -815,10 +756,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                     versaoXML = "2.02";
-                    if (xmlDoc.InnerXml.Contains("versao=\"3.02\""))
-                    {
-                        versaoXML = "3.02";
-                    }
                     break;
 
                 case PadraoNFSe.DSF:
@@ -840,8 +777,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.FISCO:
-                case PadraoNFSe.DESENVOLVECIDADE:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
 
                     break;
@@ -858,12 +793,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.RLZ_INFORMATICA:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3557105)
-                    {
-                        versaoXML = "1.00";
-                        break;
-                    }
-                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                         break;

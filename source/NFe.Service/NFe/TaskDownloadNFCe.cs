@@ -75,16 +75,10 @@ namespace NFe.Service
 
             //Extrair dados do XML
             var tpAmb = 2; // Padrão homologação
-            var chNFCe = string.Empty;
 
             if (conteudoXML.GetElementsByTagName("tpAmb").Count > 0)
             {
                 tpAmb = Convert.ToInt32(conteudoXML.GetElementsByTagName("tpAmb")[0].InnerText);
-            }
-
-            if (conteudoXML.GetElementsByTagName("chNFCe").Count > 0)
-            {
-                chNFCe = conteudoXML.GetElementsByTagName("chNFCe")[0].InnerText;
             }
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
@@ -107,52 +101,17 @@ namespace NFe.Service
             //Salvar o XML retornado
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
-            //Extrair e salvar a NFCe do retorno se autorizada
-            if (downloadNFCe.Result != null && downloadNFCe.Result.CStat == "100")
+            //Gravar NFCe e eventos do retorno se autorizada
+            if (downloadNFCe.Result != null && downloadNFCe.Result.CStat == "200")
             {
                 try
                 {
-                    var xmlRetorno = new XmlDocument();
-                    xmlRetorno.LoadXml(vStrXmlRetorno);
-
-                    // Procurar pelo XML da NFCe dentro do retorno
-                    var procNFeNodes = xmlRetorno.GetElementsByTagName("procNFe");
-                    if (procNFeNodes.Count > 0)
-                    {
-                        var procNFeXml = procNFeNodes[0].OuterXml;
-                        var arquivoNFCe = Path.Combine(
-                            Empresas.Configuracoes[emp].PastaXmlRetorno,
-                            chNFCe + "-procNFe.xml"
-                        );
-
-                        File.WriteAllText(arquivoNFCe, procNFeXml);
-
-                        //Enviar para FTP se configurado
-                        if (File.Exists(arquivoNFCe))
-                        {
-                            new GerarXML(emp).XmlParaFTP(emp, arquivoNFCe);
-                        }
-
-                        //Mover para pasta de autorizados
-                        var pastaAutorizados = Path.Combine(
-                            Empresas.Configuracoes[emp].PastaXmlEnviado,
-                            PastaEnviados.Autorizados.ToString()
-                        );
-
-                        if (!string.IsNullOrEmpty(pastaAutorizados) && Directory.Exists(Path.GetDirectoryName(pastaAutorizados)))
-                        {
-                            var destinoFinal = Path.Combine(pastaAutorizados, chNFCe + "-procNFe.xml");
-                            if (!File.Exists(destinoFinal))
-                            {
-                                File.Copy(arquivoNFCe, destinoFinal, true);
-                            }
-                        }
-                    }
+                    downloadNFCe.GravarXMLProc(Empresas.Configuracoes[emp].PastaXmlRetorno);
                 }
                 catch (Exception ex)
                 {
                     //Logar erro mas não interromper o fluxo
-                    Auxiliar.WriteLog($"Erro ao extrair procNFe do download: {ex.Message}", false);
+                    Auxiliar.WriteLog($"Erro ao gravar XMLs do download NFCe: {ex.Message}", false);
                 }
             }
 

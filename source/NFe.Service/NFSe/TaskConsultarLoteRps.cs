@@ -185,7 +185,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.PAULISTANA:
-                case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaLote;
                     break;
             }
@@ -229,19 +228,10 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.MANAUS_AM:
-                case PadraoNFSe.LIBRE:
-                case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
-                case PadraoNFSe.ISSONLINE_ASSESSORPUBLICO:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.LEXSOM:
                     versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.NATALENSE:
-                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PAULISTANA:
@@ -256,7 +246,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DBSELLER:
                     versaoXML = "1.00";
 
-                    if (codMunicipio == 4319901 || codMunicipio == 4321600)
+                    if (codMunicipio == 4319901)
                     {
                         versaoXML = "2.04";
                     }
@@ -282,8 +272,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.PRODEB:
-                case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 
@@ -301,8 +289,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
-                case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
@@ -310,8 +296,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.DESENVOLVECIDADE:
-                case PadraoNFSe.INDAIATUBA_SP:
                 case PadraoNFSe.FISCO:
                     versaoXML = "2.03";
 

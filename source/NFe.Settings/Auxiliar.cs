@@ -47,13 +47,13 @@ namespace NFe.Settings
         #endregion
 
         #region WriteLog()
-        public static void WriteLog(string msg, bool gravarStackTrace)
+        public static void WriteLog(string msg, bool gravarStackTrace, bool forceLog = false)
         {
             if (string.IsNullOrEmpty(msg)) return;
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(msg);
 #endif
-            if (ConfiguracaoApp.GravarLogOperacoesRealizadas)
+            if (ConfiguracaoApp.GravarLogOperacoesRealizadas || forceLog)
             {
                 int emp = -1;
                 if (Empresas.Configuracoes.Count != 0) //Tive que comparar aqui se tem empresas, pois quando não tem nenhuma empresa e tento consultar os certificados pela pasta geral, retorna um erro. Wandrey 02/02/2015

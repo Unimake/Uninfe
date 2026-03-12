@@ -137,7 +137,6 @@ namespace NFe.Service.NFSe
             {
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.GIF:
-                case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                     versaoXML = "1.00";
                     break;
@@ -150,8 +149,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.QUASAR:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
-                case PadraoNFSe.VITORIA_ES:
-                case PadraoNFSe.SUPERNOVA:
                     versaoXML = "2.01";
                     break;
 
@@ -159,7 +156,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.EMBRAS:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
@@ -178,9 +174,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.DESENVOLVECIDADE:
                 case PadraoNFSe.TIPLAN:
-                case PadraoNFSe.INDAIATUBA_SP:
                     versaoXML = "2.03";
                     break;
 

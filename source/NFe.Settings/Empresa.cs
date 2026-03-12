@@ -424,6 +424,7 @@ namespace NFe.Settings
             get => DiretorioSalvarComo.ToString();
             set => DiretorioSalvarComo = value;
         }
+
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         public DiretorioSalvarComo DiretorioSalvarComo
         {
@@ -680,12 +681,16 @@ namespace NFe.Settings
                 }
                 catch (Exception ex)
                 {
+                    string mensagemErro = "Ocorreu um erro ao efetuar a leitura das configurações da empresa " +
+                        CNPJ + "=" + Nome.Trim() + ". Por favor entre na tela de configurações desta empresa e reconfigure.\r\n\r\nErro: " + ex.Message;
+
+                    Auxiliar.WriteLog($"{mensagemErro}\r\n\r\nNome arquivo de configuração com falha {NomeArquivoConfig}", true, true);
+
                     //Não vou mais fazer isso pois estava gerando problemas com Certificados A3 - Renan 18/06/2013
                     //empresa.Certificado = string.Empty;
                     //empresa.CertificadoThumbPrint = string.Empty;
                     tipoerro = 2;
-                    return "Ocorreu um erro ao efetuar a leitura das configurações da empresa " +
-                        CNPJ + "=" + Nome.Trim() + ". Por favor entre na tela de configurações desta empresa e reconfigure.\r\n\r\nErro: " + ex.Message;
+                    return mensagemErro;
                 }
                 return null;
             }
@@ -841,9 +846,15 @@ namespace NFe.Settings
         /// </remarks>
         public void CriarSubPastaEnviado()
         {
-            if (Servico != TipoAplicativo.Nfse)
+            if (!string.IsNullOrEmpty(PastaXmlEnviado))
             {
-                if (!string.IsNullOrEmpty(PastaXmlEnviado))
+                //Criar a Pasta Autorizado
+                if (!Directory.Exists(PastaXmlEnviado + "\\" + PastaEnviados.Autorizados.ToString()))
+                {
+                    Directory.CreateDirectory(PastaXmlEnviado + "\\" + PastaEnviados.Autorizados.ToString());
+                }
+
+                if (Servico != TipoAplicativo.Nfse)
                 {
                     //Criar a pasta EmProcessamento
                     if (!Directory.Exists(PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString()))
@@ -851,16 +862,16 @@ namespace NFe.Settings
                         Directory.CreateDirectory(PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString());
                     }
 
-                    //Criar a Pasta Autorizado
-                    if (!Directory.Exists(PastaXmlEnviado + "\\" + PastaEnviados.Autorizados.ToString()))
-                    {
-                        Directory.CreateDirectory(PastaXmlEnviado + "\\" + PastaEnviados.Autorizados.ToString());
-                    }
-
                     //Criar a Pasta Denegado
                     if (!Directory.Exists(PastaXmlEnviado + "\\" + PastaEnviados.Denegados.ToString()))
                     {
                         Directory.CreateDirectory(PastaXmlEnviado + "\\" + PastaEnviados.Denegados.ToString());
+                    }
+
+                    //Criar a Pasta Originais
+                    if (!Directory.Exists(PastaXmlEnviado + "\\" + PastaEnviados.Originais.ToString()))
+                    {
+                        Directory.CreateDirectory(PastaXmlEnviado + "\\" + PastaEnviados.Originais.ToString());
                     }
                 }
             }
@@ -1188,7 +1199,7 @@ namespace NFe.Settings
                     new ConfiguracaoApp().ValidarConfig(validaCertificado, this);
                 }
 
-               if (!Directory.Exists(PastaEmpresa))
+                if (!Directory.Exists(PastaEmpresa))
                 {
                     Directory.CreateDirectory(PastaEmpresa);
                 }

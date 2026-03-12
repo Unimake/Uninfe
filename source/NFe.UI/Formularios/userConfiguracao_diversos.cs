@@ -399,27 +399,13 @@ namespace NFe.UI.Formularios
             {
                 var padraoNfse = Functions.BuscaPadraoNFSe(ufCod);
 
-                if (padraoNfse == PadraoNFSe.IPM || padraoNfse == PadraoNFSe.ISSONLINE_ASSESSORPUBLICO || padraoNfse == PadraoNFSe.SIMPLISS ||
-                    padraoNfse == PadraoNFSe.FIORILLI || padraoNfse == PadraoNFSe.SMARAPD || padraoNfse == PadraoNFSe.EL ||
-                    padraoNfse == PadraoNFSe.ADM_SISTEMAS || padraoNfse == PadraoNFSe.MEMORY || padraoNfse == PadraoNFSe.MODERNIZACAO_PUBLICA ||
-                    padraoNfse == PadraoNFSe.WEBFISCO || padraoNfse == PadraoNFSe.IIBRASIL || padraoNfse == PadraoNFSe.CENTI ||
-                    padraoNfse == PadraoNFSe.FINTEL || padraoNfse == PadraoNFSe.SIGISSWEB || padraoNfse == PadraoNFSe.SIMPLE ||
-                    padraoNfse == PadraoNFSe.CONAM || padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.SINSOFT ||
-                    padraoNfse == PadraoNFSe.GIAP)
-
+                if (padraoNfse == PadraoNFSe.IPM || padraoNfse == PadraoNFSe.SIMPLISS || padraoNfse == PadraoNFSe.FIORILLI || 
+                    padraoNfse == PadraoNFSe.SMARAPD || padraoNfse == PadraoNFSe.EL || padraoNfse == PadraoNFSe.ADM_SISTEMAS || 
+                    padraoNfse == PadraoNFSe.MEMORY || padraoNfse == PadraoNFSe.MODERNIZACAO_PUBLICA || padraoNfse == PadraoNFSe.WEBFISCO || 
+                    padraoNfse == PadraoNFSe.IIBRASIL || padraoNfse == PadraoNFSe.CENTI || padraoNfse == PadraoNFSe.FINTEL || 
+                    padraoNfse == PadraoNFSe.SIGISSWEB || padraoNfse == PadraoNFSe.SIMPLE || padraoNfse == PadraoNFSe.CONAM || 
+                    padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.GIAP)
                 {
-                    lbl_UsuarioWS.Visible = true;
-                    txtUsuarioWS.Visible = true;
-                    lbl_SenhaWS.Visible = true;
-                    txtSenhaWS.Visible = true;
-                    checkBoxRpsSincAssincTHEMA.Visible = false;
-                }
-                else if (padraoNfse == PadraoNFSe.SOFTPLAN)
-                {
-                    lblClienteID.Visible = true;
-                    lblClientSecret.Visible = true;
-                    txtClienteID.Visible = true;
-                    txtClientSecret.Visible = true;
                     lbl_UsuarioWS.Visible = true;
                     txtUsuarioWS.Visible = true;
                     lbl_SenhaWS.Visible = true;

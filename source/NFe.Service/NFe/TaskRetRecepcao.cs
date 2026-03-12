@@ -401,6 +401,8 @@ namespace NFe.Service
                         xMotivo = infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0].InnerText;
                     }
 
+                    Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Iniciando processamento da chave " + strChaveNFe + ", cStat=" + strStat + ".", false);
+
                     //Definir o nome do arquivo da NFe e seu caminho
                     var strNomeArqNfe = fluxoNFe.LerTag(strChaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
 
@@ -425,17 +427,19 @@ namespace NFe.Service
                     //Atualizar a Tag de status da NFe no fluxo para que se ocorrer alguma falha na exclusão eu tenha esta campo para ter uma referencia em futuras consultas
                     fluxoNFe.AtualizarTag(strChaveNFe, FluxoNfe.ElementoEditavel.cStat, strStat);
 
-                    switch (strStat)
+                    try
                     {
-                        case "100": //NFe Autorizada
-                        case "150": //NFe Autorizada fora do prazo
-                            if (File.Exists(strArquivoNFe))
-                            {
-                                //Juntar o protocolo com a NFE já copiando para a pasta de autorizadas
-                                var strArquivoNFeProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                                        PastaEnviados.EmProcessamento.ToString() + "\\" +
-                                                        Functions.ExtrairNomeArq(strNomeArqNfe, CLASSE_NFe.EnvioXML) +
-                                                        Propriedade.ExtRetorno.ProcNFe;
+                        switch (strStat)
+                        {
+                            case "100": //NFe Autorizada
+                            case "150": //NFe Autorizada fora do prazo
+                                if (File.Exists(strArquivoNFe))
+                                {
+                                    //Juntar o protocolo com a NFE já copiando para a pasta de autorizadas
+                                    var strArquivoNFeProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                                            PastaEnviados.EmProcessamento.ToString() + "\\" +
+                                                            Functions.ExtrairNomeArq(strNomeArqNfe, CLASSE_NFe.EnvioXML) +
+                                                            Propriedade.ExtRetorno.ProcNFe;
 
                                 //Ler o XML para pegar a data de emissão para criar a pasta dos XML´s autorizados
                                 if (conteudoXMLLote == null)
@@ -517,13 +521,14 @@ namespace NFe.Service
                                         Auxiliar.WriteLog("TaskRecepcao: (Falha na execução do UniDANFe) " + ex.Message, false);
                                     }
                                 }
-                                //Vou verificar se estão os dois arquivos na pasta Autorizados, se tiver eu tiro do fluxo caso contrário não. Wandrey 13/02/2012
-                                NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, CLASSE_NFe.EnvioXML, CLASSE_NFe.EnvioXML);
-                                procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, CLASSE_NFe.EnvioXML, Propriedade.ExtRetorno.ProcNFe);
-                                if (!procNFeJaNaAutorizada || !NFeJaNaAutorizada)
-                                {
-                                    tirarFluxo = false;
-                                }
+                                    //Vou verificar se estão os dois arquivos na pasta Autorizados, se tiver eu tiro do fluxo caso contrário não. Wandrey 13/02/2012
+                                    NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, CLASSE_NFe.EnvioXML, CLASSE_NFe.EnvioXML);
+                                    procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, CLASSE_NFe.EnvioXML, Propriedade.ExtRetorno.ProcNFe);
+                                    if (!procNFeJaNaAutorizada || !NFeJaNaAutorizada)
+                                    {
+                                        tirarFluxo = false;
+                                        Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Arquivos não encontrados em autorizados após tentativa de mover. chave=" + strChaveNFe + ", arquivo=" + strNomeArqNfe, true);
+                                    }
 
                                 ///
                                 /// se o -nfe.xml já existe na pasta de autorizados e ele está na pasta em processamento,
@@ -532,55 +537,61 @@ namespace NFe.Service
                                 {
                                     File.Delete(strArquivoNFe);
                                 }
-                            }
-                            else
-                            {
-                                Auxiliar.WriteLog("TaskRetRecepcao: (Foi efetuada uma consulta recibo e não foi localizado o arquivo da NFe ( " + strNomeArqNfe + ") na pasta EmProcessamento) ", false);
-                            }
+                                }
+                                else
+                                {
+                                    Auxiliar.WriteLog("TaskRetRecepcao: (Foi efetuada uma consulta recibo e não foi localizado o arquivo da NFe ( " + strNomeArqNfe + ") na pasta EmProcessamento) ", false);
+                                }
 
-                            break;
+                                break;
 
-                        case "110":
+                            case "110":
                             //case "205":
                             //case "301":
                             //case "302":
                             //case "303":
-                            ProcessaNFeDenegada(emp, oLerXml, strArquivoNFe, conteudoXMLLote, protNFeElemento.OuterXml);
+                                ProcessaNFeDenegada(emp, oLerXml, strArquivoNFe, conteudoXMLLote, protNFeElemento.OuterXml);
 
-                            if (Empresas.Configuracoes[emp].DocumentosDenegados)
-                            {
-                                var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                                sendMessageToWhatsApp.AlertNotification("Denegação: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Notas estão sendo denegadas");
-                            }
-
-                            break;
-
-                        default: //NFe foi rejeitada
-                            //O Status da NFe tem que ser maior que 1 ou deu algum erro na hora de ler o XML de retorno da consulta do recibo, sendo assim, vou mantar a nota no fluxo para consultar novamente.
-                            if (Convert.ToInt32(strStat) >= 1)
-                            {
-                                Auxiliar.WriteLog("Arquivo: " + strNomeArqNfe + " - Codigo de retorno da SEFAZ <cStat>: " + strStat, false);
-                                //Mover o XML da NFE a pasta de XML´s com erro
-                                oAux.MoveArqErro(strArquivoNFe);
-
-                                if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                                if (Empresas.Configuracoes[emp].DocumentosDenegados)
                                 {
                                     var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Notas estão sendo rejeitadas");
+                                    sendMessageToWhatsApp.AlertNotification("Denegação: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Notas estão sendo denegadas");
                                 }
-                            }
-                            else
-                            {
-                                tirarFluxo = false;
-                            }
 
-                            break;
+                                break;
+
+                            default: //NFe foi rejeitada
+                            //O Status da NFe tem que ser maior que 1 ou deu algum erro na hora de ler o XML de retorno da consulta do recibo, sendo assim, vou mantar a nota no fluxo para consultar novamente.
+                                if (Convert.ToInt32(strStat) >= 1)
+                                {
+                                    Auxiliar.WriteLog("Arquivo: " + strNomeArqNfe + " - Codigo de retorno da SEFAZ <cStat>: " + strStat, false);
+                                    //Mover o XML da NFE a pasta de XML´s com erro
+                                    oAux.MoveArqErro(strArquivoNFe);
+
+                                    if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                                    {
+                                        var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
+                                        sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Notas estão sendo rejeitadas");
+                                    }
+                                }
+                                else
+                                {
+                                    tirarFluxo = false;
+                                }
+
+                                break;
+                        }
+
+                        //Deletar a NFE do arquivo de controle de fluxo
+                        if (tirarFluxo)
+                        {
+                            fluxoNFe.ExcluirNfeFluxo(strChaveNFe);
+                        }
                     }
-
-                    //Deletar a NFE do arquivo de controle de fluxo
-                    if (tirarFluxo)
+                    catch (Exception ex)
                     {
-                        fluxoNFe.ExcluirNfeFluxo(strChaveNFe);
+                        Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Falha no processamento da chave " + strChaveNFe + ", cStat=" + strStat + ". Erro: " + ex.GetAllMessages(), true);
+                        throw;
                     }
 
                     break;
