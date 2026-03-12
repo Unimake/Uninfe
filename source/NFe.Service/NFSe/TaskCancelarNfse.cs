@@ -340,7 +340,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.OBARATEC:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:

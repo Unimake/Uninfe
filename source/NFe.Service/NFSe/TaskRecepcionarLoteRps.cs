@@ -424,7 +424,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.PROPRIOGOIANIA:
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.BSITBR:
                 case PadraoNFSe.PROPRIOBARUERISP:
@@ -553,7 +552,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:

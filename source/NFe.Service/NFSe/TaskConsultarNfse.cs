@@ -427,7 +427,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TINUS:
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.WEBFISCO:

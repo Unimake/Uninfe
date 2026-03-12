@@ -412,7 +412,7 @@ namespace NFe.UI.Formularios
                     txtSenhaWS.Visible = true;
                     checkBoxRpsSincAssincTHEMA.Visible = false;
                 }
-                else if (padraoNfse == PadraoNFSe.BAUHAUS || padraoNfse == PadraoNFSe.TRIBUTUS)
+                else if (padraoNfse == PadraoNFSe.TRIBUTUS)
                 {
                     lbl_SenhaWS.Visible = true;
                     txtSenhaWS.Visible = true;

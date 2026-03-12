@@ -135,7 +135,6 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TECNOSISTEMAS:
                     versaoXML = "1.00";
                     break;

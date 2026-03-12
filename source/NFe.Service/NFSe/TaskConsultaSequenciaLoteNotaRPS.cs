@@ -136,12 +136,6 @@ namespace NFe.Service.NFSe
         {
             var result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSequenciaLoteNotaRPS;
 
-            switch (padraoNFSe)
-            {
-                case PadraoNFSe.BAUHAUS:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRpsDisponivel;
-                    break;
-            }
 
             return result;
         }
@@ -160,7 +154,6 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
 
-                case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.DSF:
                     versaoXML = "1.00";
