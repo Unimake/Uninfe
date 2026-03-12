@@ -230,7 +230,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.MANAUS_AM:
                 case PadraoNFSe.LIBRE:
-                case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:

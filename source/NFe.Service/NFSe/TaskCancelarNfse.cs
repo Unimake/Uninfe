@@ -349,7 +349,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
-                case PadraoNFSe.EGOVERNE:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
