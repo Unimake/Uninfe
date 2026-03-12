@@ -444,15 +444,6 @@ namespace NFe.Service.NFSe
 
                     break;
 
-                case PadraoNFSe.ABACO:
-                    versaoXML = "2.04";
-
-                    if (codMunicipio == 5108402)
-                    {
-                        versaoXML = "2.01";
-                    }
-                    break;
-
                 case PadraoNFSe.PROPRIOFORTALEZACE:
                     versaoXML = "4.00";
                     break;

@@ -309,18 +309,6 @@ namespace NFe.Service.NFSe
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
                     break;
 
-                case PadraoNFSe.ABACO:
-                    switch (doc.DocumentElement.Name)
-                    {
-                        case "ConsultarNfse":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
-                            break;
-                        case "ConsultarNfseFaixaEnvio":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
-                            break;
-                    }
-                    break;
-
                 case PadraoNFSe.GIF:
                     switch (doc.DocumentElement.Name)
                     {
@@ -594,15 +582,6 @@ namespace NFe.Service.NFSe
                     if (xmlDoc.GetElementsByTagName("Pedido").Count > 0)
                     {
                         versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.ABACO:
-                    versaoXML = "2.04";
-
-                    if (codMunicipio == 5108402)
-                    {
-                        versaoXML = "2.01";
                     }
                     break;
 

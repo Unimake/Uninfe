@@ -367,7 +367,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.ABACO:
                 case PadraoNFSe.FINTEL:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.BETHA_CLOUD:
@@ -856,15 +855,6 @@ namespace NFe.Service.NFSe
                     if (ConteudoXML.InnerXml.Contains("versao=\"2.05\""))
                     {
                         versaoXML = "2.05";
-                    }
-                    break;
-
-                case PadraoNFSe.ABACO:
-                    versaoXML = "2.04";
-
-                    if (codMunicipio == 5108402)
-                    {
-                        versaoXML = "2.01";
                     }
                     break;
 

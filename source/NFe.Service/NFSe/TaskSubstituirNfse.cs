@@ -215,14 +215,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.04";
                     break;
 
-                case PadraoNFSe.ABACO:
-                    versaoXML = "2.04";
-
-                    if (codMunicipio == 5108402)
-                    {
-                        versaoXML = "2.01";
-                    }
-                    break;
                 case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
