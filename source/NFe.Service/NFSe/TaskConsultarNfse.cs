@@ -259,7 +259,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
                 case PadraoNFSe.RLZ_INFORMATICA:
-                case PadraoNFSe.THEMA:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.FUTURIZE:
                 case PadraoNFSe.CONAM:
@@ -433,7 +432,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.TINUS:
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:
-                case PadraoNFSe.THEMA:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:

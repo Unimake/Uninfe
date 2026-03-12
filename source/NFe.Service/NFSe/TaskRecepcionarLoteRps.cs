@@ -526,17 +526,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.THEMA:
-                    if (Empresas.Configuracoes[emp].RpsSincAssincTHEMA)
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
-                    }
-                    else
-                    {
-                        result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
-                    }
-
-                    break;
             }
 
             return result;
@@ -568,7 +557,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.SIMPLE:
                 case PadraoNFSe.PROPRIOBARUERISP:
-                case PadraoNFSe.THEMA:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:

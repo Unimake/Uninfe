@@ -229,7 +229,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.TECNOSISTEMAS:
                 case PadraoNFSe.BAUHAUS:
                 case PadraoNFSe.SIMPLE:
-                case PadraoNFSe.THEMA:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.HM2SOLUCOES:

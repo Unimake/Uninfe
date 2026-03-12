@@ -418,9 +418,6 @@ namespace NFe.UI.Formularios
                     txtSenhaWS.Visible = true;
                     checkBoxRpsSincAssincTHEMA.Visible = false;
                 }
-                else if (padraoNfse == PadraoNFSe.THEMA) {
-                    checkBoxRpsSincAssincTHEMA.Visible = true;
-                }
                 else
                 {
                     lbl_UsuarioWS.Visible = false;

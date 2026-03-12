@@ -219,7 +219,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.AGILI:
                 case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.THEMA:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.INTERSOL:
                 case PadraoNFSe.PRONIM:
