@@ -254,7 +254,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIMPLISS:
                 case PadraoNFSe.ISSNET:
                 case PadraoNFSe.FIORILLI:
-                case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.FINTEL:
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
@@ -488,7 +487,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.VERSATEC:
-                case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";

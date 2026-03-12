@@ -359,7 +359,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ISSNET:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
-                case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
                 case PadraoNFSe.TIPLAN:
@@ -689,7 +688,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.VERSATEC:
-                case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.FUTURIZE:

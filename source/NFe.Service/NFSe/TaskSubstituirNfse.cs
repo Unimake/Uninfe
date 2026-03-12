@@ -168,7 +168,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.WEBISS:
-                case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.BETHA:

@@ -155,7 +155,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.BETHA:
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.WEBISS:
-                case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
