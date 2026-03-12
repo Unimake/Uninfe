@@ -350,7 +350,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.LIBRE:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.EGOVERNE:
-                case PadraoNFSe.CECAM:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.EGOVERNEISS:
                 case PadraoNFSe.INTERSOL:
