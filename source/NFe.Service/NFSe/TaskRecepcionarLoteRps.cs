@@ -773,6 +773,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.ADM_SISTEMAS:
                     versaoXML = "2.03";
+                    break;
 
                 case PadraoNFSe.RLZ_INFORMATICA:
                     versaoXML = "2.03";
