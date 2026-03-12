@@ -280,10 +280,6 @@ namespace NFe.Service.NFSe
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelamentoNfe;
                     break;
 
-                case PadraoNFSe.OBARATEC:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelaNota;
-                    break;
-
                 case PadraoNFSe.PRIMAX:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNotaFiscal;
                     break;
@@ -337,7 +333,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
-                case PadraoNFSe.OBARATEC:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:

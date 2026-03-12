@@ -423,7 +423,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.GIAP:
-                case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.BSITBR:
                 case PadraoNFSe.PROPRIOBARUERISP:
@@ -487,7 +486,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.OBARATEC:
                 case PadraoNFSe.PRIMAX:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeEmissaoNota;
                     break;
@@ -548,7 +546,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.NOBESISTEMAS:
                 case PadraoNFSe.BHISS:
-                case PadraoNFSe.OBARATEC:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
@@ -659,7 +656,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.PRODEB:
                     versaoXML = "2.01";

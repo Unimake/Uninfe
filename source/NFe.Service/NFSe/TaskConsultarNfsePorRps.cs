@@ -273,7 +273,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
