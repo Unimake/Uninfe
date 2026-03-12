@@ -193,11 +193,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.ADM_SISTEMAS:
                     versaoXML = "2.03";
-
-                    if (codMunicipio == 1400100)
-                    {
-                        versaoXML = "2.01";
-                    }
                     break;
 
                 case PadraoNFSe.EL:
