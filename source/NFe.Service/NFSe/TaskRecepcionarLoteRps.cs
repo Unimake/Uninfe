@@ -407,7 +407,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
                 case PadraoNFSe.SIGCORP:
-                case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.FISCO:
                     switch (doc.DocumentElement.Name)
                     {
@@ -678,7 +677,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.PROPRIOGOIANIA:
                 case PadraoNFSe.ABASE:
-                case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.PRODEB:
                     versaoXML = "2.01";
                     break;
