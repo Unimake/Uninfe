@@ -214,7 +214,6 @@ namespace NFe.Service.NFSe
             switch (padraoNFSe)
             {
                 case PadraoNFSe.GIF:
-                case PadraoNFSe.BHISS:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.AGILI:

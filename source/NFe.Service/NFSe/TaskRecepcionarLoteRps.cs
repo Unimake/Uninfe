@@ -350,7 +350,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.EL:
                 case PadraoNFSe.SMARAPD:
-                case PadraoNFSe.BHISS:
                 case PadraoNFSe.TRIBUTUS:
                 case PadraoNFSe.DSF:
                 case PadraoNFSe.DIGIFRED:
@@ -545,7 +544,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.NOBESISTEMAS:
-                case PadraoNFSe.BHISS:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:

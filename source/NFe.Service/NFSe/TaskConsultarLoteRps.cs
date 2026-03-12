@@ -219,7 +219,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.NOBESISTEMAS:
-                case PadraoNFSe.BHISS:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:

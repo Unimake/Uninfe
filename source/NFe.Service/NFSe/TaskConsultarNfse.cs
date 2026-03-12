@@ -363,18 +363,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.BHISS:
-                    switch (doc.DocumentElement.Name)
-                    {
-                        case "ConsultarNfseFaixaEnvio":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
-                            break;
-                        case "ConsultarNfseEnvio":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
-                            break;
-                    }
-                    break;
-
                 case PadraoNFSe.CENTI:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps;
                     break;
@@ -423,7 +411,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.NOBESISTEMAS:
-                case PadraoNFSe.BHISS:
                 case PadraoNFSe.EQUIPLANO:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.TECNOSISTEMAS:
