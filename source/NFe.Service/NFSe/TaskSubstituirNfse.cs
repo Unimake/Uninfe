@@ -173,7 +173,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
-                case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.BETHA:
                 case PadraoNFSe.FUTURIZE:

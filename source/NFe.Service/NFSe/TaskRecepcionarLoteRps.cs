@@ -367,7 +367,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRODEB:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.ABACO:
                 case PadraoNFSe.FINTEL:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
@@ -719,7 +718,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
-                case PadraoNFSe.E_RECEITA:
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";
