@@ -360,7 +360,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.EMBRAS:
-                case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.PUBLICA:
                 case PadraoNFSe.GISSONLINE:
                 case PadraoNFSe.TIPLAN:
@@ -573,7 +572,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
-                case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.METROPOLIS:

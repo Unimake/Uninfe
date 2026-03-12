@@ -226,7 +226,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.AGILI:
-                case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.METROPOLIS:
                 case PadraoNFSe.EGOVERNEISS:

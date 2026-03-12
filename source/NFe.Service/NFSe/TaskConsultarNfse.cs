@@ -437,7 +437,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.THEMA:
                 case PadraoNFSe.WEBFISCO:
                 case PadraoNFSe.AGILI:
-                case PadraoNFSe.CARIOCA:
                 case PadraoNFSe.SALVADOR_BA:
                 case PadraoNFSe.HM2SOLUCOES:
                 case PadraoNFSe.METROPOLIS:
