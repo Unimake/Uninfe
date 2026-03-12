@@ -309,7 +309,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.SYSTEMPRO:
                 case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
                     break;
 
@@ -521,7 +520,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:
                     versaoXML = "2.02";

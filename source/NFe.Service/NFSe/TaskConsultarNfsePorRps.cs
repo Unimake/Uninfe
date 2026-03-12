@@ -179,7 +179,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.GISSONLINE:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                     switch (doc.DocumentElement.Name)
                     {
@@ -308,7 +307,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EMBRAS:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.E_RECEITA:
-                case PadraoNFSe.SH3:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.FUTURIZE:
