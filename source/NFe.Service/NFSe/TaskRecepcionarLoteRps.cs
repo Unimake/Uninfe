@@ -772,10 +772,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                     versaoXML = "2.02";
-                    if (xmlDoc.InnerXml.Contains("versao=\"3.02\""))
-                    {
-                        versaoXML = "3.02";
-                    }
                     break;
 
                 case PadraoNFSe.DSF:
