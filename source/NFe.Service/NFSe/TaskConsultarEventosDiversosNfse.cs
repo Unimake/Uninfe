@@ -129,11 +129,17 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = xmlDoc.DocumentElement.GetElementsByTagName("versao")[0].InnerText;
                     }
+                    else
+                    {
+                        versaoXML = "1.01";
+                    }
+                    break;
+                case PadraoNFSe.SMARAPD:
+                    versaoXML = "1.01";
                     break;
 
                 default:
-                    versaoXML = "1.01";
-                    break;
+                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de PDF de NFS-e.");
             }
 
             return versaoXML;
