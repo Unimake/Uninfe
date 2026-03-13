@@ -339,7 +339,6 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.NOTAINTELIGENTE:
                 case PadraoNFSe.BETHA:
                 case PadraoNFSe.PRODATA:
                 case PadraoNFSe.AVMB:
@@ -675,7 +674,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.NOTAINTELIGENTE:
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.VERSATEC:

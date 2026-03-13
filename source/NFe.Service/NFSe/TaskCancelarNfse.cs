@@ -427,7 +427,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.NOTAINTELIGENTE:
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.VERSATEC:
