@@ -543,7 +543,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
                 case PadraoNFSe.GISSONLINE:
                     versaoXML = "2.04";

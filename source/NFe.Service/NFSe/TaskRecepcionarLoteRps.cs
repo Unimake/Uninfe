@@ -345,7 +345,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.COPLAN:
-                case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.SIMPLISS:
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.EL:
@@ -799,7 +798,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
                 case PadraoNFSe.IIBRASIL:
                     versaoXML = "2.04";
