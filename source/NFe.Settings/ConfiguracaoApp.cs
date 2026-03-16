@@ -1972,7 +1972,7 @@ namespace NFe.Settings
                     throw new Exception("O certificado digital não contém CNPJ ou CPF válido.");
                 }
 
-                var docCadastro = Regex.Replace(docCadastroEmpresa, @"[^\d]", "");
+                var docCadastro = Regex.Replace(docCadastroEmpresa, @"[^a-zA-Z0-9]", "");
 
                 if (docCadastro.Length == 14)
                 {
@@ -2013,11 +2013,11 @@ namespace NFe.Settings
 
             try
             {
-                var doisDocumentosMatch = Regex.Match(certificado, @"(\d{11,14})[:\s](\d{11,14})");
+                var doisDocumentosMatch = Regex.Match(certificado, @"([a-zA-Z0-9]{11,14})[:\s]([a-zA-Z0-9]{11,14})");
                 if (doisDocumentosMatch.Success)
                 {
-                    var doc1 = doisDocumentosMatch.Groups[1].Value;
-                    var doc2 = doisDocumentosMatch.Groups[2].Value;
+                    var doc1 = doisDocumentosMatch.Groups[1].Value.ToUpper();
+                    var doc2 = doisDocumentosMatch.Groups[2].Value.ToUpper();
 
                     if (doc1.Length == 11 && doc2.Length == 14)
                     {
@@ -2045,7 +2045,7 @@ namespace NFe.Settings
 
                 if (string.IsNullOrEmpty(resultado.CNPJ) && string.IsNullOrEmpty(resultado.CPF))
                 {
-                    var cnpjMatch = Regex.Match(certificado, @"\b(\d{14})\b");
+                    var cnpjMatch = Regex.Match(certificado, @"\b([a-zA-Z0-9]{14})\b");
                     if (cnpjMatch.Success)
                     {
                         resultado.CNPJ = cnpjMatch.Groups[1].Value;
@@ -2094,8 +2094,8 @@ namespace NFe.Settings
                 return false;
             }
 
-            cnpj1 = Regex.Replace(cnpj1, @"[^\d]", "");
-            cnpj2 = Regex.Replace(cnpj2, @"[^\d]", "");
+            cnpj1 = Regex.Replace(cnpj1, @"[^a-zA-Z0-9]]", "");
+            cnpj2 = Regex.Replace(cnpj2, @"[^a-zA-Z0-9]", "");
 
             if (cnpj1.Length != 14 || cnpj2.Length != 14)
             {
