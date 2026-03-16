@@ -167,7 +167,6 @@ namespace NFe.Components
         #region Validate alfanumérico
 
         private static readonly Dictionary<char, int> Valores = new Dictionary<char, int>();
-        private static readonly List<char> CaracteresValidos = new List<char>("abcdefghijklmnopqrstuvwxyz".ToCharArray());
         private static void ValidadorCnpjAlfanumerico()
         {
             // Atribuindo os valores de 0 até 9 
@@ -178,7 +177,7 @@ namespace NFe.Components
             // Atribundo os valores de a até z
             for (int i = 65; i <= 90; i++)
             {
-                Valores.Add(CaracteresValidos[i - 65], i - 48);
+                Valores.Add((char)i, i - 48);
             }
         }
 
@@ -191,7 +190,7 @@ namespace NFe.Components
 
             List<int> pesos = (segundoDigito) ? new List<int> { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 } : new List<int> { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-            var soma = cnpj.Select(c => Valores[c]).Zip(pesos, (valor, peso) => valor * peso);
+            var soma = cnpj.ToUpper().Select(c => Valores[c]).Zip(pesos, (valor, peso) => valor * peso);
 
             int resto = soma.Sum() % 11;
             return (resto < 2) ? 0 : 11 - resto;
