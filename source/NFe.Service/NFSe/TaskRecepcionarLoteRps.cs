@@ -628,8 +628,7 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.20";
 
-                        if (codMunicipio == 4309308 || codMunicipio == 4316006 || codMunicipio == 4314050 ||
-                            codMunicipio == 4320206)
+                        if (codMunicipio == 4309308 || codMunicipio == 4316006)
                         {
                             versaoXML = "1.00";
                         }
