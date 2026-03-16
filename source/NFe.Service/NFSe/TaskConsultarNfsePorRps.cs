@@ -403,7 +403,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
                 case PadraoNFSe.IIBRASIL:
                 case PadraoNFSe.GISSONLINE:

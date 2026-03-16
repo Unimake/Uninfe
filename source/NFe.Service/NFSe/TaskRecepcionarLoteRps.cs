@@ -339,13 +339,11 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.NOTAINTELIGENTE:
                 case PadraoNFSe.BETHA:
                 case PadraoNFSe.PRODATA:
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.COPLAN:
-                case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.SIMPLISS:
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.EL:
@@ -676,7 +674,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.NOTAINTELIGENTE:
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.VERSATEC:
@@ -799,7 +796,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.PROPRIOJOINVILLESC:
                 case PadraoNFSe.TRIBUTUS:
                 case PadraoNFSe.IIBRASIL:
                     versaoXML = "2.04";

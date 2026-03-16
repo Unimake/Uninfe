@@ -163,7 +163,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.01";
                     break;
 
-                case PadraoNFSe.NOTAINTELIGENTE:
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.VERSATEC:
                 case PadraoNFSe.WEBISS:
