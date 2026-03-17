@@ -605,7 +605,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.EL:
                     versaoXML = "2.04";
 
-                    if (codMunicipio == 3201506 || codMunicipio == 3204203)
+                    if (codMunicipio == 3204203)
                     {
                         versaoXML = "1.00";
                     }
