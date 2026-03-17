@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PedidoEnvioRPS xmlns="http://www.prefeitura.sp.gov.br/nfe">
+	<Cabecalho Versao="2" xmlns="">
+		<CPFCNPJRemetente>
+			<CNPJ>00000000000000</CNPJ>
+		</CPFCNPJRemetente>
+	</Cabecalho>
+	<RPS xmlns="">
+		<Assinatura>000000000000     00000000000000000000T0000000000000000000000000000000000000000000000000000</Assinatura>
+		<ChaveRPS>
+			<InscricaoPrestador>00000000</InscricaoPrestador>
+			<NumeroRPS>00000</NumeroRPS>
+		</ChaveRPS>
+		<TipoRPS>RPS</TipoRPS>
+		<DataEmissao>2026-03-14</DataEmissao>
+		<StatusRPS>N</StatusRPS>
+		<TributacaoRPS>T</TributacaoRPS>
+		<ValorDeducoes>0</ValorDeducoes>
+		<ValorPIS>1.00</ValorPIS>
+		<ValorCOFINS>1.00</ValorCOFINS>
+		<ValorINSS>0</ValorINSS>
+		<ValorIR>1.00</ValorIR>
+		<ValorCSLL>1.00</ValorCSLL>
+		<CodigoServico>03380</CodigoServico>
+		<AliquotaServicos>0.0000</AliquotaServicos>
+		<ISSRetido>false</ISSRetido>
+		<CPFCNPJTomador>
+			<CNPJ>00000000000000</CNPJ>
+		</CPFCNPJTomador>
+		<RazaoSocialTomador>Empresa</RazaoSocialTomador>
+		<EnderecoTomador>
+			<TipoLogradouro>   </TipoLogradouro>
+			<Logradouro>Avenida</Logradouro>
+			<NumeroEndereco>0000</NumeroEndereco>
+			<ComplementoEndereco>Torre</ComplementoEndereco>
+			<Bairro>Nova Conceicao</Bairro>
+			<Cidade>3550308</Cidade>
+			<UF>SP</UF>
+			<CEP>00000000</CEP>
+		</EnderecoTomador>
+		<EmailTomador/>
+		<Discriminacao>Prestacao de Servicos</Discriminacao>
+		<ValorCargaTributaria>1.45</ValorCargaTributaria>
+		<PercentualCargaTributaria>0.1453</PercentualCargaTributaria>
+		<FonteCargaTributaria>IBPT</FonteCargaTributaria>
+		<ValorFinalCobrado>10.00</ValorFinalCobrado>
+		<ValorIPI>0</ValorIPI>
+		<ExigibilidadeSuspensa>0</ExigibilidadeSuspensa>
+		<PagamentoParceladoAntecipado>0</PagamentoParceladoAntecipado>
+		<NBS>113019000</NBS>
+		<cLocPrestacao>3550308</cLocPrestacao>
+		<IBSCBS>
+			<finNFSe>0</finNFSe>
+			<indFinal>0</indFinal>
+			<cIndOp>100301</cIndOp>
+			<indDest>0</indDest>
+			<valores>
+				<trib>
+					<gIBSCBS>
+						<cClassTrib>000001</cClassTrib>
+					</gIBSCBS>
+				</trib>
+			</valores>
+		</IBSCBS>
+	</RPS>
+</PedidoEnvioRPS>

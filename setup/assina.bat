@@ -11,13 +11,15 @@
    set "caminhoAssinar=\\192.168.0.48\assinar"
    set "caminhoAssinarArquivos=%caminhoAssinar%\arquivos"
    set "caminhoDLLRelease=..\source\uninfe\bin\release"
-   
+	set "caminhoSVRRelease=..\source\uninfe.service\bin\release"
+	   
    goto copiarDLLReleaseAssinar
    
 :copiarDLLReleaseAssinar
    cls
    copy "%caminhoDLLRelease%\*.dll" "%caminhoAssinarArquivos%" /y
    copy "%caminhoDLLRelease%\*.exe" "%caminhoAssinarArquivos%" /y
+   copy "%caminhoSVRRelease%\uninfe.service.exe" "%caminhoAssinarArquivos%" /y
   
    echo. > "%caminhoAssinar%\assinar.txt"
 
@@ -25,9 +27,14 @@
    
 :copiarDLLRelease
    cls
+	
+	copy "%caminhoAssinarArquivos%\uninfe.service.exe" "%caminhoSVRRelease%" /y
+	del "%caminhoAssinarArquivos%\uninfe.service.exe" /q
+	
    copy "%caminhoAssinarArquivos%\*.dll" "%caminhoDLLRelease%" /y
-   copy "%caminhoAssinarArquivos%\*.exe" "%caminhoDLLRelease%" /y
    del "%caminhoAssinarArquivos%\*.dll" /q
+	
+   copy "%caminhoAssinarArquivos%\*.exe" "%caminhoDLLRelease%" /y
    del "%caminhoAssinarArquivos%\*.exe" /q
    
    goto gerarInstaladores

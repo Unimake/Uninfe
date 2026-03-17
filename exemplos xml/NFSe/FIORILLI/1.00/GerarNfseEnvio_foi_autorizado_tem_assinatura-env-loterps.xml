@@ -1,0 +1,103 @@
+<RecepcionarDpsEnvio>
+	<DPS versao="1.00" xmlns="http://www.fiorilli.com.br/nfse-nacional">
+		<infDPS xmlns="http://www.sped.fazenda.gov.br/nfse" Id="DPS111111111111111111111111111111110000000001">
+			<tpAmb>1</tpAmb>
+			<dhEmi>2026-02-23T16:20:05-04:00</dhEmi>
+			<verAplic>xxxxxxxxxx.0.1020</verAplic>
+			<serie>26</serie>
+			<nDPS>1</nDPS>
+			<dCompet>2026-02-23</dCompet>
+			<tpEmit>1</tpEmit>
+			<cLocEmi>1100023</cLocEmi>
+			<prest>
+				<CNPJ>11111111111111</CNPJ>
+				<IM>11111</IM>
+				<fone>11111111111</fone>
+				<email>xxxxxxxxxxxxxxxxxx@gmail.com</email>
+				<regTrib>
+					<opSimpNac>1</opSimpNac>
+					<regEspTrib>0</regEspTrib>
+				</regTrib>
+			</prest>
+			<toma>
+				<CPF>11111111111</CPF>
+				<xNome>xxxxxxxxxxxxxxxxxxxxx</xNome>
+				<end>
+					<endNac>
+						<cMun>1100023</cMun>
+						<CEP>11111111</CEP>
+					</endNac>
+					<xLgr>xxxxxxxxxxxxxxxx</xLgr>
+					<nro>0</nro>
+					<xCpl>.</xCpl>
+					<xBairro>xxxxxxxxxxxxxxx</xBairro>
+				</end>
+				<fone>99999999999</fone>
+				<email>xxxxxxx@xxxxxxxxxxxxx.com.br</email>
+			</toma>
+			<serv>
+				<locPrest>
+					<cLocPrestacao>1100023</cLocPrestacao>
+				</locPrest>
+				<cServ>
+					<cTribNac>140101</cTribNac>
+					<xDescServ>MAO DE OBRA</xDescServ>
+					<cNBS>120013110</cNBS>
+				</cServ>
+				<infoCompl>
+					<idDocTec>OS. 000021</idDocTec>
+					<xInfComp>O.S....: 000021 || Veiculo: TESTES NFSE</xInfComp>
+				</infoCompl>
+			</serv>
+			<valores>
+				<vServPrest>
+					<vServ>5.00</vServ>
+				</vServPrest>
+				<trib>
+					<tribMun>
+						<tribISSQN>1</tribISSQN>
+						<tpRetISSQN>1</tpRetISSQN>
+					</tribMun>
+					<tribFed>
+						<piscofins>
+							<CST>01</CST>
+							<vBCPisCofins>5.00</vBCPisCofins>
+							<pAliqPis>0.65</pAliqPis>
+							<pAliqCofins>3.00</pAliqCofins>
+							<vPis>0.03</vPis>
+							<vCofins>0.15</vCofins>
+							<tpRetPisCofins>2</tpRetPisCofins>
+						</piscofins>
+					</tribFed>
+					<totTrib>
+						<vTotTrib>
+							<vTotTribFed>0.18</vTotTribFed>
+							<vTotTribEst>0.00</vTotTribEst>
+							<vTotTribMun>0.00</vTotTribMun>
+						</vTotTrib>
+					</totTrib>
+				</trib>
+			</valores>
+		</infDPS>
+		<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+			<SignedInfo>
+				<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+				<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+				<Reference URI="#DPS111111111111111111111111111111110000000001">
+					<Transforms>
+						<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+						<Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+					</Transforms>
+					<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+					<DigestValue>xxxx</DigestValue>
+				</Reference>
+			</SignedInfo>
+			<SignatureValue>xxxxxxxxxxxxxxxxxxxxx.....</SignatureValue>
+			<KeyInfo>
+				<X509Data>
+					<X509Certificate>xxxx</X509Certificate>
+				</X509Data>
+			</KeyInfo>
+		</Signature>
+	</DPS>
+</RecepcionarDpsEnvio>
