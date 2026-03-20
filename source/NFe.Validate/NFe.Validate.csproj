@@ -150,9 +150,6 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
-    </Reference>
     <Reference Include="Unimake.Cryptography, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20260116.1838.31\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
@@ -172,13 +169,22 @@
   </PropertyGroup>
   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
-      <ItemGroup>
-        <Reference Include="Unimake.Business.DFe, Version=2026.3.3.1521, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>..\packages\Unimake.DFe.20260303.1521.49\lib\net472\Unimake.Business.DFe.dll</HintPath>
-        </Reference>
-      </ItemGroup>
+	   <ItemGroup>
+  		  <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
+		    <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
+		  </Reference>		
+	   </ItemGroup>
     </When>
-    <Otherwise />
+    <Otherwise>
+  	   <ItemGroup>
+		  <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+		    <Name>Unimake.Business.DFe</Name>
+		    <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+		    <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		    <Private>true</Private>
+		  </ProjectReference>
+	   </ItemGroup>
+    </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="ValidarXMLNew.cs" />
