@@ -1,8 +1,7 @@
 ﻿using NFe.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using Unimake.Validators;
 
 namespace NFe.Components
 {
@@ -101,116 +100,15 @@ namespace NFe.Components
         /// <returns>true se for um CNPJ válido</returns>
         public static bool Validate(string cnpj)
         {
-            if (string.IsNullOrEmpty(cnpj)) return false;
-
-            cnpj = cnpj.RemoveChars('/', '-', ',', '.'); //Functions.OnlyNumbers(cnpj, "-.,/").ToString();
-
             try
             {
-                if (cnpj.HasOnlyNumbers())
-                {
-                    return ValidateOnlyNumbers(cnpj);
-                }
-                else    //cnpj de teste do manual: 12abc34501de-35
-                {
-                    return ValidateAlphanumeric(cnpj);
-                }
+                return CNPJValidator.Validate(ref cnpj, false);
             }
             catch
             {
                 return false;
             }
         }
-
-        /// <summary>
-        /// Realiza a validação do CNPJ na versão somente com números
-        /// </summary>
-        /// <param name="cnpj">CNPJ a ser validado </param>
-        /// <returns></returns>
-        private static bool ValidateOnlyNumbers(string cnpj)
-        {
-            #region Valida CNPJ tradicional
-
-            string Cnpj_1 = cnpj.Substring(0, 12);
-            string Cnpj_2 = cnpj.Substring(cnpj.Length - 2);
-            string Mult = "543298765432";
-            string Controle = String.Empty;
-            int Soma = 0;
-            int Digito = 0;
-
-            for (int j = 1; j < 3; j++)
-            {
-                Soma = 0;
-
-                for (int i = 0; i < 12; i++)
-                    Soma += int.Parse(Cnpj_1.Substring(i, 1)) * int.Parse(Mult.Substring(i, 1));
-
-                if (j == 2) Soma += (2 * Digito);
-                Digito = ((Soma * 10) % 11);
-                if (Digito == 10) Digito = 0;
-                Controle = Controle + Digito.ToString();
-                Mult = "654329876543";
-            }
-
-            if (Controle != Cnpj_2)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
-            #endregion Valida CNPJ tradicional
-        }
-
-        #region Validate alfanumérico
-
-        private static readonly Dictionary<char, int> Valores = new Dictionary<char, int>();
-        private static void ValidadorCnpjAlfanumerico()
-        {
-            // Atribuindo os valores de 0 até 9 
-            for (int i = 0; i <= 9; i++)
-            {
-                Valores.Add(i.ToString()[0], i);
-            }
-            // Atribundo os valores de a até z
-            for (int i = 65; i <= 90; i++)
-            {
-                Valores.Add((char)i, i - 48);
-            }
-        }
-
-        public static int CalcularDigitoVerificador(string cnpj, bool segundoDigito = false)
-        {
-            if (Valores.IsNullOrEmpty())
-            {
-                ValidadorCnpjAlfanumerico(); // iniciar valores
-            }
-
-            List<int> pesos = (segundoDigito) ? new List<int> { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 } : new List<int> { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-
-            var soma = cnpj.ToUpper().Select(c => Valores[c]).Zip(pesos, (valor, peso) => valor * peso);
-
-            int resto = soma.Sum() % 11;
-            return (resto < 2) ? 0 : 11 - resto;
-        }
-
-        public static bool ValidateAlphanumeric(string cnpj)
-        {
-            if (cnpj.Length != 14)
-            {
-                return false;
-            }
-
-            string cnpjBase = cnpj.Substring(0, 12);
-            int primeiroDigito = int.Parse(cnpj.Substring(12, 1));
-            int segundoDigito = int.Parse(cnpj.Substring(13, 1));
-
-            return primeiroDigito == CalcularDigitoVerificador(cnpjBase) && segundoDigito == CalcularDigitoVerificador(cnpjBase + primeiroDigito, true);
-        }
-
-        #endregion Validade alfanumérico
 
         #endregion Validate()
 
@@ -225,12 +123,11 @@ namespace NFe.Exceptions
     /// </summary>
     public class ExceptionCNPJInvalido : Exception
     {
-        private string mCnpj = "";
+        private string CNPJ;
 
         public ExceptionCNPJInvalido(string cnpj)
         {
-            mCnpj = cnpj;
+            CNPJ = cnpj;
         }
-
     }
 }
