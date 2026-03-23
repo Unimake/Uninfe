@@ -151,14 +151,14 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Cryptography, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Cryptography.20260116.1838.31\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    <Reference Include="Unimake.Cryptography, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20260323.1046.36\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Extensions, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Extensions.20260116.1838.31\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    <Reference Include="Unimake.Extensions, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20260323.1046.36\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Utils, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Utils.20260116.1838.31\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    <Reference Include="Unimake.Utils, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20260323.1046.36\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -191,21 +191,21 @@
   </PropertyGroup>
   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
-	   <ItemGroup>
-  		  <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
-		    <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
-		  </Reference>		
-	   </ItemGroup>
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
     </When>
     <Otherwise>
-  	   <ItemGroup>
-		  <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-		    <Name>Unimake.Business.DFe</Name>
-		    <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-		    <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-		    <Private>true</Private>
-		  </ProjectReference>
-	   </ItemGroup>
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+          <Name>Unimake.Business.DFe</Name>
+          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+          <Private>true</Private>
+        </ProjectReference>
+      </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>

@@ -229,14 +229,14 @@
     <Reference Include="Unimake.AuthServer, Version=2025.7.7.1650, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.AuthServer.20250707.1650.48\lib\netstandard2.0\Unimake.AuthServer.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Cryptography, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Cryptography.20260116.1838.31\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    <Reference Include="Unimake.Cryptography, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20260323.1046.36\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.EBank.Solutions, Version=2026.3.16.1928, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.EBank.Solutions.20260316.1928.7\lib\netstandard2.0\Unimake.EBank.Solutions.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Extensions, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Extensions.20260116.1838.31\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    <Reference Include="Unimake.Extensions, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20260323.1046.36\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.MessageBroker, Version=2025.10.16.36, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.MessageBroker.20251016.36.37\lib\netstandard2.0\Unimake.MessageBroker.dll</HintPath>
@@ -244,14 +244,14 @@
     <Reference Include="Unimake.MessageBroker.Primitives, Version=2025.6.23.1022, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.MessageBroker.Primitives.20250623.1022.24\lib\netstandard2.0\Unimake.MessageBroker.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Primitives, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Primitives.20260116.1838.31\lib\netstandard2.0\Unimake.Primitives.dll</HintPath>
+    <Reference Include="Unimake.Primitives, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Primitives.20260323.1046.36\lib\netstandard2.0\Unimake.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Security.Platform, Version=2023.7.6.1027, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Security.Platform.20230706.1027.33\lib\net\Unimake.Security.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Utils, Version=2026.1.16.1838, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Utils.20260116.1838.31\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    <Reference Include="Unimake.Utils, Version=2026.3.23.1046, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20260323.1046.36\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -341,21 +341,21 @@
   </PropertyGroup>
   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
-	   <ItemGroup>
-  		  <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
-		    <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
-		  </Reference>		
-	   </ItemGroup>
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
     </When>
     <Otherwise>
-  	   <ItemGroup>
-		  <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-		    <Name>Unimake.Business.DFe</Name>
-		    <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-		    <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-		    <Private>true</Private>
-		  </ProjectReference>
-	   </ItemGroup>
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+          <Name>Unimake.Business.DFe</Name>
+          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+          <Private>true</Private>
+        </ProjectReference>
+      </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>

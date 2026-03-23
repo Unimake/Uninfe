@@ -31,11 +31,11 @@ SolidCompression=yes
 AppCopyright=Unimake Software
 AppMutex=Unimake.DFe_MUTEX
 AllowUNCPath=False
-VersionInfoVersion=2026.03.06.1801
+VersionInfoVersion=2026.03.20.1003
 VersionInfoCopyright=2020 - Todos os direitos reservados
 VersionInfoProductName=Unimake.DFe
-VersionInfoProductVersion=2026.03.06.1801
-VersionInfoProductTextVersion=2026.03.06.1801
+VersionInfoProductVersion=2026.03.20.1003
+VersionInfoProductTextVersion=2026.03.20.1003
 UsePreviousAppDir=False
 PrivilegesRequired=admin
 
