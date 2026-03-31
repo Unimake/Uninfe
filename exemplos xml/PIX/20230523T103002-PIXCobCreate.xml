@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PIXCobrancaCreateRequest versao="1.00">
+   <!--Id da configuração da conta no eBank.-->
+   <ConfigurationId>5465465465465465465456</ConfigurationId>
 	<!--Campo livre, pode ser utilizado para descrever o serviço prestado que vai aparecer para o pagador (140 caracteres, no máximo)-->
 	<SolicitacaoPagador>Prestação de serviços em software</SolicitacaoPagador>
 	<!-- 0=Cob (Cobrança sem vencimento, multas ou juros. Cobrança simples) 1=CobV (Cobrança com vencimento, multas e juros. Normalmente utilizada junto com o boleto)-->

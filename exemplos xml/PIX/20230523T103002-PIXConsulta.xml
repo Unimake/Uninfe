@@ -1,5 +1,7 @@
 <!-- <?xml version="1.0" encoding="utf-8"?> -->
 <PIXConsultaRequest versao="1.00">
+   <!--Id da configuração da conta no eBank.-->
+   <ConfigurationId>5465465465465465465456</ConfigurationId>
 	<!--Data inicial do período da consulta - Intervalo entre data inicial e final deve ser de no máximo 5 dias-->
 	<StartDate>2023-11-19</StartDate>
 	<!--Data final do período da consulta - Intervalo entre data inicial e final deve ser de no máximo 5 dias-->

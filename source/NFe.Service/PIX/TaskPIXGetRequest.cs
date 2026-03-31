@@ -102,6 +102,7 @@ namespace NFe.Service
 
                 var pixGetRequest = new PIXGetRequest
                 {
+                    ConfigurationId = TFunctions.GetXmlValue(ConteudoXML, "ConfigurationId"),
                     StartDate = DateTime.ParseExact(ConteudoXML.GetElementsByTagName("StartDate")[0].InnerText, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     EndDate = DateTime.ParseExact(ConteudoXML.GetElementsByTagName("EndDate")[0].InnerText, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     TxId = (ConteudoXML.GetElementsByTagName("TxId").Count > 0 ? ConteudoXML.GetElementsByTagName("TxId")[0].InnerText.Trim() : null),

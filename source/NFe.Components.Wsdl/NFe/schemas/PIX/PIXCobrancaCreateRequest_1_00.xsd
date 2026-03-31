@@ -3,6 +3,7 @@
 	<xs:element name="PIXCobrancaCreateRequest">
 		<xs:complexType>
 			<xs:sequence>
+        <xs:element name="ConfigurationId" type="xs:string" minOccurs="0"/>
 				<xs:element name="SolicitacaoPagador">
 					<xs:simpleType>
 						<xs:restriction base="xs:string">

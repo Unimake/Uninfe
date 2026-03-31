@@ -130,6 +130,7 @@ namespace NFe.Service
 
                 var pixCobrancaCreateRequest = new PIXCobrancaCreateRequest
                 {
+                    ConfigurationId = TFunctions.GetXmlValue(ConteudoXML, "ConfigurationId"),
                     SolicitacaoPagador = ConteudoXML.GetElementsByTagName("SolicitacaoPagador")[0].InnerText,
                     TipoCobranca = (TipoCobranca)Convert.ToInt32(ConteudoXML.GetElementsByTagName("TipoCobranca")[0].InnerText),
                     Valor = Convert.ToDecimal(ConteudoXML.GetElementsByTagName("Valor")[0].InnerText, CultureInfo.InvariantCulture),
