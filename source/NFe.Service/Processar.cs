@@ -167,6 +167,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarEventosDiversosNfse());
                             break;
 
+                        case Servicos.NFSeConsultarDistribuicaoNFSeNSU:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarDistribuicaoNSUNFSe());
+                            break;
+
                         #endregion NFS-e
 
                         #region NFe
@@ -1238,6 +1242,10 @@ namespace NFe.Service
                                 {
                                     tipoServico = Servicos.NFSeConsultarEventosDiversos;
                                 }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedConsNsuNfse).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarDistribuicaoNFSeNSU;
+                                }
 
                                 #endregion NFS-e
 
@@ -2268,6 +2276,11 @@ namespace NFe.Service
                 case Servicos.NFSeConsultarEventosDiversos:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedConsEventosNfse).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.ConsEventosNfse_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarDistribuicaoNFSeNSU:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedConsNsuNfse).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.ConsNsuNfse_ERR;
                     break;
 
                 #endregion NFSe

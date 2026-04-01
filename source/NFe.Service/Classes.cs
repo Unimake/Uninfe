@@ -859,6 +859,27 @@ namespace NFe.Service
 
     #endregion DadosConsEventosNfse
 
+    #region DadosConsNsuNfse
+
+    /// <summary>
+    /// Classe com os dados do XML de consulta de NSU da NFSe
+    /// </summary>
+    public class DadosConsNsuNfse
+    {
+        public int cMunicipio { get; set; }
+        public int tpAmb { get; set; }
+        public int tpEmis { get; set; }
+
+        public DadosConsNsuNfse(int emp)
+        {
+            tpEmis = Empresas.Configuracoes[emp].tpEmis;
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+        }
+    }
+
+    #endregion DadosConsNsuNfse
+
     #endregion Classe para receber os dados dos XML´s da NFS-e
 
     #region Classe para receber dados do XML de Distribuição do DFe

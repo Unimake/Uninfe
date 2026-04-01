@@ -373,6 +373,12 @@ namespace NFe.Components
         [Description("Consutlar Eventos Diversos da NFSe NACIONAL")]
         NFSeConsultarEventosDiversos,
 
+        /// <summary>
+        /// Consultar NSU da NFSe NACIONAL
+        /// </summary>
+        [Description("Consultar NSU da NFSe NACIONAL")]
+        NFSeConsultarDistribuicaoNFSeNSU,
+
         #endregion NFSe
 
         #region CFSe
