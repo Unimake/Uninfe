@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<distribuicaoNFSe versao="1.01">
+	<NSU>123456789012345</NSU>
+	<tipoNSU>DISTRIBUICAO</tipoNSU>
+	<lote>true</lote>
+</distribuicaoNFSe>
