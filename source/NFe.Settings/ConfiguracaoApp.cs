@@ -2013,7 +2013,7 @@ namespace NFe.Settings
 
             try
             {
-                var doisDocumentosMatch = Regex.Match(certificado, @"([a-zA-Z0-9]{11,14})[:\s]([a-zA-Z0-9]{11,14})");
+                var doisDocumentosMatch = Regex.Match(certificado, @"(\d{11}|[a-zA-Z0-9]{12}\d{2})[:\s](\d{11}|[a-zA-Z0-9]{12}\d{2})");
                 if (doisDocumentosMatch.Success)
                 {
                     var doc1 = doisDocumentosMatch.Groups[1].Value.ToUpper();
@@ -2045,7 +2045,7 @@ namespace NFe.Settings
 
                 if (string.IsNullOrEmpty(resultado.CNPJ) && string.IsNullOrEmpty(resultado.CPF))
                 {
-                    var cnpjMatch = Regex.Match(certificado, @"\b([a-zA-Z0-9]{14})\b");
+                    var cnpjMatch = Regex.Match(certificado, @"\b([a-zA-Z0-9]{12}\d{2})\b");
                     if (cnpjMatch.Success)
                     {
                         resultado.CNPJ = cnpjMatch.Groups[1].Value;
@@ -2094,7 +2094,7 @@ namespace NFe.Settings
                 return false;
             }
 
-            cnpj1 = Regex.Replace(cnpj1, @"[^a-zA-Z0-9]]", "");
+            cnpj1 = Regex.Replace(cnpj1, @"[^a-zA-Z0-9]", "");
             cnpj2 = Regex.Replace(cnpj2, @"[^a-zA-Z0-9]", "");
 
             if (cnpj1.Length != 14 || cnpj2.Length != 14)
