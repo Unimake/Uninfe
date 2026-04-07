@@ -2118,7 +2118,9 @@ namespace NFe.ConvertTxt
                 }
 
                 if (imposto.IBSCBS.gIBSCBSMono.vTotIBSMonoItem > 0 ||
-                    imposto.IBSCBS.gIBSCBSMono.vTotCBSMonoItem > 0)
+                    imposto.IBSCBS.gIBSCBSMono.vTotCBSMonoItem > 0 ||
+                    (imposto.IBSCBS.gIBSCBSMono.gMonoRet.vCBSMonoRet > 0 ||
+                    imposto.IBSCBS.gIBSCBSMono.gMonoRet.vIBSMonoRet > 0))
                 {
                     XmlElement gIBSCBSMono = doc.CreateElement(TpcnResources.gIBSCBSMono.ToString());
                     IBSCBS.AppendChild(gIBSCBSMono);

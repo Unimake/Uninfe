@@ -251,7 +251,7 @@ namespace NFe.Service
                 }
 
                 debugScope = null;
-                if (useHomologServer)
+                if (pixCobrancaCreateRequest.Testing)
                 {
                     debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
                     {
