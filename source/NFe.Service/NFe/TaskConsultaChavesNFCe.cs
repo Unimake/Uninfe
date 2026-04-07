@@ -72,10 +72,7 @@ namespace NFe.Service
 
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.ConsultaChavesNFCe).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.ConsultaChavesNFCe).RetornoXML;
-
-            //Extrair dados do XML
-            var tpAmb = 2; // Padrão homologação
-
+            
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
                 Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Propriedade.ExtRetorno.ConsultaChavesNFCe_ERR);
 
@@ -83,7 +80,7 @@ namespace NFe.Service
             {
                 TipoDFe = TipoDFe.NFCe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-                TipoAmbiente = (TipoAmbiente)tpAmb,
+                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
                 Servico = Unimake.Business.DFe.Servicos.Servico.NFCeConsultaChaves,
                 SchemaVersao = "1.00"

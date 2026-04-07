@@ -73,14 +73,6 @@ namespace NFe.Service
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).RetornoXML;
 
-            //Extrair dados do XML
-            var tpAmb = 2; // Padrão homologação
-
-            if (conteudoXML.GetElementsByTagName("tpAmb").Count > 0)
-            {
-                tpAmb = Convert.ToInt32(conteudoXML.GetElementsByTagName("tpAmb")[0].InnerText);
-            }
-
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
                 Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Propriedade.ExtRetorno.DownloadNFCe_ERR);
 
@@ -88,7 +80,7 @@ namespace NFe.Service
             {
                 TipoDFe = TipoDFe.NFCe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-                TipoAmbiente = (TipoAmbiente)tpAmb,
+                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
                 Servico = Unimake.Business.DFe.Servicos.Servico.NFCeDownloadXML
             };
