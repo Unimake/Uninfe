@@ -687,6 +687,11 @@ namespace NFe.Service
 
                 switch (doc.DocumentElement.Name)
                 {
+                    case "nfcomProc":
+                        arqProcNFe = nomeArquivoRecebido;
+                        tipo = "nfcom";
+                        break;
+
                     case "NFSe":
                         arqProcNFe = nomeArquivoRecebido;
                         tipo = "nfse";
@@ -1333,6 +1338,11 @@ namespace NFe.Service
                             case "nfce":
                                 Args += " A=\"" + arqProcNFe + "\"";
                                 Args += " T=danfe";
+                                configDanfe = emp.ConfiguracaoDanfe;
+                                break;
+
+                            case "nfcom":
+                                Args += " A=\"" + arqProcNFe + "\"";
                                 configDanfe = emp.ConfiguracaoDanfe;
                                 break;
 
