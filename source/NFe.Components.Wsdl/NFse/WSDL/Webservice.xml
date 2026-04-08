@@ -160,7 +160,6 @@
 	<Estado ID="4301701" Nome="Barão de Cotegipe - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
 	<Estado ID="4308904" Nome="Getúlio Vargas - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4319000" Nome="São Marcos - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
-	<Estado ID="3305109" Nome="São João de Meriti - RJ" UF="RJ" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="3162708" Nome="São João do Paraíso - MG" UF="MG" Padrao="EL"></Estado>
 	<Estado ID="3168002" Nome="Taiobeiras - MG" UF="MG" Padrao="EL"></Estado>
 	<Estado ID="2606200" Nome="Goiana - PE" UF="PE" Padrao="TINUS"></Estado>
@@ -213,7 +212,6 @@
 	<Estado ID="4104808" Nome="Cascavel - PR" UF="PR" Padrao="IPM"></Estado>
 	<Estado ID="3305208" Nome="São Pedro da Aldeia - RJ" UF="RJ" Padrao="MODERNIZACAO_PUBLICA"></Estado>
 	<Estado ID="2609600" Nome="Olinda - PE" UF="PE" Padrao="TINUS"></Estado>
-	<Estado ID="3303203" Nome="Nilópolis - RJ" UF="RJ" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="3204203" Nome="Piuma - ES" UF="ES" Padrao="EL"></Estado>
 	<Estado ID="3556404" Nome="Vargem Grande do Sul - SP" UF="SP" Padrao="SIMPLISS"></Estado>
 	<Estado ID="3549102" Nome="São João da Boa Vista - SP" UF="SP" Padrao="GIAP"></Estado>
@@ -297,12 +295,10 @@
 	<Estado ID="5105606" Nome="Matupá - MT" UF="MT" Padrao="COPLAN"></Estado>
 	<Estado ID="4209102" Nome="Joinville - SC" UF="SC" Padrao="PUBLICA"></Estado>
 	<Estado ID="3306305" Nome="Volta Redonda - RJ" UF="RJ" Padrao="SIMPLISS"></Estado>
-	<Estado ID="3132404" Nome="Itajubá - MG" UF="MG" Padrao="SONNER"></Estado>
 	<Estado ID="2933307" Nome="Vitória da Conquista - BA" UF="BA" Padrao="EL"></Estado>
 	<Estado ID="3201209" Nome="Cachoeiro de Itapemirim - ES" UF="ES" Padrao="EL"></Estado>
 	<Estado ID="4218905" Nome="Urubici - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="3506003" Nome="Bauru - SP" UF="SP" Padrao="SMARAPD"></Estado>
-	<Estado ID="2925303" Nome="Porto Seguro - BA" UF="BA" Padrao="WEBISS"></Estado>
 	<Estado ID="3303955" Nome="Pinheiral - RJ" UF="RJ" Padrao="BETHA"></Estado>
 	<Estado ID="3530805" Nome="Mogi Mirim - SP" UF="SP" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="3131307" Nome="Ipatinga - MG" UF="MG" Padrao="SIGCORP_SIGISS"></Estado>
@@ -326,7 +322,6 @@
 	<Estado ID="3529005" Nome="Marília - SP" UF="SP" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="5208707" Nome="Goiânia - GO" UF="GO" Padrao="ISSNET"></Estado>
 	<Estado ID="4204004" Nome="Catanduvas - SC" UF="SC" Padrao="BETHA"></Estado>
-	<Estado ID="5105200" Nome="Juscimeira - MT" UF="MT" Padrao="COPLAN"></Estado>
 	<Estado ID="3554102" Nome="Taubaté - SP" UF="SP" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="4217006" Nome="São Ludgero - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4217600" Nome="Siderópolis - SC" UF="SC" Padrao="BETHA"></Estado>
@@ -335,20 +330,16 @@
 	<Estado ID="4303905" Nome="Campo Bom - RS" UF="RS" Padrao="GIF"></Estado>
 	<Estado ID="5102637" Nome="Campo Novo do Parecis - MT" UF="MT" Padrao="COPLAN"></Estado>
 	<Estado ID="3143906" Nome="Muriaé - MG" UF="MG" Padrao="GINFES"></Estado>
-	<Estado ID="4307054" Nome="Ernestina - RS" UF="RS" Padrao="DIGIFRED"></Estado>
 	<Estado ID="1702109" Nome="Araguaína - TO" UF="TO" Padrao="WEBISS"></Estado>
 	<Estado ID="5300108" Nome="Brasília - DF" UF="DF" Padrao="ISSNET"></Estado>
 	<Estado ID="4308607" Nome="Garibaldi - RS" UF="RS" Padrao="GIF"></Estado>
 	<Estado ID="3306107" Nome="Valença - RJ" UF="RJ" Padrao="BETHA"></Estado>
 	<Estado ID="5104104" Nome="Guarantã do Norte - MT" UF="MT" Padrao="AGILI"></Estado>
-	<Estado ID="5100201" Nome="Água Boa - MT" UF="MT" Padrao="COPLAN"></Estado>
 	<Estado ID="3554805" Nome="Tremembé - SP" UF="SP" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="4315602" Nome="Rio Grande - RS" UF="RS" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="3300704" Nome="Cabo Frio - RJ" UF="RJ" Padrao="NOBESISTEMAS"></Estado>
 	<Estado ID="4113700" Nome="Londrina - PR" UF="PR" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="3530607" Nome="Mogi das Cruzes - SP" UF="SP" Padrao="SMARAPD"></Estado>
-	<Estado ID="5106422" Nome="Peixoto de Azevedo - MT" UF="MT" Padrao="COPLAN"></Estado>
-	<Estado ID="5106224" Nome="Nova Mutum - MT" UF="MT" Padrao="COPLAN"></Estado>
 	<Estado ID="3145208" Nome="Nova Serrana - MG" UF="MG" Padrao="SIGCORP_SIGISS"></Estado>
 	<Estado ID="3158300" Nome="Santana da Vargem - MG" UF="MG" Padrao="BETHA"></Estado>
 	<Estado ID="4202404" Nome="Blumenau - SC" UF="SC" Padrao="SIMPLISS"></Estado>
@@ -439,7 +430,6 @@
 	<Estado ID="3515509" Nome="Fernandópolis - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="3514502" Nome="Duartina - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="3512902" Nome="Cosmorama - SP" UF="SP" Padrao="FIORILLI"></Estado>
-	<Estado ID="3506508" Nome="Birigui - SP" UF="SP" Padrao="SMARAPD"></Estado>
 	<Estado ID="3146008" Nome="Ouro Fino - MG" UF="MG" Padrao="FIORILLI"></Estado>
 	<Estado ID="4204301" Nome="Concórdia - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4117701" Nome="Palmeira - PR" UF="PR" Padrao="ELOTECH"></Estado>
@@ -447,7 +437,6 @@
 	<Estado ID="3524501" Nome="Jaci - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="4118402" Nome="Paranavaí - PR" UF="PR" Padrao="IPM"></Estado>
 	<Estado ID="3522802" Nome="Itaporanga - SP" UF="SP" Padrao="FIORILLI"></Estado>
-	<Estado ID="1503606" Nome="Itaituba - PA" UF="PA" Padrao="FIORILLI"></Estado>
 	<Estado ID="1100122" Nome="Ji-Paraná - RO" UF="RO" Padrao="FIORILLI"></Estado>
 	<Estado ID="3530409" Nome="Mirassolândia - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="3531308" Nome="Monte Alto - SP" UF="SP" Padrao="FIORILLI"></Estado>
