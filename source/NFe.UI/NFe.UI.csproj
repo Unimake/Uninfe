@@ -149,9 +149,9 @@
   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
-        <Reference Include="Unimake.Business.DFe, Version=2026.3.20.1003, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>..\packages\Unimake.DFe.20260320.1003.51\lib\net472\Unimake.Business.DFe.dll</HintPath>
-        </Reference>
+        <Reference Include="Unimake.Business.DFe, Version=2026.4.9.1006, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260409.1006.53\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>		  
       </ItemGroup>
     </When>
     <Otherwise>
