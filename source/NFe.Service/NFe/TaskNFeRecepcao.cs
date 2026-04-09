@@ -89,11 +89,11 @@ namespace NFe.Service
 
                 if (ler.oDadosNfe.mod == "65")
                 {
-                    // Se na configuração foi informado o número 3, vai configurar para o QrCode novo
-                    // VersaoQRCodeNFCe da DLL, por padrão, é 2
-                    if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe == 3)
+                    // Se na configuração foi informado o número 2, vai configurar para o QrCode versão 2
+                    // VersaoQRCodeNFCe da DLL, por padrão, é 3
+                    if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe == 2)
                     {
-                        configuracao.VersaoQRCodeNFCe = 3;
+                        configuracao.VersaoQRCodeNFCe = 2;
                     }
 
                     if (ConteudoXML.GetElementsByTagName("qrCode").Count == 0 && Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3)

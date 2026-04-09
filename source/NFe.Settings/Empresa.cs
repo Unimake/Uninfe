@@ -253,8 +253,8 @@ namespace NFe.Settings
         public DateTime DataHoraUltimoEnvioNFSe { get; set; }
         /// <summary>
         /// Versão do QrCode da NFCe
-        /// 2 = Versão atual (default)
-        /// 3 = Versão nova
+        /// 2 = Versão atual 
+        /// 3 = Versão nova (default)
         /// </summary>
         public int VersaoQRCodeNFCe { get; set; }
         /// <summary>
