@@ -341,7 +341,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
 
-                    if ((codMunicipio == 3509502 && xmlDoc.OuterXml.Contains("ns1:ReqConsultaNFSeRPS")) || codMunicipio == 5002704 || codMunicipio == 3303500 ||
+                    if ((codMunicipio == 3509502 && xmlDoc.OuterXml.Contains("ns1:ReqConsultaNFSeRPS")) || codMunicipio == 3303500 ||
                         codMunicipio == 2111300)
                     {
                         versaoXML = "1.00";

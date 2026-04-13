@@ -466,7 +466,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
 
-                    if ((codMunicipio == 3509502 && xmlDoc.OuterXml.Contains("ns1:ReqCancelamentoNFSe") || codMunicipio == 5002704 ||
+                    if ((codMunicipio == 3509502 && xmlDoc.OuterXml.Contains("ns1:ReqCancelamentoNFSe") ||
                         codMunicipio == 3303500 || codMunicipio == 2111300))
                     {
                         versaoXML = "1.00";
@@ -503,8 +503,8 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 4303004 || 
-                        codMunicipio == 4300109 || codMunicipio == 4306932 || codMunicipio == 3302205 || 
+                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 4303004 ||
+                        codMunicipio == 4300109 || codMunicipio == 4306932 || codMunicipio == 3302205 ||
                         codMunicipio == 3530300)
                     {
                         versaoXML = "2.02";
@@ -613,7 +613,7 @@ namespace NFe.Service.NFSe
                         versaoXML = "1.01";
                     }
 
-                        break;
+                    break;
 
                 case PadraoNFSe.FINTEL:
                     versaoXML = "2.02";
@@ -635,7 +635,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
 
-                    if (codMunicipio == 3506102 || codMunicipio == 3509007) 
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007)
                     {
                         versaoXML = "4.00";
                     }
