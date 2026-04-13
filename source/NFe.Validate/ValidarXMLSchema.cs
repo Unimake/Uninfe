@@ -107,14 +107,16 @@
 //            var xmlDoc = new XmlDocument();
 //            xmlDoc.Load(arquivoXML);
 
-//            var configuracao = new Configuracao {
-//             CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-//             TipoAmbiente = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.Homologacao ? TipoAmbiente.Homologacao : TipoAmbiente.Producao,
-//             CSC = Empresas.Configuracoes[emp].IdentificadorCSC,
-//             CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
-//             CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC)),
-//             PadraoNFSe = Functions.BuscaPadraoNFSe(Empresas.Configuracoes[emp].UnidadeFederativaCodigo)
+//            var configuracao = new Configuracao
+//            {
+//                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+//                TipoAmbiente = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.Homologacao ? TipoAmbiente.Homologacao : TipoAmbiente.Producao,
+//                CSC = Empresas.Configuracoes[emp].IdentificadorCSC,
+//                CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
+//                CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC)),
+//                PadraoNFSe = Functions.BuscaPadraoNFSe(Empresas.Configuracoes[emp].UnidadeFederativaCodigo)
 //            };
+
 
 //            var respTecnico = new RespTecnico(Empresas.Configuracoes[emp].RespTecCNPJ,
 //            Empresas.Configuracoes[emp].RespTecXContato,
@@ -125,7 +127,8 @@
 
 //            #endregion
 
-//            AdicionarResponsavelTecnico(emp, respTecnico, xmlDoc);
+//            AdicionarResponsavelTecnico(xmlDoc, respTecnico);
+//            PrepararConfiguracaoQRCode(xmlDoc, configuracao, emp);
 
 //            var resultadoValidacao = Validar(xmlDoc, configuracao);
 
@@ -152,9 +155,50 @@
 
 //        }
 
-//        private static void AdicionarResponsavelTecnico(int emp, RespTecnico respTecnico, XmlDocument xmlDoc)
+
+//        /// <summary>
+//        /// Adicionar responsável técnico
+//        /// </summary>
+//        /// <param name="emp">Empresa</param>
+//        /// <param name="respTecnico">Objeto responsável técnico</param>
+//        /// <param name="xmlDoc">arquivo xml</param>
+//        private static void AdicionarResponsavelTecnico(XmlDocument xmlDoc, RespTecnico respTecnico)
 //        {
 //            respTecnico.AdicionarResponsavelTecnico(xmlDoc);
+//        }
+
+
+//        private static void PrepararConfiguracaoQRCode(XmlDocument xmlDoc, Configuracao config, int emp)
+//        {
+//            var tipoDFe = xmlDoc.DocumentElement?.Name;
+//            var modeloDoc = xmlDoc.GetElementsByTagName("mod")[0].InnerText;
+
+//            if (tipoDFe == "NFe" || tipoDFe == "enviNFe")
+//            {
+//                if (modeloDoc == ((int)ModeloDFe.NFCe).ToString())
+//                {
+//                    if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe == 3)
+//                    {
+//                        config.VersaoQRCodeNFCe = 3;
+//                    }
+
+//                    if (xmlDoc.GetElementsByTagName("qrCode").Count == 0 && Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3)
+//                    {
+//                        if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+//                        {
+//                            throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+//                        }
+//                    }
+
+//                    if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe < 3)
+//                    {
+//                        config.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
+//                        config.CSCIDToken = Convert.ToInt32(
+//                            string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC
+//                        );
+//                    }
+//                }
+//            }
 //        }
 
 
