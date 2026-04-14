@@ -288,6 +288,7 @@ namespace NFe.Components
             PedRegEvento,
             PedConsEventosNfse,
             PedConsNsuNfse,
+            PedConsEventosNFSeChaveAcesso,
 
             /// <summary>
             /// CFSe
@@ -695,6 +696,12 @@ namespace NFe.Components
                 "-nsunfse.xml", "",
                 "-nsunfse.err",
                 "Consultar NSU da NFSe NACIONAL"));
+
+            ListaExtensoes.Add(TipoEnvio.PedConsEventosNFSeChaveAcesso, new ExtensaoClass(
+                "-cons-chaveacesso.xml", "",
+                "-chaveacesso.xml", "",
+                "-chaveacesso.err",
+                "Consultar Eventos da NFSe por Chave de Acesso"));
 
             #endregion Extensoes da NFSe
 
@@ -1744,6 +1751,16 @@ namespace NFe.Components
             /// -nsunfse.err
             /// </summary>
             public const string ConsNsuNfse_ERR = "-nsunfse.err";
+
+            /// <summary>
+            /// -chaveacesso.xml
+            /// </summary>
+            public static string ConsEventosNFSeChaveAcesso = Extensao(TipoEnvio.PedConsEventosNFSeChaveAcesso).RetornoXML;
+
+            /// <summary>
+            /// -chaveacesso.err
+            /// </summary>
+            public const string ConsEventosNFSeChaveAcesso_ERR = "-chaveacesso.err";
 
             #endregion Extensões NFSe
 

@@ -257,7 +257,7 @@
       <ItemGroup>
         <Reference Include="Unimake.Business.DFe, Version=2026.4.9.1006, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>..\packages\Unimake.DFe.20260409.1006.53\lib\net472\Unimake.Business.DFe.dll</HintPath>
-        </Reference>		  
+        </Reference>
       </ItemGroup>
     </When>
     <Otherwise>
@@ -319,6 +319,7 @@
     <Compile Include="NFe\TaskDownloadNFCe.cs" />
     <Compile Include="NFe\TaskConsultaChavesNFCe.cs" />
     <Compile Include="NFSe\TaksConsultarConveioMunicipial.cs" />
+    <Compile Include="NFSe\TaskConsultaEventosNFSeChaveAcesso.cs" />
     <Compile Include="NFSe\TaskConsultarDistribuicaoNSUNFSe.cs" />
     <Compile Include="NFSe\TaskConsultarEventosDiversosNfse.cs" />
     <Compile Include="NFSe\TaskConsultarAliquotaMunicipal.cs" />
