@@ -379,6 +379,12 @@ namespace NFe.Components
         [Description("Consultar NSU da NFSe NACIONAL")]
         NFSeConsultarDistribuicaoNFSeNSU,
 
+        /// <summary>
+        /// Consultar Eventos da NFSe por Chave de Acesso
+        /// </summary>
+        [Description("Consultar Eventos da NFSe por Chave de Acesso")]
+        NFSeConsultarEventosNFSeChaveAcesso,
+
         #endregion NFSe
 
         #region CFSe
