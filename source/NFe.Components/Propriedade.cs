@@ -289,6 +289,7 @@ namespace NFe.Components
             PedConsEventosNfse,
             PedConsNsuNfse,
             PedConsEventosNFSeChaveAcesso,
+            PedConsDadosCadastraisNFSe,
 
             /// <summary>
             /// CFSe
@@ -702,6 +703,13 @@ namespace NFe.Components
                 "-chaveacesso.xml", "",
                 "-chaveacesso.err",
                 "Consultar Eventos da NFSe por Chave de Acesso"));
+
+            ListaExtensoes.Add(TipoEnvio.PedConsDadosCadastraisNFSe, new ExtensaoClass(
+                "-ped-consdadoscad.xml", "",
+                "consdadoscad.xml", "",
+                "-consdadoscad.err",
+                "Consultar Dados Cadastrais da NFSe"));
+
 
             #endregion Extensoes da NFSe
 
@@ -1761,6 +1769,12 @@ namespace NFe.Components
             /// -chaveacesso.err
             /// </summary>
             public const string ConsEventosNFSeChaveAcesso_ERR = "-chaveacesso.err";
+
+
+            /// <summary>
+            /// "-ped-consdadoscad.xml"
+            /// </summary>
+            public const string ConsDadosCadastraisNFSe_ERR = "-consdadoscad.err";
 
             #endregion Extensões NFSe
 

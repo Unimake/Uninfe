@@ -455,7 +455,7 @@ namespace NFe.Service
 
         /// Cancelamento de NFe como Evento e Manifestação do Destinatário
         public string xJust { get; set; }
-        
+
         /// <summary>
         /// EPEC
         /// </summary>
@@ -465,7 +465,7 @@ namespace NFe.Service
 
         public EventoCancelamentoConciliacaoFinanceira cancelamentoConciliacaoFinanceira { get; set; }
 
-   
+
         /// <summary>
         /// Prorrogacao de ICMS
         /// </summary>
@@ -649,6 +649,31 @@ namespace NFe.Service
     #endregion Classe de dados do XML de Download de XML da NFCe
 
     #region Classe para receber os dados dos XML´s da NFS-e
+
+
+    #region DadosConsultaDadosCadastrais
+
+    /// <summary>
+    /// Classe com os dados do XML da consulta de dados cadastrais
+    /// </summary>
+
+    public class DadosConsultaDadosCadastrais
+    {
+        public int cMunicipio { get; set; }
+        public int tpAmb { get; set; }
+        public int tpEmis { get; set; }
+        public DadosConsultaDadosCadastrais(int emp)
+        {
+            tpEmis = Empresas.Configuracoes[emp].tpEmis;
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+        }
+    }
+
+
+    #endregion DadosConsultaDadosCadastrais
+
+
 
     #region DadosPedLoteRps
 

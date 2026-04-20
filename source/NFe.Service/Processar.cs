@@ -174,6 +174,9 @@ namespace NFe.Service
                         case Servicos.NFSeConsultarEventosNFSeChaveAcesso:
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultaEventosNFSeChaveAcesso());
                             break;
+                        case Servicos.NFSeConsultarDadosCadastraisNFSe:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarDadosCadastrais());
+                            break;
 
                         #endregion NFS-e
 
@@ -1254,6 +1257,10 @@ namespace NFe.Service
                                 {
                                     tipoServico = Servicos.NFSeConsultarEventosNFSeChaveAcesso;
                                 }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedConsDadosCadastraisNFSe).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarDadosCadastraisNFSe;
+                                }
 
                                 #endregion NFS-e
 
@@ -1937,7 +1944,7 @@ namespace NFe.Service
             }
             catch
             {
-                
+
             }
         }
 

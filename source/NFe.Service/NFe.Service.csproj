@@ -320,6 +320,7 @@
     <Compile Include="NFe\TaskConsultaChavesNFCe.cs" />
     <Compile Include="NFSe\TaksConsultarConveioMunicipial.cs" />
     <Compile Include="NFSe\TaskConsultaEventosNFSeChaveAcesso.cs" />
+    <Compile Include="NFSe\TaskConsultarDadosCadastrais.cs" />
     <Compile Include="NFSe\TaskConsultarDistribuicaoNSUNFSe.cs" />
     <Compile Include="NFSe\TaskConsultarEventosDiversosNfse.cs" />
     <Compile Include="NFSe\TaskConsultarAliquotaMunicipal.cs" />

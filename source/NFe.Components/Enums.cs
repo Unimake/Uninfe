@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -384,6 +383,12 @@ namespace NFe.Components
         /// </summary>
         [Description("Consultar Eventos da NFSe por Chave de Acesso")]
         NFSeConsultarEventosNFSeChaveAcesso,
+
+        /// <summary>
+        /// Consultar Eventos da NFSe por Chave de Acesso
+        /// </summary>
+        [Description("Consultar Dados Cadastrais da NFSe Inscricao Munícipal")]
+        NFSeConsultarDadosCadastraisNFSe,
 
         #endregion NFSe
 
