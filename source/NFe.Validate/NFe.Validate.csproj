@@ -167,25 +167,25 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-  <Choose>
-    <When Condition="'$(Configuration)' == 'Release'">
-      <ItemGroup>
-        <Reference Include="Unimake.Business.DFe, Version=2026.4.17.1734, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>..\packages\Unimake.DFe.20260417.1734.54\lib\net472\Unimake.Business.DFe.dll</HintPath>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-          <Name>Unimake.Business.DFe</Name>
-          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-          <Private>true</Private>
-        </ProjectReference>
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+	<Choose>
+	  <When Condition="'$(Configuration)' == 'Release'">
+		 <ItemGroup>
+			<Reference Include="Unimake.Business.DFe, Version=2026.4.23.1621, Culture=neutral, processorArchitecture=MSIL">
+			  <HintPath>..\packages\Unimake.DFe.20260423.1621.55\lib\net472\Unimake.Business.DFe.dll</HintPath>
+			</Reference>		
+		 </ItemGroup>
+	  </When>
+	  <Otherwise>
+		 <ItemGroup>
+			<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+			  <Name>Unimake.Business.DFe</Name>
+			  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+			  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			  <Private>true</Private>
+			</ProjectReference>
+		 </ItemGroup>
+	  </Otherwise>
+	</Choose>
   <ItemGroup>
     <Compile Include="ValidarXMLNew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
