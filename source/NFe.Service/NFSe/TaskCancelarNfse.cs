@@ -390,10 +390,6 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
-                    else if (codMunicipio == 4309308 || codMunicipio == 4316006)
-                    {
-                        versaoXML = "1.00";
-                    }
                     break;
 
                 case PadraoNFSe.DIGIFRED:
@@ -503,14 +499,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 4303004 ||
-                        codMunicipio == 4300109 || codMunicipio == 4306932 || codMunicipio == 3302205 ||
-                        codMunicipio == 3530300)
+                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
                     {
                         versaoXML = "2.02";
                     }
-                    if (codMunicipio == 3535804 || codMunicipio == 4304507 || codMunicipio == 4321709 ||
-                        codMunicipio == 4122404)
+                    if (codMunicipio == 4122404)
                     {
                         versaoXML = "1.00";
                     }

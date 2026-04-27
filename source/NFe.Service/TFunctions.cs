@@ -1632,13 +1632,11 @@ namespace NFe.Service
 
         public static int DefiniMunicioPadrao(PadraoNFSe padraoNFse, int municipio)
         {
-            if (municipio == 4125506 || municipio == 3170701 || municipio == 2304400 || municipio == 4204608)
+            if (municipio == 4125506 || municipio == 2304400)
             {
                 //Municípios pontuais com configuração diferente:
                 //São José dos Pinhais - PR     |GINFES
-                //Varginha - MG                 |BETHA
                 //Fortaleza - CE                |GINFES
-                //Criciúma - CS                 |BETHA
                 return municipio;
             }
 
