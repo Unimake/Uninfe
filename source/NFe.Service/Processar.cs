@@ -171,6 +171,13 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarDistribuicaoNSUNFSe());
                             break;
 
+                        case Servicos.NFSeConsultarEventosNFSeChaveAcesso:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultaEventosNFSeChaveAcesso());
+                            break;
+                        case Servicos.NFSeConsultarDadosCadastraisNFSe:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarDadosCadastrais());
+                            break;
+
                         #endregion NFS-e
 
                         #region NFe
@@ -1246,6 +1253,14 @@ namespace NFe.Service
                                 {
                                     tipoServico = Servicos.NFSeConsultarDistribuicaoNFSeNSU;
                                 }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedConsEventosNFSeChaveAcesso).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarEventosNFSeChaveAcesso;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedConsDadosCadastraisNFSe).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarDadosCadastraisNFSe;
+                                }
 
                                 #endregion NFS-e
 
@@ -1929,7 +1944,7 @@ namespace NFe.Service
             }
             catch
             {
-                
+
             }
         }
 
@@ -2281,6 +2296,11 @@ namespace NFe.Service
                 case Servicos.NFSeConsultarDistribuicaoNFSeNSU:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedConsNsuNfse).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.ConsNsuNfse_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarEventosNFSeChaveAcesso:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedConsEventosNFSeChaveAcesso).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.ConsEventosNFSeChaveAcesso_ERR;
                     break;
 
                 #endregion NFSe
