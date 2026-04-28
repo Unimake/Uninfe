@@ -94,7 +94,6 @@ namespace NFe.Components
                         switch (UFCod)
                         {
                             case 3304003: //Piraí - RJ (TIPLAN)
-                            case 4122404: //Rolândia - PR (Padrão PRONIM 1.00)
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-1.00-";
                                 break;
 

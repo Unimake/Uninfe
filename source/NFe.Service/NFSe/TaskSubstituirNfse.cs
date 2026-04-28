@@ -250,10 +250,6 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.02";
                     }
-                    if (codMunicipio == 4122404)
-                    {
-                        versaoXML = "1.00";
-                    }
                     break;
 
                 default:
