@@ -397,8 +397,8 @@ namespace NFe.Service.NFSe
                             {
                                 result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             }
-                            
-                                break;
+
+                            break;
                     }
                     break;
                 case PadraoNFSe.SIGCORP:
@@ -626,11 +626,6 @@ namespace NFe.Service.NFSe
                                                                xmlDoc.DocumentElement.Name == "GerarNfseEnvio"))
                     {
                         versaoXML = "1.20";
-
-                        if (codMunicipio == 4309308 || codMunicipio == 4316006)
-                        {
-                            versaoXML = "1.00";
-                        }
                     }
                     break;
 
@@ -759,18 +754,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 3113404 || codMunicipio == 4321006 || codMunicipio == 4303004 || 
-                        codMunicipio == 4300109 || codMunicipio == 4306932 || codMunicipio == 3302205 || 
-                        codMunicipio == 3530300)
+                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
                     {
                         versaoXML = "2.02";
                     }
-                    if (codMunicipio == 3535804 || codMunicipio == 4304507 || codMunicipio == 4321709 ||
-                        codMunicipio == 4122404)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    if (xmlDoc.OuterXml.Contains(versaoXML = "\"1.01\""))
+                    if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }

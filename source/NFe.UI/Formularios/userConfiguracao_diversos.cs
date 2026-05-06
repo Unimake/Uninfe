@@ -186,16 +186,6 @@ namespace NFe.UI.Formularios
                     empresa.TokenNFSeExpire = result.TokenNFSeExpire;
                 }
 
-                if (empresa.UnidadeFederativaCodigo.Equals(5107925))
-                {
-                    var result = empresa.RecuperarConfiguracaoNFSeSoftplan(empresa.CNPJ);
-
-                    txtClienteID.Text = result.ClientID;
-                    txtClientSecret.Text = result.ClientSecret;
-                    empresa.ClientID = result.ClientID;
-                    empresa.ClientSecret = result.ClientSecret;
-                }
-
                 HabilitaUsuarioSenhaWS(this.empresa.UnidadeFederativaCodigo, this.empresa.Servico);
                 servicoCurrent = this.empresa.Servico;
 

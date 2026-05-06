@@ -10,7 +10,6 @@
 	<Estado ID="4209300" Nome="Lages - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4112009" Nome="Jaguariaíva - PR" UF="PR" Padrao="BETHA"></Estado>
 	<Estado ID="4208302" Nome="Itapema - SC" UF="SC" Padrao="BAUHAUS"></Estado>
-	<Estado ID="4204608" Nome="Criciúma - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4303103" Nome="Cachoeirinha - RS" UF="RS" Padrao="IPM"></Estado>
 	<Estado ID="4311403" Nome="Lajeado - RS" UF="RS" Padrao="THEMA"></Estado>
 	<Estado ID="4321204" Nome="Taquara - RS" UF="RS" Padrao="THEMA"></Estado>
@@ -22,14 +21,10 @@
 	<Estado ID="3502804" Nome="Araçatuba - SP" UF="SP" Padrao="ISSONLINE_ASSESSORPUBLICO"></Estado>
 	<Estado ID="3136702" Nome="Juiz de Fora - MG" UF="MG" Padrao="FINTEL"></Estado>
 	<Estado ID="4310207" Nome="Ijuí - RS" UF="RS" Padrao="PRONIN"></Estado>
-	<Estado ID="4321709" Nome="Três Coroas - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4313375" Nome="Nova Santa Rita - RS" UF="RS" Padrao="IPM"></Estado>
-	<Estado ID="3535804" Nome="Paranapanema - SP" UF="SP" Padrao="PRONIN"></Estado>
-	<Estado ID="3530300" Nome="Mirassol - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="3526100" Nome="Juquiá - SP" UF="SP" Padrao="CECAM"></Estado>
 	<Estado ID="3303500" Nome="Nova Iguaçu - RJ" UF="RJ" Padrao="DSF"></Estado>
 	<Estado ID="4307005" Nome="Erechim - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
-	<Estado ID="4118501" Nome="Pato Branco - PR" UF="PR" Padrao="PRONIN"></Estado>
 	<Estado ID="4217808" Nome="Taió - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4309209" Nome="Gravataí - RS" UF="RS" Padrao="IPM"></Estado>
 	<Estado ID="3302403" Nome="Macaé - RJ" UF="RJ" Padrao="TIPLAN"></Estado>
@@ -44,7 +39,6 @@
 	<Estado ID="4314902" Nome="Porto Alegre - RS" UF="RS" Padrao="BHISS"></Estado>
 	<Estado ID="3546603" Nome="Santa Fé do Sul - SP" UF="SP" Padrao="BETHA"></Estado>
 	<Estado ID="4106902" Nome="Curitiba - PR" UF="PR" Padrao="EGOVERNE"></Estado>
-	<Estado ID="3542404" Nome="Regente Feijó - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="3541406" Nome="Presidente Prudente - SP" UF="SP" Padrao="SIMPLISS"></Estado>
 	<Estado ID="4209003" Nome="Joaçaba - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4203907" Nome="Capinzal - SC" UF="SC" Padrao="BETHA"></Estado>
@@ -71,7 +65,6 @@
 	<Estado ID="3506102" Nome="Bebedouro - SP" UF="SP" Padrao="CONAM"></Estado>
 	<Estado ID="3522208" Nome="Itapecerica da Serra - SP" UF="SP" Padrao="GIAP"></Estado>
 	<Estado ID="3552809" Nome="Taboão da Serra - SP" UF="SP" Padrao="CONAM"></Estado>
-	<Estado ID="3170701" Nome="Varginha - MG" UF="MG" Padrao="BETHA"></Estado>
 	<Estado ID="3509007" Nome="Caieiras - SP" UF="SP" Padrao="CONAM"></Estado>
 	<Estado ID="3539806" Nome="Poá - SP" UF="SP" Padrao="CONAM"></Estado>
 	<Estado ID="4100400" Nome="Almirante Tamandaré - PR" UF="PR" Padrao="BETHA"></Estado>
@@ -80,7 +73,6 @@
 	<Estado ID="3148004" Nome="Patos de Minas - MG" UF="MG" Padrao="PUBLICENTER"></Estado>
 	<Estado ID="3301702" Nome="Duque de Caxias - RJ" UF="RJ" Padrao="ISSNET"></Estado>
 	<Estado ID="3201506" Nome="Colatina - ES" UF="ES" Padrao="EL"></Estado>
-	<Estado ID="4314423" Nome="Picada Café - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4207007" Nome="Içara - SC" UF="SC" Padrao="BAUHAUS"></Estado>
 	<Estado ID="4219002" Nome="Urussanga - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4211207" Nome="Morro da Fumaça - SC" UF="SC" Padrao="BETHA"></Estado>
@@ -145,7 +137,6 @@
 	<Estado ID="3300100" Nome="Angra dos Reis - RJ" UF="RJ" Padrao="TIPLAN"></Estado>
 	<Estado ID="3553856" Nome="Taquarivaí - SP" UF="SP" Padrao="JLSOFT"></Estado>
 	<Estado ID="3535507" Nome="Paraguaçu Paulista - SP" UF="SP" Padrao="SIMPLISS"></Estado>
-	<Estado ID="4323002" Nome="Viamão - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4202909" Nome="Brusque - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4202453" Nome="Bombinhas - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="3128709" Nome="Guaxupé - MG" UF="MG" Padrao="SONNER"></Estado>
@@ -156,7 +147,6 @@
 	<Estado ID="2901007" Nome="Amargosa - BA" UF="BA" Padrao="ADM_SISTEMAS"></Estado>
 	<Estado ID="2610707" Nome="Paulista - PE" UF="PE" Padrao="GISSONLINE"></Estado>
 	<Estado ID="5206503" Nome="Cromínia - GO" UF="GO" Padrao="MEGASOFT"></Estado>
-	<Estado ID="4304507" Nome="Canguçu - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4301701" Nome="Barão de Cotegipe - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
 	<Estado ID="4308904" Nome="Getúlio Vargas - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4319000" Nome="São Marcos - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
@@ -164,13 +154,11 @@
 	<Estado ID="3168002" Nome="Taiobeiras - MG" UF="MG" Padrao="EL"></Estado>
 	<Estado ID="2606200" Nome="Goiana - PE" UF="PE" Padrao="TINUS"></Estado>
 	<Estado ID="3527108" Nome="Lins - SP" UF="SP" Padrao="ISSONLINE_ASSESSORPUBLICO"></Estado>
-	<Estado ID="3554300" Nome="Teodoro Sampaio - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="3520509" Nome="Indaiatuba - SP" UF="SP" Padrao="INDAIATUBA_SP"></Estado>
 	<Estado ID="3514403" Nome="Dracena - SP" UF="SP" Padrao="ISSNET"></Estado>
 	<Estado ID="5217708" Nome="Pontalina - GO" UF="GO" Padrao="MEGASOFT"></Estado>
 	<Estado ID="4207502" Nome="Indaial - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4211801" Nome="Ouro - SC" UF="SC" Padrao="IPM"></Estado>
-	<Estado ID="3550605" Nome="São Roque - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="4317608" Nome="Santo Antônio da Patrulha - RS" UF="RS" Padrao="THEMA"></Estado>
 	<Estado ID="3303609" Nome="Paracambi - RJ" UF="RJ" Padrao="FINTEL"></Estado>
 	<Estado ID="5005707" Nome="Naviraí - MS" UF="MS" Padrao="ELOTECH"></Estado>
@@ -190,7 +178,6 @@
 	<Estado ID="4300604" Nome="Alvorada - RS" UF="RS" Padrao="IPM"></Estado>
 	<Estado ID="4104907" Nome="Castro - PR" UF="PR" Padrao="IPM"></Estado>
 	<Estado ID="4204350" Nome="Cordilheira Alta - SC" UF="SC" Padrao="BETHA"></Estado>
-	<Estado ID="4306932" Nome="Entre-Ijuís - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4307559" Nome="Estação - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
 	<Estado ID="4321600" Nome="Tramandaí - RS" UF="RS" Padrao="DBSELLER"></Estado>
 	<Estado ID="5201405" Nome="Aparecida de Goiânia - GO" UF="GO" Padrao="ISSNET"></Estado>
@@ -198,14 +185,12 @@
 	<Estado ID="4218004" Nome="Tijucas - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4321402" Nome="Tenente Portela - RS" UF="RS" Padrao="BETHA"></Estado>
 	<Estado ID="5104542" Nome="Itanhangá - MT" UF="MT" Padrao="WEBISS"></Estado>
-	<Estado ID="3501301" Nome="Álvares Machado - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="2312908" Nome="Sobral - CE" UF="CE" Padrao="INTERSOL"></Estado>
 	<Estado ID="2408003" Nome="Mossoró - RN" UF="RN" Padrao="TINUS"></Estado>
 	<Estado ID="4113502" Nome="Loanda - PR" UF="PR" Padrao="ELOTECH"></Estado>
 	<Estado ID="4320909" Nome="Tapejara - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
 	<Estado ID="4300109" Nome="Agudo - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="2504009" Nome="Campina Grande - PB" UF="PB" Padrao="WEBISS"></Estado>
-	<Estado ID="4124053" Nome="Santa Terezinha de Itaipu - PR" UF="PR" Padrao="PRONIN"></Estado>
 	<Estado ID="5107925" Nome="Sorriso - MT" UF="MT" Padrao="AGILI"></Estado>
 	<Estado ID="4110706" Nome="Irati - PR" UF="PR" Padrao="ELOTECH"></Estado>
 	<Estado ID="4203808" Nome="Canoinhas - SC" UF="SC" Padrao="IPM"></Estado>
@@ -217,22 +202,18 @@
 	<Estado ID="3549102" Nome="São João da Boa Vista - SP" UF="SP" Padrao="GIAP"></Estado>
 	<Estado ID="3164704" Nome="São Sebastião do Paraíso - MG" UF="MG" Padrao="E_RECEITA"></Estado>
 	<Estado ID="3161809" Nome="São Gonçalo do Pará - MG" UF="MG" Padrao="WEBISS"></Estado>
-	<Estado ID="3550407" Nome="São Pedro - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="3103504" Nome="Araguari - MG" UF="MG" Padrao="SONNER"></Estado>
 	<Estado ID="5006200" Nome="Nova Andradina - MS" UF="MS" Padrao="BETHA"></Estado>
 	<Estado ID="3523503" Nome="Itatinga - SP" UF="SP" Padrao="CECAM"></Estado>
 	<Estado ID="4303806" Nome="Campinas do Sul - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
-	<Estado ID="2607208" Nome="Ipojuca - PE" UF="PE" Padrao="TINUS"></Estado>
 	<Estado ID="4114609" Nome="Marechal Cândido Rondon - PR" UF="PR" Padrao="IPM"></Estado>
 	<Estado ID="5212600" Nome="Mairipotaba - GO" UF="GO" Padrao="MEGASOFT"></Estado>
 	<Estado ID="5207402" Nome="Edéia - GO" UF="GO" Padrao="CENTI"></Estado>
 	<Estado ID="3507605" Nome="Bragança Paulista - SP" UF="SP" Padrao="CONAM"></Estado>
 	<Estado ID="3101607" Nome="Alfenas - MG" UF="MG" Padrao="BETHA"></Estado>
-	<Estado ID="3300209" Nome="Araruama - RJ" UF="RJ" Padrao="BETHA"></Estado>
 	<Estado ID="4213203" Nome="Pomerode - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4213500" Nome="Porto Belo - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4215000" Nome="Rio Negrinho - SC" UF="SC" Padrao="IPM"></Estado>
-	<Estado ID="3550803" Nome="São Sebastião da Grama - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="3130200" Nome="Igaratinga - MG" UF="MG" Padrao="BETHA"></Estado>
 	<Estado ID="4114807" Nome="Marialva - PR" UF="PR" Padrao="ELOTECH"></Estado>
 	<Estado ID="3101508" Nome="Além Paraíba - MG" UF="MG" Padrao="PORTAL_FACIL"></Estado>
@@ -240,7 +221,6 @@
 	<Estado ID="3144805" Nome="Nova Lima - MG" UF="MG" Padrao="ABACO"></Estado>
 	<Estado ID="5218391" Nome="Professor Jamil - GO" UF="GO" Padrao="MEGASOFT"></Estado>
 	<Estado ID="3168705" Nome="Timóteo - MG" UF="MG" Padrao="BETHA"></Estado>
-	<Estado ID="3513504" Nome="Cubatão - SP" UF="SP" Padrao="SMARAPD"></Estado>
 	<Estado ID="4207304" Nome="Imbituba - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="4218202" Nome="Timbó - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="3132701" Nome="Itambacuri - MG" UF="MG" Padrao="NOTAINTELIGENTE"></Estado>
@@ -252,7 +232,6 @@
 	<Estado ID="3302502" Nome="Magé - RJ" UF="RJ" Padrao="MODERNIZACAO_PUBLICA"></Estado>
 	<Estado ID="4214805" Nome="Rio do Sul - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4310330" Nome="Imbe - RS" UF="RS" Padrao="THEMA"></Estado>
-	<Estado ID="4301057" Nome="Arroio do Sal - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4304408" Nome="Canela - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
 	<Estado ID="4115804" Nome="Medianeira - PR" UF="PR" Padrao="ELOTECH"></Estado>
 	<Estado ID="4202008" Nome="Balneário Camboriú - SC" UF="SC" Padrao="PUBLICA"></Estado>
@@ -440,11 +419,8 @@
 	<Estado ID="1100122" Nome="Ji-Paraná - RO" UF="RO" Padrao="FIORILLI"></Estado>
 	<Estado ID="3530409" Nome="Mirassolândia - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="3531308" Nome="Monte Alto - SP" UF="SP" Padrao="FIORILLI"></Estado>
-	<Estado ID="3540804" Nome="Potirendaba - SP" UF="SP" Padrao="FIORILLI"></Estado>
-	<Estado ID="3544004" Nome="Rio das Pedras - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="5220454" Nome="Senador Canedo - GO" UF="GO" Padrao="FIORILLI"></Estado>
 	<Estado ID="4320404" Nome="Serafina Corrêa - RS" UF="RS" Padrao="FIORILLI"></Estado>
-	<Estado ID="3553807" Nome="Taquarituba - SP" UF="SP" Padrao="FIORILLI"></Estado>
 	<Estado ID="5008305" Nome="Três Lagoas - MS" UF="MS" Padrao="FIORILLI"></Estado>
 	<Estado ID="4323804" Nome="Xangri-lá - RS" UF="RS" Padrao="FIORILLI"></Estado>
 	<Estado ID="4219705" Nome="Xaxim - SC" UF="SC" Padrao="BETHA"></Estado>
@@ -464,7 +440,6 @@
 	<Estado ID="4104303" Nome="Campo Mourão - PR" UF="PR" Padrao="IPM"></Estado>
 	<Estado ID="4316907" Nome="Santa Maria - RS" UF="RS" Padrao="ISSNET"></Estado>
 	<Estado ID="4217709" Nome="Sombrio - SC" UF="SC" Padrao="BETHA"></Estado>
-	<Estado ID="4309308" Nome="Guaíba - RS" UF="RS" Padrao="IPM"></Estado>
 	<Estado ID="3152600" Nome="Pouso Alto - MG" UF="MG" Padrao="EMBRAS"></Estado>
 	<Estado ID="5211909" Nome="Jataí - GO" UF="GO" Padrao="BSITBR"></Estado>
 	<Estado ID="5213103" Nome="Mineir os - GO" UF="GO" Padrao="GINFES"></Estado>
@@ -476,7 +451,6 @@
 	<Estado ID="3518602" Nome="Guariba - SP" UF="SP" Padrao="PRIMAX"></Estado>
 	<Estado ID="5107040" Nome="Primavera do Leste - MT" UF="MT" Padrao="RLZ_INFORMATICA"></Estado>
 	<Estado ID="3557006" Nome="Votorantim - SP" UF="SP" Padrao="ISSONLINE_ASSESSORPUBLICO"></Estado>
-	<Estado ID="3302205" Nome="Itaperuna - RJ" UF="RJ" Padrao="PRONIN"></Estado>
 	<Estado ID="4206504" Nome="Guaramirim - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4212502" Nome="Penha - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4115002" Nome="Marilena - PR" UF="PR" Padrao="ELOTECH"></Estado>
@@ -485,11 +459,9 @@
 	<Estado ID="4313300" Nome="Nova Prata - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
 	<Estado ID="4310801" Nome="Ivoti - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
 	<Estado ID="3505203" Nome="Bariri - SP" UF="SP" Padrao="FIORILLI"></Estado>
-	<Estado ID="4313953" Nome="Pântano Grande - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="3505708" Nome="Barueri - SP" UF="SP" Padrao="PROPRIOBARUERISP"></Estado>
 	<Estado ID="4208609" Nome="Jaborá - SC" UF="SC" Padrao="BETHA"></Estado>
 	<Estado ID="2904605" Nome="Brumado - BA" UF="BA" Padrao="WEBISS"></Estado>
-	<Estado ID="4316006" Nome="Rolante - RS" UF="RS" Padrao="IPM"></Estado>
 	<Estado ID="3205002" Nome="Serra - ES" UF="ES" Padrao="SMARAPD"></Estado>
 	<Estado ID="4302808" Nome="Caçapava do Sul - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4312401" Nome="Montenegro - RS" UF="RS" Padrao="THEMA"></Estado>
@@ -508,13 +480,11 @@
 	<Estado ID="4203204" Nome="Camboriú - SC" UF="SC" Padrao="SIMPLE"></Estado>
 	<Estado ID="2412005" Nome="São Gonçalo do Amarante - RN" UF="RN" Padrao="TINUS"></Estado>
 	<Estado ID="4311791" Nome="Maratá - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
-	<Estado ID="3130101" Nome="Igarapé - MG" UF="MG" Padrao="QUASAR"></Estado>
 	<Estado ID="5103403" Nome="Cuiabá - MT" UF="MT" Padrao="ISSNET"></Estado>
 	<Estado ID="4101606" Nome="Arapoti - PR" UF="PR" Padrao="EQUIPLANO"></Estado>
 	<Estado ID="4113254" Nome="Laranjal - PR" UF="PR" Padrao="EQUIPLANO"></Estado>
 	<Estado ID="4318614" Nome="São José do Sul - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
 	<Estado ID="5218003" Nome="Porangatu - GO" UF="GO" Padrao="CENTI"></Estado>
-	<Estado ID="5206206" Nome="Cristalina - GO" UF="GO" Padrao="BSITBR"></Estado>
 	<Estado ID="4117800" Nome="Palmital - PR" UF="PR" Padrao="EQUIPLANO"></Estado>
 	<Estado ID="4321436" Nome="Terra de Areia - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
 	<Estado ID="4201307" Nome="Araquari - SC" UF="SC" Padrao="IPM"></Estado>
@@ -540,11 +510,9 @@
 	<Estado ID="3509502" Nome="Campinas - SP" UF="SP" Padrao="DSF"></Estado>
 	<Estado ID="3524303" Nome="Jaboticabal - SP" UF="SP" Padrao="GISSONLINE"></Estado>
 	<Estado ID="2111201" Nome="São José de Ribamar - MA" UF="MA" Padrao="BAUHAUS"></Estado>
-	<Estado ID="3526902" Nome="Limeira - SP" UF="SP" Padrao="IIBRASIL"></Estado>
 	<Estado ID="3300407" Nome="Barra Mansa - RJ" UF="RJ" Padrao="COPLAN"></Estado>
 	<Estado ID="3507001" Nome="Boituva - SP" UF="SP" Padrao="PRONIN"></Estado>
 	<Estado ID="5002704" Nome="Campo Grande - MS" UF="MS" Padrao="DSF"></Estado>
-	<Estado ID="3113404" Nome="Caratinga - MG" UF="MG" Padrao="PRONIN"></Estado>
 	<Estado ID="3136207" Nome="João Monlevade - MG" UF="MG" Padrao="EL"></Estado>
 	<Estado ID="4202305" Nome="Biguaçu - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="2919553" Nome="Luís Eduardo Magalhães - BA" UF="BA" Padrao="ADM_SISTEMAS"></Estado>
@@ -554,7 +522,6 @@
 	<Estado ID="3102001" Nome="Alterosa - MG" UF="MG" Padrao="BETHA"></Estado>
 	<Estado ID="4314134" Nome="Paulo Bento - RS" UF="RS" Padrao="SYSTEMPRO"></Estado>
 	<Estado ID="3170206" Nome="Uberlândia - MG" UF="MG" Padrao="DSF"></Estado>
-	<Estado ID="4321006" Nome="Tapera - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="4115200" Nome="Maringá - PR" UF="PR" Padrao="FINTEL"></Estado>
 	<Estado ID="4322400" Nome="Uruguaiana - RS" UF="RS" Padrao="PRONIN"></Estado>
 	<Estado ID="3507506" Nome="Botucatu - SP" UF="SP" Padrao="FIORILLI"></Estado>
@@ -576,7 +543,6 @@
 	<Estado ID="3200904" Nome="Barra de São Francisco - ES" UF="ES" Padrao="EL"></Estado>
 	<Estado ID="1709500" Nome="Gurupi - TO" UF="TO" Padrao="WEBISS"></Estado>
 	<Estado ID="3516200" Nome="Franca - SP" UF="SP" Padrao="SMARAPD"></Estado>
-	<Estado ID="4321634" Nome="Três Arroios - RS" UF="RS" Padrao="FIORILLI"></Estado>
 	<Estado ID="4304804" Nome="Carlos Barbosa - RS" UF="RS" Padrao="GIF"></Estado>
 	<Estado ID="4312906" Nome="Nova Bassano - RS" UF="RS" Padrao="TECNOSISTEMAS"></Estado>
 	<Estado ID="2806701" Nome="São Cristóvão - SE" UF="SE" Padrao="WEBISS"></Estado>
@@ -600,7 +566,6 @@
 	<Estado ID="3132909" Nome="Itamogi - MG" UF="MG" Padrao="E_RECEITA"></Estado>
 	<Estado ID="3536505" Nome="Paulínia - SP" UF="SP" Padrao="GISSONLINE"></Estado>
 	<Estado ID="3101102" Nome="Aimorés - MG" UF="MG" Padrao="PORTAL_FACIL"></Estado>
-	<Estado ID="5103205" Nome="Colíder - MT" UF="MT" Padrao="COPLAN"></Estado>
 	<Estado ID="4104006" Nome="Campina Grande do Sul - PR" UF="PR" Padrao="ELOTECH"></Estado>
 	<Estado ID="4202107" Nome="Barra Velha - SC" UF="SC" Padrao="IPM"></Estado>
 	<Estado ID="4320206" Nome="Seberi - RS" UF="RS" Padrao="IPM"></Estado>

@@ -50,6 +50,7 @@ namespace NFe.Components
         cCor,
         cCorDENATRAN,
         cCT,
+        cDC,
         cDV,
         cEAN,
         cBarra,
@@ -300,6 +301,7 @@ namespace NFe.Components
         nCompra,
         nCont,
         nCT,
+        nDC,
         nCtrl,
         nDAR,
         nMDF,
@@ -759,6 +761,7 @@ namespace NFe.Components
         public static string NAME_SPACE_NFE = "http://www.portalfiscal.inf.br/nfe";
         public static string NAME_SPACE_NF3E = "http://www.portalfiscal.inf.br/nf3e";
         public static string NAME_SPACE_NFCOM = "http://www.portalfiscal.inf.br/nfcom";
+        public static string NAME_SPACE_DCE = "http://www.portalfiscal.inf.br/dce";
 
         public static string proxyError = "Especifique o nome do servidor/usuário/senha e porta para conectar do servidor proxy";
         public static string versaoError = "Defina a versão";
