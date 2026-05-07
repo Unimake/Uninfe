@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using XmlCTe = Unimake.Business.DFe.Xml.CTe;
+using XmlDCe = Unimake.Business.DFe.Xml.DCe;
 using XmlMDFe = Unimake.Business.DFe.Xml.MDFe;
 using XmlNF3e = Unimake.Business.DFe.Xml.NF3e;
 using XmlNFCom = Unimake.Business.DFe.Xml.NFCom;
@@ -851,6 +852,10 @@ namespace NFe.Service
                 case TipoAplicativo.NFCom:
                     StatusServicoNFCom(arquivoSaida, amb, tpEmis, cUF, versao);
                     break;
+
+                case TipoAplicativo.DCe:
+                    StatusServicoDCe(arquivoSaida, amb, tpEmis, cUF, versao);
+                    break;
             }
 
             return arquivoSaida;
@@ -1054,6 +1059,40 @@ namespace NFe.Service
         }
 
         #endregion StatusServicoNFCom()
+
+        #region StatusServicoDCe()
+
+        /// <summary>
+        /// Gera o XML de consulta status do serviço da DCe
+        /// </summary>
+        /// <param name="pArquivo">Caminho e nome do arquivo que é para ser gerado</param>
+        /// <param name="tpAmb">Ambiente da consulta</param>
+        /// <param name="tpEmis">Tipo de emissão da consulta</param>
+        /// <param name="cUF">Estado para a consulta</param>
+        /// <param name="versao">Versão do schema do XML</param>
+        public void StatusServicoDCe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
+        {
+            var xml = new XmlDCe.ConsStatServDCe
+            {
+                TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
+                Versao = versao
+            };
+
+            var doc = xml.GerarXML();
+
+            var xmlNode = doc.GetElementsByTagName("consStatServDCe")[0];
+            xmlNode.AppendChild(CriaElemento(doc, TpcnResources.cUF.ToString(), cUF.ToString(), NFeStrConstants.NAME_SPACE_DCE));
+
+            if (tpEmis != 1 && pArquivo.ToLower().IndexOf(Empresas.Configuracoes[EmpIndex].PastaValidar.ToLower()) == -1)
+            {
+                xmlNode.AppendChild(CriaElemento(doc, TpcnResources.tpEmis.ToString(), tpEmis.ToString(), NFeStrConstants.NAME_SPACE_DCE));
+                doc.AppendChild(xmlNode);
+            }
+
+            GravarArquivoParaEnvio(pArquivo, doc.OuterXml);
+        }
+
+        #endregion StatusServicoDCe()
 
         #endregion StatusServico()
 
@@ -2218,6 +2257,60 @@ namespace NFe.Service
 
         #endregion XmlDistNFCom()
 
+        #region XmlDistDCe
+        /// <summary>
+        /// Criar o arquivo XML de distribuição dos DCe's com o protocolo de autorização anexado
+        /// </summary>
+        /// <param name="arqDCe">Nome arquivo do XML da DCe</param>
+        /// <param name="protDCe">String contendo a parte do XML do protocolo a ser anexado</param>
+        /// <param name="extensao">Extensão que será utilizada na criação do arquivo na pasta</param>
+        /// <param name="versao">Versão do SCHEMA do XML</param>
+        /// <returns></returns>
+        public string XmlDistDCe(string arqDCe, string protDCe, string extensao, string versao)
+        {
+            var nomeArqProcDCe = string.Empty;
+            var emp = EmpIndex;
+            StreamWriter swProc = null;
+
+            try
+            {
+                if (File.Exists(arqDCe))
+                {
+                    var tipo = "dce";
+
+                    var doc = new XmlDocument();
+
+                    doc.Load(arqDCe);
+
+                    var dCeList = doc.GetElementsByTagName("DCe");
+                    var dCeNode = dCeList[0];
+                    var conteudoDCe = dCeNode.OuterXml;
+
+                    var xmlProcDCe = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+                        "<" + tipo + "Proc xmlns=\"" + NFeStrConstants.NAME_SPACE_DCE + "\" versao=\"" + versao + "\">" +
+                        conteudoDCe +
+                        protDCe +
+                        "</" + tipo + "Proc>";
+
+                    nomeArqProcDCe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                        PastaEnviados.EmProcessamento.ToString() + "\\" + Functions.ExtrairNomeArq(arqDCe, Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML) + extensao;
+
+                    swProc = File.CreateText(nomeArqProcDCe);
+                    swProc.Write(xmlProcDCe);
+                }
+            }
+            finally
+            {
+                if (swProc != null)
+                {
+                    swProc.Close();
+                }
+            }
+            return nomeArqProcDCe;
+        }
+
+        #endregion
+
         #region -- Evento
 
         #region EnvioEvento
@@ -3311,6 +3404,145 @@ namespace NFe.Service
         }
 
         #endregion XmlDistEventoNFCom()
+
+        #region XmlDistEventoDCe()
+
+        /// <summary>
+        /// XML distribuição de evento da DCe
+        /// </summary>
+        /// <param name="emp">ID da empresa que vai ser trabalhado</param>
+        /// <param name="strXmlRetorno">Retorno da SEFAZ no formato string</param>
+        public void XmlDistEventoDCe(int emp, string strXmlRetorno)
+        {
+            var docEventos = new XmlDocument();
+            docEventos.Load(Functions.StringXmlToStreamUTF8(strXmlRetorno));
+            var retProcEventoDCeList = docEventos.GetElementsByTagName("procEventoDCe");
+
+            if (retProcEventoDCeList != null)
+            {
+                foreach (XmlNode retConsSitNode in retProcEventoDCeList)
+                {
+                    var cStat = ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
+
+                    if (cStat == "134" || cStat == "135" || cStat == "136")
+                    {
+                        var chDCe = ((XmlElement)retConsSitNode).GetElementsByTagName("chDCe")[0].InnerText;
+                        var nSeqEvento = Convert.ToInt32("0" + ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.nSeqEvento.ToString())[0].InnerText);
+                        var tpEvento = Convert.ToInt32("0" + ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.tpEvento.ToString())[0].InnerText);
+                        var dhRegEvento = Functions.GetDateTime/*Convert.ToDateTime*/(((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.dhRegEvento.ToString())[0].InnerText);
+                        var versao = ((XmlElement)retConsSitNode).Attributes[TpcnResources.versao.ToString()].InnerText;
+                        var idRetornado = (((XmlElement)retConsSitNode).GetElementsByTagName("infEvento")[0]).Attributes.GetNamedItem(TpcnResources.Id.ToString()).Value;
+
+                        XmlDistEventoMDFe(emp, chDCe, nSeqEvento.ToString((idRetornado.Length <= 54 ? "00" : "000")), tpEvento, retConsSitNode.OuterXml, string.Empty, dhRegEvento, false, versao);
+                    }
+                }
+            }
+        }
+
+        #endregion XmlDistEventoDCe()
+
+        #region XmlDistEventoDCe()
+
+        /// <summary>
+        /// XML de distribuição do evento da DCe
+        /// </summary>
+        /// <param name="emp">ID da empresa que vai ser trabalhado</param>
+        /// <param name="chaveDCe">Chave da DCe</param>
+        /// <param name="nSeqEvento">Número de sequência do evento</param>
+        /// <param name="tpEvento">Tipo de evento</param>
+        /// <param name="xmlEventoEnvio">String do XML de evento enviado</param>
+        /// <param name="xmlRetornado">String do XML retornado pela SEFAZ</param>
+        /// <param name="dhRegEvento">Data e hora do registro do evento</param>
+        /// <param name="FromTaskEventos">Indica se veio da task de eventos da DCe</param>
+        /// <param name="versao">Versão do evento</param>
+        public void XmlDistEventoDCe(int emp, string chaveDCe, string nSeqEvento, int tpEvento, string xmlEventoEnvio, string xmlRetornado, DateTime dhRegEvento, bool FromTaskEventos, string versao)
+        {
+            // Gravar o XML de distribução como: chave + "_" + nSeqEvento
+            // Já que a nSeqEventoDeve ser única para cada chave
+            var tempXmlFile = PastaEnviados.Autorizados.ToString() + "\\" +
+                Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dhRegEvento) +
+                chaveDCe + "_" + tpEvento.ToString() + "_" + nSeqEvento + Propriedade.ExtRetorno.ProcEventoDCe;
+
+            var dceDeTerceiros = chaveDCe.Substring(6, 14) != Empresas.Configuracoes[emp].CNPJ || chaveDCe.Substring(0, 2) != Empresas.Configuracoes[emp].UnidadeFederativaCodigo.ToString();
+
+            var sendToDanfeMon = true;
+
+            var filenameToWrite = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnviado, tempXmlFile);
+            var filenameBackup = Empresas.Configuracoes[emp].PastaBackup;
+
+            if (!FromTaskEventos && dceDeTerceiros)
+            {
+                if (!Empresas.Configuracoes[emp].GravarEventosDeTerceiros || string.IsNullOrEmpty(Empresas.Configuracoes[emp].PastaDownloadNFeDest))
+                {
+                    return;
+                }
+
+                filenameToWrite = Path.Combine(Empresas.Configuracoes[emp].PastaDownloadNFeDest, tempXmlFile);
+
+                /// XML de terceiros não grava na pasta de backup
+                filenameBackup = "";
+                sendToDanfeMon = false;
+            }
+
+            string protEnvioEvento;
+
+            if (xmlEventoEnvio.IndexOf("<procEventoDCe>") >= 0)
+            {
+                protEnvioEvento = xmlEventoEnvio;
+            }
+            else
+            {
+                protEnvioEvento = "<procEventoDCe versao=\"" + versao + "\" xmlns=\"" + NFeStrConstants.NAME_SPACE_DCE + "\">" +
+                           xmlEventoEnvio +
+                           xmlRetornado.Replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "") +
+                           "</procEventoDCe>";
+            }
+
+            // Gravar o arquivo de distribuição na pasta de enviados autorizados
+            if (!protEnvioEvento.StartsWith("<?xml"))
+            {
+                protEnvioEvento = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + protEnvioEvento;
+            }
+
+            // Gravar o arqivo de distribuição na pasta de backup
+            if (!string.IsNullOrEmpty(filenameBackup))
+            {
+                // Criar a pasta de backup, caso não exista
+                filenameBackup = Path.Combine(filenameBackup, tempXmlFile);
+
+                if (!Directory.Exists(Path.GetDirectoryName(filenameBackup)))
+                {
+                    System.IO.Directory.CreateDirectory(Path.GetDirectoryName(filenameBackup));
+                }
+
+                if (!File.Exists(filenameBackup))
+                {
+                    File.WriteAllText(filenameBackup, protEnvioEvento);
+                }
+            }
+
+            // Criar a pasta se não existir
+            if (!Directory.Exists(Path.GetDirectoryName(filenameToWrite)))
+            {
+                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(filenameToWrite));
+            }
+
+            if (!File.Exists(filenameToWrite))
+            {
+                File.WriteAllText(filenameToWrite, protEnvioEvento);
+            }
+
+            XmlParaFTP(emp, filenameToWrite);
+
+            if (sendToDanfeMon)
+            {
+                TFunctions.CopiarXMLPastaDanfeMon(filenameToWrite);
+            }
+
+            NomeArqGerado = filenameToWrite;
+        }
+
+        #endregion XmlDistEventoDCe()
 
         #endregion XmlDistEvento
 

@@ -5,6 +5,7 @@ using NFe.ConvertTxt;
 using NFe.Exceptions;
 using NFe.Service.CCG;
 using NFe.Service.DARE;
+using NFe.Service.DCe;
 using NFe.Service.EFDReinf;
 using NFe.Service.GNRE;
 using NFe.Service.NF3e;
@@ -474,7 +475,16 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskNFComEventos(arquivo));
                             break;
 
-                            #endregion NFCom
+                        #endregion NFCom
+
+                        #region DCe
+
+                        case Servicos.DCeAutorizacaoSinc:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskDCeRecepcaoSinc(arquivo));
+                            break;
+
+
+                        #endregion DCe
                     }
 
                     #region Serviços em comum
@@ -1116,6 +1126,25 @@ namespace NFe.Service
 
                             #endregion NFCom
 
+                            #region DCe
+
+                            case "consStatServDCe":
+                                tipoServico = Servicos.DCeStatusServico;
+                                break;
+
+                            case "consSitDCe":
+                                tipoServico = Servicos.DCeConsultaProtocolo;
+                                break;
+
+                            case "DCe":
+                                tipoServico = Servicos.DCeAutorizacaoSinc;
+                                break;
+
+                            case "eventoDCe":
+                                tipoServico = Servicos.DCeRecepcaoEvento;
+                                break;
+
+                            #endregion DCe
 
                             #region Geral
 
@@ -2159,6 +2188,11 @@ namespace NFe.Service
                 case Servicos.MDFeEnviarSinc:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.MDFe_ERR;
+                    break;
+
+                case Servicos.DCeAutorizacaoSinc:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.DCe).RetornoERR;
                     break;
 
                 case Servicos.NFeMontarLoteVarias:

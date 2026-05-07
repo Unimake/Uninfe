@@ -353,6 +353,59 @@ namespace NFe.Service
 
         #endregion NFCom()
 
+        #region DCe()
+
+        /// <summary>
+        /// Faz a leitura do XML do documento fiscal eletrônico e disponibiliza os valores de algumas tag´s
+        /// </summary>
+        /// <param name="xmlDocument">Conteúdo do XML para ser lido</param>
+        public void DCe(XmlDocument xmlDocument)
+        {
+            ClearDados();
+
+            XmlNodeList infDCeList = xmlDocument.GetElementsByTagName("infDCe");
+
+            foreach (XmlNode infDCeNode in infDCeList)
+            {
+                XmlElement infDCeElemento = (XmlElement)infDCeNode;
+
+                if (infDCeElemento.HasAttributes)
+                {
+                    oDadosNfe.chavenfe = infDCeElemento.Attributes[TpcnResources.Id.ToString()].InnerText;
+                    oDadosNfe.versao = infDCeElemento.Attributes[TpcnResources.versao.ToString()].InnerText;
+                }
+
+                XmlNodeList ideList = infDCeElemento.GetElementsByTagName("ide");
+
+                foreach (XmlNode ideNode in ideList)
+                {
+                    XmlElement ideElemento = (XmlElement)ideNode;
+
+                    oDadosNfe.dEmi = Convert.ToDateTime(Functions.LerTag(ideElemento, TpcnResources.dhEmi.ToString(), false));
+                    oDadosNfe.cNF = Functions.LerTag(ideElemento, TpcnResources.cDC.ToString(), false);
+                    oDadosNfe.nNF = Functions.LerTag(ideElemento, TpcnResources.nDC.ToString(), false);
+                    oDadosNfe.tpEmis = Functions.LerTag(ideElemento, TpcnResources.tpEmis.ToString(), false);
+                    oDadosNfe.tpAmb = Functions.LerTag(ideElemento, TpcnResources.tpAmb.ToString(), false);
+                    oDadosNfe.serie = Functions.LerTag(ideElemento, TpcnResources.serie.ToString(), false);
+                    oDadosNfe.cUF = Functions.LerTag(ideElemento, TpcnResources.cUF.ToString(), false);
+                    oDadosNfe.mod = Functions.LerTag(ideElemento, TpcnResources.mod.ToString(), false);
+                    oDadosNfe.cDV = Functions.LerTag(ideElemento, TpcnResources.cDV.ToString(), false);
+                }
+
+                XmlNodeList emitList = infDCeElemento.GetElementsByTagName("emit");
+
+                foreach (XmlNode emitNode in emitList)
+                {
+                    XmlElement emitElemento = (XmlElement)emitNode;
+
+                    oDadosNfe.CNPJ = Functions.LerTag(emitElemento, TpcnResources.CNPJ.ToString(), false);
+                    oDadosNfe.CPF = Functions.LerTag(emitElemento, TpcnResources.CPF.ToString(), false);
+                }
+            }
+        }
+
+        #endregion DCe()
+
         #region ClearDados()
 
         /// <summary>
