@@ -483,7 +483,17 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskDCeRecepcaoSinc(arquivo));
                             break;
 
+                        case Servicos.DCeConsultaProtocolo:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaSituacaoDCe(arquivo));
+                            break;
 
+                        case Servicos.DCeStatusServico:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusDCe(arquivo));
+                            break;
+
+                        case Servicos.DCeRecepcaoEvento:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskDCeEventos(arquivo));
+                            break;
                         #endregion DCe
                     }
 

@@ -283,6 +283,9 @@
     <Compile Include="CTe\TaskConsultaSituacaoCTe.cs" />
     <Compile Include="DARE\TaskConsultasReceitasDARE.cs" />
     <Compile Include="DARE\TaskRecepcaoDARE.cs" />
+    <Compile Include="DCe\TaskConsultarSituacaoDCe.cs" />
+    <Compile Include="DCe\TaskConsultarStatusDCe.cs" />
+    <Compile Include="DCe\TaskDCeEvento.cs" />
     <Compile Include="DFe\TaskRecepcaoDFeCTe.cs" />
     <Compile Include="DFe\TaskRecepcaoDFe.cs" />
     <Compile Include="eBoleto\TaskBoletoInformarPagto.cs" />
