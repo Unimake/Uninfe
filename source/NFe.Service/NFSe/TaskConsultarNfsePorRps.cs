@@ -280,7 +280,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.QUASAR:
                     versaoXML = "2.01";
-                    if (xmlDoc.DocumentElement.Name.Contains("DPS"))
+                    if (xmlDoc.DocumentElement.Name.Contains("Dps"))
                     {
                         versaoXML = "1.01";
                     }
