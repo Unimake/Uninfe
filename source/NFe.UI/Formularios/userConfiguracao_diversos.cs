@@ -205,7 +205,8 @@ namespace NFe.UI.Formularios
                     this.empresa.Servico.Equals(TipoAplicativo.Cte) ||
                     this.empresa.Servico.Equals(TipoAplicativo.Todos) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NF3e) ||
-                    this.empresa.Servico.Equals(TipoAplicativo.NFCom))
+                    this.empresa.Servico.Equals(TipoAplicativo.NFCom) ||
+                    this.empresa.Servico.Equals(TipoAplicativo.DCe))
                 {
                     checkBoxValidarDigestValue.Checked = this.empresa.CompararDigestValueDFeRetornadoSEFAZ;
                 }
@@ -216,7 +217,8 @@ namespace NFe.UI.Formularios
                     this.empresa.Servico.Equals(TipoAplicativo.Cte) ||
                     this.empresa.Servico.Equals(TipoAplicativo.Todos) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NF3e) ||
-                    this.empresa.Servico.Equals(TipoAplicativo.NFCom))
+                    this.empresa.Servico.Equals(TipoAplicativo.NFCom) ||
+                     this.empresa.Servico.Equals(TipoAplicativo.DCe))
                 {
                     checkBoxGravarWarnings.Checked = this.empresa.GravarWarnings;
                 }
@@ -365,7 +367,8 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.MDFe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Todos ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NF3e ||
-                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom;
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom ||
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.DCe;
 
             if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
                 (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCe ||

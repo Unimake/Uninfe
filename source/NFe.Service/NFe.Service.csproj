@@ -109,17 +109,17 @@
     <Reference Include="Microsoft.Identity.Abstractions, Version=12.0.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Identity.Abstractions.12.0.0\lib\net462\Microsoft.Identity.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.17.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.17.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=8.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.8.18.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.17.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.8.17.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=8.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.8.18.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.17.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Logging.8.17.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=8.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.8.18.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.17.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.8.17.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=8.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.8.18.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -151,8 +151,8 @@
     <Reference Include="System.Formats.Asn1, Version=10.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Formats.Asn1.10.0.7\lib\net462\System.Formats.Asn1.dll</HintPath>
     </Reference>
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=8.17.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.8.17.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=8.18.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.8.18.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
@@ -252,25 +252,25 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-	<Choose>
-	  <When Condition="'$(Configuration)' == 'Release'">
-		 <ItemGroup>
-         <Reference Include="Unimake.Business.DFe, Version=2026.4.24.1334, Culture=neutral, processorArchitecture=MSIL">
-           <HintPath>..\packages\Unimake.DFe.20260424.1334.54\lib\net472\Unimake.Business.DFe.dll</HintPath>
-         </Reference>
-		 </ItemGroup>
-	  </When>
-	  <Otherwise>
-		 <ItemGroup>
-			<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-			  <Name>Unimake.Business.DFe</Name>
-			  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-			  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-			  <Private>true</Private>
-			</ProjectReference>
-		 </ItemGroup>
-	  </Otherwise>
-	</Choose>
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.5.4.2004, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260504.2004.56\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+          <Name>Unimake.Business.DFe</Name>
+          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+          <Private>true</Private>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <Compile Include="CCG\TaskCcgConsGTIN.cs" />
     <Compile Include="Classes.cs" />
@@ -283,6 +283,9 @@
     <Compile Include="CTe\TaskConsultaSituacaoCTe.cs" />
     <Compile Include="DARE\TaskConsultasReceitasDARE.cs" />
     <Compile Include="DARE\TaskRecepcaoDARE.cs" />
+    <Compile Include="DCe\TaskConsultarSituacaoDCe.cs" />
+    <Compile Include="DCe\TaskConsultarStatusDCe.cs" />
+    <Compile Include="DCe\TaskDCeEvento.cs" />
     <Compile Include="DFe\TaskRecepcaoDFeCTe.cs" />
     <Compile Include="DFe\TaskRecepcaoDFe.cs" />
     <Compile Include="eBoleto\TaskBoletoInformarPagto.cs" />
@@ -329,6 +332,7 @@
     <Compile Include="NFSe\TaskConsultarRegimesEspeciais.cs" />
     <Compile Include="NFSe\TaskConsultarRetencoesMunicipais.cs" />
     <Compile Include="NFSe\TaskRecepcionarEventos.cs" />
+    <Compile Include="DCe\TaskDCeRecepcaoSinc.cs" />
     <Compile Include="uMessenger\TaskUMessenger.cs" />
     <Compile Include="NFe\ConverterTXT.cs" />
     <Compile Include="FluxoNfe.cs" />

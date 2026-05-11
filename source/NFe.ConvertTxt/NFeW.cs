@@ -2220,14 +2220,17 @@ namespace NFe.ConvertTxt
                     wCampo(imposto.IBSCBS.gAjusteCompet.vCBS, TpcnTipoCampo.tcDouble2, TpcnResources.vCBS, ObOp.Obrigatorio);
                 }
 
-                if (imposto.IBSCBS.gEstornoCred.vIBSEstCred > 0)
+                if (imposto.IBSCBS.gEstornoCred != null)
                 {
-                    XmlElement gEstornoCred = doc.CreateElement(TpcnResources.gEstornoCred.ToString());
-                    IBSCBS.AppendChild(gEstornoCred);
-                    nodeCurrent = gEstornoCred;
+                    if (imposto.IBSCBS.gEstornoCred.vIBSEstCred >= 0 || imposto.IBSCBS.gEstornoCred.vCBSEstCred >= 0)
+                    {
+                        XmlElement gEstornoCred = doc.CreateElement(TpcnResources.gEstornoCred.ToString());
+                        IBSCBS.AppendChild(gEstornoCred);
+                        nodeCurrent = gEstornoCred;
 
-                    wCampo(imposto.IBSCBS.gEstornoCred.vIBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio);
-                    wCampo(imposto.IBSCBS.gEstornoCred.vCBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio);
+                        wCampo(imposto.IBSCBS.gEstornoCred.vIBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio);
+                        wCampo(imposto.IBSCBS.gEstornoCred.vCBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio);
+                    }
                 }
 
                 if (imposto.IBSCBS.gCredPresOper.vBCCredPres > 0)

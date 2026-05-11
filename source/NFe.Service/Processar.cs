@@ -5,6 +5,7 @@ using NFe.ConvertTxt;
 using NFe.Exceptions;
 using NFe.Service.CCG;
 using NFe.Service.DARE;
+using NFe.Service.DCe;
 using NFe.Service.EFDReinf;
 using NFe.Service.GNRE;
 using NFe.Service.NF3e;
@@ -474,7 +475,26 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskNFComEventos(arquivo));
                             break;
 
-                            #endregion NFCom
+                        #endregion NFCom
+
+                        #region DCe
+
+                        case Servicos.DCeAutorizacaoSinc:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskDCeRecepcaoSinc(arquivo));
+                            break;
+
+                        case Servicos.DCeConsultaProtocolo:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaSituacaoDCe(arquivo));
+                            break;
+
+                        case Servicos.DCeStatusServico:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusDCe(arquivo));
+                            break;
+
+                        case Servicos.DCeRecepcaoEvento:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskDCeEventos(arquivo));
+                            break;
+                        #endregion DCe
                     }
 
                     #region Serviços em comum
@@ -1116,6 +1136,25 @@ namespace NFe.Service
 
                             #endregion NFCom
 
+                            #region DCe
+
+                            case "consStatServDCe":
+                                tipoServico = Servicos.DCeStatusServico;
+                                break;
+
+                            case "consSitDCe":
+                                tipoServico = Servicos.DCeConsultaProtocolo;
+                                break;
+
+                            case "DCe":
+                                tipoServico = Servicos.DCeAutorizacaoSinc;
+                                break;
+
+                            case "eventoDCe":
+                                tipoServico = Servicos.DCeRecepcaoEvento;
+                                break;
+
+                            #endregion DCe
 
                             #region Geral
 
@@ -1379,11 +1418,24 @@ namespace NFe.Service
 
                 if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    var xmlValidado = ValidarXMLSchema.Validar(arquivo, emp, true);
+                    if (xmlValidado.Validado) //tenta validar
+                    {
+                        return;
+                        // verifica se o Status de erro for diferente de 5 que indica padrão não implementado na nova rotina de validação 
+                        // permitindo que caso o padrão não esteja na nova rotina seja utilizado a antiga
+                    }
+                    else if (!(xmlValidado.StatusValidacao.Equals("5")))
+                    {
+                        return;
+                    }
+
                     if (new ValidarXMLNew().Validar(arquivo, true, emp))
                     {
                         return;
                     }
                 }
+
 
                 Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaValidado, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
                 Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
@@ -2159,6 +2211,11 @@ namespace NFe.Service
                 case Servicos.MDFeEnviarSinc:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.MDFe_ERR;
+                    break;
+
+                case Servicos.DCeAutorizacaoSinc:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.DCe).RetornoERR;
                     break;
 
                 case Servicos.NFeMontarLoteVarias:

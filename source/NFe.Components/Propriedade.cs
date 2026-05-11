@@ -403,6 +403,11 @@ namespace NFe.Components
             /// NFCom
             /// </summary>
             NFCom,
+
+            /// <summary>
+            /// DCe
+            /// </summary>
+            DCe,
         }
 
         private static readonly Dictionary<TipoEnvio, ExtensaoClass> ListaExtensoes = new Dictionary<TipoEnvio, ExtensaoClass>();
@@ -1089,6 +1094,17 @@ namespace NFe.Components
                ));
 
             #endregion NFCom
+
+            #region DCe
+
+            ListaExtensoes.Add(TipoEnvio.DCe, new ExtensaoClass(
+               "-dce.xml", "",
+               "-ret-dce.xml", "",
+               "-ret-dce.err",
+               "XML de dce"
+               ));
+
+            #endregion DCe
 
             if (!ListaExtensoes.ContainsKey(value))
             {
@@ -1841,6 +1857,25 @@ namespace NFe.Components
             public const string NFCom_ERR = "-nfcom.err";
 
             #endregion NFCom
+
+            #region DCe
+
+            /// <summary>
+            /// -procDCe.xml
+            /// </summary>
+            public const string ProcDCe = "-procDCe.xml"; //Não deixar tudo minusculo para evitar problemas com Linux configurado para Case Sensitive. Wandrey 23/06/2011
+
+            /// <summary>
+            /// -procEventoDCe.xml
+            /// </summary>
+            public const string ProcEventoDCe = "-procEventoDCe.xml";
+
+            /// <summary>
+            /// -dce.err
+            /// </summary>
+            public const string DCe_ERR = "-dce.err";
+
+            #endregion
         }
 
         #endregion Propriedades com as extensões dos XML ou TXT de retorno

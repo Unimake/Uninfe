@@ -280,7 +280,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.QUASAR:
                     versaoXML = "2.01";
-                    if (xmlDoc.DocumentElement.Name.Contains("DPS"))
+                    if (xmlDoc.DocumentElement.Name.Contains("Dps"))
                     {
                         versaoXML = "1.01";
                     }
@@ -474,7 +474,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
 
-                    if (codMunicipio == 3506102 || codMunicipio == 3509007)
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007 || codMunicipio == 3552809)
                     {
                         versaoXML = "4.00";
                     }

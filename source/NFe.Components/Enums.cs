@@ -699,6 +699,28 @@ namespace NFe.Components
 
         #endregion NFCom
 
+        #region DCe
+        /// <summary>
+        /// Consulta procolo da DCe
+        /// </summary>
+        DCeConsultaProtocolo,
+
+        /// <summary>
+        /// Consulta status serviço DCe
+        /// </summary>
+        DCeStatusServico,
+
+        /// <summary>
+        /// Envio de Eventos da DCe
+        /// </summary>
+        DCeRecepcaoEvento,    
+
+        /// <summary>
+        /// Envio do XML de DCe
+        /// </summary>
+        DCeAutorizacaoSinc,
+        #endregion
+
         /// <summary>
         /// Nulo / Nenhum serviço em execução
         /// </summary>
@@ -768,7 +790,7 @@ namespace NFe.Components
         /// <summary>
         /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto NFSe)
         /// </summary>
-        [Description("NF-e, NFC-e, NF3-e, NFCom, CT-e, MDF-e, GNRE, DARE e EFD Reinf e eSocial")]
+        [Description("NF-e, NFC-e, NF3-e, NFCom, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
         Todos = 10,
 
         /// <summary>
@@ -782,6 +804,12 @@ namespace NFe.Components
         /// </summary>
         [Description("NFCom")]
         NFCom = 12,
+
+        /// <summary>
+        /// Aplicativo ou serviços para processamentos dos XMLs da DCe
+        /// </summary>
+        [Description("DCe")]
+        DCe = 13,
 
         [Description("")]
         Nulo = 100
