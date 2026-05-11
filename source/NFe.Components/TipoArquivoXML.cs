@@ -176,7 +176,6 @@ namespace NFe.Components
                             case 4202404: //Blumenau - SC (Padrão SIMPLISS 2.03)
                             case 3306305: //Volta Redonda - RJ (Padrão SIMPLISS 2.03)
                             case 4302808: //Caçapava do Sul - RS (Padrão PRONIM 2.03)
-                            case 3507001: //Boituva - SP (Padrão PRONIM 2.03)
                             case 4322400: //Uruguaiana-RS (Padrão PRONIM 2.03)
                             case 4300109: //Agudo - RS (Padrão PRONIM 2.03)
                             case 4310207: //Ijuí - RS (Padrão PRONIM 2.03)
