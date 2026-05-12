@@ -371,7 +371,7 @@ namespace NFe.ConvertTxt
     }
 
 
-    public struct GEstornoCred
+    public class GEstornoCred
     {
         public double vIBSEstCred;
         public double vCBSEstCred;

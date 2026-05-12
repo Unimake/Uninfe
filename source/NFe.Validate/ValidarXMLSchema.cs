@@ -136,14 +136,14 @@ namespace NFe.Validate
             var isNFSe = configuracao.PadraoNFSe != PadraoNFSe.None;
 
             if (retornoArquivo)
-            {
+            { 
                 if (resultadoValidacao.Validado)
                 {
                     GravarXMLValidado(arquivoXML, emp, resultadoValidacao.XmlAssinado, isNFSe);
                     GravarXMLRetornoValidacao(arquivoXML, resultadoValidacao, emp, isNFSe);
 
                 }
-                else
+                else if(!(resultadoValidacao.StatusValidacao.Equals("5")))
                 {
                     GravarXMLRetornoValidacao(arquivoXML, resultadoValidacao, emp, isNFSe);
                     new Auxiliar().MoveArqErro(arquivoXML);
@@ -171,10 +171,11 @@ namespace NFe.Validate
         private static void PrepararConfiguracaoQRCode(XmlDocument xmlDoc, Configuracao config, int emp)
         {
             var tipoDFe = xmlDoc.DocumentElement?.Name;
-            var modeloDoc = xmlDoc.GetElementsByTagName("mod")[0].InnerText;
 
             if (tipoDFe == "NFe" || tipoDFe == "enviNFe")
             {
+                var modeloDoc = xmlDoc.GetElementsByTagName("mod")[0].InnerText;
+
                 if (modeloDoc == ((int)ModeloDFe.NFCe).ToString())
                 {
                     if (Empresas.Configuracoes[emp].VersaoQRCodeNFCe != 2)

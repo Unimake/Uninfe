@@ -1418,11 +1418,24 @@ namespace NFe.Service
 
                 if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    var xmlValidado = ValidarXMLSchema.Validar(arquivo, emp, true);
+                    if (xmlValidado.Validado) //tenta validar
+                    {
+                        return;
+                        // verifica se o Status de erro for diferente de 5 que indica padrão não implementado na nova rotina de validação 
+                        // permitindo que caso o padrão não esteja na nova rotina seja utilizado a antiga
+                    }
+                    else if (!(xmlValidado.StatusValidacao.Equals("5")))
+                    {
+                        return;
+                    }
+
                     if (new ValidarXMLNew().Validar(arquivo, true, emp))
                     {
                         return;
                     }
                 }
+
 
                 Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaValidado, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
                 Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));

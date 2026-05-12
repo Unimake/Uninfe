@@ -2869,8 +2869,11 @@ namespace NFe.ConvertTxt
                     break;
 
                 case "UB116":
-                    NFe.det[nProd].Imposto.IBSCBS.gEstornoCred.vCBSEstCred = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio, 1, 13); 
-                    NFe.det[nProd].Imposto.IBSCBS.gEstornoCred.vIBSEstCred = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio, 1, 13);
+                    NFe.det[nProd].Imposto.IBSCBS.gEstornoCred = new GEstornoCred
+                    {
+                        vCBSEstCred = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.None, 13, true),
+                        vIBSEstCred = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.None, 13, true)
+                    };
                     break;
 
                 case "UB120":
@@ -3092,6 +3095,7 @@ namespace NFe.ConvertTxt
                     break;
 
                 case "W59E":
+                    NFe.Total.IBSCBSTot.gEstornoCred = new GEstornoCred();
                     NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Opcional, 1, 13);
                     NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Opcional, 1, 13);
                     break;

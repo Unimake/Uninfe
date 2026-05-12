@@ -58,23 +58,33 @@ namespace NFe.UI
 
                 try
                 {
-                    if (validarXMLNew.Validar(arquivo, false, Emp))
-                    {
-                        edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
-                        textBox_resultado.Text = "XML validado com sucesso!";
 
+                    var xmlValidado = ValidarXMLSchema.Validar(arquivo, Emp, false);
+                    if (!(xmlValidado.StatusValidacao.Equals("5")))
+                    {
+                        edtTipoarquivo.Text = xmlValidado.Descricao;
+                        textBox_resultado.Text = xmlValidado.MensagemRetorno;
                         return;
+
                     }
+                    //if (validarXMLNew.Validar(arquivo, false, Emp))
+                    //{
+                    //    edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
+                    //    textBox_resultado.Text = "XML validado com sucesso!";
+
+                    //    return;
+                    //}
+
+
                 }
                 catch (Exception ex)
                 {
-                    edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
-                    textBox_resultado.Text = ex.Message;
-
+                    textBox_resultado.Text = "Ocorreu um erro na validação do XML: \r\n\r\n" + ex.Message;
                     return;
                 }
 
                 #endregion Nova rotina de validação
+
 
                 #region Rotina antiga de validação
 
