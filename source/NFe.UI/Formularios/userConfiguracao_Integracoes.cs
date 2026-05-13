@@ -57,11 +57,11 @@ namespace NFe.UI.Formularios
         {
             if (txt_AppID.Text.Length > 200)
             {
-                throw new Exception($"O AppID deve conter no máximo 50 caracteres");
+                throw new Exception($"O AppID deve conter no máximo 200 caracteres");
             } 
             else if (txt_Secret.Text.Length > 200)
             {
-                throw new Exception($"O Secret deve conter no máximo 50 caracteres");
+                throw new Exception($"O Secret deve conter no máximo 200 caracteres");
             }
 
             if (this.changeEvent != null)
