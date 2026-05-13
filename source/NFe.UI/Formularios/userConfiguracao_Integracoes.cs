@@ -55,11 +55,11 @@ namespace NFe.UI.Formularios
         }
         private void Validate(object sender, EventArgs e)
         {
-            if (txt_AppID.Text.Length > 50)
+            if (txt_AppID.Text.Length > 200)
             {
                 throw new Exception($"O AppID deve conter no máximo 50 caracteres");
             } 
-            else if (txt_Secret.Text.Length > 50)
+            else if (txt_Secret.Text.Length > 200)
             {
                 throw new Exception($"O Secret deve conter no máximo 50 caracteres");
             }
