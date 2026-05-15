@@ -139,7 +139,9 @@ namespace NFe.Service
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoConsultar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoConsultar).RetornoXML;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
-                GerarXmlRetorno(pathXml, "999", ex.GetLastException().Message.Replace("\r\n", ""));
+                var lastException = ex.GetLastException();
+                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", ""), null, traceId);
             }
             finally
             {
@@ -159,129 +161,97 @@ namespace NFe.Service
             }
         }
 
-        private void GerarXmlRetorno(string path, string status, string motivo, List<QueryInformationResponse> queryInformationResponse = null)
+        private void GerarXmlRetorno(string path, string status, string motivo, List<QueryInformationResponse> queryInformationResponse = null, string traceId = "")
         {
-            var oSettings = new XmlWriterSettings();
-            var c = new UTF8Encoding(false);
+            var cultura = CultureInfo.CreateSpecificCulture("en-US");
+            cultura.NumberFormat.NumberDecimalSeparator = ".";
 
-            oSettings.Encoding = c;
-            oSettings.Indent = true;
-            oSettings.IndentChars = " ";
-            oSettings.NewLineOnAttributes = false;
-            oSettings.OmitXmlDeclaration = false;
-            XmlWriter oXmlGravar = null;
-
-            try
+            if (status == "0")
             {
-                var cultura = CultureInfo.CreateSpecificCulture("en-US");
-                cultura.NumberFormat.NumberDecimalSeparator = ".";
+                motivo = "Boletos encontrados";
+            }
+            else if (status == "1")
+            {
+                motivo = "Nenhum boleto encontrado";
+            }
 
-                switch (status)
-                {
-                    case "0":
-                        motivo = "Boletos encontrados";
-                        break;
-
-                    case "1":
-                        motivo = "Nenhum boleto encontrado";
-                        break;
-                }
-
-                oXmlGravar = XmlWriter.Create(path, oSettings);
-                oXmlGravar.WriteStartDocument();
-                oXmlGravar.WriteStartElement("BoletoConsultarResponse");
-                oXmlGravar.WriteElementString("Status", status);
-                oXmlGravar.WriteElementString("Motivo", motivo);
+            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoConsultarResponse", status, motivo, traceId, xmlWriter =>
+            {
                 if (queryInformationResponse != null)
                 {
                     foreach (var boleto in queryInformationResponse)
                     {
-                        oXmlGravar.WriteStartElement("BoletoResponse");
-                        oXmlGravar.WriteElementString("CodigoBarras", boleto.CodigoBarras);
-                        oXmlGravar.WriteElementString("DataEmissao", boleto.DataEmissao.FormatDate("dd-MM-yyyy"));
-                        oXmlGravar.WriteElementString("DataLiquidacao", boleto.DataLiquidacao.FormatDate("dd-MM-yyyy"));
-                        oXmlGravar.WriteElementString("DataVencimento", boleto.DataVencimento.FormatDate("dd-MM-yyyy"));
-                        oXmlGravar.WriteElementString("NumeroNaEmpresa", boleto.NumeroNaEmpresa);
-                        oXmlGravar.WriteElementString("NumeroNoBanco", boleto.NumeroNoBanco);
+                        xmlWriter.WriteStartElement("BoletoResponse");
+                        xmlWriter.WriteElementString("CodigoBarras", boleto.CodigoBarras);
+                        xmlWriter.WriteElementString("DataEmissao", boleto.DataEmissao.FormatDate("dd-MM-yyyy"));
+                        xmlWriter.WriteElementString("DataLiquidacao", boleto.DataLiquidacao.FormatDate("dd-MM-yyyy"));
+                        xmlWriter.WriteElementString("DataVencimento", boleto.DataVencimento.FormatDate("dd-MM-yyyy"));
+                        xmlWriter.WriteElementString("NumeroNaEmpresa", boleto.NumeroNaEmpresa);
+                        xmlWriter.WriteElementString("NumeroNoBanco", boleto.NumeroNoBanco);
 
                         if (boleto.Pagador != null)
                         {
-                            oXmlGravar.WriteStartElement("Pagador");
-                            oXmlGravar.WriteElementString("Codigo", boleto.Pagador.Codigo);
-                            oXmlGravar.WriteElementString("Nome", boleto.Pagador.Nome);
-                            oXmlGravar.WriteElementString("Inscricao", boleto.Pagador.Inscricao);
-                            oXmlGravar.WriteElementString("Telefone", boleto.Pagador.Telefone);
-                            oXmlGravar.WriteElementString("Email", boleto.Pagador.Email);
-                            oXmlGravar.WriteElementString("TipoInscricao", Convert.ToInt32(boleto.Pagador.TipoInscricao).ToString());
+                            xmlWriter.WriteStartElement("Pagador");
+                            xmlWriter.WriteElementString("Codigo", boleto.Pagador.Codigo);
+                            xmlWriter.WriteElementString("Nome", boleto.Pagador.Nome);
+                            xmlWriter.WriteElementString("Inscricao", boleto.Pagador.Inscricao);
+                            xmlWriter.WriteElementString("Telefone", boleto.Pagador.Telefone);
+                            xmlWriter.WriteElementString("Email", boleto.Pagador.Email);
+                            xmlWriter.WriteElementString("TipoInscricao", Convert.ToInt32(boleto.Pagador.TipoInscricao).ToString());
 
                             if (boleto.Pagador.Endereco != null)
                             {
-                                oXmlGravar.WriteStartElement("Endereco");
-                                oXmlGravar.WriteElementString("Logradouro", boleto.Pagador.Endereco.Logradouro);
-                                oXmlGravar.WriteElementString("Numero", boleto.Pagador.Endereco.Numero);
-                                oXmlGravar.WriteElementString("Complemento", boleto.Pagador.Endereco.Complemento);
-                                oXmlGravar.WriteElementString("Bairro", boleto.Pagador.Endereco.Bairro);
-                                oXmlGravar.WriteElementString("Cidade", boleto.Pagador.Endereco.Cidade);
-                                oXmlGravar.WriteElementString("UF", boleto.Pagador.Endereco.UF);
-                                oXmlGravar.WriteElementString("CEP", boleto.Pagador.Endereco.CEP);
-                                oXmlGravar.WriteEndElement(); //Endereco
+                                xmlWriter.WriteStartElement("Endereco");
+                                xmlWriter.WriteElementString("Logradouro", boleto.Pagador.Endereco.Logradouro);
+                                xmlWriter.WriteElementString("Numero", boleto.Pagador.Endereco.Numero);
+                                xmlWriter.WriteElementString("Complemento", boleto.Pagador.Endereco.Complemento);
+                                xmlWriter.WriteElementString("Bairro", boleto.Pagador.Endereco.Bairro);
+                                xmlWriter.WriteElementString("Cidade", boleto.Pagador.Endereco.Cidade);
+                                xmlWriter.WriteElementString("UF", boleto.Pagador.Endereco.UF);
+                                xmlWriter.WriteElementString("CEP", boleto.Pagador.Endereco.CEP);
+                                xmlWriter.WriteEndElement();
                             }
 
-                            oXmlGravar.WriteEndElement(); //Pagador
+                            xmlWriter.WriteEndElement();
                         }
 
-                        oXmlGravar.WriteStartElement("PdfContent");
-                        oXmlGravar.WriteElementString("Content", boleto.PdfContent.Content);
-                        oXmlGravar.WriteElementString("Success", boleto.PdfContent.Success.ToString());
-                        oXmlGravar.WriteElementString("Message", boleto.PdfContent.Message);
-                        oXmlGravar.WriteEndElement(); //PdfContent
+                        xmlWriter.WriteStartElement("PdfContent");
+                        xmlWriter.WriteElementString("Content", boleto.PdfContent.Content);
+                        xmlWriter.WriteElementString("Success", boleto.PdfContent.Success.ToString());
+                        xmlWriter.WriteElementString("Message", boleto.PdfContent.Message);
+                        xmlWriter.WriteEndElement();
 
                         if (boleto.PIXPagamentoDetalhe != null)
                         {
-                            oXmlGravar.WriteStartElement("PIXPagamentoDetalhe");
-                            oXmlGravar.WriteElementString("DataPagamento", boleto.PIXPagamentoDetalhe.DataPagamento.FormatDate("dd-MM-yyyy"));
-                            oXmlGravar.WriteElementString("ValorDesconto", boleto.PIXPagamentoDetalhe.ValorDesconto?.ToString("N2", cultura));
-                            oXmlGravar.WriteElementString("ValorJuros", boleto.PIXPagamentoDetalhe.ValorJuros?.ToString("N2", cultura));
-                            oXmlGravar.WriteElementString("ValorLiquidado", boleto.PIXPagamentoDetalhe.ValorLiquidado.ToString("N2", cultura));
-                            oXmlGravar.WriteElementString("ValorMulta", boleto.PIXPagamentoDetalhe.ValorMulta?.ToString("N2", cultura));
-                            oXmlGravar.WriteElementString("ValorOriginal", boleto.PIXPagamentoDetalhe.ValorOriginal.ToString("N2", cultura));
-                            oXmlGravar.WriteEndElement(); //PIXPagamentoDetalhe
+                            xmlWriter.WriteStartElement("PIXPagamentoDetalhe");
+                            xmlWriter.WriteElementString("DataPagamento", boleto.PIXPagamentoDetalhe.DataPagamento.FormatDate("dd-MM-yyyy"));
+                            xmlWriter.WriteElementString("ValorDesconto", boleto.PIXPagamentoDetalhe.ValorDesconto?.ToString("N2", cultura));
+                            xmlWriter.WriteElementString("ValorJuros", boleto.PIXPagamentoDetalhe.ValorJuros?.ToString("N2", cultura));
+                            xmlWriter.WriteElementString("ValorLiquidado", boleto.PIXPagamentoDetalhe.ValorLiquidado.ToString("N2", cultura));
+                            xmlWriter.WriteElementString("ValorMulta", boleto.PIXPagamentoDetalhe.ValorMulta?.ToString("N2", cultura));
+                            xmlWriter.WriteElementString("ValorOriginal", boleto.PIXPagamentoDetalhe.ValorOriginal.ToString("N2", cultura));
+                            xmlWriter.WriteEndElement();
                         }
 
-                        oXmlGravar.WriteStartElement("QrCodeContent");
-                        oXmlGravar.WriteElementString("Text", boleto.QrCodeContent.Text);
-                        oXmlGravar.WriteElementString("Image", boleto.QrCodeContent.Image);
-                        oXmlGravar.WriteElementString("Success", boleto.QrCodeContent.Success.ToString());
-                        oXmlGravar.WriteEndElement(); //QrCodeContent
+                        xmlWriter.WriteStartElement("QrCodeContent");
+                        xmlWriter.WriteElementString("Text", boleto.QrCodeContent.Text);
+                        xmlWriter.WriteElementString("Image", boleto.QrCodeContent.Image);
+                        xmlWriter.WriteElementString("Success", boleto.QrCodeContent.Success.ToString());
+                        xmlWriter.WriteEndElement();
 
-                        oXmlGravar.WriteElementString("Situacao", Convert.ToInt32(boleto.Situacao).ToString());
-                        oXmlGravar.WriteElementString("TipoLiquidacao", Convert.ToInt32(boleto.TipoLiquidacao).ToString());
-                        oXmlGravar.WriteElementString("Valor", boleto.Valor.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorAbatimento", boleto.ValorAbatimento.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorDesconto", boleto.ValorDesconto.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorJuros", boleto.ValorJuros.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorLiquidado", boleto.ValorLiquidado.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorMulta", boleto.ValorMulta.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("Situacao", Convert.ToInt32(boleto.Situacao).ToString());
+                        xmlWriter.WriteElementString("TipoLiquidacao", Convert.ToInt32(boleto.TipoLiquidacao).ToString());
+                        xmlWriter.WriteElementString("Valor", boleto.Valor.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorAbatimento", boleto.ValorAbatimento.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorDesconto", boleto.ValorDesconto.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorJuros", boleto.ValorJuros.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorLiquidado", boleto.ValorLiquidado.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorMulta", boleto.ValorMulta.ToString("N2", cultura));
 
-                        oXmlGravar.WriteEndElement(); //BoletoResponse
+                        xmlWriter.WriteEndElement();
                     }
                 }
-                oXmlGravar.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));
-                oXmlGravar.WriteEndElement(); //BoletoConsultarResponse
-                oXmlGravar.WriteEndDocument();
-                oXmlGravar.Flush();
-                oXmlGravar.Close();
-            }
-            finally
-            {
-                if (oXmlGravar != null)
-                {
-                    if (oXmlGravar.WriteState != WriteState.Closed)
-                    {
-                        oXmlGravar.Close();
-                    }
-                }
-            }
+            });
         }
     }
 }
