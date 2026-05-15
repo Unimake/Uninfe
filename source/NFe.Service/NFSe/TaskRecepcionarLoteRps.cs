@@ -656,6 +656,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
+                    else if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.QUASAR:
@@ -875,7 +879,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.CONAM:
                     versaoXML = "2.00";
 
-                    if (codMunicipio == 3506102 || codMunicipio == 3509007  || codMunicipio == 3552809)
+                    if (codMunicipio == 3506102 || codMunicipio == 3509007 || codMunicipio == 3552809)
                     {
                         versaoXML = "4.00";
                     }

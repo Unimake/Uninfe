@@ -278,6 +278,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "1.00";
                     }
+                    else if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.AVMB:
