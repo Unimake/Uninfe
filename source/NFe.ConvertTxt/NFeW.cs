@@ -3635,15 +3635,18 @@ namespace NFe.ConvertTxt
                 #endregion --IBSCBSTot-->gMono
 
                 #region --IBSCBSTot-->gEstornoCred
-                if (NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred > 0 || NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred > 0)
+                if (NFe.Total.IBSCBSTot.gEstornoCred != null)
                 {
-                    XmlElement gEstornoCred = doc.CreateElement(TpcnResources.gEstornoCred.ToString());
-                    IBSCBSTot.AppendChild(gEstornoCred);
+                    if (NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred > 0 || NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred > 0)
+                    {
+                        XmlElement gEstornoCred = doc.CreateElement(TpcnResources.gEstornoCred.ToString());
+                        IBSCBSTot.AppendChild(gEstornoCred);
 
-                    nodeCurrent = gEstornoCred;
+                        nodeCurrent = gEstornoCred;
 
-                    wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio);
-                    wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio);
+                        wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vIBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vIBSEstCred, ObOp.Obrigatorio);
+                        wCampo(NFe.Total.IBSCBSTot.gEstornoCred.vCBSEstCred, TpcnTipoCampo.tcDouble2, TpcnResources.vCBSEstCred, ObOp.Obrigatorio);
+                    }
                 }
                 #endregion
             }

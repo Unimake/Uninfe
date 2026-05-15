@@ -15,22 +15,31 @@ namespace NFe.UI.Formularios
 
         public event EventHandler changeEvent;
         private NFe.Settings.Empresa empresa;
+        private bool carregandoDados;
 
         public void Populate(NFe.Settings.Empresa empresa)
         {
-            uninfeDummy.ClearControls(this, true, false);
-            this.empresa = empresa;
-            txt_AppID.Text = empresa.AppID;
-            txt_Secret.Text = empresa.Secret;
-            txt_AppID_UMessenger.Text = empresa.AppID_UMessenger;
-            txt_Secret_UMessenger.Text = empresa.Secret_UMessenger;
-            txt_NumeroUMessenger.Text = empresa.NumeroUMessenger;
-            txt_AppID_UMessenger.Text = empresa.AppID_UMessenger;
-            txt_Secret_UMessenger.Text = empresa.Secret_UMessenger;
-            cbox_DocumentosDenegados.Checked = empresa.DocumentosDenegados;
-            cbox_DocumentosRejeitados.Checked = empresa.DocumentosRejeitados;
-            cbox_ErrosUniNFe.Checked = empresa.ErrosUniNFe;
-            cbox_MesmosDados.Checked = empresa.MesmosDadosEb_Mb;
+            carregandoDados = true;
+            try
+            {
+                uninfeDummy.ClearControls(this, true, false);
+                this.empresa = empresa;
+                txt_AppID.Text = empresa.AppID;
+                txt_Secret.Text = empresa.Secret;
+                txt_AppID_UMessenger.Text = empresa.AppID_UMessenger;
+                txt_Secret_UMessenger.Text = empresa.Secret_UMessenger;
+                txt_NumeroUMessenger.Text = empresa.NumeroUMessenger;
+                txt_AppID_UMessenger.Text = empresa.AppID_UMessenger;
+                txt_Secret_UMessenger.Text = empresa.Secret_UMessenger;
+                cbox_DocumentosDenegados.Checked = empresa.DocumentosDenegados;
+                cbox_DocumentosRejeitados.Checked = empresa.DocumentosRejeitados;
+                cbox_ErrosUniNFe.Checked = empresa.ErrosUniNFe;
+                cbox_MesmosDados.Checked = empresa.MesmosDadosEb_Mb;
+            }
+            finally
+            {
+                carregandoDados = false;
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -40,6 +49,8 @@ namespace NFe.UI.Formularios
 
         public void Validar()
         {
+            ValidateInput();
+
             this.empresa.AppID = txt_AppID.Text;
             this.empresa.Secret = txt_Secret.Text;
             this.empresa.AppID_UMessenger = txt_AppID_UMessenger.Text;
@@ -54,18 +65,28 @@ namespace NFe.UI.Formularios
 
         }
         private void Validate(object sender, EventArgs e)
-        {
-            if (txt_AppID.Text.Length > 50)
+       {
+            if (carregandoDados)
             {
-                throw new Exception($"O AppID deve conter no máximo 50 caracteres");
-            } 
-            else if (txt_Secret.Text.Length > 50)
-            {
-                throw new Exception($"O Secret deve conter no máximo 50 caracteres");
+                return;
             }
+
+            ValidateInput();
 
             if (this.changeEvent != null)
                 this.changeEvent(sender, e);
+        }
+
+        private void ValidateInput()
+        {
+            if (txt_AppID.Text.Length > 200)
+            {
+                throw new Exception($"O AppID deve conter no máximo 200 caracteres");
+            }
+            else if (txt_Secret.Text.Length > 200)
+            {
+                throw new Exception($"O Secret deve conter no máximo 200 caracteres");
+            }
         }
 
         public void FocusFirstControl()
