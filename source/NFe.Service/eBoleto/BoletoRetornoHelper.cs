@@ -1,39 +1,41 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Xml;
+using System.Text.Json;
 using NFe.Components;
 
 namespace NFe.Service
 {
     internal static class BoletoRetornoHelper
     {
-        private static readonly string[] TraceNames =
-        {
-            "TraceId",
-            "TraceID",
-            "traceId",
-            "traceID",
-            "TraceIdentifier",
-            "RequestId",
-            "RequestID",
-            "requestId",
-            "requestID",
-            "CorrelationId",
-            "CorrelationID",
-            "correlationId",
-            "correlationID",
-            "x-amzn-trace-id",
-            "X-Amzn-Trace-Id"
-        };
-
         public static string ExtrairTraceId(object origem)
         {
-            return ExtrairTraceIdInterno(origem, new HashSet<int>(), 0) ?? string.Empty;
+            try
+            {
+                string json = origem is Exception ex ? ex.Message : origem as string;
+                if (string.IsNullOrWhiteSpace(json))
+                    return string.Empty;
+
+                var trimmed = json.TrimStart();
+                if (!trimmed.StartsWith("{"))
+                    return string.Empty;
+
+                var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+                if (root.ValueKind != JsonValueKind.Object)
+                    return string.Empty;
+
+                foreach (var prop in root.EnumerateObject())
+                {
+                    if (string.Equals(prop.Name, "traceId", StringComparison.OrdinalIgnoreCase) && prop.Value.ValueKind == JsonValueKind.String)
+                        return prop.Value.GetString() ?? string.Empty;
+                }
+
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         public static void GravarXmlRetorno(
@@ -85,161 +87,5 @@ namespace NFe.Service
             }
         }
 
-        private static string ExtrairTraceIdInterno(object origem, HashSet<int> visitados, int nivel)
-        {
-            if (origem == null || nivel > 6)
-            {
-                return null;
-            }
-
-            if (origem is string textoOrigem)
-            {
-                return ExtrairTraceIdDaString(textoOrigem);
-            }
-
-            var idReferencia = RuntimeHelpers.GetHashCode(origem);
-            if (!visitados.Add(idReferencia))
-            {
-                return null;
-            }
-
-            if (origem is Exception exception)
-            {
-                var traceDaMensagem = ExtrairTraceIdDaString(exception.Message);
-                if (!string.IsNullOrWhiteSpace(traceDaMensagem))
-                {
-                    return traceDaMensagem;
-                }
-
-                var traceDaInnerException = ExtrairTraceIdInterno(exception.InnerException, visitados, nivel + 1);
-                if (!string.IsNullOrWhiteSpace(traceDaInnerException))
-                {
-                    return traceDaInnerException;
-                }
-            }
-
-            if (origem is IDictionary dictionary)
-            {
-                foreach (DictionaryEntry entry in dictionary)
-                {
-                    if (entry.Key != null && IsTraceName(entry.Key.ToString()))
-                    {
-                        var traceDaChave = entry.Value?.ToString();
-                        if (!string.IsNullOrWhiteSpace(traceDaChave))
-                        {
-                            return traceDaChave.Trim();
-                        }
-                    }
-
-                    var traceDaEntrada = ExtrairTraceIdInterno(entry.Value, visitados, nivel + 1);
-                    if (!string.IsNullOrWhiteSpace(traceDaEntrada))
-                    {
-                        return traceDaEntrada;
-                    }
-                }
-            }
-
-            if (origem is IEnumerable enumerable && !(origem is string))
-            {
-                foreach (var item in enumerable)
-                {
-                    var traceDoItem = ExtrairTraceIdInterno(item, visitados, nivel + 1);
-                    if (!string.IsNullOrWhiteSpace(traceDoItem))
-                    {
-                        return traceDoItem;
-                    }
-                }
-            }
-
-            foreach (var propriedade in origem.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
-            {
-                if (!propriedade.CanRead || propriedade.GetIndexParameters().Length > 0)
-                {
-                    continue;
-                }
-
-                object valor;
-                try
-                {
-                    valor = propriedade.GetValue(origem, null);
-                }
-                catch
-                {
-                    continue;
-                }
-
-                if (valor == null)
-                {
-                    continue;
-                }
-
-                if (IsTraceName(propriedade.Name))
-                {
-                    var textoEncontrado = valor.ToString();
-                    if (!string.IsNullOrWhiteSpace(textoEncontrado))
-                    {
-                        return textoEncontrado.Trim();
-                    }
-                }
-
-                if (valor is string textoPropriedade)
-                {
-                    var traceDaString = ExtrairTraceIdDaString(textoPropriedade);
-                    if (!string.IsNullOrWhiteSpace(traceDaString))
-                    {
-                        return traceDaString;
-                    }
-                    continue;
-                }
-
-                var traceDaPropriedade = ExtrairTraceIdInterno(valor, visitados, nivel + 1);
-                if (!string.IsNullOrWhiteSpace(traceDaPropriedade))
-                {
-                    return traceDaPropriedade;
-                }
-            }
-
-            return null;
-        }
-
-        private static bool IsTraceName(string nome)
-        {
-            foreach (var traceName in TraceNames)
-            {
-                if (string.Equals(nome, traceName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static string ExtrairTraceIdDaString(string conteudo)
-        {
-            if (string.IsNullOrWhiteSpace(conteudo))
-            {
-                return null;
-            }
-
-            var padroes = new[]
-            {
-                @"(?i)\btrace(?:id|identifier)?\b\s*[:=]\s*(?<valor>[^\s|;,\r\n]+)",
-                @"(?i)\brequest(?:id)?\b\s*[:=]\s*(?<valor>[^\s|;,\r\n]+)",
-                @"(?i)\bcorrelation(?:id)?\b\s*[:=]\s*(?<valor>[^\s|;,\r\n]+)",
-                @"(?i)\bRoot=(?<valor>[^\s|;,\r\n]+)"
-            };
-
-            foreach (var padrao in padroes)
-            {
-                var match = Regex.Match(conteudo, padrao);
-                if (match.Success)
-                {
-                    return match.Groups["valor"].Value.Trim();
-                }
-            }
-
-            return null;
-        }
     }
 }
