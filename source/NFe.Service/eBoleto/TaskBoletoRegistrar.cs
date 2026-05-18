@@ -374,7 +374,8 @@ namespace NFe.Service
                     "0",
                     "",
                     responseBilletService,
-                    (responseBilletService.PDFContent.Success ? pathPDF : "")
+                    (responseBilletService.PDFContent.Success ? pathPDF : ""),
+                    ""
                     );
 
                 #endregion
@@ -384,10 +385,15 @@ namespace NFe.Service
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
+                var lastException = ex.GetLastException();
+                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(
                    pathXml,
                    "999",
-                   ex.GetLastException().Message.Replace("\r\n", ""));
+                   lastException.Message.Replace("\r\n", ""),
+                   null,
+                   "",
+                   traceId);
             }
             finally
             {
@@ -407,86 +413,53 @@ namespace NFe.Service
             }
         }
 
-        private void GerarXmlRetorno(string path, string status, string motivo, EBank.Solutions.Primitives.Billet.Response.RegisterResponse registerResponse = null, string pdfPath = "")
+        private void GerarXmlRetorno(string path, string status, string motivo, EBank.Solutions.Primitives.Billet.Response.RegisterResponse registerResponse = null, string pdfPath = "", string traceId = "")
         {
             var cultura = CultureInfo.CreateSpecificCulture("en-US");
             cultura.NumberFormat.NumberDecimalSeparator = ".";
 
-            var oSettings = new XmlWriterSettings();
-            var c = new UTF8Encoding(false);
-
-            oSettings.Encoding = c;
-            oSettings.Indent = true;
-            oSettings.IndentChars = " ";
-            oSettings.NewLineOnAttributes = false;
-            oSettings.OmitXmlDeclaration = false;
-            XmlWriter oXmlGravar = null;
-
-            try
+            if (status == "0")
             {
-                switch (status)
-                {
-                    case "0":
-                        motivo = "Boleto registrado";
-                        break;
-                }
+                motivo = "Boleto registrado";
+            }
 
-                oXmlGravar = XmlWriter.Create(path, oSettings);
-                oXmlGravar.WriteStartDocument();
-                oXmlGravar.WriteStartElement("BoletoRegistrarResponse");
-                oXmlGravar.WriteElementString("Status", status);
-                oXmlGravar.WriteElementString("Motivo", motivo);
+            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoRegistrarResponse", status, motivo, traceId, xmlWriter =>
+            {
                 if (status == "0")
                 {
-                    oXmlGravar.WriteElementString("CodigoBarraNumerico", registerResponse.CodigoBarraNumerico);
-                    oXmlGravar.WriteElementString("NumeroNoBanco", registerResponse.NumeroNoBanco);
-                    oXmlGravar.WriteElementString("LinhaDigitavel", registerResponse.LinhaDigitavel);
-                    oXmlGravar.WriteElementString("PdfContentSuccess", registerResponse.PDFContent.Success.ToString());
-                    oXmlGravar.WriteElementString("PdfContentMessage", registerResponse.PDFContent.Message);
-                    oXmlGravar.WriteElementString("PdfContentBase64", registerResponse.PDFContent.Content);
-                    oXmlGravar.WriteElementString("PdfPath", pdfPath);
+                    xmlWriter.WriteElementString("CodigoBarraNumerico", registerResponse.CodigoBarraNumerico);
+                    xmlWriter.WriteElementString("NumeroNoBanco", registerResponse.NumeroNoBanco);
+                    xmlWriter.WriteElementString("LinhaDigitavel", registerResponse.LinhaDigitavel);
+                    xmlWriter.WriteElementString("PdfContentSuccess", registerResponse.PDFContent.Success.ToString());
+                    xmlWriter.WriteElementString("PdfContentMessage", registerResponse.PDFContent.Message);
+                    xmlWriter.WriteElementString("PdfContentBase64", registerResponse.PDFContent.Content);
+                    xmlWriter.WriteElementString("PdfPath", pdfPath);
 
                     if (registerResponse.PIXPagamentoDetalhe != null)
                     {
-                        oXmlGravar.WriteStartElement("PixPagamentoDetalhe");
-                        oXmlGravar.WriteElementString("DataPagamento", registerResponse.PIXPagamentoDetalhe.DataPagamento.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-                        oXmlGravar.WriteElementString("TxId", registerResponse.PIXPagamentoDetalhe.TxId);
-                        oXmlGravar.WriteElementString("ValorAbatimento", registerResponse.PIXPagamentoDetalhe.ValorAbatimento?.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorDesconto", registerResponse.PIXPagamentoDetalhe.ValorDesconto?.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorJuros", registerResponse.PIXPagamentoDetalhe.ValorJuros?.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorLiquidado", registerResponse.PIXPagamentoDetalhe.ValorLiquidado.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorMulta", registerResponse.PIXPagamentoDetalhe.ValorMulta?.ToString("N2", cultura));
-                        oXmlGravar.WriteElementString("ValorOriginal", registerResponse.PIXPagamentoDetalhe.ValorOriginal.ToString("N2", cultura));
+                        xmlWriter.WriteStartElement("PixPagamentoDetalhe");
+                        xmlWriter.WriteElementString("DataPagamento", registerResponse.PIXPagamentoDetalhe.DataPagamento.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
+                        xmlWriter.WriteElementString("TxId", registerResponse.PIXPagamentoDetalhe.TxId);
+                        xmlWriter.WriteElementString("ValorAbatimento", registerResponse.PIXPagamentoDetalhe.ValorAbatimento?.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorDesconto", registerResponse.PIXPagamentoDetalhe.ValorDesconto?.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorJuros", registerResponse.PIXPagamentoDetalhe.ValorJuros?.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorLiquidado", registerResponse.PIXPagamentoDetalhe.ValorLiquidado.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorMulta", registerResponse.PIXPagamentoDetalhe.ValorMulta?.ToString("N2", cultura));
+                        xmlWriter.WriteElementString("ValorOriginal", registerResponse.PIXPagamentoDetalhe.ValorOriginal.ToString("N2", cultura));
 
-                        oXmlGravar.WriteEndElement(); //PixPagamentoDetalhe
+                        xmlWriter.WriteEndElement();
                     }
 
                     if (!registerResponse.QrCodeContent.IsNullOrEmpty())
                     {
-                        oXmlGravar.WriteStartElement("QRCodeContent");
-                        oXmlGravar.WriteElementString("Image", registerResponse.QrCodeContent.Image);
-                        oXmlGravar.WriteElementString("Success", registerResponse.QrCodeContent.Success.ToString());
-                        oXmlGravar.WriteElementString("Text", registerResponse.QrCodeContent.Text);
-                        oXmlGravar.WriteEndElement(); //QRCodeContent
+                        xmlWriter.WriteStartElement("QRCodeContent");
+                        xmlWriter.WriteElementString("Image", registerResponse.QrCodeContent.Image);
+                        xmlWriter.WriteElementString("Success", registerResponse.QrCodeContent.Success.ToString());
+                        xmlWriter.WriteElementString("Text", registerResponse.QrCodeContent.Text);
+                        xmlWriter.WriteEndElement();
                     }
                 }
-
-                oXmlGravar.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));
-                oXmlGravar.WriteEndElement(); //BoletoRegistrarResponse
-                oXmlGravar.WriteEndDocument();
-                oXmlGravar.Flush();
-                oXmlGravar.Close();
-            }
-            finally
-            {
-                if (oXmlGravar != null)
-                {
-                    if (oXmlGravar.WriteState != WriteState.Closed)
-                    {
-                        oXmlGravar.Close();
-                    }
-                }
-            }
+            });
         }
     }
 }

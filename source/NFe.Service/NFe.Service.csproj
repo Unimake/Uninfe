@@ -294,6 +294,7 @@
     <Compile Include="eBoleto\TaskBoletoConsultar.cs" />
     <Compile Include="eBoleto\TaskBoletoCancelar.cs" />
     <Compile Include="eBoleto\TaskBoletoRegistrar.cs" />
+    <Compile Include="eBoleto\BoletoRetornoHelper.cs" />
     <Compile Include="EFDReinf\TaskConsultaLoteAssincronoReinf.cs" />
     <Compile Include="EFDReinf\TaskConsultasReinf.cs" />
     <Compile Include="EFDReinf\TaskRecepcaoLoteReinf.cs" />

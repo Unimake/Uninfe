@@ -113,9 +113,10 @@ namespace NFe.Service
                 }
                 else
                 {
+                    var traceId = BoletoRetornoHelper.ExtrairTraceId(informPaymentResponse);
                     GerarXmlRetorno(pathXml, "1", $"Não foi possível marcar o boleto como pago. Tente novamente mais tarde. (Status Code: {((int)informPaymentResponse.StatusCode).ToString()})" + 
                         (!string.IsNullOrWhiteSpace(informPaymentResponse.Codigo) ? " - (Erro: " + informPaymentResponse.Codigo + 
-                        (!string.IsNullOrWhiteSpace(informPaymentResponse.Mensagem) ? " - " + informPaymentResponse.Mensagem : "") + ")" : ""));
+                        (!string.IsNullOrWhiteSpace(informPaymentResponse.Mensagem) ? " - " + informPaymentResponse.Mensagem : "") + ")" : ""), traceId);
                 }
 
                 #endregion
@@ -125,7 +126,9 @@ namespace NFe.Service
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoInformarPagto).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoInformarPagto).RetornoXML;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
-                GerarXmlRetorno(pathXml, "999", ex.GetLastException().Message.Replace("\r\n", " | "));
+                var lastException = ex.GetLastException();
+                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
             {
@@ -145,48 +148,14 @@ namespace NFe.Service
             }
         }
 
-        private void GerarXmlRetorno(string path, string status, string motivo)
+        private void GerarXmlRetorno(string path, string status, string motivo, string traceId = "")
         {
-            var oSettings = new XmlWriterSettings();
-            var c = new UTF8Encoding(false);
-
-            oSettings.Encoding = c;
-            oSettings.Indent = true;
-            oSettings.IndentChars = " ";
-            oSettings.NewLineOnAttributes = false;
-            oSettings.OmitXmlDeclaration = false;
-            XmlWriter oXmlGravar = null;
-
-            try
+            if (status == "0")
             {
-                switch (status)
-                {
-                    case "0":
-                        motivo = "Instrução para marcar o boleto como pago enviado com sucesso";
-                        break;
-                }
+                motivo = "Instrução para marcar o boleto como pago enviado com sucesso";
+            }
 
-                oXmlGravar = XmlWriter.Create(path, oSettings);
-                oXmlGravar.WriteStartDocument();
-                oXmlGravar.WriteStartElement("BoletoInformarPagtoResponse");
-                oXmlGravar.WriteElementString("Status", status);
-                oXmlGravar.WriteElementString("Motivo", motivo);
-                oXmlGravar.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));
-                oXmlGravar.WriteEndElement(); //BoletoInformarPagtoResponse
-                oXmlGravar.WriteEndDocument();
-                oXmlGravar.Flush();
-                oXmlGravar.Close();
-            }
-            finally
-            {
-                if (oXmlGravar != null)
-                {
-                    if (oXmlGravar.WriteState != WriteState.Closed)
-                    {
-                        oXmlGravar.Close();
-                    }
-                }
-            }
+            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoInformarPagtoResponse", status, motivo, traceId);
         }
     }
 }
