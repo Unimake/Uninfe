@@ -115,6 +115,7 @@ namespace NFe.UI
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NFCe, EnumHelper.GetDescription(TipoAplicativo.NFCe)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NF3e, EnumHelper.GetDescription(TipoAplicativo.NF3e)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NFCom, EnumHelper.GetDescription(TipoAplicativo.NFCom)));
+            list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NFGas, EnumHelper.GetDescription(TipoAplicativo.NFGas)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.DCe, EnumHelper.GetDescription(TipoAplicativo.DCe)));
 
 

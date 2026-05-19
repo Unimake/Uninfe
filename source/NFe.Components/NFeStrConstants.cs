@@ -73,6 +73,7 @@ namespace NFe.Components
         chNFe,
         chNF3e,
         chNFCom,
+        chNFGas,
         cilin,
         cIMP,
         cInt,
@@ -761,6 +762,7 @@ namespace NFe.Components
         public static string NAME_SPACE_NFE = "http://www.portalfiscal.inf.br/nfe";
         public static string NAME_SPACE_NF3E = "http://www.portalfiscal.inf.br/nf3e";
         public static string NAME_SPACE_NFCOM = "http://www.portalfiscal.inf.br/nfcom";
+        public static string NAME_SPACE_NFGAS = "http://www.portalfiscal.inf.br/nfgas";
         public static string NAME_SPACE_DCE = "http://www.portalfiscal.inf.br/dce";
 
         public static string proxyError = "Especifique o nome do servidor/usuário/senha e porta para conectar do servidor proxy";

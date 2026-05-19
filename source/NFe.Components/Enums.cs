@@ -699,6 +699,30 @@ namespace NFe.Components
 
         #endregion NFCom
 
+        #region NFGas
+
+        /// <summary>
+        /// Consulta procolo da NFGas
+        /// </summary>
+        NFGasConsultaProtocolo,
+
+        /// <summary>
+        /// Consulta status serviço NFGas
+        /// </summary>
+        NFGasStatusServico,
+
+        /// <summary>
+        /// Envio de Eventos da NFGas
+        /// </summary>
+        NFGasRecepcaoEvento,
+
+        /// <summary>
+        /// Envio do XML de NFGas
+        /// </summary>
+        NFGasAutorizacaoSinc,
+
+        #endregion NFGas
+
         #region DCe
         /// <summary>
         /// Consulta procolo da DCe
@@ -790,7 +814,7 @@ namespace NFe.Components
         /// <summary>
         /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto NFSe)
         /// </summary>
-        [Description("NF-e, NFC-e, NF3-e, NFCom, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
+        [Description("NF-e, NFC-e, NF3-e, NFCom, NFGas, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
         Todos = 10,
 
         /// <summary>
@@ -810,6 +834,12 @@ namespace NFe.Components
         /// </summary>
         [Description("DCe")]
         DCe = 13,
+
+        /// <summary>
+        /// Aplicativo ou serviços para processamentos dos XMLs da NFGas
+        /// </summary>
+        [Description("NFGas")]
+        NFGas = 14,
 
         [Description("")]
         Nulo = 100
