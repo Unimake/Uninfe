@@ -405,6 +405,11 @@ namespace NFe.Components
             NFCom,
 
             /// <summary>
+            /// NFGas
+            /// </summary>
+            NFGas,
+
+            /// <summary>
             /// DCe
             /// </summary>
             DCe,
@@ -1094,6 +1099,17 @@ namespace NFe.Components
                ));
 
             #endregion NFCom
+
+            #region NFGas
+
+            ListaExtensoes.Add(TipoEnvio.NFGas, new ExtensaoClass(
+               "-nfgas.xml", "",
+               "-ret-nfgas.xml", "",
+               "-ret-nfgas.err",
+               "XML de nfgas"
+               ));
+
+            #endregion NFGas
 
             #region DCe
 
@@ -1857,6 +1873,25 @@ namespace NFe.Components
             public const string NFCom_ERR = "-nfcom.err";
 
             #endregion NFCom
+
+            #region NFGas
+
+            /// <summary>
+            /// -procNFGas.xml
+            /// </summary>
+            public const string ProcNFGas = "-procNFGas.xml";
+
+            /// <summary>
+            /// -procEventoNFGas.xml
+            /// </summary>
+            public const string ProcEventoNFGas = "-procEventoNFGas.xml";
+
+            /// <summary>
+            /// -nfgas.err
+            /// </summary>
+            public const string NFGas_ERR = "-nfgas.err";
+
+            #endregion NFGas
 
             #region DCe
 

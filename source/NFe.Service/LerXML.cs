@@ -353,6 +353,53 @@ namespace NFe.Service
 
         #endregion NFCom()
 
+        #region NFGas()
+
+        /// <summary>
+        /// Faz a leitura do XML da nota fiscal eletrônica do gás e disponibiliza os valores de algumas tag´s
+        /// </summary>
+        /// <param name="xmlDocument">Conteúdo do XML para ser lido</param>
+        public void NFGas(XmlDocument xmlDocument)
+        {
+            ClearDados();
+
+            XmlNodeList infNFGasList = xmlDocument.GetElementsByTagName("infNFGas");
+
+            foreach (XmlNode infNFGasNode in infNFGasList)
+            {
+                XmlElement infNFGasElemento = (XmlElement)infNFGasNode;
+
+                if (infNFGasElemento.HasAttributes)
+                {
+                    oDadosNfe.chavenfe = infNFGasElemento.Attributes[TpcnResources.Id.ToString()].InnerText;
+                    oDadosNfe.versao = infNFGasElemento.Attributes[TpcnResources.versao.ToString()].InnerText;
+                }
+
+                XmlNodeList ideList = xmlDocument.GetElementsByTagName("ide");
+
+                foreach (XmlNode ideNode in ideList)
+                {
+                    XmlElement ideElemento = (XmlElement)ideNode;
+
+                    oDadosNfe.dEmi = Convert.ToDateTime(Functions.LerTag(ideElemento, TpcnResources.dhEmi.ToString(), false));
+                    oDadosNfe.tpEmis = Functions.LerTag(ideElemento, TpcnResources.tpEmis.ToString(), false);
+                    oDadosNfe.cUF = Functions.LerTag(ideElemento, TpcnResources.cUF.ToString(), false);
+                }
+
+                XmlNodeList emitList = xmlDocument.GetElementsByTagName("emit");
+
+                foreach (XmlNode emitNode in emitList)
+                {
+                    XmlElement emitElemento = (XmlElement)emitNode;
+
+                    oDadosNfe.CNPJ = Functions.LerTag(emitElemento, TpcnResources.CNPJ.ToString(), false);
+                    oDadosNfe.CPF = Functions.LerTag(emitElemento, TpcnResources.CPF.ToString(), false);
+                }
+            }
+        }
+
+        #endregion NFGas()
+
         #region DCe()
 
         /// <summary>

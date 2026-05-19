@@ -10,6 +10,7 @@ using NFe.Service.EFDReinf;
 using NFe.Service.GNRE;
 using NFe.Service.NF3e;
 using NFe.Service.NFCom;
+using NFe.Service.NFGas;
 using NFe.Settings;
 using NFe.Validate;
 using System;
@@ -476,6 +477,26 @@ namespace NFe.Service
                             break;
 
                         #endregion NFCom
+
+                        #region NFGas
+
+                        case Servicos.NFGasStatusServico:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusNFGas(arquivo));
+                            break;
+
+                        case Servicos.NFGasConsultaProtocolo:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaSituacaoNFGas(arquivo));
+                            break;
+
+                        case Servicos.NFGasAutorizacaoSinc:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskNFGasRecepcaoSinc(arquivo));
+                            break;
+
+                        case Servicos.NFGasRecepcaoEvento:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskNFGasEventos(arquivo));
+                            break;
+
+                        #endregion NFGas
 
                         #region DCe
 
@@ -1135,6 +1156,26 @@ namespace NFe.Service
                                 break;
 
                             #endregion NFCom
+
+                            #region NFGas
+
+                            case "consStatServNFGas":
+                                tipoServico = Servicos.NFGasStatusServico;
+                                break;
+
+                            case "consSitNFGas":
+                                tipoServico = Servicos.NFGasConsultaProtocolo;
+                                break;
+
+                            case "NFGas":
+                                tipoServico = Servicos.NFGasAutorizacaoSinc;
+                                break;
+
+                            case "eventoNFGas":
+                                tipoServico = Servicos.NFGasRecepcaoEvento;
+                                break;
+
+                            #endregion NFGas
 
                             #region DCe
 
@@ -2216,6 +2257,11 @@ namespace NFe.Service
                 case Servicos.DCeAutorizacaoSinc:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML;
                     extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.DCe).RetornoERR;
+                    break;
+
+                case Servicos.NFGasAutorizacaoSinc:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).RetornoERR;
                     break;
 
                 case Servicos.NFeMontarLoteVarias:

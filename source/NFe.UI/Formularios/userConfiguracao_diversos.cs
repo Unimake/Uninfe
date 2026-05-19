@@ -206,6 +206,7 @@ namespace NFe.UI.Formularios
                     this.empresa.Servico.Equals(TipoAplicativo.Todos) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NF3e) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFCom) ||
+                    this.empresa.Servico.Equals(TipoAplicativo.NFGas) ||
                     this.empresa.Servico.Equals(TipoAplicativo.DCe))
                 {
                     checkBoxValidarDigestValue.Checked = this.empresa.CompararDigestValueDFeRetornadoSEFAZ;
@@ -218,6 +219,7 @@ namespace NFe.UI.Formularios
                     this.empresa.Servico.Equals(TipoAplicativo.Todos) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NF3e) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFCom) ||
+                    this.empresa.Servico.Equals(TipoAplicativo.NFGas) ||
                      this.empresa.Servico.Equals(TipoAplicativo.DCe))
                 {
                     checkBoxGravarWarnings.Checked = this.empresa.GravarWarnings;
@@ -359,7 +361,8 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.MDFe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Todos ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NF3e ||
-                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom;
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom ||
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFGas;
 
             checkBoxGravarWarnings.Visible = (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
@@ -368,6 +371,7 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Todos ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NF3e ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom ||
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFGas ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.DCe;
 
             if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
@@ -640,6 +644,7 @@ namespace NFe.UI.Formularios
 
                 case TipoAplicativo.NF3e:
                 case TipoAplicativo.NFCom:
+                case TipoAplicativo.NFGas:
                     comboBox_UF.Visible = true;
                     comboBox_tpEmis.Visible = true;
                     udTempoConsulta.Visible = false;
