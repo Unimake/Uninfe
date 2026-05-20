@@ -341,6 +341,7 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.GNREeDARE:
                 case TipoAplicativo.NF3e:
                 case TipoAplicativo.NFCom:
+                case TipoAplicativo.NFGas:
                     textBox_PastaXmlEmLote.Visible = false;
                     lbl_textBox_PastaLote.Visible = false;
                     textBox_PastaDownloadNFeDest.Visible = false;

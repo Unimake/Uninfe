@@ -14,6 +14,8 @@ using NF3eStatusServico = Unimake.Business.DFe.Servicos.NF3e.StatusServico;
 using NFCeStatusServico = Unimake.Business.DFe.Servicos.NFCe.StatusServico;
 using NFComConsStatServ = Unimake.Business.DFe.Xml.NFCom.ConsStatServNFCom;
 using NFComStatusServico = Unimake.Business.DFe.Servicos.NFCom.StatusServico;
+using NFGasConsStatServ = Unimake.Business.DFe.Xml.NFGas.ConsStatServNFGas;
+using NFGasStatusServico = Unimake.Business.DFe.Servicos.NFGas.StatusServico;
 using NFeConsStatServ = Unimake.Business.DFe.Xml.NFe.ConsStatServ;
 using NFeStatusServico = Unimake.Business.DFe.Servicos.NFe.StatusServico;
 
@@ -168,7 +170,8 @@ namespace NFe.UI
             { TipoAplicativo.Cte,  new[] { "4.00" } },
             { TipoAplicativo.MDFe, new[] { "3.00" } },
             { TipoAplicativo.NF3e, new[] { "1.00" } },
-            { TipoAplicativo.NFCom,new[] { "1.00" } }
+            { TipoAplicativo.NFCom,new[] { "1.00" } },
+            { TipoAplicativo.NFGas,new[] { "1.00" } }
         };
 
         private void ChangeVersao(TipoAplicativo servico)
@@ -282,6 +285,10 @@ namespace NFe.UI
                             case TipoAplicativo.NFCom:
                                 AdicionarConsultaNaGrid(emp, TipoAplicativo.NFCom, amb, cUF, "1.00");
                                 break;
+
+                            case TipoAplicativo.NFGas:
+                                AdicionarConsultaNaGrid(emp, TipoAplicativo.NFGas, amb, cUF, "1.00");
+                                break;
                         }
                     }
                 }
@@ -380,6 +387,16 @@ namespace NFe.UI
                         statusServico = new NFComStatusServico((NFComConsStatServ)consStatServ, configuracao);
                         break;
 
+                    case TipoAplicativo.NFGas:
+                        consStatServ = new NFGasConsStatServ
+                        {
+                            Versao = versao,
+                            TpAmb = (TipoAmbiente)amb,
+                            XServ = "STATUS"
+                        };
+                        statusServico = new NFGasStatusServico((NFGasConsStatServ)consStatServ, configuracao);
+                        break;
+
                     case TipoAplicativo.NF3e:
                         consStatServ = new NF3eConsStatServ
                         {
@@ -448,6 +465,7 @@ namespace NFe.UI
                 case TipoAplicativo.MDFe: return TipoDFe.MDFe;
                 case TipoAplicativo.NF3e: return TipoDFe.NF3e;
                 case TipoAplicativo.NFCom: return TipoDFe.NFCom;
+                case TipoAplicativo.NFGas: return TipoDFe.NFGas;
                 default: return TipoDFe.Desconhecido;
             }
         }

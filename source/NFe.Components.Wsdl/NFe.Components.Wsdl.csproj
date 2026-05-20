@@ -56,11 +56,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="NFe\WSDL\Webservice.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="NFse\schemas\NFSe\ABRASF\nfse.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -357,39 +352,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="NFe\schemas\EPEC\e110140_v1.00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\envEPEC_v1.00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\EPEC_v1.00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\leiauteEPEC_v1.00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\procEPEC_v1.00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\retEnvEPEC_v1.00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\tiposBasico_v1.03.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\xmldsig-core-schema_v1.01.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="NFse\schemas\NFSe\ABRASF\nfse_v2_02.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NFse\schemas\NFSe\ABRASF\nfse_v2_01.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="NFse\WSDL\Webservice.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -499,17 +465,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\schemas\NFSe\EL\el-nfse.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="NFe\schemas\EPEC\eventoEPEC_v0.01.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\retEventoEPEC_v0.01.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\EPEC\tiposBasico_v3.10.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -647,14 +602,9 @@
     <EmbeddedResource Include="NFe\schemas\eSocial\xmldsig-core-schema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\WSDL\Producao\AN\EFDReinf.wsdl" />
-    <EmbeddedResource Include="NFe\WSDL\Producao\AN\eSocial_ServicoEnviarLoteEventos.wsdl" />
     <EmbeddedResource Include="NFe\schemas\eSocial\EnvioLoteEventos-v1_1_1.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\WSDL\Homologacao\AN\eSocial_ServicoConsultarLoteEventos.wsdl" />
-    <EmbeddedResource Include="NFe\WSDL\Homologacao\AN\eSocial_ServicoEnviarLoteEventos.wsdl" />
-    <EmbeddedResource Include="NFe\WSDL\Producao\AN\eSocial_ServicoConsultarLoteEventos.wsdl" />
     <EmbeddedResource Include="NFe\schemas\eSocial\ConsultaLoteEventos-v1_0_0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -664,7 +614,6 @@
     <EmbeddedResource Include="NFse\schemas\NFSe\AVMB_ASTEN\xmldsig-core-schema20020212.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\WSDL\Homologacao\AN\EFDReinf.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\ADM_SISTEMAS\nfse v2 01.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -683,24 +632,18 @@
     <EmbeddedResource Include="NFe\schemas\eSocial\RetornoConsultaIdentificadoresEventos-v1_0_0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\WSDL\Producao\AN\eSocial_ConsultarIdentificadoresEventos.wsdl" />
-    <EmbeddedResource Include="NFe\WSDL\Homologacao\AN\eSocial_ConsultarIdentificadoresEventos.wsdl" />
     <EmbeddedResource Include="NFe\schemas\eSocial\evtBasesFGTS.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NFe\schemas\eSocial\evtFGTS.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\WSDL\Homologacao\AN\eSocial_DownloadEventos.wsdl" />
-    <EmbeddedResource Include="NFe\WSDL\Producao\AN\eSocial_DownloadEventos.wsdl" />
     <EmbeddedResource Include="NFe\schemas\eSocial\SolicitacaoDownloadEventosPorId-v1_0_0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NFe\schemas\eSocial\SolicitacaoDownloadEventosPorNrRecibo-v1_0_0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\WSDL\Homologacao\AN\EFDReinfConsultasReinf.wsdl" />
-    <EmbeddedResource Include="NFe\WSDL\Producao\AN\EFDReinfConsultasReinf.wsdl" />
     <EmbeddedResource Include="NFe\schemas\eSocial\evtBaixa.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
