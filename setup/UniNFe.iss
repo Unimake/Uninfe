@@ -104,9 +104,7 @@ Source: ..\source\uninfe.service\bin\Release\Topshelf.dll; DestDir: {app}; Flags
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion
 
-Source: ..\source\NFe.Components.Wsdl\NFe\WSDL\*.*; DestDir: {app}\nfe\wsdl; Flags: ignoreversion recursesubdirs
 Source: ..\source\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
-Source: ..\source\NFe.Components.Wsdl\NFse\WSDL\*.*; DestDir: {app}\nfse\wsdl; Flags: ignoreversion recursesubdirs
 Source: ..\source\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\schemas; Flags: ignoreversion recursesubdirs
 
 [Icons]
