@@ -189,7 +189,8 @@ namespace NFe.Service
                             break;
 
                         default:
-                            validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML, emp);
+                            ValidarXMLSchema.Validar(xmlDoc, emp, false);
+                            //validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML, emp);
                             break;
                     }
                 }

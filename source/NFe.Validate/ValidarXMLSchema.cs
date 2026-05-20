@@ -100,13 +100,9 @@ namespace NFe.Validate
         }
 
 
-        public static ResultadoValidacao Validar(string arquivoXML, int emp, bool retornoArquivo)
+        public static ResultadoValidacao Validar(XmlDocument xmlDoc, int emp, bool retornoArquivo, string arquivoXML = null)
         {
-
             #region variáveis validação
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(arquivoXML);
-
             var configuracao = new Configuracao
             {
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
@@ -137,6 +133,12 @@ namespace NFe.Validate
 
             if (retornoArquivo)
             { 
+                //Caso seja necessário retornar é obrigatório que o arquivoXML tenha sido passado
+                if(arquivoXML is null)
+                {
+                    throw new ArgumentNullException(nameof(arquivoXML), "O arquivo XML é necessário para gerar retorno");
+                }
+
                 if (resultadoValidacao.Validado)
                 {
                     GravarXMLValidado(arquivoXML, emp, resultadoValidacao.XmlAssinado, isNFSe);
