@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Exceptions;
 using NFe.Settings;
 using System;
@@ -69,6 +69,7 @@ namespace NFe.Service
 
                 var configuracao = new Configuracao
                 {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = (ler.oDadosNfe.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
                     TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)(Convert.ToInt32(ler.oDadosNfe.tpEmis)),
                     CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado

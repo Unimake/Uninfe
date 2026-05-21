@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Collections.Generic;
@@ -220,6 +220,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Configuracao
             {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,

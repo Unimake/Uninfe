@@ -54,6 +54,8 @@ namespace NFe.UI.Formularios
             }
 
             chkSalvarXMLDistribuicao.Checked = empresa.SalvarSomenteXMLDistribuicao;
+            chkAtivarPreparacaoTLSAntesEnvioXML.Checked = empresa.AtivarPreparacaoTLSAntesEnvioXML;
+            lblAvisoPreparacaoTLSAntesEnvioXML.Visible = chkAtivarPreparacaoTLSAntesEnvioXML.Checked;
             udTempoEnvioNFSe.Text = empresa.TempoEnvioNFSe.ToString();
             udVersaoQrCodeNFCe.Text = empresa.VersaoQRCodeNFCe.ToString();
         }
@@ -61,6 +63,7 @@ namespace NFe.UI.Formularios
         public void Validar(bool salvando = true)
         {
             empresa.SalvarSomenteXMLDistribuicao = chkSalvarXMLDistribuicao.Checked;
+            empresa.AtivarPreparacaoTLSAntesEnvioXML = chkAtivarPreparacaoTLSAntesEnvioXML.Checked;
             empresa.TempoEnvioNFSe = Convert.ToInt32(udTempoEnvioNFSe.Text);
             empresa.VersaoQRCodeNFCe = Convert.ToInt32(udVersaoQrCodeNFCe.Text);
         }
@@ -89,6 +92,12 @@ namespace NFe.UI.Formularios
 
         private void udVersaoQrCodeNFCe_TextChanged(object sender, EventArgs e)
         {
+            changeEvent?.Invoke(sender, e);
+        }
+
+        private void chkAtivarPreparacaoTLSAntesEnvioXML_CheckedChanged(object sender, EventArgs e)
+        {
+            lblAvisoPreparacaoTLSAntesEnvioXML.Visible = chkAtivarPreparacaoTLSAntesEnvioXML.Checked;
             changeEvent?.Invoke(sender, e);
         }
     }

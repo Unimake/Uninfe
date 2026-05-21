@@ -288,6 +288,10 @@ namespace NFe.Settings
         /// </summary>
         public bool SalvarSomenteXMLDistribuicao { get; set; }
         /// <summary>
+        /// Se verdadeiro, ativa a preparação do TLS antes do envio do XML
+        /// </summary>
+        public bool AtivarPreparacaoTLSAntesEnvioXML { get; set; }
+        /// <summary>
         /// Inscrição Estadual informada no cadastro da empresa
         /// </summary>
         public string InscricaoEstadual { get; set; }
@@ -1122,6 +1126,7 @@ namespace NFe.Settings
             empresa.UnidadeFederativaCodigo = 41;
 
             empresa.GravarRetornoTXTNFe =
+                empresa.AtivarPreparacaoTLSAntesEnvioXML =
                 empresa.GravarEventosNaPastaEnviadosNFe =
                 empresa.GravarEventosCancelamentoNaPastaEnviadosNFe =
                 empresa.GravarEventosDeTerceiros =

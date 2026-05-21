@@ -44,6 +44,7 @@ namespace NFe.Service.NFGas
 
                 var configuracao = new Configuracao
                 {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.NFGas,
                     CodigoUF = dadosPedSta.cUF,
                     TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)dadosPedSta.tpEmis,

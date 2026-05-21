@@ -437,6 +437,7 @@ namespace NFe.UI
 
             var config = new Configuracao
             {
+                PrepararConexaoTLSAntesDoEnvio = empresa.AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = MapearServicoParaTipoDFe(servico),
                 TipoEmissao = (TipoEmissao)empresa.tpEmis,
                 CodigoUF = cUF ?? Functions.UFParaCodigo(comboUf.SelectedValue.ToString()),

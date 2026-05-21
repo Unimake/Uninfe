@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -46,6 +46,7 @@ namespace NFe.Service
 
                     var configuracao = new Configuracao
                     {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = (dadosPedSta.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
                         TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)dadosPedSta.tpEmis,
                         CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado

@@ -33,6 +33,8 @@
             this.udTempoEnvioNFSe = new MetroFramework.Controls.MetroTextBox();
             this.lbl_udVersaoQrCodeNFCe = new MetroFramework.Controls.MetroLabel();
             this.udVersaoQrCodeNFCe = new MetroFramework.Controls.MetroTextBox();
+            this.chkAtivarPreparacaoTLSAntesEnvioXML = new MetroFramework.Controls.MetroCheckBox();
+            this.lblAvisoPreparacaoTLSAntesEnvioXML = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // chkSalvarXMLDistribuicao
@@ -51,7 +53,7 @@
             // 
             this.lbl_udTempoEnvioNFSe.AutoSize = true;
             this.lbl_udTempoEnvioNFSe.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.lbl_udTempoEnvioNFSe.Location = new System.Drawing.Point(9, 84);
+            this.lbl_udTempoEnvioNFSe.Location = new System.Drawing.Point(9, 160);
             this.lbl_udTempoEnvioNFSe.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lbl_udTempoEnvioNFSe.Name = "lbl_udTempoEnvioNFSe";
             this.lbl_udTempoEnvioNFSe.Size = new System.Drawing.Size(378, 15);
@@ -62,7 +64,7 @@
             // udTempoEnvioNFSe
             // 
             this.udTempoEnvioNFSe.Lines = new string[0];
-            this.udTempoEnvioNFSe.Location = new System.Drawing.Point(9, 105);
+            this.udTempoEnvioNFSe.Location = new System.Drawing.Point(9, 181);
             this.udTempoEnvioNFSe.MaxLength = 4;
             this.udTempoEnvioNFSe.Name = "udTempoEnvioNFSe";
             this.udTempoEnvioNFSe.PasswordChar = '\0';
@@ -102,11 +104,37 @@
             this.udVersaoQrCodeNFCe.UseStyleColors = true;
             this.udVersaoQrCodeNFCe.Visible = false;
             this.udVersaoQrCodeNFCe.TextChanged += new System.EventHandler(this.udVersaoQrCodeNFCe_TextChanged);
+            //
+            // chkAtivarPreparacaoTLSAntesEnvioXML
+            //
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.AutoSize = true;
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.Location = new System.Drawing.Point(9, 88);
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.Name = "chkAtivarPreparacaoTLSAntesEnvioXML";
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.Size = new System.Drawing.Size(287, 15);
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.TabIndex = 30;
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.Text = "Ativar preparação de TLS antes do envio do XML?";
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.UseSelectable = true;
+            this.chkAtivarPreparacaoTLSAntesEnvioXML.CheckedChanged += new System.EventHandler(this.chkAtivarPreparacaoTLSAntesEnvioXML_CheckedChanged);
+            //
+            // lblAvisoPreparacaoTLSAntesEnvioXML
+            //
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.Location = new System.Drawing.Point(9, 111);
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.Name = "lblAvisoPreparacaoTLSAntesEnvioXML";
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.Size = new System.Drawing.Size(615, 38);
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.TabIndex = 31;
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.Text = "Atenção: use esta opção somente quando houver problemas de conexão TLS. Ela faz um" +
+    "a primeira tentativa para preparar o TLS antes do envio do XML e pode deixar a co" +
+    "nexão mais lenta, mesmo que por frações de segundo.";
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.Visible = false;
+            this.lblAvisoPreparacaoTLSAntesEnvioXML.WrapToLine = true;
             // 
             // userConfiguracao_outrasconfiguracoes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblAvisoPreparacaoTLSAntesEnvioXML);
+            this.Controls.Add(this.chkAtivarPreparacaoTLSAntesEnvioXML);
             this.Controls.Add(this.lbl_udVersaoQrCodeNFCe);
             this.Controls.Add(this.udVersaoQrCodeNFCe);
             this.Controls.Add(this.lbl_udTempoEnvioNFSe);
@@ -126,5 +154,7 @@
         private MetroFramework.Controls.MetroTextBox udTempoEnvioNFSe;
         private MetroFramework.Controls.MetroLabel lbl_udVersaoQrCodeNFCe;
         private MetroFramework.Controls.MetroTextBox udVersaoQrCodeNFCe;
+        private MetroFramework.Controls.MetroCheckBox chkAtivarPreparacaoTLSAntesEnvioXML;
+        private MetroFramework.Controls.MetroLabel lblAvisoPreparacaoTLSAntesEnvioXML;
     }
 }

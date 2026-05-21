@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -34,6 +34,7 @@ namespace NFe.Service.GNRE
 
                 var configuracao = new Configuracao
                 {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.GNRE,
                     TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
                     CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,

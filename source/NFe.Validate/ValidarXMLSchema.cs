@@ -105,6 +105,7 @@ namespace NFe.Validate
             #region variáveis validação
             var configuracao = new Configuracao
             {
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.Homologacao ? TipoAmbiente.Homologacao : TipoAmbiente.Producao,
                 CSC = Empresas.Configuracoes[emp].IdentificadorCSC,
