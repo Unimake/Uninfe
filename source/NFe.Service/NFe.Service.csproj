@@ -272,6 +272,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AuthApiScopeHelper.cs" />
     <Compile Include="CCG\TaskCcgConsGTIN.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="CTe\TaskAssinarValidarCTe.cs" />
