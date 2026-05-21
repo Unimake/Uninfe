@@ -95,7 +95,7 @@ namespace NFe.Service
                 }
                 else
                 {
-                    var traceId = BoletoRetornoHelper.ExtrairTraceId(informPaymentResponse);
+                    var traceId = ApiExceptionHelper.ExtrairTraceId(informPaymentResponse);
                     GerarXmlRetorno(pathXml, "1", $"Não foi possível marcar o boleto como pago. Tente novamente mais tarde. (Status Code: {((int)informPaymentResponse.StatusCode).ToString()})" + 
                         (!string.IsNullOrWhiteSpace(informPaymentResponse.Codigo) ? " - (Erro: " + informPaymentResponse.Codigo + 
                         (!string.IsNullOrWhiteSpace(informPaymentResponse.Mensagem) ? " - " + informPaymentResponse.Mensagem : "") + ")" : ""), traceId);
@@ -109,7 +109,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
@@ -137,7 +137,7 @@ namespace NFe.Service
                 motivo = "Instrução para marcar o boleto como pago enviado com sucesso";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoInformarPagtoResponse", status, motivo, traceId);
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoInformarPagtoResponse", status, motivo, traceId);
         }
     }
 }

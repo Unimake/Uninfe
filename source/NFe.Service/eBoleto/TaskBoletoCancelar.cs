@@ -96,7 +96,7 @@ namespace NFe.Service
                 }
                 else
                 {
-                    var traceId = BoletoRetornoHelper.ExtrairTraceId(cancelResponse);
+                    var traceId = ApiExceptionHelper.ExtrairTraceId(cancelResponse);
                     GerarXmlRetorno(pathXml, "1", $"Não foi possível cancelar o boleto. Tente novamente mais tarde. (Status Code: {((int)cancelResponse.StatusCode).ToString()})" +
                     (!string.IsNullOrWhiteSpace(cancelResponse.Codigo) ? " - (Erro: " + cancelResponse.Codigo +
                         (!string.IsNullOrWhiteSpace(cancelResponse.Mensagem) ? " - " + cancelResponse.Mensagem : "") + ")" : ""), traceId);
@@ -110,7 +110,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
@@ -138,7 +138,7 @@ namespace NFe.Service
                 motivo = "Boleto cancelado";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoCancelarResponse", status, motivo, traceId);
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoCancelarResponse", status, motivo, traceId);
         }
     }
 }

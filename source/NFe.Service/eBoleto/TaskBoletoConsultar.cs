@@ -122,7 +122,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", ""), null, traceId);
             }
             finally
@@ -157,7 +157,7 @@ namespace NFe.Service
                 motivo = "Nenhum boleto encontrado";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoConsultarResponse", status, motivo, traceId, xmlWriter =>
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoConsultarResponse", status, motivo, traceId, xmlWriter =>
             {
                 if (queryInformationResponse != null)
                 {

@@ -286,7 +286,9 @@ namespace NFe.Service
             }
             catch (Exception ex)
             {
-                GerarXmlRetorno(pathXml, "999", ex.GetLastException().Message.Replace("\r\n", " - "), "");
+                var lastException = ex.GetLastException();
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
+                GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " - "), "", true, true, "", traceId);
             }
             finally
             {
@@ -319,7 +321,7 @@ namespace NFe.Service
             XmlSetting.OmitXmlDeclaration = false;
         }
 
-        private void GerarXmlRetorno(string path, string status, string motivo, string returnMessageID = "", bool criarXML = true, bool encerrarXML = true, string messageID = "")
+        private void GerarXmlRetorno(string path, string status, string motivo, string returnMessageID = "", bool criarXML = true, bool encerrarXML = true, string messageID = "", string traceId = "")
         {
             try
             {
@@ -337,24 +339,7 @@ namespace NFe.Service
                     XmlGravar.WriteStartElement("uMessengerResponse");
                 }
 
-                XmlGravar.WriteStartElement("Mensagem");
-
-                if (!string.IsNullOrWhiteSpace(messageID))
-                {
-                    XmlGravar.WriteAttributeString("Id", messageID);
-                }
-
-                XmlGravar.WriteElementString("Status", status);
-                XmlGravar.WriteElementString("Motivo", motivo);
-
-                if (!string.IsNullOrWhiteSpace(returnMessageID) && status == "1")
-                {
-                    XmlGravar.WriteElementString("messageID", returnMessageID);
-                }
-
-                XmlGravar.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));
-
-                XmlGravar.WriteEndElement(); //Mensagem
+                ApiExceptionHelper.GravarXmlRetornoUMessenger(XmlGravar, status, motivo, returnMessageID, messageID, traceId);
 
                 if (encerrarXML)
                 {

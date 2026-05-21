@@ -368,7 +368,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(
                    pathXml,
                    "999",
@@ -405,7 +405,7 @@ namespace NFe.Service
                 motivo = "Boleto registrado";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoRegistrarResponse", status, motivo, traceId, xmlWriter =>
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoRegistrarResponse", status, motivo, traceId, xmlWriter =>
             {
                 if (status == "0")
                 {

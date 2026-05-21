@@ -96,7 +96,7 @@ namespace NFe.Service
                 }
                 else
                 {
-                    var traceId = BoletoRetornoHelper.ExtrairTraceId(extendPaymentResponse);
+                    var traceId = ApiExceptionHelper.ExtrairTraceId(extendPaymentResponse);
                     GerarXmlRetorno(pathXml, "1", $"Não foi possível alterar o vencimento do boleto. Tente novamente mais tarde. (Status Code: {((int)extendPaymentResponse.StatusCode).ToString()})" +
                     (!string.IsNullOrWhiteSpace(extendPaymentResponse.Codigo) ? " - (Erro: " + extendPaymentResponse.Codigo +
                     (!string.IsNullOrWhiteSpace(extendPaymentResponse.Mensagem) ? " - " + extendPaymentResponse.Mensagem : "") + ")" : ""), traceId);
@@ -110,7 +110,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
@@ -138,7 +138,7 @@ namespace NFe.Service
                 motivo = "Vencimento do boleto alterado";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoAlterarVenctoResponse", status, motivo, traceId);
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoAlterarVenctoResponse", status, motivo, traceId);
         }
     }
 }

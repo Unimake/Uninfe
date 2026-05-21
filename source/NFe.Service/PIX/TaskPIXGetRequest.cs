@@ -169,22 +169,24 @@ namespace NFe.Service
             {
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, extEnvio) + extRetorno;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(ex.GetLastException());
 
                 if (ex.StatusCode == HttpStatusCode.NotFound)
                 {
-                    GerarXmlRetorno(pathXml, null, "Nenhum Movimento PIX foi localizado.", "2");
+                    GerarXmlRetorno(pathXml, null, "Nenhum Movimento PIX foi localizado.", "2", traceId);
                 }
                 else
                 {
-                    GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""));
+                    GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""), "", traceId);
                 }
             }
             catch (Exception ex)
             {
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, extEnvio) + extRetorno;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(ex.GetLastException());
 
-                GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""));
+                GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""), "", traceId);
             }
             finally
             {
@@ -203,7 +205,7 @@ namespace NFe.Service
             }
         }
 
-        private void GerarXmlRetorno(string path, List<PIXItem> respostas, string exceptionMessage = "", string status = "")
+        private void GerarXmlRetorno(string path, List<PIXItem> respostas, string exceptionMessage = "", string status = "", string traceId = "")
         {
             var oSettings = new XmlWriterSettings();
             var c = new UTF8Encoding(false);
@@ -235,6 +237,11 @@ namespace NFe.Service
                         oXmlGravar.WriteElementString("Status", "999");
                     }
                     oXmlGravar.WriteElementString("Motivo", exceptionMessage);
+
+                    if (!string.IsNullOrWhiteSpace(traceId))
+                    {
+                        oXmlGravar.WriteElementString("TraceId", traceId);
+                    }
                 }
                 else
                 {

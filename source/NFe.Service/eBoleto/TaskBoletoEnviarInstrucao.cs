@@ -112,7 +112,7 @@ namespace NFe.Service
                 }
                 else
                 {
-                    var traceId = BoletoRetornoHelper.ExtrairTraceId(putInstructionsResponse);
+                    var traceId = ApiExceptionHelper.ExtrairTraceId(putInstructionsResponse);
                     GerarXmlRetorno(pathXml, "1", $"Não foi possível enviar a instrução do boleto. Tente novamente mais tarde. (Status Code: {((int)putInstructionsResponse.StatusCode).ToString()})" +
                     (!string.IsNullOrWhiteSpace(putInstructionsResponse.Codigo) ? " - (Erro: " + putInstructionsResponse.Codigo +
                         (!string.IsNullOrWhiteSpace(putInstructionsResponse.Mensagem) ? " - " + putInstructionsResponse.Mensagem : "") + ")" : ""), traceId);
@@ -126,7 +126,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
@@ -154,7 +154,7 @@ namespace NFe.Service
                 motivo = "Instruções do boleto enviado com sucesso";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoEnviarInstrucaoResponse", status, motivo, traceId);
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoEnviarInstrucaoResponse", status, motivo, traceId);
         }
     }
 }

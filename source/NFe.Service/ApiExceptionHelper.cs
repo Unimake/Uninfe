@@ -1,12 +1,13 @@
-using System;
-using System.Xml;
+﻿using System;
 using System.Text.Json;
+using System.Xml;
 using NFe.Components;
 
 namespace NFe.Service
 {
-    internal static class BoletoRetornoHelper
+    internal static class ApiExceptionHelper
     {
+
         public static string ExtrairTraceId(object origem)
         {
             try
@@ -38,7 +39,7 @@ namespace NFe.Service
             }
         }
 
-        public static void GravarXmlRetorno(
+        public static void GravarXmlRetornoEBoleto(
             string path,
             string rootElement,
             string status,
@@ -87,5 +88,36 @@ namespace NFe.Service
             }
         }
 
+        public static void GravarXmlRetornoUMessenger(
+            XmlWriter xmlWriter,
+            string status,
+            string motivo,
+            string returnMessageID = "",
+            string messageID = "",
+            string traceId = "")
+        {
+            xmlWriter.WriteStartElement("Mensagem");
+
+            if (!string.IsNullOrWhiteSpace(messageID))
+            {
+                xmlWriter.WriteAttributeString("Id", messageID);
+            }
+
+            xmlWriter.WriteElementString("Status", status);
+            xmlWriter.WriteElementString("Motivo", motivo);
+
+            if (!string.IsNullOrWhiteSpace(returnMessageID) && status == "1")
+            {
+                xmlWriter.WriteElementString("messageID", returnMessageID);
+            }
+
+            if (!string.IsNullOrWhiteSpace(traceId))
+            {
+                xmlWriter.WriteElementString("TraceId", traceId);
+            }
+
+            xmlWriter.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));
+            xmlWriter.WriteEndElement(); //Mensagem
+        }
     }
 }
