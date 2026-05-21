@@ -1456,11 +1456,11 @@ namespace NFe.Service
             try
             {
                 var emp = Empresas.FindEmpresaByThread();
-                var xmlDoc = new XmlDocument();
-                xmlDoc.Load(arquivo);
-
                 if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    var xmlDoc = new XmlDocument();
+                    xmlDoc.Load(arquivo);
+
                     var xmlValidado = ValidarXMLSchema.Validar(xmlDoc, emp, true, arquivo);
                     if (xmlValidado.Validado) //tenta validar
                     {
