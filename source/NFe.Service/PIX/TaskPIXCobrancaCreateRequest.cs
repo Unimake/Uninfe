@@ -243,28 +243,10 @@ namespace NFe.Service
                     }
                 }
 
-                var useHomologServer = false;
+                var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(pixCobrancaCreateRequest.Testing, ConteudoXML.DocumentElement);
+                debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://ebank.sandbox.unimake.software/api/v1/");
 
-                if (ConteudoXML.GetElementsByTagName("UseHomologServer").Count > 0)
-                {
-                    useHomologServer = Convert.ToBoolean(ConteudoXML.GetElementsByTagName("UseHomologServer")[0].InnerText);
-                }
-
-                debugScope = null;
-                if (pixCobrancaCreateRequest.Testing)
-                {
-                    debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
-                    {
-                        AuthServerUrl = "https://auth.sandbox.unimake.software/api/auth/",
-                        AnotherServerUrl = "https://ebank.sandbox.unimake.software/api/v1/"
-                    });
-                }
-
-                var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
-                {
-                    AppId = Empresas.Configuracoes[emp].AppID,
-                    Secret = Empresas.Configuracoes[emp].Secret
-                });
+                var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeEBank(emp);
 
                 var pixService = new PIXService();
 

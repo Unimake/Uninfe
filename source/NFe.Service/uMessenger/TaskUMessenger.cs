@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using Unimake;
 using Unimake.AuthServer.Security.Scope;
 using Unimake.MessageBroker.Primitives.Enumerations;
 using Unimake.MessageBroker.Primitives.Model.Messages;
@@ -133,32 +134,13 @@ namespace NFe.Service
                     var returnMessageID = string.Empty;
                     var tags = serviceElement;
 
-                    var useHomologServer = false;
+                    //Se for testing tem que usar SANDBOX que neste caso é o UseHomologServer = true
+                    var testing = AuthApiScopeHelper.GetTesting(tags);
+                    var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(testing, serviceElement);
 
-                    if (serviceElement.GetElementsByTagName("UseHomologServer").Count > 0)
-                    {
-                        useHomologServer = Convert.ToBoolean(serviceElement.GetElementsByTagName("UseHomologServer")[0].InnerText);
-                    }
+                    debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://umessenger.sandbox.unimake.software/api/v1/");
 
-                    debugScope = null;
-                    if (useHomologServer)
-                    {
-                        debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
-                        {
-                            AuthServerUrl = "https://auth.sandbox.unimake.software/api/auth/",
-                            AnotherServerUrl = "https://umessenger.sandbox.unimake.software/api/v1/"
-                        });
-                    }
-
-
-
-                    var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
-                    {
-                        AppId = (Empresas.Configuracoes[emp].MesmosDadosEb_Mb ? Empresas.Configuracoes[emp].AppID : Empresas.Configuracoes[emp].AppID_UMessenger),
-                        Secret = (Empresas.Configuracoes[emp].MesmosDadosEb_Mb ? Empresas.Configuracoes[emp].Secret : Empresas.Configuracoes[emp].Secret_UMessenger)
-                    });
-
-
+                    var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeUMessenger(emp);
 
                     var service = new MessageService(MessagingService.WhatsApp);
 
@@ -176,7 +158,7 @@ namespace NFe.Service
                                 QueryString = tags.GetElementsByTagName("QueryString")[0].InnerText,
                                 To = tags.GetElementsByTagName("To")[0].InnerText,
                                 Value = tags.GetElementsByTagName("Value")[0].InnerText,
-                                Testing = Convert.ToBoolean(tags.GetElementsByTagName("Testing")[0].InnerText),
+                                Testing = testing,
                             };
 
                             var responseNotifyPIX = await service.NotifyPIXCollectionAsync(pixNotification, authenticatedScope);
@@ -198,7 +180,7 @@ namespace NFe.Service
                                 QueryString = tags.GetElementsByTagName("QueryString")[0].InnerText,
                                 To = tags.GetElementsByTagName("To")[0].InnerText,
                                 Value = tags.GetElementsByTagName("Value")[0].InnerText,
-                                Testing = Convert.ToBoolean(tags.GetElementsByTagName("Testing")[0].InnerText),
+                                Testing = testing,
                             };
 
                             var responseNotifyBillet = await service.NotifyBilletAsync(notifyBilletAsync, authenticatedScope);
@@ -221,7 +203,7 @@ namespace NFe.Service
                                 },
                                 InstanceName = tags.GetElementsByTagName("InstanceName")[0].InnerText,
                                 Text = tags.GetElementsByTagName("Text")[0].InnerText.Replace("\\r", "\r").Replace("\\n", "\n"),
-                                Testing = Convert.ToBoolean(tags.GetElementsByTagName("Testing")[0].InnerText)
+                                Testing = testing
                             };
 
                             if (tags.GetElementsByTagName("Files").Count > 0)
