@@ -11,9 +11,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
-using Unimake.AuthServer.Security.Scope;
 using Unimake.EBank.Solutions.Services.Billet;
 using Unimake.Primitives.UDebug;
 
@@ -37,7 +35,7 @@ namespace NFe.Service
 
             try
             {
-                if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].AppID) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].Secret))
+                if(string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].AppID) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].Secret))
                 {
                     throw new Exception("Para utilizar o serviço do eBoleto é necessário configurar no UniNFe o AppID e Secret do eBank.");
                 }
@@ -54,7 +52,7 @@ namespace NFe.Service
                 };
 
                 validarXML.ValidarArqXML(ConteudoXML, NomeArquivoXML);
-                if (validarXML.Retorno != 0)
+                if(validarXML.Retorno != 0)
                 {
                     throw new Exception(validarXML.RetornoString.Replace("\r\n", ""));
                 }
@@ -92,14 +90,14 @@ namespace NFe.Service
                 #region Avalista
 
                 var numeroNoBanco = TFunctions.GetXmlValue(ConteudoXML, "NumeroNoBanco");
-                if (!string.IsNullOrWhiteSpace(numeroNoBanco))
+                if(!string.IsNullOrWhiteSpace(numeroNoBanco))
                 {
                     registerRequest.NumeroNoBanco = numeroNoBanco;
                 }
 
                 var avalista = ConteudoXML.GetElementsByTagName("Avalista");
 
-                if (avalista.Count > 0)
+                if(avalista.Count > 0)
                 {
                     var elementoAvalista = (XmlElement)avalista[0];
 
@@ -112,7 +110,7 @@ namespace NFe.Service
 
                     var enderecoAvalista = ((XmlElement)avalista[0]).GetElementsByTagName("Endereco");
 
-                    if (enderecoAvalista.Count > 0)
+                    if(enderecoAvalista.Count > 0)
                     {
                         var elementoEnderecoAvalista = (XmlElement)((XmlElement)avalista[0]).GetElementsByTagName("Endereco")[0];
 
@@ -135,7 +133,7 @@ namespace NFe.Service
 
                 var desconto = ConteudoXML.GetElementsByTagName("Desconto");
 
-                if (desconto.Count > 0)
+                if(desconto.Count > 0)
                 {
                     var elementoDesconto = (XmlElement)desconto[0];
 
@@ -153,7 +151,7 @@ namespace NFe.Service
 
                 var juros = ConteudoXML.GetElementsByTagName("Juros");
 
-                if (juros.Count > 0)
+                if(juros.Count > 0)
                 {
                     var elementoJuros = (XmlElement)juros[0];
 
@@ -171,7 +169,7 @@ namespace NFe.Service
 
                 var mensagens = ConteudoXML.GetElementsByTagName("Mensagens");
 
-                if (mensagens.Count > 0)
+                if(mensagens.Count > 0)
                 {
                     var nodes = mensagens[0].SelectNodes("Mensagem");
 
@@ -184,7 +182,7 @@ namespace NFe.Service
 
                 var mensagensRecibo = ConteudoXML.GetElementsByTagName("MensagensRecibo");
 
-                if (mensagensRecibo.Count > 0)
+                if(mensagensRecibo.Count > 0)
                 {
                     var nodes = mensagensRecibo[0].SelectNodes("Mensagem");
 
@@ -197,7 +195,7 @@ namespace NFe.Service
 
                 var multa = ConteudoXML.GetElementsByTagName("Multa");
 
-                if (multa.Count > 0)
+                if(multa.Count > 0)
                 {
                     var elementoMulta = (XmlElement)multa[0];
 
@@ -213,37 +211,33 @@ namespace NFe.Service
 
                 #region Pagador
 
-                var pagador = ConteudoXML.GetElementsByTagName("Pagador");
+                var pagador = ConteudoXML.GetElementsByTagName("Pagador").Cast<XmlElement>().FirstOrDefault(w => w.ParentNode.Name.Equals("BoletoRegistrar", StringComparison.OrdinalIgnoreCase));
 
-                if (pagador.Count > 0)
+                if(pagador != null)
                 {
-                    var elementoPagador = (XmlElement)pagador[0];
-
                     registerRequest.Pagador = new Pagador
                     {
-                        Nome = TFunctions.GetXmlValue(elementoPagador, "Nome"),
-                        TipoInscricao = (TipoDeInscricao)TFunctions.GetXmlIntValue(elementoPagador, "TipoInscricao"),
-                        Inscricao = TFunctions.GetXmlValue(elementoPagador, "Inscricao"),
-                        Codigo = TFunctions.GetXmlValue(elementoPagador, "Codigo"),
-                        Email = TFunctions.GetXmlValue(elementoPagador, "Email"),
-                        Telefone = TFunctions.GetXmlValue(elementoPagador, "Telefone")
+                        Nome = TFunctions.GetXmlValue(pagador, "Nome"),
+                        TipoInscricao = (TipoDeInscricao)TFunctions.GetXmlIntValue(pagador, "TipoInscricao"),
+                        Inscricao = TFunctions.GetXmlValue(pagador, "Inscricao"),
+                        Codigo = TFunctions.GetXmlValue(pagador, "Codigo"),
+                        Email = TFunctions.GetXmlValue(pagador, "Email"),
+                        Telefone = TFunctions.GetXmlValue(pagador, "Telefone")
                     };
 
-                    var enderecoPagador = elementoPagador.GetElementsByTagName("Endereco");
+                    var enderecoPagador = pagador.GetElementsByTagName("Endereco").Cast<XmlElement>().FirstOrDefault();
 
-                    if (enderecoPagador.Count > 0)
+                    if(enderecoPagador != null)
                     {
-                        var elementoEndereco = (XmlElement)enderecoPagador[0];
-
                         registerRequest.Pagador.Endereco = new Endereco
                         {
-                            Logradouro = TFunctions.GetXmlValue(elementoEndereco, "Logradouro"),
-                            Numero = TFunctions.GetXmlValue(elementoEndereco, "Numero"),
-                            Complemento = TFunctions.GetXmlValue(elementoEndereco, "Complemento"),
-                            Bairro = TFunctions.GetXmlValue(elementoEndereco, "Bairro"),
-                            Cidade = TFunctions.GetXmlValue(elementoEndereco, "Cidade"),
-                            UF = TFunctions.GetXmlValue(elementoEndereco, "UF"),
-                            CEP = TFunctions.GetXmlValue(elementoEndereco, "CEP")
+                            Logradouro = TFunctions.GetXmlValue(enderecoPagador, "Logradouro"),
+                            Numero = TFunctions.GetXmlValue(enderecoPagador, "Numero"),
+                            Complemento = TFunctions.GetXmlValue(enderecoPagador, "Complemento"),
+                            Bairro = TFunctions.GetXmlValue(enderecoPagador, "Bairro"),
+                            Cidade = TFunctions.GetXmlValue(enderecoPagador, "Cidade"),
+                            UF = TFunctions.GetXmlValue(enderecoPagador, "UF"),
+                            CEP = TFunctions.GetXmlValue(enderecoPagador, "CEP")
                         };
                     }
                 }
@@ -254,7 +248,7 @@ namespace NFe.Service
 
                 var pdfConfig = ConteudoXML.GetElementsByTagName("PDFConfig");
 
-                if (pdfConfig.Count > 0)
+                if(pdfConfig.Count > 0)
                 {
                     var elementoPdfConfig = (XmlElement)pdfConfig[0];
 
@@ -279,7 +273,7 @@ namespace NFe.Service
 
                 var nodePixConfig = ConteudoXML.GetElementsByTagName("PixConfig");
 
-                if (nodePixConfig.Count > 0)
+                if(nodePixConfig.Count > 0)
                 {
                     var elementPixConfig = (XmlElement)nodePixConfig[0];
 
@@ -291,7 +285,7 @@ namespace NFe.Service
 
                     var nodeQrCodeConfig = elementPixConfig.GetElementsByTagName("QrCodeConfig");
 
-                    if (nodeQrCodeConfig.Count > 0)
+                    if(nodeQrCodeConfig.Count > 0)
                     {
                         var elementQrCodeConfig = (XmlElement)nodeQrCodeConfig[0];
                         registerRequest.PIXConfig.QRCodeConfig.Height = TFunctions.GetXmlIntValue(elementQrCodeConfig, "Height");
@@ -307,7 +301,7 @@ namespace NFe.Service
 
                 var protesto = ConteudoXML.GetElementsByTagName("Protesto");
 
-                if (protesto.Count > 0)
+                if(protesto.Count > 0)
                 {
                     var elementoProtesto = (XmlElement)protesto[0];
 
@@ -347,7 +341,7 @@ namespace NFe.Service
 
                 file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
                 var pathPDF = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file.Replace(".xml", ".pdf"));
-                if (responseBilletService.PDFContent.Success)
+                if(responseBilletService.PDFContent.Success)
                 {
                     responseBilletService.PDFContent.SaveToFile(pathPDF);
                 }
@@ -362,7 +356,7 @@ namespace NFe.Service
 
                 #endregion
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
@@ -400,14 +394,14 @@ namespace NFe.Service
             var cultura = CultureInfo.CreateSpecificCulture("en-US");
             cultura.NumberFormat.NumberDecimalSeparator = ".";
 
-            if (status == "0")
+            if(status == "0")
             {
                 motivo = "Boleto registrado";
             }
 
             ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoRegistrarResponse", status, motivo, traceId, xmlWriter =>
             {
-                if (status == "0")
+                if(status == "0")
                 {
                     xmlWriter.WriteElementString("CodigoBarraNumerico", registerResponse.CodigoBarraNumerico);
                     xmlWriter.WriteElementString("NumeroNoBanco", registerResponse.NumeroNoBanco);
@@ -417,7 +411,7 @@ namespace NFe.Service
                     xmlWriter.WriteElementString("PdfContentBase64", registerResponse.PDFContent.Content);
                     xmlWriter.WriteElementString("PdfPath", pdfPath);
 
-                    if (registerResponse.PIXPagamentoDetalhe != null)
+                    if(registerResponse.PIXPagamentoDetalhe != null)
                     {
                         xmlWriter.WriteStartElement("PixPagamentoDetalhe");
                         xmlWriter.WriteElementString("DataPagamento", registerResponse.PIXPagamentoDetalhe.DataPagamento.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
@@ -432,7 +426,7 @@ namespace NFe.Service
                         xmlWriter.WriteEndElement();
                     }
 
-                    if (!registerResponse.QrCodeContent.IsNullOrEmpty())
+                    if(!registerResponse.QrCodeContent.IsNullOrEmpty())
                     {
                         xmlWriter.WriteStartElement("QRCodeContent");
                         xmlWriter.WriteElementString("Image", registerResponse.QrCodeContent.Image);
