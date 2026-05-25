@@ -151,6 +151,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unimake.Business.DFe, Version=2026.5.22.1829, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20260522.1829.9\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    </Reference>
     <Reference Include="Unimake.Cryptography, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20260416.712.52\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
@@ -189,26 +192,17 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-	<Choose>
-	  <When Condition="'$(Configuration)' == 'Release'">
-		 <ItemGroup>
-			 <Reference Include="Unimake.Business.DFe, Version=2026.5.18.1618, Culture=neutral, processorArchitecture=MSIL">
-				<HintPath>..\packages\Unimake.DFe.20260518.1618.6\lib\net472\Unimake.Business.DFe.dll</HintPath>
-			 </Reference>		 
-		 </ItemGroup>
-	  </When>
-	  <Otherwise>
-		 <ItemGroup>
-			<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-			  <Name>Unimake.Business.DFe</Name>
-			  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-			  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-			  <Private>true</Private>
-			</ProjectReference>
-		 </ItemGroup>
-	  </Otherwise>
-	</Choose>
-	<ItemGroup>
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.5.18.1618, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260518.1618.6\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
+  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>

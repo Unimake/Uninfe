@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BoletoRegistrar versao="1.00">
+	<ConfigurationId>CONFIGURATION_ID</ConfigurationId>
+	<Aceite>true</Aceite>
+	<AgenciaColetora>N</AgenciaColetora>
+	<Carteira>101</Carteira>
+	<CodigoBarraNumerico>string</CodigoBarraNumerico>
+	<Desconto>
+		<Data>2026-05-25</Data>
+		<Tipo>0</Tipo>
+		<Valor>0.00</Valor>
+	</Desconto>
+	<DiasParaBaixaOuDevolucao>0</DiasParaBaixaOuDevolucao>
+	<DigitoVerificadorNumeroNoBanco>string</DigitoVerificadorNumeroNoBanco>
+	<Emissao>2026-05-22</Emissao>
+	<Especie>2</Especie>
+	<FichaAceiteConfig>
+		<FichaAceite>true</FichaAceite>
+		<Merge>true</Merge>
+		<AceiteDetails>
+			<Aceite>false</Aceite>
+			<AgenciaCodigoBeneficiario>00/00000</AgenciaCodigoBeneficiario>
+			<Beneficiario>EMPRESA EXEMPLO LTDA</Beneficiario>
+			<Carteira>RAPIDA C/REG</Carteira>
+			<CodigoBanco>033</CodigoBanco>
+			<DataDocumento>2026-05-22</DataDocumento>
+			<DataProcessamento>2026-05-22</DataProcessamento>
+			<Descontos>0</Descontos>
+			<Especie>REAL</Especie>
+			<Instrucoes>
+				<Instrucao>string</Instrucao>
+			</Instrucoes>
+			<LogoBanco>string</LogoBanco>
+			<MoraMulta>0</MoraMulta>
+			<NossoNumero>string</NossoNumero>
+			<NumeroDocumento>string</NumeroDocumento>
+			<OutrasDeducoes>0</OutrasDeducoes>
+			<OutrosAcrescimos>0</OutrosAcrescimos>
+			<Pagador>string</Pagador>
+			<RodapeDireito>
+				<CodigoBarras>string</CodigoBarras>
+				<TextoLivre>string</TextoLivre>
+			</RodapeDireito>
+			<RodapeEsquerdo>
+				<CodigoBarras>string</CodigoBarras>
+				<TextoLivre>string</TextoLivre>
+			</RodapeEsquerdo>
+			<Testing>true</Testing>
+			<ValorCobrado>7212.84</ValorCobrado>
+			<ValorDocumento>7212.84</ValorDocumento>
+			<Vencimento>2026-06-19</Vencimento>
+		</AceiteDetails>
+	</FichaAceiteConfig>
+	<IdentificacaoDistribuicao>0</IdentificacaoDistribuicao>
+	<IdentificacaoEmissao>0</IdentificacaoEmissao>
+	<Juros>
+		<Data>2026-06-20</Data>
+		<Tipo>2</Tipo>
+		<Valor>15.00</Valor>
+	</Juros>
+	<LinhaDigitavel>string</LinhaDigitavel>
+	<Mensagens>
+		<Mensagem>JUROS DIARIO DE R$ 36,06</Mensagem>
+		<Mensagem>COBRA MULTA DE R$ 144,26 APOS O DIA: 20/06/2026.</Mensagem>
+	</Mensagens>
+	<MensagensRecibo>
+		<Mensagem>JUROS DIARIO DE R$ 36,06</Mensagem>
+		<Mensagem>COBRA MULTA DE R$ 144,26 APOS O DIA: 20/06/2026.</Mensagem>
+	</MensagensRecibo>
+	<Multa>
+		<Data>2026-06-20</Data>
+		<Tipo>1</Tipo>
+		<Valor>144.26</Valor>
+	</Multa>
+	<NumeroDiasLimiteRecebimento>0</NumeroDiasLimiteRecebimento>
+	<NumeroNaEmpresa>000001056</NumeroNaEmpresa>
+	<NumeroNoBanco>string</NumeroNoBanco>
+	<NumeroParcela>1</NumeroParcela>
+	<NumeroVariacaoCarteira>0</NumeroVariacaoCarteira>
+	<Pagador>
+		<Nome>CLIENTE EXEMPLO LTDA</Nome>
+		<Inscricao>00000000000000</Inscricao>
+		<TipoInscricao>0</TipoInscricao>
+		<Codigo>0000000000000</Codigo>
+		<Telefone>11999999999</Telefone>
+		<Endereco>
+			<Logradouro>RUA EXEMPLO</Logradouro>
+			<Numero>100</Numero>
+			<Complemento>SALA 01</Complemento>
+			<Bairro>CENTRO</Bairro>
+			<Cidade>SAO PAULO</Cidade>
+			<UF>SP</UF>
+			<CEP>00000-000</CEP>
+		</Endereco>
+	</Pagador>
+	<PDFConfig>
+		<Password>string</Password>
+		<PermitAnnotations>true</PermitAnnotations>
+		<PermitAssembleDocument>true</PermitAssembleDocument>
+		<PermitExtractContent>true</PermitExtractContent>
+		<PermitFormsFill>true</PermitFormsFill>
+		<PermitFullQualityPrint>true</PermitFullQualityPrint>
+		<PermitModifyDocument>true</PermitModifyDocument>
+		<PermitPrint>true</PermitPrint>
+		<SignPDF>true</SignPDF>
+		<TryGeneratePDF>true</TryGeneratePDF>
+	</PDFConfig>
+	<PermiteRecebimentoParcial>N</PermiteRecebimentoParcial>
+	<PixConfig>
+		<Chave>00000000000000</Chave>
+		<QrCodeConfig>
+			<Height>0</Height>
+			<ImageFormat>1</ImageFormat>
+			<Quality>0</Quality>
+			<Width>0</Width>
+		</QrCodeConfig>
+		<RegistrarPIX>true</RegistrarPIX>
+	</PixConfig>
+	<Protesto>
+		<Tipo>3</Tipo>
+		<Valor>0</Valor>
+	</Protesto>
+	<Testing>true</Testing>
+	<TipoBaixaDevolucao>1</TipoBaixaDevolucao>
+	<ValorAbatimento>0</ValorAbatimento>
+	<ValorIOF>0</ValorIOF>
+	<ValorNominal>7212.84</ValorNominal>
+	<Vencimento>2026-06-19</Vencimento>
+	<UseHomologServer>false</UseHomologServer>
+</BoletoRegistrar>
