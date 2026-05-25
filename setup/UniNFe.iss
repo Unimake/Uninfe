@@ -102,7 +102,7 @@ Source: ..\source\uninfe\bin\Release\UniNFe.exe.config; DestDir: {app}; Flags: i
 
 Source: ..\source\uninfe.service\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 
 Source: ..\source\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
 Source: ..\source\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\schemas; Flags: ignoreversion recursesubdirs
