@@ -1,35 +1,19 @@
 ﻿using NFe.Components;
 using NFe.Settings;
-using NFe.Validate;
 using System;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Xml;
-using Unimake;
-using Unimake.AuthServer.Security.Scope;
-using Unimake.MessageBroker.Primitives.Enumerations;
-using Unimake.MessageBroker.Primitives.Model.Messages;
-using Unimake.MessageBroker.Primitives.Model.Notifications;
-using Unimake.MessageBroker.Services;
-using Unimake.Primitives.UDebug;
+using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service
 {
     public class TaskUMessenger : TaskAbst
     {
-        public static DebugScope<DebugStateObject> debugScope;
 
         private readonly XmlWriterSettings XmlSetting = new XmlWriterSettings();
         private XmlWriter XmlGravar = null;
 
-        public enum ServiceUMessenger
-        {
-            PIXNotification,
-            BilletNotification,
-            SendTextMessage,
-            NaoIdentificado
-        }
 
         public TaskUMessenger(string arquivo)
         {
@@ -50,239 +34,9 @@ namespace NFe.Service
 
             try
             {
-                #region Validar o XML
+                // Usar padrão dos outros serviços: executar via DLL local (ExecuteDLL)
+                ExecuteDLL(emp);
 
-                var tagUMessenger = ConteudoXML.GetElementsByTagName("uMessenger");
-                var tagServico = ((XmlElement)tagUMessenger[0]).GetElementsByTagName("PIXNotification");
-
-                var serviceMessage = ServiceUMessenger.PIXNotification;
-
-                if (tagServico.Count <= 0)
-                {
-                    tagServico = ((XmlElement)tagUMessenger[0]).GetElementsByTagName("BilletNotification");
-
-                    if (tagServico.Count > 0)
-                    {
-                        serviceMessage = ServiceUMessenger.BilletNotification;
-                    }
-                    else
-                    {
-                        tagServico = ((XmlElement)tagUMessenger[0]).GetElementsByTagName("SendTextMessage");
-                        if (tagServico.Count > 0)
-                        {
-                            serviceMessage = ServiceUMessenger.SendTextMessage;
-                        }
-                        else
-                        {
-                            serviceMessage = ServiceUMessenger.NaoIdentificado;
-                        }
-                    }
-                }
-
-                var validarXML = new ValidarXML();
-
-                switch (serviceMessage)
-                {
-                    case ServiceUMessenger.PIXNotification:
-                        validarXML.TipoArqXml = new TipoArquivoXML
-                        {
-                            cArquivoSchema = Path.Combine(Propriedade.PastaExecutavel, @"NFe\schemas\uMessenger\uMessengerPIX_1_00.xsd"),
-                            nRetornoTipoArq = 1
-                        };
-                        break;
-
-                    case ServiceUMessenger.BilletNotification:
-                        validarXML.TipoArqXml = new TipoArquivoXML
-                        {
-                            cArquivoSchema = Path.Combine(Propriedade.PastaExecutavel, @"NFe\schemas\uMessenger\uMessengerBoleto_1_00.xsd"),
-                            nRetornoTipoArq = 1
-                        };
-                        break;
-
-                    case ServiceUMessenger.SendTextMessage:
-                        validarXML.TipoArqXml = new TipoArquivoXML
-                        {
-                            cArquivoSchema = Path.Combine(Propriedade.PastaExecutavel, @"NFe\schemas\uMessenger\uMessengerText_1_00.xsd"),
-                            nRetornoTipoArq = 1
-                        };
-                        break;
-
-                    case ServiceUMessenger.NaoIdentificado:
-                        throw new Exception("Não foi possível identificar qual o tipo de serviço de envio de mensagens via WhatsApp deve ser utilizado.");
-                }
-
-                validarXML.ValidarArqXML(ConteudoXML, NomeArquivoXML);
-                if (validarXML.Retorno != 0)
-                {
-                    throw new Exception(validarXML.RetornoString.Replace("\r\n", " - "));
-                }
-
-                #endregion
-
-                var serviceNodeList = ConteudoXML.GetElementsByTagName(tagUMessenger[0].FirstChild.Name);
-                var contagem = 0;
-
-                foreach (var serviceNode in serviceNodeList)
-                {
-                    contagem++;
-
-                    var serviceElement = (XmlElement)serviceNode;
-
-                    #region Criar mensagem para WhatsApp e enviar
-
-                    var messageID = string.Empty;
-                    var returnMessageID = string.Empty;
-                    var tags = serviceElement;
-
-                    //Se for testing tem que usar SANDBOX que neste caso é o UseHomologServer = true
-                    var testing = AuthApiScopeHelper.GetTesting(tags);
-                    var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(testing, serviceElement);
-
-                    debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://umessenger.sandbox.unimake.software/api/v1/");
-
-                    var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeUMessenger(emp);
-
-                    var service = new MessageService(MessagingService.WhatsApp);
-
-                    switch (serviceMessage)
-                    {
-                        case ServiceUMessenger.PIXNotification:
-                            var pixNotification = new PIXNotification
-                            {
-                                CopyAndPaste = tags.GetElementsByTagName("CopyAndPaste")[0].InnerText,
-                                CompanyName = tags.GetElementsByTagName("CompanyName")[0].InnerText,
-                                ContactPhone = tags.GetElementsByTagName("ContactPhone")[0].InnerText,
-                                CustomerName = tags.GetElementsByTagName("CustomerName")[0].InnerText,
-                                Description = tags.GetElementsByTagName("Description")[0].InnerText,
-                                IssuedDate = tags.GetElementsByTagName("IssuedDate")[0].InnerText,
-                                QueryString = tags.GetElementsByTagName("QueryString")[0].InnerText,
-                                To = tags.GetElementsByTagName("To")[0].InnerText,
-                                Value = tags.GetElementsByTagName("Value")[0].InnerText,
-                                Testing = testing,
-                            };
-
-                            var responseNotifyPIX = await service.NotifyPIXCollectionAsync(pixNotification, authenticatedScope);
-
-                            returnMessageID = responseNotifyPIX.MessageId;
-
-                            break;
-
-                        case ServiceUMessenger.BilletNotification:
-                            var notifyBilletAsync = new BilletNotification
-                            {
-                                BarCode = tags.GetElementsByTagName("BarCode")[0].InnerText,
-                                BilletNumber = tags.GetElementsByTagName("BilletNumber")[0].InnerText,
-                                CompanyName = tags.GetElementsByTagName("CompanyName")[0].InnerText,
-                                ContactPhone = tags.GetElementsByTagName("ContactPhone")[0].InnerText,
-                                CustomerName = tags.GetElementsByTagName("CustomerName")[0].InnerText,
-                                Description = tags.GetElementsByTagName("Description")[0].InnerText,
-                                DueDate = tags.GetElementsByTagName("DueDate")[0].InnerText,
-                                QueryString = tags.GetElementsByTagName("QueryString")[0].InnerText,
-                                To = tags.GetElementsByTagName("To")[0].InnerText,
-                                Value = tags.GetElementsByTagName("Value")[0].InnerText,
-                                Testing = testing,
-                            };
-
-                            var responseNotifyBillet = await service.NotifyBilletAsync(notifyBilletAsync, authenticatedScope);
-
-                            returnMessageID = responseNotifyBillet.MessageId;
-
-                            break;
-
-                        case ServiceUMessenger.SendTextMessage:
-                            if (!string.IsNullOrWhiteSpace(tags.GetAttribute("Id")))
-                            {
-                                messageID = tags.GetAttribute("Id");
-                            }
-
-                            var textMessage = new TextMessage
-                            {
-                                To = new Unimake.MessageBroker.Primitives.Model.Recipient
-                                {                                    
-                                    Destination = tags.GetElementsByTagName("To")[0].InnerText,
-                                },
-                                InstanceName = tags.GetElementsByTagName("InstanceName")[0].InnerText,
-                                Text = tags.GetElementsByTagName("Text")[0].InnerText.Replace("\\r", "\r").Replace("\\n", "\n"),
-                                Testing = testing
-                            };
-
-                            if (tags.GetElementsByTagName("Files").Count > 0)
-                            {
-                                textMessage.Files = new System.Collections.Generic.List<Unimake.MessageBroker.Primitives.Model.Media.UploadFile>();
-
-                                var filesElements = (XmlElement)tags.GetElementsByTagName("Files")[0];
-
-                                foreach (XmlElement fileElement in filesElements.GetElementsByTagName("File"))
-                                {
-                                    if (fileElement.GetElementsByTagName("FullPath").Count > 0)
-                                    {
-                                        var fullPath = fileElement.GetElementsByTagName("FullPath")[0].InnerText;
-
-                                        if (!File.Exists(fullPath))
-                                        {
-                                            throw new Exception($"O arquivo '{fullPath}' não foi encontrado.");
-                                        }
-
-                                        var description = string.Empty;
-                                        if (fileElement.GetElementsByTagName("Description").Count > 0)
-                                        {
-                                            description = fileElement.GetElementsByTagName("Description")[0].InnerText;
-                                        }
-
-                                        var mediaType = MediaType.None;
-                                        if (fileElement.GetElementsByTagName("MediaType").Count > 0)
-                                        {
-                                            mediaType = (MediaType)Enum.Parse(enumType: typeof(MediaType),
-                                                fileElement.GetElementsByTagName("MediaType")[0].InnerText);
-                                        }
-                                        else
-                                        {
-                                            throw new Exception($"O tipo de mídia do '{fullPath}' arquivo não foi informado.");
-                                        }
-
-                                        textMessage.Files.Add(new Unimake.MessageBroker.Primitives.Model.Media.UploadFile
-                                        {
-                                            Base64Content = Convert.ToBase64String(File.ReadAllBytes(fullPath)),
-                                            FileName = Path.GetFileName(fullPath),
-                                            Caption = description,
-                                            MediaType = mediaType
-                                        });
-                                    }
-                                }
-                            }
-
-                            if (textMessage.Files != null)
-                            {
-                                if (textMessage.Files.Count > 0)
-                                {
-                                    service.TimeoutInSeconds = 180; //Aumentar o tempo de timeout para 2 minutos, para envio de mensagens com arquivos maiores.
-                                }
-                            }
-
-                            var responseSendTextMessage = await service.SendTextMessageAsync(textMessage, authenticatedScope);
-                        
-         
-                            returnMessageID = responseSendTextMessage.MessageId;
-
-                            break;  
-                    }
-
-                    authenticatedScope.Dispose();
-
-                    #endregion
-
-                    #region Gravar o XML de retorno
-
-                    
-                    GerarXmlRetorno(pathXml, "1", "", returnMessageID, contagem == 1, contagem == serviceNodeList.Count, messageID);
-
-                    #endregion
-
-                    if (contagem != serviceNodeList.Count)
-                    {
-                        Thread.Sleep(3000); //Aguardar 3 segundos para enviar a próxima menagem.
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -306,6 +60,63 @@ namespace NFe.Service
                 }
             }
         }
+
+        #region ExecuteDLL
+
+        /// <summary>
+        /// Executa o serviço uMessenger utilizando a DLL local (padrão dos outros Task*).
+        /// </summary>
+        /// <param name="emp">Empresa que está solicitando o envio</param>
+        private void ExecuteDLL(int emp)
+        {
+            var conteudoXML = ConteudoXML;
+
+            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.UMessenger).EnvioXML;
+            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.UMessenger).RetornoXML;
+
+            var configuracao = new Configuracao
+            {
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
+                AppId = Empresas.Configuracoes[emp].AppID_UMessenger,
+                Secret = Empresas.Configuracoes[emp].Secret_UMessenger
+            };
+
+            try
+            {
+                var assembly = typeof(Configuracao).Assembly;
+
+                object publishInstance = null;
+                var publishType = assembly.GetType("Unimake.Business.DFe.Servicos.UMessenger.PublishUMessenger");
+
+                publishInstance = Activator.CreateInstance(publishType, new object[] { conteudoXML.OuterXml, configuracao });
+
+                var executarMethod = publishInstance.GetType().GetMethod("Executar");
+                if (executarMethod == null) throw new Exception("A implementação do serviço uMessenger não expõe o método Executar().");
+                executarMethod.Invoke(publishInstance, null);
+
+                var retornoProp = publishInstance.GetType().GetProperty("RetornoWSString");
+                if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(publishInstance)?.ToString();
+
+                XmlRetorno(finalArqEnvio, finalArqRetorno);
+
+                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                {
+                    throw new Exception("A implementação do serviço uMessenger não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                }
+
+                var disposeMethod = publishInstance.GetType().GetMethod("Dispose");
+                disposeMethod?.Invoke(publishInstance, null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao executar DLL uMessenger: {ex.Message}", ex);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Definir configurações do XML de Retorno.
