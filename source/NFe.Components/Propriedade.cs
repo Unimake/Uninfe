@@ -410,6 +410,21 @@ namespace NFe.Components
             NFGas,
 
             /// <summary>
+            /// CIOT
+            /// </summary>
+            CIOT,
+
+            /// <summary>
+            /// Eventos do CIOT
+            /// </summary>
+            CIOTPedEve,
+
+            /// <summary>
+            /// Consultas do CIOT
+            /// </summary>
+            CIOTConsultar,
+
+            /// <summary>
             /// DCe
             /// </summary>
             DCe,
@@ -1110,6 +1125,31 @@ namespace NFe.Components
                ));
 
             #endregion NFGas
+
+            #region CIOT
+
+            ListaExtensoes.Add(TipoEnvio.CIOT, new ExtensaoClass(
+               "-ciot.xml", "",
+               "-ret-ciot.xml", "",
+               "-ret-ciot.err",
+               "XML de ciot"
+               ));
+
+            ListaExtensoes.Add(TipoEnvio.CIOTPedEve, new ExtensaoClass(
+               "-ped-eve.xml", "",
+               "-ret-ped-eve.xml", "",
+               "-ret-ped-eve.err",
+               "XML de evento ciot"
+               ));
+
+            ListaExtensoes.Add(TipoEnvio.CIOTConsultar, new ExtensaoClass(
+               "-consultar.xml", "",
+               "-ret-consultar.xml", "",
+               "-ret-consultar.err",
+               "XML de consulta ciot"
+               ));
+
+            #endregion CIOT
 
             #region DCe
 
@@ -1892,6 +1932,15 @@ namespace NFe.Components
             public const string NFGas_ERR = "-nfgas.err";
 
             #endregion NFGas
+
+            #region CIOT
+
+            /// <summary>
+            /// -ret-ciot.err
+            /// </summary>
+            public const string CIOT_ERR = "-ret-ciot.err";
+
+            #endregion CIOT
 
             #region DCe
 

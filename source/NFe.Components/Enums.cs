@@ -723,6 +723,50 @@ namespace NFe.Components
 
         #endregion NFGas
 
+        #region CIOT
+
+        /// <summary>
+        /// Cancelamento da operação de transporte do CIOT
+        /// </summary>
+        CIOTCancelamentoOperacaoTransporte,
+
+        /// <summary>
+        /// Consultar CIOT gerado
+        /// </summary>
+        CIOTConsultarCIOTGerado,
+
+        /// <summary>
+        /// Consultar exceção do CIOT
+        /// </summary>
+        CIOTConsultarExcecao,
+
+        /// <summary>
+        /// Consultar frota do transportador do CIOT
+        /// </summary>
+        CIOTConsultarFrotaTransportador,
+
+        /// <summary>
+        /// Consultar situação do transportador do CIOT
+        /// </summary>
+        CIOTConsultarSituacaoTransportador,
+
+        /// <summary>
+        /// Declaração da operação de transporte do CIOT
+        /// </summary>
+        CIOTDeclaracaoOperacaoTransporte,
+
+        /// <summary>
+        /// Encerramento da operação de transporte do CIOT
+        /// </summary>
+        CIOTEncerramentoOperacaoTransporte,
+
+        /// <summary>
+        /// Retificação da operação de transporte do CIOT
+        /// </summary>
+        CIOTRetificacaoOperacaoTransporte,
+
+        #endregion CIOT
+
         #region DCe
         /// <summary>
         /// Consulta procolo da DCe
@@ -814,7 +858,7 @@ namespace NFe.Components
         /// <summary>
         /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto NFSe)
         /// </summary>
-        [Description("NF-e, NFC-e, NF3-e, NFCom, NFGas, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
+        [Description("NF-e, NFC-e, NF3-e, NFCom, NFGas, CIOT, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
         Todos = 10,
 
         /// <summary>
@@ -840,6 +884,12 @@ namespace NFe.Components
         /// </summary>
         [Description("NFGas")]
         NFGas = 14,
+
+        /// <summary>
+        /// Aplicativo ou serviços para processamentos dos XMLs do CIOT
+        /// </summary>
+        [Description("CIOT")]
+        CIOT = 15,
 
         [Description("")]
         Nulo = 100
