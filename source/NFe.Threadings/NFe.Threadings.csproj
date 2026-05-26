@@ -189,12 +189,12 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-	<Choose>
+   <Choose>
 	  <When Condition="'$(Configuration)' == 'Release'">
 		 <ItemGroup>
-			 <Reference Include="Unimake.Business.DFe, Version=2026.5.18.1618, Culture=neutral, processorArchitecture=MSIL">
-				<HintPath>..\packages\Unimake.DFe.20260518.1618.6\lib\net472\Unimake.Business.DFe.dll</HintPath>
-			 </Reference>		 
+			 <Reference Include="Unimake.Business.DFe, Version=2026.5.22.1829, Culture=neutral, processorArchitecture=MSIL">
+				<HintPath>..\packages\Unimake.DFe.20260522.1829.9\lib\net472\Unimake.Business.DFe.dll</HintPath>
+			 </Reference>
 		 </ItemGroup>
 	  </When>
 	  <Otherwise>
@@ -208,7 +208,7 @@
 		 </ItemGroup>
 	  </Otherwise>
 	</Choose>
-	<ItemGroup>
+  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
