@@ -275,6 +275,15 @@
     <Compile Include="ApiExceptionHelper.cs" />
     <Compile Include="AuthApiScopeHelper.cs" />
     <Compile Include="CCG\TaskCcgConsGTIN.cs" />
+    <Compile Include="CIOT\TaskCIOTBase.cs" />
+    <Compile Include="CIOT\TaskCIOTCancelamentoOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarCIOTGerado.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarExcecao.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarFrotaTransportador.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarSituacaoTransportador.cs" />
+    <Compile Include="CIOT\TaskCIOTDeclaracaoOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTEncerramentoOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTRetificacaoOperacaoTransporte.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="CTe\TaskAssinarValidarCTe.cs" />
     <Compile Include="CTe\TaskConsultaStatusCTe.cs" />
