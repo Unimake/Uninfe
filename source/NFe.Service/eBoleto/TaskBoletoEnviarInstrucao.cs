@@ -85,28 +85,10 @@ namespace NFe.Service
 
                 #region Autenticar nas APIs da Unimake
 
-                var useHomologServer = false;
+                var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(putInstructionsRequest.Testing, ConteudoXML.DocumentElement);
+                debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://ebank.sandbox.unimake.software/api/v1/");
 
-                if (ConteudoXML.GetElementsByTagName("UseHomologServer").Count > 0)
-                {
-                    useHomologServer = Convert.ToBoolean(ConteudoXML.GetElementsByTagName("UseHomologServer")[0].InnerText);
-                }
-
-                debugScope = null;
-                if (useHomologServer)
-                {
-                    debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
-                    {
-                        AuthServerUrl = "https://auth.sandbox.unimake.software/api/auth/",
-                        AnotherServerUrl = "https://ebank.sandbox.unimake.software/api/v1/"
-                    });
-                }
-
-                var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
-                {
-                    AppId = Empresas.Configuracoes[emp].AppID,
-                    Secret = Empresas.Configuracoes[emp].Secret
-                });
+                var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeEBank(emp);
 
                 #endregion
 
@@ -130,7 +112,7 @@ namespace NFe.Service
                 }
                 else
                 {
-                    var traceId = BoletoRetornoHelper.ExtrairTraceId(putInstructionsResponse);
+                    var traceId = ApiExceptionHelper.ExtrairTraceId(putInstructionsResponse);
                     GerarXmlRetorno(pathXml, "1", $"Não foi possível enviar a instrução do boleto. Tente novamente mais tarde. (Status Code: {((int)putInstructionsResponse.StatusCode).ToString()})" +
                     (!string.IsNullOrWhiteSpace(putInstructionsResponse.Codigo) ? " - (Erro: " + putInstructionsResponse.Codigo +
                         (!string.IsNullOrWhiteSpace(putInstructionsResponse.Mensagem) ? " - " + putInstructionsResponse.Mensagem : "") + ")" : ""), traceId);
@@ -144,7 +126,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
@@ -172,7 +154,7 @@ namespace NFe.Service
                 motivo = "Instruções do boleto enviado com sucesso";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoEnviarInstrucaoResponse", status, motivo, traceId);
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoEnviarInstrucaoResponse", status, motivo, traceId);
         }
     }
 }

@@ -84,28 +84,10 @@ namespace NFe.Service
 
                 #region Autenticar nas APIs da Unimake
 
-                var useHomologServer = false;
+                var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(queryInformationRequest.Testing, ConteudoXML.DocumentElement);
+                debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://ebank.sandbox.unimake.software/api/v1/");
 
-                if (ConteudoXML.GetElementsByTagName("UseHomologServer").Count > 0)
-                {
-                    useHomologServer = Convert.ToBoolean(ConteudoXML.GetElementsByTagName("UseHomologServer")[0].InnerText);
-                }
-
-                debugScope = null;
-                if (useHomologServer)
-                {
-                    debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
-                    {
-                        AuthServerUrl = "https://auth.sandbox.unimake.software/api/auth/",
-                        AnotherServerUrl = "https://ebank.sandbox.unimake.software/api/v1/"
-                    });
-                }
-
-                var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
-                {
-                    AppId = Empresas.Configuracoes[emp].AppID,
-                    Secret = Empresas.Configuracoes[emp].Secret
-                });
+                var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeEBank(emp);
 
                 #endregion
 
@@ -140,7 +122,7 @@ namespace NFe.Service
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
                 var lastException = ex.GetLastException();
-                var traceId = BoletoRetornoHelper.ExtrairTraceId(lastException);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
                 GerarXmlRetorno(pathXml, "999", lastException.Message.Replace("\r\n", ""), null, traceId);
             }
             finally
@@ -175,7 +157,7 @@ namespace NFe.Service
                 motivo = "Nenhum boleto encontrado";
             }
 
-            BoletoRetornoHelper.GravarXmlRetorno(path, "BoletoConsultarResponse", status, motivo, traceId, xmlWriter =>
+            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoConsultarResponse", status, motivo, traceId, xmlWriter =>
             {
                 if (queryInformationResponse != null)
                 {

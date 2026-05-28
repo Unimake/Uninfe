@@ -1,4 +1,4 @@
-﻿using EBank.Solutions.Primitives.PIX.Models;
+using EBank.Solutions.Primitives.PIX.Models;
 using NFe.Components;
 using NFe.Settings;
 using System;
@@ -107,6 +107,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,

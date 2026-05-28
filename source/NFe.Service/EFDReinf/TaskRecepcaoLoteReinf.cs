@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using NFSe.Components;
 using System;
@@ -36,6 +36,7 @@ namespace NFe.Service.EFDReinf
 
                 var configuracao = new Configuracao
                 {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.EFDReinf,
                     TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
                     TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,

@@ -409,6 +409,7 @@ namespace NFe.Validate
 
                 var configuracao = new Configuracao
                 {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
                     CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
                 };

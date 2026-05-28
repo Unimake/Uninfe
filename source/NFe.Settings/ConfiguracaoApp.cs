@@ -614,6 +614,7 @@ namespace NFe.Settings
                         case TipoAplicativo.NF3e:
                         case TipoAplicativo.NFCom:
                         case TipoAplicativo.NFGas:
+                        case TipoAplicativo.CIOT:
                             _xValids.Add(new xValid(empresa.PastaXmlEnvio, "Informe a pasta de envio dos arquivos XML.", "A pasta de envio dos arquivos XML informada não existe.", true));
                             _xValids.Add(new xValid(empresa.PastaXmlRetorno, "Informe a pasta de envio dos arquivos XML.", "A pasta de retorno dos arquivos XML informada não existe.", true));
                             _xValids.Add(new xValid(empresa.PastaXmlErro, "Informe a pasta para arquivamento temporário dos arquivos XML que apresentaram erros.", "A pasta para arquivamento temporário dos arquivos XML com erro informada não existe.", true));
@@ -1657,7 +1658,8 @@ namespace NFe.Settings
                                                           EnumHelper.GetDescription(TipoAplicativo.Todos),
                                                           EnumHelper.GetDescription(TipoAplicativo.NF3e),
                                                           EnumHelper.GetDescription(TipoAplicativo.NFCom),
-                                                          EnumHelper.GetDescription(TipoAplicativo.NFGas)));
+                                                          EnumHelper.GetDescription(TipoAplicativo.NFGas),
+                                                          EnumHelper.GetDescription(TipoAplicativo.CIOT)));
                     }
 
                     ///
@@ -1682,7 +1684,8 @@ namespace NFe.Settings
                             (int)TipoAplicativo.Todos, EnumHelper.GetDescription(TipoAplicativo.Todos),
                             (int)TipoAplicativo.NF3e, EnumHelper.GetDescription(TipoAplicativo.NF3e),
                             (int)TipoAplicativo.NFCom, EnumHelper.GetDescription(TipoAplicativo.NFCom),
-                            (int)TipoAplicativo.NFGas, EnumHelper.GetDescription(TipoAplicativo.NFGas)));
+                            (int)TipoAplicativo.NFGas, EnumHelper.GetDescription(TipoAplicativo.NFGas),
+                            (int)TipoAplicativo.CIOT, EnumHelper.GetDescription(TipoAplicativo.CIOT)));
                     }
                 }
                 if (Empresas.FindConfEmpresa(cnpj.Trim(), (TipoAplicativo)Convert.ToInt16(servico)) == null)

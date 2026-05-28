@@ -857,12 +857,6 @@
     <EmbeddedResource Include="NFe\schemas\PIX\PIXGetRequest_1_00.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\uMessenger\uMessengerBoleto_1_00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\uMessenger\uMessengerPIX_1_00.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="NFe\schemas\PIX\PIXConsultaRequest_1_00.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1041,9 +1035,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NFe\schemas\eSocial\S_01_02_00\evtToxic.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFe\schemas\uMessenger\uMessengerText_1_00.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NFse\schemas\NFSe\AGILI\nfse_v_1.00.xsd">

@@ -549,6 +549,7 @@ namespace NFe.UI
                     case TipoAplicativo.NF3e:
                     case TipoAplicativo.NFCom:
                     case TipoAplicativo.NFGas:
+                    case TipoAplicativo.CIOT:
                         uce_cert.Validar();
                         uce_ftp.Validar();
                         uce_danfe.Validar();
@@ -929,6 +930,7 @@ namespace NFe.UI
                 case TipoAplicativo.NF3e:
                 case TipoAplicativo.NFCom:
                 case TipoAplicativo.NFGas:
+                case TipoAplicativo.CIOT:
                     uce_divs.Populate(empresa, novaempresa);
                     uce_pastas.Populate(empresa);
                     uce_cert.Populate(empresa);

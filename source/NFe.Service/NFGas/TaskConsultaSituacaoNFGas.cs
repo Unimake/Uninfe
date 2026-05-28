@@ -36,6 +36,7 @@ namespace NFe.Service.NFGas
 
                     var configuracao = new Configuracao
                     {
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = TipoDFe.NFGas,
                         TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
                         CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado

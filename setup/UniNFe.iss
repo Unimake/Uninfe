@@ -98,11 +98,11 @@ Source: ..\source\uninfe\bin\Release\Unimake.Utils.dll; DestDir: {app}; Flags: i
 Source: ..\source\uninfe\bin\Release\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\source\uninfe\bin\Release\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\UniNFe.exe.config; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\UniNFe.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 
 Source: ..\source\uninfe.service\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 
 Source: ..\source\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
 Source: ..\source\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\schemas; Flags: ignoreversion recursesubdirs
@@ -120,6 +120,22 @@ LanguageName=Portuguese
 LanguageID=$0416
 
 [Code]
+function SistemaOperacionalSuportaNet481(): Boolean;
+var
+    WindowsVersion: TWindowsVersion;
+begin
+    GetWindowsVersionEx(WindowsVersion);
+
+    // .NET Framework 4.8.1:
+    // - Windows 10 22H2 ou superior: 10.0.19045+
+    // - Windows 11: 10.0.22000+
+    // - Windows Server 2022: 10.0.20348+
+    // - Windows Server 2025 ou superior: 10.0.26100+
+    Result :=
+        (WindowsVersion.Major > 10) or
+        ((WindowsVersion.Major = 10) and (WindowsVersion.Build >= 19045));
+end;
+
 //incialização do setup. É sempre chamada pelo Inno ao iniciar o setup
 procedure InitializeWizard();
 var

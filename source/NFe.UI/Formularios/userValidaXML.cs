@@ -58,8 +58,9 @@ namespace NFe.UI
 
                 try
                 {
-
-                    var xmlValidado = ValidarXMLSchema.Validar(arquivo, Emp, false);
+                    var xmlDoc = new XmlDocument();
+                    xmlDoc.Load(arquivo);
+                    var xmlValidado = ValidarXMLSchema.Validar(xmlDoc, Emp, false);
                     if (!(xmlValidado.StatusValidacao.Equals("5")))
                     {
                         edtTipoarquivo.Text = xmlValidado.Descricao;

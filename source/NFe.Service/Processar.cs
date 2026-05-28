@@ -8,6 +8,7 @@ using NFe.Service.DARE;
 using NFe.Service.DCe;
 using NFe.Service.EFDReinf;
 using NFe.Service.GNRE;
+using NFe.Service.CIOT;
 using NFe.Service.NF3e;
 using NFe.Service.NFCom;
 using NFe.Service.NFGas;
@@ -497,6 +498,42 @@ namespace NFe.Service
                             break;
 
                         #endregion NFGas
+
+                        #region CIOT
+
+                        case Servicos.CIOTCancelamentoOperacaoTransporte:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTCancelamentoOperacaoTransporte(arquivo));
+                            break;
+
+                        case Servicos.CIOTConsultarCIOTGerado:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTConsultarCIOTGerado(arquivo));
+                            break;
+
+                        case Servicos.CIOTConsultarExcecao:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTConsultarExcecao(arquivo));
+                            break;
+
+                        case Servicos.CIOTConsultarFrotaTransportador:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTConsultarFrotaTransportador(arquivo));
+                            break;
+
+                        case Servicos.CIOTConsultarSituacaoTransportador:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTConsultarSituacaoTransportador(arquivo));
+                            break;
+
+                        case Servicos.CIOTDeclaracaoOperacaoTransporte:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTDeclaracaoOperacaoTransporte(arquivo));
+                            break;
+
+                        case Servicos.CIOTEncerramentoOperacaoTransporte:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTEncerramentoOperacaoTransporte(arquivo));
+                            break;
+
+                        case Servicos.CIOTRetificacaoOperacaoTransporte:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTRetificacaoOperacaoTransporte(arquivo));
+                            break;
+
+                        #endregion CIOT
 
                         #region DCe
 
@@ -1177,6 +1214,42 @@ namespace NFe.Service
 
                             #endregion NFGas
 
+                            #region CIOT
+
+                            case "ConsultarSituacaoTransportador":
+                                tipoServico = Servicos.CIOTConsultarSituacaoTransportador;
+                                break;
+
+                            case "ConsultarFrotaTransportador":
+                                tipoServico = Servicos.CIOTConsultarFrotaTransportador;
+                                break;
+
+                            case "DeclaracaoOperacaoTransporte":
+                                tipoServico = Servicos.CIOTDeclaracaoOperacaoTransporte;
+                                break;
+
+                            case "CancelamentoOperacaoTransporte":
+                                tipoServico = Servicos.CIOTCancelamentoOperacaoTransporte;
+                                break;
+
+                            case "RetificacaoOperacaoTransporte":
+                                tipoServico = Servicos.CIOTRetificacaoOperacaoTransporte;
+                                break;
+
+                            case "EncerramentoOperacaoTransporte":
+                                tipoServico = Servicos.CIOTEncerramentoOperacaoTransporte;
+                                break;
+
+                            case "ConsultarExcecao":
+                                tipoServico = Servicos.CIOTConsultarExcecao;
+                                break;
+
+                            case "ConsultarCIOTGerado":
+                                tipoServico = Servicos.CIOTConsultarCIOTGerado;
+                                break;
+
+                            #endregion CIOT
+
                             #region DCe
 
                             case "consStatServDCe":
@@ -1456,10 +1529,12 @@ namespace NFe.Service
             try
             {
                 var emp = Empresas.FindEmpresaByThread();
-
                 if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var xmlValidado = ValidarXMLSchema.Validar(arquivo, emp, true);
+                    var xmlDoc = new XmlDocument();
+                    xmlDoc.Load(arquivo);
+
+                    var xmlValidado = ValidarXMLSchema.Validar(xmlDoc, emp, true, arquivo);
                     if (xmlValidado.Validado) //tenta validar
                     {
                         return;
@@ -2262,6 +2337,26 @@ namespace NFe.Service
                 case Servicos.NFGasAutorizacaoSinc:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML;
                     extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).RetornoERR;
+                    break;
+
+                case Servicos.CIOTCancelamentoOperacaoTransporte:
+                case Servicos.CIOTEncerramentoOperacaoTransporte:
+                case Servicos.CIOTRetificacaoOperacaoTransporte:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTPedEve).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTPedEve).RetornoERR;
+                    break;
+
+                case Servicos.CIOTConsultarCIOTGerado:
+                case Servicos.CIOTConsultarExcecao:
+                case Servicos.CIOTConsultarFrotaTransportador:
+                case Servicos.CIOTConsultarSituacaoTransportador:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTConsultar).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTConsultar).RetornoERR;
+                    break;
+
+                case Servicos.CIOTDeclaracaoOperacaoTransporte:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).RetornoERR;
                     break;
 
                 case Servicos.NFeMontarLoteVarias:

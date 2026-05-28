@@ -243,28 +243,10 @@ namespace NFe.Service
                     }
                 }
 
-                var useHomologServer = false;
+                var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(pixCobrancaCreateRequest.Testing, ConteudoXML.DocumentElement);
+                debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://ebank.sandbox.unimake.software/api/v1/");
 
-                if (ConteudoXML.GetElementsByTagName("UseHomologServer").Count > 0)
-                {
-                    useHomologServer = Convert.ToBoolean(ConteudoXML.GetElementsByTagName("UseHomologServer")[0].InnerText);
-                }
-
-                debugScope = null;
-                if (pixCobrancaCreateRequest.Testing)
-                {
-                    debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
-                    {
-                        AuthServerUrl = "https://auth.sandbox.unimake.software/api/auth/",
-                        AnotherServerUrl = "https://ebank.sandbox.unimake.software/api/v1/"
-                    });
-                }
-
-                var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
-                {
-                    AppId = Empresas.Configuracoes[emp].AppID,
-                    Secret = Empresas.Configuracoes[emp].Secret
-                });
+                var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeEBank(emp);
 
                 var pixService = new PIXService();
 
@@ -315,13 +297,15 @@ namespace NFe.Service
             {
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PIXCobrancaCreateRequest).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PIXCobrancaCreateRequest).RetornoXML;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(ex.GetLastException());
 
                 GerarXmlRetorno(
                    pathXml,
                    "999",
                    "",
                    "",
-                   ex.GetLastException().Message.Replace("\r\n", ""));
+                   ex.GetLastException().Message.Replace("\r\n", ""),
+                   traceId);
             }
             finally
             {
@@ -393,7 +377,7 @@ namespace NFe.Service
             File.WriteAllBytes(fi.FullName, byteArray);
         }
 
-        private void GerarXmlRetorno(string path, string status, string pixCopiaECola, string pathQRCode, string motivo)
+        private void GerarXmlRetorno(string path, string status, string pixCopiaECola, string pathQRCode, string motivo, string traceId = "")
         {
             var oSettings = new XmlWriterSettings();
             var c = new UTF8Encoding(false);
@@ -428,6 +412,12 @@ namespace NFe.Service
                 oXmlGravar.WriteStartElement("PIXCobrancaCreateResponse");
                 oXmlGravar.WriteElementString("Status", status);
                 oXmlGravar.WriteElementString("Motivo", motivo);
+
+                if (!string.IsNullOrWhiteSpace(traceId))
+                {
+                    oXmlGravar.WriteElementString("TraceId", traceId);
+                }
+
                 oXmlGravar.WriteElementString("PixCopiaECola", pixCopiaECola);
                 oXmlGravar.WriteElementString("ImageQRCode", pathQRCode);
                 oXmlGravar.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));

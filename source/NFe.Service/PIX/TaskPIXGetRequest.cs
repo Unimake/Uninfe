@@ -126,28 +126,11 @@ namespace NFe.Service
                     throw new Exception("O período de consulta para o PIX, entre as datas \"StartDate\" e \"EndDate\", não pode exceder 5 dias.");
                 }
 
-                var useHomologServer = false;
+                var testing = AuthApiScopeHelper.GetTesting(ConteudoXML.DocumentElement);
+                var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(testing, ConteudoXML.DocumentElement);
+                debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://ebank.sandbox.unimake.software/api/v1/");
 
-                if (ConteudoXML.GetElementsByTagName("UseHomologServer").Count > 0)
-                {
-                    useHomologServer = Convert.ToBoolean(ConteudoXML.GetElementsByTagName("UseHomologServer")[0].InnerText);
-                }
-
-                debugScope = null;
-                if (useHomologServer)
-                {
-                    debugScope = new DebugScope<DebugStateObject>(new DebugStateObject
-                    {
-                        AuthServerUrl = "https://auth.sandbox.unimake.software/api/auth/",
-                        AnotherServerUrl = "https://ebank.sandbox.unimake.software/api/v1/"
-                    });
-                }
-
-                var authenticatedScope = new AuthenticatedScope(new Unimake.Primitives.Security.Credentials.AuthenticationToken
-                {
-                    AppId = Empresas.Configuracoes[emp].AppID,
-                    Secret = Empresas.Configuracoes[emp].Secret
-                });
+                var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeEBank(emp);
 
                 var respostas = new List<PIXItem>();
 
@@ -186,22 +169,24 @@ namespace NFe.Service
             {
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, extEnvio) + extRetorno;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(ex.GetLastException());
 
                 if (ex.StatusCode == HttpStatusCode.NotFound)
                 {
-                    GerarXmlRetorno(pathXml, null, "Nenhum Movimento PIX foi localizado.", "2");
+                    GerarXmlRetorno(pathXml, null, "Nenhum Movimento PIX foi localizado.", "2", traceId);
                 }
                 else
                 {
-                    GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""));
+                    GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""), "", traceId);
                 }
             }
             catch (Exception ex)
             {
                 var file = Functions.ExtrairNomeArq(NomeArquivoXML, extEnvio) + extRetorno;
                 var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
+                var traceId = ApiExceptionHelper.ExtrairTraceId(ex.GetLastException());
 
-                GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""));
+                GerarXmlRetorno(pathXml, null, ex.GetLastException().Message.Replace("\r\n", ""), "", traceId);
             }
             finally
             {
@@ -220,7 +205,7 @@ namespace NFe.Service
             }
         }
 
-        private void GerarXmlRetorno(string path, List<PIXItem> respostas, string exceptionMessage = "", string status = "")
+        private void GerarXmlRetorno(string path, List<PIXItem> respostas, string exceptionMessage = "", string status = "", string traceId = "")
         {
             var oSettings = new XmlWriterSettings();
             var c = new UTF8Encoding(false);
@@ -252,6 +237,11 @@ namespace NFe.Service
                         oXmlGravar.WriteElementString("Status", "999");
                     }
                     oXmlGravar.WriteElementString("Motivo", exceptionMessage);
+
+                    if (!string.IsNullOrWhiteSpace(traceId))
+                    {
+                        oXmlGravar.WriteElementString("TraceId", traceId);
+                    }
                 }
                 else
                 {

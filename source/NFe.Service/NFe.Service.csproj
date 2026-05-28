@@ -252,12 +252,12 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-	<Choose>
+   <Choose>
 	  <When Condition="'$(Configuration)' == 'Release'">
 		 <ItemGroup>
-			 <Reference Include="Unimake.Business.DFe, Version=2026.5.18.1618, Culture=neutral, processorArchitecture=MSIL">
-				<HintPath>..\packages\Unimake.DFe.20260518.1618.6\lib\net472\Unimake.Business.DFe.dll</HintPath>
-			 </Reference>		 
+			 <Reference Include="Unimake.Business.DFe, Version=2026.5.22.1829, Culture=neutral, processorArchitecture=MSIL">
+				<HintPath>..\packages\Unimake.DFe.20260522.1829.9\lib\net472\Unimake.Business.DFe.dll</HintPath>
+			 </Reference>
 		 </ItemGroup>
 	  </When>
 	  <Otherwise>
@@ -272,7 +272,18 @@
 	  </Otherwise>
 	</Choose>
   <ItemGroup>
+    <Compile Include="ApiExceptionHelper.cs" />
+    <Compile Include="AuthApiScopeHelper.cs" />
     <Compile Include="CCG\TaskCcgConsGTIN.cs" />
+    <Compile Include="CIOT\TaskCIOTBase.cs" />
+    <Compile Include="CIOT\TaskCIOTCancelamentoOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarCIOTGerado.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarExcecao.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarFrotaTransportador.cs" />
+    <Compile Include="CIOT\TaskCIOTConsultarSituacaoTransportador.cs" />
+    <Compile Include="CIOT\TaskCIOTDeclaracaoOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTEncerramentoOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTRetificacaoOperacaoTransporte.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="CTe\TaskAssinarValidarCTe.cs" />
     <Compile Include="CTe\TaskConsultaStatusCTe.cs" />
@@ -294,7 +305,6 @@
     <Compile Include="eBoleto\TaskBoletoConsultar.cs" />
     <Compile Include="eBoleto\TaskBoletoCancelar.cs" />
     <Compile Include="eBoleto\TaskBoletoRegistrar.cs" />
-    <Compile Include="eBoleto\BoletoRetornoHelper.cs" />
     <Compile Include="EFDReinf\TaskConsultaLoteAssincronoReinf.cs" />
     <Compile Include="EFDReinf\TaskConsultasReinf.cs" />
     <Compile Include="EFDReinf\TaskRecepcaoLoteReinf.cs" />
