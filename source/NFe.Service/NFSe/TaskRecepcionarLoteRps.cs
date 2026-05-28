@@ -390,6 +390,7 @@ namespace NFe.Service.NFSe
                         case "DPS":
                         case "e:RecepcionarDpsEnvio":
                         case "nfse:RecepcionarDpsEnvio":
+                        case "RecepcionarDpsEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
                             break;
 
