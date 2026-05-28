@@ -279,12 +279,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.EL:
-
                     versaoXML = "2.04";
-                    if (codMunicipio == 3204203)
-                    {
-                        versaoXML = "1.00";
-                    }
                     break;
 
                 case PadraoNFSe.DBSELLER:

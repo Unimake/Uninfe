@@ -186,7 +186,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -587,21 +587,15 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "2.04";
                     }
-
                     break;
 
                 case PadraoNFSe.EL:
                     versaoXML = "2.04";
 
-                    if (codMunicipio == 3204203)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    else if (xmlDoc.OuterXml.Contains("infPedReg"))
+                    if (xmlDoc.OuterXml.Contains("infPedReg"))
                     {
                         versaoXML = "1.01";
                     }
-
                     break;
 
                 case PadraoNFSe.FINTEL:
