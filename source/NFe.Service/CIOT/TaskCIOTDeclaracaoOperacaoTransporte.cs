@@ -81,6 +81,11 @@ namespace NFe.Service.CIOT
                 PastaEnviados.Autorizados.ToString(),
                 Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(xmlCIOT.DataDeclaracao.Date));
 
+            if (!Directory.Exists(pathXMLAutorizado))
+            {
+                Directory.CreateDirectory(pathXMLAutorizado);
+            }
+
             var fileCIOTProc = Functions.ExtrairNomeArq(fileCIOT, Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).EnvioXML) + Propriedade.ExtRetorno.ProcCIOT;
 
             var fullPathCIOT = Path.Combine(pathXMLAutorizado, fileCIOT);
