@@ -720,8 +720,7 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.DSF:
                     versaoXML = "2.03";
-                    if ((codMunicipio == 3509502 && ConteudoXML.OuterXml.Contains("ns1:ReqEnvioLoteRPS") ||
-                        codMunicipio == 3303500 || codMunicipio == 2111300))
+                    if ((codMunicipio == 3509502 && ConteudoXML.OuterXml.Contains("ns1:ReqEnvioLoteRPS") || codMunicipio == 2111300))
                     {
                         versaoXML = "1.00";
                     }
