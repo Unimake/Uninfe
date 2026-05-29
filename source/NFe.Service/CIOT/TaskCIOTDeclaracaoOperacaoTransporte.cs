@@ -24,32 +24,34 @@ namespace NFe.Service.CIOT
             try
             {
                 var xml = new XmlCIOT.DeclaracaoOperacaoTransporte().LerXML<XmlCIOT.DeclaracaoOperacaoTransporte>(ConteudoXML);
-                var declaracao = new ServicosCIOT.DeclaracaoOperacaoTransporte(xml, CriarConfiguracao(emp));
-                declaracao.Executar();
-                ConteudoXML = declaracao.ConteudoXMLAssinado;
-
-                SalvarArquivoEmProcessamento(emp, arqEmProcessamento, "DeclaracaoOperacaoTransporte");
-
-                vStrXmlRetorno = declaracao.RetornoWSString;
-
-                if (declaracao.Result.Codigo == "110")
+                using (var declaracao = new ServicosCIOT.DeclaracaoOperacaoTransporte(xml, CriarConfiguracao(emp)))
                 {
-                    FinalizarCIOT(declaracao, emp, xml);
-                }
-                else
-                {
-                    oAux.MoveArqErro(arqEmProcessamento);
+                    declaracao.Executar();
+                    ConteudoXML = declaracao.ConteudoXMLAssinado;
 
-                    if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                    SalvarArquivoEmProcessamento(emp, arqEmProcessamento, "DeclaracaoOperacaoTransporte");
+
+                    vStrXmlRetorno = declaracao.RetornoWSString;
+
+                    if (declaracao.Result != null && declaracao.Result.Codigo == "110")
                     {
-                        var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                        sendMessageToWhatsApp.AlertNotification("Rejeição: " + declaracao.Result.Codigo + "-" + declaracao.Result.Mensagem.Trim(), "UNINFE - CIOT´s estão sendo rejeitados");
+                        FinalizarCIOT(declaracao, emp, xml);
                     }
+                    else
+                    {
+                        oAux.MoveArqErro(arqEmProcessamento);
+
+                        if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                        {
+                            var codigoRetorno = declaracao.Result?.Codigo ?? "SEM-CODIGO";
+                            var mensagemRetorno = (declaracao.Result?.Mensagem ?? "Retorno do serviço CIOT sem mensagem.").Trim();
+                            var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
+                            sendMessageToWhatsApp.AlertNotification("Rejeição: " + codigoRetorno + "-" + mensagemRetorno, "UNINFE - CIOT´s estão sendo rejeitados");
+                        }
+                    }
+
+                    GravarRetorno();
                 }
-
-                GravarRetorno();
-
-                declaracao.Dispose();
             }
             catch (Exception ex)
             {
@@ -94,8 +96,15 @@ namespace NFe.Service.CIOT
             //Verifica se a -procCIOT.xml existe na pasta de autorizados
             if (!File.Exists(fullPathCIOTProc))
             {
+                if (declaracao.DeclaracaoOperacaoTransporteProcResult == null)
+                {
+                    Auxiliar.WriteLog("TaskCIOTDeclaracaoOperacaoTransporte: O retorno autorizado do CIOT não possui XML de distribuição para gravação do arquivo " + fullPathCIOTProc + ".", false);
+                }
+                else
+                {
                 //Gravar o XML de distribuição do CIOT na pasta de autorizados para que o cliente tenha acesso a ele, caso contrário, se o cliente tentar acessar o XML de distribuição do CIOT e ele não tiver sido gravado, vai dar erro de arquivo não encontrado.
-                declaracao.GravarXmlDistribuicao(pathXMLAutorizado, fileCIOTProc, declaracao.DeclaracaoOperacaoTransporteProcResult.GerarXML().OuterXml);
+                    declaracao.GravarXmlDistribuicao(pathXMLAutorizado, fileCIOTProc, declaracao.DeclaracaoOperacaoTransporteProcResult.GerarXML().OuterXml);
+                }
             }
             else
             {

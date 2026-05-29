@@ -68,9 +68,10 @@ namespace NFe.Service.CIOT
         {
             Empresas.Configuracoes[emp].CriarSubPastaEnviado();
 
-            var sw = File.CreateText(arqEmProcessamento);
-            sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
-            sw.Close();
+            using (var sw = File.CreateText(arqEmProcessamento))
+            {
+                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
+            }
         }
 
         /// <summary>

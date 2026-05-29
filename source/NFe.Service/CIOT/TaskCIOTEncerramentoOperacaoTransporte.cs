@@ -21,12 +21,13 @@ namespace NFe.Service.CIOT
             try
             {
                 var xml = new XmlCIOT.EncerramentoOperacaoTransporte().LerXML<XmlCIOT.EncerramentoOperacaoTransporte>(ConteudoXML);
-                var encerramento = new Unimake.Business.DFe.Servicos.CIOT.EncerramentoOperacaoTransporte(xml, CriarConfiguracao(emp));
-                encerramento.Executar();
+                using (var encerramento = new Unimake.Business.DFe.Servicos.CIOT.EncerramentoOperacaoTransporte(xml, CriarConfiguracao(emp)))
+                {
+                    encerramento.Executar();
 
-                vStrXmlRetorno = encerramento.RetornoWSString;
-                GravarRetorno();
-                encerramento.Dispose();
+                    vStrXmlRetorno = encerramento.RetornoWSString;
+                    GravarRetorno();
+                }
             }
             catch (Exception ex)
             {
