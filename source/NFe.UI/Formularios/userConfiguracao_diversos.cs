@@ -403,8 +403,8 @@ namespace NFe.UI.Formularios
                 if (padraoNfse == PadraoNFSe.IPM || padraoNfse == PadraoNFSe.SIMPLISS || padraoNfse == PadraoNFSe.FIORILLI ||
                     padraoNfse == PadraoNFSe.SMARAPD || padraoNfse == PadraoNFSe.EL || padraoNfse == PadraoNFSe.ADM_SISTEMAS ||
                     padraoNfse == PadraoNFSe.MEMORY || padraoNfse == PadraoNFSe.MODERNIZACAO_PUBLICA || padraoNfse == PadraoNFSe.WEBFISCO ||
-                    padraoNfse == PadraoNFSe.CENTI || padraoNfse == PadraoNFSe.FINTEL || padraoNfse == PadraoNFSe.SIGISSWEB ||
-                    padraoNfse == PadraoNFSe.CONAM || padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.GIAP)
+                    padraoNfse == PadraoNFSe.CENTI || padraoNfse == PadraoNFSe.FINTEL || padraoNfse == PadraoNFSe.CONAM ||
+                    padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.GIAP)
                 {
                     lbl_UsuarioWS.Visible = true;
                     txtUsuarioWS.Visible = true;

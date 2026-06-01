@@ -176,7 +176,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.GISSONLINE:
@@ -362,7 +361,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.03";
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
 

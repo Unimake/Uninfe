@@ -198,7 +198,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
 

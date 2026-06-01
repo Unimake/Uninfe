@@ -402,7 +402,6 @@ namespace NFe.Service.NFSe
                     break;
                 case PadraoNFSe.GIAP:
                 case PadraoNFSe.BSITBR:
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.CENTI:
                     versaoXML = "2.00";
                     break;

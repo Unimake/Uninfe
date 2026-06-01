@@ -150,10 +150,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
-                    versaoXML = "2.00";
-                    break;
-
                 case PadraoNFSe.PRIMAX:
                     if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
                     {

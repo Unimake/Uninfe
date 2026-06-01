@@ -169,7 +169,6 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.MEMORY:
                 case PadraoNFSe.DSF:
@@ -368,7 +367,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "3.00";
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
 

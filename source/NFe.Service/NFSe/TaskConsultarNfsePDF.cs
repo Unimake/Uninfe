@@ -205,10 +205,6 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "4.00";
                     }
-
-                    break;
-                case PadraoNFSe.SIGISSWEB:
-                    versaoXML = "2.00";
                     break;
 
                 case PadraoNFSe.PRODATA:
