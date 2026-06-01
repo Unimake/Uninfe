@@ -21,12 +21,13 @@ namespace NFe.Service.CIOT
             try
             {
                 var xml = new XmlCIOT.ConsultarFrotaTransportador().LerXML<XmlCIOT.ConsultarFrotaTransportador>(ConteudoXML);
-                var consulta = new Unimake.Business.DFe.Servicos.CIOT.ConsultarFrotaTransportador(xml, CriarConfiguracao(emp));
-                consulta.Executar();
+                using (var consulta = new Unimake.Business.DFe.Servicos.CIOT.ConsultarFrotaTransportador(xml, CriarConfiguracao(emp)))
+                {
+                    consulta.Executar();
 
-                vStrXmlRetorno = consulta.RetornoWSString;
-                GravarRetorno();
-                consulta.Dispose();
+                    vStrXmlRetorno = consulta.RetornoWSString;
+                    GravarRetorno();
+                }
             }
             catch (Exception ex)
             {

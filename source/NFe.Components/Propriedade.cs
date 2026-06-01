@@ -1936,9 +1936,19 @@ namespace NFe.Components
             #region CIOT
 
             /// <summary>
+            /// -procCIOT.xml
+            /// </summary>
+            public const string ProcCIOT = "-procCIOT.xml"; //Não deixar tudo minusculo para evitar problemas com Linux configurado para Case Sensitive. Wandrey 23/06/2011
+
+            /// <summary>
             /// -ret-ciot.err
             /// </summary>
             public const string CIOT_ERR = "-ret-ciot.err";
+
+            /// <summary>
+            /// -procEventoCIOT.xml
+            /// </summary>
+            public const string ProcEventoCIOT = "-procEventoCIOT.xml"; //Não deixar tudo minusculo para evitar problemas com Linux configurado para Case Sensitive. Wandrey 23/06/2011
 
             #endregion CIOT
 

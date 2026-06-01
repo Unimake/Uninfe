@@ -1,6 +1,7 @@
 using NFe.Components;
 using NFe.Settings;
 using System;
+using System.IO;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service.CIOT
@@ -16,6 +17,11 @@ namespace NFe.Service.CIOT
 
         protected abstract Propriedade.TipoEnvio TipoEnvioXML { get; }
 
+        /// <summary>
+        /// Cria o objeto de configuração para consumir o serviço
+        /// </summary>
+        /// <param name="emp">Identificador da empresa</param>
+        /// <returns>Objeto de configuração para o serviço</returns>
         protected Configuracao CriarConfiguracao(int emp)
         {
             var configuracao = new Configuracao
@@ -39,11 +45,39 @@ namespace NFe.Service.CIOT
             return configuracao;
         }
 
+        /// <summary>
+        /// Grava o XML retornado pelo web-service na pasta de Retorno, utilizando o mesmo nome do arquivo de envio, porém com a extensão de retorno
+        /// </summary>
         protected void GravarRetorno()
         {
             oGerarXML.XmlRetorno(Propriedade.Extensao(TipoEnvioXML).EnvioXML, Propriedade.Extensao(TipoEnvioXML).RetornoXML, vStrXmlRetorno);
+
+            if (File.Exists(NomeArquivoXML))
+            {
+                File.Delete(NomeArquivoXML);
+            }
         }
 
+        /// <summary>
+        /// Salvar o arquivo da DCe assinado na pasta EmProcessamento
+        /// </summary>
+        /// <param name="emp">Código da empresa</param>
+        /// <param name="arqEmProcessamento">Onde será salvo o XML assinado</param>
+        /// <param name="nomeTag">Nome da tag que abre o XML</param>
+        protected void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento, string nomeTag)
+        {
+            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
+
+            using (var sw = File.CreateText(arqEmProcessamento))
+            {
+                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
+            }
+        }
+
+        /// <summary>
+        /// Grava o erro ocorrido durante o processamento do CIOT
+        /// </summary>
+        /// <param name="ex">Exceção ocorrida</param>
         protected void GravarErro(Exception ex)
         {
             try
