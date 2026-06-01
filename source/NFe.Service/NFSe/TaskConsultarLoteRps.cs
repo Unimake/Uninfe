@@ -266,7 +266,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.PRODATA:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.PRODEB:
@@ -274,15 +273,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.FIORILLI:
-                    versaoXML = "2.01";
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.00\""))
-                    {
-                        versaoXML = "1.00";
-                    }
-                    else if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.AVMB:

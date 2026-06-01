@@ -147,7 +147,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
                     versaoXML = "2.01";

@@ -280,11 +280,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.QUASAR:
-                    versaoXML = "2.01";
-                    if (xmlDoc.DocumentElement.Name.Contains("Dps"))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.AVMB:

@@ -249,7 +249,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.DSF:
                 case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.WEBISS:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.EL:
                 case PadraoNFSe.COPLAN:
                 case PadraoNFSe.SIMPLISS:
@@ -458,7 +457,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
                     versaoXML = "2.01";
