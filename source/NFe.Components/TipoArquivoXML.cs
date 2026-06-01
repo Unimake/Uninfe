@@ -167,22 +167,10 @@ namespace NFe.Components
                                 break;
 
                             case 3300407: //Barra Mansa - RJ (Padrão COPLAN)
-                            case 4303004: //Cachoeira do Sul - RS (Padrão PRONIM 2.02)
-                            case 3143302: //Montes Claros - MG (Padrão PRONIM 2.02)
-                            case 3131703: //Itabira - MG (Padrão PRONIM 2.02)
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-2.02-";
                                 break;
 
-                            case 4202404: //Blumenau - SC (Padrão SIMPLISS 2.03)
-                            case 3306305: //Volta Redonda - RJ (Padrão SIMPLISS 2.03)
-                            case 4302808: //Caçapava do Sul - RS (Padrão PRONIM 2.03)
-                            case 4322400: //Uruguaiana-RS (Padrão PRONIM 2.03)
-                            case 4300109: //Agudo - RS (Padrão PRONIM 2.03)
-                            case 4310207: //Ijuí - RS (Padrão PRONIM 2.03)
-                            case 4308904: //Getúlio Vargas - RS (Padrão PRONIM 2.03)
-                            case 4322004: //Triunfo - RS (Padrão PRONIM 2.03)
                             case 4318309: //São Gabriel - SP (Padrão PRONIM 2.03
-                            case 4322509: //Vacaria - RS (Padrão PRONIM 2.03)
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-2.03-";
                                 break;
 

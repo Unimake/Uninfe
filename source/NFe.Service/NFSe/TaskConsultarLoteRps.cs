@@ -345,11 +345,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
-
-                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
-                    {
-                        versaoXML = "2.02";
-                    }
                     break;
 
                 case PadraoNFSe.TRIBUTUS:
