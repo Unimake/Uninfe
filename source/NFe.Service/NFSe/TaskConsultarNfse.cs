@@ -442,12 +442,7 @@ namespace NFe.Service.NFSe
 
 
                 case PadraoNFSe.DIGIFRED:
-                    versaoXML = "2.00";
-                    if (xmlDoc.InnerXml.Contains("<NFSe versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.GIAP:

@@ -142,10 +142,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
-                case PadraoNFSe.DIGIFRED:
-                    versaoXML = "2.00";
-                    break;
-
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:

@@ -153,7 +153,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.01";
                     break;
 
-                case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.CENTI:
                     versaoXML = "2.00";
                     break;

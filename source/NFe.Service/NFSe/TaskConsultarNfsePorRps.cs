@@ -258,14 +258,8 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.DIGIFRED:
-                    versaoXML = "2.00";
-                    if (xmlDoc.InnerXml.Contains("<DPS versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
+                    versaoXML = "1.01";
                     break;
-
 
                 case PadraoNFSe.BSITBR:
                     versaoXML = "2.00";

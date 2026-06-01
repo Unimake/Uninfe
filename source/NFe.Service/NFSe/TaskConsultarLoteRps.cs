@@ -259,7 +259,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.BSITBR:
                     versaoXML = "2.00";
                     break;
