@@ -1,26 +1,13 @@
-﻿using EBank.Solutions.Primitives.Billet;
-using EBank.Solutions.Primitives.Billet.Models;
-using EBank.Solutions.Primitives.Billet.Request;
-using EBank.Solutions.Primitives.Enumerations;
-using EBank.Solutions.Primitives.Enumerations.Billet;
-using EBank.Solutions.Primitives.PDF.Models;
 using NFe.Components;
 using NFe.Settings;
-using NFe.Validate;
 using System;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Xml;
-using Unimake.EBank.Solutions.Services.Billet;
-using Unimake.Primitives.UDebug;
+using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service
 {
     public class TaskBoletoRegistrar : TaskAbst
     {
-        public static DebugScope<DebugStateObject> debugScope;
-
         public TaskBoletoRegistrar(string arquivo)
         {
             Servico = Servicos.BoletoRegistrar;
@@ -29,413 +16,86 @@ namespace NFe.Service
             ConteudoXML.Load(arquivo);
         }
 
-        public override async void Execute()
+        public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
+            var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
 
             try
             {
-                if(string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].AppID) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].Secret))
+                if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].AppID) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].Secret))
                 {
                     throw new Exception("Para utilizar o serviço do eBoleto é necessário configurar no UniNFe o AppID e Secret do eBank.");
                 }
 
-                #region Validar o XML
-
-                var validarXML = new ValidarXML
-                {
-                    TipoArqXml = new TipoArquivoXML
-                    {
-                        cArquivoSchema = Path.Combine(Propriedade.PastaExecutavel, @"NFe\schemas\eBoleto\BoletoRegistrar_1_00.xsd"),
-                        nRetornoTipoArq = 1
-                    }
-                };
-
-                validarXML.ValidarArqXML(ConteudoXML, NomeArquivoXML);
-                if(validarXML.Retorno != 0)
-                {
-                    throw new Exception(validarXML.RetornoString.Replace("\r\n", ""));
-                }
-
-                #endregion
-
-                #region Criar objeto do boleto para enviar ao eBank
-
-                var registerRequest = new RegisterRequest
-                {
-                    ConfigurationId = TFunctions.GetXmlValue(ConteudoXML, "ConfigurationId"),
-                    AgenciaColetora = TFunctions.GetXmlValue(ConteudoXML, "AgenciaColetora"),
-                    Carteira = TFunctions.GetXmlValue(ConteudoXML, "Carteira"),
-                    CodigoBarraNumerico = TFunctions.GetXmlValue(ConteudoXML, "CodigoBarraNumerico"),
-                    DiasParaBaixaOuDevolucao = TFunctions.GetXmlIntValue(ConteudoXML, "DiasParaBaixaOuDevolucao"),
-                    DigitoVerificadorNumeroNoBanco = TFunctions.GetXmlValue(ConteudoXML, "DigitoVerificadorNumeroNoBanco"),
-                    Emissao = TFunctions.GetXmlDateTimeValue(ConteudoXML, "Emissao"),
-                    Especie = (EspecieTitulo)TFunctions.GetXmlIntValue(ConteudoXML, "Especie"),
-                    IdentificacaoDistribuicao = (IdentificacaoDistribuicao)TFunctions.GetXmlIntValue(ConteudoXML, "IdentificacaoDistribuicao"),
-                    IdentificacaoEmissao = (IdentificacaoEmissao)TFunctions.GetXmlIntValue(ConteudoXML, "IdentificacaoEmissao"),
-                    LinhaDigitavel = TFunctions.GetXmlValue(ConteudoXML, "LinhaDigitavel"),
-                    NumeroDiasLimiteRecebimento = TFunctions.GetXmlIntValue(ConteudoXML, "NumeroDiasLimiteRecebimento"),
-                    NumeroNaEmpresa = TFunctions.GetXmlValue(ConteudoXML, "NumeroNaEmpresa"),
-                    NumeroParcela = TFunctions.GetXmlIntValue(ConteudoXML, "NumeroParcela"),
-                    NumeroVariacaoCarteira = TFunctions.GetXmlValue(ConteudoXML, "NumeroVariacaoCarteira"),
-                    PermiteRecebimentoParcial = TFunctions.GetXmlCharValue(ConteudoXML, "PermiteRecebimentoParcial"),
-                    Testing = TFunctions.GetXmlBoolValue(ConteudoXML, "Testing"),
-                    TipoBaixaDevolucao = (TipoBaixaDevolucao)TFunctions.GetXmlIntValue(ConteudoXML, "TipoBaixaDevolucao"),
-                    ValorAbatimento = TFunctions.GetXmlDecimalValue(ConteudoXML, "ValorAbatimento"),
-                    ValorIOF = TFunctions.GetXmlDecimalValue(ConteudoXML, "ValorIOF"),
-                    ValorNominal = TFunctions.GetXmlDecimalValue(ConteudoXML, "ValorNominal"),
-                    Vencimento = TFunctions.GetXmlDateTimeValue(ConteudoXML, "Vencimento")
-                };
-
-                #region Avalista
-
-                var numeroNoBanco = TFunctions.GetXmlValue(ConteudoXML, "NumeroNoBanco");
-                if(!string.IsNullOrWhiteSpace(numeroNoBanco))
-                {
-                    registerRequest.NumeroNoBanco = numeroNoBanco;
-                }
-
-                var avalista = ConteudoXML.GetElementsByTagName("Avalista");
-
-                if(avalista.Count > 0)
-                {
-                    var elementoAvalista = (XmlElement)avalista[0];
-
-                    registerRequest.Avalista = new Avalista
-                    {
-                        Nome = TFunctions.GetXmlValue(elementoAvalista, "Nome"),
-                        TipoInscricao = (TipoDeInscricao)TFunctions.GetXmlIntValue(elementoAvalista, "TipoInscricao"),
-                        Inscricao = TFunctions.GetXmlValue(elementoAvalista, "Inscricao")
-                    };
-
-                    var enderecoAvalista = ((XmlElement)avalista[0]).GetElementsByTagName("Endereco");
-
-                    if(enderecoAvalista.Count > 0)
-                    {
-                        var elementoEnderecoAvalista = (XmlElement)((XmlElement)avalista[0]).GetElementsByTagName("Endereco")[0];
-
-                        registerRequest.Avalista.Endereco = new Endereco
-                        {
-                            Logradouro = TFunctions.GetXmlValue(elementoEnderecoAvalista, "Logradouro"),
-                            Numero = TFunctions.GetXmlValue(elementoEnderecoAvalista, "Numero"),
-                            Complemento = TFunctions.GetXmlValue(elementoEnderecoAvalista, "Complemento"),
-                            Bairro = TFunctions.GetXmlValue(elementoEnderecoAvalista, "Bairro"),
-                            Cidade = TFunctions.GetXmlValue(elementoEnderecoAvalista, "Cidade"),
-                            UF = TFunctions.GetXmlValue(elementoEnderecoAvalista, "UF"),
-                            CEP = TFunctions.GetXmlValue(elementoEnderecoAvalista, "CEP")
-                        };
-                    }
-                }
-
-                #endregion
-
-                #region Desconto
-
-                var desconto = ConteudoXML.GetElementsByTagName("Desconto");
-
-                if(desconto.Count > 0)
-                {
-                    var elementoDesconto = (XmlElement)desconto[0];
-
-                    registerRequest.Desconto = new Desconto
-                    {
-                        Data = TFunctions.GetXmlDateTimeValue(elementoDesconto, "Data"),
-                        Tipo = (TipoDesconto)TFunctions.GetXmlIntValue(elementoDesconto, "Tipo"),
-                        Valor = TFunctions.GetXmlDecimalValue(elementoDesconto, "Valor")
-                    };
-                }
-
-                #endregion
-
-                #region Juros
-
-                var juros = ConteudoXML.GetElementsByTagName("Juros");
-
-                if(juros.Count > 0)
-                {
-                    var elementoJuros = (XmlElement)juros[0];
-
-                    registerRequest.Juros = new Juros
-                    {
-                        Data = TFunctions.GetXmlDateTimeValue(elementoJuros, "Data"),
-                        Tipo = (TipoJuros)TFunctions.GetXmlIntValue(elementoJuros, "Tipo"),
-                        Valor = TFunctions.GetXmlDecimalValue(elementoJuros, "Valor")
-                    };
-                }
-
-                #endregion
-
-                #region Mensagens
-
-                var mensagens = ConteudoXML.GetElementsByTagName("Mensagens");
-
-                if(mensagens.Count > 0)
-                {
-                    var nodes = mensagens[0].SelectNodes("Mensagem");
-
-                    registerRequest.Mensagens = nodes.Cast<XmlNode>().Select(n => n.InnerText).ToArray();
-                }
-
-                #endregion
-
-                #region Mensagens Recibo
-
-                var mensagensRecibo = ConteudoXML.GetElementsByTagName("MensagensRecibo");
-
-                if(mensagensRecibo.Count > 0)
-                {
-                    var nodes = mensagensRecibo[0].SelectNodes("Mensagem");
-
-                    registerRequest.MensagensRecibo = nodes.Cast<XmlNode>().Select(n => n.InnerText).ToArray();
-                }
-
-                #endregion
-
-                #region Multa
-
-                var multa = ConteudoXML.GetElementsByTagName("Multa");
-
-                if(multa.Count > 0)
-                {
-                    var elementoMulta = (XmlElement)multa[0];
-
-                    registerRequest.Multa = new Multa
-                    {
-                        Data = TFunctions.GetXmlDateTimeValue(elementoMulta, "Data"),
-                        Tipo = (TipoMulta)TFunctions.GetXmlIntValue(elementoMulta, "Tipo"),
-                        Valor = TFunctions.GetXmlDecimalValue(elementoMulta, "Valor")
-                    };
-                }
-
-                #endregion
-
-                #region Pagador
-
-                var pagador = ConteudoXML.GetElementsByTagName("Pagador").Cast<XmlElement>().FirstOrDefault(w => w.ParentNode.Name.Equals("BoletoRegistrar", StringComparison.OrdinalIgnoreCase));
-
-                if(pagador != null)
-                {
-                    registerRequest.Pagador = new Pagador
-                    {
-                        Nome = TFunctions.GetXmlValue(pagador, "Nome"),
-                        TipoInscricao = (TipoDeInscricao)TFunctions.GetXmlIntValue(pagador, "TipoInscricao"),
-                        Inscricao = TFunctions.GetXmlValue(pagador, "Inscricao"),
-                        Codigo = TFunctions.GetXmlValue(pagador, "Codigo"),
-                        Email = TFunctions.GetXmlValue(pagador, "Email"),
-                        Telefone = TFunctions.GetXmlValue(pagador, "Telefone")
-                    };
-
-                    var enderecoPagador = pagador.GetElementsByTagName("Endereco").Cast<XmlElement>().FirstOrDefault();
-
-                    if(enderecoPagador != null)
-                    {
-                        registerRequest.Pagador.Endereco = new Endereco
-                        {
-                            Logradouro = TFunctions.GetXmlValue(enderecoPagador, "Logradouro"),
-                            Numero = TFunctions.GetXmlValue(enderecoPagador, "Numero"),
-                            Complemento = TFunctions.GetXmlValue(enderecoPagador, "Complemento"),
-                            Bairro = TFunctions.GetXmlValue(enderecoPagador, "Bairro"),
-                            Cidade = TFunctions.GetXmlValue(enderecoPagador, "Cidade"),
-                            UF = TFunctions.GetXmlValue(enderecoPagador, "UF"),
-                            CEP = TFunctions.GetXmlValue(enderecoPagador, "CEP")
-                        };
-                    }
-                }
-
-                #endregion
-
-                #region PDF Config
-
-                var pdfConfig = ConteudoXML.GetElementsByTagName("PDFConfig");
-
-                if(pdfConfig.Count > 0)
-                {
-                    var elementoPdfConfig = (XmlElement)pdfConfig[0];
-
-                    registerRequest.PDFConfig = new PDFConfig
-                    {
-                        Password = TFunctions.GetXmlValue(elementoPdfConfig, "Password"),
-                        PermitAnnotations = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitAnnotations"),
-                        PermitAssembleDocument = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitAssembleDocument"),
-                        PermitExtractContent = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitExtractContent"),
-                        PermitFormsFill = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitFormsFill"),
-                        PermitFullQualityPrint = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitFullQualityPrint"),
-                        PermitModifyDocument = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitModifyDocument"),
-                        PermitPrint = TFunctions.GetXmlBoolValue(elementoPdfConfig, "PermitPrint"),
-                        SignPDF = TFunctions.GetXmlBoolValue(elementoPdfConfig, "SignPDF"),
-                        TryGeneratePDF = TFunctions.GetXmlBoolValue(elementoPdfConfig, "TryGeneratePDF")
-                    };
-                }
-
-                #endregion
-
-                #region PIX Config
-
-                var nodePixConfig = ConteudoXML.GetElementsByTagName("PixConfig");
-
-                if(nodePixConfig.Count > 0)
-                {
-                    var elementPixConfig = (XmlElement)nodePixConfig[0];
-
-                    registerRequest.PIXConfig = new PIXBilletConfig
-                    {
-                        Chave = TFunctions.GetXmlValue(elementPixConfig, "Chave"),
-                        RegistrarPIX = TFunctions.GetXmlBoolValue(elementPixConfig, "RegistrarPIX")
-                    };
-
-                    var nodeQrCodeConfig = elementPixConfig.GetElementsByTagName("QrCodeConfig");
-
-                    if(nodeQrCodeConfig.Count > 0)
-                    {
-                        var elementQrCodeConfig = (XmlElement)nodeQrCodeConfig[0];
-                        registerRequest.PIXConfig.QRCodeConfig.Height = TFunctions.GetXmlIntValue(elementQrCodeConfig, "Height");
-                        registerRequest.PIXConfig.QRCodeConfig.ImageFormat = (EBank.Solutions.Primitives.Enumerations.PIX.QrCodeImageFormat)TFunctions.GetXmlIntValue(elementQrCodeConfig, "ImageFormat");
-                        registerRequest.PIXConfig.QRCodeConfig.Quality = TFunctions.GetXmlIntValue(elementQrCodeConfig, "Quality");
-                        registerRequest.PIXConfig.QRCodeConfig.Width = TFunctions.GetXmlIntValue(elementQrCodeConfig, "Width");
-                    }
-                }
-
-                #endregion
-
-                #region Protesto
-
-                var protesto = ConteudoXML.GetElementsByTagName("Protesto");
-
-                if(protesto.Count > 0)
-                {
-                    var elementoProtesto = (XmlElement)protesto[0];
-
-                    registerRequest.Protesto = new Protesto
-                    {
-                        Tipo = (TipoProtesto)TFunctions.GetXmlIntValue(elementoProtesto, "Tipo"),
-                        Valor = TFunctions.GetXmlIntValue(elementoProtesto, "Valor")
-                    };
-                }
-
-                #endregion
-
-                #endregion
-
-                #region Autenticar nas APIs da Unimake
-
-                var useHomologServer = AuthApiScopeHelper.ResolveUseHomologServer(registerRequest.Testing, ConteudoXML.DocumentElement);
-                debugScope = AuthApiScopeHelper.CreateDebugScopeIfNeeded(useHomologServer, "https://ebank.sandbox.unimake.software/api/v1/");
-
-                var authenticatedScope = AuthApiScopeHelper.CreateAuthenticatedScopeEBank(emp);
-
-                #endregion
-
-                #region Enviar o Boleto para o eBank
-
-                var billetService = new BilletService();
-                var responseBilletService = await billetService.RegisterAsync(registerRequest, authenticatedScope);
-
-                authenticatedScope.Dispose();
-
-                #endregion
-
-                #region Gravar XML de Retorno e o PDF do Boleto
-
-                var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
-                var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
-
-                file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
-                var pathPDF = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file.Replace(".xml", ".pdf"));
-                if(responseBilletService.PDFContent.Success)
-                {
-                    responseBilletService.PDFContent.SaveToFile(pathPDF);
-                }
-
-                GerarXmlRetorno(pathXml,
-                    "0",
-                    "",
-                    responseBilletService,
-                    (responseBilletService.PDFContent.Success ? pathPDF : ""),
-                    ""
-                    );
-
-                #endregion
+                ExecuteDLL(emp);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                var file = Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
-                var pathXml = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, file);
-
                 var lastException = ex.GetLastException();
                 var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
-                GerarXmlRetorno(
-                   pathXml,
-                   "999",
-                   lastException.Message.Replace("\r\n", ""),
-                   null,
-                   "",
-                   traceId);
+                ApiExceptionHelper.GravarXmlRetornoEBoleto(pathXml, "BoletoRegistrarResponse", "999", lastException.Message.Replace("\r\n", " | "), traceId);
             }
             finally
             {
                 try
                 {
-                    //Deletar o arquivo de solicitação do serviço
                     Functions.DeletarArquivo(NomeArquivoXML);
                 }
                 catch
                 {
-                    //Se falhou algo na hora de deletar o XML de solicitação do serviço,
-
-                    //infelizmente não posso fazer mais nada, o UniNFe vai tentar mandar
-                    //o arquivo novamente para o webservice
-                    //Wandrey 09/03/2010
                 }
             }
         }
 
-        private void GerarXmlRetorno(string path, string status, string motivo, EBank.Solutions.Primitives.Billet.Response.RegisterResponse registerResponse = null, string pdfPath = "", string traceId = "")
+        #region ExecuteDLL
+
+        private void ExecuteDLL(int emp)
         {
-            var cultura = CultureInfo.CreateSpecificCulture("en-US");
-            cultura.NumberFormat.NumberDecimalSeparator = ".";
+            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).EnvioXML;
+            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar).RetornoXML;
 
-            if(status == "0")
+            var configuracao = new Configuracao
             {
-                motivo = "Boleto registrado";
-            }
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
+                AppId = Empresas.Configuracoes[emp].AppID,
+                Secret = Empresas.Configuracoes[emp].Secret
+            };
 
-            ApiExceptionHelper.GravarXmlRetornoEBoleto(path, "BoletoRegistrarResponse", status, motivo, traceId, xmlWriter =>
+            try
             {
-                if(status == "0")
+                var assembly = typeof(Configuracao).Assembly;
+                var boletoType = assembly.GetType("Unimake.Business.DFe.Servicos.EBoleto.BoletoRegistrar");
+                if (boletoType == null) throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não foi localizada na DLL.");
+
+                var boletoInstance = Activator.CreateInstance(boletoType, new object[] { ConteudoXML.OuterXml, configuracao });
+                var executarMethod = boletoInstance.GetType().GetMethod("Executar");
+                if (executarMethod == null) throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não expõe o método Executar().");
+                executarMethod.Invoke(boletoInstance, null);
+
+                var retornoProp = boletoInstance.GetType().GetProperty("RetornoWSString");
+                if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(boletoInstance)?.ToString();
+
+                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
                 {
-                    xmlWriter.WriteElementString("CodigoBarraNumerico", registerResponse.CodigoBarraNumerico);
-                    xmlWriter.WriteElementString("NumeroNoBanco", registerResponse.NumeroNoBanco);
-                    xmlWriter.WriteElementString("LinhaDigitavel", registerResponse.LinhaDigitavel);
-                    xmlWriter.WriteElementString("PdfContentSuccess", registerResponse.PDFContent.Success.ToString());
-                    xmlWriter.WriteElementString("PdfContentMessage", registerResponse.PDFContent.Message);
-                    xmlWriter.WriteElementString("PdfContentBase64", registerResponse.PDFContent.Content);
-                    xmlWriter.WriteElementString("PdfPath", pdfPath);
-
-                    if(registerResponse.PIXPagamentoDetalhe != null)
-                    {
-                        xmlWriter.WriteStartElement("PixPagamentoDetalhe");
-                        xmlWriter.WriteElementString("DataPagamento", registerResponse.PIXPagamentoDetalhe.DataPagamento.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"));
-                        xmlWriter.WriteElementString("TxId", registerResponse.PIXPagamentoDetalhe.TxId);
-                        xmlWriter.WriteElementString("ValorAbatimento", registerResponse.PIXPagamentoDetalhe.ValorAbatimento?.ToString("N2", cultura));
-                        xmlWriter.WriteElementString("ValorDesconto", registerResponse.PIXPagamentoDetalhe.ValorDesconto?.ToString("N2", cultura));
-                        xmlWriter.WriteElementString("ValorJuros", registerResponse.PIXPagamentoDetalhe.ValorJuros?.ToString("N2", cultura));
-                        xmlWriter.WriteElementString("ValorLiquidado", registerResponse.PIXPagamentoDetalhe.ValorLiquidado.ToString("N2", cultura));
-                        xmlWriter.WriteElementString("ValorMulta", registerResponse.PIXPagamentoDetalhe.ValorMulta?.ToString("N2", cultura));
-                        xmlWriter.WriteElementString("ValorOriginal", registerResponse.PIXPagamentoDetalhe.ValorOriginal.ToString("N2", cultura));
-
-                        xmlWriter.WriteEndElement();
-                    }
-
-                    if(!registerResponse.QrCodeContent.IsNullOrEmpty())
-                    {
-                        xmlWriter.WriteStartElement("QRCodeContent");
-                        xmlWriter.WriteElementString("Image", registerResponse.QrCodeContent.Image);
-                        xmlWriter.WriteElementString("Success", registerResponse.QrCodeContent.Success.ToString());
-                        xmlWriter.WriteElementString("Text", registerResponse.QrCodeContent.Text);
-                        xmlWriter.WriteEndElement();
-                    }
+                    throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
                 }
-            });
+
+                XmlRetorno(finalArqEnvio, finalArqRetorno);
+
+                var disposeMethod = boletoInstance.GetType().GetMethod("Dispose");
+                disposeMethod?.Invoke(boletoInstance, null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao executar DLL eBoleto BoletoRegistrar: {ex.Message}", ex);
+            }
         }
+
+        #endregion ExecuteDLL
     }
 }
