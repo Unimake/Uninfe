@@ -92,7 +92,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -173,7 +173,7 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.02";
                     break;
 
-                case PadraoNFSe.SIMPLISS:                
+                case PadraoNFSe.SIMPLISS:
                 case PadraoNFSe.FISCO:
                 case PadraoNFSe.RLZ_INFORMATICA:
                 case PadraoNFSe.ELOTECH:
@@ -223,14 +223,9 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
+                    versaoXML = "1.01";
 
-                    if ((codMunicipio == 3506003 || codMunicipio == 3201308 || codMunicipio == 3530607 || codMunicipio == 3205200) || xmlDoc.OuterXml.Contains("infPedReg"))
-                    {
-                        versaoXML = "1.01";
-                    }
-
-                    else if (codMunicipio == 3205002 || codMunicipio == 3516200)
+                    if (codMunicipio == 3205002 || codMunicipio == 3516200)
                     {
                         versaoXML = "2.04";
                     }
