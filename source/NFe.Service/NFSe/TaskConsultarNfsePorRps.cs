@@ -176,7 +176,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                 case PadraoNFSe.PORTAL_FACIL:
                 case PadraoNFSe.GISSONLINE:
@@ -259,14 +258,8 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.DIGIFRED:
-                    versaoXML = "2.00";
-                    if (xmlDoc.InnerXml.Contains("<DPS versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
+                    versaoXML = "1.01";
                     break;
-
 
                 case PadraoNFSe.BSITBR:
                     versaoXML = "2.00";
@@ -310,16 +303,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.COPLAN:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3300407)
-                    {
-                        versaoXML = "2.02";
-                    }
-                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.SMARAPD:
@@ -371,7 +355,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.03";
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
 

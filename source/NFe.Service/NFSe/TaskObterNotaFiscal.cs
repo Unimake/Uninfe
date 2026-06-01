@@ -87,7 +87,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -150,21 +150,9 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
-                    versaoXML = "2.00";
-                    break;
-
                 case PadraoNFSe.PRIMAX:
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
-                    else
-                    {
-                        versaoXML = "1.00";
-                        break;
-                    }
+                    versaoXML = "1.01";
+                    break;
 
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Obtenção de NFS-e.");

@@ -153,7 +153,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.01";
                     break;
 
-                case PadraoNFSe.DIGIFRED:
                 case PadraoNFSe.CENTI:
                     versaoXML = "2.00";
                     break;
@@ -183,16 +182,7 @@ namespace NFe.Service.NFSe
 
 
                 case PadraoNFSe.COPLAN:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3300407)
-                    {
-                        versaoXML = "2.02";
-                    }
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.DSF:
@@ -211,7 +201,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.04";
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
 

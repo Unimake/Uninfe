@@ -142,10 +142,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
-                case PadraoNFSe.DIGIFRED:
-                    versaoXML = "2.00";
-                    break;
-
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
@@ -177,16 +173,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.COPLAN:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3300407)
-                    {
-                        versaoXML = "2.02";
-                    }
-                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.sped.fazenda.gov.br/nfse\""))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.ADM_SISTEMAS:
@@ -207,7 +194,6 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadraoNFSe.SIGISSWEB:
                 case PadraoNFSe.SIGCORP:
                     versaoXML = "2.03";
 
