@@ -354,16 +354,8 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.PRIMAX:
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
-                    else
-                    {
-                        versaoXML = "1.00";
-                        break;
-                    }
+                    versaoXML = "1.01";
+                    break;
 
                 case PadraoNFSe.TINUS:
                     versaoXML = "1.00";
