@@ -235,9 +235,9 @@ namespace NFe.UI.Formularios
             }
         }
 
-       public bool Validar(bool exibeerro, bool novaempresa)
+        public bool Validar(bool exibeerro, bool novaempresa)
         {
-            var cnpj = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.',' '); // (string)Functions.OnlyNumbers(edtCNPJ.Text, ".-/");
+            var cnpj = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.', ' '); // (string)Functions.OnlyNumbers(edtCNPJ.Text, ".-/");
 
 
 
@@ -325,7 +325,7 @@ namespace NFe.UI.Formularios
                     throw new Exception("As seguintes informações tem que estarem todas informadas: Usuário, Senha, ClientID e ClientSecret");
                 }
 
-                
+
                 empresa.SalvarConfiguracoesNFSeSoftplan(txtUsuarioWS.Text,
                                                         txtSenhaWS.Text,
                                                         txtClienteID.Text,
@@ -400,12 +400,11 @@ namespace NFe.UI.Formularios
             {
                 var padraoNfse = Functions.BuscaPadraoNFSe(ufCod);
 
-                if (padraoNfse == PadraoNFSe.IPM || padraoNfse == PadraoNFSe.SIMPLISS || padraoNfse == PadraoNFSe.FIORILLI || 
-                    padraoNfse == PadraoNFSe.SMARAPD || padraoNfse == PadraoNFSe.EL || padraoNfse == PadraoNFSe.ADM_SISTEMAS || 
-                    padraoNfse == PadraoNFSe.MEMORY || padraoNfse == PadraoNFSe.MODERNIZACAO_PUBLICA || padraoNfse == PadraoNFSe.WEBFISCO || 
-                    padraoNfse == PadraoNFSe.IIBRASIL || padraoNfse == PadraoNFSe.CENTI || padraoNfse == PadraoNFSe.FINTEL || 
-                    padraoNfse == PadraoNFSe.SIGISSWEB || padraoNfse == PadraoNFSe.CONAM || padraoNfse == PadraoNFSe.HM2SOLUCOES || 
-                    padraoNfse == PadraoNFSe.GIAP)
+                if (padraoNfse == PadraoNFSe.IPM || padraoNfse == PadraoNFSe.SIMPLISS || padraoNfse == PadraoNFSe.FIORILLI ||
+                    padraoNfse == PadraoNFSe.SMARAPD || padraoNfse == PadraoNFSe.EL || padraoNfse == PadraoNFSe.ADM_SISTEMAS ||
+                    padraoNfse == PadraoNFSe.MEMORY || padraoNfse == PadraoNFSe.MODERNIZACAO_PUBLICA || padraoNfse == PadraoNFSe.WEBFISCO ||
+                    padraoNfse == PadraoNFSe.CENTI || padraoNfse == PadraoNFSe.FINTEL || padraoNfse == PadraoNFSe.SIGISSWEB ||
+                    padraoNfse == PadraoNFSe.CONAM || padraoNfse == PadraoNFSe.HM2SOLUCOES || padraoNfse == PadraoNFSe.GIAP)
                 {
                     lbl_UsuarioWS.Visible = true;
                     txtUsuarioWS.Visible = true;
@@ -429,7 +428,7 @@ namespace NFe.UI.Formularios
                 }
             }
             else
-            { 
+            {
                 lbl_SenhaWS.Visible = false;
                 txtSenhaWS.Visible = false;
             }
@@ -530,10 +529,10 @@ namespace NFe.UI.Formularios
 
         private void checkBoxRpsSincAssincTHEMA_CheckedChanged(object sender, EventArgs e)
         {
-             if (changeEvent != null)
-             {
+            if (changeEvent != null)
+            {
                 changeEvent(sender, e);
-             }
+            }
         }
 
         private void checkBoxGravarWarnings_CheckedChanged(object sender, EventArgs e)

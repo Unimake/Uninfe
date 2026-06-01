@@ -416,11 +416,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.QUASAR:
-                    versaoXML = "2.01";
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.AVMB:
@@ -499,27 +495,16 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
-                    {
-                        versaoXML = "2.02";
-                    }
-
                     if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }
-
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
+                    versaoXML = "1.00";
 
-
-                    if (codMunicipio == 3551702 || codMunicipio == 3202405)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    else if (xmlDoc.OuterXml.Contains("infPedReg"))
+                    if (xmlDoc.OuterXml.Contains("infPedReg"))
                     {
                         versaoXML = "1.01";
                     }

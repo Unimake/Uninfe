@@ -21,12 +21,13 @@ namespace NFe.Service.CIOT
             try
             {
                 var xml = new XmlCIOT.ConsultarExcecao().LerXML<XmlCIOT.ConsultarExcecao>(ConteudoXML);
-                var consulta = new Unimake.Business.DFe.Servicos.CIOT.ConsultarExcecao(xml, CriarConfiguracao(emp));
-                consulta.Executar();
+                using (var consulta = new Unimake.Business.DFe.Servicos.CIOT.ConsultarExcecao(xml, CriarConfiguracao(emp)))
+                {
+                    consulta.Executar();
 
-                vStrXmlRetorno = consulta.RetornoWSString;
-                GravarRetorno();
-                consulta.Dispose();
+                    vStrXmlRetorno = consulta.RetornoWSString;
+                    GravarRetorno();
+                }
             }
             catch (Exception ex)
             {

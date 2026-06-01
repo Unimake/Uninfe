@@ -93,7 +93,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -147,7 +147,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
                     versaoXML = "2.01";
@@ -219,12 +218,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3205002 || codMunicipio == 3516200)
-                    {
-                        versaoXML = "2.04";
-                    }
+                    versaoXML = "2.04";
                     break;
 
                 case PadraoNFSe.FINTEL:

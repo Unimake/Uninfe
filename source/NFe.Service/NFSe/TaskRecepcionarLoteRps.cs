@@ -220,7 +220,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -426,7 +426,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PROPRIOBARUERISP:
                 case PadraoNFSe.CENTI:
                 case PadraoNFSe.AGILI:
-                case PadraoNFSe.IIBRASIL:
                 case PadraoNFSe.MEGASOFT:
                 case PadraoNFSe.SIGISSWEB:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
@@ -665,12 +664,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.QUASAR:
-                    versaoXML = "2.01";
-                    if (ConteudoXML.OuterXml.Contains("DPS"))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.AVMB:
@@ -759,10 +753,6 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
-                    {
-                        versaoXML = "2.02";
-                    }
                     if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
@@ -770,13 +760,9 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
+                    versaoXML = "1.00";
 
-                    if (codMunicipio == 3551702 || codMunicipio == 3202405)
-                    {
-                        versaoXML = "1.00";
-                    }
-                    else if (xmlDoc.OuterXml.Contains("infDPS"))
+                    if (xmlDoc.OuterXml.Contains("infDPS"))
                     {
                         versaoXML = "1.01";
                     }
@@ -787,7 +773,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.IIBRASIL:
                     versaoXML = "2.04";
                     break;
 

@@ -102,7 +102,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -280,11 +280,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.QUASAR:
-                    versaoXML = "2.01";
-                    if (xmlDoc.DocumentElement.Name.Contains("Dps"))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.AVMB:
@@ -327,13 +323,9 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
+                    versaoXML = "2.04";
 
-                    if (codMunicipio == 3205002 || codMunicipio == 3516200)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    else if (codMunicipio == 3506003)
+                    if (codMunicipio == 3506003)
                     {
                         versaoXML = "1.01";
                     }
@@ -369,15 +361,10 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
 
-                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
-                    {
-                        versaoXML = "2.02";
-                    }
                     if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
                     {
                         versaoXML = "1.01";
                     }
-
                     break;
 
                 case PadraoNFSe.ADM_SISTEMAS:
@@ -401,7 +388,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.IIBRASIL:
                 case PadraoNFSe.GISSONLINE:
                     versaoXML = "2.04";
                     break;
@@ -446,11 +432,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.IPM:
                     versaoXML = "2.04";
-
-                    if (xmlDoc.InnerXml.Contains("<consulta_rps"))
-                    {
-                        versaoXML = "1.00";
-                    }
                     break;
 
                 case PadraoNFSe.TIPLAN:

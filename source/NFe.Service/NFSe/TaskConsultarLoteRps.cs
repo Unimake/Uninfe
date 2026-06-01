@@ -107,7 +107,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -266,7 +266,6 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.PRODATA:
-                case PadraoNFSe.QUASAR:
                 case PadraoNFSe.ABASE:
                 case PadraoNFSe.SONNER:
                 case PadraoNFSe.PRODEB:
@@ -274,15 +273,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.FIORILLI:
-                    versaoXML = "2.01";
-                    if (xmlDoc.InnerXml.Contains("versao=\"1.00\""))
-                    {
-                        versaoXML = "1.00";
-                    }
-                    else if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.AVMB:
@@ -314,12 +305,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3205002 || codMunicipio == 3516200)
-                    {
-                        versaoXML = "2.04";
-                    }
+                    versaoXML = "2.04";
                     break;
 
                 case PadraoNFSe.DSF:
@@ -354,11 +340,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PRONIM:
                     versaoXML = "2.03";
-
-                    if (codMunicipio == 4303004 || codMunicipio == 4300109)
-                    {
-                        versaoXML = "2.02";
-                    }
                     break;
 
                 case PadraoNFSe.TRIBUTUS:
