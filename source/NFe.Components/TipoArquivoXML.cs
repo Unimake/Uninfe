@@ -166,10 +166,6 @@ namespace NFe.Components
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-2.01-";
                                 break;
 
-                            case 3300407: //Barra Mansa - RJ (Padrão COPLAN)
-                                varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-2.02-";
-                                break;
-
                             case 4318309: //São Gabriel - SP (Padrão PRONIM 2.03
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-2.03-";
                                 break;
