@@ -446,11 +446,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.IPM:
                     versaoXML = "2.04";
-
-                    if (xmlDoc.InnerXml.Contains("<consulta_rps"))
-                    {
-                        versaoXML = "1.00";
-                    }
                     break;
 
                 case PadraoNFSe.TIPLAN:
