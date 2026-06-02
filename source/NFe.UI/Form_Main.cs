@@ -95,10 +95,6 @@ namespace NFe.UI
                     new ThreadControlEvents();  //danasa 12/8/2011
                 }
 
-                //Executar os serviços do UniNFe em novas threads
-                //Tem que ser carregado depois que o formulário da MainForm estiver totalmente carregado para evitar Erros. Wandrey 19/10/2010
-                ExecutaServicos();
-
                 ThreadService.NotifyIconUniNFe = notifyIcon1;
 
                 VerificaAtualizacaoAutomatica();
@@ -116,6 +112,7 @@ namespace NFe.UI
         {
             if (!ConfiguracaoApp.ManterAtualizado || ConfiguracaoApp.ExecutadoModoSilencioso)
             {
+                IniciarServicosMonitor();
                 return;
             }
 
@@ -134,14 +131,39 @@ namespace NFe.UI
                             ConfiguracaoApp.DetectarConfiguracaoProxyAuto);
                     }
 
-                    new UniNFeUpdate(proxy).VerificaVersao();
+                    var update = new UniNFeUpdate(proxy);
+                    update.VerificaVersao();
+
+                    if (!update.InstaladorIniciado)
+                    {
+                        IniciarServicosMonitor();
+                    }
                 }
                 catch (Exception ex)
                 {
                     Auxiliar.WriteLog("Falha ao verificar atualização automática do UniNFe. " + ex.Message, true, true);
                     AvisarFalhaAtualizacaoAutomatica();
+                    IniciarServicosMonitor();
                 }
             });
+        }
+
+        private void IniciarServicosMonitor()
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(IniciarServicosMonitor));
+                return;
+            }
+
+            //Executar os serviços do UniNFe em novas threads
+            //Tem que ser carregado depois que o formulário da MainForm estiver totalmente carregado para evitar Erros.
+            ExecutaServicos();
         }
 
         private void AvisarFalhaAtualizacaoAutomatica()

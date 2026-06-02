@@ -26,6 +26,7 @@ namespace NFe.Components
         #region Public Properties
 
         public IWebProxy Proxy { get; set; }
+        public bool InstaladorIniciado { get; private set; }
 
         #endregion Public Properties
 
@@ -229,6 +230,7 @@ namespace NFe.Components
 
                     var parametros = "/SILENT /DIR=\"" + pastaInstalar + "\"";
                     Process.Start(localArq, parametros);
+                    InstaladorIniciado = true;
                 }
             }
             catch (Exception ex)
