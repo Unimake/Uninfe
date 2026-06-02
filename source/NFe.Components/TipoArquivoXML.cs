@@ -167,6 +167,8 @@ namespace NFe.Components
                                 break;
 
                             case 4318309: //São Gabriel - SP (Padrão PRONIM 2.03)
+                            case 4202404: //Blumenau - SC (Padrão SIMPLISS 2.03)
+                            case 3306305: //Volta Redonda - RJ (Padrão SIMPLISS 2.03)
                                 varPadraoNFSe = Functions.BuscaPadraoNFSe(UFCod).ToString() + "-2.03-";
                                 break;
 
