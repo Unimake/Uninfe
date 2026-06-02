@@ -44,6 +44,7 @@ Name: brazilianportuguese; MessagesFile: compiler:Languages\BrazilianPortuguese.
 [Files]
 Source: ..\source\uninfe\bin\Release\BouncyCastle.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\EBank.Solutions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\GeradorCIOTShared.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.Design.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.Fonts.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.dll; DestDir: {app}; Flags: ignoreversion
@@ -85,6 +86,7 @@ Source: ..\source\uninfe\bin\Release\System.Security.Cryptography.Xml.dll; DestD
 Source: ..\source\uninfe\bin\Release\System.Text.Encodings.Web.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Text.Json.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.AuthServer.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
