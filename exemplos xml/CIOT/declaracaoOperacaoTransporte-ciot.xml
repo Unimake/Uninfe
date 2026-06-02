@@ -37,9 +37,11 @@
 		</ParOrigemDestino>
 	</OrigemDestino>
 	<DadosCarga>
-		<CodigoNaturezaCarga>0001</CodigoNaturezaCarga>
-		<PesoCarga>1000.00</PesoCarga>
+		<CodigoNaturezaCarga>2008</CodigoNaturezaCarga>
+		<PesoCarga>13776.48</PesoCarga>
 		<CodigoTipoCarga>5</CodigoTipoCarga>
+		<ContratantesCargFrac>11111111111111</ContratantesCargFrac>
+		<ContratantesCargFrac>22222222222222</ContratantesCargFrac>
 	</DadosCarga>
 	<InfPagamento>
 		<Pagamento>
