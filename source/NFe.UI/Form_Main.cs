@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NFe.UI
@@ -48,26 +49,6 @@ namespace NFe.UI
             var error = false;
             try
             {
-                #region Antes de inicializar serviços temos que rodar o update para atualizar, assim nem iniciou nenhum processamento.
-
-                if (ConfiguracaoApp.ManterAtualizado && !ConfiguracaoApp.ExecutadoModoSilencioso)
-                {
-                    IWebProxy proxy = null;
-
-                    if (ConfiguracaoApp.Proxy)
-                    {
-                        proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor,
-                            ConfiguracaoApp.ProxyUsuario,
-                            ConfiguracaoApp.ProxySenha,
-                            ConfiguracaoApp.ProxyPorta,
-                            ConfiguracaoApp.DetectarConfiguracaoProxyAuto);
-                    }
-
-                    new UniNFeUpdate(proxy).VerificaVersao();
-                }
-
-                #endregion
-
                 //
                 //SERVICO: danasa 7/2011
                 //servico está instalado e rodando?
@@ -119,6 +100,8 @@ namespace NFe.UI
                 ExecutaServicos();
 
                 ThreadService.NotifyIconUniNFe = notifyIcon1;
+
+                VerificaAtualizacaoAutomatica();
             }
             finally
             {
@@ -126,6 +109,64 @@ namespace NFe.UI
                 {
                     updateControleDoServico();
                 }
+            }
+        }
+
+        private void VerificaAtualizacaoAutomatica()
+        {
+            if (!ConfiguracaoApp.ManterAtualizado || ConfiguracaoApp.ExecutadoModoSilencioso)
+            {
+                return;
+            }
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    IWebProxy proxy = null;
+
+                    if (ConfiguracaoApp.Proxy)
+                    {
+                        proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor,
+                            ConfiguracaoApp.ProxyUsuario,
+                            ConfiguracaoApp.ProxySenha,
+                            ConfiguracaoApp.ProxyPorta,
+                            ConfiguracaoApp.DetectarConfiguracaoProxyAuto);
+                    }
+
+                    new UniNFeUpdate(proxy).VerificaVersao();
+                }
+                catch (Exception ex)
+                {
+                    Auxiliar.WriteLog("Falha ao verificar atualização automática do UniNFe. " + ex.Message, true, true);
+                    AvisarFalhaAtualizacaoAutomatica();
+                }
+            });
+        }
+
+        private void AvisarFalhaAtualizacaoAutomatica()
+        {
+            if (IsDisposed || !notifyIcon1.Visible)
+            {
+                return;
+            }
+
+            try
+            {
+                if (InvokeRequired)
+                {
+                    BeginInvoke(new Action(AvisarFalhaAtualizacaoAutomatica));
+                    return;
+                }
+
+                notifyIcon1.ShowBalloonTip(
+                    10000,
+                    "Atualização do UniNFe",
+                    "Não foi possível verificar atualizações. O Monitor iniciou normalmente.",
+                    ToolTipIcon.Warning);
+            }
+            catch
+            {
             }
         }
 
