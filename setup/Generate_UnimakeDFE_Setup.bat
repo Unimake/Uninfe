@@ -55,6 +55,36 @@ copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcorea
 copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcoreapp3.1\Unimake.Cryptography.dll %filesDir%\netstandard2.0
 copy C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\bin\Release\netcoreapp3.1\Unimake.Extensions.dll %filesDir%\netstandard2.0
 
+::Valida as DLLs necessárias para geração do CIOT em produção
+@ECHO ----------------------------------------------------------------------------------
+@ECHO Validando DLLs do gerador de CIOT em produção
+@ECHO ----------------------------------------------------------------------------------
+
+Goto validarDllsCIOT
+
+:validarDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\GeradorCIOTShared.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Buffers.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Memory.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Net.Http.Json.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Numerics.Vectors.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Text.Encodings.Web.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Text.Json.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Threading.Tasks.Extensions.dll" goto erroDllsCIOT
+   goto assinarDlls
+
+:erroDllsCIOT
+   @ECHO ----------------------------------------------------------------------------------
+   @ECHO ERRO: DLLs necessárias para geração do CIOT em produção não foram encontradas.
+   @ECHO Verifique a compilação INTEROP_Release antes de gerar o setup.
+   @ECHO ----------------------------------------------------------------------------------
+   pause
+   exit /B 1
+
+:assinarDlls
+
 ::Ações
 @ECHO ----------------------------------------------------------------------------------
 @ECHO Assinando executáveis e dlls
