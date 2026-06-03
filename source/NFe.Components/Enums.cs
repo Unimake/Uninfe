@@ -761,6 +761,11 @@ namespace NFe.Components
         CIOTEncerramentoOperacaoTransporte,
 
         /// <summary>
+        /// Gerar identificador da operação de transporte do CIOT
+        /// </summary>
+        CIOTGerarIdOperacaoTransporte,
+
+        /// <summary>
         /// Retificação da operação de transporte do CIOT
         /// </summary>
         CIOTRetificacaoOperacaoTransporte,

@@ -19,12 +19,14 @@ namespace NFe.Components
         private string localArq;
         private string url;
         private readonly HttpClient httpClient = new HttpClient();
+        private const int TimeoutAtualizacao = 10000;
 
         #endregion Private Fields
 
         #region Public Properties
 
         public IWebProxy Proxy { get; set; }
+        public bool InstaladorIniciado { get; private set; }
 
         #endregion Public Properties
 
@@ -42,6 +44,7 @@ namespace NFe.Components
             localArq = Path.Combine(Application.StartupPath, nomeInstalador);
 
             Proxy = proxy;
+            httpClient.Timeout = TimeSpan.FromMilliseconds(TimeoutAtualizacao);
         }
 
         #endregion Public Constructor
@@ -63,6 +66,9 @@ namespace NFe.Components
                     var webRequest = (HttpWebRequest)WebRequest.Create(url);
                     try
                     {
+                        webRequest.Timeout = TimeoutAtualizacao;
+                        webRequest.ReadWriteTimeout = TimeoutAtualizacao;
+
                         if (Proxy != null)
                         {
                             webRequest.Proxy = Proxy;
@@ -168,6 +174,9 @@ namespace NFe.Components
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
             try
             {
+                webRequest.Timeout = TimeoutAtualizacao;
+                webRequest.ReadWriteTimeout = TimeoutAtualizacao;
+
                 if (Proxy != null)
                     webRequest.Proxy = Proxy;
 
@@ -221,6 +230,7 @@ namespace NFe.Components
 
                     var parametros = "/SILENT /DIR=\"" + pastaInstalar + "\"";
                     Process.Start(localArq, parametros);
+                    InstaladorIniciado = true;
                 }
             }
             catch (Exception ex)

@@ -425,6 +425,11 @@ namespace NFe.Components
             CIOTConsultar,
 
             /// <summary>
+            /// Geração do identificador da operação de transporte do CIOT
+            /// </summary>
+            CIOTGerarIdOperacaoTransporte,
+
+            /// <summary>
             /// DCe
             /// </summary>
             DCe,
@@ -1147,6 +1152,13 @@ namespace NFe.Components
                "-ret-consultar.xml", "",
                "-ret-consultar.err",
                "XML de consulta ciot"
+               ));
+
+            ListaExtensoes.Add(TipoEnvio.CIOTGerarIdOperacaoTransporte, new ExtensaoClass(
+               "-GerarIdOpTransp.xml", "",
+               "-ret-GerarIdOpTransp.xml", "",
+               "-ret-GerarIdOpTransp.err",
+               "XML de geração do identificador da operação de transporte do ciot"
                ));
 
             #endregion CIOT
@@ -1949,6 +1961,11 @@ namespace NFe.Components
             /// -procEventoCIOT.xml
             /// </summary>
             public const string ProcEventoCIOT = "-procEventoCIOT.xml"; //Não deixar tudo minusculo para evitar problemas com Linux configurado para Case Sensitive. Wandrey 23/06/2011
+
+            /// <summary>
+            /// -procIdOpTransp.xml
+            /// </summary>
+            public const string ProcIdOpTransp = "-procIdOpTransp.xml";
 
             #endregion CIOT
 

@@ -529,6 +529,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTEncerramentoOperacaoTransporte(arquivo));
                             break;
 
+                        case Servicos.CIOTGerarIdOperacaoTransporte:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTGerarIdOperacaoTransporte(arquivo));
+                            break;
+
                         case Servicos.CIOTRetificacaoOperacaoTransporte:
                             DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTRetificacaoOperacaoTransporte(arquivo));
                             break;
@@ -1238,6 +1242,10 @@ namespace NFe.Service
 
                             case "EncerramentoOperacaoTransporte":
                                 tipoServico = Servicos.CIOTEncerramentoOperacaoTransporte;
+                                break;
+
+                            case "GerarIdOperacaoTransporte":
+                                tipoServico = Servicos.CIOTGerarIdOperacaoTransporte;
                                 break;
 
                             case "ConsultarExcecao":
@@ -2357,6 +2365,11 @@ namespace NFe.Service
                 case Servicos.CIOTDeclaracaoOperacaoTransporte:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).EnvioXML;
                     extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).RetornoERR;
+                    break;
+
+                case Servicos.CIOTGerarIdOperacaoTransporte:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTGerarIdOperacaoTransporte).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTGerarIdOperacaoTransporte).RetornoERR;
                     break;
 
                 case Servicos.NFeMontarLoteVarias:
