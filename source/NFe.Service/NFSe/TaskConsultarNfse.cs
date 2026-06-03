@@ -274,7 +274,7 @@ namespace NFe.Service.NFSe
                         case "ConsultarNfseEnvio":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfsePorRps;
 
-                            if (municipio == 3549904 && doc.OuterXml.Contains("ginfes"))
+                            if ((municipio == 3549904 && doc.OuterXml.Contains("ginfes")) || padraoNFSe == PadraoNFSe.FIORILLI)
                             {
                                 result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
                             }
@@ -454,6 +454,11 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
                     versaoXML = "2.01";
+
+                    if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
                     break;
 
                 case PadraoNFSe.AVMB:
