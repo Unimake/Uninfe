@@ -451,8 +451,11 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SONNER:
-                case PadraoNFSe.FIORILLI:
                 case PadraoNFSe.PRODEB:
+                    versaoXML = "2.01";
+                    break;
+
+                case PadraoNFSe.FIORILLI:
                     versaoXML = "2.01";
 
                     if (xmlDoc.InnerXml.Contains("versao=\"1.01\""))
