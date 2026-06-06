@@ -243,24 +243,19 @@ namespace NFe.Service
                 {
                     if (notDaEmpresa)
                     {
+                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe nao pertence a empresa configurada. Chave=" + ChaveNFe + ", arquivo esperado=" + strArquivoNFe, false);
                         return;
                     }
 
-                    var arquivos = Directory.GetFiles(Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString(), "*-nfe.*");
-
-                    foreach (var arquivo in arquivos)
+                    var arquivoLocalizado = LocalizarArquivoNFeEmProcessamento(emp, ChaveNFe);
+                    if (!string.IsNullOrWhiteSpace(arquivoLocalizado))
                     {
-                        var arqXML = new XmlDocument();
-                        arqXML.Load(arquivo);
-
-                        var chave = ((XmlElement)arqXML.GetElementsByTagName("infNFe")[0]).GetAttribute("Id").Substring(3);
-
-                        if (chave.Equals(ChaveNFe))
-                        {
-                            strNomeArqNfe = Path.GetFileName(arquivo);
-                            strArquivoNFe = arquivo;
-                            break;
-                        }
+                        strNomeArqNfe = Path.GetFileName(arquivoLocalizado);
+                        strArquivoNFe = arquivoLocalizado;
+                    }
+                    else
+                    {
+                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe nao localizada em EmProcessamento para recuperar XML de distribuicao. Chave=" + ChaveNFe + ", arquivo esperado=" + strArquivoNFe, true);
                     }
                 }
 
@@ -374,6 +369,8 @@ namespace NFe.Service
                                 var protNFeElemento = (XmlElement)retConsSitElemento.GetElementsByTagName("protNFe")[0];
                                 var versao = protNFeElemento.GetAttribute(TpcnResources.versao.ToString());
 
+                                var tirarFluxo = false;
+
                                 switch (strStat)
                                 {
                                     case "100": //NFe Autorizada
@@ -396,7 +393,7 @@ namespace NFe.Service
                                                 var file = new FileInfo(strArquivoNFe);
                                                 if (file.Length == 0)
                                                 {
-                                                    throw new Exception();
+                                                    throw new Exception("Arquivo da NFe em EmProcessamento esta vazio.");
                                                 }
                                                 else
                                                 {
@@ -404,9 +401,10 @@ namespace NFe.Service
                                                     oLerXml.Nfe(conteudoXML);
                                                 }
                                             }
-                                            catch (Exception)
+                                            catch (Exception ex)
                                             {
-                                                goto default;
+                                                Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe autorizada, mas arquivo base em EmProcessamento nao pode ser lido; mantendo no fluxo. Chave=" + strChaveNFe + ", arquivo=" + strArquivoNFe + ", erro=" + ex.GetAllMessages(), true);
+                                                break;
                                             }
 
                                             if (Empresas.Configuracoes[emp].CompararDigestValueDFeRetornadoSEFAZ)
@@ -422,6 +420,7 @@ namespace NFe.Service
                                                         if (!digestValueConsultaSituacao.Equals(digestValueNota))
                                                         {
                                                             oAux.MoveArqErro(strArquivoNFe);
+                                                            tirarFluxo = true;
                                                             throw new Exception("O valor do DigestValue da consulta situação é diferente do DigestValue da NFe ou NFCe.");
                                                         }
                                                     }
@@ -443,7 +442,7 @@ namespace NFe.Service
                                             {
                                                 if (!File.Exists(strArquivoNFeProc))
                                                 {
-                                                    Auxiliar.WriteLog("TaskNFeConsultaSituacao: Gerou o arquivo de distribuição através da consulta situação da NFe.", false);
+                                                    Auxiliar.WriteLog("TaskNFeConsultaSituacao: Gerou o arquivo de distribuicao atraves da consulta situacao da NFe. Chave=" + strChaveNFe + ", arquivoProc=" + strArquivoNFeProc, false);
                                                     oGerarXML.XmlDistNFe(strArquivoNFe, strProtNfe, Propriedade.ExtRetorno.ProcNFe, oLerXml.oDadosNfe.versao);
                                                 }
                                             }
@@ -492,6 +491,16 @@ namespace NFe.Service
                                                 //oAux.DeletarArquivo(strArquivoNFe);
                                             }
 
+                                            if (procNFeJaNaAutorizada)
+                                            {
+                                                tirarFluxo = true;
+                                                Auxiliar.WriteLog("TaskNFeConsultaSituacao: XML de distribuicao garantido em Autorizados; fluxo sera concluido. Chave=" + strChaveNFe + ", arquivo=" + strNomeArqNfe, false);
+                                            }
+                                            else
+                                            {
+                                                Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe autorizada, mas XML de distribuicao ainda nao foi garantido em Autorizados; mantendo em EmProcessamento e no fluxo. Chave=" + strChaveNFe + ", arquivo=" + strNomeArqNfe, true);
+                                            }
+
                                             //Disparar a geração/impressão do UniDanfe. 03/02/2010 - Wandrey
                                             if (procNFeJaNaAutorizada)
                                             {
@@ -510,8 +519,12 @@ namespace NFe.Service
                                                 }
                                             }
                                         }
+                                        else
+                                        {
+                                            Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe autorizada, mas arquivo base nao foi encontrado em EmProcessamento; mantendo no fluxo para nova tentativa. Chave=" + strChaveNFe + ", arquivo=" + strArquivoNFe, true);
+                                        }
 
-                                        if (File.Exists(strArquivoNFeProc))
+                                        if (tirarFluxo && File.Exists(strArquivoNFeProc))
                                         {
                                             //Se já estiver na pasta de autorizados, vou somente excluir ela da pasta de XML´s em processamento
                                             Functions.DeletarArquivo(strArquivoNFeProc);
@@ -537,19 +550,34 @@ namespace NFe.Service
                                                 var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
                                                 sendMessageToWhatsApp.AlertNotification("Denegação: " + Convert.ToInt32(cStatCons).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Notas estão sendo denegadas");
                                             }
+
+                                            tirarFluxo = true;
+                                            Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe denegada por retorno real da SEFAZ; fluxo sera concluido. Chave=" + strChaveNFe + ", cStat=" + strStat, false);
+                                        }
+                                        else
+                                        {
+                                            Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe denegada, mas arquivo base nao foi encontrado em EmProcessamento. Fluxo sera mantido para nova tentativa. Chave=" + strChaveNFe + ", arquivo=" + strArquivoNFe, true);
                                         }
                                         break;
 
                                     default:
                                         //Mover o XML da NFE a pasta de XML´s com erro
                                         oAux.MoveArqErro(strArquivoNFe);
+                                        tirarFluxo = true;
+                                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe rejeitada por retorno real da SEFAZ; arquivo movido para ERROS e fluxo sera concluido. Chave=" + strChaveNFe + ", cStat=" + strStat, false);
                                         break;
                                 }
 
-                                //Deletar a NFE do arquivo de controle de fluxo
-                                oFluxoNfe.ExcluirNfeFluxo(strChaveNFe);
-
-                                RemoverArqTemp(strArquivoNFe, emp);
+                                //Deletar a NFE do arquivo de controle de fluxo somente quando houver retorno fiscal conclusivo tratado.
+                                if (tirarFluxo)
+                                {
+                                    oFluxoNfe.ExcluirNfeFluxo(strChaveNFe);
+                                    RemoverArqTemp(strArquivoNFe, emp);
+                                }
+                                else
+                                {
+                                    Auxiliar.WriteLog("TaskNFeConsultaSituacao: Fluxo preservado para nova recuperacao. Chave=" + strChaveNFe + ", cStat=" + strStat + ", arquivo=" + strArquivoNFe, false);
+                                }
                             }
                         }
                         break;
@@ -599,7 +627,68 @@ namespace NFe.Service
                 }
             }
         }
- 
         #endregion LerRetornoSitNFe()
+
+        /// <summary>
+        /// Localizar a NFe em EmProcessamento sem interromper a consulta por arquivos invalidos na pasta.
+        /// </summary>
+        /// <param name="emp">Empresa</param>
+        /// <param name="chaveNFe">Chave da NFe sem prefixo NFe</param>
+        /// <returns>Arquivo localizado ou vazio</returns>
+        private string LocalizarArquivoNFeEmProcessamento(int emp, string chaveNFe)
+        {
+            var pastaEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString();
+
+            if (!Directory.Exists(pastaEmProcessamento))
+            {
+                Auxiliar.WriteLog("TaskNFeConsultaSituacao: Pasta EmProcessamento nao encontrada para localizar NFe. Chave=" + chaveNFe + ", pasta=" + pastaEmProcessamento, true);
+                return string.Empty;
+            }
+
+            foreach (var arquivo in Directory.GetFiles(pastaEmProcessamento, "*-nfe.*"))
+            {
+                try
+                {
+                    var file = new FileInfo(arquivo);
+                    if (file.Length == 0)
+                    {
+                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: Ignorando XML vazio em EmProcessamento durante recuperacao. Arquivo=" + arquivo + ", chave procurada=" + chaveNFe, true);
+                        continue;
+                    }
+
+                    var arqXML = new XmlDocument();
+                    arqXML.Load(arquivo);
+
+                    var infNFeList = arqXML.GetElementsByTagName("infNFe");
+                    if (infNFeList == null || infNFeList.Count == 0)
+                    {
+                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: Ignorando XML sem tag infNFe em EmProcessamento durante recuperacao. Arquivo=" + arquivo + ", chave procurada=" + chaveNFe, true);
+                        continue;
+                    }
+
+                    var id = ((XmlElement)infNFeList[0]).GetAttribute("Id");
+                    if (string.IsNullOrWhiteSpace(id) || id.Length <= 3)
+                    {
+                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: Ignorando XML com Id de infNFe invalido em EmProcessamento durante recuperacao. Arquivo=" + arquivo + ", chave procurada=" + chaveNFe, true);
+                        continue;
+                    }
+
+                    var chave = id.Substring(3);
+                    if (chave.Equals(chaveNFe))
+                    {
+                        Auxiliar.WriteLog("TaskNFeConsultaSituacao: NFe localizada em EmProcessamento para recuperacao. Chave=" + chaveNFe + ", arquivo=" + arquivo, false);
+                        return arquivo;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Auxiliar.WriteLog("TaskNFeConsultaSituacao: Ignorando XML invalido em EmProcessamento durante recuperacao. Arquivo=" + arquivo + ", chave procurada=" + chaveNFe + ", erro=" + ex.GetAllMessages(), true);
+                }
+            }
+
+            return string.Empty;
+        }
     }
 }
+
+

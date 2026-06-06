@@ -528,7 +528,7 @@ namespace NFe.Service
                                     if (!procNFeJaNaAutorizada || !NFeJaNaAutorizada)
                                     {
                                         tirarFluxo = false;
-                                        Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Arquivos não encontrados em autorizados após tentativa de mover. chave=" + strChaveNFe + ", arquivo=" + strNomeArqNfe, true);
+                                        Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Arquivos nao encontrados em autorizados apos tentativa de mover; mantendo em EmProcessamento e no fluxo. chave=" + strChaveNFe + ", arquivo=" + strNomeArqNfe, true);
                                     }
 
                                 ///
@@ -541,7 +541,8 @@ namespace NFe.Service
                                 }
                                 else
                                 {
-                                    Auxiliar.WriteLog("TaskRetRecepcao: (Foi efetuada uma consulta recibo e não foi localizado o arquivo da NFe ( " + strNomeArqNfe + ") na pasta EmProcessamento) ", false);
+                                    tirarFluxo = false;
+                                    Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Foi efetuada uma consulta recibo, mas o arquivo da NFe nao foi localizado em EmProcessamento; mantendo no fluxo para nova tentativa. Chave=" + strChaveNFe + ", arquivo=" + strNomeArqNfe, true);
                                 }
 
                                 break;
@@ -586,6 +587,7 @@ namespace NFe.Service
                         //Deletar a NFE do arquivo de controle de fluxo
                         if (tirarFluxo)
                         {
+                            Auxiliar.WriteLog("TaskNFeRetRecepcao.FinalizarNFe: Fluxo concluido por retorno fiscal conclusivo. Chave=" + strChaveNFe + ", cStat=" + strStat + ", arquivo=" + strNomeArqNfe, false);
                             fluxoNFe.ExcluirNfeFluxo(strChaveNFe);
                         }
                     }
@@ -603,3 +605,4 @@ namespace NFe.Service
         #endregion FinalizarNFe()
     }
 }
+

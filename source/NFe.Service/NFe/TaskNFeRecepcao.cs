@@ -111,6 +111,9 @@ namespace NFe.Service
                     }
 
                     var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, configuracao);
+                    ConteudoXML = autorizacao.ConteudoXMLAssinado;
+                    SalvarArquivoEmProcessamento(emp, "TaskNFeRecepcao: XML assinado salvo em EmProcessamento antes do envio NFCe para preservar recuperacao em caso de falha tecnica.");
+
                     autorizacao.Executar();
 
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
@@ -127,6 +130,9 @@ namespace NFe.Service
                 else
                 {
                     var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, configuracao);
+                    ConteudoXML = autorizacao.ConteudoXMLAssinado;
+                    SalvarArquivoEmProcessamento(emp, "TaskNFeRecepcao: XML assinado salvo em EmProcessamento antes do envio NFe para preservar recuperacao em caso de falha tecnica.");
+
                     autorizacao.Executar();
 
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
@@ -140,8 +146,6 @@ namespace NFe.Service
 
                     autorizacao.Dispose();
                 }
-
-                SalvarArquivoEmProcessamento(emp);
 
                 if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
                 {
@@ -300,14 +304,14 @@ namespace NFe.Service
 
                 if (dadosNFe.indSinc)
                 {
-                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.ExtEnvio.EnvLot, Propriedade.ExtRetorno.ProRec_ERR, ex);
+                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.ExtEnvio.EnvLot, Propriedade.ExtRetorno.ProRec_ERR, ex, ErroPadrao.ErroNaoDetectado, false);
                 }
                 else
                 {
-                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec_ERR, ex);
+                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec_ERR, ex, ErroPadrao.ErroNaoDetectado, false);
                 }
 
-                MoverArquivoErroTemp(emp);
+                PreservarArquivoParaRecuperacao(emp, dadosNFe, ex);
             }
             catch
             {
@@ -457,7 +461,14 @@ namespace NFe.Service
         /// Salvar o arquivo do NFe assinado na pasta EmProcessamento
         /// </summary>
         /// <param name="emp">Codigo da empresa</param>
-        private void SalvarArquivoEmProcessamento(int emp)
+        private void SalvarArquivoEmProcessamento(int emp) => SalvarArquivoEmProcessamento(emp, "TaskNFeRecepcao: XML assinado salvo em EmProcessamento.");
+
+        /// <summary>
+        /// Salvar o arquivo do NFe assinado na pasta EmProcessamento com log de diagnostico.
+        /// </summary>
+        /// <param name="emp">Codigo da empresa</param>
+        /// <param name="mensagemLog">Mensagem de log para acompanhamento</param>
+        private void SalvarArquivoEmProcessamento(int emp, string mensagemLog)
         {
             var msgLog = "";
             try
@@ -498,6 +509,7 @@ namespace NFe.Service
 
                     if (File.Exists(arqEmProcessamento))
                     {
+                        Auxiliar.WriteLog(mensagemLog + " Chave=" + chaveNFe + ", arquivo=" + arqEmProcessamento, false);
                         File.Delete(Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnvio, "temp", nomeArqNFe));
                         File.Delete(Path.Combine(Empresas.Configuracoes[emp].PastaXmlEmLote, "temp", nomeArqNFe));
                     }
@@ -552,7 +564,24 @@ namespace NFe.Service
                 throw (ex);
             }
         }
-
+        /// <summary>
+        /// Preservar a NFe em EmProcessamento quando ocorrer falha tecnica sem retorno fiscal conclusivo.
+        /// </summary>
+        /// <param name="emp">Empresa</param>
+        /// <param name="dadosNFe">Dados da NFe</param>
+        /// <param name="ex">Excecao ocorrida</param>
+        private void PreservarArquivoParaRecuperacao(int emp, DadosNFeClass dadosNFe, Exception ex)
+        {
+            try
+            {
+                SalvarArquivoEmProcessamento(emp, "TaskNFeRecepcao: Falha tecnica sem retorno fiscal conclusivo. XML mantido em EmProcessamento para recuperacao via consulta situacao. Erro=" + ex.GetAllMessages());
+            }
+            catch (Exception salvarEx)
+            {
+                Auxiliar.WriteLog("TaskNFeRecepcao: Falha tecnica sem retorno fiscal conclusivo, mas nao foi possivel confirmar/salvar XML em EmProcessamento. Chave=" + dadosNFe.chavenfe + ", erroOriginal=" + ex.GetAllMessages() + ", erroPreservacao=" + salvarEx.GetAllMessages(), true);
+            }
+        }
 
     }
 }
+
