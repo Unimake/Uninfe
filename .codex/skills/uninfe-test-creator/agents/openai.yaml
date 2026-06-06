@@ -1,0 +1,7 @@
+interface:
+  display_name: "Criador de Testes UniNFe"
+  short_description: "Cria testes xUnit para o UniNFe"
+  default_prompt: "Use $uninfe-test-creator para criar testes de regressao para uma Task do UniNFe."
+
+policy:
+  allow_implicit_invocation: true
