@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Collections.Generic;
@@ -74,8 +74,8 @@ namespace NFe.ConvertTxt
                          NFe.ide.dhEmi.Substring(5, 2); //data AAMM
             }
 
-            long iTmp = Convert.ToInt64("0" + NFe.emit.CNPJ + NFe.emit.CPF);
-            cChave += iTmp.ToString("00000000000000");
+            var cnpjCpfEmitente = Functions.NormalizarCNPJCPFChaveDFe(NFe.emit.CNPJ + NFe.emit.CPF);
+            cChave += string.IsNullOrEmpty(cnpjCpfEmitente) ? "00000000000000" : cnpjCpfEmitente;
             cChave += Convert.ToInt32(NFe.ide.mod).ToString("00");
 
             if (NFe.ide.cNF == 0)
@@ -2676,7 +2676,7 @@ namespace NFe.ConvertTxt
             int i, j, Digito;
             const string PESO = "4329876543298765432987654329876543298765432";
 
-            chave = chave.Replace("NFe", "");
+            chave = Functions.NormalizarChaveDFe(chave);
             if (chave.Length != 43)
             {
                 cMensagemErro += string.Format("Erro na composição da chave [{0}] para obter o DV", chave) + Environment.NewLine;
@@ -2691,11 +2691,11 @@ namespace NFe.ConvertTxt
                 {
                     for (i = 0; i < 43; ++i)
                     {
-                        j += Convert.ToInt32(chave.Substring(i, 1)) * Convert.ToInt32(PESO.Substring(i, 1));
+                        j += (chave[i] - 48) * Convert.ToInt32(PESO.Substring(i, 1));
                     }
 
                     Digito = 11 - (j % 11);
-                    if ((j % 11) < 2)
+                    if (Digito >= 10)
                     {
                         Digito = 0;
                     }
@@ -4244,8 +4244,8 @@ namespace NFe.ConvertTxt
                     throw new Exception(cError);
                 }
 
-                long iTmp = Convert.ToInt64("0" + cCNPJ);
-                cChave = cUF.ToString("00") + cAAMM.Trim() + iTmp.ToString("00000000000000") + cMod;
+                var cnpjCpfEmitente = Functions.NormalizarCNPJCPFChaveDFe(cCNPJ);
+                cChave = cUF.ToString("00") + cAAMM.Trim() + (string.IsNullOrEmpty(cnpjCpfEmitente) ? "00000000000000" : cnpjCpfEmitente) + cMod;
 
                 if (cNF == 0)
                 {

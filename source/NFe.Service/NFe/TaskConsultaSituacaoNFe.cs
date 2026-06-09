@@ -236,8 +236,7 @@ namespace NFe.Service
 
                 #region CNPJ da chave não é de uma empresa Uninfe
 
-                var notDaEmpresa = (ChaveNFe.Substring(6, 14) != Empresas.Configuracoes[emp].CNPJ ||
-                                    ChaveNFe.Substring(0, 2) != Empresas.Configuracoes[emp].UnidadeFederativaCodigo.ToString());
+                var notDaEmpresa = !Functions.ChaveDFePertenceEmpresa(ChaveNFe, Empresas.Configuracoes[emp].CNPJ, Empresas.Configuracoes[emp].UnidadeFederativaCodigo);
 
                 if (!File.Exists(strArquivoNFe))
                 {

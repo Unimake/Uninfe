@@ -1,4 +1,4 @@
-Ôªøusing NFe.Exceptions;
+using NFe.Exceptions;
 using System;
 using System.ComponentModel;
 using Unimake.Validators;
@@ -19,9 +19,9 @@ namespace NFe.Components
             if (cnpj.Length == 0) return;
 
             /*
-                Retirado o OnlyNumbers para atender ao novo CNPJ Alfanum√©rico
+                Retirado o OnlyNumbers para atender ao novo CNPJ AlfanumÈrico
             */
-            cnpj = cnpj.RemoveChars('/', '-', ',', '.');//Functions.OnlyNumbers(cnpj, ".,-/").ToString();
+            cnpj = cnpj.RemoveChars('/', '-', ',', '.').ToUpperInvariant();//Functions.OnlyNumbers(cnpj, ".,-/").ToString();
             if (CNPJ.Validate(cnpj) == false) throw new ExceptionCNPJInvalido(cnpj);
             this.mValue = cnpj;
         }
@@ -39,10 +39,10 @@ namespace NFe.Components
         #region Overrides
 
         /// <summary>
-        /// grava√ß√£o de dados
+        /// gravaÁ„o de dados
         /// </summary>
         /// <param name="provider">CurrentCulture</param>
-        /// <returns>somente os n√∫meros</returns>
+        /// <returns>somente os n˙meros</returns>
 
         /// <summary>
         /// Converte para string.
@@ -62,7 +62,7 @@ namespace NFe.Components
 
         #endregion Overrides
 
-        #region M√©todos est√°ticos
+        #region MÈtodos est·ticos
 
         #region FormatCNPJ
 
@@ -97,7 +97,7 @@ namespace NFe.Components
         /// valida o CNPJ
         /// </summary>
         /// <param name="cnpj"></param>
-        /// <returns>true se for um CNPJ v√°lido</returns>
+        /// <returns>true se for um CNPJ v·lido</returns>
         public static bool Validate(string cnpj)
         {
             try
@@ -112,14 +112,14 @@ namespace NFe.Components
 
         #endregion Validate()
 
-        #endregion M√©todos est√°ticos
+        #endregion MÈtodos est·ticos
     }
 }
 
 namespace NFe.Exceptions
 {
     /// <summary>
-    /// CNPJ n√£o √© v√°lido.
+    /// CNPJ n„o È v·lido.
     /// </summary>
     public class ExceptionCNPJInvalido : Exception
     {

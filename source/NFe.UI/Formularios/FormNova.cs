@@ -1,4 +1,4 @@
-Ôªøusing NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Drawing;
@@ -62,11 +62,11 @@ namespace NFe.UI.Formularios
             string cnpj = default(string);
             if (edtCNPJ.Text.HasOnlyNumbers())
             {
-                cnpj = Functions.OnlyNumbers(edtCNPJ.Text, ".-/").ToString() + Functions.OnlyNumbers(txtbInscricaoEstadual.Text.Trim(), ".-/").ToString();      //Adicionei o campo da Inscri√ß√£o estadual para permitir mais de uma por CPF
+                cnpj = Functions.OnlyNumbers(edtCNPJ.Text, ".-/").ToString() + Functions.OnlyNumbers(txtbInscricaoEstadual.Text.Trim(), ".-/").ToString();      //Adicionei o campo da InscriÁ„o estadual para permitir mais de uma por CPF
             }
             else
             {
-                cnpj = edtCNPJ.Text.RemoveChars('/', '-', ',', '.');// Functions.OnlyNumbers(this.edtCNPJ.Text, ".-/");
+                cnpj = edtCNPJ.Text.RemoveChars('/', '-', ',', '.').ToUpperInvariant();// Functions.OnlyNumbers(this.edtCNPJ.Text, ".-/");
             }
 
 
@@ -84,7 +84,7 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.Todos:
                 case TipoAplicativo.Nfe:
 
-                    //Servi√ßo todos e NFe utilizam a mesma pasta de configura√ß√µes, ent√£o n√£o posso permitir configurar o mesmo CNPJ para os dois servi√ßos. Wandrey
+                    //ServiÁo todos e NFe utilizam a mesma pasta de configuraÁıes, ent„o n„o posso permitir configurar o mesmo CNPJ para os dois serviÁos. Wandrey
                     if ((empresa = Empresas.FindConfEmpresa(cnpj, TipoAplicativo.Todos)) == null)
                         empresa = Empresas.FindConfEmpresa(cnpj, TipoAplicativo.Nfe);
                     break;
@@ -96,9 +96,9 @@ namespace NFe.UI.Formularios
 
             if (empresa != null)
             {
-                string msgErro = "J√° existe uma Empresa/CNPJ configurada para atender este servi√ßo, conforme dados abaixo: " +
+                string msgErro = "J· existe uma Empresa/CNPJ configurada para atender este serviÁo, conforme dados abaixo: " +
                                  "\r\n\r\nEmpresa configurada: " + empresa.Nome +
-                                 "\r\nServi√ßo configurado: " + NFe.Components.EnumHelper.GetDescription(empresa.Servico);
+                                 "\r\nServiÁo configurado: " + NFe.Components.EnumHelper.GetDescription(empresa.Servico);
 
                 MetroFramework.MetroMessageBox.Show(this, msgErro, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -113,7 +113,7 @@ namespace NFe.UI.Formularios
 
         private void edtCNPJ_Enter(object sender, EventArgs e)
         {
-            this.edtCNPJ.Text = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.');// (string)NFe.Components.Functions.OnlyNumbers(this.edtCNPJ.Text, ".-/");
+            this.edtCNPJ.Text = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.').ToUpperInvariant();// (string)NFe.Components.Functions.OnlyNumbers(this.edtCNPJ.Text, ".-/");
         }
 
         private void edtCNPJ_Leave(object sender, EventArgs e)
@@ -126,7 +126,7 @@ namespace NFe.UI.Formularios
 
         private void FormatarCPFCNPJ(string documento)
         {
-            string cnpj = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.');// Functions.OnlyNumbers(this.edtCNPJ.Text, ".,-/").ToString();
+            string cnpj = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.').ToUpperInvariant();// Functions.OnlyNumbers(this.edtCNPJ.Text, ".,-/").ToString();
 
             if (string.IsNullOrEmpty(cnpj))
                 return;
@@ -166,7 +166,7 @@ namespace NFe.UI.Formularios
             {
                 if (!CPF.Validate(edtCNPJ.Text, false))
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "CPF inv√°lido", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "CPF inv·lido", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -174,7 +174,7 @@ namespace NFe.UI.Formularios
             {
                 if (!CEI.Validate(edtCNPJ.Text))
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "CEI inv√°lido", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "CEI inv·lido", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -182,7 +182,7 @@ namespace NFe.UI.Formularios
             {
                 if (!CNPJ.Validate(edtCNPJ.Text))
                 {
-                    MetroFramework.MetroMessageBox.Show(this, "CNPJ inv√°lido", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroFramework.MetroMessageBox.Show(this, "CNPJ inv·lido", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }

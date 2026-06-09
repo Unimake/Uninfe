@@ -113,8 +113,7 @@ namespace NFe.Service.NF3e
 
             #region CNPJ da chave não é de uma empresa cadastrada no UniNFe
 
-            var naoEhDaEmpresa = (xmlConsSitNF3e.ChNF3e.Substring(6, 14) != Empresas.Configuracoes[emp].CNPJ ||
-                xmlConsSitNF3e.ChNF3e.Substring(0, 2) != Empresas.Configuracoes[emp].UnidadeFederativaCodigo.ToString());
+            var naoEhDaEmpresa = !Functions.ChaveDFePertenceEmpresa(xmlConsSitNF3e.ChNF3e, Empresas.Configuracoes[emp].CNPJ, Empresas.Configuracoes[emp].UnidadeFederativaCodigo);
 
             if (!File.Exists(strArquivoNF3e))
             {

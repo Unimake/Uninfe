@@ -1,4 +1,4 @@
-Ôªøusing Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using NFe.Components;
 using NFe.Settings;
 using System;
@@ -55,19 +55,19 @@ namespace NFe.UI.Formularios
                 comboBox_Ambiente.ValueMember = "Key";
                 #endregion Montar Array DropList do Ambiente
 
-                #region Montar array DropList dos tipos de servi√ßos
+                #region Montar array DropList dos tipos de serviÁos
 
                 cbServico.DataSource = uninfeDummy.DatasouceTipoAplicativo(false);
                 cbServico.DisplayMember = "Value";
                 cbServico.ValueMember = "Key";
-                #endregion Montar array DropList dos tipos de servi√ßos
+                #endregion Montar array DropList dos tipos de serviÁos
 
-                #region Montar Array DropList do Tipo de Emiss√£o da NF-e
+                #region Montar Array DropList do Tipo de Emiss„o da NF-e
 
                 comboBox_tpEmis.DataSource = EnumHelper.ToList(typeof(TipoEmissao), true, true);
                 comboBox_tpEmis.DisplayMember = "Value";
                 comboBox_tpEmis.ValueMember = "Key";
-                #endregion Montar Array DropList do Tipo de Emiss√£o da NF-e
+                #endregion Montar Array DropList do Tipo de Emiss„o da NF-e
 
                 cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
             }
@@ -237,13 +237,13 @@ namespace NFe.UI.Formularios
 
         public bool Validar(bool exibeerro, bool novaempresa)
         {
-            var cnpj = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.', ' '); // (string)Functions.OnlyNumbers(edtCNPJ.Text, ".-/");
+            var cnpj = this.edtCNPJ.Text.RemoveChars('/', '-', ',', '.', ' ').ToUpperInvariant(); // (string)Functions.OnlyNumbers(edtCNPJ.Text, ".-/");
 
 
 
             if (Convert.ToInt32("0" + udTempoConsulta.Text) < 2 || Convert.ToInt32("0" + udTempoConsulta.Text) > 15)
             {
-                throw new Exception(lbl_udTempoConsulta.Text + " inv√°lido");
+                throw new Exception(lbl_udTempoConsulta.Text + " inv·lido");
             }
 
             if (comboBox_UF.SelectedValue == null)
@@ -262,16 +262,16 @@ namespace NFe.UI.Formularios
             {
                 if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfse)
                 {
-                    throw new Exception("N√£o pode mudar para esse tipo de servi√ßo (NFSe)");
+                    throw new Exception("N„o pode mudar para esse tipo de serviÁo (NFSe)");
                 }
 
                 var e = Empresas.FindConfEmpresa(cnpj, (TipoAplicativo)cbServico.SelectedValue);
                 if (e != null)
                 {
-                    throw new Exception("A empresa '" + e.Nome + "' j√° est√° monitorando esse tipo de servi√ßo");
+                    throw new Exception("A empresa '" + e.Nome + "' j· est· monitorando esse tipo de serviÁo");
                 }
 
-                if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Confirma a altera√ß√£o do tipo de servi√ßo?", "",
+                if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Confirma a alteraÁ„o do tipo de serviÁo?", "",
                                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 {
                     return false;
@@ -283,11 +283,11 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.NFCe:
                     if (!string.IsNullOrEmpty(edtIdentificadorCSC.Text) && string.IsNullOrEmpty(edtTokenCSC.Text))
                     {
-                        throw new Exception("√â obrigat√≥rio informar o IDToken quando informado o CSC.");
+                        throw new Exception("… obrigatÛrio informar o IDToken quando informado o CSC.");
                     }
                     else if (string.IsNullOrEmpty(edtIdentificadorCSC.Text) && !string.IsNullOrEmpty(edtTokenCSC.Text))
                     {
-                        throw new Exception("√â obrigat√≥rio informar o CSC quando informado o IDToken.");
+                        throw new Exception("… obrigatÛrio informar o CSC quando informado o IDToken.");
                     }
 
                     break;
@@ -322,7 +322,7 @@ namespace NFe.UI.Formularios
                 string.IsNullOrEmpty(txtClienteID.Text) ||
                 string.IsNullOrEmpty(txtClientSecret.Text))
                 {
-                    throw new Exception("As seguintes informa√ß√µes tem que estarem todas informadas: Usu√°rio, Senha, ClientID e ClientSecret");
+                    throw new Exception("As seguintes informaÁıes tem que estarem todas informadas: Usu·rio, Senha, ClientID e ClientSecret");
                 }
 
 
@@ -564,7 +564,7 @@ namespace NFe.UI.Formularios
             {
                 case TipoAplicativo.Nfse:
                     labelUF.Visible = true;
-                    labelUF.Text = "Munic√≠pio";
+                    labelUF.Text = "MunicÌpio";
                     comboBox_UF.Visible = true;
                     lbl_CodMun.Visible = true;
                     edtCodMun.Visible = true;
