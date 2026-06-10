@@ -1,0 +1,25 @@
+# Padrao Editorial
+
+- Escrever em portugues do Brasil.
+- Usar linguagem clara, objetiva e didatica.
+- Evitar jargao desnecessario para usuario final.
+- Quando o publico for desenvolvedor integrador, usar termos tecnicos precisos e preservar nomes reais de arquivos, tags, sufixos, pastas e classes.
+- Preferir paginas menores e linkadas entre si.
+- Usar Markdown simples: titulos, listas, tabelas pequenas e links relativos.
+- Evitar HTML, componentes proprietarios ou recursos que dependam de visualizador Markdown avancado.
+- Escrever paginas publicas como material final de publicacao, sem notas de bastidor, status editorial ou comentarios sobre a geracao da documentacao.
+- Usar estes blocos quando fizer sentido:
+  - `O que e`
+  - `Quando usar`
+  - `Como configurar`
+  - `Como operar`
+  - `Como integrar`
+  - `Arquivos envolvidos`
+  - `Exemplos`
+  - `Erros comuns`
+  - `Observacoes importantes`
+- Nao usar em paginas publicas: `Status`, `Evidencias analisadas`, `Pendencias`, `PENDENTE DE VALIDAÇÃO`, colunas de evidencia ou notas como "em elaboracao".
+- Registrar evidencias com caminhos do repositorio e motivo da consulta somente no catalogo interno ou em inventario interno.
+- Remover informacoes incertas da pagina publica; se a lacuna for relevante, registrar no catalogo interno.
+- Nao transformar detalhe interno de codigo em instrucao para usuario final. Evite nomes de evento, metodo, classe, controle e arquivo fonte, a menos que a pagina seja explicitamente para manutencao tecnica do codigo.
+- Para telas, prefira frases como "Clique em Consultar" em vez de referencias a eventos ou handlers.

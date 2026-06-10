@@ -78,3 +78,12 @@ dotnet build source/uninfe.sln --no-restore
 - Backward compatibility is more important than style modernization.
 - Do not change `MetroFramework`, setup files, or XML examples in bulk without a direct need.
 - When changing NFSe, observe provider/city patterns in `NFe.Components.Schemas` and separated examples under `exemplos xml`.
+
+## Documentation Guidance
+
+- The UniNFe documentation must help users, support, and ERP integrators install, configure, operate, and integrate with the application.
+- Document behavior only from evidence found in code, WinForms forms, configuration files, XML/TXT models, examples, existing docs, or repository scripts.
+- Do not invent screens, service flows, folder behavior, file suffixes, validations, or operational steps. Mark uncertain items as `PENDENTE DE VALIDAÇÃO`.
+- Prefer simple Markdown in Portuguese do Brasil, with small linked pages instead of one large document.
+- Keep `docs/index.md` and `docs/_catalogo-documentacao.md` updated whenever documentation pages are created, moved, reviewed, or changed.
+- Use the `uninfe-documentacao` skill for tasks involving UniNFe documentation, service documentation, screen/form documentation, configuration documentation, file-exchange integration documentation, Markdown page organization, index updates, or documentation review.
