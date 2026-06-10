@@ -246,11 +246,6 @@ namespace NFe.Service
 
                         #region MDFe
 
-                        case Servicos.MDFeAssinarValidarEnvioEmLote:
-                            CertVencido(emp);
-                            AssinarValidarMDFe(arquivo);
-                            break;
-
                         case Servicos.MDFeConsultaNaoEncerrado:
                             DirecionarArquivo(emp, true, true, arquivo, new TaskMDFeConsNaoEncerrado(arquivo));
                             break;
@@ -274,11 +269,6 @@ namespace NFe.Service
                         #endregion MDFe
 
                         #region CTe
-
-                        case Servicos.CTeAssinarValidarEnvioEmLote:
-                            CertVencido(emp);
-                            AssinarValidarCTe(arquivo);
-                            break;
 
                         case Servicos.CTeConsultaStatusServico:
                             DirecionarArquivo(emp, true, true, arquivo, new TaskCTeConsultaStatus(arquivo));
@@ -1491,40 +1481,6 @@ namespace NFe.Service
         }
 
         #endregion AssinarValidarNFe()
-
-        #region AssinarValidarCTe()
-
-        /// <summary>
-        /// Assinar e Validar todos os arquivos XML de notas fiscais encontrados na pasta informada por parâmetro
-        /// </summary>
-        /// <param name="arquivo">Arquivo a ser validado e assinado</param>
-        protected void AssinarValidarCTe(string arquivo)
-        {
-            var nfe = new TaskCTeAssinarValidar
-            {
-                NomeArquivoXML = arquivo
-            };
-            nfe.AssinarValidarXMLNFe();
-        }
-
-        #endregion AssinarValidarCTe()
-
-        #region AssinarValidarMDFe()
-
-        /// <summary>
-        /// Assinar e Validar todos os arquivos XML de notas fiscais encontrados na pasta informada por parâmetro
-        /// </summary>
-        /// <param name="arquivo">Arquivo a ser validado e assinado</param>
-        protected void AssinarValidarMDFe(string arquivo)
-        {
-            var nfe = new TaskMDFeAssinarValidar
-            {
-                NomeArquivoXML = arquivo
-            };
-            nfe.AssinarValidarXMLNFe();
-        }
-
-        #endregion AssinarValidarMDFe()
 
         #region AssinarValidar()
 

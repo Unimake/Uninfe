@@ -252,25 +252,25 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-   <Choose>
-	  <When Condition="'$(Configuration)' == 'Release'">
-		 <ItemGroup>
-			 <Reference Include="Unimake.Business.DFe, Version=2026.5.22.1829, Culture=neutral, processorArchitecture=MSIL">
-				<HintPath>..\packages\Unimake.DFe.20260522.1829.9\lib\net472\Unimake.Business.DFe.dll</HintPath>
-			 </Reference>
-		 </ItemGroup>
-	  </When>
-	  <Otherwise>
-		 <ItemGroup>
-			<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-			  <Name>Unimake.Business.DFe</Name>
-			  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-			  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-			  <Private>true</Private>
-			</ProjectReference>
-		 </ItemGroup>
-	  </Otherwise>
-	</Choose>
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.5.22.1829, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260522.1829.9\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+          <Name>Unimake.Business.DFe</Name>
+          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+          <Private>true</Private>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <Compile Include="ApiExceptionHelper.cs" />
     <Compile Include="AuthApiScopeHelper.cs" />
@@ -286,7 +286,6 @@
     <Compile Include="CIOT\TaskCIOTGerarIdOperacaoTransporte.cs" />
     <Compile Include="CIOT\TaskCIOTRetificacaoOperacaoTransporte.cs" />
     <Compile Include="Classes.cs" />
-    <Compile Include="CTe\TaskAssinarValidarCTe.cs" />
     <Compile Include="CTe\TaskConsultaStatusCTe.cs" />
     <Compile Include="CTe\TaskCTeRecepcaoOS.cs" />
     <Compile Include="CTe\TaskCTeRecepcaoSimp.cs" />
@@ -317,7 +316,6 @@
     <Compile Include="GNRE\TaskConsultaConfigUfGNRE.cs" />
     <Compile Include="GNRE\TaskConsultaResultadoLoteGNRE.cs" />
     <Compile Include="GNRE\TaskLoteRecepcaoGNRE.cs" />
-    <Compile Include="MDFe\TaskAssinarValidarMDFe.cs" />
     <Compile Include="MDFe\TaskConsNaoEncMDFe.cs" />
     <Compile Include="MDFe\TaskConsultaSituacaoMDFe.cs" />
     <Compile Include="MDFe\TaskConsultaStatusMDFe.cs" />
