@@ -86,4 +86,6 @@ dotnet build source/uninfe.sln --no-restore
 - Do not invent screens, service flows, folder behavior, file suffixes, validations, or operational steps. Mark uncertain items as `PENDENTE DE VALIDAÇÃO`.
 - Prefer simple Markdown in Portuguese do Brasil, with small linked pages instead of one large document.
 - Keep `docs/index.md` and `docs/_catalogo-documentacao.md` updated whenever documentation pages are created, moved, reviewed, or changed.
+- Keep the static documentation viewer index updated: whenever `.md` files under `docs` are created, removed, or renamed, run `node viewer/build-docs-index.js` from the `docs` folder and commit the regenerated `docs/viewer/docs-manifest.json` and `docs/viewer/search-index.json`.
+- Preserve Markdown Mermaid blocks when editing documentation, especially fenced blocks declared as `mermaid`, because the static viewer renders them as diagrams.
 - Use the `uninfe-documentacao` skill for tasks involving UniNFe documentation, service documentation, screen/form documentation, configuration documentation, file-exchange integration documentation, Markdown page organization, index updates, or documentation review.
