@@ -1,0 +1,181 @@
+# Eventos da DCe
+
+O serviço de eventos da DCe permite que o ERP envie eventos vinculados a uma DCe já emitida. O ERP grava o XML do evento na pasta de envio, o UniNFe assina o XML, transmite o evento para a SEFAZ e grava o retorno na pasta de retorno.
+
+Use este serviço quando for necessário registrar uma ocorrência fiscal relacionada à DCe, como o cancelamento do documento.
+
+## Eventos atendidos nos exemplos
+
+O exemplo disponível para DCe cobre este tipo de evento:
+
+| Tipo de evento | Descrição no XML |
+|---|---|
+| `110111` | Cancelamento |
+
+Use o tipo de evento, o detalhamento e as regras fiscais conforme o manual da DCe e conforme a situação real do documento.
+
+## Pré-requisitos
+
+Antes de enviar um evento, confira:
+
+- A empresa emissora está cadastrada no UniNFe.
+- A pasta de envio e a pasta de retorno estão configuradas.
+- A pasta de XMLs enviados e a pasta de backup estão configuradas quando usadas pela empresa.
+- O certificado digital da empresa está configurado e válido.
+- A DCe referenciada no evento existe e a chave informada é a chave correta.
+- O ambiente do evento é o mesmo ambiente em que a DCe foi emitida.
+
+## Arquivo de envio
+
+O ERP deve gerar o XML do evento na pasta de envio da empresa com o final fixo:
+
+```text
+<identificador>-ped-eve.xml
+```
+
+O `<identificador>` deve ser único para o evento. Uma forma prática é usar uma composição com o documento, o tipo de evento e a sequência.
+
+Exemplo:
+
+```text
+1101113526050000000000019959900000000011000001234567001-ped-eve.xml
+```
+
+O conteúdo do XML deve usar a estrutura de evento da DCe:
+
+```xml
+<eventoDCe versao="1.00" xmlns="http://www.portalfiscal.inf.br/dce">
+  <infEvento Id="ID1101113526050000000000019959900000000011000001234567001">
+    <cOrgao>35</cOrgao>
+    <tpAmb>2</tpAmb>
+    <tpEmit>2</tpEmit>
+    <CNPJAutor>00000000000199</CNPJAutor>
+    <CNPJUsEmit>00000000000199</CNPJUsEmit>
+    <chDCe>3526050000000000019959900000000011000001234567</chDCe>
+    <dhEvento>2026-05-04T10:02:00-03:00</dhEvento>
+    <tpEvento>110111</tpEvento>
+    <nSeqEvento>1</nSeqEvento>
+    <detEvento versaoEvento="1.00">
+      <evCancDCe>
+        <descEvento>Cancelamento</descEvento>
+        <nProt>1352600000000001</nProt>
+        <xJust>Justificativa de teste valida</xJust>
+      </evCancDCe>
+    </detEvento>
+  </infEvento>
+</eventoDCe>
+```
+
+Campos principais:
+
+| Campo | Como preencher |
+|---|---|
+| `infEvento/@Id` | Identificador do evento. Deve ser compatível com o tipo de evento, chave da DCe e sequência. |
+| `cOrgao` | Código da UF ou órgão responsável pelo evento. |
+| `tpAmb` | Ambiente do evento. Use o mesmo ambiente da DCe. |
+| `tpEmit` | Tipo de emitente do evento, conforme regra do leiaute da DCe. |
+| `CNPJAutor` | CNPJ do autor do evento. |
+| `CNPJUsEmit` | CNPJ do usuário emitente informado no evento. |
+| `chDCe` | Chave de acesso da DCe vinculada ao evento. |
+| `dhEvento` | Data e hora do evento. |
+| `tpEvento` | Tipo do evento, como `110111` para cancelamento. |
+| `nSeqEvento` | Número sequencial do evento para a mesma chave e tipo de evento. |
+| `detEvento` | Grupo de detalhes do evento. O conteúdo muda conforme o tipo de evento. |
+
+## Fluxo de processamento
+
+1. O ERP grava o arquivo `<identificador>-ped-eve.xml` na pasta de envio.
+2. O UniNFe lê o XML `eventoDCe`.
+3. O UniNFe aplica as configurações da empresa, certificado e conexão TLS quando configurada.
+4. O UniNFe assina o XML do evento.
+5. O evento é enviado para a SEFAZ.
+6. O retorno do webservice é gravado na pasta de retorno como `<identificador>-eve.xml`.
+7. Se o evento for aceito, o UniNFe gera o XML processado do evento em `Enviados\Autorizados`.
+8. Quando houver pasta de backup configurada, o XML processado do evento também é gravado no backup.
+9. Se o evento for rejeitado ou não puder ser confirmado como aceito, o XML original do pedido é movido para a pasta de erros.
+10. Se ocorrer erro local, o UniNFe grava `<identificador>-eve.err` na pasta de retorno.
+11. O arquivo de solicitação é removido da pasta de envio após o processamento.
+
+## Fluxograma
+
+```mermaid
+flowchart TD
+    A["ERP gera <identificador>-ped-eve.xml"] --> B["Pasta de envio da empresa"]
+    B --> C["UniNFe lê eventoDCe"]
+    C --> D["Aplica certificado e TLS"]
+    D --> E["Assina o XML do evento"]
+    E --> F["Envia evento para a SEFAZ"]
+    F --> G["Grava <identificador>-eve.xml na pasta de retorno"]
+    G --> H{"Evento aceito?"}
+    H -->|Sim| I["Gera XML processado do evento"]
+    I --> J["Grava em Enviados\\Autorizados"]
+    J --> K["Grava no backup quando configurado"]
+    H -->|Não| L["Move pedido do evento para a pasta de erros"]
+    C -->|Erro local| M["Grava <identificador>-eve.err na pasta de retorno"]
+    D -->|Erro local| M
+    E -->|Erro local| M
+    F -->|Erro local| M
+```
+
+## Arquivos gerados e movimentados
+
+| Momento | Pasta | Nome do arquivo | Quando aparece |
+|---|---|---|---|
+| Pedido do evento | Pasta de envio | `<identificador>-ped-eve.xml` | Arquivo criado pelo ERP para enviar o evento da DCe. |
+| Retorno ao ERP | Pasta de retorno | `<identificador>-eve.xml` | Retorno XML recebido da SEFAZ com o resultado do evento. |
+| Erro ao ERP | Pasta de retorno | `<identificador>-eve.err` | Erro local antes ou durante o processamento do evento. |
+| Evento processado | `Enviados\Autorizados\<subpasta por data>` | `<chaveDCe>_<tipoEvento>_<sequencia>-procEventoDCe.xml` | Evento aceito pela SEFAZ. O conteúdo do arquivo é um XML `procEventoDCe`. |
+| Backup do evento processado | Pasta de backup, quando configurada | `<chaveDCe>_<tipoEvento>_<sequencia>-procEventoDCe.xml` | Cópia de segurança do evento aceito. |
+| XML rejeitado ou não aceito | Pasta de erros configurada | `<identificador>-ped-eve.xml` | Evento rejeitado ou não confirmado como aceito pela SEFAZ. |
+
+## Como tratar o retorno
+
+O ERP deve monitorar a pasta de retorno e aguardar:
+
+```text
+<identificador>-eve.xml
+```
+
+Esse arquivo contém a resposta da SEFAZ para o evento enviado. O ERP deve analisar o status e o motivo retornados.
+
+Quando o evento for aceito, o UniNFe gera um XML processado do evento com o conteúdo `procEventoDCe`. O arquivo é gravado em `Enviados\Autorizados`, dentro da subpasta de data configurada, usando o padrão:
+
+```text
+<chaveDCe>_<tipoEvento>_<sequencia>-procEventoDCe.xml
+```
+
+O ERP deve armazenar esse XML como comprovante do evento aceito.
+
+Quando o evento for rejeitado, o ERP deve apresentar o motivo ao usuário, corrigir os dados e gerar um novo arquivo `-ped-eve.xml` na pasta de envio.
+
+## Erros locais
+
+Se o UniNFe não conseguir concluir o processamento por falha local, será gerado:
+
+```text
+<identificador>-eve.err
+```
+
+As causas mais comuns são:
+
+- XML do evento fora da estrutura esperada.
+- Identificador do evento incompatível com tipo, chave ou sequência.
+- Chave da DCe ausente ou inválida.
+- Certificado digital ausente, inválido ou vencido.
+- Ambiente do evento diferente do ambiente da DCe.
+- Falha de assinatura.
+- Falha de comunicação com o webservice.
+- Falha de permissão ou acesso às pastas configuradas.
+
+Depois de corrigir o problema, gere novamente o arquivo `<identificador>-ped-eve.xml` na pasta de envio.
+
+## Cuidados para o integrador
+
+- Use sempre o final `-ped-eve.xml` para envio de evento da DCe.
+- Informe `tpEvento` e `nSeqEvento` de acordo com a operação fiscal.
+- Mantenha o identificador `infEvento/@Id` compatível com o evento enviado.
+- Use o mesmo ambiente da DCe original.
+- Aguarde o arquivo `-eve.xml` para interpretar o retorno da SEFAZ.
+- Armazene o XML processado do evento quando o evento for aceito.
+- Em rejeições, corrija o XML e envie um novo pedido de evento.
+- Em erros `.err`, corrija a causa local antes de reenviar.
