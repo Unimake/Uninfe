@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentacao UniNFe</title>
+  <link rel="stylesheet" href="style.css?v=20260610-2">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-button" id="menu-toggle" type="button" aria-label="Recolher menu" title="Recolher menu">☰</button>
+      <div class="brand">
+        <strong>Documentacao UniNFe</strong>
+        <span id="current-path">Carregando...</span>
+      </div>
+      <button class="theme-button" id="theme-toggle" type="button">Tema</button>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="search-panel">
+        <label for="search-input">Pesquisar</label>
+        <input id="search-input" type="search" placeholder="Titulo, conteudo ou caminho" autocomplete="off">
+      </div>
+      <div class="search-results" id="search-results" hidden></div>
+      <nav class="nav-list" id="nav-list" aria-label="Documentos"></nav>
+    </aside>
+
+    <main class="content">
+      <div class="status-message" id="status-message">Carregando documentacao...</div>
+      <article class="markdown-body" id="document-content" tabindex="-1"></article>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+  <script src="app.js?v=20260610-2"></script>
+</body>
+</html>

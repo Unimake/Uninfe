@@ -4,6 +4,7 @@ Esta seção reúne a documentação dos serviços da NF3e disponíveis no UniNF
 
 ## Serviços documentados
 
+- [Autorização síncrona de NF3e](autorizacao-sincrona.md)
 - [Consulta de situação da NF3e](consulta-situacao.md)
 - [Consulta status de serviço da NF3e](consulta-status-servico.md)
 - [Eventos da NF3e](eventos.md)
