@@ -22,6 +22,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Configuracao](configuracao/)
 - [Telas de cadastros e configurações](configuracao/telas-cadastros-configuracoes.md)
 - [Cadastro de Nova Empresa](configuracao/cadastro-nova-empresa.md)
+- [Configuração automática do UniNFe por arquivo](configuracao/configuracao-automatica-por-arquivo.md)
 - PENDENTE DE VALIDAÇÃO: criar `configuracao/configuracao-geral.md`
 - PENDENTE DE VALIDAÇÃO: criar `configuracao/empresas.md`
 - PENDENTE DE VALIDAÇÃO: criar `configuracao/certificado-digital.md`
@@ -42,8 +43,26 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 
 - [Consulta status de serviço](servicos/consulta-status-servico.md)
 - [Consulta cadastro de contribuinte](servicos/consulta-cadastro-contribuinte.md)
-- PENDENTE DE VALIDAÇÃO: [NFe](servicos/nfe/)
-- PENDENTE DE VALIDAÇÃO: [NFCe](servicos/nfce/)
+- [Serviços gerais do UniNFe](servicos/uninfe/)
+- [UniNFe - Consulta de informações](servicos/uninfe/consulta-informacoes.md)
+- [UniNFe - Consulta de certificados digitais](servicos/uninfe/consulta-informacoes-certificados.md)
+- [NFe](servicos/nfe/)
+- [NFe - Autorização por arquivo](servicos/nfe/autorizacao.md)
+- [NFe - Consulta cadastro de contribuinte por arquivo](servicos/nfe/consulta-cadastro-contribuinte-arquivo.md)
+- [NFe - Consulta de situação por arquivo](servicos/nfe/consulta-situacao-arquivo.md)
+- [NFe - Consulta status de serviço por arquivo](servicos/nfe/consulta-status-servico-arquivo.md)
+- [NFe - Conversão de TXT para XML de NFe e NFCe](servicos/nfe/conversao-txt-para-xml.md)
+- [NFe - Eventos por arquivo](servicos/nfe/eventos.md)
+- [NFe - Inutilização de numeração de NFe e NFCe](servicos/nfe/inutilizacao-numeracao.md)
+- [NFCe](servicos/nfce/)
+- [NFCe - Autorização por arquivo](servicos/nfe/autorizacao.md)
+- [NFCe - Consulta cadastro de contribuinte por arquivo](servicos/nfe/consulta-cadastro-contribuinte-arquivo.md)
+- [NFCe - Consulta de situação por arquivo](servicos/nfe/consulta-situacao-arquivo.md)
+- [NFCe - Consulta status de serviço por arquivo](servicos/nfe/consulta-status-servico-arquivo.md)
+- [NFCe - Conversão de TXT para XML de NFe e NFCe](servicos/nfe/conversao-txt-para-xml.md)
+- [NFCe - Consulta de chaves e download de XML em São Paulo](servicos/nfce/download-e-consulta-chaves-sp.md)
+- [NFCe - Eventos por arquivo](servicos/nfe/eventos.md)
+- [NFCe - Inutilização de numeração de NFe e NFCe](servicos/nfe/inutilizacao-numeracao.md)
 - [CCG](servicos/ccg/)
 - [CCG - Consulta GTIN](servicos/ccg/consulta-gtin.md)
 - [CTe](servicos/cte/)
@@ -55,6 +74,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [CTe - Eventos](servicos/cte/eventos.md)
 - [DARE](servicos/dare/)
 - [DARE - Consulta de receitas](servicos/dare/consulta-receitas.md)
+- [DARE - Recepção](servicos/dare/recepcao.md)
 - [MDFe](servicos/mdfe/)
 - [MDFe - Autorização síncrona](servicos/mdfe/autorizacao-sincrona.md)
 - [MDFe - Consulta de não encerrados](servicos/mdfe/consulta-nao-encerrados.md)
@@ -92,6 +112,9 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [DCe - Consulta de situação](servicos/dce/consulta-situacao.md)
 - [DCe - Consulta status de serviço](servicos/dce/consulta-status-servico.md)
 - [DCe - Eventos](servicos/dce/eventos.md)
+- [DFe](servicos/dfe/)
+- [DFe - Distribuição](servicos/dfe/distribuicao-dfe.md)
+- [DFe - Distribuição de CT-e](servicos/dfe/distribuicao-dfe-cte.md)
 - [eBoleto](servicos/eboleto/)
 - [eBoleto - Alterar vencimento do boleto](servicos/eboleto/alterar-vencimento.md)
 - [eBoleto - Cancelar boleto](servicos/eboleto/cancelar-boleto.md)
@@ -99,11 +122,25 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [eBoleto - Enviar instrução do boleto](servicos/eboleto/enviar-instrucao.md)
 - [eBoleto - Informar pagamento do boleto](servicos/eboleto/informar-pagamento.md)
 - [eBoleto - Registrar boleto](servicos/eboleto/registrar-boleto.md)
+- [eSocial](servicos/esocial/)
+- [eSocial - Consulta de identificadores de eventos](servicos/esocial/consulta-identificadores-eventos.md)
+- [eSocial - Consulta de lote de eventos](servicos/esocial/consulta-lote-eventos.md)
+- [eSocial - Download de eventos](servicos/esocial/download-eventos.md)
+- [eSocial - Recepção de lote de eventos](servicos/esocial/recepcao-lote-eventos.md)
+- [EFD-Reinf](servicos/efdreinf/)
+- [EFD-Reinf - Consulta de lote assíncrono](servicos/efdreinf/consulta-lote-assincrono.md)
+- [EFD-Reinf - Consultas](servicos/efdreinf/consultas.md)
+- [EFD-Reinf - Recepção de lote de eventos](servicos/efdreinf/recepcao-lote-eventos.md)
 - [PIX](servicos/pix/)
 - [PIX - Criar cobrança](servicos/pix/criar-cobranca.md)
 - [PIX - Consultar movimentos](servicos/pix/consultar-movimentos.md)
 - [PIX - Consultar PIX por TxId](servicos/pix/consultar-pix.md)
-- PENDENTE DE VALIDAÇÃO: [GNRE](servicos/gnre/)
+- [uMessenger](servicos/umessenger/)
+- [uMessenger - Envio de mensagens](servicos/umessenger/envio-mensagens.md)
+- [GNRE](servicos/gnre/)
+- [GNRE - Consulta de configuração da UF](servicos/gnre/consulta-configuracao-uf.md)
+- [GNRE - Consulta de resultado do lote](servicos/gnre/consulta-resultado-lote.md)
+- [GNRE - Recepção de lote](servicos/gnre/recepcao-lote.md)
 
 ## Referencias
 
@@ -113,10 +150,10 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Tela Log](referencias/tela-log.md)
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)
+- [Perguntas frequentes](referencias/perguntas-frequentes.md)
 - PENDENTE DE VALIDAÇÃO: criar `referencias/estrutura-de-pastas.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/tipos-de-retorno.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/exemplos-xml.md`
-- PENDENTE DE VALIDAÇÃO: criar `referencias/perguntas-frequentes.md`
 
 ## Controle Interno
 

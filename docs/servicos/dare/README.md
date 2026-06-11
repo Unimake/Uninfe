@@ -5,3 +5,4 @@ Esta seção reúne a documentação dos serviços de DARE disponíveis no UniNF
 ## Serviços documentados
 
 - [Consulta de receitas](consulta-receitas.md)
+- [Recepção do DARE](recepcao.md)
