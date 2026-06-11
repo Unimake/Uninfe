@@ -83,11 +83,37 @@
     }, {});
   }
 
+  function categoryRank(category) {
+    const value = normalizeText(category || "Raiz");
+    const rank = {
+      introducao: 10,
+      instalacao: 20,
+      configuracao: 30,
+      referencias: 40,
+      servicos: 50,
+      raiz: 900
+    };
+
+    if (Object.prototype.hasOwnProperty.call(rank, value)) {
+      return rank[value];
+    }
+
+    if (value.startsWith("servicos/")) {
+      return 60;
+    }
+
+    return 800;
+  }
+
+  function compareCategories(a, b) {
+    return categoryRank(a) - categoryRank(b) || a.localeCompare(b, "pt-BR");
+  }
+
   function renderNavigation() {
     const groups = groupDocuments(state.manifest.documents);
     elements.navList.innerHTML = "";
 
-    Object.keys(groups).sort((a, b) => a.localeCompare(b, "pt-BR")).forEach((category) => {
+    Object.keys(groups).sort(compareCategories).forEach((category) => {
       const section = document.createElement("section");
       section.className = "category";
 

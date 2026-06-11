@@ -1,6 +1,182 @@
 {
-  "generatedAt": "2026-06-11T17:18:14.624Z",
+  "generatedAt": "2026-06-11T18:53:37.965Z",
   "documents": [
+    {
+      "id": "introducao-o-que-e-uninfe-md",
+      "title": "O que é o UniNFe",
+      "path": "introducao/o-que-e-uninfe.md",
+      "category": "introducao",
+      "headings": [
+        {
+          "level": 1,
+          "text": "O que é o UniNFe"
+        },
+        {
+          "level": 2,
+          "text": "Para que serve"
+        },
+        {
+          "level": 2,
+          "text": "Como funciona a integração"
+        },
+        {
+          "level": 2,
+          "text": "Quem utiliza"
+        },
+        {
+          "level": 2,
+          "text": "Documentos e serviços atendidos"
+        },
+        {
+          "level": 2,
+          "text": "Relação com outros produtos Unimake"
+        },
+        {
+          "level": 2,
+          "text": "Próximos passos"
+        }
+      ],
+      "text": "O que é o UniNFe O UniNFe é um monitor de documentos fiscais eletrônicos desenvolvido pela Unimake Software para simplificar a integração entre sistemas ERP e os serviços fiscais brasileiros. Ele atua como uma camada intermediária entre o ERP e os ambientes da SEFAZ, prefeituras, Receita Federal e outros órgãos integrados. O ERP gera arquivos de envio, grava esses arquivos nas pastas configuradas e o UniNFe se encarrega de monitorar, validar, assinar, transmitir, receber retornos e gravar os arquivos de resposta. O projeto é gratuito, open source e mantido pela Unimake Software. A página oficial do projeto está disponível em: https://inside.unimake.com.br/uninfe Para que serve O UniNFe foi criado para reduzir a complexidade fiscal dentro do ERP. Em vez de cada sistema implementar diretamente a comunicação com todos os webservices fiscais, o UniNFe centraliza essa integração por meio de arquivos XML e TXT. Com ele, o ERP pode: enviar documentos fiscais eletrônicos; consultar status de serviço; consultar situação de documentos; enviar eventos fiscais; receber retornos dos serviços fiscais; validar XML; assinar XML com certificado digital; organizar arquivos de envio, retorno, erro, enviados, autorizados e backup; trabalhar com múltiplas empresas e serviços fiscais na mesma instalação. Como funciona a integração A integração principal é feita por troca de arquivos. 1. O ERP grava o XML ou TXT na pasta de envio configurada. 2. O UniNFe monitora a pasta. 3. O UniNFe identifica o serviço solicitado pelo arquivo. 4. O XML é validado, assinado quando necessário e transmitido ao serviço fiscal. 5. O retorno é gravado na pasta de retorno configurada. 6. Em caso de erro, o UniNFe grava o retorno de erro conforme o fluxo do serviço. Esse modelo permite que o ERP continue independente da comunicação direta com cada webservice fiscal, usando as pastas configuradas como contrato de integração. Quem utiliza O UniNFe é voltado principalmente para: desenvolvedores de ERP; software houses; equipes de suporte técnico; empresas que precisam integrar emissão, consulta e retorno de documentos fiscais eletrônicos; ambientes que precisam executar o monitor na área de notificação do Windows ou como serviço do Windows. Documentos e serviços atendidos O UniNFe atende os seguintes documentos e serviços fiscais configuráveis no monitor: Sigla Significado NF e Nota Fiscal Eletrônica NFC e Nota Fiscal de Consumidor Eletrônica CT e Conhecimento de Transporte Eletrônico MDF e Manifesto Eletrônico de Documentos Fiscais NFS e Nota Fiscal de Serviço Eletrônica NF3 e Nota Fiscal de Energia Elétrica Eletrônica NFCom Nota Fiscal Fatura de Serviço de Comunicação Eletrônica NFGas Nota Fiscal Eletrônica do Gás DC e Declaração de Conteúdo Eletrônica GNRE Guia Nacional de Recolhimento de Tributos Estaduais DARE Documento de Arrecadação de Receitas Estaduais EFD Reinf Escrituração Fiscal Digital de Retenções e Outras Informações Fiscais eSocial Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas CIOT Código Identificador da Operação de Transporte O monitor também possui uma opção de configuração para Todos , usada para processar vários documentos fiscais eletrônicos em uma mesma empresa, exceto NFS e. Relação com outros produtos Unimake O UniNFe é o monitor por troca de arquivos. Ele é indicado quando o ERP integra com o ambiente fiscal gravando arquivos em pastas monitoradas. Quando a integração desejada é direta por código, sem troca de arquivos com o monitor, a alternativa é usar a biblioteca Unimake.DFe , também mantida pela Unimake. Próximos passos Para começar a usar o UniNFe: 1. Instale o aplicativo. 2. Cadastre a empresa. 3. Configure certificado, ambiente, serviço fiscal e pastas. 4. Teste a comunicação com a consulta de status de serviço. 5. Integre o ERP gravando arquivos nas pastas configuradas. Consulte também: Instalação do UniNFe Tela Configurações Consulta status de serviço Executar o UniNFe como serviço no Windows"
+    },
+    {
+      "id": "instalacao-atualizacao-md",
+      "title": "Atualização do UniNFe",
+      "path": "instalacao/atualizacao.md",
+      "category": "instalacao",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Atualização do UniNFe"
+        },
+        {
+          "level": 2,
+          "text": "Acesso"
+        },
+        {
+          "level": 2,
+          "text": "Como atualizar"
+        },
+        {
+          "level": 2,
+          "text": "Botões"
+        },
+        {
+          "level": 2,
+          "text": "O que acontece durante a atualização"
+        },
+        {
+          "level": 2,
+          "text": "Mensagens e erros"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados"
+        }
+      ],
+      "text": "Atualização do UniNFe A tela de atualização permite baixar e iniciar a instalação de uma versão mais recente do UniNFe a partir do próprio aplicativo. Acesso No menu principal, clique em Atualizar o UniNFe . Quando há senha de configuração cadastrada e o tempo de acesso anterior expirou, o UniNFe solicita a senha antes de abrir a tela de atualização. Como atualizar 1. Clique em Iniciar a atualização . 2. Confirme a mensagem informando que, após o download, a aplicação será encerrada para executar o instalador. 3. Aguarde o download do instalador. 4. Ao concluir o download, o UniNFe inicia o instalador e encerra o aplicativo. Durante o download, a tela exibe uma barra de progresso. O título da janela também indica que a atualização está sendo baixada. Botões Botão Para que serve Iniciar a atualização Inicia o download do instalador da versão mais recente do UniNFe. Antes de continuar, o aplicativo pede confirmação ao usuário. Fechar Fecha a tela de atualização sem iniciar o download. O que acontece durante a atualização Antes de executar o instalador, o UniNFe interrompe os serviços do monitor. Em seguida, baixa o instalador da atualização para a pasta de execução do aplicativo e inicia a instalação de forma automática. Se o aplicativo estiver configurado para usar proxy, a atualização usa as mesmas configurações de proxy cadastradas no UniNFe. Mensagens e erros Ao iniciar a atualização, o UniNFe exibe uma confirmação com o aviso de que a aplicação será encerrada após o download. Se ocorrer falha no download do instalador, a tela mostra uma mensagem informando que não foi possível baixar o instalador e apresenta o erro retornado. A falha também é registrada no log do UniNFe. Cuidados Antes de iniciar a atualização, conclua operações em andamento no monitor e confirme que a máquina tem acesso à internet. Em ambientes que usam proxy, revise as configurações de proxy do UniNFe antes de atualizar."
+    },
+    {
+      "id": "instalacao-executar-como-servico-windows-md",
+      "title": "Executar o UniNFe como Serviço no Windows",
+      "path": "instalacao/executar-como-servico-windows.md",
+      "category": "instalacao",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Executar o UniNFe como Serviço no Windows"
+        },
+        {
+          "level": 2,
+          "text": "Antes de instalar o serviço"
+        },
+        {
+          "level": 2,
+          "text": "Instalar o serviço"
+        },
+        {
+          "level": 2,
+          "text": "Configurar o usuário do serviço"
+        },
+        {
+          "level": 2,
+          "text": "Iniciar ou reiniciar o computador"
+        },
+        {
+          "level": 2,
+          "text": "Testar o serviço"
+        },
+        {
+          "level": 2,
+          "text": "Usar a interface quando o serviço está instalado"
+        },
+        {
+          "level": 2,
+          "text": "Remover o UniNFe da inicialização do Windows"
+        },
+        {
+          "level": 2,
+          "text": "Parar o serviço"
+        },
+        {
+          "level": 2,
+          "text": "Remover o serviço"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados importantes"
+        }
+      ],
+      "text": "Executar o UniNFe como Serviço no Windows O UniNFe pode ser executado como serviço do Windows para processar arquivos mesmo sem um usuário logado na máquina. Nesse modo, o monitor trabalha em segundo plano e não aparece na bandeja do Windows. Use esta configuração em servidores ou estações dedicadas em que o UniNFe deve iniciar junto com o Windows e continuar processando os arquivos das empresas configuradas. Antes de instalar o serviço 1. Faça logon no Windows com o mesmo usuário que será usado para executar o serviço. 2. Instale o certificado digital nesse usuário, quando for utilizado certificado instalado no Windows. 3. Instale o UniNFe. 4. Abra o UniNFe normalmente pela interface. 5. Configure as empresas, pastas, certificados, ambiente e demais opções necessárias. 6. Teste o funcionamento pela interface antes de instalar o serviço. O serviço usa as configurações já gravadas no UniNFe. Por isso, a instalação como serviço deve ser feita somente depois que o aplicativo estiver funcionando corretamente pela interface. Instalar o serviço 1. Feche o UniNFe, se ele estiver aberto. 2. Abra o Prompt de Comando como administrador. 3. Acesse a pasta onde o UniNFe está instalado. 4. Execute o comando: Após a instalação, o serviço fica registrado no Windows com o nome UniNFeServico . Configurar o usuário do serviço Depois de instalar o serviço, configure o usuário usado para executá lo. 1. Abra o gerenciador de serviços do Windows. 2. Localize o serviço UniNFeServico . 3. Clique com o botão direito sobre o serviço e escolha Propriedades . 4. Acesse a aba Logon . 5. Marque Esta conta . 6. Informe o usuário e a senha que devem executar o serviço. 7. Confirme em OK . Use o mesmo usuário em que o certificado digital foi instalado. Se o serviço for executado com outro usuário, o UniNFe pode não conseguir acessar o certificado instalado no Windows. Iniciar ou reiniciar o computador Depois de configurar o usuário do serviço, reinicie o computador ou inicie o serviço manualmente pelo gerenciador de serviços do Windows. Ao iniciar, o serviço aguarda as dependências do sistema antes de começar o processamento. Se as dependências demorarem, o serviço tenta iniciar por alguns minutos e registra o andamento no log do UniNFe. Quando o serviço é iniciado, ele: carrega as configurações gerais do UniNFe; carrega as empresas cadastradas; verifica certificados configurados; executa conversões necessárias de versão; inicia o processamento das pastas monitoradas. Se o serviço não conseguir ler o certificado de alguma empresa configurada, o UniNFe grava uma mensagem de erro na pasta de retorno da empresa e também registra o problema no log. Testar o serviço Para confirmar que o serviço está funcionando: 1. Reinicie o computador ou inicie o serviço UniNFeServico . 2. Não abra o UniNFe pela interface. 3. Gere um XML de consulta de status de serviço pelo ERP ou pelo processo de integração usado pela empresa. 4. Grave o XML na pasta de envio configurada. 5. Aguarde o processamento. 6. Verifique se o UniNFe gerou o arquivo de retorno na pasta de retorno configurada. Se o retorno for gerado, o serviço está processando os arquivos corretamente. Se o retorno não for gerado, revise: se o serviço UniNFeServico está iniciado; se as pastas configuradas existem e o usuário do serviço tem permissão de leitura e gravação; se o certificado está acessível para o usuário configurado na aba Logon do serviço; se as configurações da empresa foram salvas antes da instalação do serviço; os logs do UniNFe. Usar a interface quando o serviço está instalado Quando o UniNFe está rodando como serviço, a interface do aplicativo não deve ser aberta ao mesmo tempo para processar arquivos. Para abrir a interface e alterar configurações: 1. Pare o serviço UniNFeServico no gerenciador de serviços do Windows. 2. Abra o UniNFe pela interface. 3. Faça as alterações necessárias. 4. Feche o UniNFe. 5. Inicie novamente o serviço UniNFeServico . Remover o UniNFe da inicialização do Windows Depois de instalar o UniNFe como serviço, remova o aplicativo UniNFe da inicialização do Windows. Isso evita que a interface seja aberta automaticamente junto com o serviço. No Windows: 1. Abra o Gerenciador de Tarefas . 2. Acesse a aba Inicializar . 3. Localize UniNFe . 4. Clique com o botão direito. 5. Selecione Desabilitar . Parar o serviço Para parar o processamento em segundo plano: 1. Abra o gerenciador de serviços do Windows. 2. Localize UniNFeServico . 3. Clique com o botão direito. 4. Selecione Parar . Ao parar, o serviço interrompe o processamento das pastas monitoradas e limpa arquivos de controle de bloqueio usados pelo UniNFe. Remover o serviço Para desinstalar o serviço do Windows: 1. Pare o serviço UniNFeServico , se ele estiver em execução. 2. Abra o Prompt de Comando como administrador. 3. Acesse a pasta onde o UniNFe está instalado. 4. Execute o comando: Depois disso, reinicie o computador. O UniNFe não será mais executado como serviço. Cuidados importantes Configure e teste o UniNFe pela interface antes de instalar o serviço. Use no serviço o mesmo usuário do Windows que tem acesso ao certificado digital. Garanta permissão de leitura e gravação nas pastas de envio, retorno, erro, enviados, backup e demais pastas configuradas. Não deixe a interface do UniNFe e o serviço processando arquivos ao mesmo tempo. Após alterar configurações pela interface, feche o aplicativo e reinicie o serviço. Consulte os logs do UniNFe sempre que o serviço iniciar, parar ou não processar arquivos como esperado."
+    },
+    {
+      "id": "instalacao-instalacao-md",
+      "title": "Instalação do UniNFe",
+      "path": "instalacao/instalacao.md",
+      "category": "instalacao",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Instalação do UniNFe"
+        },
+        {
+          "level": 2,
+          "text": "Antes de começar"
+        },
+        {
+          "level": 2,
+          "text": "Requisito do .NET Framework"
+        },
+        {
+          "level": 2,
+          "text": "Baixar o instalador"
+        },
+        {
+          "level": 2,
+          "text": "Instalar o UniNFe"
+        },
+        {
+          "level": 2,
+          "text": "Primeira execução"
+        },
+        {
+          "level": 2,
+          "text": "Configurar o UniNFe após instalar"
+        },
+        {
+          "level": 2,
+          "text": "Instalar o UniNFe para executar como serviço"
+        },
+        {
+          "level": 2,
+          "text": "UniDANFE"
+        },
+        {
+          "level": 2,
+          "text": "Checklist de instalação"
+        }
+      ],
+      "text": "Instalação do UniNFe Esta página orienta a instalação do UniNFe em uma estação ou servidor Windows. Antes de começar Antes de executar o instalador, confirme os pontos abaixo: 1. Defina em qual computador o UniNFe será executado. 2. Verifique se esse computador possui acesso ao certificado digital usado pelas empresas. 3. Se o certificado for A1 , confirme que o computador tem acesso ao arquivo do certificado e à senha. 4. Se o certificado for instalado no Windows, instale o no mesmo usuário do Windows que executará o UniNFe. 5. Garanta que o usuário do Windows tenha permissão para criar e gravar nas pastas que serão usadas pelo UniNFe. O usuário usado para instalar ou acessar o certificado deve ser o mesmo usado para executar o UniNFe. Isso evita falhas de acesso ao certificado digital. Requisito do .NET Framework O UniNFe depende do .NET Framework 4.8 ou superior, conforme o instalador utilizado. Durante a instalação, o setup verifica se o .NET Framework necessário está instalado. Se não estiver, o instalador pode solicitar o download e a instalação do framework antes de continuar. Quando o Windows não atender ao requisito do framework, instale ou atualize o .NET Framework e execute novamente o instalador do UniNFe. Baixar o instalador Baixe o instalador do UniNFe no site do projeto: www.uninfe.com.br Escolha o instalador conforme a necessidade do ambiente: Instalador Quando usar Monitor para DF e Para integração com documentos fiscais eletrônicos como NF e, NFC e, CT e, MDF e, NFS e e demais serviços suportados pelo UniNFe. Versão BETA Para testes de versão em desenvolvimento. Não use em produção sem orientação da Unimake. Instalar o UniNFe 1. Localize o arquivo do instalador baixado. 2. Execute o instalador. 3. Siga as orientações do assistente de instalação. 4. Mantenha ou altere a pasta de instalação conforme o padrão da empresa. 5. Conclua a instalação. Por padrão, o instalador usa a pasta: Ao final da instalação, o UniNFe é executado automaticamente. Primeira execução Depois de instalado, o UniNFe é aberto e fica disponível na área de notificação do Windows, perto do relógio. Para abrir a tela principal: 1. Localize o ícone do UniNFe na área de notificação do Windows. 2. Dê duplo clique no ícone. O instalador também cria um atalho no menu iniciar: Use esse atalho quando precisar abrir o UniNFe manualmente. Configurar o UniNFe após instalar Após abrir o UniNFe pela primeira vez: 1. Acesse Configurações . 2. Cadastre a empresa em Empresas Nova . 3. Configure serviço fiscal, ambiente e UF ou município. 4. Configure as pastas de envio, retorno, erro, enviados, backup e demais pastas usadas pela integração. 5. Configure o certificado digital. 6. Salve as configurações. 7. Faça um teste de comunicação, como a consulta de status de serviço. Consulte também: Tela Configurações Cadastro de Nova Empresa Consulta status de serviço Instalar o UniNFe para executar como serviço A instalação normal abre o UniNFe como aplicativo de monitoramento na área de notificação do Windows. Se o ambiente precisar executar o UniNFe como serviço do Windows, primeiro instale e configure o UniNFe normalmente. Depois siga o procedimento específico: Executar o UniNFe como serviço no Windows UniDANFE O UniNFe não substitui a configuração do aplicativo de impressão. Se o ambiente usa UniDANFE ou DANFE Mon para impressão, instale e configure essas ferramentas separadamente e depois informe os caminhos necessários na aba DANFE das configurações da empresa. Checklist de instalação Antes de liberar o UniNFe para uso, confirme: o UniNFe foi instalado no computador correto; o .NET Framework necessário está instalado; o certificado digital está acessível para o usuário que executa o UniNFe; a empresa foi cadastrada; as pastas de integração foram configuradas; o ambiente fiscal está correto; a consulta de status de serviço foi testada; o ERP consegue gravar arquivos na pasta de envio e ler retornos na pasta de retorno."
+    },
     {
       "id": "configuracao-cadastro-nova-empresa-md",
       "title": "Cadastro de Nova Empresa",
@@ -185,223 +361,6 @@
       "text": "Tela Configurações A tela Configurações centraliza as opções gerais do UniNFe e o cadastro das empresas monitoradas. Nela são definidos proxy, senha de acesso, atualização automática, empresa, serviço fiscal, ambiente, pastas de trabalho, certificado digital, FTP, impressão, responsável técnico, integrações e outras opções operacionais. Acesso No menu principal, clique em Configurações . Quando há senha de configuração cadastrada e o tempo de acesso anterior expirou, o UniNFe solicita a senha antes de abrir a tela. Organização da tela A tela possui duas áreas principais: Aba Para que serve Geral Configura opções globais do aplicativo, usadas por todas as empresas. Empresas Permite incluir, selecionar, alterar, salvar, cancelar e excluir empresas monitoradas pelo UniNFe. A inclusão começa pela tela Cadastro de Nova Empresa. Na aba Empresas , as configurações da empresa selecionada são separadas em abas internas: Aba da empresa Para que serve Principal Define identificação da empresa, serviço fiscal, ambiente, UF ou município, tipo de emissão e opções principais de processamento. Pastas Define as pastas usadas para envio, retorno, erro, validação, enviados, backup, envio em lote e download. Certificado digital Configura o certificado usado na comunicação com os serviços fiscais. FTP Configura envio e consulta de arquivos por FTP. DANFE Configura integração com UniDANFE e DANFE Mon. Responsável Técnico Configura os dados do responsável técnico e CSRT. Integrações Configura credenciais e alertas de integrações como e bank e u Messenger. Outras Configurações Configura opções adicionais conforme o serviço da empresa. Algumas abas e campos aparecem ou ficam ocultos conforme o serviço selecionado para a empresa. Botões principais Botão Para que serve Nova Abre a tela Cadastro de Nova Empresa, onde são informados documento, nome e serviço inicial da empresa. Salvar Grava as alterações feitas na empresa ou nas configurações gerais. O botão Nova muda para Salvar quando há alterações pendentes. Excluir Remove a empresa selecionada após confirmação. Cancelar Cancela as alterações pendentes. O botão Excluir muda para Cancelar quando há alterações pendentes. Voltar Retorna ao menu anterior. Se houver alterações não salvas, o UniNFe pede confirmação antes de abandonar a tela. Aba Geral A aba Geral reúne opções que valem para o aplicativo como um todo. Campo Para que serve Usar um servidor proxy Ativa o uso de proxy para comunicações externas do UniNFe, como serviços fiscais e atualização do aplicativo. Servidor Endereço do servidor proxy. Fica habilitado quando o uso de proxy está ativo e a detecção automática não está marcada. Porta Porta do servidor proxy. Fica habilitada quando o uso de proxy está ativo e a detecção automática não está marcada. Usuário Usuário para autenticação no proxy, quando exigido. Senha Senha do usuário do proxy, quando exigida. Detectar configuração de proxy automaticamente Faz o UniNFe usar a detecção automática de proxy, desabilitando o preenchimento manual de servidor e porta. Senha de acesso a tela de configurações Define uma senha para proteger o acesso à tela de configurações. Repetir a senha Confirma a senha de acesso à tela de configurações. As duas senhas devem ser idênticas. Gravar log das operações realizadas Ativa o registro das operações executadas pelo UniNFe nos logs. Checar a conexão com a internet ao enviar o XML Faz o UniNFe verificar a conexão antes de enviar XML aos serviços fiscais. Exibir tela de confirmação ao fechar manualmente o UniNFe Exibe confirmação quando o usuário tenta fechar o aplicativo manualmente. Manter o UniNFe atualizado Ativa a verificação automática de atualização do UniNFe. Salvar Grava as configurações gerais. Aba Empresas Na aba Empresas , o campo Empresas lista as empresas cadastradas. Ao selecionar uma empresa, o UniNFe carrega suas configurações nas abas internas. Ao criar uma empresa nova, o UniNFe abre a tela Cadastro de Nova Empresa para coletar documento, nome e serviço. Depois da confirmação, as abas da empresa ficam disponíveis para completar a configuração. Aba Principal A aba Principal identifica a empresa e define as opções básicas do serviço fiscal. Campo Para que serve Nome Nome da empresa exibido no UniNFe. É obrigatório. CNPJ/CPF/CEI/CAEPF Documento da empresa. Em empresas já cadastradas, o campo é exibido como informação da empresa selecionada. Serviço Serviço fiscal monitorado para a empresa, como NF e, NFC e, CT e, MDF e, NFS e, eSocial, EFD Reinf, NFCom, NF3e, NFGas, CIOT ou outros disponíveis na instalação. Unidade Federativa (UF) UF usada para o serviço fiscal da empresa. Para NFS e, o campo é apresentado como Município . Município Município usado para configuração de NFS e. Ao selecionar o município, o UniNFe preenche o código do município e o padrão identificado. Código do município Código do município selecionado para NFS e. Padrão Padrão de NFS e identificado para o município selecionado. Ambiente Define se a empresa opera em ambiente de produção ou homologação, conforme as opções disponíveis no aplicativo. Tipo de emissão Define o tipo de emissão usado para os documentos fiscais quando o serviço selecionado utiliza essa opção. Formatação pastas Define o formato de organização das pastas de armazenamento, quando aplicável ao serviço. Quantidade em segundos p/efetuar a consultar da autorização da NFe/NFCe/MDFe Intervalo usado para consultar a autorização após o envio. O valor deve ficar entre 2 e 15 segundos. Quantos dias devem ser mantidos os arquivos na pasta temporário e retorno? Define por quantos dias os arquivos permanecem nas pastas temporárias e de retorno antes da limpeza. Use 0 para não aplicar limpeza automática por quantidade de dias. Gravar os retornos dos webservices também no formato texto (TXT) Gera retorno em TXT além do XML para os retornos dos webservices. Gravar os eventos na mesma pasta dos arquivos de NFe/NFCe/MDFe/CTe autorizados/denegados Grava eventos junto aos documentos autorizados ou denegados. Gravar os eventos de cancelamento na mesma pasta dos arquivos da NFe/NFCe/MDFe/CTe autorizados/denegados Grava eventos de cancelamento junto aos documentos correspondentes. Gravar os eventos na consulta de NFe/NFCe/MDFe/CTe de terceiros? Grava eventos retornados em consultas de documentos de terceiros. Gravar o nome dos XML da NFe/CTe retornados na manifestação no formato com o número do NSU Usa o NSU no nome dos XML retornados na manifestação, quando a opção está disponível para o serviço. Comparar Digest Value do DFe em processamento com o retornado pela SEFAZ? Compara o Digest Value do documento em processamento com o valor retornado pela SEFAZ. Gravar avisos na pasta retorno (não impeditivo) Grava avisos não impeditivos na pasta de retorno. Ativar envio RPS síncrono (THEMA) Ativa o envio síncrono de RPS para o padrão THEMA, quando disponível. WS Usuário Usuário de webservice usado em alguns padrões de NFS e. WS Senha Senha de webservice usada em alguns padrões de NFS e. ClientID Identificador de cliente exigido por algumas integrações de NFS e. Client Secret Segredo do cliente exigido por algumas integrações de NFS e. ID Token Identificador do CSC usado na NFC e. Quando informado, o CSC também deve ser informado. CSC Código de Segurança do Contribuinte usado na NFC e. Quando informado, o ID Token também deve ser informado. Aba Pastas A aba Pastas define onde o UniNFe lê arquivos de entrada e grava retornos, erros e arquivos processados. Campo Para que serve Criar as pastas automaticamente Permite ao UniNFe criar automaticamente as pastas configuradas quando elas ainda não existem. Pasta onde serão gravados os arquivos XML´s a serem enviados individualmente para os WebServices Pasta de envio individual. O ERP grava nesta pasta os XML que o UniNFe deve processar individualmente. Pasta onde serão gravados os arquivos XML´s de retorno dos WebServices Pasta de retorno. O UniNFe grava nela os XML de retorno dos serviços fiscais. Pasta para arquivamento temporário dos XML´s que apresentaram erro na tentativa de envio Pasta usada para armazenar XML que apresentaram erro durante o processamento. Pasta onde serão gravados os arquivos XML´s a serem somente validados Pasta usada pela rotina de validação de XML. Pasta onde serão gravados os arquivos XML´s enviados Pasta onde o UniNFe arquiva arquivos enviados/processados conforme a configuração da empresa. Pasta para Backup dos XML´s enviados Pasta de backup dos XML enviados/autorizados. Quando não informada para serviços que usam backup, o UniNFe alerta antes de salvar. Pasta onde serão gravados os arquivos XML´s de NF e a serem enviadas em lote para os WebServices Pasta de envio em lote, usada nos serviços que trabalham com esse fluxo. Pasta onde serão gravados os arquivos XML´s de NFe baixados da Sefaz e retornos de distribuição Pasta usada para XML baixados da SEFAZ e retornos de distribuição, quando o serviço possui esse recurso. Ao alterar a pasta de envio, o UniNFe pode perguntar se deve redefinir os demais diretórios para manter a mesma estrutura. A tela também impede o uso da mesma pasta em empresas diferentes quando isso poderia causar conflito. Aba Certificado Digital A aba Certificado digital configura o certificado usado pela empresa. Campo Para que serve Utilizar certificado Indica se a empresa usa certificado digital. Para NFS e, essa opção pode ser alterada na tela; para outros serviços, o uso do certificado segue a necessidade do serviço. Utilizar certificado instalado no Windows? Usa um certificado instalado no repositório de certificados do Windows. Informações do certificado digital selecionado Mostra sujeito, validade, dias restantes para vencimento e thumbprint do certificado selecionado. Se o certificado instalado não for detectado na estação, a tela mostra um alerta. Local de armazenamento do Certificado Digital Caminho do arquivo do certificado quando a opção de certificado instalado no Windows não está marcada. Senha do Certificado Senha do arquivo de certificado. PIN Certificado A3 (opcional) PIN do certificado A3, exibido quando o certificado selecionado é A3. Testar PIN Testa o PIN informado para certificado A3. Ao salvar, o UniNFe valida o certificado configurado. Se o CNPJ ou CPF do certificado for diferente do documento da empresa, a tela exibe um aviso para o usuário. Aba FTP A aba FTP configura a conexão FTP usada pela empresa. Campo Para que serve Ativo? Ativa o uso de FTP para a empresa. Nome do servidor Endereço do servidor FTP. Porta Porta de conexão do FTP. Nome do usuário Usuário para autenticação no FTP. Senha Senha do usuário FTP. Modo passivo? Ativa o modo passivo na conexão FTP. Pasta onde serão gravados os arquivos XML´s enviados Pasta de destino dos XML autorizados/enviados no FTP. Pasta onde serão gravados os arquivos XML´s de retorno dos WebServices Pasta de retornos no FTP. Gravar os XML's autorizados em uma única pasta Grava os XML autorizados em uma pasta única. Quando desmarcado, o UniNFe organiza os XML em pastas conforme a estrutura do serviço. Testar Testa a conexão FTP e verifica as pastas configuradas. Se uma pasta não existir, o UniNFe pode perguntar se deve criá la. Se o teste de FTP acusar erro e o FTP estiver ativo, o UniNFe impede salvar enquanto o problema não for corrigido. Aba DANFE A aba DANFE configura integração com impressão e ferramentas relacionadas ao UniDANFE e DANFE Mon. Campo Para que serve Pasta do executável do UniDANFE Caminho onde está o executável do UniDANFE. Pasta do arquivo de configurações do UniDANFE Caminho onde ficam os arquivos de configuração do UniDANFE. Pasta onde deve ser gravado o XML para a impressão do documento fiscal a partir do DANFE Mon Pasta monitorada pelo DANFE Mon para impressão. Nomes das configurações NFe/MDFe/CTe/NFCe Nome da configuração de impressão usada para documentos fiscais. Nomes das configurações CCe Nome da configuração de impressão usada para Carta de Correção eletrônica. XML´s a serem copiados na pasta para impressão do DANFE a partir do DANFE Mon XML do documento fiscal eletrônico Copia o XML do documento fiscal para a pasta usada pelo DANFE Mon. XML´s a serem copiados na pasta para impressão do DANFE a partir do DANFE Mon XML de distribuição do documento fiscal eletrônico Copia o XML de distribuição para a pasta usada pelo DANFE Mon. E mail E mail adicional a ser usado nas informações do DANFE. Adiciona este e mail ao que constar no XML Quando marcado, acrescenta o e mail configurado ao e mail já existente no XML. Aba Responsável Técnico A aba Responsável Técnico registra os dados do responsável técnico da empresa. Campo Para que serve CNPJ CNPJ do responsável técnico. Contato Nome do contato do responsável técnico. E mail E mail do responsável técnico. A tela valida o formato do e mail ao sair do campo. Telefone Telefone do responsável técnico. ID CSRT Identificador do CSRT. Quando informado, deve ser maior que zero e é gravado com dois dígitos. CSRT Código de Segurança do Responsável Técnico. Se qualquer um dos campos obrigatórios do responsável técnico for preenchido, os campos CNPJ , Contato , E mail e Telefone devem ser preenchidos em conjunto. Aba Integrações A aba Integrações configura credenciais e alertas externos. Campo Para que serve e bank AppID AppID da integração e bank. O valor deve ter no máximo 200 caracteres. e bank Secret Secret da integração e bank. O valor deve ter no máximo 200 caracteres. u Messenger AppID AppID da integração u Messenger. u Messenger Secret Secret da integração u Messenger. Utilizar oAppID e Secret do Ebank para o uMessenger Usa as mesmas credenciais do e bank para o u Messenger e desabilita o preenchimento separado de AppID e Secret do u Messenger. Enviar alerta de documentos rejeitados para WhatsApp? Envia alerta via WhatsApp quando houver documentos rejeitados. Enviar alerta de documentos denegados para WhatsApp? Envia alerta via WhatsApp quando houver documentos denegados. Enviar alerta de erros ocorridos no UniNFe para WhatsApp? Envia alerta via WhatsApp quando ocorrerem erros no UniNFe. Numero para envio Número de WhatsApp para envio dos alertas. O campo aparece quando algum alerta do u Messenger está marcado. Aba Outras Configurações A aba Outras Configurações exibe opções adicionais conforme o serviço da empresa. Campo Para que serve Salvar na pasta autorizados somente o XML de distribuição? Define se, na pasta de autorizados, será salvo somente o XML de distribuição. Intervalo de tempo (em segundos) entre o envio de cada arquivo de NFSe Intervalo entre envios de arquivos de NFS e. Aparece para empresas configuradas com NFS e. Versão do QrCode da NFCe (Deixe 0 para o padrão) Versão do QR Code da NFC e. Use 0 para manter o padrão do UniNFe. Ativar preparação de TLS antes do envio do XML? Ativa uma preparação de TLS antes do envio do XML. Use somente quando houver problemas de conexão TLS. Salvamento e validações Ao salvar, o UniNFe valida as configurações da empresa e das abas aplicáveis ao serviço selecionado. Entre as validações executadas estão: nome da empresa obrigatório; UF ou município obrigatório quando o serviço exige; tempo de consulta de autorização entre 2 e 15 segundos; par ID Token e CSC preenchido em conjunto para NFC e; senha de acesso à tela de configurações confirmada corretamente; dados de proxy completos quando o proxy manual está ativo; certificado digital válido quando configurado; dados parciais do responsável técnico completados antes de salvar; correção de erros encontrados no teste de FTP quando o FTP está ativo. Quando a configuração de limpeza automática é alterada, o UniNFe alerta que arquivos das pastas temporárias e de retorno poderão ser apagados conforme os dias configurados. Revise as pastas antes de confirmar essa opção."
     },
     {
-      "id": "instalacao-atualizacao-md",
-      "title": "Atualização do UniNFe",
-      "path": "instalacao/atualizacao.md",
-      "category": "instalacao",
-      "headings": [
-        {
-          "level": 1,
-          "text": "Atualização do UniNFe"
-        },
-        {
-          "level": 2,
-          "text": "Acesso"
-        },
-        {
-          "level": 2,
-          "text": "Como atualizar"
-        },
-        {
-          "level": 2,
-          "text": "Botões"
-        },
-        {
-          "level": 2,
-          "text": "O que acontece durante a atualização"
-        },
-        {
-          "level": 2,
-          "text": "Mensagens e erros"
-        },
-        {
-          "level": 2,
-          "text": "Cuidados"
-        }
-      ],
-      "text": "Atualização do UniNFe A tela de atualização permite baixar e iniciar a instalação de uma versão mais recente do UniNFe a partir do próprio aplicativo. Acesso No menu principal, clique em Atualizar o UniNFe . Quando há senha de configuração cadastrada e o tempo de acesso anterior expirou, o UniNFe solicita a senha antes de abrir a tela de atualização. Como atualizar 1. Clique em Iniciar a atualização . 2. Confirme a mensagem informando que, após o download, a aplicação será encerrada para executar o instalador. 3. Aguarde o download do instalador. 4. Ao concluir o download, o UniNFe inicia o instalador e encerra o aplicativo. Durante o download, a tela exibe uma barra de progresso. O título da janela também indica que a atualização está sendo baixada. Botões Botão Para que serve Iniciar a atualização Inicia o download do instalador da versão mais recente do UniNFe. Antes de continuar, o aplicativo pede confirmação ao usuário. Fechar Fecha a tela de atualização sem iniciar o download. O que acontece durante a atualização Antes de executar o instalador, o UniNFe interrompe os serviços do monitor. Em seguida, baixa o instalador da atualização para a pasta de execução do aplicativo e inicia a instalação de forma automática. Se o aplicativo estiver configurado para usar proxy, a atualização usa as mesmas configurações de proxy cadastradas no UniNFe. Mensagens e erros Ao iniciar a atualização, o UniNFe exibe uma confirmação com o aviso de que a aplicação será encerrada após o download. Se ocorrer falha no download do instalador, a tela mostra uma mensagem informando que não foi possível baixar o instalador e apresenta o erro retornado. A falha também é registrada no log do UniNFe. Cuidados Antes de iniciar a atualização, conclua operações em andamento no monitor e confirme que a máquina tem acesso à internet. Em ambientes que usam proxy, revise as configurações de proxy do UniNFe antes de atualizar."
-    },
-    {
-      "id": "instalacao-executar-como-servico-windows-md",
-      "title": "Executar o UniNFe como Serviço no Windows",
-      "path": "instalacao/executar-como-servico-windows.md",
-      "category": "instalacao",
-      "headings": [
-        {
-          "level": 1,
-          "text": "Executar o UniNFe como Serviço no Windows"
-        },
-        {
-          "level": 2,
-          "text": "Antes de instalar o serviço"
-        },
-        {
-          "level": 2,
-          "text": "Instalar o serviço"
-        },
-        {
-          "level": 2,
-          "text": "Configurar o usuário do serviço"
-        },
-        {
-          "level": 2,
-          "text": "Iniciar ou reiniciar o computador"
-        },
-        {
-          "level": 2,
-          "text": "Testar o serviço"
-        },
-        {
-          "level": 2,
-          "text": "Usar a interface quando o serviço está instalado"
-        },
-        {
-          "level": 2,
-          "text": "Remover o UniNFe da inicialização do Windows"
-        },
-        {
-          "level": 2,
-          "text": "Parar o serviço"
-        },
-        {
-          "level": 2,
-          "text": "Remover o serviço"
-        },
-        {
-          "level": 2,
-          "text": "Cuidados importantes"
-        }
-      ],
-      "text": "Executar o UniNFe como Serviço no Windows O UniNFe pode ser executado como serviço do Windows para processar arquivos mesmo sem um usuário logado na máquina. Nesse modo, o monitor trabalha em segundo plano e não aparece na bandeja do Windows. Use esta configuração em servidores ou estações dedicadas em que o UniNFe deve iniciar junto com o Windows e continuar processando os arquivos das empresas configuradas. Antes de instalar o serviço 1. Faça logon no Windows com o mesmo usuário que será usado para executar o serviço. 2. Instale o certificado digital nesse usuário, quando for utilizado certificado instalado no Windows. 3. Instale o UniNFe. 4. Abra o UniNFe normalmente pela interface. 5. Configure as empresas, pastas, certificados, ambiente e demais opções necessárias. 6. Teste o funcionamento pela interface antes de instalar o serviço. O serviço usa as configurações já gravadas no UniNFe. Por isso, a instalação como serviço deve ser feita somente depois que o aplicativo estiver funcionando corretamente pela interface. Instalar o serviço 1. Feche o UniNFe, se ele estiver aberto. 2. Abra o Prompt de Comando como administrador. 3. Acesse a pasta onde o UniNFe está instalado. 4. Execute o comando: Após a instalação, o serviço fica registrado no Windows com o nome UniNFeServico . Configurar o usuário do serviço Depois de instalar o serviço, configure o usuário usado para executá lo. 1. Abra o gerenciador de serviços do Windows. 2. Localize o serviço UniNFeServico . 3. Clique com o botão direito sobre o serviço e escolha Propriedades . 4. Acesse a aba Logon . 5. Marque Esta conta . 6. Informe o usuário e a senha que devem executar o serviço. 7. Confirme em OK . Use o mesmo usuário em que o certificado digital foi instalado. Se o serviço for executado com outro usuário, o UniNFe pode não conseguir acessar o certificado instalado no Windows. Iniciar ou reiniciar o computador Depois de configurar o usuário do serviço, reinicie o computador ou inicie o serviço manualmente pelo gerenciador de serviços do Windows. Ao iniciar, o serviço aguarda as dependências do sistema antes de começar o processamento. Se as dependências demorarem, o serviço tenta iniciar por alguns minutos e registra o andamento no log do UniNFe. Quando o serviço é iniciado, ele: carrega as configurações gerais do UniNFe; carrega as empresas cadastradas; verifica certificados configurados; executa conversões necessárias de versão; inicia o processamento das pastas monitoradas. Se o serviço não conseguir ler o certificado de alguma empresa configurada, o UniNFe grava uma mensagem de erro na pasta de retorno da empresa e também registra o problema no log. Testar o serviço Para confirmar que o serviço está funcionando: 1. Reinicie o computador ou inicie o serviço UniNFeServico . 2. Não abra o UniNFe pela interface. 3. Gere um XML de consulta de status de serviço pelo ERP ou pelo processo de integração usado pela empresa. 4. Grave o XML na pasta de envio configurada. 5. Aguarde o processamento. 6. Verifique se o UniNFe gerou o arquivo de retorno na pasta de retorno configurada. Se o retorno for gerado, o serviço está processando os arquivos corretamente. Se o retorno não for gerado, revise: se o serviço UniNFeServico está iniciado; se as pastas configuradas existem e o usuário do serviço tem permissão de leitura e gravação; se o certificado está acessível para o usuário configurado na aba Logon do serviço; se as configurações da empresa foram salvas antes da instalação do serviço; os logs do UniNFe. Usar a interface quando o serviço está instalado Quando o UniNFe está rodando como serviço, a interface do aplicativo não deve ser aberta ao mesmo tempo para processar arquivos. Para abrir a interface e alterar configurações: 1. Pare o serviço UniNFeServico no gerenciador de serviços do Windows. 2. Abra o UniNFe pela interface. 3. Faça as alterações necessárias. 4. Feche o UniNFe. 5. Inicie novamente o serviço UniNFeServico . Remover o UniNFe da inicialização do Windows Depois de instalar o UniNFe como serviço, remova o aplicativo UniNFe da inicialização do Windows. Isso evita que a interface seja aberta automaticamente junto com o serviço. No Windows: 1. Abra o Gerenciador de Tarefas . 2. Acesse a aba Inicializar . 3. Localize UniNFe . 4. Clique com o botão direito. 5. Selecione Desabilitar . Parar o serviço Para parar o processamento em segundo plano: 1. Abra o gerenciador de serviços do Windows. 2. Localize UniNFeServico . 3. Clique com o botão direito. 4. Selecione Parar . Ao parar, o serviço interrompe o processamento das pastas monitoradas e limpa arquivos de controle de bloqueio usados pelo UniNFe. Remover o serviço Para desinstalar o serviço do Windows: 1. Pare o serviço UniNFeServico , se ele estiver em execução. 2. Abra o Prompt de Comando como administrador. 3. Acesse a pasta onde o UniNFe está instalado. 4. Execute o comando: Depois disso, reinicie o computador. O UniNFe não será mais executado como serviço. Cuidados importantes Configure e teste o UniNFe pela interface antes de instalar o serviço. Use no serviço o mesmo usuário do Windows que tem acesso ao certificado digital. Garanta permissão de leitura e gravação nas pastas de envio, retorno, erro, enviados, backup e demais pastas configuradas. Não deixe a interface do UniNFe e o serviço processando arquivos ao mesmo tempo. Após alterar configurações pela interface, feche o aplicativo e reinicie o serviço. Consulte os logs do UniNFe sempre que o serviço iniciar, parar ou não processar arquivos como esperado."
-    },
-    {
-      "id": "instalacao-instalacao-md",
-      "title": "Instalação do UniNFe",
-      "path": "instalacao/instalacao.md",
-      "category": "instalacao",
-      "headings": [
-        {
-          "level": 1,
-          "text": "Instalação do UniNFe"
-        },
-        {
-          "level": 2,
-          "text": "Antes de começar"
-        },
-        {
-          "level": 2,
-          "text": "Requisito do .NET Framework"
-        },
-        {
-          "level": 2,
-          "text": "Baixar o instalador"
-        },
-        {
-          "level": 2,
-          "text": "Instalar o UniNFe"
-        },
-        {
-          "level": 2,
-          "text": "Primeira execução"
-        },
-        {
-          "level": 2,
-          "text": "Configurar o UniNFe após instalar"
-        },
-        {
-          "level": 2,
-          "text": "Instalar o UniNFe para executar como serviço"
-        },
-        {
-          "level": 2,
-          "text": "UniDANFE"
-        },
-        {
-          "level": 2,
-          "text": "Checklist de instalação"
-        }
-      ],
-      "text": "Instalação do UniNFe Esta página orienta a instalação do UniNFe em uma estação ou servidor Windows. Antes de começar Antes de executar o instalador, confirme os pontos abaixo: 1. Defina em qual computador o UniNFe será executado. 2. Verifique se esse computador possui acesso ao certificado digital usado pelas empresas. 3. Se o certificado for A1 , confirme que o computador tem acesso ao arquivo do certificado e à senha. 4. Se o certificado for instalado no Windows, instale o no mesmo usuário do Windows que executará o UniNFe. 5. Garanta que o usuário do Windows tenha permissão para criar e gravar nas pastas que serão usadas pelo UniNFe. O usuário usado para instalar ou acessar o certificado deve ser o mesmo usado para executar o UniNFe. Isso evita falhas de acesso ao certificado digital. Requisito do .NET Framework O UniNFe depende do .NET Framework 4.8 ou superior, conforme o instalador utilizado. Durante a instalação, o setup verifica se o .NET Framework necessário está instalado. Se não estiver, o instalador pode solicitar o download e a instalação do framework antes de continuar. Quando o Windows não atender ao requisito do framework, instale ou atualize o .NET Framework e execute novamente o instalador do UniNFe. Baixar o instalador Baixe o instalador do UniNFe no site do projeto: www.uninfe.com.br Escolha o instalador conforme a necessidade do ambiente: Instalador Quando usar Monitor para DF e Para integração com documentos fiscais eletrônicos como NF e, NFC e, CT e, MDF e, NFS e e demais serviços suportados pelo UniNFe. Versão BETA Para testes de versão em desenvolvimento. Não use em produção sem orientação da Unimake. Instalar o UniNFe 1. Localize o arquivo do instalador baixado. 2. Execute o instalador. 3. Siga as orientações do assistente de instalação. 4. Mantenha ou altere a pasta de instalação conforme o padrão da empresa. 5. Conclua a instalação. Por padrão, o instalador usa a pasta: Ao final da instalação, o UniNFe é executado automaticamente. Primeira execução Depois de instalado, o UniNFe é aberto e fica disponível na área de notificação do Windows, perto do relógio. Para abrir a tela principal: 1. Localize o ícone do UniNFe na área de notificação do Windows. 2. Dê duplo clique no ícone. O instalador também cria um atalho no menu iniciar: Use esse atalho quando precisar abrir o UniNFe manualmente. Configurar o UniNFe após instalar Após abrir o UniNFe pela primeira vez: 1. Acesse Configurações . 2. Cadastre a empresa em Empresas Nova . 3. Configure serviço fiscal, ambiente e UF ou município. 4. Configure as pastas de envio, retorno, erro, enviados, backup e demais pastas usadas pela integração. 5. Configure o certificado digital. 6. Salve as configurações. 7. Faça um teste de comunicação, como a consulta de status de serviço. Consulte também: Tela Configurações Cadastro de Nova Empresa Consulta status de serviço Instalar o UniNFe para executar como serviço A instalação normal abre o UniNFe como aplicativo de monitoramento na área de notificação do Windows. Se o ambiente precisar executar o UniNFe como serviço do Windows, primeiro instale e configure o UniNFe normalmente. Depois siga o procedimento específico: Executar o UniNFe como serviço no Windows UniDANFE O UniNFe não substitui a configuração do aplicativo de impressão. Se o ambiente usa UniDANFE ou DANFE Mon para impressão, instale e configure essas ferramentas separadamente e depois informe os caminhos necessários na aba DANFE das configurações da empresa. Checklist de instalação Antes de liberar o UniNFe para uso, confirme: o UniNFe foi instalado no computador correto; o .NET Framework necessário está instalado; o certificado digital está acessível para o usuário que executa o UniNFe; a empresa foi cadastrada; as pastas de integração foram configuradas; o ambiente fiscal está correto; a consulta de status de serviço foi testada; o ERP consegue gravar arquivos na pasta de envio e ler retornos na pasta de retorno."
-    },
-    {
-      "id": "introducao-o-que-e-uninfe-md",
-      "title": "O que é o UniNFe",
-      "path": "introducao/o-que-e-uninfe.md",
-      "category": "introducao",
-      "headings": [
-        {
-          "level": 1,
-          "text": "O que é o UniNFe"
-        },
-        {
-          "level": 2,
-          "text": "Para que serve"
-        },
-        {
-          "level": 2,
-          "text": "Como funciona a integração"
-        },
-        {
-          "level": 2,
-          "text": "Quem utiliza"
-        },
-        {
-          "level": 2,
-          "text": "Documentos e serviços atendidos"
-        },
-        {
-          "level": 2,
-          "text": "Relação com outros produtos Unimake"
-        },
-        {
-          "level": 2,
-          "text": "Próximos passos"
-        }
-      ],
-      "text": "O que é o UniNFe O UniNFe é um monitor de documentos fiscais eletrônicos desenvolvido pela Unimake Software para simplificar a integração entre sistemas ERP e os serviços fiscais brasileiros. Ele atua como uma camada intermediária entre o ERP e os ambientes da SEFAZ, prefeituras, Receita Federal e outros órgãos integrados. O ERP gera arquivos de envio, grava esses arquivos nas pastas configuradas e o UniNFe se encarrega de monitorar, validar, assinar, transmitir, receber retornos e gravar os arquivos de resposta. O projeto é gratuito, open source e mantido pela Unimake Software. A página oficial do projeto está disponível em: https://inside.unimake.com.br/uninfe Para que serve O UniNFe foi criado para reduzir a complexidade fiscal dentro do ERP. Em vez de cada sistema implementar diretamente a comunicação com todos os webservices fiscais, o UniNFe centraliza essa integração por meio de arquivos XML e TXT. Com ele, o ERP pode: enviar documentos fiscais eletrônicos; consultar status de serviço; consultar situação de documentos; enviar eventos fiscais; receber retornos dos serviços fiscais; validar XML; assinar XML com certificado digital; organizar arquivos de envio, retorno, erro, enviados, autorizados e backup; trabalhar com múltiplas empresas e serviços fiscais na mesma instalação. Como funciona a integração A integração principal é feita por troca de arquivos. 1. O ERP grava o XML ou TXT na pasta de envio configurada. 2. O UniNFe monitora a pasta. 3. O UniNFe identifica o serviço solicitado pelo arquivo. 4. O XML é validado, assinado quando necessário e transmitido ao serviço fiscal. 5. O retorno é gravado na pasta de retorno configurada. 6. Em caso de erro, o UniNFe grava o retorno de erro conforme o fluxo do serviço. Esse modelo permite que o ERP continue independente da comunicação direta com cada webservice fiscal, usando as pastas configuradas como contrato de integração. Quem utiliza O UniNFe é voltado principalmente para: desenvolvedores de ERP; software houses; equipes de suporte técnico; empresas que precisam integrar emissão, consulta e retorno de documentos fiscais eletrônicos; ambientes que precisam executar o monitor na área de notificação do Windows ou como serviço do Windows. Documentos e serviços atendidos O UniNFe atende os seguintes documentos e serviços fiscais configuráveis no monitor: Sigla Significado NF e Nota Fiscal Eletrônica NFC e Nota Fiscal de Consumidor Eletrônica CT e Conhecimento de Transporte Eletrônico MDF e Manifesto Eletrônico de Documentos Fiscais NFS e Nota Fiscal de Serviço Eletrônica NF3 e Nota Fiscal de Energia Elétrica Eletrônica NFCom Nota Fiscal Fatura de Serviço de Comunicação Eletrônica NFGas Nota Fiscal Eletrônica do Gás DC e Declaração de Conteúdo Eletrônica GNRE Guia Nacional de Recolhimento de Tributos Estaduais DARE Documento de Arrecadação de Receitas Estaduais EFD Reinf Escrituração Fiscal Digital de Retenções e Outras Informações Fiscais eSocial Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas CIOT Código Identificador da Operação de Transporte O monitor também possui uma opção de configuração para Todos , usada para processar vários documentos fiscais eletrônicos em uma mesma empresa, exceto NFS e. Relação com outros produtos Unimake O UniNFe é o monitor por troca de arquivos. Ele é indicado quando o ERP integra com o ambiente fiscal gravando arquivos em pastas monitoradas. Quando a integração desejada é direta por código, sem troca de arquivos com o monitor, a alternativa é usar a biblioteca Unimake.DFe , também mantida pela Unimake. Próximos passos Para começar a usar o UniNFe: 1. Instale o aplicativo. 2. Cadastre a empresa. 3. Configure certificado, ambiente, serviço fiscal e pastas. 4. Teste a comunicação com a consulta de status de serviço. 5. Integre o ERP gravando arquivos nas pastas configuradas. Consulte também: Instalação do UniNFe Tela Configurações Consulta status de serviço Executar o UniNFe como serviço no Windows"
-    },
-    {
-      "id": "index-md",
-      "title": "Documentacao Do UniNFe",
-      "path": "index.md",
-      "category": "Raiz",
-      "headings": [
-        {
-          "level": 1,
-          "text": "Documentacao Do UniNFe"
-        },
-        {
-          "level": 2,
-          "text": "Introducao"
-        },
-        {
-          "level": 2,
-          "text": "Instalacao"
-        },
-        {
-          "level": 2,
-          "text": "Configuracao"
-        },
-        {
-          "level": 2,
-          "text": "Integracao Por Arquivos"
-        },
-        {
-          "level": 2,
-          "text": "Servicos"
-        },
-        {
-          "level": 2,
-          "text": "Referencias"
-        },
-        {
-          "level": 2,
-          "text": "Controle Interno"
-        }
-      ],
-      "text": "Documentacao Do UniNFe Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser criadas de forma incremental, sempre com base em evidencias encontradas no repositorio. Introducao Introducao O que é o UniNFe PENDENTE DE VALIDAÇÃO: criar introducao/visao geral de funcionamento.md PENDENTE DE VALIDAÇÃO: criar introducao/conceitos importantes.md Instalacao Instalacao Instalação do UniNFe PENDENTE DE VALIDAÇÃO: criar instalacao/primeira execucao.md Atualização do UniNFe Executar o UniNFe como serviço no Windows Configuracao Configuracao Telas de cadastros e configurações Cadastro de Nova Empresa Configuração automática do UniNFe por arquivo PENDENTE DE VALIDAÇÃO: criar configuracao/configuracao geral.md PENDENTE DE VALIDAÇÃO: criar configuracao/empresas.md PENDENTE DE VALIDAÇÃO: criar configuracao/certificado digital.md PENDENTE DE VALIDAÇÃO: criar configuracao/webservices e ambientes.md PENDENTE DE VALIDAÇÃO: criar configuracao/pastas de trabalho.md Integracao Por Arquivos Integracao PENDENTE DE VALIDAÇÃO: criar integracao/visao geral integracao por arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/envio de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/leitura de retornos.md PENDENTE DE VALIDAÇÃO: criar integracao/nomes de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/tratamento de erros.md PENDENTE DE VALIDAÇÃO: criar integracao/logs.md Servicos Consulta status de serviço Consulta cadastro de contribuinte Serviços gerais do UniNFe UniNFe Consulta de informações UniNFe Consulta de certificados digitais NFe NFe Autorização por arquivo NFe Consulta cadastro de contribuinte por arquivo NFe Consulta de situação por arquivo NFe Consulta status de serviço por arquivo NFe Conversão de TXT para XML de NFe e NFCe NFe Eventos por arquivo NFe Inutilização de numeração de NFe e NFCe NFCe NFCe Autorização por arquivo NFCe Consulta cadastro de contribuinte por arquivo NFCe Consulta de situação por arquivo NFCe Consulta status de serviço por arquivo NFCe Conversão de TXT para XML de NFe e NFCe NFCe Consulta de chaves e download de XML em São Paulo NFCe Eventos por arquivo NFCe Inutilização de numeração de NFe e NFCe CCG CCG Consulta GTIN CTe CTe Autorização síncrona CTe Autorização de CTe simplificado CTe Autorização de CTe OS CTe Consulta de situação CTe Consulta status de serviço CTe Eventos DARE DARE Consulta de receitas DARE Recepção MDFe MDFe Autorização síncrona MDFe Consulta de não encerrados MDFe Consulta de situação MDFe Consulta status de serviço MDFe Eventos NFCom NFCom Autorização síncrona NFCom Consulta de situação NFCom Consulta status de serviço NFCom Eventos NFGas NFGas Autorização síncrona NFGas Consulta de situação NFGas Consulta status de serviço NFGas Eventos NF3e NF3e Autorização síncrona NF3e Consulta de situação NF3e Consulta status de serviço NF3e Eventos PENDENTE DE VALIDAÇÃO: BPe CIOT CIOT Cancelamento da operação de transporte CIOT Consultar CIOT gerado CIOT Consultar exceção CIOT Consultar frota do transportador CIOT Consultar situação do transportador CIOT Declaração de operação de transporte CIOT Encerramento da operação de transporte CIOT Gerar identificador da operação de transporte CIOT Retificação da operação de transporte DCe DCe Autorização síncrona DCe Consulta de situação DCe Consulta status de serviço DCe Eventos DFe DFe Distribuição DFe Distribuição de CT e eBoleto eBoleto Alterar vencimento do boleto eBoleto Cancelar boleto eBoleto Consultar boleto eBoleto Enviar instrução do boleto eBoleto Informar pagamento do boleto eBoleto Registrar boleto eSocial eSocial Consulta de identificadores de eventos eSocial Consulta de lote de eventos eSocial Download de eventos eSocial Recepção de lote de eventos EFD Reinf EFD Reinf Consulta de lote assíncrono EFD Reinf Consultas EFD Reinf Recepção de lote de eventos PIX PIX Criar cobrança PIX Consultar movimentos PIX Consultar PIX por TxId uMessenger uMessenger Envio de mensagens GNRE GNRE Consulta de configuração da UF GNRE Consulta de resultado do lote GNRE Recepção de lote Referencias Referencias Apoio e Suporte Menu principal Tela Log Tela Sobre Tela Validar XML Perguntas frequentes PENDENTE DE VALIDAÇÃO: criar referencias/estrutura de pastas.md PENDENTE DE VALIDAÇÃO: criar referencias/tipos de retorno.md PENDENTE DE VALIDAÇÃO: criar referencias/exemplos xml.md Controle Interno Catalogo da documentacao"
-    },
-    {
       "id": "referencias-apoio-e-suporte-md",
       "title": "Apoio e Suporte",
       "path": "referencias/apoio-e-suporte.md",
@@ -462,7 +421,7 @@
           "text": "Perguntas frequentes"
         }
       ],
-      "text": "Perguntas frequentes Esta página reúne dúvidas comuns sobre instalação, configuração, operação e integração do UniNFe. <details <summary <strong O que fazer quando um DF e fica parado na pasta Enviados\\EmProcessamento?</strong </summary Quando um DF e fica parado em Enviados\\EmProcessamento, o ERP deve gerar uma consulta de situação para a chave do documento. Essa consulta permite que o UniNFe confirme a situação atual na SEFAZ e finalize o fluxo quando o documento estiver autorizado. Procedimento recomendado: 1. Gere o arquivo de consulta de situação com o final ped sit.xml, ou ped sit.txt quando o serviço aceitar TXT. 2. Grave o arquivo na pasta de envio da empresa. 3. Aguarde o retorno da consulta na pasta de retorno. 4. Se a SEFAZ retornar que o documento está autorizado e o XML original estiver em Enviados\\EmProcessamento, o UniNFe gera o XML de distribuição/processado e move os arquivos para as pastas corretas. 5. Atualize o ERP com base no retorno da consulta de situação. Não finalize o documento no ERP apenas com base em consulta de recibo ou protocolo quando houver dúvida sobre a conclusão do processamento. A consulta de situação é a forma indicada para recuperar a situação fiscal da chave e concluir o fluxo com segurança. Essa orientação também vale para eventos quando houver XML de evento aguardando conclusão em Enviados\\EmProcessamento, como cancelamento, carta de correção e outros eventos compatíveis com o documento fiscal. Para evitar vincular um protocolo ao XML errado, mantenha habilitada a validação que compara o DigestValue retornado pela SEFAZ com o DigestValue da assinatura do XML. Se houver divergência, o UniNFe retorna erro na pasta de retorno e não conclui o processamento com um protocolo incompatível. Consulte também: NFe e NFCe Consulta de situação por arquivo CTe Consulta de situação MDFe Consulta de situação NFCom Consulta de situação NFGas Consulta de situação NF3e Consulta de situação DCe Consulta de situação </details <details <summary <strong O DF e foi autorizado, mas o XML de distribuição não foi gerado. Como recuperar?</strong </summary Quando o DF e foi autorizado, mas o XML de distribuição/processado não foi localizado, o UniNFe pode reconstruir esse XML a partir do XML original e de uma consulta de situação. Procedimento recomendado: 1. Localize o XML original gerado pelo ERP. 2. Copie ou mova esse XML para Enviados\\EmProcessamento, dentro da pasta de documentos enviados da empresa. 3. Gere uma consulta de situação para a chave do documento, usando o final ped sit.xml, ou ped sit.txt quando o serviço aceitar TXT. 4. Grave a consulta na pasta de envio da empresa. 5. Aguarde o retorno da consulta. 6. Se a SEFAZ retornar que o documento está autorizado, o UniNFe usa o XML original em Enviados\\EmProcessamento para gerar o XML de distribuição/processado e mover os arquivos para as pastas corretas. Se o XML original estiver na pasta de XMLs com erro, mova o para Enviados\\EmProcessamento antes de gerar a consulta de situação. Se ele já estiver em Enviados\\EmProcessamento, não é necessário movê lo novamente. Se o XML original não for localizado, o ERP deve gerar novamente o mesmo XML, sem alterar nenhuma informação. Qualquer alteração no conteúdo muda a assinatura e impede que o protocolo seja vinculado com segurança ao documento original. Nesse caso: 1. Gere novamente o XML com o mesmo conteúdo do envio original. 2. Grave o XML na pasta de validação da empresa, não na pasta de envio. 3. Aguarde o UniNFe validar o XML. 4. Após a validação, use o XML validado e mova o para Enviados\\EmProcessamento. 5. Gere a consulta de situação e siga o procedimento de recuperação. O ERP deve evitar gerar novamente o mesmo DF e enquanto o primeiro envio ainda está sendo processado. Antes de permitir novo envio ou nova geração do XML, aguarde o retorno do processamento, consulte a situação da chave ou execute a recuperação descrita acima. Também é recomendado manter habilitada a validação que compara o DigestValue retornado pela SEFAZ com o DigestValue da assinatura do XML. Essa validação evita que um protocolo autorizado seja associado a um XML diferente do documento original. </details"
+      "text": "Perguntas frequentes Esta página reúne dúvidas comuns sobre instalação, configuração, operação e integração do UniNFe. <details <summary <strong O que fazer quando um DF e fica parado na pasta Enviados\\EmProcessamento?</strong </summary Quando um DF e fica parado em Enviados\\EmProcessamento, o ERP deve gerar uma consulta de situação para a chave do documento. Essa consulta permite que o UniNFe confirme a situação atual na SEFAZ e finalize o fluxo quando o documento estiver autorizado. Procedimento recomendado: 1. Gere o arquivo de consulta de situação com o final ped sit.xml, ou ped sit.txt quando o serviço aceitar TXT. 2. Grave o arquivo na pasta de envio da empresa. 3. Aguarde o retorno da consulta na pasta de retorno. 4. Se a SEFAZ retornar que o documento está autorizado e o XML original estiver em Enviados\\EmProcessamento, o UniNFe gera o XML de distribuição/processado e move os arquivos para as pastas corretas. 5. Atualize o ERP com base no retorno da consulta de situação. Não finalize o documento no ERP apenas com base em consulta de recibo ou protocolo quando houver dúvida sobre a conclusão do processamento. A consulta de situação é a forma indicada para recuperar a situação fiscal da chave e concluir o fluxo com segurança. Essa orientação também vale para eventos quando houver XML de evento aguardando conclusão em Enviados\\EmProcessamento, como cancelamento, carta de correção e outros eventos compatíveis com o documento fiscal. Para evitar vincular um protocolo ao XML errado, mantenha habilitada a validação que compara o DigestValue retornado pela SEFAZ com o DigestValue da assinatura do XML. Se houver divergência, o UniNFe retorna erro na pasta de retorno e não conclui o processamento com um protocolo incompatível. Consulte também: NFe e NFCe Consulta de situação por arquivo CTe Consulta de situação MDFe Consulta de situação NFCom Consulta de situação NFGas Consulta de situação NF3e Consulta de situação DCe Consulta de situação </details <details <summary <strong O DF e foi autorizado, mas o XML de distribuição não foi gerado. Como recuperar?</strong </summary Quando o DF e foi autorizado, mas o XML de distribuição/processado não foi localizado, o UniNFe pode reconstruir esse XML a partir do XML original e de uma consulta de situação. Procedimento recomendado: 1. Localize o XML original gerado pelo ERP. 2. Copie ou mova esse XML para Enviados\\EmProcessamento, dentro da pasta de documentos enviados da empresa. 3. Gere uma consulta de situação para a chave do documento, usando o final ped sit.xml, ou ped sit.txt quando o serviço aceitar TXT. 4. Grave a consulta na pasta de envio da empresa. 5. Aguarde o retorno da consulta. 6. Se a SEFAZ retornar que o documento está autorizado, o UniNFe usa o XML original em Enviados\\EmProcessamento para gerar o XML de distribuição/processado e mover os arquivos para as pastas corretas. Se o XML original estiver na pasta de XMLs com erro, mova o para Enviados\\EmProcessamento antes de gerar a consulta de situação. Se ele já estiver em Enviados\\EmProcessamento, não é necessário movê lo novamente. Se o XML original não for localizado, o ERP deve gerar novamente o mesmo XML, sem alterar nenhuma informação. Qualquer alteração no conteúdo muda a assinatura e impede que o protocolo seja vinculado com segurança ao documento original. Nesse caso: 1. Gere novamente o XML com o mesmo conteúdo do envio original. 2. Grave o XML na pasta de validação da empresa, não na pasta de envio. 3. Aguarde o UniNFe validar o XML. 4. Após a validação, use o XML validado e mova o para Enviados\\EmProcessamento. 5. Gere a consulta de situação e siga o procedimento de recuperação. O ERP deve evitar gerar novamente o mesmo DF e enquanto o primeiro envio ainda está sendo processado. Antes de permitir novo envio ou nova geração do XML, aguarde o retorno do processamento, consulte a situação da chave ou execute a recuperação descrita acima. Também é recomendado manter habilitada a validação que compara o DigestValue retornado pela SEFAZ com o DigestValue da assinatura do XML. Essa validação evita que um protocolo autorizado seja associado a um XML diferente do documento original. </details <details <summary <strong Como baixar os XMLs de NF e emitidas contra o meu CNPJ?</strong </summary Para baixar XMLs de NF e emitidas por fornecedores contra o seu CNPJ, use o serviço de distribuição DFe. O ERP deve gerar uma consulta de distribuição na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno. Fluxo recomendado: 1. Gere o arquivo de distribuição DFe com o final con dist dfe.xml ou con dist dfe.txt. 2. Na primeira consulta, use ultNSU igual a 000000000000000. 3. Leia o retorno principal <identificador dist dfe.xml. 4. Importe os XMLs extraídos pelo UniNFe na subpasta Retorno\\dfe. 5. Grave no ERP o último NSU retornado pela SEFAZ. 6. Faça novas consultas usando o último NSU gravado. 7. Continue consultando até que ultNSU seja igual a maxNSU. Quando ultNSU for igual a maxNSU, não há novos documentos disponíveis naquele momento. Aguarde o prazo recomendado pela SEFAZ antes de consultar novamente, evitando consumo indevido do serviço. Se houver furo na sequência de NSU, por exemplo a consulta retornar 100, 101, 103 e 104, consulte o NSU ausente individualmente usando consNSU. Isso ajuda a evitar perda de documento. Algumas NF e podem retornar inicialmente apenas como resumo. Quando o CNPJ consultado é destinatário da NF e, a SEFAZ pode exigir manifestação do destinatário para liberar o XML completo. Nesse caso, envie o evento de manifestação apropriado, como 210210 para ciência da operação, e depois faça nova consulta de distribuição DFe. Cuidados importantes: O controle de ultNSU deve ficar no ERP. Use CNPJ ou CPF do interessado que tem direito de consultar os documentos. Notas muito recentes podem demorar alguns minutos para aparecer na distribuição. Se a empresa ficar muito tempo sem consultar, a SEFAZ pode limitar o alcance da consulta conforme as regras vigentes do ambiente nacional. Guarde o retorno principal e os XMLs extraídos em Retorno\\dfe para auditoria e reprocessamento. Consulte também: DFe Distribuição NFe Eventos por arquivo </details <details <summary <strong Por que a consulta de documentos destinados não baixou o XML completo da NF e?</strong </summary Quando a distribuição DFe não retorna o XML completo de uma NF e emitida contra o CNPJ da empresa, verifique primeiro se a nota foi manifestada. Para muitas situações, a SEFAZ libera apenas o resumo da NF e até que o destinatário registre uma manifestação. Pontos a conferir: 1. Confirme se a NF e foi manifestada pelo destinatário. 2. Se ainda não houve manifestação, envie um evento de manifestação, como 210210 para ciência da operação, quando esse for o evento adequado ao fluxo do ERP. 3. Depois da manifestação homologada, execute novamente a distribuição DFe. 4. Importe os XMLs extraídos na subpasta Retorno\\dfe. 5. Mantenha o controle de ultNSU no ERP para continuar a sequência correta das consultas. Também existem limitações do ambiente nacional que podem impedir o download de documentos antigos ou anteriores ao início do uso do serviço: Se o CNPJ nunca usou a distribuição DFe, a SEFAZ pode disponibilizar apenas documentos emitidos a partir da primeira consulta. Se o CNPJ ficar muito tempo sem usar o serviço, a SEFAZ pode limitar novamente o histórico disponível. Documentos muito antigos podem não estar mais disponíveis para download pela distribuição. NF e muito recente pode demorar alguns minutos para aparecer, dependendo da sincronização entre a SEFAZ de origem e o ambiente nacional. Quando a NF e não aparecer mesmo após manifestação e nova consulta, aguarde a sincronização e repita a distribuição DFe. Se a nota continuar ausente, avalie contato com a SEFAZ de origem para confirmar se o documento foi sincronizado com o ambiente nacional. Consulte também: DFe Distribuição NFe Eventos por arquivo </details <details <summary <strong Como baixar os XMLs de CT e de meu interesse?</strong </summary Para baixar XMLs de CT e disponibilizados para o seu CNPJ ou CPF, use o serviço de distribuição DFe de CT e. O ERP deve gerar uma consulta na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno. Fluxo recomendado: 1. Gere o arquivo de distribuição DFe de CT e com o final con dist dfecte.xml ou con dist dfecte.txt. 2. Na primeira consulta, use ultNSU igual a 000000000000000. 3. Leia o retorno principal <identificador dist dfecte.xml. 4. Importe os XMLs extraídos pelo UniNFe na subpasta Retorno\\dfe. 5. Grave no ERP o último NSU retornado pela SEFAZ. 6. Faça novas consultas usando o último NSU gravado. 7. Continue consultando até que ultNSU seja igual a maxNSU. Quando ultNSU for igual a maxNSU, não há novos CT e disponíveis naquele momento. Aguarde o prazo recomendado pela SEFAZ antes de consultar novamente, evitando consumo indevido do serviço. Se houver furo na sequência de NSU, consulte o NSU ausente individualmente usando consNSU. Cuidados importantes: O controle de ultNSU deve ficar no ERP. Use CNPJ ou CPF do interessado que tem direito de consultar os CT e. Notas muito recentes podem demorar alguns minutos para aparecer na distribuição. Guarde o retorno principal e os XMLs extraídos em Retorno\\dfe para auditoria e reprocessamento. Consulte também: DFe Distribuição de CT e </details"
     },
     {
       "id": "referencias-tela-log-md",
@@ -4271,6 +4230,47 @@
         }
       ],
       "text": "Consulta de informações do UniNFe A consulta de informações permite que o ERP solicite ao UniNFe dados úteis para diagnóstico, suporte e integração, como versão do aplicativo, pasta de instalação, computador, usuário em execução, modo de execução, conexão com a internet, dados do certificado digital e configurações da empresa. Esse serviço é local ao UniNFe. Ele não consulta a SEFAZ, não envia documento fiscal e não autoriza nenhum XML. Quando usar Use este serviço quando: o ERP precisa exibir ou validar a versão do UniNFe instalada; o suporte precisa confirmar em qual computador e usuário o UniNFe está executando; o ERP precisa verificar a validade do certificado configurado para uma empresa; o ERP precisa ler configurações da empresa cadastrada no UniNFe; o suporte precisa confirmar se o UniNFe está rodando como aplicativo ou como serviço do Windows; o ERP precisa registrar informações de diagnóstico para atendimento. Para listar certificados disponíveis no computador, use a consulta de certificados digitais. Onde gravar o arquivo O ERP deve gravar o arquivo na pasta de envio da empresa configurada no UniNFe. O retorno é gravado na pasta de retorno da mesma empresa. Use esse serviço no contexto de uma empresa cadastrada, porque o retorno pode incluir dados do certificado configurado e as configurações dessa empresa. Envio em XML Para consultar informações em XML, o ERP deve gerar um arquivo com o final: Exemplo: Conteúdo: Envio em TXT Para consultar informações em TXT, o ERP deve gerar um arquivo com o final: Exemplo: Conteúdo: Retorno em XML Quando a entrada é XML, o retorno tem o final: Exemplo: Estrutura principal: O retorno inclui as informações gerais do aplicativo e, quando aplicável, os dados do certificado configurado e as configurações da empresa. Retorno em TXT Quando a entrada é TXT, o retorno tem o final: Exemplo: Estrutura principal: No retorno TXT, os dados são gravados em linhas no formato campo valor. Campos retornados Campo Significado cStat Código do resultado da consulta. xMotivo Mensagem do resultado da consulta. sSubject Assunto do certificado configurado para a empresa. dValIni Data inicial de validade do certificado configurado. dValFin Data final de validade do certificado configurado. versao Versão do UniNFe. dUltModif Data e hora da última modificação do executável do UniNFe. PastaExecutavel Pasta onde o UniNFe está instalado. NomeComputador Nome do computador onde o UniNFe está executando. UsuarioComputador Usuário do Windows usado na execução. ExecutandoPeloServico Indica se o UniNFe está executando pelo serviço do Windows. ConexaoInternet Resultado da verificação de conexão com a internet quando essa verificação está habilitada. nfe configuracoes Grupo XML com configurações da empresa, quando a consulta é feita no contexto de uma empresa. O retorno pode conter outros campos de configuração da empresa, de acordo com as opções cadastradas no UniNFe. Códigos de retorno cStat Significado Como tratar 1 Consulta efetuada com sucesso. O ERP pode usar as informações retornadas. 2 Certificado digital não foi localizado. O retorno é gerado, mas os dados do certificado podem ficar vazios. Verifique a configuração do certificado da empresa. Quando a empresa não usa certificado, o retorno pode informar que a empresa está sem certificado digital informado ou que o certificado não é necessário. Fluxo operacional 1. O ERP grava <identificador cons inf.xml ou <identificador cons inf.txt na pasta de envio da empresa. 2. O UniNFe identifica o serviço pelo final do nome do arquivo. 3. O UniNFe lê o pedido e confirma o valor CONS INF. 4. O UniNFe remove o arquivo de solicitação. 5. O UniNFe gera o retorno no mesmo formato da entrada, XML ou TXT. 6. O retorno é gravado na pasta de retorno da empresa. 7. Se ocorrer erro ao gravar o retorno, o UniNFe gera um arquivo .err quando possível. Arquivos envolvidos Etapa Pasta Arquivo O que significa Pedido XML Pasta de envio da empresa <identificador cons inf.xml Solicitação XML de informações do UniNFe. Pedido TXT Pasta de envio da empresa <identificador cons inf.txt Solicitação TXT de informações do UniNFe. Retorno XML Pasta de retorno da empresa <identificador ret cons inf.xml Retorno XML com informações do aplicativo e da empresa. Retorno TXT Pasta de retorno da empresa <identificador ret cons inf.txt Retorno TXT com informações do aplicativo e da empresa. Erro local Pasta de retorno correspondente <identificador ret cons inf.err Erro ao gerar ou gravar o retorno. Erros comuns As causas mais comuns de erro são: arquivo gravado fora da pasta de envio da empresa; nome do arquivo sem o final cons inf.xml ou cons inf.txt; conteúdo sem xServ igual a CONS INF; falta de permissão de gravação na pasta de retorno; certificado configurado, mas não localizado no computador; arquivo de certificado A1 inacessível; UniNFe em execução por serviço do Windows sem permissão para acessar o certificado ou as pastas. Cuidados para o integrador Use XML quando quiser ler o retorno como estrutura hierárquica. Use TXT quando o ERP já trabalha com o padrão campo valor. Grave o pedido na pasta de envio da empresa cuja configuração será consultada. Monitore a validade do certificado retornada em dValFin e avise o usuário antes do vencimento. Trate cStat igual a 2 como alerta de configuração de certificado, não como falha de comunicação com a SEFAZ."
+    },
+    {
+      "id": "index-md",
+      "title": "Documentacao Do UniNFe",
+      "path": "index.md",
+      "category": "Raiz",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Documentacao Do UniNFe"
+        },
+        {
+          "level": 2,
+          "text": "Introducao"
+        },
+        {
+          "level": 2,
+          "text": "Instalacao"
+        },
+        {
+          "level": 2,
+          "text": "Configuracao"
+        },
+        {
+          "level": 2,
+          "text": "Integracao Por Arquivos"
+        },
+        {
+          "level": 2,
+          "text": "Servicos"
+        },
+        {
+          "level": 2,
+          "text": "Referencias"
+        },
+        {
+          "level": 2,
+          "text": "Controle Interno"
+        }
+      ],
+      "text": "Documentacao Do UniNFe Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser criadas de forma incremental, sempre com base em evidencias encontradas no repositorio. Introducao Introducao O que é o UniNFe PENDENTE DE VALIDAÇÃO: criar introducao/visao geral de funcionamento.md PENDENTE DE VALIDAÇÃO: criar introducao/conceitos importantes.md Instalacao Instalacao Instalação do UniNFe PENDENTE DE VALIDAÇÃO: criar instalacao/primeira execucao.md Atualização do UniNFe Executar o UniNFe como serviço no Windows Configuracao Configuracao Telas de cadastros e configurações Cadastro de Nova Empresa Configuração automática do UniNFe por arquivo PENDENTE DE VALIDAÇÃO: criar configuracao/configuracao geral.md PENDENTE DE VALIDAÇÃO: criar configuracao/empresas.md PENDENTE DE VALIDAÇÃO: criar configuracao/certificado digital.md PENDENTE DE VALIDAÇÃO: criar configuracao/webservices e ambientes.md PENDENTE DE VALIDAÇÃO: criar configuracao/pastas de trabalho.md Integracao Por Arquivos Integracao PENDENTE DE VALIDAÇÃO: criar integracao/visao geral integracao por arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/envio de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/leitura de retornos.md PENDENTE DE VALIDAÇÃO: criar integracao/nomes de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/tratamento de erros.md PENDENTE DE VALIDAÇÃO: criar integracao/logs.md Servicos Consulta status de serviço Consulta cadastro de contribuinte Serviços gerais do UniNFe UniNFe Consulta de informações UniNFe Consulta de certificados digitais NFe NFe Autorização por arquivo NFe Consulta cadastro de contribuinte por arquivo NFe Consulta de situação por arquivo NFe Consulta status de serviço por arquivo NFe Conversão de TXT para XML de NFe e NFCe NFe Eventos por arquivo NFe Inutilização de numeração de NFe e NFCe NFCe NFCe Autorização por arquivo NFCe Consulta cadastro de contribuinte por arquivo NFCe Consulta de situação por arquivo NFCe Consulta status de serviço por arquivo NFCe Conversão de TXT para XML de NFe e NFCe NFCe Consulta de chaves e download de XML em São Paulo NFCe Eventos por arquivo NFCe Inutilização de numeração de NFe e NFCe CCG CCG Consulta GTIN CTe CTe Autorização síncrona CTe Autorização de CTe simplificado CTe Autorização de CTe OS CTe Consulta de situação CTe Consulta status de serviço CTe Eventos DARE DARE Consulta de receitas DARE Recepção MDFe MDFe Autorização síncrona MDFe Consulta de não encerrados MDFe Consulta de situação MDFe Consulta status de serviço MDFe Eventos NFCom NFCom Autorização síncrona NFCom Consulta de situação NFCom Consulta status de serviço NFCom Eventos NFGas NFGas Autorização síncrona NFGas Consulta de situação NFGas Consulta status de serviço NFGas Eventos NF3e NF3e Autorização síncrona NF3e Consulta de situação NF3e Consulta status de serviço NF3e Eventos PENDENTE DE VALIDAÇÃO: BPe CIOT CIOT Cancelamento da operação de transporte CIOT Consultar CIOT gerado CIOT Consultar exceção CIOT Consultar frota do transportador CIOT Consultar situação do transportador CIOT Declaração de operação de transporte CIOT Encerramento da operação de transporte CIOT Gerar identificador da operação de transporte CIOT Retificação da operação de transporte DCe DCe Autorização síncrona DCe Consulta de situação DCe Consulta status de serviço DCe Eventos DFe DFe Distribuição DFe Distribuição de CT e eBoleto eBoleto Alterar vencimento do boleto eBoleto Cancelar boleto eBoleto Consultar boleto eBoleto Enviar instrução do boleto eBoleto Informar pagamento do boleto eBoleto Registrar boleto eSocial eSocial Consulta de identificadores de eventos eSocial Consulta de lote de eventos eSocial Download de eventos eSocial Recepção de lote de eventos EFD Reinf EFD Reinf Consulta de lote assíncrono EFD Reinf Consultas EFD Reinf Recepção de lote de eventos PIX PIX Criar cobrança PIX Consultar movimentos PIX Consultar PIX por TxId uMessenger uMessenger Envio de mensagens GNRE GNRE Consulta de configuração da UF GNRE Consulta de resultado do lote GNRE Recepção de lote Referencias Referencias Apoio e Suporte Menu principal Tela Log Tela Sobre Tela Validar XML Perguntas frequentes PENDENTE DE VALIDAÇÃO: criar referencias/estrutura de pastas.md PENDENTE DE VALIDAÇÃO: criar referencias/tipos de retorno.md PENDENTE DE VALIDAÇÃO: criar referencias/exemplos xml.md Controle Interno Catalogo da documentacao"
     }
   ]
 }

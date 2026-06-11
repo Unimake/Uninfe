@@ -47,7 +47,7 @@ python -m http.server 8080
 Depois acesse:
 
 ```text
-http://localhost:8080/viewer/
+http://localhost:8080/
 ```
 
 Ao abrir sem informar um documento no hash da URL, o visualizador carrega `introducao/o-que-e-uninfe.md`.
@@ -59,10 +59,10 @@ Abrir `viewer/index.html` diretamente por `file:///` pode nao funcionar, porque 
 Publique a pasta `docs` inteira preservando a estrutura de arquivos. O visualizador deve funcionar em uma URL como:
 
 ```text
-https://www.unimake.com.br/docs/uninfe/viewer/
+https://www.unimake.com.br/uninfe/docs
 ```
 
-Os arquivos Markdown devem permanecer na pasta pai do `viewer` ou em subpastas de `docs`, pois o carregamento usa caminhos relativos.
+O arquivo `docs/index.html` redireciona para `viewer/`, mantendo a URL publica mais curta. Os arquivos Markdown devem permanecer na pasta pai do `viewer` ou em subpastas de `docs`, pois o carregamento usa caminhos relativos.
 
 ## Mermaid
 

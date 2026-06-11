@@ -64,3 +64,100 @@ O ERP deve evitar gerar novamente o mesmo DF-e enquanto o primeiro envio ainda e
 Também é recomendado manter habilitada a validação que compara o `DigestValue` retornado pela SEFAZ com o `DigestValue` da assinatura do XML. Essa validação evita que um protocolo autorizado seja associado a um XML diferente do documento original.
 
 </details>
+
+<details>
+<summary><strong>Como baixar os XMLs de NF-e emitidas contra o meu CNPJ?</strong></summary>
+
+Para baixar XMLs de NF-e emitidas por fornecedores contra o seu CNPJ, use o serviço de distribuição DFe. O ERP deve gerar uma consulta de distribuição na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno.
+
+Fluxo recomendado:
+
+1. Gere o arquivo de distribuição DFe com o final `-con-dist-dfe.xml` ou `-con-dist-dfe.txt`.
+2. Na primeira consulta, use `ultNSU` igual a `000000000000000`.
+3. Leia o retorno principal `<identificador>-dist-dfe.xml`.
+4. Importe os XMLs extraídos pelo UniNFe na subpasta `Retorno\dfe`.
+5. Grave no ERP o último NSU retornado pela SEFAZ.
+6. Faça novas consultas usando o último NSU gravado.
+7. Continue consultando até que `ultNSU` seja igual a `maxNSU`.
+
+Quando `ultNSU` for igual a `maxNSU`, não há novos documentos disponíveis naquele momento. Aguarde o prazo recomendado pela SEFAZ antes de consultar novamente, evitando consumo indevido do serviço.
+
+Se houver furo na sequência de NSU, por exemplo a consulta retornar `100`, `101`, `103` e `104`, consulte o NSU ausente individualmente usando `consNSU`. Isso ajuda a evitar perda de documento.
+
+Algumas NF-e podem retornar inicialmente apenas como resumo. Quando o CNPJ consultado é destinatário da NF-e, a SEFAZ pode exigir manifestação do destinatário para liberar o XML completo. Nesse caso, envie o evento de manifestação apropriado, como `210210` para ciência da operação, e depois faça nova consulta de distribuição DFe.
+
+Cuidados importantes:
+
+- O controle de `ultNSU` deve ficar no ERP.
+- Use `CNPJ` ou `CPF` do interessado que tem direito de consultar os documentos.
+- Notas muito recentes podem demorar alguns minutos para aparecer na distribuição.
+- Se a empresa ficar muito tempo sem consultar, a SEFAZ pode limitar o alcance da consulta conforme as regras vigentes do ambiente nacional.
+- Guarde o retorno principal e os XMLs extraídos em `Retorno\dfe` para auditoria e reprocessamento.
+
+Consulte também:
+
+- [DFe - Distribuição](../servicos/dfe/distribuicao-dfe.md)
+- [NFe - Eventos por arquivo](../servicos/nfe/eventos.md)
+
+</details>
+
+<details>
+<summary><strong>Por que a consulta de documentos destinados não baixou o XML completo da NF-e?</strong></summary>
+
+Quando a distribuição DFe não retorna o XML completo de uma NF-e emitida contra o CNPJ da empresa, verifique primeiro se a nota foi manifestada. Para muitas situações, a SEFAZ libera apenas o resumo da NF-e até que o destinatário registre uma manifestação.
+
+Pontos a conferir:
+
+1. Confirme se a NF-e foi manifestada pelo destinatário.
+2. Se ainda não houve manifestação, envie um evento de manifestação, como `210210` para ciência da operação, quando esse for o evento adequado ao fluxo do ERP.
+3. Depois da manifestação homologada, execute novamente a distribuição DFe.
+4. Importe os XMLs extraídos na subpasta `Retorno\dfe`.
+5. Mantenha o controle de `ultNSU` no ERP para continuar a sequência correta das consultas.
+
+Também existem limitações do ambiente nacional que podem impedir o download de documentos antigos ou anteriores ao início do uso do serviço:
+
+- Se o CNPJ nunca usou a distribuição DFe, a SEFAZ pode disponibilizar apenas documentos emitidos a partir da primeira consulta.
+- Se o CNPJ ficar muito tempo sem usar o serviço, a SEFAZ pode limitar novamente o histórico disponível.
+- Documentos muito antigos podem não estar mais disponíveis para download pela distribuição.
+- NF-e muito recente pode demorar alguns minutos para aparecer, dependendo da sincronização entre a SEFAZ de origem e o ambiente nacional.
+
+Quando a NF-e não aparecer mesmo após manifestação e nova consulta, aguarde a sincronização e repita a distribuição DFe. Se a nota continuar ausente, avalie contato com a SEFAZ de origem para confirmar se o documento foi sincronizado com o ambiente nacional.
+
+Consulte também:
+
+- [DFe - Distribuição](../servicos/dfe/distribuicao-dfe.md)
+- [NFe - Eventos por arquivo](../servicos/nfe/eventos.md)
+
+</details>
+
+<details>
+<summary><strong>Como baixar os XMLs de CT-e de meu interesse?</strong></summary>
+
+Para baixar XMLs de CT-e disponibilizados para o seu CNPJ ou CPF, use o serviço de distribuição DFe de CT-e. O ERP deve gerar uma consulta na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno.
+
+Fluxo recomendado:
+
+1. Gere o arquivo de distribuição DFe de CT-e com o final `-con-dist-dfecte.xml` ou `-con-dist-dfecte.txt`.
+2. Na primeira consulta, use `ultNSU` igual a `000000000000000`.
+3. Leia o retorno principal `<identificador>-dist-dfecte.xml`.
+4. Importe os XMLs extraídos pelo UniNFe na subpasta `Retorno\dfe`.
+5. Grave no ERP o último NSU retornado pela SEFAZ.
+6. Faça novas consultas usando o último NSU gravado.
+7. Continue consultando até que `ultNSU` seja igual a `maxNSU`.
+
+Quando `ultNSU` for igual a `maxNSU`, não há novos CT-e disponíveis naquele momento. Aguarde o prazo recomendado pela SEFAZ antes de consultar novamente, evitando consumo indevido do serviço.
+
+Se houver furo na sequência de NSU, consulte o NSU ausente individualmente usando `consNSU`.
+
+Cuidados importantes:
+
+- O controle de `ultNSU` deve ficar no ERP.
+- Use `CNPJ` ou `CPF` do interessado que tem direito de consultar os CT-e.
+- Notas muito recentes podem demorar alguns minutos para aparecer na distribuição.
+- Guarde o retorno principal e os XMLs extraídos em `Retorno\dfe` para auditoria e reprocessamento.
+
+Consulte também:
+
+- [DFe - Distribuição de CT-e](../servicos/dfe/distribuicao-dfe-cte.md)
+
+</details>
