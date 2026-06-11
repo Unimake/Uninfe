@@ -1,6 +1,6 @@
 ---
 name: uninfe-documentacao
-description: Gerar, revisar, organizar e manter documentacao Markdown do UniNFe de forma incremental. Use quando Codex precisar documentar o UniNFe, documentar um servico, tela/formulario, configuracao, integracao por troca de arquivos, modelos XML, retornos, erros, pastas, atualizar indice/catalogo de documentacao, revisar documentacao Markdown existente, ou criar/organizar paginas .md do UniNFe.
+description: Gerar, revisar, organizar e manter documentacao Markdown do UniNFe de forma incremental. Use quando Codex precisar documentar o UniNFe, documentar um servico, tela/formulario, configuracao, integracao por troca de arquivos, modelos XML, retornos, erros, pastas, FAQ/perguntas frequentes, atualizar indice/catalogo de documentacao, revisar documentacao Markdown existente, ou criar/organizar paginas .md do UniNFe.
 ---
 
 # UniNFe Documentacao
@@ -17,7 +17,7 @@ Escreva para o leitor final. Para telas, explique o caminho de menu, o nome visi
 
 ## Quando usar
 
-Use esta skill para documentacao do UniNFe, incluindo servicos fiscais, telas WinForms, configuracoes, integracao por troca de arquivos, XML/TXT, retornos, erros, pastas, logs, indice, catalogo e revisao de paginas Markdown.
+Use esta skill para documentacao do UniNFe, incluindo servicos fiscais, telas WinForms, configuracoes, integracao por troca de arquivos, XML/TXT, retornos, erros, pastas, logs, FAQ/perguntas frequentes, indice, catalogo e revisao de paginas Markdown.
 
 ## Quando nao usar
 
@@ -33,6 +33,7 @@ Escolha um modo antes de editar:
 - `MODO_DOCUMENTAR_CONFIGURACAO`: documentar uma configuracao especifica.
 - `MODO_DOCUMENTAR_INTEGRACAO_ARQUIVOS`: documentar integracao por troca de arquivos.
 - `MODO_DOCUMENTAR_SERVICO`: documentar um servico especifico, como NFe, NFCe, CTe, MDFe, NFCom, NF3e, BPe, CIOT, GNRE ou outro encontrado no codigo.
+- `MODO_DOCUMENTAR_FAQ`: criar ou atualizar perguntas frequentes com perguntas e respostas fornecidas pelo usuario, refinando a redacao e validando no repositorio quando a resposta depender de comportamento tecnico.
 - `MODO_ATUALIZAR_INDICE`: ler os `.md` existentes em `/docs` e atualizar indice/catalogo, sem criar conteudo funcional novo.
 - `MODO_REVISAR_DOCUMENTACAO`: verificar links quebrados, duplicidades, documentos orfaos, inconsistencias, lacunas e trechos sem evidencia; corrigir apenas problemas seguros.
 
@@ -76,8 +77,24 @@ Prefira documentos pequenos e linkados. Nao mova documentacao existente sem nece
 - Configuracoes: analisar `NFe.Settings`, `ConfiguracaoApp`, `Empresas`, `Empresa`, telas relacionadas e arquivos de configuracao. Na pagina publica, explicar onde configurar, como preencher, impacto operacional e cuidados, usando nomes que aparecem na tela ou nos arquivos de integracao.
 - Integracao por arquivos: analisar `Processar`, `Propriedade`, enums, tasks, validadores, geradores de retorno, exemplos XML/TXT e pastas configuradas. Preservar sufixos e nomes reais.
 - Servicos: analisar enum, tipo de envio, extensoes, `Task*`, validacao, schemas, exemplos, retornos e erros. Na pagina publica, explicar visao geral, configuracao, envio, retorno, erros comuns, arquivos envolvidos e exemplos existentes sem transformar a arquitetura interna em instrucao de uso.
+- FAQ/perguntas frequentes: manter preferencialmente `docs/referencias/perguntas-frequentes.md`. Inserir perguntas em linguagem natural, com respostas curtas e objetivas, publicaveis, sem tom de rascunho. Adaptar a pergunta/resposta do usuario para clareza, mas preservar a intencao. Quando a resposta envolver comportamento do UniNFe, arquivos, pastas, servicos, retornos, configuracoes ou telas, confirmar no codigo/documentacao existente antes de afirmar. Agrupar por assunto quando houver muitas perguntas; se houver poucas, manter uma lista simples. Nao criar perguntas inventadas para preencher a pagina.
 - Indice: refletir somente os arquivos reais em `/docs`, organizar por publico/assunto e corrigir links relativos.
 - Revisao: apontar lacunas, duplicidades, links quebrados, documentos orfaos e trechos sem evidencia; corrigir apenas quando a evidencia for clara.
+
+## Padrao para FAQ/perguntas frequentes
+
+Use este padrao quando o usuario enviar perguntas e respostas para compor o FAQ do UniNFe.
+
+- A pagina padrao e `docs/referencias/perguntas-frequentes.md`.
+- Se a pagina nao existir, crie com H1 `Perguntas frequentes` e uma breve introducao dizendo que a pagina reune duvidas comuns sobre instalacao, configuracao, operacao e integracao do UniNFe.
+- Cada pergunta deve ficar em um bloco expansivel fechado por padrao, usando `<details>` e `<summary><strong>pergunta?</strong></summary>`. Nao use o atributo `open`.
+- A resposta deve ser direta, em portugues do Brasil, orientada ao usuario, suporte ou integrador.
+- Se a resposta tiver passos, use lista numerada curta.
+- Quando fizer sentido, inclua links relativos para paginas existentes, como instalacao, configuracao, servicos ou apoio e suporte.
+- Dentro de `<details>`, mantenha uma linha em branco apos `</summary>` e antes de `</details>` para preservar a renderizacao Markdown.
+- Nao inclua observacoes internas, origem da pergunta, autoria, data de inclusao, status, evidencias analisadas ou pendencias na pagina publica.
+- Registre no catalogo interno que o FAQ foi criado ou atualizado. Na coluna de evidencias, cite `Pergunta/resposta fornecida pelo usuario` e os arquivos do repositorio consultados quando houver validacao tecnica.
+- Atualize `docs/index.md`, `docs/_catalogo-documentacao.md` e, se o arquivo for criado ou alterado, regenere o indice do viewer com `node viewer/build-docs-index.js` a partir da pasta `docs`.
 
 ## Padrao para consumo de servico por arquivos
 
