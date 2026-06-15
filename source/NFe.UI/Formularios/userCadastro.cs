@@ -112,6 +112,14 @@ namespace NFe.UI
         {
             FocusF();
 
+            var uf = this.comboUf.SelectedValue as string;
+            if (string.IsNullOrWhiteSpace(uf))
+            {
+                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Informe a UF para o envio da consulta antes de continuar. Assim o UniNFe sabe para qual estado deve enviar a pesquisa do cadastro.", "UF não informada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.comboUf.Focus();
+                return;
+            }
+
             this.textResultado.Text = "Consultando o servidor. Aguarde....";
             this.Refresh();
 
@@ -124,12 +132,12 @@ namespace NFe.UI
                 object vvConsCad = null;
 
                 if (rbCNPJ.Checked)
-                    vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, this.textConteudo.Text, string.Empty, string.Empty);
+                    vvConsCad = ConsultaCadastro(uf, this.textConteudo.Text, string.Empty, string.Empty);
                 else
                     if (rbCPF.Checked)
-                    vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, string.Empty, string.Empty, this.textConteudo.Text);
+                    vvConsCad = ConsultaCadastro(uf, string.Empty, string.Empty, this.textConteudo.Text);
                 else
-                    vvConsCad = ConsultaCadastro((string)this.comboUf.SelectedValue, string.Empty, this.textConteudo.Text, string.Empty);
+                    vvConsCad = ConsultaCadastro(uf, string.Empty, this.textConteudo.Text, string.Empty);
 
                 if (vvConsCad is RetConsCad)
                 {
