@@ -72,6 +72,9 @@
     <Reference Include="EBank.Solutions.Primitives, Version=2026.5.28.1534, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.EBank.Primitives.20260528.1534.6\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20260615.1001.15\lib\net472\GeradorCIOTShared.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.5, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.5\lib\net461\itextsharp.dll</HintPath>
     </Reference>
@@ -252,25 +255,26 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
-   <Choose>
-	  <When Condition="'$(Configuration)' == 'Release'">
-		 <ItemGroup>
-             <Reference Include="Unimake.Business.DFe, Version=2026.6.15.1001, Culture=neutral, processorArchitecture=MSIL">
-                <HintPath>..\packages\Unimake.DFe.20260615.1001.14\lib\net472\Unimake.Business.DFe.dll</HintPath>
-             </Reference>			 
-		 </ItemGroup>
-	  </When>
-	  <Otherwise>
-		 <ItemGroup>
-			<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-			  <Name>Unimake.Business.DFe</Name>
-			  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-			  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-			  <Private>true</Private>
-			</ProjectReference>
-		 </ItemGroup>
-	  </Otherwise>
-	</Choose>
+ <Choose>
+  <When Condition="'$(Configuration)' == 'Release'">
+	 <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.6.15.1001, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260615.1001.15\lib\net472\Unimake.Business.DFe.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+	 </ItemGroup>
+  </When>
+  <Otherwise>
+	 <ItemGroup>
+		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+		  <Name>Unimake.Business.DFe</Name>
+		  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		  <Private>true</Private>
+		</ProjectReference>
+	 </ItemGroup>
+  </Otherwise>
+</Choose>
   <ItemGroup>
     <Compile Include="ApiExceptionHelper.cs" />
     <Compile Include="AuthApiScopeHelper.cs" />
