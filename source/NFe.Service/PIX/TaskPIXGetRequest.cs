@@ -89,6 +89,7 @@ namespace NFe.Service
                 {
                     throw new Exception($"A implementação do serviço PIX {NomeServicoPIX} não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
                 }
+                vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
 
                 XmlRetorno(finalArqEnvio, finalArqRetorno);
 
@@ -102,6 +103,29 @@ namespace NFe.Service
         }
 
         #endregion ExecuteDLL
+
+        private string AdicionarUniNFeVersaoAoRetorno(string xmlRetorno)
+        {
+            if (string.IsNullOrWhiteSpace(xmlRetorno))
+            {
+                return xmlRetorno;
+            }
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlRetorno);
+
+            var root = xmlDoc.DocumentElement;
+            if (root == null || root["UniNFeVersao"] != null)
+            {
+                return xmlRetorno;
+            }
+
+            var versaoNode = xmlDoc.CreateElement("UniNFeVersao");
+            versaoNode.InnerText = Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-");
+            root.AppendChild(versaoNode);
+
+            return xmlDoc.OuterXml;
+        }
 
         private Propriedade.TipoEnvio TipoEnvioPIX =>
             Servico == Servicos.PIXGetRequest ? Propriedade.TipoEnvio.PIXGetRequest : Propriedade.TipoEnvio.PIXConsultaRequest;
@@ -142,3 +166,5 @@ namespace NFe.Service
         }
     }
 }
+
+
