@@ -2,6 +2,7 @@ using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
+using System.Xml;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service
@@ -85,6 +86,8 @@ namespace NFe.Service
                     throw new Exception("A implementação do serviço eBoleto BoletoCancelar não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
                 }
 
+                vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
+
                 XmlRetorno(finalArqEnvio, finalArqRetorno);
 
                 var disposeMethod = boletoInstance.GetType().GetMethod("Dispose");
@@ -95,7 +98,28 @@ namespace NFe.Service
                 throw new Exception($"Erro ao executar DLL eBoleto BoletoCancelar: {ex.Message}", ex);
             }
         }
+        private string AdicionarUniNFeVersaoAoRetorno(string xmlRetorno)
+        {
+            if (string.IsNullOrWhiteSpace(xmlRetorno))
+            {
+                return xmlRetorno;
+            }
 
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlRetorno);
+
+            var root = xmlDoc.DocumentElement;
+            if (root == null || root["UniNFeVersao"] != null)
+            {
+                return xmlRetorno;
+            }
+
+            var versaoNode = xmlDoc.CreateElement("UniNFeVersao");
+            versaoNode.InnerText = Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-");
+            root.AppendChild(versaoNode);
+
+            return xmlDoc.OuterXml;
+        }
         #endregion ExecuteDLL
     }
 }
