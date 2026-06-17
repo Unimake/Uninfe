@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -100,6 +100,7 @@ namespace NFe.Service
                 var retornoProp = publishInstance.GetType().GetProperty("RetornoWSString");
                 if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(publishInstance)?.ToString();
 
+                AdicionarUniNFeVersaoAoRetorno();
                 XmlRetorno(finalArqEnvio, finalArqRetorno);
 
                 if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
@@ -130,6 +131,54 @@ namespace NFe.Service
             XmlSetting.IndentChars = " ";
             XmlSetting.NewLineOnAttributes = false;
             XmlSetting.OmitXmlDeclaration = false;
+        }
+
+        private void AdicionarUniNFeVersaoAoRetorno()
+        {
+            if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+            {
+                return;
+            }
+
+            var xmlRetorno = new XmlDocument();
+            xmlRetorno.PreserveWhitespace = false;
+            xmlRetorno.LoadXml(vStrXmlRetorno);
+
+            var mensagens = xmlRetorno.GetElementsByTagName("Mensagem");
+            if (mensagens.Count == 0)
+            {
+                return;
+            }
+
+            var uniNFeVersao = Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-");
+
+            foreach (XmlNode mensagem in mensagens)
+            {
+                if (!(mensagem is XmlElement mensagemElement))
+                {
+                    continue;
+                }
+
+                if (mensagemElement.GetElementsByTagName("UniNFeVersao").Count > 0)
+                {
+                    continue;
+                }
+
+                var uniNFeVersaoElement = xmlRetorno.CreateElement("UniNFeVersao");
+                uniNFeVersaoElement.InnerText = uniNFeVersao;
+
+                var dllVersaoElement = mensagemElement["DLLVersao"];
+                if (dllVersaoElement != null)
+                {
+                    mensagemElement.InsertAfter(uniNFeVersaoElement, dllVersaoElement);
+                }
+                else
+                {
+                    mensagemElement.AppendChild(uniNFeVersaoElement);
+                }
+            }
+
+            vStrXmlRetorno = xmlRetorno.OuterXml;
         }
 
         private void GerarXmlRetorno(string path, string status, string motivo, string returnMessageID = "", bool criarXML = true, bool encerrarXML = true, string messageID = "", string traceId = "")
