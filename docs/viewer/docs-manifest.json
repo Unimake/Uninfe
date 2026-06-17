@@ -1,23 +1,11 @@
 {
-  "generatedAt": "2026-06-11T17:18:14.624Z",
+  "generatedAt": "2026-06-11T18:53:37.965Z",
   "documents": [
     {
-      "id": "configuracao-cadastro-nova-empresa-md",
-      "title": "Cadastro de Nova Empresa",
-      "path": "configuracao/cadastro-nova-empresa.md",
-      "category": "configuracao"
-    },
-    {
-      "id": "configuracao-configuracao-automatica-por-arquivo-md",
-      "title": "Configuração automática do UniNFe por arquivo",
-      "path": "configuracao/configuracao-automatica-por-arquivo.md",
-      "category": "configuracao"
-    },
-    {
-      "id": "configuracao-telas-cadastros-configuracoes-md",
-      "title": "Tela Configurações",
-      "path": "configuracao/telas-cadastros-configuracoes.md",
-      "category": "configuracao"
+      "id": "introducao-o-que-e-uninfe-md",
+      "title": "O que é o UniNFe",
+      "path": "introducao/o-que-e-uninfe.md",
+      "category": "introducao"
     },
     {
       "id": "instalacao-atualizacao-md",
@@ -38,16 +26,22 @@
       "category": "instalacao"
     },
     {
-      "id": "introducao-o-que-e-uninfe-md",
-      "title": "O que é o UniNFe",
-      "path": "introducao/o-que-e-uninfe.md",
-      "category": "introducao"
+      "id": "configuracao-cadastro-nova-empresa-md",
+      "title": "Cadastro de Nova Empresa",
+      "path": "configuracao/cadastro-nova-empresa.md",
+      "category": "configuracao"
     },
     {
-      "id": "index-md",
-      "title": "Documentacao Do UniNFe",
-      "path": "index.md",
-      "category": "Raiz"
+      "id": "configuracao-configuracao-automatica-por-arquivo-md",
+      "title": "Configuração automática do UniNFe por arquivo",
+      "path": "configuracao/configuracao-automatica-por-arquivo.md",
+      "category": "configuracao"
+    },
+    {
+      "id": "configuracao-telas-cadastros-configuracoes-md",
+      "title": "Tela Configurações",
+      "path": "configuracao/telas-cadastros-configuracoes.md",
+      "category": "configuracao"
     },
     {
       "id": "referencias-apoio-e-suporte-md",
@@ -522,6 +516,12 @@
       "title": "Consulta de informações do UniNFe",
       "path": "servicos/uninfe/consulta-informacoes.md",
       "category": "servicos/uninfe"
+    },
+    {
+      "id": "index-md",
+      "title": "Documentacao Do UniNFe",
+      "path": "index.md",
+      "category": "Raiz"
     }
   ]
 }

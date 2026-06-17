@@ -1,0 +1,36 @@
+# Modelo para a pasta uninfe/docs/ no servidor.
+# Este arquivo deve ficar na pasta uninfe/docs
+
+Options -Indexes
+DirectoryIndex index.html
+
+ErrorDocument 404 /uninfe/docs/404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Allow "GET, HEAD, OPTIONS"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+</IfModule>
+
+<FilesMatch "(^_.*|^build-docs-index\.js$|.*\.(bat|cmd|ps1|sh|log|jsonl|tmp|temp|bak|swp)$)">
+  Require all denied
+</FilesMatch>
+
+<LimitExcept GET HEAD OPTIONS>
+  Require all denied
+</LimitExcept>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|OPTIONS)$ [NC]
+  RewriteRule ^ - [R=405,L]
+
+  RewriteRule ^$ index.html [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ - [R=404,L]
+</IfModule>

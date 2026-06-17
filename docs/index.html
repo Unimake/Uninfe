@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=viewer/">
+  <title>Documentacao UniNFe</title>
+</head>
+<body>
+  <script>
+    (function () {
+      var path = window.location.pathname;
+      if (!path.endsWith("/")) {
+        path += "/";
+      }
+
+      window.location.replace(path + "viewer/" + window.location.search + window.location.hash);
+    }());
+  </script>
+  <p>Redirecionando para a <a href="viewer/">documentacao do UniNFe</a>...</p>
+</body>
+</html>

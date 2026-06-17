@@ -93,8 +93,34 @@ function categoryFromRelativePath(relativePath) {
   return parts.slice(0, -1).join("/");
 }
 
+function categoryRank(category) {
+  const value = String(category || "Raiz").toLowerCase();
+  const rank = {
+    "introducao": 10,
+    "instalacao": 20,
+    "configuracao": 30,
+    "referencias": 40,
+    "servicos": 50,
+    "raiz": 900
+  };
+
+  if (Object.prototype.hasOwnProperty.call(rank, value)) {
+    return rank[value];
+  }
+
+  if (value.startsWith("servicos/")) {
+    return 60;
+  }
+
+  return 800;
+}
+
+function compareCategories(a, b) {
+  return categoryRank(a) - categoryRank(b) || String(a).localeCompare(String(b), "pt-BR");
+}
+
 function sortDocs(a, b) {
-  return a.category.localeCompare(b.category, "pt-BR") || a.title.localeCompare(b.title, "pt-BR");
+  return compareCategories(a.category, b.category) || a.title.localeCompare(b.title, "pt-BR");
 }
 
 const files = [];
