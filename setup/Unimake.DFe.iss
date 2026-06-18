@@ -19,7 +19,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 VersionInfoCompany=Unimake Software
-DefaultDirName={pf}\Unimake\{#MyAppName}
+DefaultDirName={commonpf}\Unimake\{#MyAppName}
 DisableDirPage=yes
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
@@ -58,6 +58,7 @@ Source: "C:\projetos\github\Unimake.DFe\Exemplos\VB6\System.Security.Cryptograph
 ;Registrar
 ;----------------------------------------------------------------------------------------------------
 Source: "Register_UnimakeDFe.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Unregister_UnimakeDFe.bat"; DestDir: "{app}"; Flags: ignoreversion
 ;----------------------------------------------------------------------------------------------------
 ;.netstandard
 ;----------------------------------------------------------------------------------------------------
