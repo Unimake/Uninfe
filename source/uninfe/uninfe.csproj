@@ -88,7 +88,7 @@
       <HintPath>..\packages\Unimake.EBank.Primitives.20260528.1534.6\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260615.1001.15\lib\net472\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20260618.1041.17\lib\net472\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.9\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -234,7 +234,7 @@
     </Reference>
     <Reference Include="Unimake.Cryptography, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20260416.712.52\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
-    </Reference>
+    </Reference>	
     <Reference Include="Unimake.EBank.Solutions, Version=2026.5.28.1541, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.EBank.Solutions.20260528.1541.27\lib\netstandard2.0\Unimake.EBank.Solutions.dll</HintPath>
     </Reference>
@@ -342,13 +342,12 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
- <Choose>
+  <Choose>
   <When Condition="'$(Configuration)' == 'Release'">
 	 <ItemGroup>
-        <Reference Include="Unimake.Business.DFe, Version=2026.6.15.1001, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>..\packages\Unimake.DFe.20260615.1001.15\lib\net472\Unimake.Business.DFe.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
+        <Reference Include="Unimake.Business.DFe, Version=2026.6.18.1041, Culture=neutral, processorArchitecture=MSIL">
+           <HintPath>..\packages\Unimake.DFe.20260618.1041.17\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>		
 	 </ItemGroup>
   </When>
   <Otherwise>
@@ -361,7 +360,7 @@
 		</ProjectReference>
 	 </ItemGroup>
   </Otherwise>
-</Choose>
+  </Choose>   
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
       <Visible>False</Visible>
