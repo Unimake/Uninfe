@@ -1204,30 +1204,6 @@ namespace NFe.Service
                     }
                 }
 
-                ///
-                /// EPEC, CCe e Cancelamento por evento
-                ///
-                var ctemp = doc.OuterXml;// File.ReadAllText(nomeArqXMLNFe);
-                var dhReg = RetornarConteudoEntre(ctemp, "<dhRegEvento>", "</dhRegEvento>");
-                var dhRegEvento = Functions.GetDateTime(dhReg);
-
-                if (dhRegEvento.Year > 1)
-                {
-                    if ((fProtocolo = RetornarConteudoEntre(ctemp, "</dhRegEvento><nProt>", "</nProt>")) == "")
-                    {
-                        fProtocolo = RetornarConteudoEntre(ctemp, "<nProt>", "</nProt>");
-                    }
-
-                    fProtocolo += "  " + dhRegEvento.ToString("dd/MM/yyyy HH:mm:ss");
-                    if (dhReg.EndsWith("-01:00") ||
-                        dhReg.EndsWith("-02:00") ||
-                        dhReg.EndsWith("-03:00") ||
-                        dhReg.EndsWith("-04:00"))
-                    {
-                        fProtocolo += dhReg.Substring(dhReg.Length - 6);
-                    }
-                }
-
                 if (File.Exists(arqProcNFe) || File.Exists(nomeArquivoRecebido))
                 {
                     var Args = "";
@@ -1502,30 +1478,6 @@ namespace NFe.Service
                     //saida erros para arquivo e nome do arquivo de erro
                     Args += " S=A AE=\"" + Path.Combine(emp.PastaXmlRetorno, Path.GetFileName(fAuxiliar)) + "\"";
                     fAuxiliar = "";
-
-                    if (fProtocolo != "")
-                    {
-                        ///
-                        /// formata o arquivo de saida de erros com base no arquivo enviado para impressao
-                        /// 999999-procNFe.xml -> aux-99999-procNFe.xml
-                        /// 999999-procCTe.xml -> aux-99999-procCTe.xml
-                        /// 999999-procMDFe.xml -> aux-99999-procMDFe.xml
-                        /// 999999-procEventoNFe.xml -> aux-99999-procEventoNFe.xml
-                        ///
-                        fAuxiliar = Path.Combine(Path.GetTempPath(), "aux-" + Path.GetFileName(nomeArquivoRecebido));
-
-                        var xmlAux = new StringBuilder();
-                        xmlAux.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-                        xmlAux.Append("<outrasInfDANFe>");
-                        xmlAux.AppendFormat("<protocolonfe>{0}</protocolonfe>", fProtocolo);
-                        xmlAux.Append("</outrasInfDANFe>");
-
-                        File.WriteAllText(fAuxiliar, xmlAux.ToString());
-                        Args += " AU=\"" + fAuxiliar + "\"";
-
-                        ///
-                        ///OBS: deveria existir um argumento para excluir o arquivo auxiliar, já que ele é temporario
-                    }
 
                     Auxiliar.WriteLog("ExecutaUniDanfe: Iniciou a execução do UniDANFe.", false);
                     System.Diagnostics.Process.Start(Path.Combine(emp.PastaExeUniDanfe, "unidanfe.exe"), Args);
