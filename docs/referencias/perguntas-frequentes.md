@@ -84,7 +84,7 @@ certutil -generateSSTFromWU roots.sst
 ```
 
 3. Aguarde o Windows baixar a lista de certificados raiz confiáveis pela Microsoft.
-4. Importe o arquivo gerado para o repositório de Autoridades de Certificação Raiz Confiáveis:
+4. Importe o arquivo gerado para o repositório de Autoridades de Certificação Raiz Confiáveis. Este comando só executa corretamente se o **Prompt de Comando** ou o **PowerShell** estiver aberto como administrador:
 
 ```bat
 certutil -addstore -f root roots.sst
