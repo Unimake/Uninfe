@@ -144,38 +144,64 @@ namespace NFe.Service
             xmlRetorno.PreserveWhitespace = false;
             xmlRetorno.LoadXml(vStrXmlRetorno);
 
+            var uniNFeVersao = Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-");
             var mensagens = xmlRetorno.GetElementsByTagName("Mensagem");
-            if (mensagens.Count == 0)
+
+            if (mensagens.Count > 0)
+            {
+                foreach (XmlNode mensagem in mensagens)
+                {
+                    if (!(mensagem is XmlElement mensagemElement))
+                    {
+                        continue;
+                    }
+
+                    if (mensagemElement.GetElementsByTagName("UniNFeVersao").Count > 0)
+                    {
+                        continue;
+                    }
+
+                    var uniNFeVersaoElement = xmlRetorno.CreateElement("UniNFeVersao");
+                    uniNFeVersaoElement.InnerText = uniNFeVersao;
+
+                    var dllVersaoElement = mensagemElement["DLLVersao"];
+                    if (dllVersaoElement != null)
+                    {
+                        mensagemElement.InsertAfter(uniNFeVersaoElement, dllVersaoElement);
+                    }
+                    else
+                    {
+                        mensagemElement.AppendChild(uniNFeVersaoElement);
+                    }
+                }
+
+                vStrXmlRetorno = xmlRetorno.OuterXml;
+                return;
+            }
+
+            var root = xmlRetorno.DocumentElement;
+            if (root == null || !string.Equals(root.Name, "uMessengerResponse", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
 
-            var uniNFeVersao = Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-");
-
-            foreach (XmlNode mensagem in mensagens)
+            if (root["UniNFeVersao"] != null)
             {
-                if (!(mensagem is XmlElement mensagemElement))
-                {
-                    continue;
-                }
+                vStrXmlRetorno = xmlRetorno.OuterXml;
+                return;
+            }
 
-                if (mensagemElement.GetElementsByTagName("UniNFeVersao").Count > 0)
-                {
-                    continue;
-                }
+            var uniNFeVersaoRootElement = xmlRetorno.CreateElement("UniNFeVersao");
+            uniNFeVersaoRootElement.InnerText = uniNFeVersao;
 
-                var uniNFeVersaoElement = xmlRetorno.CreateElement("UniNFeVersao");
-                uniNFeVersaoElement.InnerText = uniNFeVersao;
-
-                var dllVersaoElement = mensagemElement["DLLVersao"];
-                if (dllVersaoElement != null)
-                {
-                    mensagemElement.InsertAfter(uniNFeVersaoElement, dllVersaoElement);
-                }
-                else
-                {
-                    mensagemElement.AppendChild(uniNFeVersaoElement);
-                }
+            var messageIdElement = root["messageID"] ?? root["MessageID"];
+            if (messageIdElement != null)
+            {
+                root.InsertAfter(uniNFeVersaoRootElement, messageIdElement);
+            }
+            else
+            {
+                root.AppendChild(uniNFeVersaoRootElement);
             }
 
             vStrXmlRetorno = xmlRetorno.OuterXml;
