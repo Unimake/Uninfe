@@ -66,6 +66,49 @@ Também é recomendado manter habilitada a validação que compara o `DigestValu
 </details>
 
 <details>
+<summary><strong>Falhas de conexão com SEFAZ, Receita Federal ou prefeitura podem ser causadas por certificados raiz desatualizados?</strong></summary>
+
+Sim. Em alguns ambientes, falhas de conexão com webservices da SEFAZ, Receita Federal, prefeitura, bancos ou outros serviços HTTPS podem ocorrer porque o Windows está com a cadeia de certificados raiz desatualizada ou incompleta.
+
+Quando isso acontece, o UniNFe pode não conseguir validar corretamente o certificado do servidor acessado, mesmo que o certificado digital da empresa esteja correto. O problema costuma aparecer em mensagens relacionadas a SSL/TLS, canal seguro, cadeia de certificados, certificado não confiável ou falha de validação do certificado remoto.
+
+Uma forma de atualizar as Autoridades Certificadoras Raiz confiáveis do Windows é gerar um pacote de certificados a partir do Windows Update e importá-lo no repositório de certificados raiz confiáveis.
+
+Procedimento recomendado:
+
+1. Abra o **Prompt de Comando** ou o **PowerShell** como administrador.
+2. Execute o comando abaixo para gerar o arquivo `roots.sst`:
+
+```bat
+certutil -generateSSTFromWU roots.sst
+```
+
+3. Aguarde o Windows baixar a lista de certificados raiz confiáveis pela Microsoft.
+4. Importe o arquivo gerado para o repositório de Autoridades de Certificação Raiz Confiáveis:
+
+```bat
+certutil -addstore -f root roots.sst
+```
+
+5. Reinicie o UniNFe ou o serviço do UniNFe, quando ele estiver executando como serviço do Windows.
+6. Tente novamente a operação que estava falhando.
+
+O arquivo `roots.sst` é um pacote de certificados raiz confiáveis. Ele não substitui o certificado digital A1 ou A3 da empresa; ele atualiza as raízes usadas pelo Windows para validar cadeias de certificados em conexões seguras.
+
+Cuidados importantes:
+
+- O comando precisa de acesso à internet, pois consulta a Windows Update.
+- Execute em uma conta com permissão administrativa.
+- Em servidores controlados por domínio, política de grupo ou equipe de infraestrutura, confirme antes se a atualização manual de raízes é permitida.
+- Em ambientes críticos, faça o procedimento primeiro em uma máquina de homologação ou janela controlada.
+- Se o servidor não tiver acesso à Windows Update, gere o `roots.sst` em uma máquina com acesso e avalie com a infraestrutura a forma correta de importar no servidor.
+- Depois da atualização, mantenha o Windows Update e as políticas de certificados do ambiente em dia para evitar recorrência.
+
+Se a falha continuar após atualizar as raízes, revise também proxy, firewall, data e hora do Windows, versão do TLS habilitada no sistema operacional, validade do certificado da empresa e permissões de acesso ao certificado quando o UniNFe estiver rodando como serviço.
+
+</details>
+
+<details>
 <summary><strong>Como baixar os XMLs de NF-e emitidas contra o meu CNPJ?</strong></summary>
 
 Para baixar XMLs de NF-e emitidas por fornecedores contra o seu CNPJ, use o serviço de distribuição DFe. O ERP deve gerar uma consulta de distribuição na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno.
