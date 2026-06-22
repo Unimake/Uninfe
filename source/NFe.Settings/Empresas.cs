@@ -1,6 +1,7 @@
 ﻿using NFe.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,195 @@ namespace NFe.Settings
         public static bool ExisteErroDiretorio { get; set; }
 
         public static List<Empresa> Configuracoes = new List<Empresa>();
+
+        private const string LockLogPrefix = "Controle de instância do UniNFe:";
+
+        private static string NomeAplicacaoLock
+        {
+            get
+            {
+                var nomeAplicacao = Propriedade.NomeAplicacao.ToLower();
+                return nomeAplicacao.Contains("servico") || nomeAplicacao.Contains("service") ? "UniNFeServico" : "UniNFe";
+            }
+        }
+
+        private static string GetCanonicalLockFileName()
+        {
+            return string.Format("{0}.lock", NomeAplicacaoLock);
+        }
+
+        private static string GetCanonicalLockFile(string dir)
+        {
+            return Path.Combine(dir, GetCanonicalLockFileName());
+        }
+
+        private static IEnumerable<FileInfo> GetLockFiles(string dir)
+        {
+            return Directory.GetFiles(dir, "UniNFe*.lock")
+                .Select(f => new FileInfo(f))
+                .Where(f => f.Name.Equals("UniNFe.lock", StringComparison.InvariantCultureIgnoreCase) ||
+                    f.Name.Equals("UniNFeServico.lock", StringComparison.InvariantCultureIgnoreCase))
+                .GroupBy(f => f.FullName.ToLowerInvariant())
+                .Select(g => g.First());
+        }
+
+        private static bool IsCurrentInstanceLock(FileInfo file)
+        {
+            if (!file.Name.Equals(GetCanonicalLockFileName(), StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            return GetLockOwner(file).Equals(Environment.MachineName, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private static string GetLockOwner(FileInfo file)
+        {
+            var owner = file.Name.Replace(".lock", "");
+
+            if (owner.Equals("UniNFeServico", StringComparison.InvariantCultureIgnoreCase) ||
+                owner.Equals("UniNFe.Service", StringComparison.InvariantCultureIgnoreCase) ||
+                owner.Equals("UniNFe", StringComparison.InvariantCultureIgnoreCase))
+            {
+                owner = GetLockValue(file, "Estação:", owner);
+            }
+
+            return owner;
+        }
+
+        private static string GetLockValue(FileInfo file, string prefix, string defaultValue = "")
+        {
+            try
+            {
+                foreach (var line in File.ReadAllLines(file.FullName))
+                {
+                    if (line.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return line.Substring(prefix.Length).Trim();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(string.Format("{0} não foi possível ler o lock '{1}'. Erro: {2}", LockLogPrefix, file.FullName, ex.Message), false, true);
+            }
+
+            return defaultValue;
+        }
+
+        private static int GetLockProcessId(FileInfo file)
+        {
+            int processId;
+            return int.TryParse(GetLockValue(file, "ProcessoId:"), out processId) ? processId : 0;
+        }
+
+        private static bool IsUniNFeProcessName(string processName)
+        {
+            return !string.IsNullOrEmpty(processName) &&
+                processName.ToLower().Contains("uninfe");
+        }
+
+        private static bool HasOtherUniNFeProcessRunning()
+        {
+            foreach (var process in Process.GetProcesses())
+            {
+                try
+                {
+                    if (process.Id != Process.GetCurrentProcess().Id && IsUniNFeProcessName(process.ProcessName))
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    process.Dispose();
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsLockProcessRunning(FileInfo file)
+        {
+            var processId = GetLockProcessId(file);
+            if (processId <= 0)
+            {
+                return HasOtherUniNFeProcessRunning();
+            }
+
+            try
+            {
+                using (var process = Process.GetProcessById(processId))
+                {
+                    var processName = GetLockValue(file, "Processo:");
+
+                    return process.Id != Process.GetCurrentProcess().Id &&
+                        (string.IsNullOrEmpty(processName) ||
+                         process.ProcessName.Equals(processName, StringComparison.InvariantCultureIgnoreCase) ||
+                         IsUniNFeProcessName(process.ProcessName));
+                }
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(string.Format("{0} não foi possível verificar o processo do lock '{1}'. Erro: {2}", LockLogPrefix, file.FullName, ex.Message), false, true);
+                return true;
+            }
+        }
+
+        private static bool TryDeleteStaleCurrentMachineLock(FileInfo file)
+        {
+            if (!GetLockOwner(file).Equals(Environment.MachineName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            if (IsLockProcessRunning(file))
+            {
+                return false;
+            }
+
+            try
+            {
+                Auxiliar.WriteLog(string.Format("{0} lock órfão removido automaticamente. Lock='{1}'.", LockLogPrefix, file.FullName), false, true);
+                file.Delete();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(string.Format("{0} não foi possível remover o lock órfão '{1}'. Erro: {2}", LockLogPrefix, file.FullName, ex.Message), false, true);
+                return false;
+            }
+        }
+
+        private static void WriteLockFile(string file)
+        {
+            using (var sw = new StreamWriter(file, false)
+            {
+                AutoFlush = true
+            })
+            {
+                sw.WriteLine("Iniciado em: {0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
+                sw.WriteLine("Estação: {0}", Environment.MachineName);
+                sw.WriteLine("IP: {0}", Functions.GetIPAddress());
+                sw.WriteLine("Aplicativo: {0}", Propriedade.NomeAplicacao);
+                sw.WriteLine("Processo: {0}", Process.GetCurrentProcess().ProcessName);
+                sw.WriteLine("ProcessoId: {0}", Process.GetCurrentProcess().Id);
+                sw.Flush();
+                sw.Close();
+            }
+        }
+
+        private static FileStream CreateCanonicalLockFile(string file)
+        {
+            return new FileStream(file, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+        }
 
         /// <summary>
         /// Verifica se já existe alguma instância do UniNFe executando para os diretórios informados
@@ -62,33 +252,25 @@ namespace NFe.Settings
                     }
                     else
                     {
-                        var fileName = string.Format("{0}-{1}.lock", Propriedade.NomeAplicacao, Environment.MachineName);
-                        var filePath = string.Format("{0}\\{1}", dir, fileName);
-
                         //se já existe um arquivo de lock e o nome do arquivo for diferente desta máquina
                         //não pode deixar executar                        
 
-                        var fileLock = (from x in
-                                               (from f in Directory.GetFiles(dir, "*" + Propriedade.NomeAplicacao + "*.lock")
-                                                select new FileInfo(f))
-                                        where !x.Name.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)
-                                        select x.FullName).FirstOrDefault();
+                        Auxiliar.WriteLog(string.Format("{0} verificando locks na pasta '{1}'.", LockLogPrefix, dir), false, true);
 
-                        if (Propriedade.NomeAplicacao.ToLower() == "uninfeservico" && string.IsNullOrEmpty(fileLock))
+                        foreach (var fileLock in from x in GetLockFiles(dir)
+                                                 where empresaX == null || !IsCurrentInstanceLock(x)
+                                                 select x)
                         {
-                            var filename2 = string.Format("{0}-{1}.lock", "UniNFe", Environment.MachineName);
-                            fileLock = (from x in
-                                            (from f in Directory.GetFiles(dir, "*UniNFe" + "*.lock")
-                                             select new FileInfo(f))
-                                        where !x.Name.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)
-                                        select x.FullName).FirstOrDefault();
-                        }
+                            if (TryDeleteStaleCurrentMachineLock(fileLock))
+                            {
+                                continue;
+                            }
 
-                        if (!string.IsNullOrEmpty(fileLock))
-                        {
+                            Auxiliar.WriteLog(string.Format("{0} bloqueada execução. Lock encontrado: '{1}'.", LockLogPrefix, fileLock.FullName), false, true);
+
                             throw new Components.Exceptions.AppJaExecutando("Já existe uma instância do UniNFe em Execução que atende a conjunto de pastas: " +
                                 dir + " (*Incluindo subdiretórios).\r\n\r\n" +
-                                "Nome da estação que está executando: " + fileName.Replace(Propriedade.NomeAplicacao + "-", "").Replace(".lock", ""));
+                                "Nome da estação que está executando: " + GetLockOwner(fileLock));
                         }
                     }
                 }
@@ -112,25 +294,47 @@ namespace NFe.Settings
             }
 
             var diretorios = (from d in Empresas.Configuracoes
-                              select d.PastaBase);
+                              select d.PastaBase).Distinct(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var dir in diretorios)
             {
                 if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
                 {
-                    var file = string.Format("{0}\\{1}-{2}.lock", dir, Propriedade.NomeAplicacao, Environment.MachineName);
-                    var fi = new FileInfo(file);
+                    var canonicalFile = GetCanonicalLockFile(dir);
 
-                    using (var sw = new StreamWriter(file, false)
+                    try
                     {
-                        AutoFlush = true
-                    })
+                        using (var fs = CreateCanonicalLockFile(canonicalFile))
+                        {
+                            fs.Close();
+                        }
+
+                        WriteLockFile(canonicalFile);
+
+                        Auxiliar.WriteLog(string.Format("{0} lock criado. Pasta='{1}', Lock='{2}'.", LockLogPrefix, dir, canonicalFile), false, true);
+                    }
+                    catch (IOException)
                     {
-                        sw.WriteLine("Iniciado em: {0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
-                        sw.WriteLine("Estação: {0}", Environment.MachineName);
-                        sw.WriteLine("IP: {0}", Functions.GetIPAddress());
-                        sw.Flush();
-                        sw.Close();
+                        var lockFile = new FileInfo(canonicalFile);
+
+                        if (TryDeleteStaleCurrentMachineLock(lockFile))
+                        {
+                            using (var fs = CreateCanonicalLockFile(canonicalFile))
+                            {
+                                fs.Close();
+                            }
+
+                            WriteLockFile(canonicalFile);
+
+                            Auxiliar.WriteLog(string.Format("{0} lock recriado após remoção de lock órfão. Pasta='{1}', Lock='{2}'.", LockLogPrefix, dir, canonicalFile), false, true);
+                            continue;
+                        }
+
+                        Auxiliar.WriteLog(string.Format("{0} não criou lock porque já existe lock canônico. Pasta='{1}', Lock='{2}'.", LockLogPrefix, dir, canonicalFile), false, true);
+
+                        throw new Components.Exceptions.AppJaExecutando("Já existe uma instância do UniNFe em Execução que atende a conjunto de pastas: " +
+                            dir + " (*Incluindo subdiretórios).\r\n\r\n" +
+                            "Nome da estação que está executando: " + GetLockOwner(lockFile));
                     }
                 }
             }

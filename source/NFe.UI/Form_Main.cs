@@ -2,6 +2,7 @@
 using NFe.Components;
 using NFe.Settings;
 using NFe.Threadings;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -21,6 +22,7 @@ namespace NFe.UI
         private menu _menu;
         private bool _maximized;
         private bool _formloaded = false;
+        private bool _encerramentoExecutado = false;
 
         public Form_Main()
         {
@@ -28,6 +30,8 @@ namespace NFe.UI
 
             uninfeDummy.mainForm = this;
             uninfeDummy.UltimoAcessoConfiguracao = DateTime.MinValue;
+
+            SystemEvents.SessionEnding += SystemEvents_SessionEnding;
         }
 
         private void EnsureMenu()
@@ -211,15 +215,8 @@ namespace NFe.UI
 
         protected override void OnClosed(EventArgs e)
         {
-            PararServicos(false);
-
-            /*
-                * Excluir os arquivos de ".lock"
-                *
-                * 05/06/2013
-                * Marcelo
-                */
-            Empresas.ClearLockFiles(false);
+            EncerrarAplicacao(false, "fechamento do aplicativo");
+            SystemEvents.SessionEnding -= SystemEvents_SessionEnding;
 
             foreach (var uc in Controls)
             {
@@ -229,6 +226,35 @@ namespace NFe.UI
                 }
             }
             base.OnClosed(e);
+        }
+
+        private void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)
+        {
+            EncerrarAplicacao(false, "encerramento do Windows");
+        }
+
+        private void EncerrarAplicacao(bool fechaServico, string origem)
+        {
+            if (_encerramentoExecutado)
+            {
+                return;
+            }
+
+            _encerramentoExecutado = true;
+            Propriedade.EncerrarApp = true;
+
+            try
+            {
+                Auxiliar.WriteLog("Encerrando UniNFe por " + origem + ". Parando serviços e removendo arquivos .lock.", false, true);
+                PararServicos(fechaServico);
+                Empresas.ClearLockFiles(false);
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog("Falha ao encerrar UniNFe por " + origem + ": " + ex.Message, true, true);
+            }
+
+            notifyIcon1.Visible = false;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

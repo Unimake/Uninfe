@@ -1023,7 +1023,10 @@ namespace NFe.Settings
         /// </summary>
         public void DeleteLockFile()
         {
-            var file = string.Format("{0}\\{1}-{2}.lock", PastaBase, Propriedade.NomeAplicacao, Environment.MachineName);
+            var nomeAplicacao = Propriedade.NomeAplicacao.ToLower();
+            var nomeAplicacaoLock = nomeAplicacao.Contains("servico") || nomeAplicacao.Contains("service") ? "UniNFeServico" : "UniNFe";
+
+            var file = string.Format("{0}\\{1}.lock", PastaBase, nomeAplicacaoLock);
             var fi = new FileInfo(file);
 
             if (fi.Exists)
