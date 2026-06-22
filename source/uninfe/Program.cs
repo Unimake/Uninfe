@@ -139,6 +139,10 @@ namespace uninfe
                         "Somente uma instância do " + Propriedade.NomeAplicacao + " pode ser executada." + (Empresas.ExisteErroDiretorio ? "\r\nPossíveis erros:\r\n" + Empresas.ErroCaminhoDiretorio : ""), "",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                Auxiliar.WriteLog("UniNFe encerrado porque já existe outra instância atendendo as pastas configuradas.", false, true);
+                Application.Exit();
+                Environment.Exit(0);
             }
             else
             {

@@ -42,7 +42,7 @@ namespace NFe.Settings
             return string.Format("{0}.lock", NomeAplicacaoLock);
         }
 
-        private static string GetCanonicalLockFile(string dir)
+        public static string GetLockFile(string dir)
         {
             return Path.Combine(dir, GetCanonicalLockFileName());
         }
@@ -277,6 +277,82 @@ namespace NFe.Settings
             }
         }
 
+        public static void CanRunConfiguredFolders()
+        {
+            if (!File.Exists(Propriedade.NomeArqEmpresas))
+            {
+                return;
+            }
+
+            try
+            {
+                var axml = XElement.Load(Propriedade.NomeArqEmpresas);
+                var empresas = axml.Descendants(NFeStrConstants.Registro);
+
+                foreach (var item in empresas)
+                {
+                    var cnpj = item.Attribute(TpcnResources.CNPJ.ToString()).Value;
+                    var servico = Propriedade.TipoAplicativo;
+
+                    if (item.Attribute(NFeStrConstants.Servico) != null)
+                    {
+                        servico = (TipoAplicativo)Convert.ToInt16(item.Attribute(NFeStrConstants.Servico).Value.Trim());
+                    }
+
+                    var empresa = new Empresa
+                    {
+                        CNPJ = cnpj,
+                        Servico = servico
+                    };
+                    var arquivoConfig = empresa.NomeArquivoConfig;
+
+                    if (!File.Exists(arquivoConfig))
+                    {
+                        continue;
+                    }
+
+                    var doc = new XmlDocument();
+                    doc.Load(arquivoConfig);
+
+                    var nodes = doc.GetElementsByTagName(NFeStrConstants.PastaXmlEnvio);
+                    if (nodes.Count == 0 || string.IsNullOrWhiteSpace(nodes[0].InnerText))
+                    {
+                        continue;
+                    }
+
+                    var pastaBase = Path.GetDirectoryName(nodes[0].InnerText.Trim().TrimEnd('\\'));
+                    if (string.IsNullOrEmpty(pastaBase) || !Directory.Exists(pastaBase))
+                    {
+                        continue;
+                    }
+
+                    Auxiliar.WriteLog(string.Format("{0} verificação prévia de lock na pasta '{1}'.", LockLogPrefix, pastaBase), false, true);
+
+                    foreach (var fileLock in GetLockFiles(pastaBase))
+                    {
+                        if (TryDeleteStaleCurrentMachineLock(fileLock))
+                        {
+                            continue;
+                        }
+
+                        Auxiliar.WriteLog(string.Format("{0} bloqueada execução na verificação prévia. Lock encontrado: '{1}'.", LockLogPrefix, fileLock.FullName), false, true);
+
+                        throw new Components.Exceptions.AppJaExecutando("Já existe uma instância do UniNFe em Execução que atende a conjunto de pastas: " +
+                            pastaBase + " (*Incluindo subdiretórios).\r\n\r\n" +
+                            "Nome da estação que está executando: " + GetLockOwner(fileLock));
+                    }
+                }
+            }
+            catch (Components.Exceptions.AppJaExecutando)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(string.Format("{0} não foi possível concluir a verificação prévia de locks. Erro: {1}", LockLogPrefix, ex.Message), false, true);
+            }
+        }
+
         /// <summary>
         /// Cria os arquivos de lock para os diretórios de envio que esta instância vai atender.
         /// <param name="clearIfExist">Se verdadeiro, irá excluir os arquivos existentes antes de recriar</param>
@@ -300,7 +376,7 @@ namespace NFe.Settings
             {
                 if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
                 {
-                    var canonicalFile = GetCanonicalLockFile(dir);
+                    var canonicalFile = GetLockFile(dir);
 
                     try
                     {

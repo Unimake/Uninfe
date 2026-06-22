@@ -262,10 +262,10 @@ namespace NFe.Components.Info
         {
             bool executando = false;
 
-            Empresas.CarregaConfiguracao();
-
             try
             {
+                Empresas.CanRunConfiguredFolders();
+                Empresas.CarregaConfiguracao();
                 Empresas.CanRun(null);
 
                 // Se puder executar a aplicação aqui será recriado todos os arquivos de .lock,
