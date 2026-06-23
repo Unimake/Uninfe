@@ -70,7 +70,7 @@
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260618.1041.17\lib\net472\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20260623.1501.18\lib\net472\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.Cryptography, Version=10.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Cryptography.10.0.9\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
@@ -153,14 +153,14 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Cryptography, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Cryptography.20260416.712.52\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    <Reference Include="Unimake.Cryptography, Version=2026.6.18.1051, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20260618.1051.35\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Extensions, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Extensions.20260416.712.52\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    <Reference Include="Unimake.Extensions, Version=2026.6.18.1051, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20260618.1051.35\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Utils, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Utils.20260416.712.52\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    <Reference Include="Unimake.Utils, Version=2026.6.18.1051, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20260618.1051.35\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -170,25 +170,25 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
- <Choose>
-  <When Condition="'$(Configuration)' == 'Release'">
-	 <ItemGroup>
-        <Reference Include="Unimake.Business.DFe, Version=2026.6.18.1041, Culture=neutral, processorArchitecture=MSIL">
-           <HintPath>..\packages\Unimake.DFe.20260618.1041.17\lib\net472\Unimake.Business.DFe.dll</HintPath>
-        </Reference>		
-	 </ItemGroup>
-  </When>
-  <Otherwise>
-	 <ItemGroup>
-		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-		  <Name>Unimake.Business.DFe</Name>
-		  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-		  <Private>true</Private>
-		</ProjectReference>
-	 </ItemGroup>
-  </Otherwise>
-</Choose>
+	<Choose>
+		<When Condition="'$(Configuration)' == 'Release'">
+			<ItemGroup>
+				<Reference Include="Unimake.Business.DFe, Version=2026.6.23.1501, Culture=neutral, processorArchitecture=MSIL">
+					<HintPath>..\packages\Unimake.DFe.20260623.1501.18\lib\net472\Unimake.Business.DFe.dll</HintPath>
+				</Reference>
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+					<Name>Unimake.Business.DFe</Name>
+					<Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+					<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+					<Private>true</Private>
+				</ProjectReference>
+			</ItemGroup>
+		</Otherwise>
+	</Choose>   
   <ItemGroup>
     <Compile Include="ValidarXMLNew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
