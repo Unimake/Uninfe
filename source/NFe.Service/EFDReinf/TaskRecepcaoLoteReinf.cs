@@ -1,6 +1,5 @@
 using NFe.Components;
 using NFe.Settings;
-using NFSe.Components;
 using System;
 using System.IO;
 using System.Xml;

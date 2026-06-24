@@ -70,7 +70,7 @@
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260618.1041.17\lib\net472\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20260623.1501.18\lib\net472\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.Cryptography, Version=10.0.0.9, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Cryptography.10.0.9\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
@@ -165,14 +165,14 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Cryptography, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Cryptography.20260416.712.52\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    <Reference Include="Unimake.Cryptography, Version=2026.6.18.1051, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20260618.1051.35\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Extensions, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Extensions.20260416.712.52\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    <Reference Include="Unimake.Extensions, Version=2026.6.18.1051, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20260618.1051.35\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Utils, Version=2026.4.16.712, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Utils.20260416.712.52\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    <Reference Include="Unimake.Utils, Version=2026.6.18.1051, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20260618.1051.35\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -182,25 +182,25 @@
   <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
     <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
   </PropertyGroup>
- <Choose>
-  <When Condition="'$(Configuration)' == 'Release'">
-	 <ItemGroup>
-        <Reference Include="Unimake.Business.DFe, Version=2026.6.18.1041, Culture=neutral, processorArchitecture=MSIL">
-           <HintPath>..\packages\Unimake.DFe.20260618.1041.17\lib\net472\Unimake.Business.DFe.dll</HintPath>
-        </Reference>		
-	 </ItemGroup>
-  </When>
-  <Otherwise>
-	 <ItemGroup>
-		<ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-		  <Name>Unimake.Business.DFe</Name>
-		  <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-		  <Private>true</Private>
-		</ProjectReference>
-	 </ItemGroup>
-  </Otherwise>
-</Choose>
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <Reference Include="Unimake.Business.DFe, Version=2026.6.23.1501, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Unimake.DFe.20260623.1501.18\lib\net472\Unimake.Business.DFe.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+          <Name>Unimake.Business.DFe</Name>
+          <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+          <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+          <Private>true</Private>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <Compile Include="CEI.cs" />
     <Compile Include="CNPJ.cs" />
@@ -211,87 +211,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Schemas\SchemaXMLNFSe_AGILI.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_COPLAN.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_FIORILLI.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_FISCO.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_IIBRASIL.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_JLSOFT.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PROPRIOJOINVILLESC.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_GEISWEB.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_INDAIATUBA_SP.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_CECAM.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_MEGASOFT.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_D2TI.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PAULISTANA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_RLZ_INFORMATICA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PUBLIC_SOFT.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_ADM_SISTEMAS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_E_RECEITA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_MODERNIZACAO_PUBLICA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_CENTI.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD_203.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_GIAP.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_ELOTECH.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_VITORIA_ES.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_DESENVOLVECIDADE.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_EMBRAS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_MANAUS_AM.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_AVMB_ASTEN.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SOFTPLAN.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_INTERSOL.cs" />
     <Compile Include="NFeStrConstants.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_DBSELLER.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SUPERNOVA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PORTAL_FACIL.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SH3.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_BSITBR.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_LEXSOM.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_NOTAINTELIGENTE.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PRODEB.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_NA_INFORMATICA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_METROPOLIS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PUBLICA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_TINUS.cs" />
-    <Compile Include="Schemas\SchemaXML_ESocial.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_NATALENSE.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_FISSLEX.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_VVISS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SONNER.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_E_L.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_E_GOVERNE.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SIMPLISS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_ISSWEB.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_FINTEL.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_CARIOCA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_TIPLAN.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_SYSTEMPRO.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_TECNOSISTEMAS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_DSF.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PRONIN.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_WebISS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_DUETO.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_GIF.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_BHISS.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_ISSOnLine_AcessorPublico.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_ISSNet.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_ABACO.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_THEMA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_BETHA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_GINFES.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_GISSONLINE.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe.cs" />
     <Compile Include="Criptografia.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="ExtensionsMethods\StringExtensions.cs" />
     <Compile Include="ftplib.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="ObjectXMLSerializer.cs" />
-    <Compile Include="Schemas\SchemaXML.cs" />
     <Compile Include="ServiceProcess.cs" />
     <Compile Include="Smf.cs" />
-    <Compile Include="TipoArquivoXML.cs" />
     <Compile Include="UniNFeUpdate.cs" />
     <Compile Include="Propriedade.cs" />
     <Compile Include="DiretorioSalvarComo.cs" />

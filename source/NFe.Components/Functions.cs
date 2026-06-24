@@ -162,6 +162,47 @@ namespace NFe.Components
 
         #endregion PadraoNFe()
 
+        #region DefinirMunicipioPadraoNFSe()
+
+        public static int DefinirMunicipioPadraoNFSe(PadraoNFSe padraoNFSe, int municipio)
+        {
+            if (municipio == 4125506 || municipio == 2304400)
+            {
+                // Municipios pontuais com configuracao diferente:
+                // Sao Jose dos Pinhais - PR | GINFES
+                // Fortaleza - CE            | GINFES
+                return municipio;
+            }
+
+            switch (padraoNFSe)
+            {
+                case PadraoNFSe.BETHA:
+                    return 9999903;
+
+                case PadraoNFSe.MEMORY:
+                    return 9999901;
+
+                case PadraoNFSe.ABASE:
+                    return 9999902;
+
+                case PadraoNFSe.EQUIPLANO:
+                    return 9999905;
+
+                case PadraoNFSe.GINFES:
+                    return 9999900;
+
+                case PadraoNFSe.WEBFISCO:
+                    return 9999904;
+
+                case PadraoNFSe.NACIONAL:
+                    return 1001058;
+
+                default:
+                    return municipio;
+            }
+        }
+
+        #endregion DefinirMunicipioPadraoNFSe()
         #region OnlyNumbers()
 
         /// <summary>
