@@ -1584,48 +1584,7 @@ namespace NFe.Service
 
         public static int DefiniMunicioPadrao(PadraoNFSe padraoNFse, int municipio)
         {
-            if (municipio == 4125506 || municipio == 2304400)
-            {
-                //Municípios pontuais com configuração diferente:
-                //São José dos Pinhais - PR     |GINFES
-                //Fortaleza - CE                |GINFES
-                return municipio;
-            }
-
-            var municipioRetorno = municipio;
-
-            switch (padraoNFse)
-            {
-                case PadraoNFSe.BETHA:
-                    municipioRetorno = 9999903;
-                    break;
-
-                case PadraoNFSe.MEMORY:
-                    municipioRetorno = 9999901;
-                    break;
-
-                case PadraoNFSe.ABASE:
-                    municipioRetorno = 9999902;
-                    break;
-
-                case PadraoNFSe.EQUIPLANO:
-                    municipioRetorno = 9999905;
-                    break;
-
-                case PadraoNFSe.GINFES:
-                    municipioRetorno = 9999900;
-                    break;
-
-                case PadraoNFSe.WEBFISCO:
-                    municipioRetorno = 9999904;
-                    break;
-
-                case PadraoNFSe.NACIONAL:
-                    municipioRetorno = 1001058;
-                    break;
-            }
-
-            return municipioRetorno;
+            return Functions.DefinirMunicipioPadraoNFSe(padraoNFse, municipio);
         }
 
 

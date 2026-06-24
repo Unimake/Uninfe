@@ -89,15 +89,19 @@ namespace NFe.Validate
         {
             #region variáveis validação
 
+            var municipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+            var padraoNFSe = Functions.BuscaPadraoNFSe(municipio);
+
             var configuracao = new Configuracao
             {
                 PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.Homologacao ? TipoAmbiente.Homologacao : TipoAmbiente.Producao,
                 CSC = Empresas.Configuracoes[emp].IdentificadorCSC,
-                CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
+                CodigoUF = municipio,
+                CodigoMunicipio = Functions.DefinirMunicipioPadraoNFSe(padraoNFSe, municipio),
                 CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC)),
-                PadraoNFSe = Functions.BuscaPadraoNFSe(Empresas.Configuracoes[emp].UnidadeFederativaCodigo)
+                PadraoNFSe = padraoNFSe
             };
 
             var respTecnico = new RespTecnico(Empresas.Configuracoes[emp].RespTecCNPJ,
