@@ -106,9 +106,6 @@ Source: ..\source\uninfe.service\bin\Release\Topshelf.dll; DestDir: {app}; Flags
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 
-Source: ..\source\NFe.Components.Wsdl\NFe\schemas\*.*; DestDir: {app}\nfe\schemas; Flags: ignoreversion recursesubdirs
-Source: ..\source\NFe.Components.Wsdl\NFse\schemas\*.*; DestDir: {app}\nfse\schemas; Flags: ignoreversion recursesubdirs
-
 [Icons]
 Name: {group}\UniNFe - Monitor DF-e; Filename: {app}\uninfe.exe; WorkingDir: {app}; IconFilename: {app}\uninfe.exe; IconIndex: 0; Languages: ; Comment: Aplicativo responsável por monitorar os arquivos de documentos fiscais eletrônicos (NF-e, NFC-e, CT-e, MDF-e, NFS-e, etc.) para assinar, validar e enviar ao SEFAZ.
 

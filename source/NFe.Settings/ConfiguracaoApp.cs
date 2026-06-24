@@ -1,11 +1,8 @@
 ﻿using NFe.Components;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -127,103 +124,11 @@ namespace NFe.Settings
             return extraido;
         }
 
-        #region Extrae os arquivos necessarios a executacao
-
-        internal class loadResources
-        {
-#if DEBUG
-            private string cErros { get; set; }
-#endif
-
-            /// <summary>
-            /// Exporta os WSDLs e Schemas da DLL para as pastas do UniNFe
-            /// </summary>
-            public void load()
-            {
-                Propriedade.Estados = null;
-
-#if DEBUG
-                if (Empresas.Configuracoes.Count == 0)
-                {
-                    ConfiguracaoApp.GravarLogOperacoesRealizadas = true;
-                }
-
-                try
-                {
-                    var ass = Assembly.LoadFile(Propriedade.PastaExecutavel + "\\NFe.Components.Wsdl.dll");
-                    var x = ass.GetManifestResourceNames();
-                    if (x.GetLength(0) > 0)
-                    {
-                        string fileoutput = null;
-                        var okFiles = new List<string>();
-
-                        var afiles = (from d in x
-                                      where d.StartsWith("NFe.Components.Wsdl.NF")
-                                      select d);
-
-                        foreach (var s in afiles)
-                        {
-                            fileoutput = s.Replace("NFe.Components.Wsdl.", Propriedade.PastaExecutavel + "\\");
-                            if (fileoutput == null)
-                            {
-                                continue;
-                            }
-
-                            if (fileoutput.ToLower().EndsWith(".xsd"))
-                            {
-                                /// Ex: NFe.Components.Wsdl.NFe.NFe.xmldsig-core-schema_v1.01.xsd
-                                ///
-                                /// pesquisa pelo nome do XSD
-                                var plast = fileoutput.ToLower().LastIndexOf("_v");
-                                if (plast == -1)
-                                {
-                                    plast = fileoutput.IndexOf(".xsd") - 1;
-                                }
-
-                                while (fileoutput[plast] != '.' && plast >= 0)
-                                {
-                                    --plast;
-                                }
-
-                                var fn = fileoutput.Substring(plast + 1);
-                                fileoutput = fileoutput.Substring(0, plast).Replace(".", "\\") + "\\" + fn;
-                            }
-                            else
-                            {
-                                fileoutput = (fileoutput.Substring(0, fileoutput.LastIndexOf('.')) + "####" +
-                                                fileoutput.Substring(fileoutput.LastIndexOf('.') + 1)).Replace(".", "\\").Replace("####", ".");
-                            }
-
-                            ExtractResourceToDisk(ass, s, fileoutput);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    var xMotivo = "Não foi possível atualizar pacotes de Schemas/WSDLs.";
-
-                    Auxiliar.WriteLog(cErros = xMotivo + Environment.NewLine + ex.Message, false, true);
-
-                    if (Empresas.Configuracoes.Count > 0)
-                    {
-                        var emp = Empresas.FindEmpresaByThread();
-                        var oAux = new Auxiliar();
-                        oAux.GravarArqErroERP(Empresas.Configuracoes[emp].CNPJ + ".err", cErros);
-                    }
-                }
-#endif
-            }
-        }
-
-        #endregion Extrae os arquivos necessarios a executacao
-
         #region StartVersoes
 
         public static void StartVersoes()
         {
             ConfiguracaoApp.CarregarDados();
-
-            new loadResources().load();
         }
 
         #endregion StartVersoes
