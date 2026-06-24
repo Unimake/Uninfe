@@ -3,10 +3,8 @@ using NFe.Settings;
 using NFe.Validate;
 using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Xml;
-using Unimake.Business.DFe.Servicos;
 
 namespace NFe.UI
 {
@@ -49,13 +47,6 @@ namespace NFe.UI
                 // Remover atributo de somente leitura que pode gerar problemas no acesso do arquivo
                 Service.TFunctions.RemoveSomenteLeitura(arquivo);
 
-                // Desviar para nova rotina, se ela não atender determinados arquivos, vamos validar da forma antiga, sem a DLL do UniNFe
-                // De futuro vamos apagar todo o conteúdo da rotina antiga.
-
-                #region Nova rotina de validação
-
-                var validarXMLNew = new ValidarXMLNew();
-
                 try
                 {
                     var xmlDoc = new XmlDocument();
@@ -65,146 +56,15 @@ namespace NFe.UI
                     {
                         edtTipoarquivo.Text = xmlValidado.Descricao;
                         textBox_resultado.Text = xmlValidado.MensagemRetorno;
+
                         return;
-
                     }
-                    //if (validarXMLNew.Validar(arquivo, false, Emp))
-                    //{
-                    //    edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
-                    //    textBox_resultado.Text = "XML validado com sucesso!";
-
-                    //    return;
-                    //}
-
-
                 }
                 catch (Exception ex)
                 {
                     textBox_resultado.Text = "Ocorreu um erro na validação do XML: \r\n\r\n" + ex.Message;
                     return;
                 }
-
-                #endregion Nova rotina de validação
-
-
-                #region Rotina antiga de validação
-
-                NFe.Service.TaskValidar val = new Service.TaskValidar();
-                val.NomeArquivoXML = arqDestino.FullName;
-                val.Execute();
-                int codUF = Empresas.Configuracoes[Emp].UnidadeFederativaCodigo;
-                // Detectar o tipo do arquivo
-                PadraoNFSe padraoNFSe = Functions.BuscaPadraoNFSe(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo);
-                if (padraoNFSe == PadraoNFSe.BETHA)
-                {
-                    string versao = Functions.GetAttributeXML("LoteRps", "versao", arquivo);
-                    if (versao.Equals("2.02"))
-                        codUF = 202;
-                }
-                Validate.ValidarXML validarXML = new Validate.ValidarXML(arquivo, codUF, false);
-
-                string resultValidacao = "";
-
-                XmlDocument conteudoXML = new XmlDocument();
-                conteudoXML.PreserveWhitespace = true;
-                try
-                {
-                    conteudoXML.Load(arquivo);
-                }
-                catch
-                {
-                    conteudoXML.LoadXml(File.ReadAllText(arquivo, System.Text.Encoding.UTF8));
-                }
-
-                textBox_resultado.Text = validarXML.TipoArqXml.cRetornoTipoArq;
-
-                // Refatoração efetuada para utilizar a nova biblioteca de assinatura estática da DLL
-                if (validarXML.TipoArqXml.nRetornoTipoArq >= 1 && validarXML.TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
-                {
-                    edtTipoarquivo.Text = validarXML.TipoArqXml.cRetornoTipoArq;
-
-                    var tipoArquivo = new TipoArquivoXML(arquivo, Empresas.Configuracoes[Emp].UnidadeFederativaCodigo, false);
-                    X509Certificate2 certificado = Empresas.Configuracoes[Emp].X509Certificado;
-
-                    var algoritmo = (conteudoXML.DocumentElement.Name.Equals("Reinf") || conteudoXML.DocumentElement.Name.Equals("eSocial"))
-                        ? Unimake.Business.DFe.Security.AlgorithmType.Sha256
-                        : Unimake.Business.DFe.Security.AlgorithmType.Sha1;
-
-                    bool lValidar = false;
-
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(tipoArquivo.TagAssinatura))
-                        {
-                            Unimake.Business.DFe.Security.AssinaturaDigital.Assinar(conteudoXML, tipoArquivo.TagAssinatura, tipoArquivo.TagAtributoId, certificado, algoritmo, true);
-                        }
-
-                        if (!string.IsNullOrEmpty(tipoArquivo.TagAssinatura0))
-                        {
-                            Unimake.Business.DFe.Security.AssinaturaDigital.Assinar(conteudoXML, tipoArquivo.TagAssinatura0, tipoArquivo.TagAtributoId0, certificado, algoritmo, true);
-                        }
-
-                        // Assinar o lote, se existir
-                        if (!string.IsNullOrEmpty(tipoArquivo.TagLoteAssinatura))
-                        {
-                            Unimake.Business.DFe.Security.AssinaturaDigital.Assinar(conteudoXML, tipoArquivo.TagLoteAssinatura, tipoArquivo.TagLoteAtributoId, certificado, algoritmo, true);
-                        }
-
-                        conteudoXML.Save(arquivo);
-                        lValidar = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        lValidar = false;
-                        textBox_resultado.Text = "Ocorreu um erro ao tentar assinar o XML: \r\n\r\n" +
-                            validarXML.TipoArqXml.cRetornoTipoArq + "\r\n" + ex.Message;
-                    }
-
-                    if (lValidar)
-                    {
-                        // Validar o arquivo e capturar o resultado
-                        string resultado = validarXML.ValidarArqXML(conteudoXML, arquivo);
-
-                        if (!string.IsNullOrEmpty(resultado))
-                        {
-                            textBox_resultado.Text = resultado;
-                        }
-                        else if (string.IsNullOrEmpty(validarXML.TipoArqXml.cArquivoSchema))
-                        {
-                            textBox_resultado.Text = "XML não possui schema de validação, sendo assim não é possível validar XML";
-                        }
-                        else if (validarXML.Retorno == 0 && string.IsNullOrEmpty(resultValidacao))
-                        {
-                            textBox_resultado.Text = "Arquivo validado com sucesso!";
-                        }
-                        else if (!string.IsNullOrEmpty(resultValidacao))
-                        {
-                            textBox_resultado.Text = resultValidacao;
-                        }
-                        else
-                        {
-                            textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.RetornoString;
-                        }
-                    }
-                }
-                try
-                {
-                    if (wb == null)
-                    {
-                        wb = new WebBrowser();
-                        wb.Parent = metroTabPage2;
-                        wb.Dock = DockStyle.Fill;
-                        wb.DocumentCompleted += webBrowser1_DocumentCompleted;
-                    }
-                    wb.Visible = true;
-                    wb.Navigate(arquivo);
-                }
-                catch
-                {
-                    webBrowser1_DocumentCompleted(null, null);
-                }
-
-                #endregion Rotina antiga de validação
             }
             catch (Exception ex)
             {

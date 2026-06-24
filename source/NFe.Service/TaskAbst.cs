@@ -147,15 +147,6 @@ namespace NFe.Service
                 //Fazer uma leitura de algumas tags do XML
                 var dadosNFe = LerXMLNFe(conteudoXML);
 
-                var respTecnico = new RespTecnico(Empresas.Configuracoes[emp].RespTecCNPJ,
-                    Empresas.Configuracoes[emp].RespTecXContato,
-                    Empresas.Configuracoes[emp].RespTecEmail,
-                    Empresas.Configuracoes[emp].RespTecTelefone,
-                    Empresas.Configuracoes[emp].RespTecIdCSRT,
-                    Empresas.Configuracoes[emp].RespTecCSRT);
-
-                respTecnico.AdicionarResponsavelTecnico(conteudoXML);
-
                 var ChaveNfe = dadosNFe.chavenfe;
                 var TpEmis = dadosNFe.tpEmis;
 
@@ -177,22 +168,7 @@ namespace NFe.Service
                 {
                     var xmlDoc = new XmlDocument();
                     xmlDoc.LoadXml(conteudoXML.OuterXml);
-
-                    var validarXMLNew = new ValidarXMLNew();
-
-                    switch (Servico)
-                    {
-                        case Servicos.CTeAssinarValidarEnvioEmLote:
-                        case Servicos.NFeAssinarValidarEnvioEmLote:
-                            validarXMLNew.Validar(xmlDoc, true, NomeArquivoXML, emp);
-                            conteudoXML.Load(NomeArquivoXML);
-                            break;
-
-                        default:
-                            ValidarXMLSchema.Validar(xmlDoc, emp, false);
-                            //validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML, emp);
-                            break;
-                    }
+                    ValidarXMLSchema.Validar(xmlDoc, emp, false);
                 }
                 catch (Exception ex)
                 {

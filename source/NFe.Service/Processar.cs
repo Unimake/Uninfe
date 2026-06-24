@@ -4,18 +4,17 @@ using NFe.Components.Info;
 using NFe.ConvertTxt;
 using NFe.Exceptions;
 using NFe.Service.CCG;
+using NFe.Service.CIOT;
 using NFe.Service.DARE;
 using NFe.Service.DCe;
 using NFe.Service.EFDReinf;
 using NFe.Service.GNRE;
-using NFe.Service.CIOT;
 using NFe.Service.NF3e;
 using NFe.Service.NFCom;
 using NFe.Service.NFGas;
 using NFe.Settings;
 using NFe.Validate;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -558,7 +557,7 @@ namespace NFe.Service
                             break;
 
                         case Servicos.AssinarValidar:
-                            if (!arquivo.ToLower().Contains(Empresas.Configuracoes[emp].PastaValidar.ToLower()) || Empresas.Configuracoes[emp].AmbienteCodigo != 2)
+                            if (Empresas.Configuracoes[emp].AmbienteCodigo != 2)
                             {
                                 CertVencido(emp);
                             }
@@ -1490,9 +1489,10 @@ namespace NFe.Service
         /// <param name="arquivo">Arquivo a ser assinado e validado</param>
         protected void AssinarValidar(string arquivo)
         {
+            var emp = Empresas.FindEmpresaByThread();
+
             try
             {
-                var emp = Empresas.FindEmpresaByThread();
                 if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
                     var xmlDoc = new XmlDocument();
@@ -1509,20 +1509,13 @@ namespace NFe.Service
                     {
                         return;
                     }
-
-                    if (new ValidarXMLNew().Validar(arquivo, true, emp))
-                    {
-                        return;
-                    }
                 }
-
-
-                Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaValidado, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
-                Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
-                Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(arquivo)));
-
-                if (arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
+                else
                 {
+                    Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaValidado, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
+                    Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
+                    Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(arquivo)));
+
                     if (arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioTXT, StringComparison.InvariantCultureIgnoreCase))
                     {
                         #region DFe
@@ -1618,25 +1611,18 @@ namespace NFe.Service
                         DirecionarArquivo(emp, false, false, arquivo, new TaskNFeConsultaSituacao(arquivo));
                     }
                 }
-                else
-                {
-                    if (arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.EnvCCe).EnvioXML, StringComparison.InvariantCultureIgnoreCase) ||
-                        arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.EnvCancelamento).EnvioXML, StringComparison.InvariantCultureIgnoreCase) ||
-                        arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.EnvManifestacao).EnvioXML, StringComparison.InvariantCultureIgnoreCase) ||
-                        arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML, StringComparison.InvariantCultureIgnoreCase) ||
-                        arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, StringComparison.InvariantCultureIgnoreCase) ||
-                        arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        DirecionarArquivo(arquivo);
-                    }
-
-                    var validar = new ValidarXML(arquivo, Empresas.Configuracoes[emp].UnidadeFederativaCodigo, true);
-                    validar.ValidarAssinarXML(arquivo);
-                }
             }
             catch (Exception ex)
             {
-                new ValidarXML(arquivo, "Ocorreu um erro ao assinar o XML: " + ex.Message);
+                ValidarXMLSchema.GravarXMLRetornoValidacao(
+                    arquivo,
+                    new Unimake.Business.DFe.ValidarEstruturaXML.ResultadoValidacao
+                    {
+                        Descricao = "",
+                        MensagemRetorno = "Ocorreu um erro ao assinar o XML: " + ex.GetAllMessages(),
+                        StatusValidacao = "3",
+                        Validado = false
+                    }, emp, false);
             }
         }
 
