@@ -391,15 +391,6 @@ namespace NFe.Service.NFSe
 
                     break;
 
-                case PadraoNFSe.BETHA:
-                    versaoXML = "2.02";
-
-                    if (xmlDoc.DocumentElement.Name.Contains("e:"))
-                    {
-                        versaoXML = "1.00";
-                    }
-                    break;
-
                 case PadraoNFSe.BETHA_CLOUD:
                     versaoXML = "1.01";
                     break;

@@ -292,10 +292,6 @@ namespace NFe.Service.NFSe
 
                     break;
 
-                case PadraoNFSe.BETHA:
-                    versaoXML = "1.00";
-                    break;
-
                 default:
                     throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de Situação de Lote RPS.");
 

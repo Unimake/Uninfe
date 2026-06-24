@@ -148,7 +148,6 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.01";
                     break;
 
-                case PadraoNFSe.BETHA:
                 case PadraoNFSe.WEBISS:
                 case PadraoNFSe.MODERNIZACAO_PUBLICA:
                 case PadraoNFSe.FUTURIZE:

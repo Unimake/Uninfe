@@ -340,7 +340,6 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.BETHA:
                 case PadraoNFSe.PRODATA:
                 case PadraoNFSe.AVMB:
                 case PadraoNFSe.WEBISS:
@@ -588,22 +587,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.PRODATA:
                     versaoXML = "2.01";
-                    break;
-
-                case PadraoNFSe.BETHA:
-                    versaoXML = Functions.GetAttributeXML("LoteRps", "versao", NomeArquivoXML);
-                    if (string.IsNullOrWhiteSpace(versaoXML))
-                    {
-                        if (xmlDoc.GetElementsByTagName("GerarNfseEnvio").Count > 0)
-                        {
-                            versaoXML = "2.02";
-                            break;
-                        }
-                    }
-                    if (!versaoXML.Equals("2.02"))
-                    {
-                        versaoXML = "1.00";
-                    }
                     break;
 
                 case PadraoNFSe.BETHA_CLOUD:

@@ -1596,10 +1596,6 @@ namespace NFe.Service
 
             switch (padraoNFse)
             {
-                case PadraoNFSe.BETHA:
-                    municipioRetorno = 9999903;
-                    break;
-
                 case PadraoNFSe.MEMORY:
                     municipioRetorno = 9999901;
                     break;

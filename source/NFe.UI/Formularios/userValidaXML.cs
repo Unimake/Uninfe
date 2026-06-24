@@ -95,12 +95,7 @@ namespace NFe.UI
                 int codUF = Empresas.Configuracoes[Emp].UnidadeFederativaCodigo;
                 // Detectar o tipo do arquivo
                 PadraoNFSe padraoNFSe = Functions.BuscaPadraoNFSe(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo);
-                if (padraoNFSe == PadraoNFSe.BETHA)
-                {
-                    string versao = Functions.GetAttributeXML("LoteRps", "versao", arquivo);
-                    if (versao.Equals("2.02"))
-                        codUF = 202;
-                }
+
                 Validate.ValidarXML validarXML = new Validate.ValidarXML(arquivo, codUF, false);
 
                 string resultValidacao = "";
