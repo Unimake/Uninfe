@@ -1,9 +1,7 @@
 using NFe.Components;
 using NFe.Settings;
-using NFSe.Components;
 using System;
 using System.IO;
-using System.ServiceModel;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 namespace NFe.Service.NFSe

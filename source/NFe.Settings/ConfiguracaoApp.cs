@@ -224,18 +224,6 @@ namespace NFe.Settings
             ConfiguracaoApp.CarregarDados();
 
             new loadResources().load();
-
-            try
-            {
-                SchemaXML.CriarListaIDXML();
-            }
-            catch (Exception ex)
-            {
-                ///
-                /// essa mensagem nunca será exibida ao usuário, porque se ela for exibida, você terá que ajustar
-                ///
-                MessageBox.Show(ex.Message + "\r\n" + ex.StackTrace);
-            }
         }
 
         #endregion StartVersoes

@@ -192,7 +192,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RespTecnico.cs" />
-    <Compile Include="ValidarXML.cs" />
     <Compile Include="ValidarXMLSchema.cs" />
   </ItemGroup>
   <ItemGroup>
