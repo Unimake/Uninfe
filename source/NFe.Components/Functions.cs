@@ -176,9 +176,6 @@ namespace NFe.Components
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.BETHA:
-                    return 9999903;
-
                 case PadraoNFSe.MEMORY:
                     return 9999901;
 
