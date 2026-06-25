@@ -12,13 +12,15 @@ namespace NFe.Validate
 {
     public class ValidarXMLSchema
     {
+
+
         /// <summary>
         /// Gravar Retorno da Validação do XML.
         /// </summary>
         /// <param name="arquivo">Arquivo validado</param>
         /// <param name="resultado">Resultado da validação</param>
         /// <param name="emp">Indice da empresa</param>
-        public static void GravarXMLRetornoValidacao(string arquivo, ResultadoValidacao resultado, int emp, bool isNFSe)
+        private static void GravarXMLRetornoValidacao(string arquivo, ResultadoValidacao resultado, int emp, bool isNFSe)
         {
             var status = resultado.StatusValidacao;
             var mensagem = resultado.MensagemRetorno;
@@ -32,17 +34,18 @@ namespace NFe.Validate
                 new XElement("xMotivo", mensagem)));
             xml.Save(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + arquivoRetorno);
 
+
             if (status == "1")
             {
                 if (!arquivo.ToLower().Contains((Empresas.Configuracoes[emp].PastaXmlEmLote.Trim() + "\\temp").ToLower()) || isNFSe)
                 {
                     File.Delete(arquivo);
                 }
+
             }
             else
             {
                 var arqErro = Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Functions.ExtrairNomeArq(arquivo, ".xml") + ".xml");
-
                 if (File.Exists(arqErro))
                 {
                     File.Delete(arqErro);
@@ -51,6 +54,8 @@ namespace NFe.Validate
                 File.Move(arquivo, arqErro);
             }
         }
+
+
 
         /// <summary>
         /// Gravar XML assinado e validado.
@@ -66,6 +71,7 @@ namespace NFe.Validate
                 var SW_2 = File.CreateText(arquivoXML);
                 SW_2.Write(xmlSalvar.OuterXml);
                 SW_2.Close();
+
             }
             else
             {
@@ -83,26 +89,27 @@ namespace NFe.Validate
                 SW_2.Write(xmlSalvar.OuterXml);
                 SW_2.Close();
             }
+
         }
+
 
         public static ResultadoValidacao Validar(XmlDocument xmlDoc, int emp, bool retornoArquivo, string arquivoXML = null)
         {
             #region variáveis validação
-
-            var municipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
-            var padraoNFSe = Functions.BuscaPadraoNFSe(municipio);
-
+            var codigoConfiguracao = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+            var padraoNFSe = Functions.BuscaPadraoNFSe(codigoConfiguracao);
             var configuracao = new Configuracao
             {
                 PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.Homologacao ? TipoAmbiente.Homologacao : TipoAmbiente.Producao,
                 CSC = Empresas.Configuracoes[emp].IdentificadorCSC,
-                CodigoUF = municipio,
-                CodigoMunicipio = Functions.DefinirMunicipioPadraoNFSe(padraoNFSe, municipio),
+                CodigoUF = codigoConfiguracao,
+                CodigoMunicipio = padraoNFSe == PadraoNFSe.None ? 0 : codigoConfiguracao,
                 CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC)),
                 PadraoNFSe = padraoNFSe
             };
+
 
             var respTecnico = new RespTecnico(Empresas.Configuracoes[emp].RespTecCNPJ,
             Empresas.Configuracoes[emp].RespTecXContato,
@@ -140,10 +147,13 @@ namespace NFe.Validate
                     GravarXMLRetornoValidacao(arquivoXML, resultadoValidacao, emp, isNFSe);
                     new Auxiliar().MoveArqErro(arquivoXML);
                 }
+
             }
 
             return resultadoValidacao;
+
         }
+
 
         /// <summary>
         /// Adicionar responsável técnico
@@ -155,6 +165,7 @@ namespace NFe.Validate
         {
             respTecnico.AdicionarResponsavelTecnico(xmlDoc);
         }
+
 
         private static void PrepararConfiguracaoQRCode(XmlDocument xmlDoc, Configuracao config, int emp)
         {
@@ -183,12 +194,13 @@ namespace NFe.Validate
                     {
                         config.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
                         config.CSCIDToken = Convert.ToInt32(
-                            string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" :
-                            Empresas.Configuracoes[emp].TokenCSC);
+                            string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC
+                        );
                     }
                 }
             }
         }
+
 
         /// <summary>
         /// Valida XML
@@ -201,5 +213,6 @@ namespace NFe.Validate
 
             return validar.ValidarServico(xmlDoc, configuracao);
         }
+
     }
 }
