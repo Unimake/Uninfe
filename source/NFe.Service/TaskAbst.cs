@@ -166,9 +166,7 @@ namespace NFe.Service
 
                 try
                 {
-                    var xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(conteudoXML.OuterXml);
-                    ValidarXMLSchema.Validar(xmlDoc, emp, false);
+                    ValidarXMLSchema.Validar(conteudoXML, emp, false);
                 }
                 catch (Exception ex)
                 {
