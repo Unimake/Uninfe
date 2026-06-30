@@ -1897,10 +1897,10 @@ namespace NFe.Settings
         }
 
         /// <summary>
-        /// Extrair CNPJ e CPF do certificado
+        /// Extrair CNPJ ou CPF do certificado
         /// </summary>
         /// <param name="certificado">Subject do certificado</param>
-        /// <returns>Objeto contendo CPF e/ou CNPJ encontrados</returns>
+        /// <returns>Objeto contendo CPF ou CNPJ encontrado</returns>
         private DocumentosCertificado ExtrairCNPJCPFCertificado(string certificado)
         {
             var resultado = new DocumentosCertificado();
@@ -1912,64 +1912,32 @@ namespace NFe.Settings
 
             try
             {
-                var doisDocumentosMatch = Regex.Match(certificado, @"(\d{11}|[a-zA-Z0-9]{12}\d{2})[:\s](\d{11}|[a-zA-Z0-9]{12}\d{2})");
-                if (doisDocumentosMatch.Success)
+                var cnpjMatch = Regex.Match(certificado, @"(?<![a-zA-Z0-9])([a-zA-Z0-9]{12}\d{2})(?![a-zA-Z0-9])");
+                if (cnpjMatch.Success)
                 {
-                    var doc1 = doisDocumentosMatch.Groups[1].Value.ToUpper();
-                    var doc2 = doisDocumentosMatch.Groups[2].Value.ToUpper();
-
-                    if (doc1.Length == 11 && doc2.Length == 14)
-                    {
-                        resultado.CPF = doc1;
-                        resultado.CNPJ = doc2;
-                        return resultado;
-                    }
-                    else if (doc1.Length == 14 && doc2.Length == 11)
-                    {
-                        resultado.CNPJ = doc1;
-                        resultado.CPF = doc2;
-                        return resultado;
-                    }
-                    else if (doc1.Length == 14 && doc2.Length == 14)
-                    {
-                        resultado.CNPJ = doc1;
-                        return resultado;
-                    }
-                    else if (doc1.Length == 11 && doc2.Length == 11)
-                    {
-                        resultado.CPF = doc1;
-                        return resultado;
-                    }
+                    resultado.CNPJ = cnpjMatch.Groups[1].Value.ToUpper();
+                    return resultado;
                 }
 
-                if (string.IsNullOrEmpty(resultado.CNPJ) && string.IsNullOrEmpty(resultado.CPF))
+                var cnpjSemZeroInicialMatch = Regex.Match(certificado, @"(?<![a-zA-Z0-9])(\d{13})(?![a-zA-Z0-9])");
+                if (cnpjSemZeroInicialMatch.Success)
                 {
-                    var cnpjMatch = Regex.Match(certificado, @"\b([a-zA-Z0-9]{12}\d{2})\b");
-                    if (cnpjMatch.Success)
-                    {
-                        resultado.CNPJ = cnpjMatch.Groups[1].Value;
-                    }
-
-                    if (string.IsNullOrEmpty(resultado.CNPJ))
-                    {
-                        var cpfMatch = Regex.Match(certificado, @"\b(\d{11})\b");
-                        if (cpfMatch.Success)
-                        {
-                            resultado.CPF = cpfMatch.Groups[1].Value;
-                        }
-                    }
+                    resultado.CNPJ = cnpjSemZeroInicialMatch.Groups[1].Value.PadLeft(14, '0');
+                    return resultado;
                 }
 
-                if (!string.IsNullOrEmpty(resultado.CNPJ) && string.IsNullOrEmpty(resultado.CPF))
+                var cpfMatch = Regex.Match(certificado, @"(?<![a-zA-Z0-9])(\d{11})(?![a-zA-Z0-9])");
+                if (cpfMatch.Success)
                 {
-                    var cpfMatch = Regex.Match(certificado, @"\b(\d{11})\b");
-                    if (cpfMatch.Success)
-                    {
-                        if (!resultado.CNPJ.Contains(cpfMatch.Groups[1].Value))
-                        {
-                            resultado.CPF = cpfMatch.Groups[1].Value;
-                        }
-                    }
+                    resultado.CPF = cpfMatch.Groups[1].Value;
+                    return resultado;
+                }
+
+                var cpfSemZeroInicialMatch = Regex.Match(certificado, @"(?<![a-zA-Z0-9])(\d{10})(?![a-zA-Z0-9])");
+                if (cpfSemZeroInicialMatch.Success)
+                {
+                    resultado.CPF = cpfSemZeroInicialMatch.Groups[1].Value.PadLeft(11, '0');
+                    return resultado;
                 }
             }
             catch
