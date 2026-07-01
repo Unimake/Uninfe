@@ -829,7 +829,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Enivo / Gerar NFS-e.");
+                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Envio / Gerar NFS-e.");
             }
 
             return versaoXML;
