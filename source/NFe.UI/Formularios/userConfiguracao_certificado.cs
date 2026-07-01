@@ -86,15 +86,25 @@ namespace NFe.UI.Formularios
             {
                 cnpj = empresa.CNPJ.Replace(empresa.InscricaoEstadual, "");
             }
-            var ehIgual = configuracao.EhIgualDocumento(empresa.Certificado, cnpj);
 
-            if (!ehIgual)
+            try
             {
-                var mensagem = "O CNPJ ou CPF do certificado digital não é o mesmo da empresa configurada. \n" +
-                              "Caso queira prosseguir, clique em 'OK'\n\n";
+                var ehIgual = configuracao.EhIgualDocumento(empresa.Certificado, cnpj);
 
+                if (!ehIgual)
+                {
+                    var mensagem = "O CNPJ ou CPF do certificado digital não é o mesmo da empresa configurada. \n" +
+                                  "Caso queira prosseguir, clique em 'OK'\n\n";
+
+                    MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm,
+                        mensagem, "Aviso - Verificação de Identificação",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
                 MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm,
-                    mensagem, "Aviso - Verificação de Identificação",
+                    ex.Message, "Aviso - Verificação de Identificação",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
