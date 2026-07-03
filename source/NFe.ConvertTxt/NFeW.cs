@@ -1975,14 +1975,7 @@ namespace NFe.ConvertTxt
                 wCampo(imposto.IBSCBS.cClassTrib, TpcnTipoCampo.tcStr, TpcnResources.cClassTrib);
                 wCampo(imposto.IBSCBS.indDoacao, TpcnTipoCampo.tcStr, TpcnResources.indDoacao, ObOp.Opcional);
 
-                if (imposto.IBSCBS.gIBSCBS.vBC > 0 ||
-                    imposto.IBSCBS.gIBSCBS.vIBS > 0 ||
-                    imposto.IBSCBS.gIBSCBS.gIBSUF.pIBSUF > 0 ||
-                    imposto.IBSCBS.gIBSCBS.gIBSUF.vIBSUF > 0 ||
-                    imposto.IBSCBS.gIBSCBS.gIBSMun.pIBSMun > 0 ||
-                    imposto.IBSCBS.gIBSCBS.gIBSMun.vIBSMun > 0 ||
-                    imposto.IBSCBS.gIBSCBS.gCBS.pCBS > 0 ||
-                    imposto.IBSCBS.gIBSCBS.gCBS.vCBS > 0)
+                if (TemDadosGIBSCBS(nfe, imposto))
                 {
                     XmlElement gIBSCBS = doc.CreateElement(TpcnResources.gIBSCBS.ToString());
                     IBSCBS.AppendChild(gIBSCBS);
@@ -2010,7 +2003,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSUF);
                     }
 
-                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515" || (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) //Somente estes CSTs podem ter redução
+                    if (PodeGerarGRed(nfe, imposto)) //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gIBSUF);
                     }
@@ -2039,7 +2032,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSMun);
                     }
 
-                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515" || (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) //Somente estes CSTs podem ter redução) //Somente estes CSTs podem ter redução
+                    if (PodeGerarGRed(nfe, imposto)) //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gIBSMun);
                     }
@@ -2071,7 +2064,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gCBS);
                     }
 
-                    if (imposto.IBSCBS.CST == "011" || imposto.IBSCBS.CST == "200" || imposto.IBSCBS.CST == "515" || (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510")) //Somente estes CSTs podem ter redução
+                    if (PodeGerarGRed(nfe, imposto)) //Somente estes CSTs podem ter redução
                     {
                         GerarDetImpostoIBSCBSGRed(nfe, imposto, gCBS);
                     }
@@ -2289,6 +2282,122 @@ namespace NFe.ConvertTxt
 
                 nodeCurrent = xmlCurrent;
             }
+        }
+
+        /// <summary>
+        /// TemDadosGIBSCBS
+        /// </summary>
+        private bool TemDadosGIBSCBS(NFe nfe, Imposto imposto)
+        {
+            return imposto.IBSCBS.gIBSCBS.vBC > 0 ||
+                imposto.IBSCBS.gIBSCBS.vIBS > 0 ||
+                TemDadosGIBSUF(nfe, imposto) ||
+                TemDadosGIBSMun(nfe, imposto) ||
+                TemDadosGCBS(nfe, imposto) ||
+                TemDadosGTribRegular(imposto.IBSCBS.gIBSCBS.gTribRegular) ||
+                TemDadosGTribCompraGov(imposto.IBSCBS.gIBSCBS.gTribCompraGov);
+        }
+
+        /// <summary>
+        /// TemDadosGIBSUF
+        /// </summary>
+        private bool TemDadosGIBSUF(NFe nfe, Imposto imposto)
+        {
+            return imposto.IBSCBS.gIBSCBS.gIBSUF.pIBSUF > 0 ||
+                imposto.IBSCBS.gIBSCBS.gIBSUF.vIBSUF > 0 ||
+                TemDadosGDif(imposto.IBSCBS.gIBSCBS.gIBSUF.gDif, imposto.IBSCBS.CST) ||
+                TemDadosGDevTrib(imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib) ||
+                TemDadosGRed(nfe, imposto, imposto.IBSCBS.gIBSCBS.gIBSUF.gRed);
+        }
+
+        /// <summary>
+        /// TemDadosGIBSMun
+        /// </summary>
+        private bool TemDadosGIBSMun(NFe nfe, Imposto imposto)
+        {
+            return imposto.IBSCBS.gIBSCBS.gIBSMun.pIBSMun > 0 ||
+                imposto.IBSCBS.gIBSCBS.gIBSMun.vIBSMun > 0 ||
+                TemDadosGDif(imposto.IBSCBS.gIBSCBS.gIBSMun.gDif, imposto.IBSCBS.CST) ||
+                TemDadosGDevTrib(imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib) ||
+                TemDadosGRed(nfe, imposto, imposto.IBSCBS.gIBSCBS.gIBSMun.gRed);
+        }
+
+        /// <summary>
+        /// TemDadosGCBS
+        /// </summary>
+        private bool TemDadosGCBS(NFe nfe, Imposto imposto)
+        {
+            return imposto.IBSCBS.gIBSCBS.gCBS.pCBS > 0 ||
+                imposto.IBSCBS.gIBSCBS.gCBS.vCBS > 0 ||
+                TemDadosGDif(imposto.IBSCBS.gIBSCBS.gCBS.gDif, imposto.IBSCBS.CST) ||
+                TemDadosGDevTrib(imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib) ||
+                TemDadosGRed(nfe, imposto, imposto.IBSCBS.gIBSCBS.gCBS.gRed);
+        }
+
+        /// <summary>
+        /// TemDadosGDif
+        /// </summary>
+        private bool TemDadosGDif(GDif gDif, string cst)
+        {
+            return gDif.vDif > 0 ||
+                gDif.pDif > 0 ||
+                cst == "510";
+        }
+
+        /// <summary>
+        /// TemDadosGDevTrib
+        /// </summary>
+        private bool TemDadosGDevTrib(GDevTrib gDevTrib)
+        {
+            return gDevTrib.vDevTrib > 0;
+        }
+
+        /// <summary>
+        /// TemDadosGRed
+        /// </summary>
+        private bool TemDadosGRed(NFe nfe, Imposto imposto, GRed gRed)
+        {
+            return (gRed.pRedAliq > 0 || gRed.pAliqEfet > 0) &&
+                PodeGerarGRed(nfe, imposto);
+        }
+
+        /// <summary>
+        /// PodeGerarGRed
+        /// </summary>
+        private bool PodeGerarGRed(NFe nfe, Imposto imposto)
+        {
+            return imposto.IBSCBS.CST == "011" ||
+                imposto.IBSCBS.CST == "200" ||
+                imposto.IBSCBS.CST == "515" ||
+                (Enum.IsDefined(typeof(TpcnTipoEnteGovernamental), nfe.ide.gCompraGov.tpEnteGov) && imposto.IBSCBS.CST != "510");
+        }
+
+        /// <summary>
+        /// TemDadosGTribRegular
+        /// </summary>
+        private bool TemDadosGTribRegular(GTribRegular gTribRegular)
+        {
+            return !string.IsNullOrEmpty(gTribRegular.CSTReg) ||
+                !string.IsNullOrEmpty(gTribRegular.cClassTribReg) ||
+                gTribRegular.pAliqEfetRegIBSUF > 0 ||
+                gTribRegular.vTribRegIBSUF > 0 ||
+                gTribRegular.pAliqEfetRegIBSMun > 0 ||
+                gTribRegular.vTribRegIBSMun > 0 ||
+                gTribRegular.pAliqEfetRegCBS > 0 ||
+                gTribRegular.vTribRegCBS > 0;
+        }
+
+        /// <summary>
+        /// TemDadosGTribCompraGov
+        /// </summary>
+        private bool TemDadosGTribCompraGov(GTribCompraGov gTribCompraGov)
+        {
+            return gTribCompraGov.pAliqIBSUF > 0 ||
+                gTribCompraGov.vTribIBSUF > 0 ||
+                gTribCompraGov.pAliqIBSMun > 0 ||
+                gTribCompraGov.vTribIBSMun > 0 ||
+                gTribCompraGov.pAliqCBS > 0 ||
+                gTribCompraGov.vTribCBS > 0;
         }
 
         /// <summary>
