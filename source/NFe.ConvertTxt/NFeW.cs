@@ -1975,7 +1975,14 @@ namespace NFe.ConvertTxt
                 wCampo(imposto.IBSCBS.cClassTrib, TpcnTipoCampo.tcStr, TpcnResources.cClassTrib);
                 wCampo(imposto.IBSCBS.indDoacao, TpcnTipoCampo.tcStr, TpcnResources.indDoacao, ObOp.Opcional);
 
-                if (imposto.IBSCBS.gIBSCBS.vBC > 0)
+                if (imposto.IBSCBS.gIBSCBS.vBC > 0 ||
+                    imposto.IBSCBS.gIBSCBS.vIBS > 0 ||
+                    imposto.IBSCBS.gIBSCBS.gIBSUF.pIBSUF > 0 ||
+                    imposto.IBSCBS.gIBSCBS.gIBSUF.vIBSUF > 0 ||
+                    imposto.IBSCBS.gIBSCBS.gIBSMun.pIBSMun > 0 ||
+                    imposto.IBSCBS.gIBSCBS.gIBSMun.vIBSMun > 0 ||
+                    imposto.IBSCBS.gIBSCBS.gCBS.pCBS > 0 ||
+                    imposto.IBSCBS.gIBSCBS.gCBS.vCBS > 0)
                 {
                     XmlElement gIBSCBS = doc.CreateElement(TpcnResources.gIBSCBS.ToString());
                     IBSCBS.AppendChild(gIBSCBS);
