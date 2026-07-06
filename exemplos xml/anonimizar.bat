@@ -1,0 +1,1 @@
+dotnet-script anon-nfe.csx "c:\projetos\github\uninfe\exemplos xml\xmlanonimizar"
