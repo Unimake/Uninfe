@@ -159,7 +159,7 @@ namespace NFe.Service.NFSe
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
-            if(padraoNFSe != PadraoNFSe.PRIMAX)
+            if((padraoNFSe != PadraoNFSe.PRIMAX) && (padraoNFSe != PadraoNFSe.CONAM)) 
             {
                 ExtrairPDF(emp, consultarNfsePDF, padraoNFSe);
             }
