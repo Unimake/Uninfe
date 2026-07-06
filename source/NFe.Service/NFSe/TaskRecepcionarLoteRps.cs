@@ -688,6 +688,10 @@ namespace NFe.Service.NFSe
                     {
                         versaoXML = "3.00";
                     }
+                    else if (ConteudoXML.InnerXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
+                    }
 
                     break;
 
