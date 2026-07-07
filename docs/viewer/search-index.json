@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T16:47:44.627Z",
+  "generatedAt": "2026-07-07T22:01:04.711Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -631,6 +631,292 @@
         }
       ],
       "text": "Tela Consulta ao Cadastro de Contribuinte A tela Consulta ao cadastro de contribuinte permite consultar dados cadastrais de um contribuinte nos serviços fiscais, usando o certificado digital de uma empresa cadastrada no UniNFe. Use esta tela quando precisar verificar dados como CNPJ ou CPF, inscrição estadual, razão social, endereço, situação cadastral e informações fiscais retornadas pela consulta. Acesso No menu principal, clique em Cadastro de contribuinte . O botão fica disponível quando há empresa de NF e cadastrada. Empresas configuradas somente para NFS e não usam este serviço. Como consultar 1. Selecione a empresa que será usada para a consulta. 2. Confira a UF para onde a consulta será enviada. 3. Selecione o tipo de conteúdo da pesquisa: CNPJ , CPF ou IE . 4. Informe o conteúdo correspondente. 5. Clique em Consultar . Enquanto a consulta está em andamento, o campo Status mostra que o UniNFe está consultando o servidor. Quando há retorno com cadastro encontrado, a tela de resultado é exibida em abas. Campos da consulta Campo Para que serve Utilizar para consulta o certificado da empresa Define qual empresa cadastrada será usada na consulta. O certificado digital e as configurações dessa empresa são usados para enviar a solicitação. UF para o envio da consulta Define a unidade federativa para onde a consulta será enviada. Ao selecionar a empresa, o UniNFe preenche a UF conforme a configuração da empresa. Versão Mostra a versão do serviço usada na consulta. Na tela, este campo é exibido desabilitado. Conteúdo para pesquisa Informa o dado que será consultado. O conteúdo deve corresponder ao tipo selecionado: CNPJ, CPF ou IE. CNPJ Indica que o conteúdo informado é um CNPJ. O campo aceita até 14 dígitos. CPF Indica que o conteúdo informado é um CPF. O campo aceita até 11 dígitos. IE Indica que o conteúdo informado é uma inscrição estadual. O campo aceita até 20 caracteres. Status Exibe mensagens da consulta, como andamento, retorno sem cadastro ou erro recebido durante o processamento. Botões Botão Para que serve Consultar Envia a consulta usando a empresa, UF e conteúdo informados. Voltar Na tela de resultado, retorna para a tela de consulta. Resultado da consulta Quando a consulta retorna um ou mais cadastros, o UniNFe abre a tela de resultado. Cada cadastro retornado aparece em uma aba, identificada como Consulta 1 , Consulta 2 e assim por diante. Os campos do resultado são somente para leitura. Campo O que apresenta CNPJ ou CPF Documento do contribuinte retornado pela consulta. I.E. Inscrição estadual retornada. Nome Nome ou razão social do contribuinte. Fantasia Nome fantasia, quando retornado. Endereço Logradouro do endereço cadastral. Número Número do endereço. Complemento Complemento do endereço. Bairro Bairro do endereço. Cidade Município do endereço. Estado UF do endereço. CEP CEP do endereço. Data de ocorrência da baixa Data de baixa cadastral, quando retornada. CNAE Código da atividade econômica retornado. Data da última modificação da situação cadastral Data da última alteração da situação cadastral. Data de Início da atividade Data de início da atividade do contribuinte. Regime de Apuração do ICMS Regime de apuração do ICMS retornado pela consulta. I.E. Única Indicação ou informação de inscrição estadual única, quando retornada. I.E. Atual Inscrição estadual atual, quando retornada. Observações Situação ou observação cadastral retornada pelo serviço. Mensagens e validações Se o conteúdo para pesquisa não for informado, o UniNFe exibe a mensagem Conteúdo para pesquisa deve ser informado . Quando o serviço não retorna cadastro, o campo Status mostra o motivo informado no retorno da consulta. Se ocorrer erro durante a consulta, a mensagem é apresentada no campo Status para orientar a correção."
+    },
+    {
+      "id": "servicos-bpe-autorizacao-sincrona-md",
+      "title": "Autorização síncrona de BPe",
+      "path": "servicos/bpe/autorizacao-sincrona.md",
+      "category": "servicos/bpe",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Autorização síncrona de BPe"
+        },
+        {
+          "level": 2,
+          "text": "Pré-requisitos"
+        },
+        {
+          "level": 2,
+          "text": "Arquivo de envio"
+        },
+        {
+          "level": 2,
+          "text": "Fluxo de processamento"
+        },
+        {
+          "level": 2,
+          "text": "Fluxograma"
+        },
+        {
+          "level": 2,
+          "text": "Arquivos gerados e movimentados"
+        },
+        {
+          "level": 2,
+          "text": "Como tratar o retorno"
+        },
+        {
+          "level": 2,
+          "text": "Erros locais"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados para o integrador"
+        }
+      ],
+      "text": "Autorização síncrona de BPe A autorização síncrona de BPe permite que o ERP envie um Bilhete de Passagem Eletrônico ao UniNFe por troca de arquivos. O ERP grava o XML do BPe na pasta de envio configurada para a empresa, o UniNFe assina o documento, transmite para a SEFAZ e grava o retorno na pasta de retorno. Use este serviço quando a empresa emite BPe e precisa que o UniNFe faça o envio direto do XML para autorização. Pré requisitos Antes de enviar um BPe, confira na configuração da empresa: A empresa emissora está cadastrada no UniNFe. A pasta de envio, a pasta de retorno e a pasta de XMLs enviados estão configuradas. O certificado digital da empresa está configurado e válido. O ambiente de emissão está configurado conforme a operação desejada. As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet. A preparação TLS está habilitada quando o ambiente exigir essa configuração. Os dados do responsável técnico estão preenchidos, quando a emissão da empresa exigir essa informação. Se o XML do BPe não possuir o grupo do responsável técnico e os dados estiverem configurados na empresa, o UniNFe utiliza os dados da configuração para compor o XML antes do envio. Arquivo de envio O ERP deve gerar o XML do BPe na pasta de envio da empresa com o final fixo: O <identificador deve ser único para evitar conflito entre documentos. Normalmente ele é a chave do BPe. Exemplo: O conteúdo do arquivo deve ser o XML do BPe, com a estrutura esperada para o documento fiscal: O exemplo acima mostra apenas os principais grupos. O XML real deve conter todos os campos exigidos pelo leiaute do BPe para a operação fiscal. Campos e grupos principais: Campo ou grupo Como preencher infBPe/@Id Identificador do BPe. Deve ser compatível com a chave de acesso do documento. ide Dados de identificação do BPe, como UF, ambiente, modelo, série, número, modalidade, emissão e presença. emit Dados do emitente do BPe. infPassagem Dados da passagem, local de origem, local de destino, validade e passageiro. infViagem Dados da viagem, percurso, tipo de viagem, serviço, acomodação, trecho e data/hora da viagem. infValorBPe Valores do bilhete, descontos, pagamento, troco e componentes do valor. imp Informações de impostos do BPe. pag Informações de pagamento. infRespTec Dados do responsável técnico. Quando ausente no XML, pode ser preenchido com os dados configurados no UniNFe. Não inclua XML de consulta, evento ou status de serviço neste arquivo. Este serviço é síncrono: o envio e o retorno do webservice acontecem no mesmo processamento. Fluxo de processamento 1. O ERP grava o arquivo <identificador bpe.xml na pasta de envio. 2. O UniNFe identifica o documento como BPe pelo XML e pelo final do arquivo. 3. O UniNFe lê o XML, aplica as configurações da empresa, prepara certificado, proxy e conexão TLS quando configurado. 4. Quando necessário, o UniNFe complementa o grupo do responsável técnico com os dados configurados na empresa. 5. O XML é assinado e gravado em Enviados\\EmProcessamento com o mesmo nome do arquivo de envio. 6. O UniNFe envia o BPe para autorização síncrona na SEFAZ. 7. O retorno do webservice é gravado na pasta de retorno como <identificador ret bpe.xml. 8. Se o BPe for autorizado, o UniNFe cria o XML de distribuição <identificador procBPe.xml e move os arquivos para a pasta de autorizados. 9. Se a configuração da empresa estiver marcada para salvar somente o XML de distribuição, o XML original assinado é movido para Enviados\\Originais. 10. Se o BPe for rejeitado, o XML assinado é movido para a pasta de erros e o ERP deve tratar a rejeição informada no retorno. 11. Se ocorrer erro local durante o envio, o UniNFe grava um arquivo <identificador pro rec.err na pasta de retorno com os detalhes do erro. Fluxograma Arquivos gerados e movimentados Momento Pasta Nome do arquivo Quando aparece Envio pelo ERP Pasta de envio <identificador bpe.xml Arquivo criado pelo ERP para solicitar a autorização do BPe. Em processamento Enviados\\EmProcessamento <identificador bpe.xml XML já assinado pelo UniNFe enquanto o serviço está processando a autorização. Retorno ao ERP Pasta de retorno <identificador ret bpe.xml Retorno XML recebido do webservice, tanto para autorização quanto para rejeição retornada pela SEFAZ. Erro local do envio Pasta de retorno <identificador pro rec.err Erro local durante o processamento, como falha de leitura, certificado, assinatura, comunicação ou gravação. Erro de validação do arquivo Pasta de retorno <identificador ret bpe.err Erro identificado antes da conclusão do serviço de autorização, conforme o retorno de erro do tipo de arquivo BPe. XML de distribuição Enviados\\Autorizados\\<subpasta por data <identificador procBPe.xml BPe autorizado. É o XML principal para armazenamento fiscal e uso pelo ERP. XML original assinado Enviados\\Autorizados\\<subpasta por data ou Enviados\\Originais\\<subpasta por data <identificador bpe.xml BPe autorizado. O destino depende da configuração para salvar somente o XML de distribuição. XML rejeitado Pasta de erros configurada <identificador bpe.xml BPe rejeitado pela SEFAZ ou com falha que exige correção e novo envio. Como tratar o retorno O ERP deve monitorar a pasta de retorno e aguardar o arquivo: Esse arquivo contém a resposta do webservice da SEFAZ. O ERP deve ler as informações de status, motivo e protocolo quando existirem. Quando o status indicar autorização, o ERP também deve localizar e armazenar o XML de distribuição: O XML de distribuição é gravado na pasta Enviados\\Autorizados, dentro da subpasta criada conforme a configuração de organização por data. Ele contém o BPe autorizado com o protocolo anexado. Quando o status indicar rejeição, o ERP deve apresentar o motivo ao usuário, corrigir os dados do BPe e gerar um novo arquivo bpe.xml na pasta de envio. A rejeição não deve ser tratada como autorização. Erros locais Se o UniNFe não conseguir concluir o processamento por falha local, será gerado um arquivo de erro na pasta de retorno. Durante o envio síncrono, o retorno esperado é: Também pode haver retorno de erro do próprio tipo de arquivo BPe: Esses arquivos devem ser tratados pelo ERP ou pelo suporte antes de reenviar o BPe. As causas mais comuns são: XML fora da estrutura esperada. Certificado digital ausente, inválido ou vencido. Falha de assinatura. Ambiente, proxy ou conexão TLS configurados incorretamente. Falha de comunicação com o webservice. Falha de permissão ou acesso às pastas configuradas. Depois de corrigir o problema, gere novamente o arquivo <identificador bpe.xml na pasta de envio. Cuidados para o integrador Use sempre o final bpe.xml para o arquivo de envio do BPe. Não reutilize o mesmo identificador enquanto houver processamento pendente para o documento. Aguarde o arquivo ret bpe.xml para saber o resultado retornado pela SEFAZ. Armazene o XML procBPe.xml quando o BPe for autorizado. Em rejeições, corrija o XML e envie novamente; não altere manualmente arquivos em EmProcessamento. Em erros .err, corrija a causa local antes de reenviar o documento."
+    },
+    {
+      "id": "servicos-bpe-autorizacao-sincrona-bpe-ta-md",
+      "title": "Autorização síncrona de BPe TA",
+      "path": "servicos/bpe/autorizacao-sincrona-bpe-ta.md",
+      "category": "servicos/bpe",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Autorização síncrona de BPe TA"
+        },
+        {
+          "level": 2,
+          "text": "Pré-requisitos"
+        },
+        {
+          "level": 2,
+          "text": "Arquivo de envio"
+        },
+        {
+          "level": 2,
+          "text": "Fluxo de processamento"
+        },
+        {
+          "level": 2,
+          "text": "Fluxograma"
+        },
+        {
+          "level": 2,
+          "text": "Arquivos gerados e movimentados"
+        },
+        {
+          "level": 2,
+          "text": "Como tratar o retorno"
+        },
+        {
+          "level": 2,
+          "text": "Erros locais"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados para o integrador"
+        }
+      ],
+      "text": "Autorização síncrona de BPe TA A autorização síncrona de BPe TA permite que o ERP envie um Bilhete de Passagem Eletrônico de Transporte Aéreo ao UniNFe por troca de arquivos. O ERP grava o XML do BPe TA na pasta de envio configurada para a empresa, o UniNFe assina o documento, transmite para a SEFAZ e grava o retorno na pasta de retorno. Use este serviço quando a empresa emite BPe TA e precisa que o UniNFe faça o envio direto do XML para autorização. Pré requisitos Antes de enviar um BPe TA, confira na configuração da empresa: A empresa emissora está cadastrada no UniNFe. A pasta de envio, a pasta de retorno e a pasta de XMLs enviados estão configuradas. O certificado digital da empresa está configurado e válido. O ambiente de emissão está configurado conforme a operação desejada. As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet. A preparação TLS está habilitada quando o ambiente exigir essa configuração. Os dados do responsável técnico estão preenchidos, quando a emissão da empresa exigir essa informação. Se o XML do BPe TA não possuir o grupo do responsável técnico e os dados estiverem configurados na empresa, o UniNFe utiliza os dados da configuração para compor o XML antes do envio. Arquivo de envio O ERP deve gerar o XML do BPe TA na pasta de envio da empresa com o final fixo: O <identificador deve ser único para evitar conflito entre documentos. Normalmente ele é a chave do BPe TA. Exemplo: O conteúdo do arquivo deve ser o XML do BPe TA, com a estrutura esperada para o documento fiscal: O exemplo acima mostra apenas os principais grupos. O XML real deve conter todos os campos exigidos pelo leiaute do BPe TA para a operação fiscal. Campos e grupos principais: Campo ou grupo Como preencher infBPe/@Id Identificador do BPe TA. Deve ser compatível com a chave de acesso do documento. ide Dados de identificação do BPe TA, como UF, ambiente, modelo, série, número, modalidade, emissão, tipo de compra, presença e UF/município de origem e destino. emit Dados do emitente do BPe TA. infPassagem Dados da passagem, embarque, validade e passageiro. infViagem Dados da viagem aérea, como voo, companhia operadora, aeroportos de origem e destino, serviço, acomodação, trecho e data/hora da viagem. infValorBPe Valores do bilhete, descontos, pagamento, troco e componentes do valor. imp Informações de impostos do BPe TA. pag Informações de pagamento. infRespTec Dados do responsável técnico. Quando ausente no XML, pode ser preenchido com os dados configurados no UniNFe. Não inclua XML de consulta, evento ou status de serviço neste arquivo. Este serviço é síncrono: o envio e o retorno do webservice acontecem no mesmo processamento. Fluxo de processamento 1. O ERP grava o arquivo <identificador bpe ta.xml na pasta de envio. 2. O UniNFe identifica o documento como BPe TA pelo XML e pelo final do arquivo. 3. O UniNFe lê o XML, aplica as configurações da empresa, prepara certificado, proxy e conexão TLS quando configurado. 4. Quando necessário, o UniNFe complementa o grupo do responsável técnico com os dados configurados na empresa. 5. O XML é assinado e gravado em Enviados\\EmProcessamento com o mesmo nome do arquivo de envio. 6. O UniNFe envia o BPe TA para autorização síncrona na SEFAZ. 7. O retorno do webservice é gravado na pasta de retorno como <identificador ret bpe ta.xml. 8. Se o BPe TA for autorizado, o UniNFe cria o XML de distribuição <identificador procBPeTA.xml e move os arquivos para a pasta de autorizados. 9. Se a configuração da empresa estiver marcada para salvar somente o XML de distribuição, o XML original assinado é movido para Enviados\\Originais. 10. Se o BPe TA for rejeitado, o XML assinado é movido para a pasta de erros e o ERP deve tratar a rejeição informada no retorno. 11. Se ocorrer erro local durante o envio, o UniNFe grava um arquivo <identificador pro rec.err na pasta de retorno com os detalhes do erro. Fluxograma Arquivos gerados e movimentados Momento Pasta Nome do arquivo Quando aparece Envio pelo ERP Pasta de envio <identificador bpe ta.xml Arquivo criado pelo ERP para solicitar a autorização do BPe TA. Em processamento Enviados\\EmProcessamento <identificador bpe ta.xml XML já assinado pelo UniNFe enquanto o serviço está processando a autorização. Retorno ao ERP Pasta de retorno <identificador ret bpe ta.xml Retorno XML recebido do webservice, tanto para autorização quanto para rejeição retornada pela SEFAZ. Erro local do envio Pasta de retorno <identificador pro rec.err Erro local durante o processamento, como falha de leitura, certificado, assinatura, comunicação ou gravação. Erro de validação do arquivo Pasta de retorno <identificador ret bpe ta.err Erro identificado antes da conclusão do serviço de autorização, conforme o retorno de erro do tipo de arquivo BPe TA. XML de distribuição Enviados\\Autorizados\\<subpasta por data <identificador procBPeTA.xml BPe TA autorizado. É o XML principal para armazenamento fiscal e uso pelo ERP. XML original assinado Enviados\\Autorizados\\<subpasta por data ou Enviados\\Originais\\<subpasta por data <identificador bpe ta.xml BPe TA autorizado. O destino depende da configuração para salvar somente o XML de distribuição. XML rejeitado Pasta de erros configurada <identificador bpe ta.xml BPe TA rejeitado pela SEFAZ ou com falha que exige correção e novo envio. Como tratar o retorno O ERP deve monitorar a pasta de retorno e aguardar o arquivo: Esse arquivo contém a resposta do webservice da SEFAZ. O ERP deve ler as informações de status, motivo e protocolo quando existirem. Quando o status indicar autorização, o ERP também deve localizar e armazenar o XML de distribuição: O XML de distribuição é gravado na pasta Enviados\\Autorizados, dentro da subpasta criada conforme a configuração de organização por data. Ele contém o BPe TA autorizado com o protocolo anexado. Quando o status indicar rejeição, o ERP deve apresentar o motivo ao usuário, corrigir os dados do BPe TA e gerar um novo arquivo bpe ta.xml na pasta de envio. A rejeição não deve ser tratada como autorização. Erros locais Se o UniNFe não conseguir concluir o processamento por falha local, será gerado um arquivo de erro na pasta de retorno. Durante o envio síncrono, o retorno esperado é: Também pode haver retorno de erro do próprio tipo de arquivo BPe TA: Esses arquivos devem ser tratados pelo ERP ou pelo suporte antes de reenviar o BPe TA. As causas mais comuns são: XML fora da estrutura esperada. Certificado digital ausente, inválido ou vencido. Falha de assinatura. Ambiente, proxy ou conexão TLS configurados incorretamente. Falha de comunicação com o webservice. Falha de permissão ou acesso às pastas configuradas. Depois de corrigir o problema, gere novamente o arquivo <identificador bpe ta.xml na pasta de envio. Cuidados para o integrador Use sempre o final bpe ta.xml para o arquivo de envio do BPe TA. Não reutilize o mesmo identificador enquanto houver processamento pendente para o documento. Aguarde o arquivo ret bpe ta.xml para saber o resultado retornado pela SEFAZ. Armazene o XML procBPeTA.xml quando o BPe TA for autorizado. Em rejeições, corrija o XML e envie novamente; não altere manualmente arquivos em EmProcessamento. Em erros .err, corrija a causa local antes de reenviar o documento."
+    },
+    {
+      "id": "servicos-bpe-autorizacao-sincrona-bpe-tm-md",
+      "title": "Autorização síncrona de BPe TM",
+      "path": "servicos/bpe/autorizacao-sincrona-bpe-tm.md",
+      "category": "servicos/bpe",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Autorização síncrona de BPe TM"
+        },
+        {
+          "level": 2,
+          "text": "Pré-requisitos"
+        },
+        {
+          "level": 2,
+          "text": "Arquivo de envio"
+        },
+        {
+          "level": 2,
+          "text": "Fluxo de processamento"
+        },
+        {
+          "level": 2,
+          "text": "Fluxograma"
+        },
+        {
+          "level": 2,
+          "text": "Arquivos gerados e movimentados"
+        },
+        {
+          "level": 2,
+          "text": "Como tratar o retorno"
+        },
+        {
+          "level": 2,
+          "text": "Erros locais"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados para o integrador"
+        }
+      ],
+      "text": "Autorização síncrona de BPe TM A autorização síncrona de BPe TM permite que o ERP envie um Bilhete de Passagem Eletrônico de Transporte Metropolitano ao UniNFe por troca de arquivos. O ERP grava o XML do BPe TM na pasta de envio configurada para a empresa, o UniNFe assina o documento, transmite para a SEFAZ e grava o retorno na pasta de retorno. Use este serviço quando a empresa emite BPe TM e precisa que o UniNFe faça o envio direto do XML para autorização. Pré requisitos Antes de enviar um BPe TM, confira na configuração da empresa: A empresa emissora está cadastrada no UniNFe. A pasta de envio, a pasta de retorno e a pasta de XMLs enviados estão configuradas. O certificado digital da empresa está configurado e válido. O ambiente de emissão está configurado conforme a operação desejada. As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet. A preparação TLS está habilitada quando o ambiente exigir essa configuração. Os dados do responsável técnico estão preenchidos, quando a emissão da empresa exigir essa informação. Se o XML do BPe TM não possuir o grupo do responsável técnico e os dados estiverem configurados na empresa, o UniNFe utiliza os dados da configuração para compor o XML antes do envio. Arquivo de envio O ERP deve gerar o XML do BPe TM na pasta de envio da empresa com o final fixo: O <identificador deve ser único para evitar conflito entre documentos. Normalmente ele é a chave do BPe TM. Exemplo: O conteúdo do arquivo deve ser o XML do BPe TM, com a estrutura esperada para o documento fiscal: O exemplo acima mostra apenas os principais grupos. O XML real deve conter todos os campos exigidos pelo leiaute do BPe TM para a operação fiscal. Campos e grupos principais: Campo ou grupo Como preencher infBPe/@Id Identificador do BPe TM. Deve ser compatível com a chave de acesso do documento. ide Dados de identificação do BPe TM, como UF, ambiente, modelo, série, número, data de emissão, competência, tipo de emissão, tipo de BPe e CFOP. emit Dados do emitente do BPe TM. detBPeTM Dados do equipamento de controle, UF de início da viagem e detalhamento das viagens. det Detalhamento da viagem, município de início, quantidade de passageiros, valor do bilhete, impostos e componentes. total Totais do documento, incluindo valores do BPe TM e totais de tributos quando exigidos. pgtoVinc Informações de pagamento vinculado, quando aplicáveis ao documento. infRespTec Dados do responsável técnico. Quando ausente no XML, pode ser preenchido com os dados configurados no UniNFe. Não inclua XML de consulta, evento ou status de serviço neste arquivo. Este serviço é síncrono: o envio e o retorno do webservice acontecem no mesmo processamento. Fluxo de processamento 1. O ERP grava o arquivo <identificador bpe tm.xml na pasta de envio. 2. O UniNFe identifica o documento como BPe TM pelo XML e pelo final do arquivo. 3. O UniNFe lê o XML, aplica as configurações da empresa, prepara certificado, proxy e conexão TLS quando configurado. 4. Quando necessário, o UniNFe complementa o grupo do responsável técnico com os dados configurados na empresa. 5. O XML é assinado e gravado em Enviados\\EmProcessamento com o mesmo nome do arquivo de envio. 6. O UniNFe envia o BPe TM para autorização síncrona na SEFAZ. 7. O retorno do webservice é gravado na pasta de retorno como <identificador ret bpe tm.xml. 8. Se o BPe TM for autorizado, o UniNFe cria o XML de distribuição <identificador procBPeTM.xml e move os arquivos para a pasta de autorizados. 9. Se a configuração da empresa estiver marcada para salvar somente o XML de distribuição, o XML original assinado é movido para Enviados\\Originais. 10. Se o BPe TM for rejeitado, o XML assinado é movido para a pasta de erros e o ERP deve tratar a rejeição informada no retorno. 11. Se ocorrer erro local durante o envio, o UniNFe grava um arquivo <identificador pro rec.err na pasta de retorno com os detalhes do erro. Fluxograma Arquivos gerados e movimentados Momento Pasta Nome do arquivo Quando aparece Envio pelo ERP Pasta de envio <identificador bpe tm.xml Arquivo criado pelo ERP para solicitar a autorização do BPe TM. Em processamento Enviados\\EmProcessamento <identificador bpe tm.xml XML já assinado pelo UniNFe enquanto o serviço está processando a autorização. Retorno ao ERP Pasta de retorno <identificador ret bpe tm.xml Retorno XML recebido do webservice, tanto para autorização quanto para rejeição retornada pela SEFAZ. Erro local do envio Pasta de retorno <identificador pro rec.err Erro local durante o processamento, como falha de leitura, certificado, assinatura, comunicação ou gravação. Erro de validação do arquivo Pasta de retorno <identificador ret bpe tm.err Erro identificado antes da conclusão do serviço de autorização, conforme o retorno de erro do tipo de arquivo BPe TM. XML de distribuição Enviados\\Autorizados\\<subpasta por data <identificador procBPeTM.xml BPe TM autorizado. É o XML principal para armazenamento fiscal e uso pelo ERP. XML original assinado Enviados\\Autorizados\\<subpasta por data ou Enviados\\Originais\\<subpasta por data <identificador bpe tm.xml BPe TM autorizado. O destino depende da configuração para salvar somente o XML de distribuição. XML rejeitado Pasta de erros configurada <identificador bpe tm.xml BPe TM rejeitado pela SEFAZ ou com falha que exige correção e novo envio. Como tratar o retorno O ERP deve monitorar a pasta de retorno e aguardar o arquivo: Esse arquivo contém a resposta do webservice da SEFAZ. O ERP deve ler as informações de status, motivo e protocolo quando existirem. Quando o status indicar autorização, o ERP também deve localizar e armazenar o XML de distribuição: O XML de distribuição é gravado na pasta Enviados\\Autorizados, dentro da subpasta criada conforme a configuração de organização por data. Ele contém o BPe TM autorizado com o protocolo anexado. Quando o status indicar rejeição, o ERP deve apresentar o motivo ao usuário, corrigir os dados do BPe TM e gerar um novo arquivo bpe tm.xml na pasta de envio. A rejeição não deve ser tratada como autorização. Erros locais Se o UniNFe não conseguir concluir o processamento por falha local, será gerado um arquivo de erro na pasta de retorno. Durante o envio síncrono, o retorno esperado é: Também pode haver retorno de erro do próprio tipo de arquivo BPe TM: Esses arquivos devem ser tratados pelo ERP ou pelo suporte antes de reenviar o BPe TM. As causas mais comuns são: XML fora da estrutura esperada. Certificado digital ausente, inválido ou vencido. Falha de assinatura. Ambiente, proxy ou conexão TLS configurados incorretamente. Falha de comunicação com o webservice. Falha de permissão ou acesso às pastas configuradas. Depois de corrigir o problema, gere novamente o arquivo <identificador bpe tm.xml na pasta de envio. Cuidados para o integrador Use sempre o final bpe tm.xml para o arquivo de envio do BPe TM. Não reutilize o mesmo identificador enquanto houver processamento pendente para o documento. Aguarde o arquivo ret bpe tm.xml para saber o resultado retornado pela SEFAZ. Armazene o XML procBPeTM.xml quando o BPe TM for autorizado. Em rejeições, corrija o XML e envie novamente; não altere manualmente arquivos em EmProcessamento. Em erros .err, corrija a causa local antes de reenviar o documento."
+    },
+    {
+      "id": "servicos-bpe-consulta-situacao-md",
+      "title": "Consulta de situação do BPe",
+      "path": "servicos/bpe/consulta-situacao.md",
+      "category": "servicos/bpe",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Consulta de situação do BPe"
+        },
+        {
+          "level": 2,
+          "text": "Quando usar"
+        },
+        {
+          "level": 2,
+          "text": "Pré-requisitos"
+        },
+        {
+          "level": 2,
+          "text": "Arquivo de envio"
+        },
+        {
+          "level": 2,
+          "text": "Fluxo de processamento"
+        },
+        {
+          "level": 2,
+          "text": "Fluxograma"
+        },
+        {
+          "level": 2,
+          "text": "Arquivos gerados e movimentados"
+        },
+        {
+          "level": 2,
+          "text": "Como tratar o retorno"
+        },
+        {
+          "level": 2,
+          "text": "Validação do documento recuperado"
+        },
+        {
+          "level": 2,
+          "text": "Erros locais"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados para o integrador"
+        }
+      ],
+      "text": "Consulta de situação do BPe A consulta de situação do BPe permite que o ERP consulte na SEFAZ a situação atual de um Bilhete de Passagem Eletrônico pela chave de acesso. Ela é usada para confirmar se o BPe foi autorizado, rejeitado, cancelado ou se existe alguma ocorrência que precise ser tratada pelo ERP. Este serviço também ajuda a finalizar documentos que ficaram em processamento. Quando o UniNFe encontra o XML original do BPe em Enviados\\EmProcessamento e a SEFAZ retorna autorização, o UniNFe pode gerar o XML de distribuição procBPe.xml e mover os arquivos para as pastas corretas. Quando usar Use a consulta de situação quando: O ERP precisa confirmar a situação atual de um BPe na SEFAZ. Houve dúvida sobre o resultado do envio. O BPe ficou em processamento e é necessário tentar finalizar o fluxo. O XML de distribuição autorizado ainda não foi localizado pelo ERP. É necessário recuperar eventos processados que venham vinculados ao retorno da consulta. Pré requisitos Antes de executar a consulta, confira na configuração da empresa: A empresa emissora está cadastrada no UniNFe. A pasta de envio, a pasta de retorno e a pasta de XMLs enviados estão configuradas. O certificado digital da empresa está configurado e válido. O ambiente da consulta é o mesmo ambiente usado na emissão do BPe. As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet. A preparação TLS está habilitada quando o ambiente exigir essa configuração. Arquivo de envio O ERP deve gerar o XML de consulta na pasta de envio da empresa com o final fixo: O <identificador deve ser único para a consulta. Normalmente é usada a própria chave de acesso do BPe. Exemplo: O conteúdo do XML deve usar a estrutura de consulta de situação do BPe: Campos principais: Campo Como preencher versao Versão do leiaute da consulta. tpAmb Ambiente da consulta. Use o mesmo ambiente em que o BPe foi emitido. xServ Informe CONSULTAR. chBPe Chave de acesso completa do BPe que será consultado. Fluxo de processamento 1. O ERP grava o arquivo <identificador ped sit.xml na pasta de envio. 2. O UniNFe lê o XML de consulta e identifica a chave do BPe. 3. O UniNFe aplica as configurações da empresa, certificado digital, proxy e preparação TLS quando configurados. 4. A consulta é enviada para a SEFAZ. 5. O retorno do webservice é gravado na pasta de retorno como <identificador sit.xml. 6. Se o retorno trouxer eventos processados vinculados ao BPe, o UniNFe grava os XMLs processados dos eventos. 7. Se o retorno indicar autorização e o XML original estiver em Enviados\\EmProcessamento, o UniNFe gera ou localiza o XML <identificador do bpe procBPe.xml. 8. O XML de distribuição autorizado é movido para Enviados\\Autorizados. 9. O XML original assinado é movido para Enviados\\Autorizados ou Enviados\\Originais, conforme a configuração da empresa. 10. Se a consulta indicar rejeição ou situação que retire o documento do fluxo, o XML original é movido para a pasta de erros. 11. Se ocorrer falha local, o UniNFe grava <identificador sit.err na pasta de retorno. Fluxograma Arquivos gerados e movimentados Momento Pasta Nome do arquivo Quando aparece Pedido de consulta Pasta de envio <identificador ped sit.xml Arquivo criado pelo ERP para consultar a situação do BPe. Retorno ao ERP Pasta de retorno <identificador sit.xml Retorno XML recebido da SEFAZ com a situação do BPe. Erro ao ERP Pasta de retorno <identificador sit.err Erro local antes ou durante a consulta, como falha de leitura, certificado, comunicação ou gravação. XML original em processamento Enviados\\EmProcessamento <identificador do bpe bpe.xml XML do BPe que ainda está aguardando finalização no fluxo do UniNFe. XML de distribuição Enviados\\Autorizados\\<subpasta por data <identificador do bpe procBPe.xml Gerado ou movido quando a SEFAZ retorna autorização e o XML original é localizado. XML original assinado Enviados\\Autorizados\\<subpasta por data ou Enviados\\Originais\\<subpasta por data <identificador do bpe bpe.xml Movido quando o BPe é finalizado como autorizado. O destino depende da configuração para salvar somente o XML de distribuição. Evento processado Enviados\\Autorizados\\<subpasta por data <chaveBPe <tipoEvento <sequencia procEventoBPe.xml Gerado quando o retorno da consulta contém evento processado vinculado ao BPe. XML com problema Pasta de erros configurada <identificador do bpe bpe.xml Movido quando a consulta indica rejeição, invalidação do fluxo, divergência de assinatura ou outra situação que impede finalizar o documento. Como tratar o retorno O ERP deve monitorar a pasta de retorno e aguardar: Esse arquivo contém a resposta da SEFAZ para a chave consultada. O ERP deve analisar o status e o motivo retornados para atualizar a situação do BPe em sua base. Quando a situação indicar autorização, procure também o XML de distribuição: Esse arquivo fica em Enviados\\Autorizados, dentro da subpasta de data configurada no UniNFe, e deve ser armazenado pelo ERP como XML fiscal autorizado. Se o XML original do BPe não estiver em Enviados\\EmProcessamento, o UniNFe ainda grava o retorno da consulta para o ERP, mas não tem como gerar o XML de distribuição a partir do documento original. Nesse caso, use o retorno para atualizar a situação no ERP e avalie se será necessário recuperar o XML autorizado por outro procedimento. Se o retorno da consulta trouxer eventos processados vinculados ao BPe, o UniNFe também pode gravar os XMLs de evento processado correspondentes nas pastas de XMLs enviados. Validação do documento recuperado Quando a consulta é usada para finalizar um BPe que estava em processamento, o UniNFe compara a assinatura do XML original com a informação retornada pela SEFAZ, quando essa validação estiver habilitada na configuração da empresa. Se houver divergência, o XML original é movido para a pasta de erros e o fluxo não é concluído com aquele arquivo. Essa validação evita que um protocolo autorizado seja associado a um XML diferente do documento que foi realmente autorizado. Erros locais Se a consulta não puder ser concluída por falha local, será gerado: As causas mais comuns são: XML de consulta fora da estrutura esperada. Chave do BPe ausente ou inválida. Certificado digital ausente, inválido ou vencido. Ambiente da consulta diferente do ambiente de emissão. Proxy ou conexão TLS configurados incorretamente. Falha de comunicação com o webservice. Falha de permissão ou acesso às pastas configuradas. XML original em Enviados\\EmProcessamento vazio, inválido ou incompatível com a chave consultada. Depois de corrigir o problema, gere novamente o arquivo <identificador ped sit.xml na pasta de envio. Cuidados para o integrador Use sempre o final ped sit.xml para consulta de situação. Informe a chave completa do BPe em chBPe. Consulte no mesmo ambiente em que o BPe foi emitido. Aguarde o arquivo sit.xml para interpretar o retorno da SEFAZ. Não altere manualmente arquivos em Enviados\\EmProcessamento. Quando a consulta finalizar um BPe autorizado, armazene o XML procBPe.xml. Quando a consulta gerar eventos processados, armazene também os arquivos procEventoBPe.xml. Em erros .err, corrija a causa local antes de reenviar a consulta."
+    },
+    {
+      "id": "servicos-bpe-consulta-status-servico-md",
+      "title": "Consulta status de serviço do BPe",
+      "path": "servicos/bpe/consulta-status-servico.md",
+      "category": "servicos/bpe",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Consulta status de serviço do BPe"
+        },
+        {
+          "level": 2,
+          "text": "Quando usar"
+        },
+        {
+          "level": 2,
+          "text": "Pré-requisitos"
+        },
+        {
+          "level": 2,
+          "text": "Arquivo de envio"
+        },
+        {
+          "level": 2,
+          "text": "Fluxo de processamento"
+        },
+        {
+          "level": 2,
+          "text": "Fluxograma"
+        },
+        {
+          "level": 2,
+          "text": "Arquivos gerados"
+        },
+        {
+          "level": 2,
+          "text": "Como tratar o retorno"
+        },
+        {
+          "level": 2,
+          "text": "Erros locais"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados para o integrador"
+        }
+      ],
+      "text": "Consulta status de serviço do BPe A consulta status de serviço do BPe permite que o ERP verifique se o webservice de BPe da SEFAZ está disponível para a empresa, ambiente e UF configurados no UniNFe. Ela deve ser usada antes de operações fiscais ou sempre que houver suspeita de indisponibilidade no serviço. Esta consulta não envia BPe, não autoriza documento e não gera XML de distribuição. O resultado serve para orientar o ERP, o suporte e o usuário sobre a disponibilidade do webservice. Quando usar Use este serviço quando: O ERP precisa confirmar se o webservice de BPe está operando. O envio de BPe falhou por suspeita de indisponibilidade da SEFAZ. O suporte precisa validar ambiente, UF, certificado, proxy ou comunicação. A empresa deseja testar a comunicação antes de iniciar o envio de documentos. Para consultar a situação de um BPe específico pela chave de acesso, use a consulta de situação do BPe. Pré requisitos Antes de executar a consulta, confira na configuração da empresa: A empresa está cadastrada no UniNFe. A pasta de envio e a pasta de retorno estão configuradas. O certificado digital está configurado e válido. A UF da empresa corresponde à UF que será consultada. O ambiente informado no XML corresponde ao ambiente que será verificado. As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet. A preparação TLS está habilitada quando o ambiente exigir essa configuração. Arquivo de envio O ERP deve gerar o XML de consulta na pasta de envio da empresa com o final fixo: O <identificador deve ser único para a consulta. Ele pode ser uma data/hora, um número sequencial ou outro identificador controlado pelo ERP. Exemplo: O conteúdo do XML deve usar a estrutura de consulta status de serviço do BPe: Campos principais: Campo Como preencher versao Versão do leiaute da consulta de status do BPe. tpAmb Ambiente consultado. Use 1 para produção ou 2 para homologação. xServ Informe STATUS. A UF e o tipo de emissão usados na consulta são obtidos da configuração da empresa no UniNFe. Fluxo de processamento 1. O ERP grava o arquivo <identificador ped sta.xml na pasta de envio. 2. O UniNFe lê o XML e identifica a consulta status de serviço do BPe. 3. O UniNFe aplica as configurações da empresa, certificado digital, UF, tipo de emissão, proxy e preparação TLS quando configurados. 4. A consulta é enviada ao webservice da SEFAZ. 5. O retorno do webservice é gravado na pasta de retorno como <identificador sta.xml. 6. O arquivo de solicitação é removido da pasta de envio após o processamento. 7. Se ocorrer falha local, o UniNFe grava <identificador sta.err na pasta de retorno. Fluxograma Arquivos gerados Momento Pasta Nome do arquivo Quando aparece Pedido de consulta Pasta de envio <identificador ped sta.xml Arquivo criado pelo ERP para consultar a disponibilidade do webservice de BPe. Retorno ao ERP Pasta de retorno <identificador sta.xml Retorno XML recebido da SEFAZ com o status do serviço. Erro ao ERP Pasta de retorno <identificador sta.err Erro local antes ou durante a consulta, como falha de leitura, certificado, comunicação ou gravação. Como tratar o retorno O ERP deve monitorar a pasta de retorno e aguardar: Esse arquivo contém a resposta da SEFAZ para o ambiente consultado. O ERP deve analisar o status e o motivo retornados para decidir se pode iniciar ou continuar as operações de BPe. Quando o retorno indicar que o serviço está disponível, o ERP pode prosseguir com as operações fiscais. Quando indicar indisponibilidade, o ERP deve aguardar a normalização do serviço ou orientar o usuário conforme a operação fiscal permitida para o cenário. Erros locais Se a consulta não puder ser concluída por falha local, será gerado: As causas mais comuns são: XML de consulta fora da estrutura esperada. Ambiente ausente ou inválido. UF incorreta na configuração da empresa. Certificado digital ausente, inválido ou vencido. Proxy ou conexão TLS configurados incorretamente. Falha de comunicação com o webservice. Falha de permissão ou acesso às pastas configuradas. Depois de corrigir o problema, gere novamente o arquivo <identificador ped sta.xml na pasta de envio. Cuidados para o integrador Use sempre o final ped sta.xml para consulta status de serviço. Consulte o mesmo ambiente usado nas operações da empresa. Confira a UF configurada para a empresa antes de usar o retorno como diagnóstico. Aguarde o arquivo sta.xml para interpretar a disponibilidade do serviço. Não trate esta consulta como autorização de documento; ela apenas informa a disponibilidade do webservice. Em erros .err, corrija a causa local antes de reenviar a consulta."
+    },
+    {
+      "id": "servicos-bpe-eventos-md",
+      "title": "Eventos do BPe",
+      "path": "servicos/bpe/eventos.md",
+      "category": "servicos/bpe",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Eventos do BPe"
+        },
+        {
+          "level": 2,
+          "text": "Eventos atendidos nos exemplos"
+        },
+        {
+          "level": 2,
+          "text": "Pré-requisitos"
+        },
+        {
+          "level": 2,
+          "text": "Arquivo de envio"
+        },
+        {
+          "level": 2,
+          "text": "Fluxo de processamento"
+        },
+        {
+          "level": 2,
+          "text": "Fluxograma"
+        },
+        {
+          "level": 2,
+          "text": "Arquivos gerados e movimentados"
+        },
+        {
+          "level": 2,
+          "text": "Como tratar o retorno"
+        },
+        {
+          "level": 2,
+          "text": "Erros locais"
+        },
+        {
+          "level": 2,
+          "text": "Cuidados para o integrador"
+        }
+      ],
+      "text": "Eventos do BPe O serviço de eventos do BPe permite que o ERP envie eventos vinculados a um Bilhete de Passagem Eletrônico já emitido. O ERP grava o XML do evento na pasta de envio, o UniNFe assina o XML, transmite o evento para a SEFAZ e grava o retorno na pasta de retorno. Use este serviço quando for necessário registrar uma ocorrência fiscal relacionada ao BPe, como cancelamento, não embarque, alteração de poltrona, excesso de bagagem, vinculação de pagamento ou cancelamento da vinculação de pagamento. Eventos atendidos nos exemplos Os exemplos disponíveis para BPe cobrem estes tipos de evento: Tipo de evento Descrição no XML 110111 Cancelamento 110115 Nao Embarque 110116 Alteracao Poltrona 110117 Excesso Bagagem 110300 Vinculacao do Pagamento 110301 Cancelamento da vinculacao do pagamento Use o tipo de evento, o detalhamento e as regras fiscais conforme o manual do BPe e conforme a situação real do documento. Pré requisitos Antes de enviar um evento, confira: A empresa emissora está cadastrada no UniNFe. A pasta de envio e a pasta de retorno estão configuradas. A pasta de XMLs enviados e a pasta de backup estão configuradas quando usadas pela empresa. O certificado digital da empresa está configurado e válido. O BPe referenciado no evento existe e a chave informada é a chave correta. O ambiente do evento é o mesmo ambiente em que o BPe foi emitido. As configurações de proxy e TLS estão corretas quando o ambiente exigir. Arquivo de envio O ERP deve gerar o XML do evento na pasta de envio da empresa com o final fixo: O <identificador deve ser único para o evento. Uma forma prática é usar uma composição com o tipo de evento, a chave do BPe e a sequência. Exemplos: O conteúdo do XML deve usar a estrutura de evento do BPe: Campos principais: Campo Como preencher infEvento/@Id Identificador do evento. Deve ser compatível com o tipo de evento, chave do BPe e sequência. cOrgao Código da UF ou órgão responsável pelo evento. tpAmb Ambiente do evento. Use o mesmo ambiente do BPe. CNPJ CNPJ do emissor do evento. chBPe Chave de acesso do BPe vinculado ao evento. dhEvento Data e hora do evento. tpEvento Tipo do evento, como 110111, 110115, 110116, 110117, 110300 ou 110301. nSeqEvento Número sequencial do evento para a mesma chave e tipo de evento. detEvento Grupo de detalhes do evento. O conteúdo muda conforme o tipo de evento. nProt Número do protocolo do BPe ou do evento relacionado, quando exigido pelo tipo de evento. xJust Justificativa do evento, quando exigida pelo tipo de evento. Nos eventos de vinculação de pagamento, o grupo de detalhes contém as informações do pagamento, como número do pagamento, identificação da transação, meio de pagamento, recebedor e PSP. No cancelamento da vinculação de pagamento, informe também o protocolo da vinculação que será cancelada. Fluxo de processamento 1. O ERP grava o arquivo <identificador ped eve.xml na pasta de envio. 2. O UniNFe lê o XML eventoBPe. 3. O UniNFe aplica as configurações da empresa, certificado digital, proxy e preparação TLS quando configurados. 4. O UniNFe assina o XML do evento. 5. O evento é enviado para a SEFAZ. 6. O retorno do webservice é gravado na pasta de retorno como <identificador eve.xml. 7. Se o evento for aceito, o UniNFe gera o XML processado do evento em Enviados\\Autorizados. 8. Quando houver pasta de backup configurada, o XML processado do evento também é gravado no backup. 9. Se o evento for rejeitado ou não puder ser confirmado como aceito, o XML original do pedido é movido para a pasta de erros. 10. Se ocorrer erro local, o UniNFe grava <identificador eve.err na pasta de retorno. 11. O arquivo de solicitação é removido da pasta de envio após o processamento. Fluxograma Arquivos gerados e movimentados Momento Pasta Nome do arquivo Quando aparece Pedido do evento Pasta de envio <identificador ped eve.xml Arquivo criado pelo ERP para enviar o evento do BPe. Retorno ao ERP Pasta de retorno <identificador eve.xml Retorno XML recebido da SEFAZ com o resultado do evento. Erro ao ERP Pasta de retorno <identificador eve.err Erro local antes ou durante o processamento do evento. Evento processado Enviados\\Autorizados\\<subpasta por data <chaveBPe <tipoEvento <sequencia procEventoBPe.xml Evento aceito pela SEFAZ. O conteúdo do arquivo é um XML procEventoBPe. Backup do evento processado Pasta de backup, quando configurada <chaveBPe <tipoEvento <sequencia procEventoBPe.xml Cópia de segurança do evento aceito. XML rejeitado ou não aceito Pasta de erros configurada <identificador ped eve.xml Evento rejeitado ou não confirmado como aceito pela SEFAZ. Como tratar o retorno O ERP deve monitorar a pasta de retorno e aguardar: Esse arquivo contém a resposta da SEFAZ para o evento enviado. O ERP deve analisar o status e o motivo retornados. Quando o evento for aceito, o UniNFe gera um XML processado do evento com o conteúdo procEventoBPe. O arquivo é gravado em Enviados\\Autorizados, dentro da subpasta de data configurada, usando o padrão: O ERP deve armazenar esse XML como comprovante do evento aceito. O UniNFe trata como evento aceito os retornos de evento registrado e vinculado ao documento, evento registrado sem vinculação e evento homologado conforme a resposta do webservice. Quando o evento for rejeitado, o ERP deve apresentar o motivo ao usuário, corrigir os dados e gerar um novo arquivo ped eve.xml na pasta de envio. Erros locais Se o UniNFe não conseguir concluir o processamento por falha local, será gerado: As causas mais comuns são: XML do evento fora da estrutura esperada. Identificador do evento incompatível com tipo, chave ou sequência. Chave do BPe ausente ou inválida. Certificado digital ausente, inválido ou vencido. Ambiente do evento diferente do ambiente do BPe. Falha de assinatura. Falha de comunicação com o webservice. Proxy ou conexão TLS configurados incorretamente. Falha de permissão ou acesso às pastas configuradas. Depois de corrigir o problema, gere novamente o arquivo <identificador ped eve.xml na pasta de envio. Cuidados para o integrador Use sempre o final ped eve.xml para envio de evento do BPe. Gere o XML com a raiz eventoBPe. Informe tpEvento e nSeqEvento de acordo com a operação fiscal. Mantenha o identificador infEvento/@Id compatível com o evento enviado. Use o mesmo ambiente do BPe original. Aguarde o arquivo eve.xml para interpretar o retorno da SEFAZ. Armazene o XML processado do evento quando o evento for aceito. Em rejeições, corrija o XML e envie um novo pedido de evento. Em erros .err, corrija a causa local antes de reenviar."
     },
     {
       "id": "servicos-ccg-consulta-gtin-md",
@@ -4270,7 +4556,7 @@
           "text": "Controle Interno"
         }
       ],
-      "text": "Documentacao Do UniNFe Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser criadas de forma incremental, sempre com base em evidencias encontradas no repositorio. Introducao Introducao O que é o UniNFe PENDENTE DE VALIDAÇÃO: criar introducao/visao geral de funcionamento.md PENDENTE DE VALIDAÇÃO: criar introducao/conceitos importantes.md Instalacao Instalacao Instalação do UniNFe PENDENTE DE VALIDAÇÃO: criar instalacao/primeira execucao.md Atualização do UniNFe Executar o UniNFe como serviço no Windows Configuracao Configuracao Telas de cadastros e configurações Cadastro de Nova Empresa Configuração automática do UniNFe por arquivo PENDENTE DE VALIDAÇÃO: criar configuracao/configuracao geral.md PENDENTE DE VALIDAÇÃO: criar configuracao/empresas.md PENDENTE DE VALIDAÇÃO: criar configuracao/certificado digital.md PENDENTE DE VALIDAÇÃO: criar configuracao/webservices e ambientes.md PENDENTE DE VALIDAÇÃO: criar configuracao/pastas de trabalho.md Integracao Por Arquivos Integracao PENDENTE DE VALIDAÇÃO: criar integracao/visao geral integracao por arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/envio de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/leitura de retornos.md PENDENTE DE VALIDAÇÃO: criar integracao/nomes de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/tratamento de erros.md PENDENTE DE VALIDAÇÃO: criar integracao/logs.md Servicos Consulta status de serviço Consulta cadastro de contribuinte Serviços gerais do UniNFe UniNFe Consulta de informações UniNFe Consulta de certificados digitais NFe NFe Autorização por arquivo NFe Consulta cadastro de contribuinte por arquivo NFe Consulta de situação por arquivo NFe Consulta status de serviço por arquivo NFe Conversão de TXT para XML de NFe e NFCe NFe Eventos por arquivo NFe Inutilização de numeração de NFe e NFCe NFCe NFCe Autorização por arquivo NFCe Consulta cadastro de contribuinte por arquivo NFCe Consulta de situação por arquivo NFCe Consulta status de serviço por arquivo NFCe Conversão de TXT para XML de NFe e NFCe NFCe Consulta de chaves e download de XML em São Paulo NFCe Eventos por arquivo NFCe Inutilização de numeração de NFe e NFCe CCG CCG Consulta GTIN CTe CTe Autorização síncrona CTe Autorização de CTe simplificado CTe Autorização de CTe OS CTe Consulta de situação CTe Consulta status de serviço CTe Eventos DARE DARE Consulta de receitas DARE Recepção MDFe MDFe Autorização síncrona MDFe Consulta de não encerrados MDFe Consulta de situação MDFe Consulta status de serviço MDFe Eventos NFCom NFCom Autorização síncrona NFCom Consulta de situação NFCom Consulta status de serviço NFCom Eventos NFGas NFGas Autorização síncrona NFGas Consulta de situação NFGas Consulta status de serviço NFGas Eventos NF3e NF3e Autorização síncrona NF3e Consulta de situação NF3e Consulta status de serviço NF3e Eventos PENDENTE DE VALIDAÇÃO: BPe CIOT CIOT Cancelamento da operação de transporte CIOT Consultar CIOT gerado CIOT Consultar exceção CIOT Consultar frota do transportador CIOT Consultar situação do transportador CIOT Declaração de operação de transporte CIOT Encerramento da operação de transporte CIOT Gerar identificador da operação de transporte CIOT Retificação da operação de transporte DCe DCe Autorização síncrona DCe Consulta de situação DCe Consulta status de serviço DCe Eventos DFe DFe Distribuição DFe Distribuição de CT e eBoleto eBoleto Alterar vencimento do boleto eBoleto Cancelar boleto eBoleto Consultar boleto eBoleto Enviar instrução do boleto eBoleto Informar pagamento do boleto eBoleto Registrar boleto eSocial eSocial Consulta de identificadores de eventos eSocial Consulta de lote de eventos eSocial Download de eventos eSocial Recepção de lote de eventos EFD Reinf EFD Reinf Consulta de lote assíncrono EFD Reinf Consultas EFD Reinf Recepção de lote de eventos PIX PIX Criar cobrança PIX Consultar movimentos PIX Consultar PIX por TxId uMessenger uMessenger Envio de mensagens GNRE GNRE Consulta de configuração da UF GNRE Consulta de resultado do lote GNRE Recepção de lote Referencias Referencias Apoio e Suporte Menu principal Tela Log Tela Sobre Tela Validar XML Perguntas frequentes PENDENTE DE VALIDAÇÃO: criar referencias/estrutura de pastas.md PENDENTE DE VALIDAÇÃO: criar referencias/tipos de retorno.md PENDENTE DE VALIDAÇÃO: criar referencias/exemplos xml.md Controle Interno Catalogo da documentacao"
+      "text": "Documentacao Do UniNFe Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser criadas de forma incremental, sempre com base em evidencias encontradas no repositorio. Introducao Introducao O que é o UniNFe PENDENTE DE VALIDAÇÃO: criar introducao/visao geral de funcionamento.md PENDENTE DE VALIDAÇÃO: criar introducao/conceitos importantes.md Instalacao Instalacao Instalação do UniNFe PENDENTE DE VALIDAÇÃO: criar instalacao/primeira execucao.md Atualização do UniNFe Executar o UniNFe como serviço no Windows Configuracao Configuracao Telas de cadastros e configurações Cadastro de Nova Empresa Configuração automática do UniNFe por arquivo PENDENTE DE VALIDAÇÃO: criar configuracao/configuracao geral.md PENDENTE DE VALIDAÇÃO: criar configuracao/empresas.md PENDENTE DE VALIDAÇÃO: criar configuracao/certificado digital.md PENDENTE DE VALIDAÇÃO: criar configuracao/webservices e ambientes.md PENDENTE DE VALIDAÇÃO: criar configuracao/pastas de trabalho.md Integracao Por Arquivos Integracao PENDENTE DE VALIDAÇÃO: criar integracao/visao geral integracao por arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/envio de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/leitura de retornos.md PENDENTE DE VALIDAÇÃO: criar integracao/nomes de arquivos.md PENDENTE DE VALIDAÇÃO: criar integracao/tratamento de erros.md PENDENTE DE VALIDAÇÃO: criar integracao/logs.md Servicos Consulta status de serviço Consulta cadastro de contribuinte Serviços gerais do UniNFe UniNFe Consulta de informações UniNFe Consulta de certificados digitais NFe NFe Autorização por arquivo NFe Consulta cadastro de contribuinte por arquivo NFe Consulta de situação por arquivo NFe Consulta status de serviço por arquivo NFe Conversão de TXT para XML de NFe e NFCe NFe Eventos por arquivo NFe Inutilização de numeração de NFe e NFCe NFCe NFCe Autorização por arquivo NFCe Consulta cadastro de contribuinte por arquivo NFCe Consulta de situação por arquivo NFCe Consulta status de serviço por arquivo NFCe Conversão de TXT para XML de NFe e NFCe NFCe Consulta de chaves e download de XML em São Paulo NFCe Eventos por arquivo NFCe Inutilização de numeração de NFe e NFCe CCG CCG Consulta GTIN CTe CTe Autorização síncrona CTe Autorização de CTe simplificado CTe Autorização de CTe OS CTe Consulta de situação CTe Consulta status de serviço CTe Eventos DARE DARE Consulta de receitas DARE Recepção MDFe MDFe Autorização síncrona MDFe Consulta de não encerrados MDFe Consulta de situação MDFe Consulta status de serviço MDFe Eventos NFCom NFCom Autorização síncrona NFCom Consulta de situação NFCom Consulta status de serviço NFCom Eventos NFGas NFGas Autorização síncrona NFGas Consulta de situação NFGas Consulta status de serviço NFGas Eventos NF3e NF3e Autorização síncrona NF3e Consulta de situação NF3e Consulta status de serviço NF3e Eventos BPe BPe Autorização síncrona BPe Autorização síncrona de BPe TA BPe Autorização síncrona de BPe TM BPe Consulta de situação BPe Consulta status de serviço BPe Eventos CIOT CIOT Cancelamento da operação de transporte CIOT Consultar CIOT gerado CIOT Consultar exceção CIOT Consultar frota do transportador CIOT Consultar situação do transportador CIOT Declaração de operação de transporte CIOT Encerramento da operação de transporte CIOT Gerar identificador da operação de transporte CIOT Retificação da operação de transporte DCe DCe Autorização síncrona DCe Consulta de situação DCe Consulta status de serviço DCe Eventos DFe DFe Distribuição DFe Distribuição de CT e eBoleto eBoleto Alterar vencimento do boleto eBoleto Cancelar boleto eBoleto Consultar boleto eBoleto Enviar instrução do boleto eBoleto Informar pagamento do boleto eBoleto Registrar boleto eSocial eSocial Consulta de identificadores de eventos eSocial Consulta de lote de eventos eSocial Download de eventos eSocial Recepção de lote de eventos EFD Reinf EFD Reinf Consulta de lote assíncrono EFD Reinf Consultas EFD Reinf Recepção de lote de eventos PIX PIX Criar cobrança PIX Consultar movimentos PIX Consultar PIX por TxId uMessenger uMessenger Envio de mensagens GNRE GNRE Consulta de configuração da UF GNRE Consulta de resultado do lote GNRE Recepção de lote Referencias Referencias Apoio e Suporte Menu principal Tela Log Tela Sobre Tela Validar XML Perguntas frequentes PENDENTE DE VALIDAÇÃO: criar referencias/estrutura de pastas.md PENDENTE DE VALIDAÇÃO: criar referencias/tipos de retorno.md PENDENTE DE VALIDAÇÃO: criar referencias/exemplos xml.md Controle Interno Catalogo da documentacao"
     }
   ]
 }
