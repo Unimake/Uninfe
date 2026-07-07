@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -507,6 +507,7 @@ namespace NFe.Settings
                         case TipoAplicativo.NF3e:
                         case TipoAplicativo.NFCom:
                         case TipoAplicativo.NFGas:
+                        case TipoAplicativo.BPe:
                         case TipoAplicativo.CIOT:
                             _xValids.Add(new xValid(empresa.PastaXmlEnvio, "Informe a pasta de envio dos arquivos XML.", "A pasta de envio dos arquivos XML informada não existe.", true));
                             _xValids.Add(new xValid(empresa.PastaXmlRetorno, "Informe a pasta de envio dos arquivos XML.", "A pasta de retorno dos arquivos XML informada não existe.", true));
@@ -1552,6 +1553,7 @@ namespace NFe.Settings
                                                           EnumHelper.GetDescription(TipoAplicativo.NF3e),
                                                           EnumHelper.GetDescription(TipoAplicativo.NFCom),
                                                           EnumHelper.GetDescription(TipoAplicativo.NFGas),
+                                                          EnumHelper.GetDescription(TipoAplicativo.BPe),
                                                           EnumHelper.GetDescription(TipoAplicativo.CIOT)));
                     }
 
@@ -1578,6 +1580,7 @@ namespace NFe.Settings
                             (int)TipoAplicativo.NF3e, EnumHelper.GetDescription(TipoAplicativo.NF3e),
                             (int)TipoAplicativo.NFCom, EnumHelper.GetDescription(TipoAplicativo.NFCom),
                             (int)TipoAplicativo.NFGas, EnumHelper.GetDescription(TipoAplicativo.NFGas),
+                            (int)TipoAplicativo.BPe, EnumHelper.GetDescription(TipoAplicativo.BPe),
                             (int)TipoAplicativo.CIOT, EnumHelper.GetDescription(TipoAplicativo.CIOT)));
                     }
                 }
