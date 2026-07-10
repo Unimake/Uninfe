@@ -723,6 +723,40 @@ namespace NFe.Components
 
         #endregion NFGas
 
+        #region BPe
+
+        /// <summary>
+        /// Consulta protocolo do BPe
+        /// </summary>
+        BPeConsultaProtocolo,
+
+        /// <summary>
+        /// Consulta status serviço BPe
+        /// </summary>
+        BPeStatusServico,
+
+        /// <summary>
+        /// Envio de Eventos do BPe
+        /// </summary>
+        BPeRecepcaoEvento,
+
+        /// <summary>
+        /// Envio do XML de BPe
+        /// </summary>
+        BPeAutorizacao,
+
+        /// <summary>
+        /// Envio do XML de BPe TA
+        /// </summary>
+        BPeTAAutorizacao,
+
+        /// <summary>
+        /// Envio do XML de BPe TM
+        /// </summary>
+        BPeTMAutorizacao,
+
+        #endregion BPe
+
         #region CIOT
 
         /// <summary>
@@ -863,7 +897,7 @@ namespace NFe.Components
         /// <summary>
         /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto NFSe)
         /// </summary>
-        [Description("NF-e, NFC-e, NF3-e, NFCom, NFGas, CIOT, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
+        [Description("NF-e, NFC-e, NF3-e, NFCom, NFGas, BPe, CIOT, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
         Todos = 10,
 
         /// <summary>
@@ -895,6 +929,12 @@ namespace NFe.Components
         /// </summary>
         [Description("CIOT")]
         CIOT = 15,
+
+        /// <summary>
+        /// Aplicativo ou serviços para processamentos dos XMLs do BPe
+        /// </summary>
+        [Description("BPe")]
+        BPe = 16,
 
         [Description("")]
         Nulo = 100

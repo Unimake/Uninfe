@@ -24,7 +24,7 @@ namespace NFe.UI
         #region local
 
         /// <summary>
-        /// Controla se o evento changed_Modificado deve ser executado, se true, n„o executa o evento
+        /// Controla se o evento changed_Modificado deve ser executado, se true, n√£o executa o evento
         /// </summary>
         private bool stopChangedEvent = false;
 
@@ -106,21 +106,21 @@ namespace NFe.UI
                     break;
 
                 case 6:
-                    tpage.Text = "Respons·vel TÈcnico";
+                    tpage.Text = "Respons√°vel T√©cnico";
                     uce_resptecnico = new Formularios.userConfiguracao_resptecnico();
                     uce_resptecnico.changeEvent += changed_Modificado;
                     tpage.Controls.Add(uce_resptecnico);
                     break;
 
                 case 7:
-                    tpage.Text = "IntegraÁıes";
+                    tpage.Text = "Integra√ß√µes";
                     uc_EbankPixUMessenger = new Formularios.userConfiguracao_Integracoes();
                     uc_EbankPixUMessenger.changeEvent += changed_Modificado;
                     tpage.Controls.Add(uc_EbankPixUMessenger);
                     break;
 
                 case 8:
-                    tpage.Text = "Outras ConfiguraÁıes";
+                    tpage.Text = "Outras Configura√ß√µes";
                     uce_outrasconfiguracoes = new Formularios.userConfiguracao_outrasconfiguracoes();
                     uce_outrasconfiguracoes.changeEvent += changed_Modificado;
                     tpage.Controls.Add(uce_outrasconfiguracoes);
@@ -386,7 +386,7 @@ namespace NFe.UI
                     if (string.IsNullOrEmpty(oempresa.PastaXmlEnvio))
                     {
                         ///
-                        /// se mesmo assim n„o encontrou nenhuma configuracao valida, assume a pasta do UniNFe
+                        /// se mesmo assim n√£o encontrou nenhuma configuracao valida, assume a pasta do UniNFe
                         ///
                         string subpasta = oempresa.CNPJ;
                         switch (oempresa.Servico)
@@ -465,7 +465,7 @@ namespace NFe.UI
             if (empresa == null)
             {
                 CopiaDadosDaEmpresaParaControls(new Empresa(), true);
-                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "N„o pode acessar os dados da empresa selecionada", "");
+                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "N√£o pode acessar os dados da empresa selecionada", "");
             }
             else
             {
@@ -481,7 +481,7 @@ namespace NFe.UI
             #endregion
         }
 
-        private const string constAbandono = "Dados da configuraÁ„o foram alterados, abandona mesmo assim?";
+        private const string constAbandono = "Dados da configura√ß√£o foram alterados, abandona mesmo assim?";
 
         public bool VerificaSeAbandona()
         {
@@ -549,6 +549,7 @@ namespace NFe.UI
                     case TipoAplicativo.NF3e:
                     case TipoAplicativo.NFCom:
                     case TipoAplicativo.NFGas:
+                    case TipoAplicativo.BPe:
                     case TipoAplicativo.CIOT:
                         uce_cert.Validar();
                         uce_ftp.Validar();
@@ -572,7 +573,7 @@ namespace NFe.UI
                     throw ex;
             }
 
-            if (Convert.ToInt16(btnNova.Tag) == 1) //se inclusao nao precisa verificar se mudou algo, j· que nao tem classe existente
+            if (Convert.ToInt16(btnNova.Tag) == 1) //se inclusao nao precisa verificar se mudou algo, j√° que nao tem classe existente
                 return Modificado;
 
             var _Empresa = Empresas.FindConfEmpresa(empcnpj, servico);
@@ -666,13 +667,13 @@ namespace NFe.UI
 
                         if (currentEmpresa.DiasLimpeza > 0 && (oe == null || currentEmpresa.DiasLimpeza != oe.DiasLimpeza))
                         {
-                            string mensagem = "Ao informar \"Quantos dias devem ser mantidos os arquivos na pasta tempor·rio e retorno?\" vocÍ est· permitindo o UniNFe apagar os arquivos destas pastas. " +
+                            string mensagem = "Ao informar \"Quantos dias devem ser mantidos os arquivos na pasta tempor√°rio e retorno?\" voc√™ est√° permitindo o UniNFe apagar os arquivos destas pastas. " +
                                 "Verifique se informou corretamente as pastas abaixo para evitar perda de dados importantes:\r\n";
                             mensagem += "Pasta XML com Erro: " + currentEmpresa.PastaXmlErro + "\r\n";
                             mensagem += "Pasta de retorno: " + currentEmpresa.PastaXmlRetorno + "\r\n";
-                            mensagem += "Tem certeza que deseja salvar esta configuraÁ„o?";
+                            mensagem += "Tem certeza que deseja salvar esta configura√ß√£o?";
 
-                            if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, mensagem, "AtenÁ„o!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, 10) != DialogResult.Yes)
+                            if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, mensagem, "Aten√ß√£o!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, 10) != DialogResult.Yes)
                             {
                                 return;
                             }
@@ -696,9 +697,9 @@ namespace NFe.UI
 
                         if (!pastaBackupValida)
                         {
-                            if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "N„o foi informado a pasta de backup dos XMLs autorizados. VocÍ pode continuar sem informar, mas caso necessite do backup dos originais, n„o ser· possÌvel recuperar. Aconselhamos informar esta pasta.\r\n\r\nContinuar?", "UniNFe", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                            if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "N√£o foi informado a pasta de backup dos XMLs autorizados. Voc√™ pode continuar sem informar, mas caso necessite do backup dos originais, n√£o ser√° poss√≠vel recuperar. Aconselhamos informar esta pasta.\r\n\r\nContinuar?", "UniNFe", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                             {
-                                throw new Exception("N„o foi informado a pasta de backup dos XML autorizados.");
+                                throw new Exception("N√£o foi informado a pasta de backup dos XML autorizados.");
                             }
                         }
 
@@ -776,7 +777,7 @@ namespace NFe.UI
 
         /// <summary>
         /// Verifica se tem alguma empresa sem informar a pasta de backup.
-        /// Esta verificaÁ„o sÛ ocorre quando configurado manualmente no uninfe, quando È configurado pelo ERP, a pasta È opcional.
+        /// Esta verifica√ß√£o s√≥ ocorre quando configurado manualmente no uninfe, quando √© configurado pelo ERP, a pasta √© opcional.
         /// </summary>
         private bool ValidarPastaBackup()
         {
@@ -814,9 +815,9 @@ namespace NFe.UI
                             new ConfiguracaoApp().GravarArqEmpresas();
                             CreateControles();
 
-                            Auxiliar.WriteLog("Empresa '" + _Empresa.CNPJ + "' - ServiÁo: '" + _Empresa.Servico.ToString() + "' excluÌda", false);
+                            Auxiliar.WriteLog("Empresa '" + _Empresa.CNPJ + "' - Servi√ßo: '" + _Empresa.Servico.ToString() + "' exclu√≠da", false);
                             /*
-                                                        if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Deseja excluir as pastas desta empresa?\r\n\r\nExcluindo-as, ser„o eliminadas todos os XML's autorizados/denegados/eventos", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                                        if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Deseja excluir as pastas desta empresa?\r\n\r\nExcluindo-as, ser√£o eliminadas todos os XML's autorizados/denegados/eventos", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                                         {
                                                             ///
                                                             /// exclui as pastas criadas
@@ -831,7 +832,7 @@ namespace NFe.UI
                         }
                         else
                         {
-                            MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "N„o foi possÌvel acessar a empresa para excluÌ-la");
+                            MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "N√£o foi poss√≠vel acessar a empresa para exclu√≠-la");
                         }
                     }
                     catch (Exception ex)
@@ -930,6 +931,7 @@ namespace NFe.UI
                 case TipoAplicativo.NF3e:
                 case TipoAplicativo.NFCom:
                 case TipoAplicativo.NFGas:
+                case TipoAplicativo.BPe:
                 case TipoAplicativo.CIOT:
                     uce_divs.Populate(empresa, novaempresa);
                     uce_pastas.Populate(empresa);

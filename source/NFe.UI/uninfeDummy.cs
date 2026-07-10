@@ -1,4 +1,4 @@
-﻿using NFe.Components;
+using NFe.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -116,6 +116,7 @@ namespace NFe.UI
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NF3e, EnumHelper.GetDescription(TipoAplicativo.NF3e)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NFCom, EnumHelper.GetDescription(TipoAplicativo.NFCom)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.NFGas, EnumHelper.GetDescription(TipoAplicativo.NFGas)));
+            list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.BPe, EnumHelper.GetDescription(TipoAplicativo.BPe)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.CIOT, EnumHelper.GetDescription(TipoAplicativo.CIOT)));
             list.Add(new KeyValuePair<int, string>((int)TipoAplicativo.DCe, EnumHelper.GetDescription(TipoAplicativo.DCe)));
 

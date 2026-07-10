@@ -74,6 +74,7 @@ namespace NFe.Components
         chNF3e,
         chNFCom,
         chNFGas,
+        chBPe,
         chCIOT,
         cilin,
         cIMP,
@@ -764,6 +765,7 @@ namespace NFe.Components
         public static string NAME_SPACE_NF3E = "http://www.portalfiscal.inf.br/nf3e";
         public static string NAME_SPACE_NFCOM = "http://www.portalfiscal.inf.br/nfcom";
         public static string NAME_SPACE_NFGAS = "http://www.portalfiscal.inf.br/nfgas";
+        public static string NAME_SPACE_BPE = "http://www.portalfiscal.inf.br/bpe";
         public static string NAME_SPACE_CIOT = "http://www.antt.gov.br/ciot";
         public static string NAME_SPACE_DCE = "http://www.portalfiscal.inf.br/dce";
 

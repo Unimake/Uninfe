@@ -12,6 +12,7 @@ using NFe.Service.GNRE;
 using NFe.Service.NF3e;
 using NFe.Service.NFCom;
 using NFe.Service.NFGas;
+using NFe.Service.BPe;
 using NFe.Settings;
 using NFe.Validate;
 using System;
@@ -488,6 +489,33 @@ namespace NFe.Service
 
                         #endregion NFGas
 
+                        #region BPe
+
+                        case Servicos.BPeStatusServico:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusBPe(arquivo));
+                            break;
+
+                        case Servicos.BPeConsultaProtocolo:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaSituacaoBPe(arquivo));
+                            break;
+
+                        case Servicos.BPeAutorizacao:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskBPeRecepcao(arquivo));
+                            break;
+
+                        case Servicos.BPeTAAutorizacao:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskBPeTARecepcao(arquivo));
+                            break;
+
+                        case Servicos.BPeTMAutorizacao:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskBPeTMRecepcao(arquivo));
+                            break;
+
+                        case Servicos.BPeRecepcaoEvento:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskBPeEventos(arquivo));
+                            break;
+
+                        #endregion BPe
                         #region CIOT
 
                         case Servicos.CIOTCancelamentoOperacaoTransporte:
@@ -1207,6 +1235,33 @@ namespace NFe.Service
 
                             #endregion NFGas
 
+                            #region BPe
+
+                            case "consStatServBPe":
+                                tipoServico = Servicos.BPeStatusServico;
+                                break;
+
+                            case "consSitBPe":
+                                tipoServico = Servicos.BPeConsultaProtocolo;
+                                break;
+
+                            case "BPe":
+                                tipoServico = Servicos.BPeAutorizacao;
+                                break;
+
+                            case "BPeTA":
+                                tipoServico = Servicos.BPeTAAutorizacao;
+                                break;
+
+                            case "BPeTM":
+                                tipoServico = Servicos.BPeTMAutorizacao;
+                                break;
+
+                            case "eventoBPe":
+                                tipoServico = Servicos.BPeRecepcaoEvento;
+                                break;
+
+                            #endregion BPe
                             #region CIOT
 
                             case "ConsultarSituacaoTransportador":
@@ -2242,6 +2297,7 @@ namespace NFe.Service
                 case Servicos.CTePedidoConsultaSituacao:
                 case Servicos.NFePedidoConsultaSituacao:
                 case Servicos.MDFePedidoConsultaSituacao:
+                case Servicos.BPeConsultaProtocolo:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.Sit_ERR;
                     break;
@@ -2256,6 +2312,11 @@ namespace NFe.Service
                 case Servicos.NFePedidoSituacaoLote:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.ProRec_ERR;
+                    break;
+
+                case Servicos.BPeStatusServico:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Sta_ERR;
                     break;
 
                 case Servicos.ConsultaCadastroContribuinte:
@@ -2289,6 +2350,20 @@ namespace NFe.Service
                     extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).RetornoERR;
                     break;
 
+                case Servicos.BPeAutorizacao:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.BPe).RetornoERR;
+                    break;
+
+                case Servicos.BPeTAAutorizacao:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.BPeTA).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.BPeTA).RetornoERR;
+                    break;
+
+                case Servicos.BPeTMAutorizacao:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.BPeTM).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.BPeTM).RetornoERR;
+                    break;
                 case Servicos.CIOTCancelamentoOperacaoTransporte:
                 case Servicos.CIOTEncerramentoOperacaoTransporte:
                 case Servicos.CIOTRetificacaoOperacaoTransporte:
@@ -2342,6 +2417,7 @@ namespace NFe.Service
                 case Servicos.EventoRecepcao:
                 case Servicos.CTeRecepcaoEvento:
                 case Servicos.MDFeRecepcaoEvento:
+                case Servicos.BPeRecepcaoEvento:
                 case Servicos.EventoEPEC:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.Eve_ERR;

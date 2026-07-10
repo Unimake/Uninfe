@@ -319,6 +319,12 @@
     <Compile Include="GNRE\TaskConsultaConfigUfGNRE.cs" />
     <Compile Include="GNRE\TaskConsultaResultadoLoteGNRE.cs" />
     <Compile Include="GNRE\TaskLoteRecepcaoGNRE.cs" />
+    <Compile Include="BPe\TaskBPeEventos.cs" />
+    <Compile Include="BPe\TaskBPeRecepcao.cs" />
+    <Compile Include="BPe\TaskBPeTARecepcao.cs" />
+    <Compile Include="BPe\TaskBPeTMRecepcao.cs" />
+    <Compile Include="BPe\TaskConsultaSituacaoBPe.cs" />
+    <Compile Include="BPe\TaskConsultaStatusBPe.cs" />
     <Compile Include="MDFe\TaskConsNaoEncMDFe.cs" />
     <Compile Include="MDFe\TaskConsultaSituacaoMDFe.cs" />
     <Compile Include="MDFe\TaskConsultaStatusMDFe.cs" />
