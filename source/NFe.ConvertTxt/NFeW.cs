@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Utility;
+using NFe.ConvertTxt.Generation;
 
 namespace NFe.ConvertTxt
 {
@@ -41,6 +42,15 @@ namespace NFe.ConvertTxt
         /// </summary>
         /// <param name="NFe"></param>
         public void GerarXml(NFe NFe, string folderDestino, string cArquivo)
+        {
+            var gerador = new DFeNFeXmlGenerator();
+            gerador.Gerar(NFe, folderDestino, cArquivo);
+            cMensagemErro = gerador.MensagemErro ?? string.Empty;
+            cFileName = gerador.NomeArquivo;
+            XMLString = gerador.Xml;
+        }
+
+        private void GerarXmlLegado(NFe NFe, string folderDestino, string cArquivo)
         {
             ArqTXT = cArquivo;
 
