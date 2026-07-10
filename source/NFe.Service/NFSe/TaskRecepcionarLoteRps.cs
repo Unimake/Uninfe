@@ -772,19 +772,14 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIGCORP:
                     if (xmlDoc.DocumentElement.Name.Contains("GerarNota"))
                     {
-                        if (codMunicipio == 4113700)
-                        {
-                            versaoXML = "1.03";
-                        }
-                        else
-                        {
-                            versaoXML = "3.00";
-                        }
+                        versaoXML = "3.00";
                     }
-                    else if (!xmlDoc.DocumentElement.Name.Contains("GerarNota"))
+                    else
                     {
-                        if (codMunicipio == 4204202 || codMunicipio == 3131307 ||
-                            codMunicipio == 3530805 || codMunicipio == 3145208 ||
+                        if (codMunicipio == 4204202 ||
+                            codMunicipio == 3131307 ||
+                            codMunicipio == 3530805 ||
+                            codMunicipio == 3145208 ||
                             codMunicipio == 3300704)
                         {
                             versaoXML = "2.04";
@@ -794,42 +789,43 @@ namespace NFe.Service.NFSe
                             versaoXML = "2.03";
                         }
                     }
+
                     break;
 
                 case PadraoNFSe.EL:
-                    versaoXML = "2.04";
+                versaoXML = "2.04";
 
-                    if (xmlDoc.OuterXml.Contains("infDPS"))
-                    {
-                        versaoXML = "1.01";
-                    }
+                if (xmlDoc.OuterXml.Contains("infDPS"))
+                {
+                    versaoXML = "1.01";
+                }
+                break;
+
+            case PadraoNFSe.TIPLAN:
+                versaoXML = "2.03";
+                break;
+
+            case PadraoNFSe.GIF:
+                if (ConteudoXML.OuterXml.Contains("DPS"))
+                {
+                    versaoXML = "1.01";
                     break;
+                }
+                versaoXML = "1.00";
+                break;
 
-                case PadraoNFSe.TIPLAN:
-                    versaoXML = "2.03";
-                    break;
+            case PadraoNFSe.CONAM:
+                versaoXML = "2.00";
 
-                case PadraoNFSe.GIF:
-                    if (ConteudoXML.OuterXml.Contains("DPS"))
-                    {
-                        versaoXML = "1.01";
-                        break;
-                    }
-                    versaoXML = "1.00";
-                    break;
+                if (codMunicipio == 3506102 || codMunicipio == 3509007 || codMunicipio == 3552809)
+                {
+                    versaoXML = "4.00";
+                }
 
-                case PadraoNFSe.CONAM:
-                    versaoXML = "2.00";
+                break;
 
-                    if (codMunicipio == 3506102 || codMunicipio == 3509007 || codMunicipio == 3552809)
-                    {
-                        versaoXML = "4.00";
-                    }
-
-                    break;
-
-                default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Envio / Gerar NFS-e.");
+            default:
+                throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Envio / Gerar NFS-e.");
             }
 
             return versaoXML;

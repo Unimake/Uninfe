@@ -517,14 +517,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SIGCORP:
                     if (xmlDoc.DocumentElement.Name.Contains("CancelarNota"))
                     {
-                        if (codMunicipio == 4113700)
-                        {
-                            versaoXML = "1.03";
-                        }
-                        else
-                        {
-                            versaoXML = "3.00";
-                        }
+                        versaoXML = "3.00";
                     }
                     else if (!xmlDoc.DocumentElement.Name.Contains("CancelarNota"))
                     {
