@@ -397,7 +397,21 @@ namespace NFe.ConvertTxt.Mapping
                     case "30": destino.ICMS30 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMS30>(origem); break;
                     case "40":
                     case "41":
-                    case "50": destino.ICMS40 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMS40>(origem); break;
+                    case "50":
+                        destino.ICMS40 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMS40>(origem);
+
+                        // Na rotina legada, os campos de desoneração somente eram
+                        // gravados quando vICMSDeson estava preenchido. A classe da
+                        // DLL possui ShouldSerialize próprio para indDeduzDeson,
+                        // portanto precisamos preservar aqui a mesma condição do
+                        // TXT->XML antigo e não emitir indDeduzDeson isoladamente.
+                        if (origem.vICMSDeson <= 0)
+                        {
+                            destino.ICMS40.VICMSDeson = 0;
+                            destino.ICMS40.MotDesICMS = default;
+                            destino.ICMS40.IndDeduzDeson = null;
+                        }
+                        break;
                     case "51": destino.ICMS51 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMS51>(origem); break;
                     case "53": destino.ICMS53 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMS53>(origem); break;
                     case "60": destino.ICMS60 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMS60>(origem); break;

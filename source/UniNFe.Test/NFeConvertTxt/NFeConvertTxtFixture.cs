@@ -25,6 +25,7 @@ namespace UniNFe.Test.NFeConvertTxt
 
             return Directory
                 .GetFiles(raiz, "*.txt", SearchOption.AllDirectories)
+                .Where(x => !x.Contains(Path.DirectorySeparatorChar + "Regressions" + Path.DirectorySeparatorChar))
                 .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
                 .Select(x => new object[] { x, conversoesComSucesso.Contains(Path.GetFileName(x)) });
         }

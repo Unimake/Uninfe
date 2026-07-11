@@ -54,6 +54,8 @@
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFCe\99999999999999999999999999999999999999999999-nfe.txt"
              Link="NFeConvertTxt\Fixtures\NFCe\NFCe-4.00.txt"
              CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\NFe_000250887_07_43_31-nfe-orig.txt"
+             CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
