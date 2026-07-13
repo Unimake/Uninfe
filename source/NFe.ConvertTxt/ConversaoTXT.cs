@@ -865,7 +865,10 @@ namespace NFe.ConvertTxt
                             NFe.ide.cNF = Convert.ToInt32(this.chave.Substring(35, 8));
 
                         if (NFe.ide.cDV == 0)
+                        {
                             NFe.ide.cDV = Convert.ToInt32(this.chave.Substring(this.chave.Length - 1, 1));
+                            this.cDvInformado = true;
+                        }
                     }
 
                 #endregion
