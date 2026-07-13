@@ -10,7 +10,7 @@ namespace NFe.ConvertTxt.Generation
         public string NomeArquivo { get; private set; }
         public string Xml { get; private set; }
 
-        public void Gerar(NFe nfe, string pastaDestino, string arquivoOrigem)
+        public void Gerar(NFe nfe, string pastaDestino, string arquivoOrigem, bool cDvInformado)
         {
             ValidarCompatibilidade(nfe);
             var documento = new NFeDFeXmlSerializer().Serializar(nfe);
@@ -19,7 +19,13 @@ namespace NFe.ConvertTxt.Generation
             var chave = infNFe.GetAttribute("Id").Substring(3);
             nfe.infNFe.ID = chave;
             nfe.ide.cNF = int.Parse(chave.Substring(35, 8));
-            nfe.ide.cDV = int.Parse(chave.Substring(43, 1));
+            var digitoVerificadorCalculado = int.Parse(chave.Substring(43, 1));
+            if (cDvInformado && nfe.ide.cDV != digitoVerificadorCalculado)
+            {
+                throw new InvalidOperationException("Dígito verificador informado no TXT diverge da chave de acesso calculada.");
+            }
+
+            nfe.ide.cDV = digitoVerificadorCalculado;
             NomeArquivo = chave + Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML;
             if (string.IsNullOrEmpty(pastaDestino)) return;
 

@@ -39,6 +39,7 @@ namespace NFe.ConvertTxt
         private string Registro;
         private string layout;
         private string chave;
+        private bool cDvInformado;
         private const string prefix = "§";
         /// <summary>
         /// conteudo do arquivo de cada nota
@@ -79,6 +80,7 @@ namespace NFe.ConvertTxt
             this.LinhaLida = 0;
             this.layout = null;
             this.chave = null;
+            this.cDvInformado = false;
         }
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace NFe.ConvertTxt
             foreach (List<string> conteudoNota in this.xConteudoArquivo.Values)
             {
                 this.NFe = new NFe();
+                this.cDvInformado = false;
                 var houveErro = this.ProcessarRegistros(conteudoNota);
 
                 if (!houveErro && this.cMensagemErro == "")
@@ -152,7 +155,7 @@ namespace NFe.ConvertTxt
             try
             {
                 geradorXml.cMensagemErro = this.cMensagemErro;
-                geradorXml.GerarXml(this.NFe, pastaDestino, arquivoOrigem);
+                geradorXml.GerarXml(this.NFe, pastaDestino, arquivoOrigem, this.cDvInformado);
                 if (geradorXml.cFileName != "")
                 {
                     this.cRetorno.Add(new txtTOxmlClassRetorno(geradorXml.cFileName, this.NFe.infNFe.ID, this.NFe.ide.nNF, this.NFe.ide.serie));
@@ -831,6 +834,7 @@ namespace NFe.ConvertTxt
                     NFe.ide.tpImp = (TpcnTipoImpressao)this.LerInt32(TpcnResources.tpImp, ObOp.Obrigatorio, 1, 1);
                     NFe.ide.tpEmis = (TipoEmissao)this.LerInt32(TpcnResources.tpEmis, ObOp.Obrigatorio, 1, 1);
                     NFe.ide.cDV = this.LerInt32(TpcnResources.cDV, ObOp.Opcional, 1, 1);
+                    this.cDvInformado = NFe.ide.cDV != 0;
                     NFe.ide.tpAmb = (TipoAmbiente)this.LerInt32(TpcnResources.tpAmb, ObOp.Obrigatorio, 1, 1);
                     NFe.ide.finNFe = (TpcnFinalidadeNFe)this.LerInt32(TpcnResources.finNFe, ObOp.Obrigatorio, 1, 1);
                     NFe.ide.tpNFDebito = (TpcnTipoNFDebito)this.LerInt32(TpcnResources.tpNFDebito, ObOp.Opcional, 2, 2);

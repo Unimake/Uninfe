@@ -40,6 +40,23 @@ namespace UniNFe.Test.NFeConvertTxt
         }
 
         [Fact]
+        public void DigitoVerificadorDivergenteDeveSerRejeitado()
+        {
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "RTC", "NFE_Venda_00002.txt");
+            var linhas = File.ReadAllLines(arquivo);
+            var indiceSegmentoB = Array.FindIndex(linhas, x => x.StartsWith("B|"));
+            var campos = linhas[indiceSegmentoB].Split('|');
+            campos[14] = campos[14] == "9" ? "8" : "9";
+            linhas[indiceSegmentoB] = string.Join("|", campos);
+
+            ExecutarComArquivo(string.Join(Environment.NewLine, linhas), conversao =>
+            {
+                Assert.False(conversao.Sucesso);
+                Assert.Contains("Dígito verificador informado", conversao.MensagemErro);
+            });
+        }
+
+        [Fact]
         public void ArquivoComDuasNotasDeveGerarDoisXmls()
         {
             var primeiro = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "RTC", "NFE_Venda_00002.txt");

@@ -41,10 +41,10 @@ namespace NFe.ConvertTxt
         /// GerarXml
         /// </summary>
         /// <param name="NFe"></param>
-        public void GerarXml(NFe NFe, string folderDestino, string cArquivo)
+        public void GerarXml(NFe NFe, string folderDestino, string cArquivo, bool cDvInformado = false)
         {
             var gerador = new DFeNFeXmlGenerator();
-            gerador.Gerar(NFe, folderDestino, cArquivo);
+            gerador.Gerar(NFe, folderDestino, cArquivo, cDvInformado);
             cMensagemErro = gerador.MensagemErro ?? string.Empty;
             cFileName = gerador.NomeArquivo;
             XMLString = gerador.Xml;
