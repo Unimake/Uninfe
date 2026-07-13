@@ -7,6 +7,7 @@ using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
 {
+    [Collection("NFeConvertTxt")]
     public sealed class IcMs40RegressionTests
     {
         private readonly NFeConvertTxtFixture fixture = new NFeConvertTxtFixture();

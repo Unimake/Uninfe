@@ -376,7 +376,13 @@ namespace NFe.ConvertTxt.Mapping
                     case 201: destino.ICMSSN201 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMSSN201>(origem); break;
                     case 202:
                     case 203: destino.ICMSSN202 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMSSN202>(origem); break;
-                    case 500: destino.ICMSSN500 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMSSN500>(origem); break;
+                    case 500:
+                        destino.ICMSSN500 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMSSN500>(origem);
+                        if (origem.vBCSTRet <= 0) destino.ICMSSN500.VBCSTRet = null;
+                        if (origem.pST <= 0) destino.ICMSSN500.PST = null;
+                        if (origem.vICMSSubstituto <= 0) destino.ICMSSN500.VICMSSubstituto = null;
+                        if (origem.vICMSSTRet <= 0) destino.ICMSSN500.VICMSSTRet = null;
+                        break;
                     case 900:
                         destino.ICMSSN900 = NFeDFeConventionMapper.Mapear<DFeNFe.ICMSSN900>(origem);
                         if (origem.pRedBC <= 0) destino.ICMSSN900.PRedBC = null;

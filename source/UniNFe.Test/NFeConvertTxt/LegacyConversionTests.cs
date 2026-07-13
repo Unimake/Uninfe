@@ -4,6 +4,7 @@ using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
 {
+    [Collection("NFeConvertTxt")]
     public sealed class LegacyConversionTests
     {
         private readonly NFeConvertTxtFixture fixture = new NFeConvertTxtFixture();
@@ -14,7 +15,7 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             using (var resultado = fixture.Converter(arquivoOrigem))
             {
-                Assert.Equal(sucessoEsperado, resultado.Sucesso);
+                Assert.True(sucessoEsperado == resultado.Sucesso, Path.GetFileName(arquivoOrigem));
 
                 if (!sucessoEsperado)
                 {

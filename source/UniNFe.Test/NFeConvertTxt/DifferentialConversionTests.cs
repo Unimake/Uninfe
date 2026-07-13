@@ -7,6 +7,7 @@ using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
 {
+    [Collection("NFeConvertTxt")]
     public sealed class DifferentialConversionTests
     {
         private readonly NFeConvertTxtFixture fixture = new NFeConvertTxtFixture();

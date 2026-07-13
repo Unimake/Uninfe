@@ -1032,6 +1032,13 @@ namespace NFe.ConvertTxt
                 case "A":
                     double v = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.versao, ObOp.Opcional, 6);
                     this.chave = this.LerString(TpcnResources.ID, ObOp.Opcional, 0, 47);
+                    // Alguns emissores informam apenas o tipo do documento (NFe ou NFCe) no campo reservado à chave.
+                    if (!string.IsNullOrWhiteSpace(this.chave) &&
+                        (this.chave.IndexOf("nfe", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                         this.chave.IndexOf("nfce", StringComparison.OrdinalIgnoreCase) >= 0))
+                    {
+                        this.chave = string.Empty;
+                    }
                     this.chave = Functions.NormalizarChaveDFe(this.chave);
                     if (!string.IsNullOrEmpty(this.chave) && this.chave.Length != 44)
                     {
