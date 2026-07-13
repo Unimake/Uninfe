@@ -73,21 +73,6 @@ namespace NFe.ConvertTxt
             xmlInf.Attributes.Append(xmlVersion1);
             doc.AppendChild(xmlInf);
 
-            string cChave = NFe.ide.cUF.ToString() +
-                            NFe.ide.dEmi.Year.ToString("0000").Substring(2) +
-                            NFe.ide.dEmi.Month.ToString("00"); //data AAMM
-
-            if (NFe.infNFe.Versao >= 3)
-            {
-                cChave = NFe.ide.cUF.ToString() +
-                         NFe.ide.dhEmi.Substring(2, 2) +
-                         NFe.ide.dhEmi.Substring(5, 2); //data AAMM
-            }
-
-            var cnpjCpfEmitente = Functions.NormalizarCNPJCPFChaveDFe(NFe.emit.CNPJ + NFe.emit.CPF);
-            cChave += string.IsNullOrEmpty(cnpjCpfEmitente) ? "00000000000000" : cnpjCpfEmitente;
-            cChave += Convert.ToInt32(NFe.ide.mod).ToString("00");
-
             if (NFe.ide.cNF == 0)
             {
                 ///
@@ -95,33 +80,20 @@ namespace NFe.ConvertTxt
                 ///
                 NFe.ide.cNF = XMLUtility.GerarCodigoNumerico(NFe.ide.nNF);
             }
-            string ccChave = cChave +
-                             NFe.ide.serie.ToString("000") +
-                             NFe.ide.nNF.ToString("000000000") +
-                             ((int)NFe.ide.tpEmis).ToString("0") +
-                             NFe.ide.cNF.ToString("00000000");
-
-            if (NFe.ide.cDV == 0)
+            var conteudoChave = new XMLUtility.ConteudoChaveDFe
             {
-                ///
-                /// calcula digito verificador
-                ///
-
-                NFe.ide.cDV = GerarDigito(ccChave);
-            }
-            else
-            {
-                int ccDV = GerarDigito(ccChave);
-                if (NFe.ide.cDV != ccDV)
-                {
-                    throw new Exception(string.Format("Digito verificador informado, [{0}] é diferente do calculado, [{1}]", NFe.ide.cDV, ccDV));
-                }
-            }
-            cChave += NFe.ide.serie.ToString("000") +
-                        NFe.ide.nNF.ToString("000000000") +
-                        ((int)NFe.ide.tpEmis).ToString("0") +
-                        NFe.ide.cNF.ToString("00000000") +
-                        NFe.ide.cDV.ToString("0");
+                UFEmissor = (UFBrasil)NFe.ide.cUF,
+                AnoEmissao = NFe.infNFe.Versao >= 3 ? NFe.ide.dhEmi.Substring(2, 2) : NFe.ide.dEmi.Year.ToString("00"),
+                MesEmissao = NFe.infNFe.Versao >= 3 ? NFe.ide.dhEmi.Substring(5, 2) : NFe.ide.dEmi.Month.ToString("00"),
+                CNPJCPFEmissor = NFe.emit.CNPJ + NFe.emit.CPF,
+                Modelo = (ModeloDFe)(int)NFe.ide.mod,
+                Serie = NFe.ide.serie,
+                NumeroDoctoFiscal = NFe.ide.nNF,
+                TipoEmissao = (TipoEmissao)(int)NFe.ide.tpEmis,
+                CodigoNumerico = NFe.ide.cNF.ToString("00000000")
+            };
+            var cChave = XMLUtility.MontarChaveNFe(ref conteudoChave);
+            NFe.ide.cDV = conteudoChave.DigitoVerificador;
             NFe.infNFe.ID = cChave;
 
             if (string.IsNullOrEmpty(NFe.resptecnico.hashCSRT) && !string.IsNullOrEmpty(NFe.resptecnico.CNPJ))
@@ -4370,9 +4342,6 @@ namespace NFe.ConvertTxt
                     throw new Exception(cError);
                 }
 
-                var cnpjCpfEmitente = Functions.NormalizarCNPJCPFChaveDFe(cCNPJ);
-                cChave = cUF.ToString("00") + cAAMM.Trim() + (string.IsNullOrEmpty(cnpjCpfEmitente) ? "00000000000000" : cnpjCpfEmitente) + cMod;
-
                 if (cNF == 0)
                 {
                     ///
@@ -4381,15 +4350,19 @@ namespace NFe.ConvertTxt
                     cNF = XMLUtility.GerarCodigoNumerico(nNF); 
                 }
 
-                ///
-                /// calcula do digito verificador
-                ///
-                string ccChave = cChave + serie.ToString("000") + nNF.ToString("000000000") + tpEmis.ToString("0") + cNF.ToString("00000000");
-                int cDV = GerarDigito(ccChave);
-                ///
-                /// monta a chave da NFe
-                ///
-                cChave += serie.ToString("000") + nNF.ToString("000000000") + tpEmis.ToString("0") + cNF.ToString("00000000") + cDV.ToString("0");
+                var conteudoChave = new XMLUtility.ConteudoChaveDFe
+                {
+                    UFEmissor = (UFBrasil)cUF,
+                    AnoEmissao = cAAMM.Substring(0, 2),
+                    MesEmissao = cAAMM.Substring(2, 2),
+                    CNPJCPFEmissor = cCNPJ,
+                    Modelo = (ModeloDFe)Convert.ToInt32(cMod),
+                    Serie = serie,
+                    NumeroDoctoFiscal = nNF,
+                    TipoEmissao = (TipoEmissao)tpEmis,
+                    CodigoNumerico = cNF.ToString("00000000")
+                };
+                cChave = XMLUtility.MontarChaveNFe(ref conteudoChave);
 
                 ///
                 /// grava o XML/TXT de resposta
