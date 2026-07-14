@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using NFe.ConvertTxt;
-using NFe.ConvertTxt.Generation;
 using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
@@ -26,15 +25,15 @@ namespace UniNFe.Test.NFeConvertTxt
         }
 
         [Fact]
-        public void NovaRotinaDeveSerEquivalenteAoLegadoNoICMS40()
+        public void ConversorDaDllDeveGerarICMS40SemIndDeduzDesonQuandoNaoHaVICMSDeson()
         {
             using (var resultado = fixture.Converter(CaminhoFixture()))
             {
                 Assert.True(resultado.Sucesso, resultado.MensagemErro);
-                resultado.Nota.resptecnico.CNPJ = null;
-                var legado = GerarXmlLegado(resultado.Nota, CaminhoFixture());
-                var novo = new NFeDFeXmlSerializer().Serializar(resultado.Nota).OuterXml;
-                Assert.Null(NFeConvertTxtXmlComparer.Comparar(legado, novo));
+                var conversaoNova = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(CaminhoFixture());
+                Assert.True(conversaoNova.Sucesso, conversaoNova.MensagemErro);
+                var novo = Assert.Single(conversaoNova.Documentos).Xml;
+                Assert.Contains("<ICMS40>", novo);
                 Assert.DoesNotContain("<indDeduzDeson>", novo);
             }
         }

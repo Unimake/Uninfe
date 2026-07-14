@@ -1,7 +1,6 @@
 using System.IO;
 using System;
 using System.Reflection;
-using NFe.ConvertTxt.Generation;
 using NFe.ConvertTxt;
 using Xunit;
 
@@ -35,7 +34,9 @@ namespace UniNFe.Test.NFeConvertTxt
                 {
                     if (Directory.Exists(pastaLegado)) Directory.Delete(pastaLegado, true);
                 }
-                var novo = new NFeDFeXmlSerializer().Serializar(resultado.Nota).OuterXml;
+                var conversaoNova = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivoOrigem);
+                Assert.True(conversaoNova.Sucesso, conversaoNova.MensagemErro);
+                var novo = Assert.Single(conversaoNova.Documentos).Xml;
                 var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                 Assert.True(diferenca == null, Path.GetFileName(arquivoOrigem) + ": " + diferenca);
             }

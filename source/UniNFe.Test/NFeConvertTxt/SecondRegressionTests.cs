@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using NFe.ConvertTxt;
-using NFe.ConvertTxt.Generation;
 using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
@@ -18,7 +17,6 @@ namespace UniNFe.Test.NFeConvertTxt
             using (var resultado = fixture.Converter(arquivo))
             {
                 Assert.True(resultado.Sucesso, resultado.MensagemErro);
-                resultado.Nota.resptecnico.CNPJ = null;
                 var pasta = Path.Combine(Path.GetTempPath(), "UniNFe.Test", "NFeConvertTxt", Guid.NewGuid().ToString("N"));
                 Directory.CreateDirectory(pasta);
                 try
@@ -26,7 +24,9 @@ namespace UniNFe.Test.NFeConvertTxt
                     var legadoGerador = new NFeW { cMensagemErro = string.Empty };
                     typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(legadoGerador, new object[] { resultado.Nota, pasta, arquivo });
                     var legado = File.ReadAllText(legadoGerador.cFileName);
-                    var novo = new NFeDFeXmlSerializer().Serializar(resultado.Nota).OuterXml;
+                    var conversaoNova = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+                    Assert.True(conversaoNova.Sucesso, conversaoNova.MensagemErro);
+                    var novo = Assert.Single(conversaoNova.Documentos).Xml;
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }

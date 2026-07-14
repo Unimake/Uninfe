@@ -8,7 +8,6 @@ using System.Text;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Utility;
-using NFe.ConvertTxt.Generation;
 
 namespace NFe.ConvertTxt
 {
@@ -43,14 +42,56 @@ namespace NFe.ConvertTxt
         /// <param name="NFe"></param>
         public void GerarXml(NFe NFe, string folderDestino, string cArquivo, bool cDvInformado = false)
         {
-            var gerador = new DFeNFeXmlGenerator();
-            gerador.Gerar(NFe, folderDestino, cArquivo, cDvInformado);
-            cMensagemErro = gerador.MensagemErro ?? string.Empty;
-            cFileName = gerador.NomeArquivo;
-            XMLString = gerador.Xml;
+            cMensagemErro = string.Empty;
+            cFileName = string.Empty;
+            XMLString = string.Empty;
+
+            var resultadoConversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(cArquivo);
+            if (!resultadoConversao.Sucesso)
+            {
+                cMensagemErro = resultadoConversao.MensagemErro;
+                return;
+            }
+
+            Unimake.Business.DFe.Xml.NFe.NFeTxtDocumento documentoConvertido = null;
+            foreach (var documento in resultadoConversao.Documentos)
+            {
+                if (documento.Numero == NFe.ide.nNF && documento.Serie == NFe.ide.serie)
+                {
+                    documentoConvertido = documento;
+                    break;
+                }
+            }
+
+            if (documentoConvertido == null)
+            {
+                cMensagemErro = "Não foi possível localizar a NFe/NFCe convertida no arquivo TXT.";
+                return;
+            }
+
+            XMLString = documentoConvertido.Xml;
+            NFe.infNFe.ID = documentoConvertido.Chave;
+            NFe.ide.cDV = Convert.ToInt32(documentoConvertido.Chave.Substring(documentoConvertido.Chave.Length - 1, 1));
+            cFileName = documentoConvertido.Chave + Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML;
+
+            if (!string.IsNullOrEmpty(folderDestino))
+            {
+                var pastaConvertidos = Path.Combine(folderDestino, "Convertidos");
+                Directory.CreateDirectory(pastaConvertidos);
+                cFileName = Path.Combine(pastaConvertidos, cFileName);
+
+                var documentoXml = new XmlDocument();
+                documentoXml.LoadXml(XMLString);
+                documentoXml.Save(cFileName);
+            }
         }
 
         private void GerarXmlLegado(NFe NFe, string folderDestino, string cArquivo)
+        {
+            this.GerarXmlLegadoComValidacao(NFe, folderDestino, cArquivo, false);
+        }
+
+        private void GerarXmlLegadoComValidacao(NFe NFe, string folderDestino, string cArquivo, bool cDvInformado)
         {
             ArqTXT = cArquivo;
 
@@ -93,6 +134,10 @@ namespace NFe.ConvertTxt
                 CodigoNumerico = NFe.ide.cNF.ToString("00000000")
             };
             var cChave = XMLUtility.MontarChaveNFe(ref conteudoChave);
+            if (cDvInformado && NFe.ide.cDV != conteudoChave.DigitoVerificador)
+            {
+                throw new InvalidOperationException("Dígito verificador informado no TXT diverge da chave de acesso calculada.");
+            }
             NFe.ide.cDV = conteudoChave.DigitoVerificador;
             NFe.infNFe.ID = cChave;
 
