@@ -110,35 +110,42 @@ namespace NFe.Service
         /// <param name="finalArqRetorno">Extensão final do arquivo XML de retorno</param>
         public void ExtrairPDFRetorno(int emp, string finalArqEnvio, string finalArqRetorno)
         {
-            if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+            try
             {
-                return;
+                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                {
+                    return;
+                }
+
+                var doc = new XmlDocument();
+                doc.Load(Functions.StringXmlToStream(vStrXmlRetorno));
+
+                var pdfContentSuccess = doc.GetElementsByTagName("PdfContentSuccess");
+                if (pdfContentSuccess.Count > 0 && pdfContentSuccess[0].InnerText.Equals("false", StringComparison.OrdinalIgnoreCase))
+                {
+                    return;
+                }
+
+                var pdfContentBase64 = doc.GetElementsByTagName("PdfContentBase64");
+                if (pdfContentBase64.Count == 0 || string.IsNullOrWhiteSpace(pdfContentBase64[0].InnerText))
+                {
+                    return;
+                }
+
+                var arqPDF = Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + finalArqRetorno;
+                arqPDF = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, arqPDF.Replace(".xml", ".pdf"));
+
+                if (File.Exists(arqPDF))
+                {
+                    File.Delete(arqPDF);
+                }
+
+                File.WriteAllBytes(arqPDF, Convert.FromBase64String(pdfContentBase64[0].InnerText));
             }
-
-            var doc = new XmlDocument();
-            doc.Load(Functions.StringXmlToStream(vStrXmlRetorno));
-
-            var pdfContentSuccess = doc.GetElementsByTagName("PdfContentSuccess");
-            if (pdfContentSuccess.Count > 0 && pdfContentSuccess[0].InnerText.Equals("false", StringComparison.OrdinalIgnoreCase))
+            catch (Exception ex)
             {
-                return;
+                Auxiliar.WriteLog("TaskBoletoRegistrar: Não foi possível extrair o PDF do retorno do e-Boleto. O XML de retorno do registro foi preservado. Erro: " + ex.GetAllMessages(), true);
             }
-
-            var pdfContentBase64 = doc.GetElementsByTagName("PdfContentBase64");
-            if (pdfContentBase64.Count == 0 || string.IsNullOrWhiteSpace(pdfContentBase64[0].InnerText))
-            {
-                return;
-            }
-
-            var arqPDF = Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + finalArqRetorno;
-            arqPDF = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, arqPDF.Replace(".xml", ".pdf"));
-
-            if (File.Exists(arqPDF))
-            {
-                File.Delete(arqPDF);
-            }
-
-            File.WriteAllBytes(arqPDF, Convert.FromBase64String(pdfContentBase64[0].InnerText));
         }
 
         #endregion ExtrairPDFRetorno
