@@ -89,6 +89,7 @@ namespace NFe.Service
                 vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
 
                 XmlRetorno(finalArqEnvio, finalArqRetorno);
+                ExtrairPDFRetorno(emp, finalArqEnvio, finalArqRetorno);
 
                 var disposeMethod = boletoInstance.GetType().GetMethod("Dispose");
                 disposeMethod?.Invoke(boletoInstance, null);
@@ -98,6 +99,50 @@ namespace NFe.Service
                 throw new Exception($"Erro ao executar DLL eBoleto BoletoRegistrar: {ex.Message}", ex);
             }
         }
+
+        #region ExtrairPDFRetorno
+
+        /// <summary>
+        /// Extrai o conteúdo da tag PdfContentBase64 do retorno do e-Boleto e grava o PDF na pasta de retorno.
+        /// </summary>
+        /// <param name="emp">Código da empresa</param>
+        /// <param name="finalArqEnvio">Extensão final do arquivo de envio</param>
+        /// <param name="finalArqRetorno">Extensão final do arquivo XML de retorno</param>
+        public void ExtrairPDFRetorno(int emp, string finalArqEnvio, string finalArqRetorno)
+        {
+            if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+            {
+                return;
+            }
+
+            var doc = new XmlDocument();
+            doc.Load(Functions.StringXmlToStream(vStrXmlRetorno));
+
+            var pdfContentSuccess = doc.GetElementsByTagName("PdfContentSuccess");
+            if (pdfContentSuccess.Count > 0 && pdfContentSuccess[0].InnerText.Equals("false", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var pdfContentBase64 = doc.GetElementsByTagName("PdfContentBase64");
+            if (pdfContentBase64.Count == 0 || string.IsNullOrWhiteSpace(pdfContentBase64[0].InnerText))
+            {
+                return;
+            }
+
+            var arqPDF = Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + finalArqRetorno;
+            arqPDF = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, arqPDF.Replace(".xml", ".pdf"));
+
+            if (File.Exists(arqPDF))
+            {
+                File.Delete(arqPDF);
+            }
+
+            File.WriteAllBytes(arqPDF, Convert.FromBase64String(pdfContentBase64[0].InnerText));
+        }
+
+        #endregion ExtrairPDFRetorno
+
         private string AdicionarUniNFeVersaoAoRetorno(string xmlRetorno)
         {
             if (string.IsNullOrWhiteSpace(xmlRetorno))
