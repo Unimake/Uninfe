@@ -28,7 +28,7 @@ namespace NFe.Service.NFSe
             ConteudoXML.PreserveWhitespace = false;
             ConteudoXML.Load(arquivo);
         }
-
+        
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
@@ -371,6 +371,7 @@ namespace NFe.Service.NFSe
                         case "EnviarLoteDpsSincronoEnvio":
                         case "ns1:ReqEnvioLoteRPS":
                         case "nfse:RecepcionarLoteDpsSincronoEnvio":
+                        case "RecepcionarLoteDpsSincronoEnvio":
                             if (municipio == 2111300)
                             {
                                 result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
