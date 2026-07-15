@@ -756,6 +756,11 @@ namespace NFe.Service
                             {
                                 consStatServList = ConteudoXML.GetElementsByTagName("consStatServNFGas");
                             }
+
+                            if (consStatServList.Count == 0)
+                            {
+                                consStatServList = ConteudoXML.GetElementsByTagName("consStatServBPe");
+                            }
                         }
                     }
                     else

@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using XmlBPe = Unimake.Business.DFe.Xml.BPe;
 using XmlCTe = Unimake.Business.DFe.Xml.CTe;
 using XmlDCe = Unimake.Business.DFe.Xml.DCe;
 using XmlMDFe = Unimake.Business.DFe.Xml.MDFe;
@@ -858,6 +859,10 @@ namespace NFe.Service
                     StatusServicoNFGas(arquivoSaida, amb, tpEmis, cUF, versao);
                     break;
 
+                case TipoAplicativo.BPe:
+                    StatusServicoBPe(arquivoSaida, amb, tpEmis, cUF, versao);
+                    break;
+
                 case TipoAplicativo.DCe:
                     StatusServicoDCe(arquivoSaida, amb, tpEmis, cUF, versao);
                     break;
@@ -1099,6 +1104,41 @@ namespace NFe.Service
         }
 
         #endregion StatusServicoNFGas()
+
+        #region StatusServicoBPe()
+
+        /// <summary>
+        /// Gera o XML de consulta status do serviço do BPe
+        /// </summary>
+        /// <param name="pArquivo">Caminho e nome do arquivo que é para ser gerado</param>
+        /// <param name="tpAmb">Ambiente da consulta</param>
+        /// <param name="tpEmis">Tipo de emissão da consulta</param>
+        /// <param name="cUF">Estado para a consulta</param>
+        /// <param name="versao">Versão do schema do XML</param>
+        public void StatusServicoBPe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
+        {
+            var xml = new XmlBPe.ConsStatServBPe
+            {
+                TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
+                Versao = versao,
+                XServ = "STATUS"
+            }.GerarXML();
+
+            var doc = new XmlDocument();
+            doc.LoadXml(xml.OuterXml);
+
+            var xmlNode = doc.GetElementsByTagName("consStatServBPe")[0];
+            xmlNode.AppendChild(CriaElemento(doc, TpcnResources.cUF.ToString(), cUF.ToString(), NFeStrConstants.NAME_SPACE_BPE));
+
+            if (tpEmis > 0)
+            {
+                xmlNode.AppendChild(CriaElemento(doc, TpcnResources.tpEmis.ToString(), tpEmis.ToString(), NFeStrConstants.NAME_SPACE_BPE));
+            }
+
+            GravarArquivoParaEnvio(pArquivo, doc.OuterXml);
+        }
+
+        #endregion StatusServicoBPe()
 
         #region StatusServicoDCe()
 
@@ -2347,6 +2387,99 @@ namespace NFe.Service
         }
 
         #endregion XmlDistNFGas()
+
+        #region XmlDistBPe()
+
+        /// <summary>
+        /// Criar o arquivo XML de distribuição do BPe com o protocolo de autorização anexado
+        /// </summary>
+        /// <param name="arqBPe">Nome arquivo do XML do BPe</param>
+        /// <param name="protBPe">String contendo a parte do XML do protocolo a ser anexado</param>
+        /// <param name="extensao">Extensão que será utilizada na criação do arquivo na pasta</param>
+        /// <param name="versao">Versão do SCHEMA do XML</param>
+        /// <returns></returns>
+        public string XmlDistBPe(string arqBPe, string protBPe, string extensao, string versao)
+        {
+            return XmlDistBPeBase(arqBPe, protBPe, extensao, versao, "BPe", "BPeProc", Propriedade.TipoEnvio.BPe);
+        }
+
+        #endregion XmlDistBPe()
+
+        #region XmlDistBPeTM()
+
+        /// <summary>
+        /// Criar o arquivo XML de distribuição do BPe TM com o protocolo de autorização anexado
+        /// </summary>
+        /// <param name="arqBPeTM">Nome arquivo do XML do BPe TM</param>
+        /// <param name="protBPe">String contendo a parte do XML do protocolo a ser anexado</param>
+        /// <param name="extensao">Extensão que será utilizada na criação do arquivo na pasta</param>
+        /// <param name="versao">Versão do SCHEMA do XML</param>
+        /// <returns></returns>
+        public string XmlDistBPeTM(string arqBPeTM, string protBPe, string extensao, string versao)
+        {
+            return XmlDistBPeBase(arqBPeTM, protBPe, extensao, versao, "BPeTM", "BPeTMProc", Propriedade.TipoEnvio.BPeTM);
+        }
+
+        #endregion XmlDistBPeTM()
+
+        #region XmlDistBPeTA()
+
+        /// <summary>
+        /// Criar o arquivo XML de distribuição do BPe TA com o protocolo de autorização anexado
+        /// </summary>
+        /// <param name="arqBPeTA">Nome arquivo do XML do BPe TA</param>
+        /// <param name="protBPe">String contendo a parte do XML do protocolo a ser anexado</param>
+        /// <param name="extensao">Extensão que será utilizada na criação do arquivo na pasta</param>
+        /// <param name="versao">Versão do SCHEMA do XML</param>
+        /// <returns></returns>
+        public string XmlDistBPeTA(string arqBPeTA, string protBPe, string extensao, string versao)
+        {
+            return XmlDistBPeBase(arqBPeTA, protBPe, extensao, versao, "BPeTA", "bpeTAProc", Propriedade.TipoEnvio.BPeTA);
+        }
+
+        #endregion XmlDistBPeTA()
+        #region XmlDistBPeBase()
+
+        private string XmlDistBPeBase(string arqBPe, string protBPe, string extensao, string versao, string tagDocumento, string tagProc, Propriedade.TipoEnvio tipoEnvio)
+        {
+            var nomeArqProcBPe = string.Empty;
+            var emp = EmpIndex;
+            StreamWriter swProc = null;
+
+            try
+            {
+                if (File.Exists(arqBPe))
+                {
+                    var doc = new XmlDocument();
+                    doc.Load(arqBPe);
+
+                    var bpeList = doc.GetElementsByTagName(tagDocumento);
+                    var bpeNode = bpeList[0];
+                    var conteudoBPe = bpeNode.OuterXml;
+                    var xmlProcBPe = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+                        "<" + tagProc + " xmlns=\"" + NFeStrConstants.NAME_SPACE_BPE + "\" versao=\"" + versao + "\">" +
+                        conteudoBPe +
+                        protBPe +
+                        "</" + tagProc + ">";
+
+                    nomeArqProcBPe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                        PastaEnviados.EmProcessamento.ToString() + "\\" + Functions.ExtrairNomeArq(arqBPe, Propriedade.Extensao(tipoEnvio).EnvioXML) + extensao;
+
+                    swProc = File.CreateText(nomeArqProcBPe);
+                    swProc.Write(xmlProcBPe);
+                }
+            }
+            finally
+            {
+                if (swProc != null)
+                {
+                    swProc.Close();
+                }
+            }
+            return nomeArqProcBPe;
+        }
+
+        #endregion XmlDistBPeBase()
 
         #region XmlDistDCe
         /// <summary>
@@ -3631,6 +3764,137 @@ namespace NFe.Service
         }
 
         #endregion XmlDistEventoNFGas()
+
+        #region XmlDistEventoBPe()
+
+        /// <summary>
+        /// XML distribuição de evento do BPe
+        /// </summary>
+        /// <param name="emp">ID da empresa que vai ser trabalhado</param>
+        /// <param name="strXmlRetorno">Retorno da SEFAZ no formato string</param>
+        public void XmlDistEventoBPe(int emp, string strXmlRetorno)
+        {
+            var docEventos = new XmlDocument();
+            docEventos.Load(Functions.StringXmlToStreamUTF8(strXmlRetorno));
+            var retProcEventoBPeList = docEventos.GetElementsByTagName("procEventoBPe");
+
+            if (retProcEventoBPeList != null)
+            {
+                foreach (XmlNode retConsSitNode in retProcEventoBPeList)
+                {
+                    var cStat = ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
+
+                    if (cStat == "134" || cStat == "135" || cStat == "136")
+                    {
+                        var chBPe = ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.chBPe.ToString())[0].InnerText;
+                        var nSeqEvento = Convert.ToInt32("0" + ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.nSeqEvento.ToString())[0].InnerText);
+                        var tpEvento = Convert.ToInt32("0" + ((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.tpEvento.ToString())[0].InnerText);
+                        var dhRegEvento = Functions.GetDateTime(((XmlElement)retConsSitNode).GetElementsByTagName(TpcnResources.dhRegEvento.ToString())[0].InnerText);
+                        var versao = ((XmlElement)retConsSitNode).Attributes[TpcnResources.versao.ToString()].InnerText;
+                        var idRetornado = (((XmlElement)retConsSitNode).GetElementsByTagName("infEvento")[0]).Attributes.GetNamedItem(TpcnResources.Id.ToString()).Value;
+
+                        XmlDistEventoBPe(emp, chBPe, nSeqEvento.ToString((idRetornado.Length <= 54 ? "00" : "000")), tpEvento, retConsSitNode.OuterXml, string.Empty, dhRegEvento, false, versao);
+                    }
+                }
+            }
+        }
+
+        #endregion XmlDistEventoBPe()
+
+        #region XmlDistEventoBPe()
+
+        /// <summary>
+        /// XML de distribuição do evento do BPe
+        /// </summary>
+        /// <param name="emp">ID da empresa que vai ser trabalhado</param>
+        /// <param name="chaveBPe">Chave do BPe</param>
+        /// <param name="nSeqEvento">Número de sequência do evento</param>
+        /// <param name="tpEvento">Tipo de evento</param>
+        /// <param name="xmlEventoEnvio">String do XML de evento enviado</param>
+        /// <param name="xmlRetornado">String do XML retornado pela SEFAZ</param>
+        /// <param name="dhRegEvento">Data e hora do registro do evento</param>
+        /// <param name="FromTaskEventos">Indica se veio da task de eventos do BPe</param>
+        /// <param name="versao">Versão do evento</param>
+        public void XmlDistEventoBPe(int emp, string chaveBPe, string nSeqEvento, int tpEvento, string xmlEventoEnvio, string xmlRetornado, DateTime dhRegEvento, bool FromTaskEventos, string versao)
+        {
+            var tempXmlFile = PastaEnviados.Autorizados.ToString() + "\\" +
+                Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dhRegEvento) +
+                chaveBPe + "_" + tpEvento.ToString() + "_" + nSeqEvento + Propriedade.ExtRetorno.ProcEventoBPe;
+
+            var bpeDeTerceiros = !Functions.ChaveDFePertenceEmpresa(chaveBPe, Empresas.Configuracoes[emp].CNPJ, Empresas.Configuracoes[emp].UnidadeFederativaCodigo);
+
+            var sendToDanfeMon = true;
+
+            var filenameToWrite = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnviado, tempXmlFile);
+            var filenameBackup = Empresas.Configuracoes[emp].PastaBackup;
+
+            if (!FromTaskEventos && bpeDeTerceiros)
+            {
+                if (!Empresas.Configuracoes[emp].GravarEventosDeTerceiros || string.IsNullOrEmpty(Empresas.Configuracoes[emp].PastaDownloadNFeDest))
+                {
+                    return;
+                }
+
+                filenameToWrite = Path.Combine(Empresas.Configuracoes[emp].PastaDownloadNFeDest, tempXmlFile);
+                filenameBackup = "";
+                sendToDanfeMon = false;
+            }
+
+            string protEnvioEvento;
+
+            if (xmlEventoEnvio.IndexOf("<procEventoBPe>") >= 0)
+            {
+                protEnvioEvento = xmlEventoEnvio;
+            }
+            else
+            {
+                protEnvioEvento = "<procEventoBPe versao=\"" + versao + "\" xmlns=\"" + NFeStrConstants.NAME_SPACE_BPE + "\">" +
+                           xmlEventoEnvio +
+                           xmlRetornado.Replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "") +
+                           "</procEventoBPe>";
+            }
+
+            if (!protEnvioEvento.StartsWith("<?xml"))
+            {
+                protEnvioEvento = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + protEnvioEvento;
+            }
+
+            if (!string.IsNullOrEmpty(filenameBackup))
+            {
+                filenameBackup = Path.Combine(filenameBackup, tempXmlFile);
+
+                if (!Directory.Exists(Path.GetDirectoryName(filenameBackup)))
+                {
+                    System.IO.Directory.CreateDirectory(Path.GetDirectoryName(filenameBackup));
+                }
+
+                if (!File.Exists(filenameBackup))
+                {
+                    File.WriteAllText(filenameBackup, protEnvioEvento);
+                }
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(filenameToWrite)))
+            {
+                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(filenameToWrite));
+            }
+
+            if (!File.Exists(filenameToWrite))
+            {
+                File.WriteAllText(filenameToWrite, protEnvioEvento);
+            }
+
+            XmlParaFTP(emp, filenameToWrite);
+
+            if (sendToDanfeMon)
+            {
+                TFunctions.CopiarXMLPastaDanfeMon(filenameToWrite);
+            }
+
+            NomeArqGerado = filenameToWrite;
+        }
+
+        #endregion XmlDistEventoBPe()
 
         #region XmlDistEventoDCe()
 

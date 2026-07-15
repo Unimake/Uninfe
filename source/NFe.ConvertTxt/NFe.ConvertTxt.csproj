@@ -223,6 +223,9 @@
     <Compile Include="Classes.veic.cs" />
     <Compile Include="Classes.vol.cs" />
     <Compile Include="ConversaoTXT.cs" />
+    <Compile Include="NFeTxtLayoutCatalog.cs" />
+    <Compile Include="NFeTxtLayoutResolver.cs" />
+    <Compile Include="NFeTxtFileReader.cs" />
     <Compile Include="InfIntermed.cs" />
     <Compile Include="nfeRead.cs" />
     <Compile Include="NFeW.cs" />

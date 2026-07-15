@@ -24,7 +24,7 @@ namespace NFe.Service
         {
             Auxiliar oAux = new Auxiliar();
 
-            NFe.ConvertTxt.ConversaoTXT oUniTxtToXml = new NFe.ConvertTxt.ConversaoTXT();
+            var arquivosXmlGerados = new List<string>();
 
             string pasta = new FileInfo(arquivo).DirectoryName;
             pasta = pasta.Substring(0, pasta.Length - 5); //Retirar a pasta \Temp do final - Wandrey 03/08/2011
@@ -51,15 +51,15 @@ namespace NFe.Service
                 ///
                 /// processa a conversão
                 /// 
-                oUniTxtToXml.Converter(arquivo, pasta);//Empresas.Configuracoes[emp].PastaRetorno);
+                var resultadoConversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
 
                 //Deu tudo certo com a conversão?
-                if (string.IsNullOrEmpty(oUniTxtToXml.cMensagemErro))
+                if (resultadoConversao.Sucesso)
                 {
                     ///
                     /// danasa 8-2009
                     /// 
-                    if (oUniTxtToXml.cRetorno.Count == 0)
+                    if (resultadoConversao.Documentos.Count == 0)
                     {
                         ccMessage = "cStat=02\r\n" +
                             "xMotivo=Falha na conversão. Sem informações para converter o arquivo texto";
@@ -80,26 +80,26 @@ namespace NFe.Service
                         }
                         ccExtension = "-nfe.txt";
                         ccMessage = "cStat=01\r\n" +
-                            "xMotivo=Conversão efetuada com sucesso." + (oUniTxtToXml.cRetorno.Count == 1 ? "" : " Foram convertidas " + oUniTxtToXml.cRetorno.Count.ToString() + " notas fiscais");
+                            "xMotivo=Conversão efetuada com sucesso." + (resultadoConversao.Documentos.Count == 1 ? "" : " Foram convertidas " + resultadoConversao.Documentos.Count.ToString() + " notas fiscais");
 
-                        foreach (NFe.ConvertTxt.txtTOxmlClassRetorno txtClass in oUniTxtToXml.cRetorno)
+                        foreach (Unimake.Business.DFe.Xml.NFe.NFeTxtDocumento documentoConvertido in resultadoConversao.Documentos)
                         {
                             ///
                             /// monta o texto que será gravado no arquivo de aviso ao ERP
                             /// 
                             ccMessage += Environment.NewLine +
-                                    "Nota fiscal: " + txtClass.NotaFiscal.ToString("000000000") +
-                                    " Serie: " + txtClass.Serie.ToString("000") +
-                                    " - ChaveNFe: " + txtClass.ChaveNFe;
+                                    "Nota fiscal: " + documentoConvertido.Numero.ToString("000000000") +
+                                    " Serie: " + documentoConvertido.Serie.ToString("000") +
+                                    " - ChaveNFe: " + documentoConvertido.Chave;
 
-                            // move o arquivo XML criado na pasta Envio\Convertidos para a pasta Envio
-                            // ou
-                            // move o arquivo XML criado na pasta Validar\Convertidos para a pasta Validar
-                            string nomeArquivoDestino = Path.Combine(pasta, Path.GetFileName(txtClass.XMLFileName));
-                            Functions.Move(txtClass.XMLFileName, nomeArquivoDestino);
+                            string nomeArquivoDestino = Path.Combine(pasta, documentoConvertido.Chave + EXT.EnvioXML);
+                            var xml = new XmlDocument();
+                            xml.LoadXml(documentoConvertido.Xml);
+                            xml.Save(nomeArquivoDestino);
+                            arquivosXmlGerados.Add(nomeArquivoDestino);
 
-                            Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + txtClass.ChaveNFe + EXT.EnvioXML);
-                            Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + txtClass.ChaveNFe + EXT.EnvioTXT);
+                            Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + documentoConvertido.Chave + EXT.EnvioXML);
+                            Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + documentoConvertido.Chave + EXT.EnvioTXT);
                         }
                     }
                 }
@@ -110,7 +110,7 @@ namespace NFe.Service
                     /// 
                     ccMessage = "cStat=99\r\n" +
                         "xMotivo=Falha na conversão\r\n" +
-                        "MensagemErro=" + oUniTxtToXml.cMensagemErro;
+                        "MensagemErro=" + resultadoConversao.MensagemErro;
                 }
             }
             catch (Exception ex)
@@ -126,11 +126,11 @@ namespace NFe.Service
                 if (ccMessage.StartsWith("cStat=02") || ccMessage.StartsWith("cStat=99"))
                 {
                     ///
-                    /// exclui todos os XML gerados na pasta Envio\convertidos somente se houve erro na conversão
-                    /// 
-                    foreach (NFe.ConvertTxt.txtTOxmlClassRetorno txtClass in oUniTxtToXml.cRetorno)
+                    /// exclui todos os XMLs persistidos pela nova conversão se houve erro
+                    ///
+                    foreach (string arquivoXmlGerado in arquivosXmlGerados)
                     {
-                        Functions.DeletarArquivo(pasta + "\\convertidos\\" + Path.GetFileName(txtClass.XMLFileName));
+                        Functions.DeletarArquivo(arquivoXmlGerado);
                     }
                 }
                 ///

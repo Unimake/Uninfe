@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Linq;
-using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe;
 
 namespace NFe.Components
 {
@@ -138,45 +136,17 @@ namespace NFe.Components
 
         public static TipoAplicativo TipoAplicativo { get; set; }
 
-        public static List<Municipio> Municipios { get; set; }
+        public static List<MunicipioNFSeConfiguracao> Municipios { get; set; }
 
-        private static List<Municipio> _Estados = null;
+        private static List<MunicipioNFSeConfiguracao> _Estados = null;
 
-        public static List<Municipio> Estados
+        public static List<MunicipioNFSeConfiguracao> Estados
         {
             get
             {
                 if (_Estados == null)
                 {
-                    _Estados = new List<Components.Municipio>();
-
-                    var doc = new XmlDocument();
-
-                    var config = new Configuracao();
-                    var stream = config.LoadXmlConfig(Unimake.Business.DFe.Configuration.ArquivoConfigGeral);
-
-                    doc.Load(stream);
-
-                    var arquivoList = doc.GetElementsByTagName("Arquivo");
-
-                    Console.WriteLine(arquivoList.Count);
-
-
-                    foreach (XmlNode arquivoNode in arquivoList)
-                    {
-                        var elemento = (XmlElement)arquivoNode;
-                        if (elemento.GetAttribute("ID").Length > 3 || elemento.GetElementsByTagName("UF")[0].InnerText == "SVRS" || elemento.GetElementsByTagName("UF")[0].InnerText == "AN")
-                            continue;
-                        {
-                            int id = Convert.ToInt32(elemento.GetAttribute("ID"));
-                            string nome = elemento.GetElementsByTagName("Nome")[0].InnerText;
-                            string uf = elemento.GetElementsByTagName("UF")[0].InnerText;
-                            PadraoNFSe padrao = PadraoNFSe.None;
-
-                            _Estados.Add(new Municipio(id, nome, uf, padrao));
-                        }
-
-                    }
+                    _Estados = Configuration.CarregarEstados();
                 }
                 return _Estados;
             }
@@ -408,6 +378,21 @@ namespace NFe.Components
             /// NFGas
             /// </summary>
             NFGas,
+
+            /// <summary>
+            /// BPe
+            /// </summary>
+            BPe,
+
+            /// <summary>
+            /// BPe TA
+            /// </summary>
+            BPeTA,
+
+            /// <summary>
+            /// BPe TM
+            /// </summary>
+            BPeTM,
 
             /// <summary>
             /// CIOT
@@ -1130,6 +1115,31 @@ namespace NFe.Components
                ));
 
             #endregion NFGas
+
+            #region BPe
+
+            ListaExtensoes.Add(TipoEnvio.BPe, new ExtensaoClass(
+               "-bpe.xml", "",
+               "-ret-bpe.xml", "",
+               "-ret-bpe.err",
+               "XML de bpe"
+               ));
+
+            ListaExtensoes.Add(TipoEnvio.BPeTA, new ExtensaoClass(
+               "-bpe-ta.xml", "",
+               "-ret-bpe-ta.xml", "",
+               "-ret-bpe-ta.err",
+               "XML de bpe ta"
+               ));
+
+            ListaExtensoes.Add(TipoEnvio.BPeTM, new ExtensaoClass(
+               "-bpe-tm.xml", "",
+               "-ret-bpe-tm.xml", "",
+               "-ret-bpe-tm.err",
+               "XML de bpe tm"
+               ));
+
+            #endregion BPe
 
             #region CIOT
 
@@ -1944,6 +1954,35 @@ namespace NFe.Components
             public const string NFGas_ERR = "-nfgas.err";
 
             #endregion NFGas
+
+            #region BPe
+
+            /// <summary>
+            /// -procBPe.xml
+            /// </summary>
+            public const string ProcBPe = "-procBPe.xml";
+
+            /// <summary>
+            /// -procBPeTM.xml
+            /// </summary>
+            public const string ProcBPeTM = "-procBPeTM.xml";
+
+            /// <summary>
+            /// -procBPeTA.xml
+            /// </summary>
+            public const string ProcBPeTA = "-procBPeTA.xml";
+
+            /// <summary>
+            /// -procEventoBPe.xml
+            /// </summary>
+            public const string ProcEventoBPe = "-procEventoBPe.xml";
+
+            /// <summary>
+            /// -bpe.err
+            /// </summary>
+            public const string BPe_ERR = "-bpe.err";
+
+            #endregion BPe
 
             #region CIOT
 

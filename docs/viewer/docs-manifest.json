@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T16:47:44.627Z",
+  "generatedAt": "2026-07-07T22:01:04.711Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -90,6 +90,42 @@
       "title": "Tela Consulta ao Cadastro de Contribuinte",
       "path": "servicos/consulta-cadastro-contribuinte.md",
       "category": "servicos"
+    },
+    {
+      "id": "servicos-bpe-autorizacao-sincrona-md",
+      "title": "Autorização síncrona de BPe",
+      "path": "servicos/bpe/autorizacao-sincrona.md",
+      "category": "servicos/bpe"
+    },
+    {
+      "id": "servicos-bpe-autorizacao-sincrona-bpe-ta-md",
+      "title": "Autorização síncrona de BPe TA",
+      "path": "servicos/bpe/autorizacao-sincrona-bpe-ta.md",
+      "category": "servicos/bpe"
+    },
+    {
+      "id": "servicos-bpe-autorizacao-sincrona-bpe-tm-md",
+      "title": "Autorização síncrona de BPe TM",
+      "path": "servicos/bpe/autorizacao-sincrona-bpe-tm.md",
+      "category": "servicos/bpe"
+    },
+    {
+      "id": "servicos-bpe-consulta-situacao-md",
+      "title": "Consulta de situação do BPe",
+      "path": "servicos/bpe/consulta-situacao.md",
+      "category": "servicos/bpe"
+    },
+    {
+      "id": "servicos-bpe-consulta-status-servico-md",
+      "title": "Consulta status de serviço do BPe",
+      "path": "servicos/bpe/consulta-status-servico.md",
+      "category": "servicos/bpe"
+    },
+    {
+      "id": "servicos-bpe-eventos-md",
+      "title": "Eventos do BPe",
+      "path": "servicos/bpe/eventos.md",
+      "category": "servicos/bpe"
     },
     {
       "id": "servicos-ccg-consulta-gtin-md",

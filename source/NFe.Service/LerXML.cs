@@ -400,6 +400,55 @@ namespace NFe.Service
 
         #endregion NFGas()
 
+        #region BPe()
+
+        /// <summary>
+        /// Faz a leitura do XML do bilhete de passagem eletrônico e disponibiliza os valores de algumas tag´s
+        /// </summary>
+        /// <param name="xmlDocument">Conteúdo do XML para ser lido</param>
+        public void BPe(XmlDocument xmlDocument)
+        {
+            ClearDados();
+
+            XmlNodeList infBPeList = xmlDocument.GetElementsByTagName("infBPe");
+
+            foreach (XmlNode infBPeNode in infBPeList)
+            {
+                XmlElement infBPeElemento = (XmlElement)infBPeNode;
+
+                if (infBPeElemento.HasAttributes)
+                {
+                    oDadosNfe.chavenfe = infBPeElemento.Attributes[TpcnResources.Id.ToString()].InnerText;
+                    oDadosNfe.versao = infBPeElemento.Attributes[TpcnResources.versao.ToString()].InnerText;
+                }
+
+                XmlNodeList ideList = infBPeElemento.GetElementsByTagName("ide");
+
+                foreach (XmlNode ideNode in ideList)
+                {
+                    XmlElement ideElemento = (XmlElement)ideNode;
+
+                    oDadosNfe.dEmi = Convert.ToDateTime(Functions.LerTag(ideElemento, TpcnResources.dhEmi.ToString(), false));
+                    oDadosNfe.tpEmis = Functions.LerTag(ideElemento, TpcnResources.tpEmis.ToString(), false);
+                    oDadosNfe.tpAmb = Functions.LerTag(ideElemento, TpcnResources.tpAmb.ToString(), false);
+                    oDadosNfe.cUF = Functions.LerTag(ideElemento, TpcnResources.cUF.ToString(), false);
+                    oDadosNfe.mod = Functions.LerTag(ideElemento, TpcnResources.mod.ToString(), false);
+                }
+
+                XmlNodeList emitList = infBPeElemento.GetElementsByTagName("emit");
+
+                foreach (XmlNode emitNode in emitList)
+                {
+                    XmlElement emitElemento = (XmlElement)emitNode;
+
+                    oDadosNfe.CNPJ = Functions.LerTag(emitElemento, TpcnResources.CNPJ.ToString(), false);
+                    oDadosNfe.CPF = Functions.LerTag(emitElemento, TpcnResources.CPF.ToString(), false);
+                }
+            }
+        }
+
+        #endregion BPe()
+
         #region DCe()
 
         /// <summary>
