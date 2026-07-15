@@ -9,10 +9,12 @@ namespace UniNFe.Test.NFeConvertTxt
     [Collection("NFeConvertTxt")]
     public sealed class SecondRegressionTests
     {
-        [Fact]
-        public void NovoXmlDeveSerIgualAoLegado()
+        [Theory]
+        [InlineData("0000042301054300027600113072026-NFE.txt")]
+        [InlineData("versaoprouducao-nfe-orig.txt")]
+        public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
-            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "0000042301054300027600113072026-NFE.txt");
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
             var fixture = new NFeConvertTxtFixture();
             using (var resultado = fixture.Converter(arquivo))
             {
