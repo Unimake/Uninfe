@@ -58,6 +58,8 @@
              CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\0000042301054300027600113072026-NFE.txt"
              CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\versaoprouducao-nfe-orig.txt"
+             CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
