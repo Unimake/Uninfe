@@ -51,6 +51,10 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\NFe_000250887_07_43_31-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\0000042301054300027600113072026-NFE.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\versaoprouducao-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\000580_08606985000105_001-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\0000072301054300027600116072026-NFE-orig.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\0000092301054300027600116072026-NFE-orig.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\0000112301054300027600116072026-NFE-orig.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
