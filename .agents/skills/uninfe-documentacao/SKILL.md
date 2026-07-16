@@ -47,6 +47,7 @@ Escolha um modo antes de editar:
 6. Registrar evidencias analisadas no catalogo interno, nunca como secao da pagina publica.
 7. Atualizar `docs/index.md` e `docs/_catalogo-documentacao.md`.
 8. Revisar links relativos e remover da pagina publica qualquer observacao de processo, pendencia interna ou referencia desnecessaria a codigo.
+9. Quando qualquer `.md` em `docs` for criado, removido, renomeado ou tiver titulo/estrutura relevante alterado, regenere o viewer com `node viewer/build-docs-index.js` a partir da pasta `docs`.
 
 ## Evidencias aceitas
 
@@ -80,6 +81,18 @@ Prefira documentos pequenos e linkados. Nao mova documentacao existente sem nece
 - FAQ/perguntas frequentes: manter preferencialmente `docs/referencias/perguntas-frequentes.md`. Inserir perguntas em linguagem natural, com respostas curtas e objetivas, publicaveis, sem tom de rascunho. Adaptar a pergunta/resposta do usuario para clareza, mas preservar a intencao. Quando a resposta envolver comportamento do UniNFe, arquivos, pastas, servicos, retornos, configuracoes ou telas, confirmar no codigo/documentacao existente antes de afirmar. Agrupar por assunto quando houver muitas perguntas; se houver poucas, manter uma lista simples. Nao criar perguntas inventadas para preencher a pagina.
 - Indice: refletir somente os arquivos reais em `/docs`, organizar por publico/assunto e corrigir links relativos.
 - Revisao: apontar lacunas, duplicidades, links quebrados, documentos orfaos e trechos sem evidencia; corrigir apenas quando a evidencia for clara.
+
+## Visualizador estatico e links diretos
+
+O site publicado usa o visualizador estatico em `docs/viewer`. Ao manter documentacao, preserve a capacidade de compartilhar links diretos para paginas especificas.
+
+- O link publico curto da documentacao e `https://www.unimake.com.br/uninfe/docs`, redirecionando para `viewer/`.
+- O visualizador deve atualizar a URL ao abrir um item de menu, resultado de busca ou link interno, usando o parametro `doc`.
+- O formato de link direto e `?doc=<caminho-do-md>`, por exemplo `viewer/?doc=servicos/bpe/autorizacao-sincrona.md`.
+- O caminho no parametro `doc` deve ser relativo a `docs`, usar `/`, terminar em `.md`, e nunca conter `..` ou barras invertidas.
+- Links antigos no formato `#/servicos/...` podem ser aceitos por compatibilidade, mas novas alteracoes do viewer devem preservar e preferir `?doc=...`.
+- Ao alterar `docs/viewer/app.js`, atualize o cache-buster do script em `docs/viewer/index.html`.
+- Ao alterar paginas, titulos, caminhos, manifesto, busca ou comportamento do viewer, execute `node viewer/build-docs-index.js` a partir da pasta `docs` e inclua `docs/viewer/docs-manifest.json` e `docs/viewer/search-index.json` alterados.
 
 ## Padrao para FAQ/perguntas frequentes
 
