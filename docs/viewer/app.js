@@ -59,12 +59,40 @@
     return "../" + pathValue.split("/").map(encodeURIComponent).join("/");
   }
 
-  function hashFor(pathValue) {
-    return "#/" + pathValue;
+  function docHref(pathValue) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("doc", pathValue);
+    url.hash = "";
+    return url.pathname + url.search + url.hash;
   }
 
-  function getHashPath() {
-    return safeDocPath(window.location.hash.replace(/^#\/?/, ""));
+  function getUrlPath() {
+    const params = new URLSearchParams(window.location.search);
+    return safeDocPath(params.get("doc")) || safeDocPath(window.location.hash.replace(/^#\/?/, ""));
+  }
+
+  function setDocUrl(pathValue, replace) {
+    const href = docHref(pathValue);
+    if (replace) {
+      window.history.replaceState({ path: pathValue }, "", href);
+      return;
+    }
+
+    window.history.pushState({ path: pathValue }, "", href);
+  }
+
+  function navigateTo(pathValue, replace) {
+    const targetPath = safeDocPath(pathValue);
+    if (!targetPath) {
+      return;
+    }
+
+    if (targetPath !== state.currentPath || replace) {
+      setDocUrl(targetPath, replace);
+      loadDocument(targetPath);
+    }
+
+    closeMobileMenu();
   }
 
   function titleFor(pathValue) {
@@ -126,11 +154,15 @@
         const link = document.createElement("a");
         const label = document.createElement("span");
         link.className = "nav-link";
-        link.href = hashFor(doc.path);
+        link.href = docHref(doc.path);
         link.dataset.path = doc.path;
         link.title = doc.title;
         label.textContent = doc.title;
         link.appendChild(label);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          navigateTo(doc.path, false);
+        });
         section.appendChild(link);
       });
 
@@ -188,10 +220,10 @@
         return;
       }
 
-      link.href = hashFor(normalized);
+      link.href = docHref(normalized);
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        window.location.hash = hashFor(normalized);
+        navigateTo(normalized, false);
       });
     });
   }
@@ -364,8 +396,13 @@
     results.forEach((doc) => {
       const link = document.createElement("a");
       link.className = "result-link";
-      link.href = hashFor(doc.path);
+      link.href = docHref(doc.path);
       link.innerHTML = `<strong>${escapeHtml(doc.title)}</strong><span>${escapeHtml(doc.category)}</span><small>${escapeHtml(snippet(doc.text, term))}</small>`;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        elements.searchResults.hidden = true;
+        navigateTo(doc.path, false);
+      });
       elements.searchResults.appendChild(link);
     });
   }
@@ -402,16 +439,16 @@
       setStatus("O indice de busca nao foi carregado. A navegacao continua disponivel, mas a pesquisa pode nao funcionar.", true);
     }
 
-    const initialPath = getHashPath() || defaultDocumentPath();
-    if (initialPath && !getHashPath()) {
-      window.history.replaceState(null, "", hashFor(initialPath));
+    const initialPath = getUrlPath() || defaultDocumentPath();
+    if (initialPath) {
+      setDocUrl(initialPath, true);
     }
 
     await loadDocument(initialPath);
   }
 
-  window.addEventListener("hashchange", () => {
-    loadDocument(getHashPath());
+  window.addEventListener("popstate", () => {
+    loadDocument(getUrlPath());
     closeMobileMenu();
   });
 

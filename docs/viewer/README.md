@@ -52,6 +52,14 @@ http://localhost:8080/
 
 Ao abrir sem informar um documento no hash da URL, o visualizador carrega `introducao/o-que-e-uninfe.md`.
 
+Ao clicar em uma opção do menu, resultado de pesquisa ou link interno, o visualizador atualiza a URL com o parâmetro `doc`, permitindo compartilhar um link direto para a página aberta. Exemplo:
+
+```text
+http://localhost:8080/viewer/?doc=servicos/bpe/autorizacao-sincrona.md
+```
+
+Links antigos no formato `#/servicos/...` continuam sendo aceitos e são convertidos para o formato com `?doc=`.
+
 Abrir `viewer/index.html` diretamente por `file:///` pode nao funcionar, porque navegadores costumam bloquear `fetch()` para arquivos locais.
 
 ## Publicar no site

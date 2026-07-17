@@ -12,6 +12,10 @@ namespace UniNFe.Test.NFeConvertTxt
         [Theory]
         [InlineData("0000042301054300027600113072026-NFE.txt")]
         [InlineData("versaoprouducao-nfe-orig.txt")]
+        [InlineData("000580_08606985000105_001-nfe.txt")]
+        [InlineData("0000072301054300027600116072026-NFE-orig.txt")]
+        [InlineData("0000092301054300027600116072026-NFE-orig.txt")]
+        [InlineData("0000112301054300027600116072026-NFE-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
