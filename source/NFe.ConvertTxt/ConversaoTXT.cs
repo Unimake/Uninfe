@@ -755,17 +755,23 @@ namespace NFe.ConvertTxt
                     }
                     break;
 
-                case "B31":
-                    //layout = B31|tpEnteGov|pRedutor|tpOperGov|
+                case "BB01":
+                    //layout = BB01|tpEnteGov|pRedutor|tpOperGov|refDFeAnt|
                     NFe.ide.gCompraGov.tpEnteGov = (TpcnTipoEnteGovernamental)this.LerInt32(TpcnResources.tpEnteGov, ObOp.Obrigatorio, 1, 1);
                     NFe.ide.gCompraGov.pRedutor = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pRedutor, ObOp.Obrigatorio, 7);
                     NFe.ide.gCompraGov.tpOperGov = (TpcnTipoOperacaoEnteGovernamental)this.LerInt32(TpcnResources.tpOperGov, ObOp.Obrigatorio, 1, 1);
+                    var refDFeAnt = this.LerString(TpcnResources.refDFeAnt, ObOp.Opcional, 44, 44);
+                    if (!string.IsNullOrWhiteSpace(refDFeAnt)) NFe.ide.gCompraGov.refDFeAnt.Add(refDFeAnt);
                     break;
 
-                case "BB01":
-                    //layout = BB01|refNFe|
+                case "BB05":
+                    //layout = BB05|refDFeAnt|
+                    NFe.ide.gCompraGov.refDFeAnt.Add(this.LerString(TpcnResources.refDFeAnt, ObOp.Obrigatorio, 44, 44));
+                    break;
 
-                    NFe.ide.gPagAntecipado.refNFe.Add(this.LerString(TpcnResources.refNFe, ObOp.Obrigatorio, 1, 99));
+                case "BC01":
+                    //layout = BC01|refDFe|
+                    NFe.ide.gPagAntecipado.refDFe.Add(this.LerString(TpcnResources.refDFe, ObOp.Obrigatorio, 44, 44));
                     break;
             }
         }
@@ -887,6 +893,7 @@ namespace NFe.ConvertTxt
             NFe.emit.IM = this.LerString(TpcnResources.IM, ObOp.Opcional, 1, 15);
             NFe.emit.CNAE = this.LerString(TpcnResources.CNAE, ObOp.Opcional, 7, 7);
             NFe.emit.CRT = (TpcnCRT)this.LerInt32(TpcnResources.CRT, ObOp.Obrigatorio, 1, 1);
+            NFe.emit.ISUFEmit = this.LerString(TpcnResources.ISUFEmit, ObOp.Opcional, 8, 9);
         }
 
         private void ProcessarDocumentoEmitente()
@@ -2311,7 +2318,7 @@ namespace NFe.ConvertTxt
                     NFe.det[nProd].Imposto.IS.cClassTribIS = this.LerString(TpcnResources.cClassTribIS, ObOp.Obrigatorio, 1, 6);
                     NFe.det[nProd].Imposto.IS.vBCIS = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vBCIS, ObOp.Opcional, 1, 15);
                     NFe.det[nProd].Imposto.IS.pIS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pIS, ObOp.Opcional, 1, 7);
-                    NFe.det[nProd].Imposto.IS.pISEspec = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pISEspec, ObOp.Opcional, 1, 7);
+                    NFe.det[nProd].Imposto.IS.adRemIS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.adRemIS, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IS.uTrib = this.LerString(TpcnResources.uTrib, ObOp.Opcional, 1, 6);
                     NFe.det[nProd].Imposto.IS.qTrib = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.qTrib, ObOp.Opcional, 1, 15);
                     NFe.det[nProd].Imposto.IS.vIS = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vIS, ObOp.Obrigatorio, 1, 15);
@@ -2343,6 +2350,7 @@ namespace NFe.ConvertTxt
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.pIBSUF = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pIBSUF, ObOp.Obrigatorio, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gDif.pDif = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDif, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gDif.vDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDif, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.pDevTrib = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDevTrib, ObOp.Opcional, 7, true);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.vDevTrib = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDevTrib, ObOp.Opcional, 1, 15);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gRed.pRedAliq = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pRedAliq, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gRed.pAliqEfet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pAliqEfet, ObOp.Opcional, 1, 7);
@@ -2356,6 +2364,7 @@ namespace NFe.ConvertTxt
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.pIBSMun = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pIBSMun, ObOp.Obrigatorio, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gDif.pDif = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDif, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gDif.vDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDif, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.pDevTrib = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDevTrib, ObOp.Opcional, 7, true);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDevTrib, ObOp.Opcional, 1, 15);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gRed.pRedAliq = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pRedAliq, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gRed.pAliqEfet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pAliqEfet, ObOp.Opcional, 1, 7);
@@ -2369,6 +2378,7 @@ namespace NFe.ConvertTxt
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.pCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pCBS, ObOp.Obrigatorio, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gDif.pDif = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDif, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gDif.vDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDif, ObOp.Opcional, 1, 15);
+                    NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.pDevTrib = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDevTrib, ObOp.Opcional, 7, true);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDevTrib, ObOp.Opcional, 1, 15);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pRedAliq, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pAliqEfet, ObOp.Opcional, 1, 7);
@@ -3152,11 +3162,13 @@ namespace NFe.ConvertTxt
                     this.ProcessarReferenciasDaIdentificacao();
                     break;
 
-                case "B31":
+                case "BB01":
                     this.ProcessarReferenciasDaIdentificacao();
                     break;
-
-                case "BB01":
+                case "BB05":
+                    this.ProcessarReferenciasDaIdentificacao();
+                    break;
+                case "BC01":
                     this.ProcessarReferenciasDaIdentificacao();
                     break;
 

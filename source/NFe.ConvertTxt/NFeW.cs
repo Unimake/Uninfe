@@ -1971,7 +1971,7 @@ namespace NFe.ConvertTxt
                 wCampo(imposto.IS.cClassTribIS, TpcnTipoCampo.tcStr, TpcnResources.cClassTribIS);
                 wCampo(imposto.IS.vBCIS, TpcnTipoCampo.tcDouble2, TpcnResources.vBCIS);
                 wCampo(imposto.IS.pIS, TpcnTipoCampo.tcDouble4, TpcnResources.pIS);
-                wCampo(imposto.IS.pISEspec, TpcnTipoCampo.tcDouble4, TpcnResources.pISEspec);
+                wCampo(imposto.IS.adRemIS, TpcnTipoCampo.tcDouble4, TpcnResources.adRemIS);
                 wCampo(imposto.IS.uTrib, TpcnTipoCampo.tcStr, TpcnResources.uTrib);
                 wCampo(imposto.IS.qTrib, TpcnTipoCampo.tcDouble4, TpcnResources.qTrib);
                 wCampo(imposto.IS.vIS, TpcnTipoCampo.tcDouble2, TpcnResources.vIS);
@@ -2025,7 +2025,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDif(nfe, imposto, gIBSUF);
                     }
 
-                    if (imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.vDevTrib > 0)
+                    if (imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.pDevTrib > 0)
                     {
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSUF);
                     }
@@ -2054,7 +2054,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDif(nfe, imposto, gIBSMun);
                     }
 
-                    if (imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib > 0)
+                    if (imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.pDevTrib > 0)
                     {
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gIBSMun);
                     }
@@ -2086,7 +2086,7 @@ namespace NFe.ConvertTxt
                         GerarDetImpostoIBSCBSGDif(nfe, imposto, gCBS);
                     }
 
-                    if (imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib > 0)
+                    if (imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.pDevTrib > 0)
                     {
                         GerarDetImpostoIBSCBSGDevtrib(nfe, imposto, gCBS);
                     }
@@ -2376,7 +2376,7 @@ namespace NFe.ConvertTxt
         /// </summary>
         private bool TemDadosGDevTrib(GDevTrib gDevTrib)
         {
-            return gDevTrib.vDevTrib > 0;
+            return gDevTrib.pDevTrib > 0;
         }
 
         /// <summary>
@@ -2473,14 +2473,17 @@ namespace NFe.ConvertTxt
 
             if (nomePropriedade == TpcnResources.gIBSUF.ToString())
             {
+                wCampo(imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.pDevTrib, TpcnTipoCampo.tcDouble4, TpcnResources.pDevTrib);
                 wCampo(imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.vDevTrib, TpcnTipoCampo.tcDouble2, TpcnResources.vDevTrib);
             }
             else if (nomePropriedade == TpcnResources.gIBSMun.ToString())
             {
+                wCampo(imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.pDevTrib, TpcnTipoCampo.tcDouble4, TpcnResources.pDevTrib);
                 wCampo(imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib, TpcnTipoCampo.tcDouble2, TpcnResources.vDevTrib);
             }
             else if (nomePropriedade == TpcnResources.gCBS.ToString())
             {
+                wCampo(imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.pDevTrib, TpcnTipoCampo.tcDouble4, TpcnResources.pDevTrib);
                 wCampo(imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib, TpcnTipoCampo.tcDouble2, TpcnResources.vDevTrib);
             }
 
@@ -2905,6 +2908,7 @@ namespace NFe.ConvertTxt
             nodeCurrent = ELemit;
             wCampo(NFe.emit.IE, TpcnTipoCampo.tcStr, TpcnResources.IE);
             wCampo(NFe.emit.IEST, TpcnTipoCampo.tcStr, TpcnResources.IEST, ObOp.Opcional);
+            wCampo(NFe.emit.ISUFEmit, TpcnTipoCampo.tcStr, TpcnResources.ISUFEmit, ObOp.Opcional);
             wCampo(NFe.emit.IM, TpcnTipoCampo.tcStr, TpcnResources.IM, ObOp.Opcional);
             if (NFe.emit.IM.Length > 0)
             {
@@ -3198,19 +3202,23 @@ namespace NFe.ConvertTxt
                 wCampo(Nfe.ide.gCompraGov.tpEnteGov, TpcnTipoCampo.tcInt, TpcnResources.tpEnteGov, ObOp.Obrigatorio);
                 wCampo(Nfe.ide.gCompraGov.pRedutor, TpcnTipoCampo.tcDouble4, TpcnResources.pRedutor, ObOp.Obrigatorio);
                 wCampo(Nfe.ide.gCompraGov.tpOperGov, TpcnTipoCampo.tcInt, TpcnResources.tpOperGov, ObOp.Obrigatorio);
+                foreach (var item in Nfe.ide.gCompraGov.refDFeAnt)
+                {
+                    wCampo(item, TpcnTipoCampo.tcStr, TpcnResources.refDFeAnt, ObOp.Obrigatorio);
+                }
 
                 nodeCurrent = ELide;
             }
 
-            if (Nfe.ide.gPagAntecipado.refNFe.Count > 0)
+            if (Nfe.ide.gPagAntecipado.refDFe.Count > 0)
             {
                 XmlElement eGPagAntecipado = doc.CreateElement(TpcnResources.gPagAntecipado.ToString());
                 ELide.AppendChild(eGPagAntecipado);
                 nodeCurrent = eGPagAntecipado;
 
-                foreach (var item in Nfe.ide.gPagAntecipado.refNFe)
+                foreach (var item in Nfe.ide.gPagAntecipado.refDFe)
                 {
-                    wCampo(item, TpcnTipoCampo.tcStr, TpcnResources.refNFe, ObOp.Obrigatorio);
+                    wCampo(item, TpcnTipoCampo.tcStr, TpcnResources.refDFe, ObOp.Obrigatorio);
                 }
             }
 
