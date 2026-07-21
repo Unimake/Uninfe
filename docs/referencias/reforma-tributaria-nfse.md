@@ -41,14 +41,15 @@ O `cIndOp` é definido pela tabela específica **Anexo VII — Indicadores da Op
 ## 3. Fluxo de uso
 
 ```mermaid
+%%{init: {"flowchart": {"useMaxWidth": false}} }%%
 flowchart TD
-    A["Identificar o serviço efetivamente prestado"] --> B["Selecionar código nacional do serviço"]
-    B --> C["Obter Item + Subitem da LC 116"]
-    C --> D["Localizar linhas NBS pelo Item_LC_116"]
-    D --> E["Selecionar NBS, onerosidade e situação da operação"]
-    E --> F["Usar IndOP e Local_Incidencia_IBS da linha"]
-    E --> G["Usar cClassTrib da linha na tributação"]
-    G --> H["Validar cClassTrib na tabela CST/cClassTrib"]
+    A["Identificar o serviço<br/>efetivamente prestado"] --> B["Selecionar código nacional<br/>do serviço"]
+    B --> C["Obter Item + Subitem<br/>da LC 116"]
+    C --> D["Localizar linhas NBS<br/>pelo Item_LC_116"]
+    D --> E["Selecionar NBS, onerosidade<br/>e situação da operação"]
+    E --> F["Usar IndOP e<br/>Local_Incidencia_IBS da linha"]
+    E --> G["Usar cClassTrib da linha<br/>na tributação"]
+    G --> H["Validar cClassTrib na tabela<br/>CST/cClassTrib"]
 ```
 
 ### Sequência prática

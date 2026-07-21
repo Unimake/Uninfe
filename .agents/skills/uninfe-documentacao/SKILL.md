@@ -79,6 +79,10 @@ Quando houver manuais sobre a Reforma Tributária, mantenha-os em `docs/referenc
 
 O visualizador cria automaticamente as opções dentro da categoria `referencias` a partir dos arquivos Markdown. Para novos materiais, preserve o prefixo `reforma-tributaria-`, use um título visível no formato `Reforma Tributária - <assunto>`, atualize `docs/referencias/README.md`, `docs/index.md` e `docs/_catalogo-documentacao.md`, e regenere o índice do visualizador.
 
+### Diagramas Mermaid
+
+Em fluxogramas Mermaid, mantenha os rótulos dos nós curtos e inclua quebras explícitas com `<br/>` nos textos que possam ultrapassar aproximadamente 25 caracteres. Exemplo: `A["Selecionar o serviço<br/>efetivamente prestado"]`. Isso permite que o visualizador calcule a altura do nó e evita que o texto fique cortado em telas menores. Em diagramas largos, com várias ramificações ou muitos rótulos, inclua antes de `flowchart` a diretiva `%%{init: {"flowchart": {"useMaxWidth": false}} }%%`; o visualizador mostrará rolagem horizontal em vez de reduzir a fonte do SVG.
+
 Prefira documentos pequenos e linkados. Nao mova documentacao existente sem necessidade.
 
 ## Regras por tipo

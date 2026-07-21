@@ -233,6 +233,13 @@ body.menu-collapsed .sidebar {
   padding-bottom: 80px;
 }
 
+/* O artigo recebe foco programático após o carregamento para leitores de tela.
+   Como não é um controle interativo, o contorno nativo ocupa toda a área do
+   documento ao abrir um link direto. */
+.markdown-body:focus {
+  outline: none;
+}
+
 .status-message {
   max-width: 980px;
   margin: 0 auto 16px;

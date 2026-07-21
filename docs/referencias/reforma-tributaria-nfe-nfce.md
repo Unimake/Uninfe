@@ -24,18 +24,19 @@ O `cClassTrib` detalha a hipótese legal e o seu prefixo de três posições dev
 ## 2. Relação entre as tabelas
 
 ```mermaid
+%%{init: {"flowchart": {"useMaxWidth": false}} }%%
 flowchart TD
-    A["Selecionar a operação"] --> B{"Prioridade = S?"}
-    B -- "Sim" --> Z["Usar CST e cClassTrib da operação"]
+    A["Selecionar a operação"] --> B{"Prioridade<br/>= S?"}
+    B -- "Sim" --> Z["Usar CST e cClassTrib<br/>da operação"]
     B -- "Não" --> C["Localizar NCM do item"]
-    C --> D{"NCM tem CST/cClassTrib direto?"}
-    D -- "Sim" --> N["Usar CST e cClassTrib diretos do NCM"]
-    D -- "Não" --> E{"Há exceção prioritária aplicável?"}
-    E -- "Sim" --> X["Usar CST e cClassTrib da exceção"]
-    E -- "Não" --> F{"Há anexo compatível com a finalidade?"}
-    F -- "Sim" --> G["Usar CST e cClassTrib do anexo"]
-    F -- "Não" --> H["Usar CST e cClassTrib padrão da operação"]
-    Z --> V["Validar na tabela CST + cClassTrib"]
+    C --> D{"NCM tem CST/cClassTrib<br/>direto?"}
+    D -- "Sim" --> N["Usar CST e cClassTrib<br/>diretos do NCM"]
+    D -- "Não" --> E{"Há exceção prioritária<br/>aplicável?"}
+    E -- "Sim" --> X["Usar CST e cClassTrib<br/>da exceção"]
+    E -- "Não" --> F{"Há anexo compatível<br/>com a finalidade?"}
+    F -- "Sim" --> G["Usar CST e cClassTrib<br/>do anexo"]
+    F -- "Não" --> H["Usar CST e cClassTrib<br/>padrão da operação"]
+    Z --> V["Validar na tabela<br/>CST + cClassTrib"]
     N --> V
     X --> V
     G --> V
