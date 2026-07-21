@@ -224,11 +224,17 @@ body.menu-collapsed .sidebar {
   grid-area: content;
   min-width: 0;
   overflow: auto;
-  padding: 30px clamp(18px, 5vw, 64px);
+  padding: 30px clamp(18px, 3vw, 64px);
 }
 
 .markdown-body {
-  max-width: 980px;
+  /*
+     Mantém uma área de leitura ampla em monitores grandes, sem ultrapassar
+     a área disponível. Em telas menores, a largura continua sendo 100% do
+     conteúdo, respeitando o espaçamento definido em .content.
+  */
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   padding-bottom: 80px;
 }
@@ -241,7 +247,8 @@ body.menu-collapsed .sidebar {
 }
 
 .status-message {
-  max-width: 980px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto 16px;
   padding: 12px 14px;
   border: 1px solid var(--border);
