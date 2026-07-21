@@ -70,6 +70,15 @@ Mantenha a documentacao em `/docs`:
 - `servicos/<servico>/`
 - `referencias/`
 
+### Referências da Reforma Tributária
+
+Quando houver manuais sobre a Reforma Tributária, mantenha-os em `docs/referencias/` com nomes descritivos e estáveis. Os manuais atualmente previstos são:
+
+- `reforma-tributaria-nfe-nfce.md`, exibido como `Reforma Tributária - NFe/NFCe`;
+- `reforma-tributaria-nfse.md`, exibido como `Reforma Tributária - NFSe`.
+
+O visualizador cria automaticamente as opções dentro da categoria `referencias` a partir dos arquivos Markdown. Para novos materiais, preserve o prefixo `reforma-tributaria-`, use um título visível no formato `Reforma Tributária - <assunto>`, atualize `docs/referencias/README.md`, `docs/index.md` e `docs/_catalogo-documentacao.md`, e regenere o índice do visualizador.
+
 Prefira documentos pequenos e linkados. Nao mova documentacao existente sem necessidade.
 
 ## Regras por tipo
@@ -89,6 +98,7 @@ O site publicado usa o visualizador estatico em `docs/viewer`. Ao manter documen
 - O link publico curto da documentacao e `https://www.unimake.com.br/uninfe/docs`, redirecionando para `viewer/`.
 - O visualizador deve atualizar a URL ao abrir um item de menu, resultado de busca ou link interno, usando o parametro `doc`.
 - O formato de link direto e `?doc=<caminho-do-md>`, por exemplo `viewer/?doc=servicos/bpe/autorizacao-sincrona.md`.
+- Para apontar uma seção ou pergunta expansível dentro da pagina, acrescente uma ancora estavel: `?doc=<caminho-do-md>#<identificador>`. No FAQ, por exemplo: `viewer/?doc=referencias/perguntas-frequentes.md#faq-dfe-parado-em-processamento`.
 - O caminho no parametro `doc` deve ser relativo a `docs`, usar `/`, terminar em `.md`, e nunca conter `..` ou barras invertidas.
 - Links antigos no formato `#/servicos/...` podem ser aceitos por compatibilidade, mas novas alteracoes do viewer devem preservar e preferir `?doc=...`.
 - Ao alterar `docs/viewer/app.js`, atualize o cache-buster do script em `docs/viewer/index.html`.
@@ -100,7 +110,10 @@ Use este padrao quando o usuario enviar perguntas e respostas para compor o FAQ 
 
 - A pagina padrao e `docs/referencias/perguntas-frequentes.md`.
 - Se a pagina nao existir, crie com H1 `Perguntas frequentes` e uma breve introducao dizendo que a pagina reune duvidas comuns sobre instalacao, configuracao, operacao e integracao do UniNFe.
-- Cada pergunta deve ficar em um bloco expansivel fechado por padrao, usando `<details>` e `<summary><strong>pergunta?</strong></summary>`. Nao use o atributo `open`.
+- Cada pergunta deve ficar em um bloco expansivel fechado por padrao, usando `<details id="faq-identificador-estavel">` e `<summary><strong>pergunta?</strong></summary>`. Nao use o atributo `open`.
+- O `id` deve ser unico na pagina, comecar por `faq-` e usar somente letras minusculas sem acentos, numeros e hifens. Escolha um identificador curto baseado no assunto da pergunta.
+- Trate o `id` como parte do link publico: nao o altere ao revisar apenas a redacao da pergunta ou da resposta. Se a pergunta for substituida por outro assunto, crie um novo `id`.
+- Confirme que o link `viewer/?doc=referencias/perguntas-frequentes.md#<id>` abre a pagina com a pergunta correspondente expandida.
 - A resposta deve ser direta, em portugues do Brasil, orientada ao usuario, suporte ou integrador.
 - Se a resposta tiver passos, use lista numerada curta.
 - Quando fizer sentido, inclua links relativos para paginas existentes, como instalacao, configuracao, servicos ou apoio e suporte.

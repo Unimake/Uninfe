@@ -157,6 +157,8 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)
 - [Perguntas frequentes](referencias/perguntas-frequentes.md)
+- [Reforma Tributária - NFe/NFCe](referencias/reforma-tributaria-nfe-nfce.md)
+- [Reforma Tributária - NFSe](referencias/reforma-tributaria-nfse.md)
 - PENDENTE DE VALIDAÇÃO: criar `referencias/estrutura-de-pastas.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/tipos-de-retorno.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/exemplos-xml.md`

@@ -2,7 +2,7 @@
 
 Esta página reúne dúvidas comuns sobre instalação, configuração, operação e integração do UniNFe.
 
-<details>
+<details id="faq-dfe-parado-em-processamento">
 <summary><strong>O que fazer quando um DF-e fica parado na pasta Enviados\EmProcessamento?</strong></summary>
 
 Quando um DF-e fica parado em `Enviados\EmProcessamento`, o ERP deve gerar uma consulta de situação para a chave do documento. Essa consulta permite que o UniNFe confirme a situação atual na SEFAZ e finalize o fluxo quando o documento estiver autorizado.
@@ -33,7 +33,7 @@ Consulte também:
 
 </details>
 
-<details>
+<details id="faq-recuperar-xml-distribuicao-nao-gerado">
 <summary><strong>O DF-e foi autorizado, mas o XML de distribuição não foi gerado. Como recuperar?</strong></summary>
 
 Quando o DF-e foi autorizado, mas o XML de distribuição/processado não foi localizado, o UniNFe pode reconstruir esse XML a partir do XML original e de uma consulta de situação.
@@ -65,7 +65,7 @@ Também é recomendado manter habilitada a validação que compara o `DigestValu
 
 </details>
 
-<details>
+<details id="faq-atualizar-certificados-raiz-windows">
 <summary><strong>Falhas de conexão com SEFAZ, Receita Federal ou prefeitura podem ser causadas por certificados raiz desatualizados?</strong></summary>
 
 Sim. Em alguns ambientes, falhas de conexão com webservices da SEFAZ, Receita Federal, prefeitura, bancos ou outros serviços HTTPS podem ocorrer porque o Windows está com a cadeia de certificados raiz desatualizada ou incompleta.
@@ -108,7 +108,7 @@ Se a falha continuar após atualizar as raízes, revise também proxy, firewall,
 
 </details>
 
-<details>
+<details id="faq-baixar-xml-nfe-destinado">
 <summary><strong>Como baixar os XMLs de NF-e emitidas contra o meu CNPJ?</strong></summary>
 
 Para baixar XMLs de NF-e emitidas por fornecedores contra o seu CNPJ, use o serviço de distribuição DFe. O ERP deve gerar uma consulta de distribuição na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno.
@@ -144,7 +144,7 @@ Consulte também:
 
 </details>
 
-<details>
+<details id="faq-nfe-sem-xml-completo-na-distribuicao">
 <summary><strong>Por que a consulta de documentos destinados não baixou o XML completo da NF-e?</strong></summary>
 
 Quando a distribuição DFe não retorna o XML completo de uma NF-e emitida contra o CNPJ da empresa, verifique primeiro se a nota foi manifestada. Para muitas situações, a SEFAZ libera apenas o resumo da NF-e até que o destinatário registre uma manifestação.
@@ -173,7 +173,7 @@ Consulte também:
 
 </details>
 
-<details>
+<details id="faq-baixar-xml-cte-distribuicao">
 <summary><strong>Como baixar os XMLs de CT-e de meu interesse?</strong></summary>
 
 Para baixar XMLs de CT-e disponibilizados para o seu CNPJ ou CPF, use o serviço de distribuição DFe de CT-e. O ERP deve gerar uma consulta na pasta de envio da empresa, controlar o NSU retornado pela SEFAZ e importar os XMLs extraídos pelo UniNFe na pasta de retorno.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T17:42:07.743Z",
+  "generatedAt": "2026-07-21T20:17:27.597Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -59,6 +59,18 @@
       "id": "referencias-perguntas-frequentes-md",
       "title": "Perguntas frequentes",
       "path": "referencias/perguntas-frequentes.md",
+      "category": "referencias"
+    },
+    {
+      "id": "referencias-reforma-tributaria-nfe-nfce-md",
+      "title": "Reforma Tributária - NFe/NFCe",
+      "path": "referencias/reforma-tributaria-nfe-nfce.md",
+      "category": "referencias"
+    },
+    {
+      "id": "referencias-reforma-tributaria-nfse-md",
+      "title": "Reforma Tributária - NFSe",
+      "path": "referencias/reforma-tributaria-nfse.md",
       "category": "referencias"
     },
     {

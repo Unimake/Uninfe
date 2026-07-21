@@ -59,10 +59,19 @@
     return "../" + pathValue.split("/").map(encodeURIComponent).join("/");
   }
 
-  function docHref(pathValue) {
+  function safeAnchor(anchorValue) {
+    try {
+      const decoded = decodeURIComponent(String(anchorValue || "").replace(/^#/, ""));
+      return /^[a-zA-Z][a-zA-Z0-9_.:-]*$/.test(decoded) ? decoded : "";
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function docHref(pathValue, anchorValue) {
     const url = new URL(window.location.href);
     url.searchParams.set("doc", pathValue);
-    url.hash = "";
+    url.hash = safeAnchor(anchorValue);
     return url.pathname + url.search + url.hash;
   }
 
@@ -71,25 +80,33 @@
     return safeDocPath(params.get("doc")) || safeDocPath(window.location.hash.replace(/^#\/?/, ""));
   }
 
-  function setDocUrl(pathValue, replace) {
-    const href = docHref(pathValue);
+  function getUrlAnchor() {
+    return window.location.hash.startsWith("#/") ? "" : safeAnchor(window.location.hash);
+  }
+
+  function setDocUrl(pathValue, replace, anchorValue) {
+    const href = docHref(pathValue, anchorValue);
     if (replace) {
-      window.history.replaceState({ path: pathValue }, "", href);
+      window.history.replaceState({ path: pathValue, anchor: safeAnchor(anchorValue) }, "", href);
       return;
     }
 
-    window.history.pushState({ path: pathValue }, "", href);
+    window.history.pushState({ path: pathValue, anchor: safeAnchor(anchorValue) }, "", href);
   }
 
-  function navigateTo(pathValue, replace) {
+  function navigateTo(pathValue, replace, anchorValue) {
     const targetPath = safeDocPath(pathValue);
+    const targetAnchor = safeAnchor(anchorValue);
     if (!targetPath) {
       return;
     }
 
     if (targetPath !== state.currentPath || replace) {
-      setDocUrl(targetPath, replace);
+      setDocUrl(targetPath, replace, targetAnchor);
       loadDocument(targetPath);
+    } else if (targetAnchor) {
+      setDocUrl(targetPath, replace, targetAnchor);
+      revealAnchor(targetAnchor);
     }
 
     closeMobileMenu();
@@ -202,7 +219,7 @@
 
     container.querySelectorAll("a[href]").forEach((link) => {
       const href = link.getAttribute("href");
-      if (!href || href.startsWith("#") || /^[a-z][a-z0-9+.-]*:/i.test(href)) {
+      if (!href || /^[a-z][a-z0-9+.-]*:/i.test(href)) {
         if (/^https?:\/\//i.test(href)) {
           link.target = "_blank";
           link.rel = "noopener noreferrer";
@@ -210,7 +227,21 @@
         return;
       }
 
-      const [filePart] = href.split("#");
+      if (href.startsWith("#")) {
+        const anchor = safeAnchor(href);
+        if (!anchor) {
+          return;
+        }
+
+        link.href = docHref(basePath, anchor);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          navigateTo(basePath, false, anchor);
+        });
+        return;
+      }
+
+      const [filePart, anchorPart] = href.split("#", 2);
       if (!filePart.toLowerCase().endsWith(".md")) {
         return;
       }
@@ -220,12 +251,51 @@
         return;
       }
 
-      link.href = docHref(normalized);
+      const anchor = safeAnchor(anchorPart);
+      link.href = docHref(normalized, anchor);
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        navigateTo(normalized, false);
+        navigateTo(normalized, false, anchor);
       });
     });
+  }
+
+  function prepareDirectLinks(container) {
+    container.querySelectorAll("details[id]").forEach((details) => {
+      const anchor = safeAnchor(details.id);
+      const summary = details.querySelector(":scope > summary");
+      if (!anchor || !summary) {
+        return;
+      }
+
+      summary.title = "Clique para abrir ou fechar. Ao abrir, o link desta pergunta fica na URL.";
+      details.addEventListener("toggle", () => {
+        if (details.open) {
+          setDocUrl(state.currentPath, true, anchor);
+        } else if (getUrlAnchor() === anchor) {
+          setDocUrl(state.currentPath, true, "");
+        }
+      });
+    });
+  }
+
+  function revealAnchor(anchorValue) {
+    const anchor = safeAnchor(anchorValue);
+    if (!anchor) {
+      return;
+    }
+
+    const target = document.getElementById(anchor);
+    if (!target || !elements.content.contains(target)) {
+      return;
+    }
+
+    const details = target.matches("details") ? target : target.closest("details");
+    if (details) {
+      details.open = true;
+    }
+
+    target.scrollIntoView({ block: "start" });
   }
 
   function normalizeRelativePath(parts) {
@@ -310,10 +380,12 @@
 
       elements.content.innerHTML = cleanHtml;
       rewriteMarkdownLinks(elements.content, targetPath);
+      prepareDirectLinks(elements.content);
       prepareMermaid(elements.content);
       await renderMermaid();
       setStatus("", false);
       elements.content.focus({ preventScroll: true });
+      revealAnchor(getUrlAnchor());
       document.title = titleFor(targetPath) + " - Documentacao UniNFe";
     } catch (error) {
       elements.content.innerHTML = "";
@@ -441,7 +513,7 @@
 
     const initialPath = getUrlPath() || defaultDocumentPath();
     if (initialPath) {
-      setDocUrl(initialPath, true);
+      setDocUrl(initialPath, true, getUrlAnchor());
     }
 
     await loadDocument(initialPath);

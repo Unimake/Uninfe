@@ -60,6 +60,14 @@ http://localhost:8080/viewer/?doc=servicos/bpe/autorizacao-sincrona.md
 
 Links antigos no formato `#/servicos/...` continuam sendo aceitos e são convertidos para o formato com `?doc=`.
 
+Perguntas expansíveis do FAQ podem receber um identificador estável no atributo `id` do elemento `<details>`. Nesse caso, o fragmento da URL identifica a pergunta que deve ser aberta e exibida. Exemplo:
+
+```text
+http://localhost:8080/viewer/?doc=referencias/perguntas-frequentes.md#faq-dfe-parado-em-processamento
+```
+
+Ao abrir esse endereço, o visualizador expande a pergunta indicada. Ao clicar para abrir uma pergunta identificada, o fragmento correspondente também é colocado na URL, permitindo copiar o link diretamente do navegador.
+
 Abrir `viewer/index.html` diretamente por `file:///` pode nao funcionar, porque navegadores costumam bloquear `fetch()` para arquivos locais.
 
 ## Publicar no site
