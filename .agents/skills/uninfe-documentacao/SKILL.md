@@ -34,6 +34,7 @@ Escolha um modo antes de editar:
 - `MODO_DOCUMENTAR_INTEGRACAO_ARQUIVOS`: documentar integracao por troca de arquivos.
 - `MODO_DOCUMENTAR_SERVICO`: documentar um servico especifico, como NFe, NFCe, CTe, MDFe, NFCom, NF3e, BPe, CIOT, GNRE ou outro encontrado no codigo.
 - `MODO_DOCUMENTAR_FAQ`: criar ou atualizar perguntas frequentes com perguntas e respostas fornecidas pelo usuario, refinando a redacao e validando no repositorio quando a resposta depender de comportamento tecnico.
+- `MODO_DOCUMENTAR_ERROS_SOLUCOES`: criar ou atualizar a seção separada de erros e soluções, preservando mensagens reconhecíveis, explicando causas prováveis e oferecendo procedimentos seguros e verificáveis de diagnóstico e correção.
 - `MODO_ATUALIZAR_INDICE`: ler os `.md` existentes em `/docs` e atualizar indice/catalogo, sem criar conteudo funcional novo.
 - `MODO_REVISAR_DOCUMENTACAO`: verificar links quebrados, duplicidades, documentos orfaos, inconsistencias, lacunas e trechos sem evidencia; corrigir apenas problemas seguros.
 
@@ -68,6 +69,7 @@ Mantenha a documentacao em `/docs`:
 - `configuracao/`
 - `integracao/`
 - `contingencia/`
+- `erros-e-solucoes/`
 - `servicos/<servico>/`
 - `referencias/`
 
@@ -106,6 +108,7 @@ Na página `off-line.md`, documente a NFC-e com `tpEmis=9` e também a NF-e em c
 - Integracao por arquivos: analisar `Processar`, `Propriedade`, enums, tasks, validadores, geradores de retorno, exemplos XML/TXT e pastas configuradas. Preservar sufixos e nomes reais.
 - Servicos: analisar enum, tipo de envio, extensoes, `Task*`, validacao, schemas, exemplos, retornos e erros. Na pagina publica, explicar visao geral, configuracao, envio, retorno, erros comuns, arquivos envolvidos e exemplos existentes sem transformar a arquitetura interna em instrucao de uso.
 - FAQ/perguntas frequentes: manter preferencialmente `docs/referencias/perguntas-frequentes.md`. Inserir perguntas em linguagem natural, com respostas curtas e objetivas, publicaveis, sem tom de rascunho. Adaptar a pergunta/resposta do usuario para clareza, mas preservar a intencao. Quando a resposta envolver comportamento do UniNFe, arquivos, pastas, servicos, retornos, configuracoes ou telas, confirmar no codigo/documentacao existente antes de afirmar. Agrupar por assunto quando houver muitas perguntas; se houver poucas, manter uma lista simples. Nao criar perguntas inventadas para preencher a pagina.
+- Erros e soluções: manter em `docs/erros-e-solucoes/erros-e-solucoes.md`, separado do FAQ. Preservar no resumo a mensagem ou o sintoma que o usuário precisa localizar, mas revisar causas e procedimentos para clareza e segurança. Confirmar no repositório as orientações sobre arquivos, pastas, versões, configurações e serviços; para Windows, .NET, TLS e outros componentes externos, preferir documentação oficial atual. Não recomendar desativação permanente de proteções, protocolos obsoletos, IP fixo no arquivo `hosts`, alteração ampla do Registro ou exclusão indiscriminada de arquivos. Quando uma ação exigir privilégio administrativo ou afetar a máquina, orientar backup e participação da infraestrutura.
 - Indice: refletir somente os arquivos reais em `/docs`, organizar por publico/assunto e corrigir links relativos.
 - Revisao: apontar lacunas, duplicidades, links quebrados, documentos orfaos e trechos sem evidencia; corrigir apenas quando a evidencia for clara.
 
@@ -117,6 +120,7 @@ O site publicado usa o visualizador estatico em `docs/viewer`. Ao manter documen
 - O visualizador deve atualizar a URL ao abrir um item de menu, resultado de busca ou link interno, usando o parametro `doc`.
 - O formato de link direto e `?doc=<caminho-do-md>`, por exemplo `viewer/?doc=servicos/bpe/autorizacao-sincrona.md`.
 - Para apontar uma seção ou pergunta expansível dentro da pagina, acrescente uma ancora estavel: `?doc=<caminho-do-md>#<identificador>`. No FAQ, por exemplo: `viewer/?doc=referencias/perguntas-frequentes.md#faq-dfe-parado-em-processamento`.
+- Para apontar um erro expansível, use o mesmo formato com um identificador iniciado por `erro-`, por exemplo: `viewer/?doc=erros-e-solucoes/erros-e-solucoes.md#erro-elemento-raiz-inexistente`.
 - O caminho no parametro `doc` deve ser relativo a `docs`, usar `/`, terminar em `.md`, e nunca conter `..` ou barras invertidas.
 - Links antigos no formato `#/servicos/...` podem ser aceitos por compatibilidade, mas novas alteracoes do viewer devem preservar e preferir `?doc=...`.
 - Ao alterar `docs/viewer/app.js`, atualize o cache-buster do script em `docs/viewer/index.html`.
@@ -139,6 +143,21 @@ Use este padrao quando o usuario enviar perguntas e respostas para compor o FAQ 
 - Nao inclua observacoes internas, origem da pergunta, autoria, data de inclusao, status, evidencias analisadas ou pendencias na pagina publica.
 - Registre no catalogo interno que o FAQ foi criado ou atualizado. Na coluna de evidencias, cite `Pergunta/resposta fornecida pelo usuario` e os arquivos do repositorio consultados quando houver validacao tecnica.
 - Atualize `docs/index.md`, `docs/_catalogo-documentacao.md` e, se o arquivo for criado ou alterado, regenere o indice do viewer com `node viewer/build-docs-index.js` a partir da pasta `docs`.
+
+## Padrao para erros e soluções
+
+Use este padrão quando o usuário pedir documentação de mensagens de erro, rejeições, sintomas operacionais ou procedimentos de correção do UniNFe.
+
+- A página padrão é `docs/erros-e-solucoes/erros-e-solucoes.md`, separada de `docs/referencias/perguntas-frequentes.md`.
+- Se a página não existir, crie com H1 `Erros e soluções` e uma introdução curta orientando o leitor a localizar a mensagem e executar as verificações na ordem.
+- Cada erro deve ficar em um bloco expansível fechado por padrão, usando `<details id="erro-identificador-estavel">` e `<summary><strong>mensagem ou sintoma reconhecível</strong></summary>`. Não use o atributo `open`.
+- O `id` deve ser único, começar por `erro-` e usar somente letras minúsculas sem acentos, números e hífens. Trate-o como parte do link público e não o altere em revisões apenas editoriais.
+- Estruture a resposta com `Causa provável` e `Solução`. Quando houver várias causas, ordene as verificações das menos invasivas para as mais invasivas.
+- Preserve mensagens literais curtas que ajudem o usuário a encontrar o erro, mas explique e reescreva o restante em português claro.
+- Mudanças em certificado, rede, firewall, antivírus, Registro, políticas, TLS, sistema operacional ou exclusão de arquivos devem trazer o cuidado operacional correspondente. Prefira diagnóstico reversível, backup e participação da infraestrutura.
+- Não publique procedimento externo desatualizado quando a versão atual do projeto exigir outro ambiente. Verifique o alvo do projeto e fontes oficiais atuais.
+- Dentro de `<details>`, mantenha uma linha em branco após `</summary>` e antes de `</details>`.
+- Atualize `docs/index.md`, `docs/_catalogo-documentacao.md`, o README da seção e regenere o índice do viewer. Se a seção criar uma nova categoria no menu, atualize a ordem e o título em `docs/viewer/build-docs-index.js` e `docs/viewer/app.js`; ao alterar `app.js`, atualize também o cache-buster em `docs/viewer/index.html`.
 
 ## Padrao para consumo de servico por arquivos
 

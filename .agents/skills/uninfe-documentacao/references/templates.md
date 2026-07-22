@@ -151,3 +151,22 @@ Explique o papel da troca de arquivos.
 
 Explique arquivos `.err`, logs e mensagens confirmadas.
 ```
+
+## Erro e solução
+
+```markdown
+<details id="erro-identificador-estavel">
+<summary><strong>Mensagem ou sintoma reconhecível</strong></summary>
+
+**Causa provável:** explique as causas confirmadas sem afirmar que uma hipótese é certeza.
+
+**Solução:**
+
+1. Comece pelas verificações menos invasivas.
+2. Oriente backup e participação da infraestrutura quando houver alteração administrativa.
+3. Informe como repetir o teste e confirmar a correção.
+
+</details>
+```
+
+Mantenha os erros em `docs/erros-e-solucoes/erros-e-solucoes.md`, separados do FAQ. Não recomende desativar permanentemente proteções, habilitar protocolos obsoletos, fixar IP de webservice no arquivo `hosts`, alterar amplamente o Registro ou excluir arquivos sem identificar com precisão o alvo.
