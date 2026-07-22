@@ -67,6 +67,7 @@ Mantenha a documentacao em `/docs`:
 - `instalacao/`
 - `configuracao/`
 - `integracao/`
+- `contingencia/`
 - `servicos/<servico>/`
 - `referencias/`
 
@@ -84,6 +85,19 @@ O visualizador cria automaticamente as opções dentro da categoria `referencias
 Em fluxogramas Mermaid, mantenha os rótulos dos nós curtos e inclua quebras explícitas com `<br/>` nos textos que possam ultrapassar aproximadamente 25 caracteres. Exemplo: `A["Selecionar o serviço<br/>efetivamente prestado"]`. Isso permite que o visualizador calcule a altura do nó e evita que o texto fique cortado em telas menores. Em diagramas largos, com várias ramificações ou muitos rótulos, inclua antes de `flowchart` a diretiva `%%{init: {"flowchart": {"useMaxWidth": false}} }%%`; o visualizador mostrará rolagem horizontal em vez de reduzir a fonte do SVG.
 
 Prefira documentos pequenos e linkados. Nao mova documentacao existente sem necessidade.
+
+### Contingência
+
+Mantenha as orientações de contingência em `docs/contingencia/`. As páginas atualmente previstas são:
+
+- `formulario-de-seguranca.md`, exibida como `Contingência em formulário de segurança`;
+- `svc.md`, exibida como `Contingência SVC (RS, AN e SP)`;
+- `off-line.md`, exibida como `Contingência Off-line`;
+- `epec.md`, exibida como `Contingência EPEC`.
+
+Para criar ou revisar uma página dessa seção, confirme no repositório o valor de `tpEmis`, os documentos fiscais aceitos, as pastas de validação e de envio e o tratamento posterior. Preserve a distinção entre validação local, homologação de evento e autorização de uso. Atualize `docs/contingencia/README.md`, `docs/index.md`, `docs/_catalogo-documentacao.md` e regenere o índice do visualizador. Quando for necessária uma nova modalidade, crie-a em `docs/contingencia/`, inclua-a no README e no índice, e ajuste o rótulo/ordem do menu do visualizador se isso for necessário.
+
+Na página `off-line.md`, documente a NFC-e com `tpEmis=9` e também a NF-e em contingência Off-line quando `tpEmis=9` estiver combinado com `tpImp=6` (DANFE Simplificado Tipo 2). Deixe explícita essa combinação para impedir que o integrador aplique a modalidade Off-line a NF-e com outro tipo de impressão.
 
 ## Regras por tipo
 
