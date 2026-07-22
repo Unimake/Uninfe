@@ -414,7 +414,7 @@ namespace NFe.Service
                     // na pasta "EmProcessamento" assinada.
                     if (string.IsNullOrEmpty(strNomeArqNfe))
                     {
-                        if (string.IsNullOrEmpty(strChaveNFe) && strStat == "100" || strStat == "150" || strStat == "110")
+                        if (string.IsNullOrEmpty(strChaveNFe) && (strStat == "100" || strStat == "120" || strStat == "150" || strStat == "110"))
                         {
                             throw new Exception("LerRetornoLoteNFe(): Não pode obter o nome do arquivo");
                         }
@@ -433,6 +433,7 @@ namespace NFe.Service
                         switch (strStat)
                         {
                             case "100": //NFe Autorizada
+                            case "120": //NFe Autorizada com alerta
                             case "150": //NFe Autorizada fora do prazo
                                 if (File.Exists(strArquivoNFe))
                                 {

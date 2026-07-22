@@ -167,7 +167,7 @@ namespace NFe.Service
 
                 #region Parte que trata o retorno do lote, ou seja, o número do recibo ou protocolo
 
-                if (dadosRec.cStat == "104" || dadosRec.cStat == "100") //Tem estado que retorna como 100? Autorizado neste ponto? Não deveria, mas vai que.
+                if (dadosRec.cStat == "104" || dadosRec.cStat == "100" || dadosRec.cStat == "120") //Tem estado que retorna como 100 ou 120? Autorizado neste ponto? Não deveria, mas vai que.
                 {
                     FinalizarNFeSincrono(vStrXmlRetorno, emp, ler.oDadosNfe.chavenfe);
 

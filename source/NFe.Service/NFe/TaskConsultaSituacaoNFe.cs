@@ -353,6 +353,7 @@ namespace NFe.Service
                     #region Nota fiscal autorizada
 
                     case "100": //Autorizado o uso da NFe
+                    case "120": //Autorizado o uso da NFe, com alerta
                     case "150": //Autorizado o uso da NFe fora do prazo
                         var infConsSitList = retConsSitElemento.GetElementsByTagName("infProt");
                         if (infConsSitList != null)
@@ -373,6 +374,7 @@ namespace NFe.Service
                                 switch (strStat)
                                 {
                                     case "100": //NFe Autorizada
+                                    case "120": //NFe Autorizada com alerta
                                     case "150": //NFe Autorizada fora do prazo
                                         var strProtNfe = retConsSitElemento.GetElementsByTagName("protNFe")[0].OuterXml;
 
