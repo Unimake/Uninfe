@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T11:28:36.780Z",
+  "generatedAt": "2026-07-22T14:12:00.175Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -66,6 +66,12 @@
       "title": "Contingência SVC (RS, AN e SP)",
       "path": "contingencia/svc.md",
       "category": "contingencia"
+    },
+    {
+      "id": "erros-e-solucoes-erros-e-solucoes-md",
+      "title": "Erros e soluções",
+      "path": "erros-e-solucoes/erros-e-solucoes.md",
+      "category": "erros-e-solucoes"
     },
     {
       "id": "referencias-apoio-e-suporte-md",

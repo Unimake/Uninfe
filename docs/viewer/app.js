@@ -135,8 +135,9 @@
       instalacao: 20,
       configuracao: 30,
       contingencia: 40,
-      referencias: 50,
-      servicos: 60,
+      "erros-e-solucoes": 50,
+      referencias: 60,
+      servicos: 70,
       raiz: 900
     };
 
@@ -145,7 +146,7 @@
     }
 
     if (value.startsWith("servicos/")) {
-      return 60;
+      return 70;
     }
 
     return 800;
@@ -157,7 +158,8 @@
 
   function categoryTitle(category) {
     const titles = {
-      contingencia: "Contingência"
+      contingencia: "Contingência",
+      "erros-e-solucoes": "Erros e soluções"
     };
 
     return titles[normalizeText(category)] || category;
@@ -277,7 +279,7 @@
         return;
       }
 
-      summary.title = "Clique para abrir ou fechar. Ao abrir, o link desta pergunta fica na URL.";
+      summary.title = "Clique para abrir ou fechar. Ao abrir, o link deste item fica na URL.";
       details.addEventListener("toggle", () => {
         if (details.open) {
           setDocUrl(state.currentPath, true, anchor);

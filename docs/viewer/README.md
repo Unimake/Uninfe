@@ -68,6 +68,12 @@ http://localhost:8080/viewer/?doc=referencias/perguntas-frequentes.md#faq-dfe-pa
 
 Ao abrir esse endereço, o visualizador expande a pergunta indicada. Ao clicar para abrir uma pergunta identificada, o fragmento correspondente também é colocado na URL, permitindo copiar o link diretamente do navegador.
 
+Os blocos expansíveis da seção de erros e soluções usam o mesmo recurso, com identificadores iniciados por `erro-`. Exemplo:
+
+```text
+http://localhost:8080/viewer/?doc=erros-e-solucoes/erros-e-solucoes.md#erro-elemento-raiz-inexistente
+```
+
 Abrir `viewer/index.html` diretamente por `file:///` pode nao funcionar, porque navegadores costumam bloquear `fetch()` para arquivos locais.
 
 ## Publicar no site

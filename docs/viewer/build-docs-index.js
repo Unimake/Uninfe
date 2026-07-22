@@ -100,8 +100,9 @@ function categoryRank(category) {
     "instalacao": 20,
     "configuracao": 30,
     "contingencia": 40,
-    "referencias": 50,
-    "servicos": 60,
+    "erros-e-solucoes": 50,
+    "referencias": 60,
+    "servicos": 70,
     "raiz": 900
   };
 
@@ -110,7 +111,7 @@ function categoryRank(category) {
   }
 
   if (value.startsWith("servicos/")) {
-    return 60;
+    return 70;
   }
 
   return 800;

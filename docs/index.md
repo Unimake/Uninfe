@@ -156,6 +156,10 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [GNRE - Consulta de resultado do lote](servicos/gnre/consulta-resultado-lote.md)
 - [GNRE - Recepção de lote](servicos/gnre/recepcao-lote.md)
 
+## Erros e soluções
+
+- [Erros e soluções](erros-e-solucoes/erros-e-solucoes.md)
+
 ## Referencias
 
 - [Referencias](referencias/)

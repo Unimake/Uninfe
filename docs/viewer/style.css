@@ -288,6 +288,32 @@ body.menu-collapsed .sidebar {
   color: var(--accent);
 }
 
+.markdown-body details + details {
+  margin-top: 1.5rem;
+}
+
+.markdown-body summary {
+  padding: 0.35rem 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.markdown-body summary:hover {
+  color: var(--accent);
+}
+
+.markdown-body summary:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.markdown-body details[open] > summary {
+  margin-bottom: 0.75rem;
+}
+
 .markdown-body table {
   display: block;
   width: 100%;
