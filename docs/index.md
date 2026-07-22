@@ -39,6 +39,14 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - PENDENTE DE VALIDAÇÃO: criar `integracao/tratamento-de-erros.md`
 - PENDENTE DE VALIDAÇÃO: criar `integracao/logs.md`
 
+## Contingência
+
+- [Contingência](contingencia/)
+- [Contingência em formulário de segurança](contingencia/formulario-de-seguranca.md)
+- [Contingência SVC (RS, AN e SP)](contingencia/svc.md)
+- [Contingência Off-line](contingencia/off-line.md)
+- [Contingência EPEC](contingencia/epec.md)
+
 ## Servicos
 
 - [Consulta status de serviço](servicos/consulta-status-servico.md)

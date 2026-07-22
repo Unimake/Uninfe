@@ -99,8 +99,9 @@ function categoryRank(category) {
     "introducao": 10,
     "instalacao": 20,
     "configuracao": 30,
-    "referencias": 40,
-    "servicos": 50,
+    "contingencia": 40,
+    "referencias": 50,
+    "servicos": 60,
     "raiz": 900
   };
 

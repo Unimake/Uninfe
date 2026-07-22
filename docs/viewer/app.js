@@ -134,8 +134,9 @@
       introducao: 10,
       instalacao: 20,
       configuracao: 30,
-      referencias: 40,
-      servicos: 50,
+      contingencia: 40,
+      referencias: 50,
+      servicos: 60,
       raiz: 900
     };
 
@@ -154,6 +155,14 @@
     return categoryRank(a) - categoryRank(b) || a.localeCompare(b, "pt-BR");
   }
 
+  function categoryTitle(category) {
+    const titles = {
+      contingencia: "Contingência"
+    };
+
+    return titles[normalizeText(category)] || category;
+  }
+
   function renderNavigation() {
     const groups = groupDocuments(state.manifest.documents);
     elements.navList.innerHTML = "";
@@ -164,7 +173,7 @@
 
       const title = document.createElement("h2");
       title.className = "category-title";
-      title.textContent = category;
+      title.textContent = categoryTitle(category);
       section.appendChild(title);
 
       groups[category].forEach((doc) => {
