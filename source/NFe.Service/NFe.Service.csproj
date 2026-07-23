@@ -302,6 +302,7 @@
     <Compile Include="DCe\TaskDCeEvento.cs" />
     <Compile Include="DFe\TaskRecepcaoDFeCTe.cs" />
     <Compile Include="DFe\TaskRecepcaoDFe.cs" />
+    <Compile Include="DiagnosticoDisponibilidadeDFeHelper.cs" />
     <Compile Include="eBoleto\TaskBoletoInformarPagto.cs" />
     <Compile Include="eBoleto\TaskBoletoEnviarInstrucao.cs" />
     <Compile Include="eBoleto\TaskBoletoAlterarVencto.cs" />

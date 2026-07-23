@@ -48,6 +48,7 @@ namespace NFe.Service
 
             var oFluxoNfe = new FluxoNfe();
             var ler = new LerXML();
+            Configuracao configuracao = null;
 
             try
             {
@@ -67,12 +68,13 @@ namespace NFe.Service
                     xmlNFe.NFe[i].Signature = null;
                 }
 
-                var configuracao = new Configuracao
+                configuracao = new Configuracao
                 {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = (ler.oDadosNfe.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
                     TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)(Convert.ToInt32(ler.oDadosNfe.tpEmis)),
-                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
                 };
 
                 if (ConfiguracaoApp.Proxy)
@@ -256,6 +258,11 @@ namespace NFe.Service
             catch (Exception ex)
             {
                 TrataException(ex, ler.oDadosNfe, emp);
+            }
+            finally
+            {
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML);
             }
         }
 

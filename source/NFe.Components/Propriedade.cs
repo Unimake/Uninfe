@@ -1502,6 +1502,11 @@ namespace NFe.Components
         /// </summary>
         public class ExtRetorno
         {
+            /// <summary>
+            /// -diagdispdfe.xml
+            /// </summary>
+            public const string DiagnosticoDisponibilidadeDFe = "-diagdispdfe.xml";
+
             #region Extensoes que so estao aqui para quem utiliza o codigo em seus projetos
 
             public static string RetAltCon_XML = Extensao(TipoEnvio.AltCon).RetornoXML;

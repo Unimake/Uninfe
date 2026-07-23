@@ -7,13 +7,13 @@ using Unimake.Business.DFe.Xml.NFe;
 
 namespace NFe.Service
 {
-    public class TaskNFeConsultaStatus: TaskAbst
+    public class TaskNFeConsultaStatus : TaskAbst
     {
         public TaskNFeConsultaStatus(string arquivo)
         {
             Servico = Servicos.NFeConsultaStatusServico;
             NomeArquivoXML = arquivo;
-            if(vXmlNfeDadosMsgEhXML)
+            if (vXmlNfeDadosMsgEhXML)
             {
                 ConteudoXML.PreserveWhitespace = false;
                 ConteudoXML.Load(arquivo);
@@ -34,22 +34,24 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
             try
             {
                 dadosPedSta = new DadosPedSta();
                 PedSta(emp, dadosPedSta);
 
-                if(vXmlNfeDadosMsgEhXML)
+                if (vXmlNfeDadosMsgEhXML)
                 {
                     var xml = new ConsStatServ();
                     xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsStatServ>(ConteudoXML);
 
-                    var configuracao = new Configuracao
+                    configuracao = new Configuracao
                     {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                        PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = (dadosPedSta.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
                         TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)dadosPedSta.tpEmis,
-                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                        ColetarTelemetriaDisponibilidade = true
                     };
 
                     if (ConfiguracaoApp.Proxy)
@@ -57,10 +59,10 @@ namespace NFe.Service
                         configuracao.HasProxy = true;
                         configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
                         configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                        configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;                            
+                        configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
                     }
 
-                    if(dadosPedSta.mod == "65")
+                    if (dadosPedSta.mod == "65")
                     {
                         var statusServico = new Unimake.Business.DFe.Servicos.NFCe.StatusServico(xml, configuracao);
                         statusServico.Executar();
@@ -80,12 +82,15 @@ namespace NFe.Service
 
                         statusServico.Dispose();
                     }
+
+                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
                 }
                 else
                 {
                     var f = Path.GetFileNameWithoutExtension(NomeArquivoXML) + ".xml";
 
-                    if(NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    if (NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
                     {
                         f = Path.Combine(Empresas.Configuracoes[emp].PastaValidar, f);
                     }
@@ -93,7 +98,7 @@ namespace NFe.Service
                     oGerarXML.StatusServicoNFe(f, dadosPedSta.tpAmb, dadosPedSta.tpEmis, dadosPedSta.cUF, dadosPedSta.versao);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var extRet = vXmlNfeDadosMsgEhXML ? Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML :
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioTXT;
@@ -108,6 +113,9 @@ namespace NFe.Service
                     //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
                     //Wandrey 09/03/2010
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
             finally
             {
@@ -140,7 +148,7 @@ namespace NFe.Service
         {
             base.PedSta(emp, dadosPedSta);
 
-            if(string.IsNullOrEmpty(dadosPedSta.versao))
+            if (string.IsNullOrEmpty(dadosPedSta.versao))
             {
                 throw new Exception(NFeStrConstants.versaoError);
             }
