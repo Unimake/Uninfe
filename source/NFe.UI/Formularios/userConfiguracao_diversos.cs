@@ -438,6 +438,14 @@ namespace NFe.UI.Formularios
             }
         }
 
+        private void HabilitaDiretorioSalvarComoNFSe(PadraoNFSe padraoNFSe)
+        {
+            var visivel = empresa.Servico == TipoAplicativo.Nfse && padraoNFSe == PadraoNFSe.NACIONAL;
+
+            cboDiretorioSalvarComo.Visible = visivel;
+            lbl_DiretorioSalvarComo.Visible = visivel;
+        }
+
         private void comboBox_UF_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loading)
@@ -449,16 +457,20 @@ namespace NFe.UI.Formularios
             try
             {
                 var xuf = comboBox_UF.SelectedValue;
+                var padraoNfse = Functions.BuscaPadraoNFSe(Convert.ToInt32(xuf));
 
                 edtCodMun.Text = xuf.ToString();
 
-                edtPadrao.Text = EnumHelper.GetEnumItemDescription(Functions.BuscaPadraoNFSe(Convert.ToInt32(xuf)));
+                edtPadrao.Text = EnumHelper.GetEnumItemDescription(padraoNfse);
                 HabilitaUsuarioSenhaWS(Convert.ToInt32(edtCodMun.Text), TipoAplicativo.Nfse);
+                HabilitaDiretorioSalvarComoNFSe(padraoNfse);
 
             }
             catch
             {
                 HabilitaUsuarioSenhaWS(-1);
+                cboDiretorioSalvarComo.Visible = false;
+                lbl_DiretorioSalvarComo.Visible = false;
                 edtCodMun.Text = edtPadrao.Text = "Indefinido";
             }
             if (changeEvent != null)
