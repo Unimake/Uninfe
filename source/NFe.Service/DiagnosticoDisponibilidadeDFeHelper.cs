@@ -1,3 +1,4 @@
+#if _BETA || DEBUG
 using NFe.Components;
 using NFe.Settings;
 using System;
@@ -5,8 +6,10 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Utility;
+#endif
+
+using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service
 {
@@ -14,6 +17,7 @@ namespace NFe.Service
     {
         public static void Gravar(int emp, Configuracao configuracao, string nomeArquivoXML, string extensaoEnvio)
         {
+#if _BETA || DEBUG
             if (configuracao == null)
             {
                 return;
@@ -92,6 +96,7 @@ namespace NFe.Service
                     //O diagnóstico não pode interromper ou alterar o retorno do serviço para o ERP.
                 }
             }
+#endif
         }
     }
 }
