@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
 using NFe.ConvertTxt;
+using NFe.Settings;
 using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
@@ -18,6 +20,9 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("0000092301054300027600116072026-NFE-orig.txt")]
         [InlineData("0000112301054300027600116072026-NFE-orig.txt")]
         [InlineData("35260747498059000115550010004029951909226874-nfe-orig.txt")]
+        [InlineData("002310_01_01_31_07_2026-nfe-orig.txt")]
+        [InlineData("000479_09531276000170_003_31_07_2026-nfe-orig.txt")]
+        [InlineData("nfe-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -30,7 +35,19 @@ namespace UniNFe.Test.NFeConvertTxt
                 try
                 {
                     var legadoGerador = new NFeW { cMensagemErro = string.Empty };
-                    typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(legadoGerador, new object[] { resultado.Nota, pasta, arquivo });
+                    var configuracoesOriginais = Empresas.Configuracoes;
+                    if (configuracoesOriginais == null || configuracoesOriginais.Count == 0)
+                    {
+                        Empresas.Configuracoes = new List<Empresa> { new Empresa() };
+                    }
+                    try
+                    {
+                        typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(legadoGerador, new object[] { resultado.Nota, pasta, arquivo });
+                    }
+                    finally
+                    {
+                        Empresas.Configuracoes = configuracoesOriginais;
+                    }
                     var legado = File.ReadAllText(legadoGerador.cFileName);
                     var conversaoNova = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
                     Assert.True(conversaoNova.Sucesso, conversaoNova.MensagemErro);
@@ -67,7 +84,39 @@ namespace UniNFe.Test.NFeConvertTxt
                 "RUA GENERAL MARIANTE",
                 "48577324915",
                 "04690036934",
-                "92991289953"
+                "92991289953",
+                "SOC.COM.MAT.P/CONSTR.LUIZ LOPES LTDA",
+                "00454749000109",
+                "108680702113",
+                "956224310481",
+                "RUA MAJOR OTAVIANO",
+                "R. OLIVEIRA CATRAMBI",
+                "1122911633",
+                "11997556655",
+                "luizlopes.nfe@uol.com.br",
+                "VENDEDOR: 0110 WAGNER",
+                "AUTO VIDROS PRUDENTE",
+                "562319803111",
+                "592009166115",
+                "45523719000811",
+                "RUA ANTONIO RUIZ",
+                "AVENIDA XV DE NOVEMBRO",
+                "Marco Thomaz",
+                "marco@duesoft.com.br",
+                "1839167600",
+                "PLACA: FRT 6828",
+                "J. R. DE OLIVEIRA AUTO ELETRICA",
+                "38136977000103",
+                "03640467000194",
+                "401300590118",
+                "401035229111",
+                "1436215947",
+                "36025222",
+                "RUA OTAVIO CONEGUNDES DE SOUZA",
+                "SUPERM. JAU SERVE LTDA",
+                "nfe@jauserve.com.br",
+                "carlos.tagiarolli@jauserve.com.br",
+                "AVENIDA JOAO SANZOVO"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
