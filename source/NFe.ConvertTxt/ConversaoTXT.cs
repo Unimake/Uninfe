@@ -2347,6 +2347,8 @@ namespace NFe.ConvertTxt
         {
                     //layout = "UB17|pIBSUF|pDif|vDif|vDevTrib|pRedAliq|pAliqEfet|vIBSUF|"
 
+                    AjustarLayoutLegadoGrupoDevolucaoTributos();
+
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.pIBSUF = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pIBSUF, ObOp.Obrigatorio, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gDif.pDif = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDif, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSUF.gDif.vDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDif, ObOp.Opcional, 1, 15);
@@ -2360,6 +2362,8 @@ namespace NFe.ConvertTxt
         private void ProcessarTotalIbsCbsCreditoPresumido(int nProd, int lenPipesRegistro)
         {
                     //layout = "UB36|pIBSMun|pDif|vDif|vDevTrib|pRedAliq|pAliqEfet|vIBSMun|"
+
+                    AjustarLayoutLegadoGrupoDevolucaoTributos();
 
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.pIBSMun = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pIBSMun, ObOp.Obrigatorio, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gIBSMun.gDif.pDif = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDif, ObOp.Opcional, 1, 7);
@@ -2375,6 +2379,8 @@ namespace NFe.ConvertTxt
         {
                     //layout = "UB55|pCBS|pDif|vDif|vDevTrib|pRedAliq|pAliqEfet|vCBS|"
 
+                    AjustarLayoutLegadoGrupoDevolucaoTributos();
+
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.pCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pCBS, ObOp.Obrigatorio, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gDif.pDif = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pDif, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gDif.vDif = this.LerDouble(TpcnTipoCampo.tcDouble2, TpcnResources.vDif, ObOp.Opcional, 1, 15);
@@ -2383,6 +2389,33 @@ namespace NFe.ConvertTxt
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pRedAliq, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.pAliqEfet, ObOp.Opcional, 1, 7);
                     NFe.det[nProd].Imposto.IBSCBS.gIBSCBS.gCBS.vCBS = this.LerDouble(TpcnTipoCampo.tcDouble4, TpcnResources.vCBS, ObOp.Obrigatorio, 1, 7);
+        }
+
+        private void AjustarLayoutLegadoGrupoDevolucaoTributos()
+        {
+            const string campoPercentualDevolucao = "|pDevTrib|";
+            const string campoValorDevolvido = "|vDevTrib|";
+            var indicePercentualLayout = layout.IndexOf(campoPercentualDevolucao, StringComparison.OrdinalIgnoreCase);
+            var indiceValorLayout = layout.IndexOf(campoValorDevolvido, StringComparison.OrdinalIgnoreCase);
+            if (indicePercentualLayout < 0 || indiceValorLayout < 0)
+            {
+                return;
+            }
+
+            var camposLayout = layout.Substring(1).Split('|');
+            var camposRegistro = Registro.Split('|');
+            var indicePercentual = Array.FindIndex(camposLayout, campo => string.Equals(campo, "pDevTrib", StringComparison.OrdinalIgnoreCase));
+            var indiceValor = Array.FindIndex(camposLayout, campo => string.Equals(campo, "vDevTrib", StringComparison.OrdinalIgnoreCase));
+            double valorPosicaoLegadaReducao;
+            if (indicePercentual < 0 || indiceValor < 0 || indiceValor >= camposRegistro.Length ||
+                !string.IsNullOrWhiteSpace(camposRegistro[indicePercentual]) ||
+                !double.TryParse(camposRegistro[indiceValor], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out valorPosicaoLegadaReducao) ||
+                valorPosicaoLegadaReducao <= 0)
+            {
+                return;
+            }
+
+            layout = layout.Remove(indicePercentualLayout, campoPercentualDevolucao.Length - 1);
         }
 
         private void ProcessarTotalIbsCbsRegularCompraGov(int nProd, int lenPipesRegistro)
