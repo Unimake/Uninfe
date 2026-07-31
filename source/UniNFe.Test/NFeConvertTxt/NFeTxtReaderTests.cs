@@ -60,9 +60,22 @@ namespace UniNFe.Test.NFeConvertTxt
         public void DigitoVerificadorDivergenteNaChaveDoSegmentoADeveSerRejeitado()
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "RTC", "NFE_Venda_00002.txt");
-            var chaveValida = GerarChave(arquivo);
-            var chaveInvalida = chaveValida.Substring(0, 43) + (chaveValida.EndsWith("9") ? "8" : "9");
             var linhas = File.ReadAllLines(arquivo);
+
+            var indiceEmissor = Array.FindIndex(linhas, x => x.StartsWith("C02|"));
+            var camposEmissor = linhas[indiceEmissor].Split('|');
+            camposEmissor[1] = "08606985000105";
+            linhas[indiceEmissor] = string.Join("|", camposEmissor);
+
+            var indiceSegmentoB = Array.FindIndex(linhas, x => x.StartsWith("B|"));
+            var camposSegmentoB = linhas[indiceSegmentoB].Split('|');
+            camposSegmentoB[14] = string.Empty;
+            linhas[indiceSegmentoB] = string.Join("|", camposSegmentoB);
+
+            var chaveValida = GerarChave(linhas);
+            var chaveInvalida = chaveValida.Substring(0, 43) + (chaveValida.EndsWith("9") ? "8" : "9");
+            camposSegmentoB[14] = chaveValida.Substring(43, 1);
+            linhas[indiceSegmentoB] = string.Join("|", camposSegmentoB);
             var indiceSegmentoA = Array.FindIndex(linhas, x => x.StartsWith("A|"));
             var campos = linhas[indiceSegmentoA].Split('|');
             campos[2] = chaveInvalida;
@@ -110,15 +123,17 @@ namespace UniNFe.Test.NFeConvertTxt
             }
         }
 
-        private static string GerarChave(string arquivo)
+        private static string GerarChave(string[] linhas)
         {
             var pasta = Path.Combine(Path.GetTempPath(), "UniNFe.Test", "NFeConvertTxt", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(pasta);
             try
             {
-                var conversao = new ConversaoTXT();
-                Assert.True(conversao.Converter(arquivo, pasta), conversao.cMensagemErro);
-                return Assert.Single(conversao.cRetorno).ChaveNFe;
+                var arquivo = Path.Combine(pasta, "entrada.txt");
+                File.WriteAllLines(arquivo, linhas);
+                var conversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+                Assert.True(conversao.Sucesso, conversao.MensagemErro);
+                return Assert.Single(conversao.Documentos).Chave;
             }
             finally
             {
