@@ -59,6 +59,7 @@ namespace UniNFe.Test.eBoleto
                                       "<Status>0</Status>" +
                                       "<PdfContentSuccess>true</PdfContentSuccess>" +
                                       "<PdfContentBase64>" + Convert.ToBase64String(conteudoPdf) + "</PdfContentBase64>" +
+                                      "<PixPagamentoDetalhe><TxId>PIX-001</TxId></PixPagamentoDetalhe>" +
                                       "</BoletoRegistrarResponse>"
                 };
                 var extensao = Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar);
@@ -67,6 +68,11 @@ namespace UniNFe.Test.eBoleto
 
                 Assert.True(File.Exists(contexto.ArquivoRetornoPDF), "O PDF do e-Boleto não foi gravado na pasta de retorno.");
                 Assert.Equal(conteudoPdf, File.ReadAllBytes(contexto.ArquivoRetornoPDF));
+
+                var xmlRetorno = new System.Xml.XmlDocument();
+                xmlRetorno.LoadXml(task.vStrXmlRetorno);
+                Assert.Equal(contexto.ArquivoRetornoPDF, xmlRetorno.DocumentElement?["PdfPath"]?.InnerText);
+                Assert.Equal("PdfPath", xmlRetorno.DocumentElement?["PixPagamentoDetalhe"]?.PreviousSibling?.Name);
             }
         }
 

@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Servicos.EBoleto;
 
 namespace NFe.Service
 {
@@ -36,7 +37,7 @@ namespace NFe.Service
             {
                 var lastException = ex.GetLastException();
                 var traceId = ApiExceptionHelper.ExtrairTraceId(lastException);
-                ApiExceptionHelper.GravarXmlRetornoEBoleto(pathXml, "BoletoRegistrarResponse", "999", lastException.Message.Replace("\r\n", " | "), traceId);
+                ApiExceptionHelper.GravarXmlRetornoEBoleto(pathXml, "BoletoRegistrarResponse", "999", lastException.Message.Replace("\r\n", ""), traceId);
             }
             finally
             {
@@ -69,30 +70,21 @@ namespace NFe.Service
 
             try
             {
-                var assembly = typeof(Configuracao).Assembly;
-                var boletoType = assembly.GetType("Unimake.Business.DFe.Servicos.EBoleto.BoletoRegistrar");
-                if (boletoType == null) throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não foi localizada na DLL.");
-
-                var boletoInstance = Activator.CreateInstance(boletoType, new object[] { ConteudoXML.OuterXml, configuracao });
-                var executarMethod = boletoInstance.GetType().GetMethod("Executar");
-                if (executarMethod == null) throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não expõe o método Executar().");
-                executarMethod.Invoke(boletoInstance, null);
-
-                var retornoProp = boletoInstance.GetType().GetProperty("RetornoWSString");
-                if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(boletoInstance)?.ToString();
-
-                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                using (var boleto = new BoletoRegistrar(ConteudoXML.OuterXml, configuracao))
                 {
-                    throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    boleto.Executar();
+                    vStrXmlRetorno = boleto.RetornoWSString;
+
+                    if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                    {
+                        throw new Exception("A implementação do serviço eBoleto BoletoRegistrar não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    }
+
+                    vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
+
+                    ExtrairPDFRetorno(emp, finalArqEnvio, finalArqRetorno);
+                    XmlRetorno(finalArqEnvio, finalArqRetorno);
                 }
-
-                vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
-
-                XmlRetorno(finalArqEnvio, finalArqRetorno);
-                ExtrairPDFRetorno(emp, finalArqEnvio, finalArqRetorno);
-
-                var disposeMethod = boletoInstance.GetType().GetMethod("Dispose");
-                disposeMethod?.Invoke(boletoInstance, null);
             }
             catch (Exception ex)
             {
@@ -141,6 +133,31 @@ namespace NFe.Service
                 }
 
                 File.WriteAllBytes(arqPDF, Convert.FromBase64String(pdfContentBase64[0].InnerText));
+
+                var pdfPath = doc.GetElementsByTagName("PdfPath");
+                XmlElement elementoPdfPath;
+                if (pdfPath.Count > 0)
+                {
+                    elementoPdfPath = (XmlElement)pdfPath[0];
+                }
+                else
+                {
+                    elementoPdfPath = doc.CreateElement("PdfPath");
+                    var root = doc.DocumentElement;
+                    var proximoElemento = root?["PixPagamentoDetalhe"] ?? root?["QRCodeContent"] ?? root?["DLLVersao"] ?? root?["UniNFeVersao"];
+
+                    if (proximoElemento != null)
+                    {
+                        root.InsertBefore(elementoPdfPath, proximoElemento);
+                    }
+                    else
+                    {
+                        root?.AppendChild(elementoPdfPath);
+                    }
+                }
+
+                elementoPdfPath.InnerText = arqPDF;
+                vStrXmlRetorno = doc.OuterXml;
             }
             catch (Exception ex)
             {
