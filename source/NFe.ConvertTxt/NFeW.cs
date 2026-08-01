@@ -18,8 +18,6 @@ namespace NFe.ConvertTxt
         public string XMLString { get; private set; }
 
         private const int CSRT_MAX_TAMANHO = 36;
-        private const int HASHCSRT_ENCRIPTADO_MAX_TAMANHO = 28;
-
         private XmlDocument doc;
         private XmlNode nodeCurrent = null;
         private TpcnTipoCampo nDecimaisPerc = TpcnTipoCampo.tcDouble2;
@@ -153,10 +151,10 @@ namespace NFe.ConvertTxt
                 }
             }
             else if (!string.IsNullOrEmpty(NFe.resptecnico.hashCSRT) &&
-                (NFe.resptecnico.hashCSRT.Length <= CSRT_MAX_TAMANHO &&
-                !(NFe.resptecnico.hashCSRT.Length == HASHCSRT_ENCRIPTADO_MAX_TAMANHO)))
+                NFe.resptecnico.hashCSRT.Length <= CSRT_MAX_TAMANHO &&
+                !Unimake.Business.DFe.Utility.Converter.IsSHA1Base64(NFe.resptecnico.hashCSRT))
             {
-                NFe.resptecnico.hashCSRT += cChave;
+                NFe.resptecnico.hashCSRT = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(NFe.resptecnico.hashCSRT + cChave);
             }
 
             ///

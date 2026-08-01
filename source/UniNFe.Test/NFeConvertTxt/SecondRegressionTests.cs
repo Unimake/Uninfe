@@ -23,6 +23,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("002310_01_01_31_07_2026-nfe-orig.txt")]
         [InlineData("000479_09531276000170_003_31_07_2026-nfe-orig.txt")]
         [InlineData("nfe-nfe-orig.txt")]
+        [InlineData("14222_43343052000335_1_31_7_2026-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -56,6 +57,13 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         Assert.Equal("60.0000", ObterReducaoIbsMunicipalDoDecimoSegundoItem(legado));
                         Assert.Equal("60.0000", ObterReducaoIbsMunicipalDoDecimoSegundoItem(novo));
+                    }
+                    if (string.Equals(nomeArquivo, "14222_43343052000335_1_31_7_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        const string csrt = "CSRTTESTE0123456789012345678";
+                        var esperado = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(csrt + Assert.Single(conversaoNova.Documentos).Chave);
+                        Assert.Equal(esperado, ObterHashCsrt(legado));
+                        Assert.Equal(esperado, ObterHashCsrt(novo));
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -116,7 +124,12 @@ namespace UniNFe.Test.NFeConvertTxt
                 "SUPERM. JAU SERVE LTDA",
                 "nfe@jauserve.com.br",
                 "carlos.tagiarolli@jauserve.com.br",
-                "AVENIDA JOAO SANZOVO"
+                "AVENIDA JOAO SANZOVO",
+                "Florestal Alvorada Florestamento e Reflorestamento Ltda",
+                "Industria de Compensados Sudati Ltda",
+                "João Henrique Buckta",
+                "joao.henrique@valorflorestal.com.br",
+                "8X77VU0XB39URUYTGYSU7IU14UQB"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
@@ -137,6 +150,13 @@ namespace UniNFe.Test.NFeConvertTxt
             var xml = new XmlDocument();
             xml.LoadXml(conteudoXml);
             return xml.SelectSingleNode("//*[local-name()='det'][12]/*[local-name()='imposto']/*[local-name()='IBSCBS']/*[local-name()='gIBSCBS']/*[local-name()='gIBSMun']/*[local-name()='gRed']/*[local-name()='pRedAliq']")?.InnerText;
+        }
+
+        private static string ObterHashCsrt(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            return xml.SelectSingleNode("//*[local-name()='infRespTec']/*[local-name()='hashCSRT']")?.InnerText;
         }
     }
 }
