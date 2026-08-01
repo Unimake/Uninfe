@@ -1,10 +1,8 @@
-using Newtonsoft.Json.Linq;
 using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Net;
 using System.Windows.Forms;
 using Unimake.Business.DFe.Servicos;
 namespace NFe.UI.Formularios
@@ -438,14 +436,6 @@ namespace NFe.UI.Formularios
             }
         }
 
-        private void HabilitaDiretorioSalvarComoNFSe(PadraoNFSe padraoNFSe)
-        {
-            var visivel = empresa.Servico == TipoAplicativo.Nfse && padraoNFSe == PadraoNFSe.NACIONAL;
-
-            cboDiretorioSalvarComo.Visible = visivel;
-            lbl_DiretorioSalvarComo.Visible = visivel;
-        }
-
         private void comboBox_UF_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loading)
@@ -463,14 +453,10 @@ namespace NFe.UI.Formularios
 
                 edtPadrao.Text = EnumHelper.GetEnumItemDescription(padraoNfse);
                 HabilitaUsuarioSenhaWS(Convert.ToInt32(edtCodMun.Text), TipoAplicativo.Nfse);
-                HabilitaDiretorioSalvarComoNFSe(padraoNfse);
-
             }
             catch
             {
                 HabilitaUsuarioSenhaWS(-1);
-                cboDiretorioSalvarComo.Visible = false;
-                lbl_DiretorioSalvarComo.Visible = false;
                 edtCodMun.Text = edtPadrao.Text = "Indefinido";
             }
             if (changeEvent != null)
@@ -566,7 +552,7 @@ namespace NFe.UI.Formularios
 
         private void edtCodMun_Click(object sender, EventArgs e)
         {
-
+            var teste = "";
         }
 
         private void txtClienteID_Click(object sender, EventArgs e)
@@ -586,8 +572,8 @@ namespace NFe.UI.Formularios
                     edtCodMun.Visible = true;
                     edtPadrao.Visible = true;
                     lbl_Padrao.Visible = true;
-                    cboDiretorioSalvarComo.Visible = false;
-                    lbl_DiretorioSalvarComo.Visible = false;
+                    cboDiretorioSalvarComo.Visible = true;
+                    lbl_DiretorioSalvarComo.Visible = true;
                     comboBox_tpEmis.Visible = false;
                     metroLabel11.Visible = false;
                     checkBoxGravarEventosNaPastaEnviadosNFe.Visible = false;
