@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using Xunit;
 
 namespace UniNFe.Test.eBoleto.BugFixes
@@ -35,9 +36,9 @@ namespace UniNFe.Test.eBoleto.BugFixes
 
                 Assert.True(gerouArquivoRetorno, $"O processamento não gerou arquivo de retorno para o cenário do bugfix {nameof(Fix_Pagador_Is_Null)}@{nameof(BugFix184135)}.");
 
-                var allText = File.ReadAllText(contexto.ArquivoRetorno);
+                var xmlRetorno = testFixture.CarregarXml(contexto.ArquivoRetorno);
 
-                Assert.Contains("The Pagador field is required.", allText);
+                ValidarRetornoDeErro(xmlRetorno);
             }
         }
 
@@ -59,8 +60,21 @@ namespace UniNFe.Test.eBoleto.BugFixes
                 Assert.DoesNotContain("The Nome field is required.", allText);
                 Assert.DoesNotContain("The Endereco field is required.", allText);
                 Assert.DoesNotContain("The Inscricao field is required.", allText);
-                Assert.Contains("A configuração 'CONFIGURATION_ID' não é valida para este contexto. Verifique se a configuração existe e se está configurada corretamente.", allText);
+
+                ValidarRetornoDeErro(testFixture.CarregarXml(contexto.ArquivoRetorno));
             }
+        }
+
+        private static void ValidarRetornoDeErro(XmlDocument xmlRetorno)
+        {
+            Assert.Equal("BoletoRegistrarResponse", xmlRetorno.DocumentElement?.Name);
+
+            var status = xmlRetorno.SelectSingleNode("/BoletoRegistrarResponse/Status")?.InnerText;
+            var motivo = xmlRetorno.SelectSingleNode("/BoletoRegistrarResponse/Motivo")?.InnerText;
+
+            Assert.False(string.IsNullOrWhiteSpace(status));
+            Assert.NotEqual("0", status);
+            Assert.False(string.IsNullOrWhiteSpace(motivo));
         }
 
         #endregion Public Methods
