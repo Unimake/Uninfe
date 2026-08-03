@@ -368,6 +368,7 @@
     <Compile Include="NFSe\TaskConsultarNfseRecebidas.cs" />
     <Compile Include="NFSe\TaskSubstituirNfse.cs" />
     <Compile Include="NFSe\TaskConsultaSequenciaLoteNotaRPS.cs" />
+    <Compile Include="NFSe\TaskConsultarRpsDisponivel.cs" />
     <Compile Include="NFSe\TaskObterNotaFiscal.cs" />
     <Compile Include="NFSe\TaskConsultarNfsePDF.cs" />
     <Compile Include="NFSe\TaskInutilizarNfse.cs" />

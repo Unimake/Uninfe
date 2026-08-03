@@ -289,6 +289,12 @@ namespace NFe.Components
         NFSeConsultaSequenciaLoteNotaRPS,
 
         /// <summary>
+        /// Consultar RPS disponível
+        /// </summary>
+        [Description("Consultar RPS disponível")]
+        NFSeConsultarRpsDisponivel,
+
+        /// <summary>
         /// Substituir NFS-e
         /// </summary>
         [Description("Substituir NFS-e")]

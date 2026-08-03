@@ -244,6 +244,7 @@ namespace NFe.Components
             PedURLNFSe,
             PedURLNFSeSerie,
             PedSeqLoteNotaRPS,
+            PedConsRpsDisp,
             PedSubstNfse,
             PedSitNFSeRec,
             PedSitNFSeTom,
@@ -621,6 +622,12 @@ namespace NFe.Components
                 "-seqlotenotarps.xml", "",
                 "-seqlotenotarps.err",
                 "Consulta sequência do lote da nota RPS"));
+
+            ListaExtensoes.Add(TipoEnvio.PedConsRpsDisp, new ExtensaoClass(
+                "-ped-consrpsdisp.xml", "",
+                "-consrpsdisp.xml", "",
+                "-consrpsdisp.err",
+                "Consultar RPS disponível"));
 
             ListaExtensoes.Add(TipoEnvio.PedSubstNfse, new ExtensaoClass(
                 "-ped-substnfse.xml", "",
@@ -1345,6 +1352,11 @@ namespace NFe.Components
             public static string PedNfsePDF = Extensao(TipoEnvio.PedNFSePDF).EnvioXML;
 
             /// <summary>
+            /// -ped-consrpsdisp.xml
+            /// </summary>
+            public static string PedConsRpsDisp = Extensao(TipoEnvio.PedConsRpsDisp).EnvioXML;
+
+            /// <summary>
             /// -ped-convenio.xml
             /// </summary>
             public static string PedConvenio = Extensao(TipoEnvio.PedConvenio).EnvioXML;
@@ -1768,6 +1780,11 @@ namespace NFe.Components
             /// -seqlotenotarps.err
             /// </summary>
             public const string SeqLoteNotaRPS_ERR = "-seqlotenotarps.err";
+
+            /// <summary>
+            /// -consrpsdisp.err
+            /// </summary>
+            public const string ConsRpsDisp_ERR = "-consrpsdisp.err";
 
             /// <summary>
             /// -convenio.xml
