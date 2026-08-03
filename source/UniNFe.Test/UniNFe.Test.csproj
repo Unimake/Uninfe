@@ -61,6 +61,8 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000479_09531276000170_003_31_07_2026-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\nfe-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\14222_43343052000335_1_31_7_2026-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\046481_01391063000189_0_03_08_2026-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\Nota_Fiscal_20265.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
