@@ -24,6 +24,8 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000479_09531276000170_003_31_07_2026-nfe-orig.txt")]
         [InlineData("nfe-nfe-orig.txt")]
         [InlineData("14222_43343052000335_1_31_7_2026-nfe-orig.txt")]
+        [InlineData("046481_01391063000189_0_03_08_2026-nfe-orig.txt")]
+        [InlineData("Nota_Fiscal_20265.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -64,6 +66,18 @@ namespace UniNFe.Test.NFeConvertTxt
                         var esperado = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(csrt + Assert.Single(conversaoNova.Documentos).Chave);
                         Assert.Equal(esperado, ObterHashCsrt(legado));
                         Assert.Equal(esperado, ObterHashCsrt(novo));
+                    }
+                    if (string.Equals(nomeArquivo, "046481_01391063000189_0_03_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Assert.Equal(20, ContarIpiTribCst99(legado));
+                        Assert.Equal(20, ContarIpiTribCst99(novo));
+                        Assert.Equal(0, ContarIpiNaoTributado(legado));
+                        Assert.Equal(0, ContarIpiNaoTributado(novo));
+                    }
+                    if (string.Equals(nomeArquivo, "Nota_Fiscal_20265.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarRegressaoNotaFiscal20265(legado);
+                        ValidarRegressaoNotaFiscal20265(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -129,7 +143,18 @@ namespace UniNFe.Test.NFeConvertTxt
                 "Industria de Compensados Sudati Ltda",
                 "João Henrique Buckta",
                 "joao.henrique@valorflorestal.com.br",
-                "8X77VU0XB39URUYTGYSU7IU14UQB"
+                "8X77VU0XB39URUYTGYSU7IU14UQB",
+                "NET LIGHT LTDA.",
+                "notafiscal@zummo.com.br",
+                "RUA MATOS COSTA",
+                "278064462111",
+                "1146128926",
+                "ARVENSIS COSMETICOS LTDA",
+                "ARVENSIS COSMETICOS",
+                "GMN EMBALAGENS LTDA",
+                "RUA DOMICIANO MARTINS DE ANDRADE",
+                "RUA DR MILTON LADEIRA",
+                "3232258011"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
@@ -157,6 +182,33 @@ namespace UniNFe.Test.NFeConvertTxt
             var xml = new XmlDocument();
             xml.LoadXml(conteudoXml);
             return xml.SelectSingleNode("//*[local-name()='infRespTec']/*[local-name()='hashCSRT']")?.InnerText;
+        }
+
+        private static int ContarIpiTribCst99(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            return xml.SelectNodes("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IPI']/*[local-name()='IPITrib' and *[local-name()='CST']='99']").Count;
+        }
+
+        private static int ContarIpiNaoTributado(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            return xml.SelectNodes("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IPI']/*[local-name()='IPINT']").Count;
+        }
+
+        private static void ValidarRegressaoNotaFiscal20265(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var icms51 = xml.SelectSingleNode("//*[local-name()='ICMS51']");
+
+            Assert.NotNull(icms51);
+            Assert.Equal(3, icms51.ChildNodes.Count);
+            Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='PISOutr']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("150.48", xml.SelectSingleNode("//*[local-name()='impostoDevol']/*[local-name()='IPI']/*[local-name()='vIPIDevol']")?.InnerText);
         }
     }
 }
