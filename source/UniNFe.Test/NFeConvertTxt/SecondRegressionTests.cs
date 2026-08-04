@@ -26,6 +26,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("14222_43343052000335_1_31_7_2026-nfe-orig.txt")]
         [InlineData("046481_01391063000189_0_03_08_2026-nfe-orig.txt")]
         [InlineData("Nota_Fiscal_20265.txt")]
+        [InlineData("20819_22716895000289_1_382026-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -78,6 +79,11 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarRegressaoNotaFiscal20265(legado);
                         ValidarRegressaoNotaFiscal20265(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "20819_22716895000289_1_382026-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarFaturaSemDesconto(legado);
+                        ValidarFaturaSemDesconto(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -154,7 +160,18 @@ namespace UniNFe.Test.NFeConvertTxt
                 "GMN EMBALAGENS LTDA",
                 "RUA DOMICIANO MARTINS DE ANDRADE",
                 "RUA DR MILTON LADEIRA",
-                "3232258011"
+                "3232258011",
+                "J.A. HARD NUTRITION",
+                "PEDRO HENRIQUE MELLO CASAGRANDE",
+                "materiaprimasuplementosfw@gmail.com",
+                "Rua Jambeiro",
+                "R 21 DE ABRIL",
+                "ATIVA DISTRIBUICAO E LOGISTICA LTDA",
+                "sac@underlabznutrition.com",
+                "M-126863",
+                "134004",
+                "0042882644996",
+                "0618231258819"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
@@ -209,6 +226,18 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='PISOutr']/*[local-name()='CST']")?.InnerText);
             Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='CST']")?.InnerText);
             Assert.Equal("150.48", xml.SelectSingleNode("//*[local-name()='impostoDevol']/*[local-name()='IPI']/*[local-name()='vIPIDevol']")?.InnerText);
+        }
+
+        private static void ValidarFaturaSemDesconto(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var fatura = xml.SelectSingleNode("//*[local-name()='cobr']/*[local-name()='fat']");
+
+            Assert.NotNull(fatura);
+            Assert.Null(fatura.SelectSingleNode("*[local-name()='vDesc']"));
+            Assert.Equal("13961.12", fatura.SelectSingleNode("*[local-name()='vOrig']")?.InnerText);
+            Assert.Equal("13961.12", fatura.SelectSingleNode("*[local-name()='vLiq']")?.InnerText);
         }
     }
 }
