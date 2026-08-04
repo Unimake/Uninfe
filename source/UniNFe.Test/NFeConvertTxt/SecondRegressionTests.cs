@@ -27,6 +27,8 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("046481_01391063000189_0_03_08_2026-nfe-orig.txt")]
         [InlineData("Nota_Fiscal_20265.txt")]
         [InlineData("20819_22716895000289_1_382026-nfe.txt")]
+        [InlineData("2140_01955703000136_4_8_2026-nfe-orig.txt")]
+        [InlineData("000071619_37870375000112_001_03_08_2026-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -84,6 +86,16 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarFaturaSemDesconto(legado);
                         ValidarFaturaSemDesconto(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "2140_01955703000136_4_8_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcmsSn900EDescricoesComAspas(legado);
+                        ValidarIcmsSn900EDescricoesComAspas(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "000071619_37870375000112_001_03_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcms90PisECofinsOutros(legado);
+                        ValidarIcms90PisECofinsOutros(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -171,7 +183,28 @@ namespace UniNFe.Test.NFeConvertTxt
                 "M-126863",
                 "134004",
                 "0042882644996",
-                "0618231258819"
+                "0618231258819",
+                "Conquista Industria de Artigos Para Selaria",
+                "CONQUISTA IND. DE ART. P/SELARIA",
+                "Rua Ezidio Balladelli",
+                "RUA EZIDIO BALADELLI",
+                "DEOCLECIO ALVES DE ARAUJO",
+                "RUA MEN DE SA",
+                "59623500904",
+                "9013566450",
+                "0443351392",
+                "CENTERKASA COMERCIAL LTDA",
+                "NOVA ROCHA IND TINTAS LTDA",
+                "devolucoes@leinertex.com.br",
+                "AV ANAPOLIS",
+                "AV JATAI",
+                "VILA CONCORDIA",
+                "PQ IND AP VICE P JOSE ALENCAR",
+                "102575584",
+                "103120939",
+                "6232081448",
+                "6232750800",
+                "420396)"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
@@ -238,6 +271,36 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Null(fatura.SelectSingleNode("*[local-name()='vDesc']"));
             Assert.Equal("13961.12", fatura.SelectSingleNode("*[local-name()='vOrig']")?.InnerText);
             Assert.Equal("13961.12", fatura.SelectSingleNode("*[local-name()='vLiq']")?.InnerText);
+        }
+
+        private static void ValidarIcmsSn900EDescricoesComAspas(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+
+            Assert.Equal(149, xml.SelectNodes("//*[local-name()='ICMSSN900']").Count);
+            Assert.Equal(0, xml.SelectNodes("//*[local-name()='ICMSSN900']/*[local-name()='pMVAST']").Count);
+
+            var descricoesComAspas = xml.SelectNodes("//*[local-name()='xProd'][contains(text(), '&quot;')]");
+            Assert.Equal(4, descricoesComAspas.Count);
+            Assert.Equal("BRIDAO DE FERRO MODELO &quot;D&quot; SIMPLES", descricoesComAspas[0].InnerText);
+        }
+
+        private static void ValidarIcms90PisECofinsOutros(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var icms90 = xml.SelectSingleNode("//*[local-name()='ICMS90']");
+
+            Assert.NotNull(icms90);
+            Assert.Equal(6, icms90.ChildNodes.Count);
+            Assert.Null(icms90.SelectSingleNode("*[local-name()='modBCST']"));
+            Assert.Null(icms90.SelectSingleNode("*[local-name()='vICMSDeson']"));
+            Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='PISOutr']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("1.6500", xml.SelectSingleNode("//*[local-name()='PISOutr']/*[local-name()='pPIS']")?.InnerText);
+            Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("7.6000", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='pCOFINS']")?.InnerText);
+            Assert.Equal("11.15", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='prod']/*[local-name()='vOutro']")?.InnerText);
         }
     }
 }
