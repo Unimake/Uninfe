@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdfeProc versao="3.00" nPortaCon="0" dhConexao="0001-01-01T00:00:00-02:00" xmlns="http://www.portalfiscal.inf.br/mdfe">
+	<MDFe xmlns="http://www.portalfiscal.inf.br/mdfe">
+		<infMDFe versao="3.00" Id="MDFe99999999999999999999999999999999999999999999">
+			<ide>
+				<cUF>41</cUF>
+				<tpAmb>1</tpAmb>
+				<tpEmit>1</tpEmit>
+				<mod>58</mod>
+				<serie>1</serie>
+				<nMDF>9999</nMDF>
+				<cMDF>99999999</cMDF>
+				<cDV>2</cDV>
+				<modal>1</modal>
+				<dhEmi>2020-12-10T07:22:18-03:00</dhEmi>
+				<tpEmis>1</tpEmis>
+				<procEmi>0</procEmi>
+				<verProc>API_EXEMPLO</verProc>
+				<UFIni>PR</UFIni>
+				<UFFim>SP</UFFim>
+				<infMunCarrega>
+					<cMunCarrega>9999999</cMunCarrega>
+					<xMunCarrega>CIDADE EXEMPLO</xMunCarrega>
+				</infMunCarrega>
+				<dhIniViagem>2020-12-10T07:19:00-03:00</dhIniViagem>
+			</ide>
+			<emit>
+				<CNPJ>99999999999999</CNPJ>
+				<IE>999999999</IE>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<xFant>EMPRESA EXEMPLO</xFant>
+				<enderEmit>
+					<xLgr>ENDERECO EXEMPLO</xLgr>
+					<nro>0</nro>
+					<xBairro>ENDERECO EXEMPLO</xBairro>
+					<cMun>9999999</cMun>
+					<xMun>CIDADE EXEMPLO</xMun>
+					<CEP>99999999</CEP>
+					<UF>PR</UF>
+					<fone>9999999999</fone>
+				</enderEmit>
+			</emit>
+			<infModal versaoModal="3.00">
+				<rodo>
+					<infANTT>
+						<RNTRC>99999999</RNTRC>
+						<infContratante>
+							<CNPJ>99999999999999</CNPJ>
+						</infContratante>
+						<infContratante>
+							<CNPJ>99999999999999</CNPJ>
+						</infContratante>
+						<infContratante>
+							<CNPJ>99999999999999</CNPJ>
+						</infContratante>
+						<infContratante>
+							<CNPJ>99999999999999</CNPJ>
+						</infContratante>
+						<infContratante>
+							<CNPJ>99999999999999</CNPJ>
+						</infContratante>
+						<infPag>
+							<xNome>EMPRESA EXEMPLO</xNome>
+							<CNPJ>99999999999999</CNPJ>
+							<Comp>
+								<tpComp>99</tpComp>
+								<vComp>1055.66</vComp>
+								<xComp>Outros</xComp>
+							</Comp>
+							<vContrato>1055.66</vContrato>
+							<indPag>1</indPag>
+							<infPrazo>
+								<nParcela>001</nParcela>
+								<dVenc>2021-01-10</dVenc>
+								<vParcela>1055.66</vParcela>
+							</infPrazo>
+							<infBanc>
+								<codBanco>999</codBanco>
+								<codAgencia>99999</codAgencia>
+							</infBanc>
+						</infPag>
+					</infANTT>
+					<veicTracao>
+						<cInt>XXXXXXX</cInt>
+						<placa>XXXXXXX</placa>
+						<tara>0</tara>
+						<capKG>4800</capKG>
+						<prop>
+							<CNPJ>99999999999999</CNPJ>
+							<RNTRC>99999999</RNTRC>
+							<xNome>EMPRESA EXEMPLO</xNome>
+							<IE>999999999</IE>
+							<UF>PR</UF>
+							<tpProp>2</tpProp>
+						</prop>
+						<condutor>
+							<xNome>EMPRESA EXEMPLO</xNome>
+							<CPF>99999999999</CPF>
+						</condutor>
+						<tpRod>02</tpRod>
+						<tpCar>02</tpCar>
+						<UF>PR</UF>
+					</veicTracao>
+				</rodo>
+			</infModal>
+			<infDoc>
+				<infMunDescarga>
+					<cMunDescarga>9999999</cMunDescarga>
+					<xMunDescarga>CIDADE EXEMPLO</xMunDescarga>
+					<infCTe>
+						<chCTe>99999999999999999999999999999999999999999999</chCTe>
+					</infCTe>
+				</infMunDescarga>
+				<infMunDescarga>
+					<cMunDescarga>9999999</cMunDescarga>
+					<xMunDescarga>CIDADE EXEMPLO</xMunDescarga>
+					<infCTe>
+						<chCTe>99999999999999999999999999999999999999999999</chCTe>
+					</infCTe>
+					<infCTe>
+						<chCTe>99999999999999999999999999999999999999999999</chCTe>
+					</infCTe>
+				</infMunDescarga>
+				<infMunDescarga>
+					<cMunDescarga>9999999</cMunDescarga>
+					<xMunDescarga>CIDADE EXEMPLO</xMunDescarga>
+					<infCTe>
+						<chCTe>99999999999999999999999999999999999999999999</chCTe>
+					</infCTe>
+					<infCTe>
+						<chCTe>99999999999999999999999999999999999999999999</chCTe>
+					</infCTe>
+				</infMunDescarga>
+			</infDoc>
+			<seg>
+				<infResp>
+					<respSeg>1</respSeg>
+					<CNPJ>99999999999999</CNPJ>
+				</infResp>
+				<infSeg>
+					<xSeg>PORTO SEGURO</xSeg>
+					<CNPJ>99999999999999</CNPJ>
+				</infSeg>
+				<nApol>999999999999</nApol>
+				<nAver>0000000000000000000000000000000000000000</nAver>
+			</seg>
+			<prodPred>
+				<tpCarga>05</tpCarga>
+				<xProd>XXXXXX</xProd>
+			</prodPred>
+			<tot>
+				<qCTe>5</qCTe>
+				<vCarga>76195.26</vCarga>
+				<cUnid>01</cUnid>
+				<qCarga>4253.0000</qCarga>
+			</tot>
+			<infAdic>
+				<infCpl>DATA/HORA PREVISTA PARA O INICO DA VIAGEM: 10/12/2020 as 07:19</infCpl>
+			</infAdic>
+			<infRespTec>
+				<CNPJ>99999999999999</CNPJ>
+				<xContato>API_EXEMPLO</xContato>
+				<email>exemplo@example.com</email>
+				<fone>9999999999</fone>
+			</infRespTec>
+		</infMDFe>
+		<infMDFeSupl>
+			<qrCodMDFe>https://dfe-portal.svrs.rs.gov.br/mdfe/QRCode?chMDFe=99999999999999999999999999999999999999999999&amp;tpAmb=1</qrCodMDFe>
+		</infMDFeSupl>
+		
+	</MDFe>
+	<protMDFe versao="3.00" xmlns="http://www.portalfiscal.inf.br/mdfe">
+		<infProt Id="MDFe999999999999999">
+			<tpAmb>1</tpAmb>
+			<verAplic>API_EXEMPLO</verAplic>
+			<chMDFe>99999999999999999999999999999999999999999999</chMDFe>
+			<dhRecbto>2020-12-10T07:22:29-03:00</dhRecbto>
+			<nProt>999999999999999</nProt>
+			<digVal>1otTG8wDv0/jrdaKMIr6wBBb4ew=</digVal>
+			<cStat>100</cStat>
+			<xMotivo>Autorizado o uso do MDF-e</xMotivo>
+		</infProt>
+	</protMDFe>
+</mdfeProc>

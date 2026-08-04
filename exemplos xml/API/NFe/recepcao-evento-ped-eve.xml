@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<envEvento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+	<idLote>999999999999999</idLote>
+	<evento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+		<infEvento Id="ID9999999999999999999999999999999999999999999999999999">
+			<cOrgao>50</cOrgao>
+			<tpAmb>2</tpAmb>
+			<CNPJ>99999999999999</CNPJ>
+			<chNFe>99999999999999999999999999999999999999999999</chNFe>
+			<dhEvento>2011-03-03T08:06:00-03:00</dhEvento>
+			<tpEvento>110111</tpEvento>
+			<nSeqEvento>1</nSeqEvento>
+			<verEvento>1.00</verEvento>
+			<tpEmis>1</tpEmis>
+			<detEvento versao="1.00">
+				<descEvento>Cancelamento</descEvento>
+				<nProt>999999999999999</nProt>
+				<xJust>TEXTO DE EXEMPLO</xJust>
+			</detEvento>
+		</infEvento>
+	</evento>
+</envEvento>

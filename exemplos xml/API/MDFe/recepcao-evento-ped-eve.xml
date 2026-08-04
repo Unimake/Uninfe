@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventoMDFe versao="3.00" xmlns="http://www.portalfiscal.inf.br/mdfe">
+	<infEvento Id="ID9999999999999999999999999999999999999999999999999999">
+		<cOrgao>35</cOrgao>
+		<tpAmb>2</tpAmb>
+		<CNPJ>99999999999999</CNPJ>
+		<chMDFe>99999999999999999999999999999999999999999999</chMDFe>
+		<dhEvento>2013-10-31T09:44:20-02:00</dhEvento>
+		<tpEvento>110112</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="3.00">
+			<evEncMDFe>
+				<descEvento>Encerramento</descEvento>
+				<nProt>999999999999999</nProt>
+				<dtEnc>2013-10-31</dtEnc>
+				<cUF>35</cUF>
+				<cMun>9999999</cMun>
+			</evEncMDFe>
+		</detEvento>
+	</infEvento>
+</eventoMDFe>

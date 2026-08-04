@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CTeOS versao="4.00" xmlns="http://www.portalfiscal.inf.br/cte">
+	<infCte versao="4.00" Id="CTe99999999999999999999999999999999999999999999">
+		<ide>
+			<cUF>11</cUF>
+			<cCT>00000001</cCT>
+			<CFOP>CFOP1</CFOP>
+			<natOp>natOp1</natOp>
+			<mod>67</mod>
+			<serie>1</serie>
+			<nCT>1</nCT>
+			<dhEmi>2020-12-04T08:00:29-03:00</dhEmi>
+			<tpImp>1</tpImp>
+			<tpEmis>1</tpEmis>
+			<cDV>1</cDV>
+			<tpAmb>1</tpAmb>
+			<tpCTe>0</tpCTe>
+			<procEmi>0</procEmi>
+			<verProc>API_EXEMPLO</verProc>
+			<cMunEnv>9999999</cMunEnv>
+			<xMunEnv>CIDADE EXEMPLO</xMunEnv>
+			<UFEnv>AC</UFEnv>
+			<modal>01</modal>
+			<tpServ>6</tpServ>
+			<indIEToma>1</indIEToma>
+			<cMunIni>9999999</cMunIni>
+			<xMunIni>CIDADE EXEMPLO</xMunIni>
+			<UFIni>AC</UFIni>
+			<cMunFim>9999999</cMunFim>
+			<xMunFim>CIDADE EXEMPLO</xMunFim>
+			<UFFim>AC</UFFim>
+			<infPercurso>
+				<UFPer>AC</UFPer>
+			</infPercurso>
+			<infPercurso>
+				<UFPer>AL</UFPer>
+			</infPercurso>
+			<infPercurso>
+				<UFPer>AM</UFPer>
+			</infPercurso>
+			<dhCont>2020-12-04T08:00:29-03:00</dhCont>
+			<xJust>TEXTO DE EXEMPLO</xJust>
+			<gCompraGov>
+				<tpEnteGov>1</tpEnteGov>
+				<pRedutor>1.0000</pRedutor>
+			</gCompraGov>
+		</ide>
+		<compl>
+			<xCaracAd>xCaracAd1</xCaracAd>
+			<xCaracSer>xCaracSer1</xCaracSer>
+			<xEmi>xEmi1</xEmi>
+			<xObs>TEXTO DE EXEMPLO</xObs>
+			<ObsCont xCampo="xCampo1">
+				<xTexto>TEXTO DE EXEMPLO</xTexto>
+			</ObsCont>
+			<ObsCont xCampo="xCampo2">
+				<xTexto>TEXTO DE EXEMPLO</xTexto>
+			</ObsCont>
+			<ObsCont xCampo="xCampo3">
+				<xTexto>TEXTO DE EXEMPLO</xTexto>
+			</ObsCont>
+			<ObsFisco xCampo="xCampo1">
+				<xTexto>TEXTO DE EXEMPLO</xTexto>
+			</ObsFisco>
+			<ObsFisco xCampo="xCampo2">
+				<xTexto>TEXTO DE EXEMPLO</xTexto>
+			</ObsFisco>
+			<ObsFisco xCampo="xCampo3">
+				<xTexto>TEXTO DE EXEMPLO</xTexto>
+			</ObsFisco>
+		</compl>
+		<emit>
+			<CNPJ>99999999999999</CNPJ>
+			<IE>999999999</IE>
+			<IEST>999999999</IEST>
+			<xNome>EMPRESA EXEMPLO</xNome>
+			<xFant>EMPRESA EXEMPLO</xFant>
+			<enderEmit>
+				<xLgr>ENDERECO EXEMPLO</xLgr>
+				<nro>0</nro>
+				<xCpl>ENDERECO EXEMPLO</xCpl>
+				<xBairro>ENDERECO EXEMPLO</xBairro>
+				<cMun>9999999</cMun>
+				<xMun>CIDADE EXEMPLO</xMun>
+				<CEP>99999999</CEP>
+				<UF>AC</UF>
+				<fone>9999999999</fone>
+			</enderEmit>
+		</emit>
+		<toma>
+			<CNPJ>99999999999999</CNPJ>
+			<IE>999999999</IE>
+			<xNome>EMPRESA EXEMPLO</xNome>
+			<xFant>EMPRESA EXEMPLO</xFant>
+			<fone>9999999999</fone>
+			<enderToma>
+				<xLgr>ENDERECO EXEMPLO</xLgr>
+				<nro>0</nro>
+				<xCpl>ENDERECO EXEMPLO</xCpl>
+				<xBairro>ENDERECO EXEMPLO</xBairro>
+				<cMun>9999999</cMun>
+				<xMun>CIDADE EXEMPLO</xMun>
+				<CEP>99999999</CEP>
+				<UF>AC</UF>
+				<cPais>1058</cPais>
+				<xPais>ENDERECO EXEMPLO</xPais>
+			</enderToma>
+			<email>exemplo@example.com</email>
+		</toma>
+		<vPrest>
+			<vTPrest>0.00</vTPrest>
+			<vRec>0.00</vRec>
+			<Comp>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<vComp>0.00</vComp>
+			</Comp>
+			<Comp>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<vComp>0.00</vComp>
+			</Comp>
+			<Comp>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<vComp>0.00</vComp>
+			</Comp>
+		</vPrest>
+		<imp>
+			<ICMS>
+				<ICMS00>
+					<CST>00</CST>
+					<vBC>0.00</vBC>
+					<pICMS>0.00</pICMS>
+					<vICMS>0.00</vICMS>
+				</ICMS00>
+			</ICMS>
+			<vTotTrib>1.00</vTotTrib>
+			<infAdFisco>infAdFisco1</infAdFisco>
+			<ICMSUFFim>
+				<vBCUFFim>0.00</vBCUFFim>
+				<pFCPUFFim>0.00</pFCPUFFim>
+				<pICMSUFFim>0.00</pICMSUFFim>
+				<pICMSInter>0.00</pICMSInter>
+				<vFCPUFFim>0.00</vFCPUFFim>
+				<vICMSUFFim>0.00</vICMSUFFim>
+				<vICMSUFIni>0.00</vICMSUFIni>
+			</ICMSUFFim>
+			<infTribFed>
+				<vPIS>1.00</vPIS>
+				<vCOFINS>1.00</vCOFINS>
+				<vIR>1.00</vIR>
+				<vINSS>1.00</vINSS>
+				<vCSLL>1.00</vCSLL>
+			</infTribFed>
+			<IBSCBS>
+				<CST>01</CST>
+				<cClassTrib>12345678</cClassTrib>
+				<gIBSCBS>
+					<vBC>1000.00</vBC>
+					<gIBSUF>
+						<pIBSUF>1.5000</pIBSUF>
+						<gDif>
+							<pDif>0.5000</pDif>
+							<vDif>5.00</vDif>
+						</gDif>
+						<gDevTrib>
+							<vDevTrib>2.00</vDevTrib>
+						</gDevTrib>
+						<gRed>
+							<pRedAliq>10.0000</pRedAliq>
+							<pAliqEfet>1.3500</pAliqEfet>
+						</gRed>
+						<vIBSUF>15.00</vIBSUF>
+					</gIBSUF>
+					<gIBSMun>
+						<pIBSMun>0.7500</pIBSMun>
+						<gDif>
+							<pDif>0.2500</pDif>
+							<vDif>2.50</vDif>
+						</gDif>
+						<gDevTrib>
+							<vDevTrib>1.00</vDevTrib>
+						</gDevTrib>
+						<gRed>
+							<pRedAliq>5.0000</pRedAliq>
+							<pAliqEfet>0.7125</pAliqEfet>
+						</gRed>
+						<vIBSMun>7.50</vIBSMun>
+					</gIBSMun>
+					<gCBS>
+						<pCBS>2.5000</pCBS>
+						<gDif>
+							<pDif>0.3000</pDif>
+							<vDif>3.00</vDif>
+						</gDif>
+						<gDevTrib>
+							<vDevTrib>1.50</vDevTrib>
+						</gDevTrib>
+						<gRed>
+							<pRedAliq>8.0000</pRedAliq>
+							<pAliqEfet>2.3000</pAliqEfet>
+						</gRed>
+						<vCBS>25.00</vCBS>
+					</gCBS>
+					<gTribRegular>
+						<CSTReg>04</CSTReg>
+						<cClassTribReg>87654321</cClassTribReg>
+						<pAliqEfetRegIBSUF>1.6000</pAliqEfetRegIBSUF>
+						<vTribRegIBSUF>16.00</vTribRegIBSUF>
+						<pAliqEfetRegIBSMun>0.8000</pAliqEfetRegIBSMun>
+						<vTribRegIBSMun>8.00</vTribRegIBSMun>
+						<pAliqEfetRegCBS>2.7000</pAliqEfetRegCBS>
+						<vTribRegCBS>27.00</vTribRegCBS>
+					</gTribRegular>
+					<gIBSCredPres>
+						<cCredPres>1111</cCredPres>
+						<pCredPres>5.0000</pCredPres>
+						<vCredPres>50.00</vCredPres>
+						<vCredPresCondSus>10.00</vCredPresCondSus>
+					</gIBSCredPres>
+					<GCBSCredPres>
+						<cCredPres>2222</cCredPres>
+						<pCredPres>3.0000</pCredPres>
+						<vCredPres>30.00</vCredPres>
+						<vCredPresCondSus>5.00</vCredPresCondSus>
+					</GCBSCredPres>
+				</gIBSCBS>
+			</IBSCBS>
+			<vTotDFe>1.00</vTotDFe>
+		</imp>
+		<infCTeNorm>
+			<infServico>
+				<xDescServ>xDescServ1</xDescServ>
+				<infQ>
+					<qCarga>1.0000</qCarga>
+				</infQ>
+			</infServico>
+			<infDocRef>
+				<nDoc>nDoc1</nDoc>
+				<serie>1</serie>
+				<subserie>su1</subserie>
+				<dEmi>2021-11-01</dEmi>
+				<vDoc>1.00</vDoc>
+			</infDocRef>
+			<infDocRef>
+				<nDoc>nDoc2</nDoc>
+				<serie>2</serie>
+				<subserie>su2</subserie>
+				<dEmi>2021-11-01</dEmi>
+				<vDoc>2.00</vDoc>
+			</infDocRef>
+			<infDocRef>
+				<nDoc>nDoc3</nDoc>
+				<serie>3</serie>
+				<subserie>su3</subserie>
+				<dEmi>2021-11-01</dEmi>
+				<vDoc>4.00</vDoc>
+			</infDocRef>
+			<seg>
+				<respSeg>4</respSeg>
+				<xSeg>xSeg1</xSeg>
+				<nApol>nApol1</nApol>
+			</seg>
+			<seg>
+				<respSeg>5</respSeg>
+				<xSeg>xSeg2</xSeg>
+				<nApol>nApol2</nApol>
+			</seg>
+			<seg>
+				<respSeg>4</respSeg>
+				<xSeg>xSeg3</xSeg>
+				<nApol>nApol3</nApol>
+			</seg>
+			<infModal versaoModal="4.00">
+				<rodoOS>
+					<NroRegEstadual>0</NroRegEstadual>
+					<veic>
+						<placa>placa1</placa>
+						<RENAVAM>RENAVAM_1</RENAVAM>
+						<prop>
+							<CPF>99999999999</CPF>
+							<NroRegEstadual>0</NroRegEstadual>
+							<xNome>EMPRESA EXEMPLO</xNome>
+							<IE>999999999</IE>
+							<UF>AC</UF>
+							<tpProp>0</tpProp>
+						</prop>
+						<UF>AC</UF>
+					</veic>
+					<infFretamento>
+						<tpFretamento>1</tpFretamento>
+						<dhViagem>2020-12-04T08:00:29-03:00</dhViagem>
+					</infFretamento>
+				</rodoOS>
+			</infModal>
+			<infCteSub>
+				<chCte>99999999999999999999999999999999999999999999</chCte>
+				<refCteAnu>refCteAnu1</refCteAnu>
+			</infCteSub>
+			<refCTeCanc>refCTeCanc1</refCTeCanc>
+			<cobr>
+				<fat>
+					<nFat>nFat1</nFat>
+					<vOrig>0.00</vOrig>
+					<vDesc>1.00</vDesc>
+					<vLiq>0.00</vLiq>
+				</fat>
+				<dup>
+					<nDup>nDup1</nDup>
+					<dVenc>2021-11-01</dVenc>
+					<vDup>0.00</vDup>
+				</dup>
+				<dup>
+					<nDup>nDup2</nDup>
+					<dVenc>2021-11-01</dVenc>
+					<vDup>0.00</vDup>
+				</dup>
+				<dup>
+					<nDup>nDup3</nDup>
+					<dVenc>2021-11-01</dVenc>
+					<vDup>0.00</vDup>
+				</dup>
+			</cobr>
+			<infGTVe>
+				<chCTe>99999999999999999999999999999999999999999999</chCTe>
+				<Comp>
+					<tpComp>1</tpComp>
+					<vComp>0.00</vComp>
+					<xComp>xComp1</xComp>
+				</Comp>
+				<Comp>
+					<tpComp>2</tpComp>
+					<vComp>0.00</vComp>
+					<xComp>xComp2</xComp>
+				</Comp>
+				<Comp>
+					<tpComp>3</tpComp>
+					<vComp>0.00</vComp>
+					<xComp>xComp3</xComp>
+				</Comp>
+			</infGTVe>
+			<infGTVe>
+				<chCTe>99999999999999999999999999999999999999999999</chCTe>
+				<Comp>
+					<tpComp>4</tpComp>
+					<vComp>4.00</vComp>
+					<xComp>xComp4</xComp>
+				</Comp>
+				<Comp>
+					<tpComp>5</tpComp>
+					<vComp>5.00</vComp>
+					<xComp>xComp5</xComp>
+				</Comp>
+				<Comp>
+					<tpComp>6</tpComp>
+					<vComp>6.00</vComp>
+					<xComp>xComp6</xComp>
+				</Comp>
+			</infGTVe>
+			<infGTVe>
+				<chCTe>99999999999999999999999999999999999999999999</chCTe>
+				<Comp>
+					<tpComp>1</tpComp>
+					<vComp>7.00</vComp>
+					<xComp>xComp7</xComp>
+				</Comp>
+				<Comp>
+					<tpComp>2</tpComp>
+					<vComp>8.00</vComp>
+					<xComp>xComp8</xComp>
+				</Comp>
+				<Comp>
+					<tpComp>3</tpComp>
+					<vComp>9.00</vComp>
+					<xComp>xComp9</xComp>
+				</Comp>
+			</infGTVe>
+		</infCTeNorm>
+		<autXML>
+			<CNPJ>99999999999999</CNPJ>
+		</autXML>
+		<autXML>
+			<CNPJ>99999999999999</CNPJ>
+		</autXML>
+		<autXML>
+			<CNPJ>99999999999999</CNPJ>
+		</autXML>
+		<infRespTec>
+			<CNPJ>99999999999999</CNPJ>
+			<xContato>API_EXEMPLO</xContato>
+			<email>exemplo@example.com</email>
+			<fone>9999999999</fone>
+			<idCSRT>idCSRT1</idCSRT>
+			<hashCSRT>999999</hashCSRT>
+		</infRespTec>
+	</infCte>
+</CTeOS>

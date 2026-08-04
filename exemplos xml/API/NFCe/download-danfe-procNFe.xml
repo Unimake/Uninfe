@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nfeProc versao="4.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+	<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+		<infNFe versao="4.00" Id="NFe99999999999999999999999999999999999999999999">
+			<ide>
+				<cUF>31</cUF>
+				<cNF>99999999</cNF>
+				<natOp>VENDA MERCADORIAS</natOp>
+				<mod>65</mod>
+				<serie>1</serie>
+				<nNF>249</nNF>
+				<dhEmi>2020-09-10T20:26:10-03:00</dhEmi>
+				<tpNF>1</tpNF>
+				<idDest>1</idDest>
+				<cMunFG>9999999</cMunFG>
+				<tpImp>4</tpImp>
+				<tpEmis>1</tpEmis>
+				<cDV>0</cDV>
+				<tpAmb>2</tpAmb>
+				<finNFe>1</finNFe>
+				<indFinal>1</indFinal>
+				<indPres>1</indPres>
+				<procEmi>0</procEmi>
+				<verProc>API_EXEMPLO</verProc>
+			</ide>
+			<emit>
+				<CNPJ>99999999999999</CNPJ>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<xFant>EMPRESA EXEMPLO</xFant>
+				<enderEmit>
+					<xLgr>ENDERECO EXEMPLO</xLgr>
+					<nro>0</nro>
+					<xBairro>ENDERECO EXEMPLO</xBairro>
+					<cMun>9999999</cMun>
+					<xMun>CIDADE EXEMPLO</xMun>
+					<UF>MG</UF>
+					<CEP>99999999</CEP>
+					<cPais>1058</cPais>
+					<xPais>ENDERECO EXEMPLO</xPais>
+					<fone>9999999999</fone>
+				</enderEmit>
+				<IE>999999999</IE>
+				<CRT>1</CRT>
+			</emit>
+			<det nItem="1">
+				<prod>
+					<cProd>579</cProd>
+					<cEAN>SEM GTIN</cEAN>
+					<xProd>NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd>
+					<NCM>21069090</NCM>
+					<CFOP>5101</CFOP>
+					<uCom>UN</uCom>
+					<qCom>2</qCom>
+					<vUnCom>13.50</vUnCom>
+					<vProd>27.00</vProd>
+					<cEANTrib>SEM GTIN</cEANTrib>
+					<uTrib>UN</uTrib>
+					<qTrib>2</qTrib>
+					<vUnTrib>13.50</vUnTrib>
+					<indTot>1</indTot>
+				</prod>
+				<imposto>
+					<ICMS>
+						<ICMSSN102>
+							<orig>0</orig>
+							<CSOSN>102</CSOSN>
+						</ICMSSN102>
+					</ICMS>
+					<PIS>
+						<PISNT>
+							<CST>05</CST>
+						</PISNT>
+					</PIS>
+					<COFINS>
+						<COFINSNT>
+							<CST>05</CST>
+						</COFINSNT>
+					</COFINS>
+				</imposto>
+			</det>
+			<det nItem="2">
+				<prod>
+					<cProd>899</cProd>
+					<cEAN>SEM GTIN</cEAN>
+					<xProd>REFRIG.600 ML</xProd>
+					<NCM>22021000</NCM>
+					<CEST>0301000</CEST>
+					<CFOP>5101</CFOP>
+					<uCom>UN</uCom>
+					<qCom>1</qCom>
+					<vUnCom>6.0000000000</vUnCom>
+					<vProd>6.00</vProd>
+					<cEANTrib>SEM GTIN</cEANTrib>
+					<uTrib>UN</uTrib>
+					<qTrib>1</qTrib>
+					<vUnTrib>6.0000000000</vUnTrib>
+					<indTot>1</indTot>
+				</prod>
+				<imposto>
+					<vTotTrib>0.56</vTotTrib>
+					<ICMS>
+						<ICMSSN102>
+							<orig>0</orig>
+							<CSOSN>102</CSOSN>
+						</ICMSSN102>
+					</ICMS>
+					<PIS>
+						<PISAliq>
+							<CST>01</CST>
+							<vBC>6.00</vBC>
+							<pPIS>1.6500</pPIS>
+							<vPIS>0.10</vPIS>
+						</PISAliq>
+					</PIS>
+					<COFINS>
+						<COFINSAliq>
+							<CST>01</CST>
+							<vBC>6.00</vBC>
+							<pCOFINS>7.6000</pCOFINS>
+							<vCOFINS>0.46</vCOFINS>
+						</COFINSAliq>
+					</COFINS>
+				</imposto>
+			</det>
+			<det nItem="3">
+				<prod>
+					<cProd>901</cProd>
+					<cEAN>SEM GTIN</cEAN>
+					<xProd>REFRIGER/ LATA</xProd>
+					<NCM>22021000</NCM>
+					<CEST>0301100</CEST>
+					<CFOP>5101</CFOP>
+					<uCom>UN</uCom>
+					<qCom>1</qCom>
+					<vUnCom>4.50</vUnCom>
+					<vProd>4.50</vProd>
+					<cEANTrib>SEM GTIN</cEANTrib>
+					<uTrib>UN</uTrib>
+					<qTrib>1</qTrib>
+					<vUnTrib>4.50</vUnTrib>
+					<indTot>1</indTot>
+				</prod>
+				<imposto>
+					<vTotTrib>0.41</vTotTrib>
+					<ICMS>
+						<ICMSSN102>
+							<orig>0</orig>
+							<CSOSN>102</CSOSN>
+						</ICMSSN102>
+					</ICMS>
+					<PIS>
+						<PISAliq>
+							<CST>01</CST>
+							<vBC>4.50</vBC>
+							<pPIS>1.6500</pPIS>
+							<vPIS>0.07</vPIS>
+						</PISAliq>
+					</PIS>
+					<COFINS>
+						<COFINSAliq>
+							<CST>01</CST>
+							<vBC>4.50</vBC>
+							<pCOFINS>7.6000</pCOFINS>
+							<vCOFINS>0.34</vCOFINS>
+						</COFINSAliq>
+					</COFINS>
+				</imposto>
+			</det>
+			<det nItem="4">
+				<prod>
+					<cProd>1556</cProd>
+					<cEAN>SEM GTIN</cEAN>
+					<xProd>LANCHE NATURAL 2</xProd>
+					<NCM>21069090</NCM>
+					<CFOP>5101</CFOP>
+					<uCom>UN</uCom>
+					<qCom>1</qCom>
+					<vUnCom>13.0000000000</vUnCom>
+					<vProd>13.00</vProd>
+					<cEANTrib>SEM GTIN</cEANTrib>
+					<uTrib>UN</uTrib>
+					<qTrib>1</qTrib>
+					<vUnTrib>13.0000000000</vUnTrib>
+					<indTot>1</indTot>
+				</prod>
+				<imposto>
+					<ICMS>
+						<ICMSSN102>
+							<orig>0</orig>
+							<CSOSN>102</CSOSN>
+						</ICMSSN102>
+					</ICMS>
+					<PIS>
+						<PISNT>
+							<CST>05</CST>
+						</PISNT>
+					</PIS>
+					<COFINS>
+						<COFINSNT>
+							<CST>05</CST>
+						</COFINSNT>
+					</COFINS>
+				</imposto>
+			</det>
+			<total>
+				<ICMSTot>
+					<vBC>0.00</vBC>
+					<vICMS>0.00</vICMS>
+					<vICMSDeson>0.00</vICMSDeson>
+					<vFCP>0.00</vFCP>
+					<vBCST>0.00</vBCST>
+					<vST>0.00</vST>
+					<vFCPST>0.00</vFCPST>
+					<vFCPSTRet>0.00</vFCPSTRet>
+					<vProd>50.50</vProd>
+					<vFrete>0.00</vFrete>
+					<vSeg>0.00</vSeg>
+					<vDesc>0.00</vDesc>
+					<vII>0.00</vII>
+					<vIPI>0.00</vIPI>
+					<vIPIDevol>0.00</vIPIDevol>
+					<vPIS>0.17</vPIS>
+					<vCOFINS>0.80</vCOFINS>
+					<vOutro>0.00</vOutro>
+					<vNF>50.50</vNF>
+					<vTotTrib>0.97</vTotTrib>
+				</ICMSTot>
+			</total>
+			<transp>
+				<modFrete>9</modFrete>
+			</transp>
+			<pag>
+				<detPag>
+					<tPag>05</tPag>
+					<vPag>50.50</vPag>
+				</detPag>
+			</pag>
+			<infAdic>
+				<infCpl>XXXXXXXX CX:[1] -XXXXXXXXXXXXXXX);[9999] -XXXXXXXXXXXXXXXXXXXX (RT 99)-(XXXX-XXX);XXXXXXXXX:[XXXXXXX];0;0</infCpl>
+			</infAdic>
+		</infNFe>
+		
+		
+	</NFe>
+	<protNFe versao="4.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+		<infProt Id="ID999999999999999">
+			<tpAmb>2</tpAmb>
+			<verAplic>API_EXEMPLO</verAplic>
+			<chNFe>99999999999999999999999999999999999999999999</chNFe>
+			<dhRecbto>2020-09-10T20:25:53-03:00</dhRecbto>
+			<nProt>999999999999999</nProt>
+			<digVal>Gqsqi/9j9NoNjQBUziH1KJUPDos=</digVal>
+			<cStat>100</cStat>
+			<xMotivo>Autorizado o uso da NF-e</xMotivo>
+		</infProt>
+	</protNFe>
+</nfeProc>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dceProc versao="1.00" nPortaCon="443" xmlns="http://www.portalfiscal.inf.br/dce">
+  <DCe>
+    <infDCe versao="1.00" Id="DCe9999999999999999999999999999999999999999999999">
+      <ide>
+        <cUF>35</cUF>
+        <cDC>000123</cDC>
+        <mod>99</mod>
+        <serie>0</serie>
+        <nDC>1</nDC>
+        <dhEmi>2026-05-04T10:00:00-03:00</dhEmi>
+        <tpEmis>1</tpEmis>
+        <tpEmit>2</tpEmit>
+        <nSiteAutoriz>0</nSiteAutoriz>
+        <cDV>7</cDV>
+        <tpAmb>2</tpAmb>
+        <verProc>API_EXEMPLO</verProc>
+      </ide>
+      <emit>
+        <CNPJ>99999999999999</CNPJ>
+        <xNome>EMPRESA EXEMPLO</xNome>
+        <enderEmit>
+          <xLgr>ENDERECO EXEMPLO</xLgr>
+          <nro>0</nro>
+          <xBairro>ENDERECO EXEMPLO</xBairro>
+          <cMun>9999999</cMun>
+          <xMun>CIDADE EXEMPLO</xMun>
+          <UF>SP</UF>
+          <CEP>99999999</CEP>
+          <cPais>1058</cPais>
+          <xPais>ENDERECO EXEMPLO</xPais>
+        </enderEmit>
+      </emit>
+      <dest>
+        <CPF>99999999999</CPF>
+        <xNome>EMPRESA EXEMPLO</xNome>
+        <enderDest>
+          <xLgr>ENDERECO EXEMPLO</xLgr>
+          <nro>0</nro>
+          <xBairro>ENDERECO EXEMPLO</xBairro>
+          <cMun>9999999</cMun>
+          <xMun>CIDADE EXEMPLO</xMun>
+          <UF>SP</UF>
+          <CEP>99999999</CEP>
+          <email>exemplo@example.com</email>
+        </enderDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <xProd>Produto teste</xProd>
+          <NCM>99</NCM>
+          <qCom>1.0000</qCom>
+          <vUnCom>10.00</vUnCom>
+          <vProd>10.00</vProd>
+        </prod>
+      </det>
+      <total>
+        <vDC>10.00</vDC>
+      </total>
+      <transp>
+        <modTrans>0</modTrans>
+        <CNPJTransp>99999999999999</CNPJTransp>
+      </transp>
+      <infDec>
+        <xObs1>Declaracao 1</xObs1>
+        <xObs2>Declaracao 2</xObs2>
+      </infDec>
+    </infDCe>
+  </DCe>
+  <protDCe versao="1.00">
+    <infProt>
+      <tpAmb>2</tpAmb>
+      <verAplic>API_EXEMPLO</verAplic>
+      <chDCe>99999999999999999999999999999999999999999999</chDCe>
+      <dhRecbto>2026-05-04T10:01:00-03:00</dhRecbto>
+      <nProt>9999999999999999</nProt>
+      <cStat>100</cStat>
+      <xMotivo>Autorizado o uso da DCe</xMotivo>
+    </infProt>
+  </protDCe>
+</dceProc>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventoNFGas versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfgas">
+  <infEvento Id="ID9999999999999999999999999999999999999999999999999999">
+    <cOrgao>35</cOrgao>
+    <tpAmb>1</tpAmb>
+    <CNPJ>99999999999999</CNPJ>
+    <chNFGas>99999999999999999999999999999999999999999999</chNFGas>
+    <dhEvento>2026-05-18T10:00:00-03:00</dhEvento>
+    <tpEvento>110111</tpEvento>
+    <nSeqEvento>1</nSeqEvento>
+    <detEvento versaoEvento="1.00">
+      <evCancNFGas>
+        <descEvento>Cancelamento</descEvento>
+        <nProt>9999999999999999</nProt>
+        <xJust>TEXTO DE EXEMPLO</xJust>
+      </evCancNFGas>
+    </detEvento>
+  </infEvento>  
+</eventoNFGas>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cteProc versao="4.00" xmlns="http://www.portalfiscal.inf.br/cte">
+	<CTe xmlns="http://www.portalfiscal.inf.br/cte">
+		<infCte versao="4.00" Id="CTe99999999999999999999999999999999999999999999">
+			<ide>
+				<cUF>41</cUF>
+				<cCT>99999999</cCT>
+				<CFOP>5352</CFOP>
+				<natOp>PREST.SERV.TRANSP.INDUSTR</natOp>
+				<mod>57</mod>
+				<serie>1</serie>
+				<nCT>484</nCT>
+				<dhEmi>2020-12-04T08:00:29-03:00</dhEmi>
+				<tpImp>1</tpImp>
+				<tpEmis>1</tpEmis>
+				<cDV>8</cDV>
+				<tpAmb>1</tpAmb>
+				<tpCTe>0</tpCTe>
+				<procEmi>0</procEmi>
+				<verProc>API_EXEMPLO</verProc>
+				<cMunEnv>9999999</cMunEnv>
+				<xMunEnv>CIDADE EXEMPLO</xMunEnv>
+				<UFEnv>PR</UFEnv>
+				<modal>01</modal>
+				<tpServ>0</tpServ>
+				<cMunIni>9999999</cMunIni>
+				<xMunIni>CIDADE EXEMPLO</xMunIni>
+				<UFIni>PR</UFIni>
+				<cMunFim>9999999</cMunFim>
+				<xMunFim>CIDADE EXEMPLO</xMunFim>
+				<UFFim>PR</UFFim>
+				<retira>1</retira>
+				<indIEToma>1</indIEToma>
+				<toma3>
+					<toma>0</toma>
+				</toma3>
+			</ide>
+			<emit>
+				<CNPJ>99999999999999</CNPJ>
+				<IE>999999999</IE>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<xFant>EMPRESA EXEMPLO</xFant>
+				<enderEmit>
+					<xLgr>ENDERECO EXEMPLO</xLgr>
+					<nro>0</nro>
+					<xBairro>ENDERECO EXEMPLO</xBairro>
+					<cMun>9999999</cMun>
+					<xMun>CIDADE EXEMPLO</xMun>
+					<CEP>99999999</CEP>
+					<UF>PR</UF>
+					<fone>9999999999</fone>
+				</enderEmit>
+			</emit>
+			<rem>
+				<CNPJ>99999999999999</CNPJ>
+				<IE>999999999</IE>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<xFant>EMPRESA EXEMPLO</xFant>
+				<fone>9999999999</fone>
+				<enderReme>
+					<xLgr>ENDERECO EXEMPLO</xLgr>
+					<nro>0</nro>
+					<xBairro>ENDERECO EXEMPLO</xBairro>
+					<cMun>9999999</cMun>
+					<xMun>CIDADE EXEMPLO</xMun>
+					<CEP>99999999</CEP>
+					<UF>PR</UF>
+					<cPais>1058</cPais>
+					<xPais>ENDERECO EXEMPLO</xPais>
+				</enderReme>
+			</rem>
+			<dest>
+				<CNPJ>99999999999999</CNPJ>
+				<IE>999999999</IE>
+				<xNome>EMPRESA EXEMPLO</xNome>
+				<enderDest>
+					<xLgr>ENDERECO EXEMPLO</xLgr>
+					<nro>0</nro>
+					<xBairro>ENDERECO EXEMPLO</xBairro>
+					<cMun>9999999</cMun>
+					<xMun>CIDADE EXEMPLO</xMun>
+					<CEP>99999999</CEP>
+					<UF>PR</UF>
+					<cPais>1058</cPais>
+					<xPais>ENDERECO EXEMPLO</xPais>
+				</enderDest>
+			</dest>
+			<vPrest>
+				<vTPrest>104.04</vTPrest>
+				<vRec>104.04</vRec>
+				<Comp>
+					<xNome>EMPRESA EXEMPLO</xNome>
+					<vComp>104.04</vComp>
+				</Comp>
+			</vPrest>
+			<imp>
+				<ICMS>
+					<ICMS00>
+						<CST>00</CST>
+						<vBC>0.00</vBC>
+						<pICMS>0.00</pICMS>
+						<vICMS>0.00</vICMS>
+					</ICMS00>
+				</ICMS>
+			</imp>
+			<infCTeNorm>
+				<infCarga>
+					<vCarga>3468.80</vCarga>
+					<proPred>XXXXXX</proPred>
+					<infQ>
+						<cUnid>01</cUnid>
+						<tpMed>PESO BRUTO</tpMed>
+						<qCarga>152.0000</qCarga>
+					</infQ>
+					<infQ>
+						<cUnid>03</cUnid>
+						<tpMed>UNIDADE</tpMed>
+						<qCarga>4.0000</qCarga>
+					</infQ>
+					<infQ>
+						<cUnid>01</cUnid>
+						<tpMed>PESO BRUTO</tpMed>
+						<qCarga>65.0000</qCarga>
+					</infQ>
+					<infQ>
+						<cUnid>03</cUnid>
+						<tpMed>UNIDADE</tpMed>
+						<qCarga>1.0000</qCarga>
+					</infQ>
+				</infCarga>
+				<infDoc>
+					<infNFe>
+						<chave>99999999999999999999999999999999999999999999</chave>
+					</infNFe>
+					<infNFe>
+						<chave>99999999999999999999999999999999999999999999</chave>
+					</infNFe>
+				</infDoc>
+				<infModal versaoModal="4.00">
+					<rodo>
+						<RNTRC>99999999</RNTRC>
+						<occ>
+							<nOcc>999</nOcc>
+							<dEmi>2020-12-04</dEmi>
+							<emiOcc>
+								<CNPJ>99999999999999</CNPJ>
+								<cInt>9999999999</cInt>
+								<IE>999999999</IE>
+								<UF>PR</UF>
+								<fone>9999999999</fone>
+							</emiOcc>
+						</occ>
+					</rodo>
+				</infModal>
+			</infCTeNorm>
+			<infRespTec>
+				<CNPJ>99999999999999</CNPJ>
+				<xContato>API_EXEMPLO</xContato>
+				<email>exemplo@example.com</email>
+				<fone>9999999999</fone>
+			</infRespTec>
+		</infCte>
+		<infCTeSupl>
+			<qrCodCTe>http://www.fazenda.pr.gov.br/cte/qrcode?chCTe=99999999999999999999999999999999999999999999&amp;tpAmb=1</qrCodCTe>
+		</infCTeSupl>
+		
+	</CTe>
+	<protCTe versao="4.00" xmlns="http://www.portalfiscal.inf.br/cte">
+		<infProt>
+			<tpAmb>1</tpAmb>
+			<verAplic>API_EXEMPLO</verAplic>
+			<chCTe>99999999999999999999999999999999999999999999</chCTe>
+			<dhRecbto>2020-12-04T08:00:44-03:00</dhRecbto>
+			<nProt>999999999999999</nProt>
+			<digVal>VFHL16ctT5MqBqQld/8D9CwBbIA=</digVal>
+			<cStat>100</cStat>
+			<xMotivo>Autorizado o uso do CT-e</xMotivo>
+		</infProt>
+	</protCTe>
+</cteProc>

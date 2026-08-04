@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nfcomProc xmlns="http://www.portalfiscal.inf.br/nfcom" versao="1.00">
+  <NFCom xmlns="http://www.portalfiscal.inf.br/nfcom">
+    <infNFCom versao="1.00" Id="NFCom99999999999999999999999999999999999999999999">
+      <ide>
+        <cUF>31</cUF>
+        <tpAmb>2</tpAmb>
+        <mod>62</mod>
+        <serie>1</serie>
+        <nNF>3</nNF>
+        <cNF>3000000</cNF>
+        <cDV>6</cDV>
+        <dhEmi>2025-09-10T19:28:19-03:00</dhEmi>
+        <tpEmis>1</tpEmis>
+        <nSiteAutoriz>0</nSiteAutoriz>
+        <cMunFG>9999999</cMunFG>
+        <finNFCom>0</finNFCom>
+        <tpFat>0</tpFat>
+        <verProc>API_EXEMPLO</verProc>
+      </ide>
+      <emit>
+        <CNPJ>99999999999999</CNPJ>
+        <IE>999999999</IE>
+        <CRT>1</CRT>
+        <xNome>EMPRESA EXEMPLO</xNome>
+        <xFant>EMPRESA EXEMPLO</xFant>
+        <enderEmit>
+          <xLgr>ENDERECO EXEMPLO</xLgr>
+          <nro>0</nro>
+          <xCpl>ENDERECO EXEMPLO</xCpl>
+          <xBairro>ENDERECO EXEMPLO</xBairro>
+          <cMun>9999999</cMun>
+          <xMun>CIDADE EXEMPLO</xMun>
+          <CEP>99999999</CEP>
+          <UF>MG</UF>
+          <fone>9999999999</fone>
+        </enderEmit>
+      </emit>
+      <dest>
+        <xNome>EMPRESA EXEMPLO</xNome>
+        <CPF>99999999999</CPF>
+        <indIEDest>9</indIEDest>
+        <enderDest>
+          <xLgr>ENDERECO EXEMPLO</xLgr>
+          <nro>0</nro>
+          <xBairro>ENDERECO EXEMPLO</xBairro>
+          <cMun>9999999</cMun>
+          <xMun>CIDADE EXEMPLO</xMun>
+          <CEP>99999999</CEP>
+          <UF>MG</UF>
+          <fone>9999999999</fone>
+          <email>exemplo@example.com</email>
+        </enderDest>
+      </dest>
+      <assinante>
+        <iCodAssinante>1111111</iCodAssinante>
+        <tpAssinante>99</tpAssinante>
+        <tpServUtil>4</tpServUtil>
+        <nContrato>11111111111</nContrato>
+        <dContratoIni>2025-01-01</dContratoIni>
+        <dContratoFim>2025-12-01</dContratoFim>
+      </assinante>
+      <det nItem="1">
+        <prod>
+          <cProd>169</cProd>
+          <xProd>ACESSO INTERNET</xProd>
+          <cClass>0400501</cClass>
+          <CFOP>5307</CFOP>
+          <uMed>2</uMed>
+          <qFaturada>500.0000</qFaturada>
+          <vItem>0.2098</vItem>
+          <vProd>104.90</vProd>
+        </prod>
+        <imposto>
+          <ICMSSN>
+            <CST>90</CST>
+            <indSN>1</indSN>
+          </ICMSSN>
+          <PIS>
+            <CST>49</CST>
+            <vBC>0.00</vBC>
+            <pPIS>0.0000</pPIS>
+            <vPIS>0.00</vPIS>
+          </PIS>
+          <COFINS>
+            <CST>49</CST>
+            <vBC>0.00</vBC>
+            <pCOFINS>0.0000</pCOFINS>
+            <vCOFINS>0.00</vCOFINS>
+          </COFINS>
+        </imposto>
+      </det>
+      <total>
+        <vProd>104.90</vProd>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vFCP>0.00</vFCP>
+        </ICMSTot>
+        <vCOFINS>0.00</vCOFINS>
+        <vPIS>0.00</vPIS>
+        <vFUNTTEL>0.00</vFUNTTEL>
+        <vFUST>0.00</vFUST>
+        <vRetTribTot>
+          <vRetPIS>0.00</vRetPIS>
+          <vRetCofins>0.00</vRetCofins>
+          <vRetCSLL>0.00</vRetCSLL>
+          <vIRRF>0.00</vIRRF>
+        </vRetTribTot>
+        <vDesc>0.00</vDesc>
+        <vOutro>0.00</vOutro>
+        <vNF>104.90</vNF>
+      </total>
+      <gFat>
+        <CompetFat>202510</CompetFat>
+        <dVencFat>2025-10-10</dVencFat>
+        <codBarras>11111111111111111111111111111111111111111111111</codBarras>
+      </gFat>
+      <gRespTec>
+        <CNPJ>99999999999999</CNPJ>
+        <xContato>API_EXEMPLO</xContato>
+        <email>exemplo@example.com</email>
+        <fone>9999999999</fone>
+      </gRespTec>
+    </infNFCom>
+    <infNFComSupl>
+      <qrCodNFCom>https://portalnfcom.fazenda.mg.gov.br/qrcode?chNFCom=31250999999999999999620010000000031030000000&amp;tpAmb=2</qrCodNFCom>
+    </infNFComSupl>
+  </NFCom>
+  <protNFCom versao="versao1" xmlns="http://www.portalfiscal.inf.br/nfcom">
+    <infProt Id="ID9">
+      <tpAmb>2</tpAmb>
+      <verAplic>API_EXEMPLO</verAplic>
+      <chNFCom>99999999999999999999999999999999999999999999</chNFCom>
+      <dhRecbto>2025-09-10T19:28:19-03:00</dhRecbto>
+      <nProt>999999999999999</nProt>
+      <digVal>AAECAwQFBgcICQoLDA0ODw==</digVal>
+      <cStat>100</cStat>
+      <xMotivo>xMotivo1</xMotivo>
+    </infProt>
+    <infFisco>
+      <cMsg>cMsg1</cMsg>
+      <xMsg>xMsg1</xMsg>
+    </infFisco>
+  </protNFCom>
+</nfcomProc>
