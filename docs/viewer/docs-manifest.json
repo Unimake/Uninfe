@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T22:01:04.711Z",
+  "generatedAt": "2026-07-22T14:12:00.175Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -44,6 +44,36 @@
       "category": "configuracao"
     },
     {
+      "id": "contingencia-formulario-de-seguranca-md",
+      "title": "Contingência em formulário de segurança",
+      "path": "contingencia/formulario-de-seguranca.md",
+      "category": "contingencia"
+    },
+    {
+      "id": "contingencia-epec-md",
+      "title": "Contingência EPEC",
+      "path": "contingencia/epec.md",
+      "category": "contingencia"
+    },
+    {
+      "id": "contingencia-off-line-md",
+      "title": "Contingência Off-line",
+      "path": "contingencia/off-line.md",
+      "category": "contingencia"
+    },
+    {
+      "id": "contingencia-svc-md",
+      "title": "Contingência SVC (RS, AN e SP)",
+      "path": "contingencia/svc.md",
+      "category": "contingencia"
+    },
+    {
+      "id": "erros-e-solucoes-erros-e-solucoes-md",
+      "title": "Erros e soluções",
+      "path": "erros-e-solucoes/erros-e-solucoes.md",
+      "category": "erros-e-solucoes"
+    },
+    {
       "id": "referencias-apoio-e-suporte-md",
       "title": "Apoio e Suporte",
       "path": "referencias/apoio-e-suporte.md",
@@ -59,6 +89,18 @@
       "id": "referencias-perguntas-frequentes-md",
       "title": "Perguntas frequentes",
       "path": "referencias/perguntas-frequentes.md",
+      "category": "referencias"
+    },
+    {
+      "id": "referencias-reforma-tributaria-nfe-nfce-md",
+      "title": "Reforma Tributária - NFe/NFCe",
+      "path": "referencias/reforma-tributaria-nfe-nfce.md",
+      "category": "referencias"
+    },
+    {
+      "id": "referencias-reforma-tributaria-nfse-md",
+      "title": "Reforma Tributária - NFSe",
+      "path": "referencias/reforma-tributaria-nfse.md",
       "category": "referencias"
     },
     {

@@ -14,6 +14,7 @@ namespace UniNFe.Test.eBoleto
         #region Public Properties
 
         public string ArquivoRetorno { get; }
+        public string ArquivoRetornoPDF { get; }
 
         #endregion Public Properties
 
@@ -35,6 +36,7 @@ namespace UniNFe.Test.eBoleto
 
             var extensao = Propriedade.Extensao(Propriedade.TipoEnvio.BoletoRegistrar);
             ArquivoRetorno = Path.Combine(PastaRetorno, Functions.ExtrairNomeArq(ArquivoEnvio, extensao.EnvioXML) + extensao.RetornoXML);
+            ArquivoRetornoPDF = ArquivoRetorno.Replace(".xml", ".pdf");
         }
 
         #endregion Public Constructors

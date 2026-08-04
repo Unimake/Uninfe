@@ -122,6 +122,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultaSequenciaLoteNotaRPS(arquivo));
                             break;
 
+                        case Servicos.NFSeConsultarRpsDisponivel:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarRpsDisponivel(arquivo));
+                            break;
+
                         case Servicos.NFSeSubstituirNfse:
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskSubstituirNfse(arquivo));
                             break;
@@ -1398,6 +1402,10 @@ namespace NFe.Service
                                 {
                                     tipoServico = Servicos.NFSeConsultaSequenciaLoteNotaRPS;
                                 }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedConsRpsDisp).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarRpsDisponivel;
+                                }
                                 else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).EnvioXML) >= 0)
                                 {
                                     tipoServico = Servicos.NFSeSubstituirNfse;
@@ -2475,6 +2483,11 @@ namespace NFe.Service
                 case Servicos.NFSeConsultarLoteRps:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.LoteRps_ERR;
+                    break;
+
+                case Servicos.NFSeConsultarRpsDisponivel:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedConsRpsDisp).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.ConsRpsDisp_ERR;
                     break;
 
                 case Servicos.NFSeCancelar:

@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Servicos.PIX;
 
 namespace NFe.Service
 {
@@ -59,6 +60,7 @@ namespace NFe.Service
         {
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PIXCobrancaCreateRequest).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PIXCobrancaCreateRequest).RetornoXML;
+            var file = Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + finalArqRetorno;
 
             var configuracao = new Configuracao
             {
@@ -72,28 +74,30 @@ namespace NFe.Service
 
             try
             {
-                var assembly = typeof(Configuracao).Assembly;
-                var pixType = assembly.GetType("Unimake.Business.DFe.Servicos.PIX.PixCobrancaCriar");
-                if (pixType == null) throw new Exception("A implementação do serviço PIX PixCobrancaCriar não foi localizada na DLL.");
-
-                var pixInstance = Activator.CreateInstance(pixType, new object[] { ConteudoXML.OuterXml, configuracao });
-                var executarMethod = pixInstance.GetType().GetMethod("Executar");
-                if (executarMethod == null) throw new Exception("A implementação do serviço PIX PixCobrancaCriar não expõe o método Executar().");
-                executarMethod.Invoke(pixInstance, null);
-
-                var retornoProp = pixInstance.GetType().GetProperty("RetornoWSString");
-                if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(pixInstance)?.ToString();
-
-                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                using (var pixCobrancaCriar = new PixCobrancaCriar(ConteudoXML.OuterXml, configuracao))
                 {
-                    throw new Exception("A implementação do serviço PIX PixCobrancaCriar não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    pixCobrancaCriar.Executar();
+
+                    if (pixCobrancaCriar.Result.Status == 0)
+                    {
+                        var imageFormat = pixCobrancaCriar.Envio.QRCodeConfig?.ImageFormat ?? PixQrCodeImageFormat.PNG;
+                        var pathQRCode = Path.Combine(
+                            Empresas.Configuracoes[emp].PastaXmlRetorno,
+                            file.Replace(".xml", "." + imageFormat.ToString().ToLowerInvariant()));
+
+                        pixCobrancaCriar.GravarQRCode(pathQRCode);
+                    }
+
+                    vStrXmlRetorno = pixCobrancaCriar.RetornoWSString;
+
+                    if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                    {
+                        throw new Exception("A implementação do serviço PIX PixCobrancaCriar não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    }
+                    vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
+
+                    XmlRetorno(finalArqEnvio, finalArqRetorno);
                 }
-                vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
-
-                XmlRetorno(finalArqEnvio, finalArqRetorno);
-
-                var disposeMethod = pixInstance.GetType().GetMethod("Dispose");
-                disposeMethod?.Invoke(pixInstance, null);
             }
             catch (Exception ex)
             {
@@ -148,6 +152,8 @@ namespace NFe.Service
                     oXmlGravar.WriteElementString("TraceId", traceId);
                 }
 
+                oXmlGravar.WriteElementString("PixCopiaECola", string.Empty);
+                oXmlGravar.WriteElementString("ImageQRCode", string.Empty);
                 oXmlGravar.WriteElementString("UniNFeVersao", Propriedade.Versao + " | " + Propriedade.DataHoraUltimaModificacaoAplicacao.Replace("/", "-"));
                 oXmlGravar.WriteEndElement();
                 oXmlGravar.WriteEndDocument();

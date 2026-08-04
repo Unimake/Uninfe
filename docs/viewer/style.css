@@ -224,17 +224,31 @@ body.menu-collapsed .sidebar {
   grid-area: content;
   min-width: 0;
   overflow: auto;
-  padding: 30px clamp(18px, 5vw, 64px);
+  padding: 30px clamp(18px, 3vw, 64px);
 }
 
 .markdown-body {
-  max-width: 980px;
+  /*
+     Mantém uma área de leitura ampla em monitores grandes, sem ultrapassar
+     a área disponível. Em telas menores, a largura continua sendo 100% do
+     conteúdo, respeitando o espaçamento definido em .content.
+  */
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   padding-bottom: 80px;
 }
 
+/* O artigo recebe foco programático após o carregamento para leitores de tela.
+   Como não é um controle interativo, o contorno nativo ocupa toda a área do
+   documento ao abrir um link direto. */
+.markdown-body:focus {
+  outline: none;
+}
+
 .status-message {
-  max-width: 980px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto 16px;
   padding: 12px 14px;
   border: 1px solid var(--border);
@@ -272,6 +286,32 @@ body.menu-collapsed .sidebar {
 
 .markdown-body a {
   color: var(--accent);
+}
+
+.markdown-body details + details {
+  margin-top: 1.5rem;
+}
+
+.markdown-body summary {
+  padding: 0.35rem 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.markdown-body summary:hover {
+  color: var(--accent);
+}
+
+.markdown-body summary:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.markdown-body details[open] > summary {
+  margin-bottom: 0.75rem;
 }
 
 .markdown-body table {

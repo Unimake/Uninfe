@@ -47,6 +47,16 @@ Main projects:
 - Before sending anything that requires a certificate, follow existing patterns for `CertVencido(emp)`, `CarregarPINA3(emp)`, and `CertificadoDigital`.
 - Do not bypass validations for `tpAmb`, `tpEmis`, DFe key, schemas, or signatures.
 
+## TXT Regression Data And Anonymization
+
+- Whenever a user supplies a real TXT to reproduce NFe/NFCe conversion or compare the legacy UniNFe converter with Unimake.DFe, anonymize it before copying it into `exemplos xml`, `source/UniNFe.Test`, or the DLL repository.
+- Keep the anonymized UniNFe fixture synchronized with its counterpart under `C:\projetos\github\Unimake.DFe\source\Unimake.DFe.Test\...\Resources\Txt`; both converters must receive the same content in before/after tests.
+- Replace identifiable names or business names, CPF, sole-proprietor CNPJ when not essential to the scenario, state registration, email, phone, street/address/CEP, seller and order data, and duplicates in free-text segments such as `Z`, `Z04`, `ZD`, and observations.
+- Use obviously synthetic values such as `CLIENTE TESTE`, `EMPRESA TESTE`, `RUA EXEMPLO`, and `example.com` domains. Preserve only fiscal fields essential to the scenario; if changing an identifier affects the access key or check digit, keep it consistent or recalculate the key and update expectations.
+- Before finishing, scan every TXT added or changed and related fixtures for forgotten identifiable data, especially segments `E`, `E02`, `E03`, `E05`, `F`, `G`, `G02a`, `X03`, `X04`, `Z`, `Z04`, and `ZD`.
+- For before/after comparisons, run the same anonymized TXT through legacy UniNFe and the current DLL, compare the XMLs, and add an explicit assertion for the corrected behavior. Update hashes only after reviewing the anonymized fixture diff.
+- Add or retain a preventive test that fails if known identifiable data is reintroduced into TXT fixtures.
+
 ## UI And Configuration
 
 - The UI is WinForms with MetroFramework. New screens should follow `NFe.UI.Formularios`, `MetroUserControl`, `UserControl1`, and display through `menu`, `FormDummy`, or `MetroTaskWindow`, according to the existing flow.

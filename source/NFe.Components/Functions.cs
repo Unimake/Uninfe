@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using Unimake.Business.DFe;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Components
@@ -127,37 +128,7 @@ namespace NFe.Components
 
         public static PadraoNFSe BuscaPadraoNFSe(int municipio)
         {
-            if (municipio < 100)
-            {
-                return PadraoNFSe.None;
-            }
-
-            PadraoNFSe BuscarNoCache()
-            {
-                var municipios = Propriedade.Municipios;
-                for (int i = 0; i < municipios.Count; i++)
-                {
-                    var mun = municipios[i];
-                    if (mun.CodigoMunicipio == municipio)
-                    {
-                        return mun.Padrao;
-                    }
-                }
-
-                return PadraoNFSe.None;
-            }
-
-            var result = BuscarNoCache();
-            if (result != PadraoNFSe.None)
-            {
-                return result;
-            }
-
-            // Algo falhou, não deveria, vamos tentar recarregar os municípios.
-            Propriedade.Municipios.Clear();
-            CarregarMunicipio();
-
-            return BuscarNoCache();
+            return Configuration.GetPadraoNFSe(municipio);
         }
 
         #endregion PadraoNFe()
@@ -697,39 +668,12 @@ namespace NFe.Components
         {
             if (Propriedade.Municipios == null)
             {
-                Propriedade.Municipios = new List<Municipio>();
+                Propriedade.Municipios = new List<MunicipioNFSeConfiguracao>();
             }
 
             if (Propriedade.Municipios.Count <= 0)
             {
-                var doc = new XmlDocument();
-                var config = new Configuracao();
-
-                using (var stream = config.LoadXmlConfig(Unimake.Business.DFe.Configuration.ArquivoConfigGeral))
-                {
-                    doc.Load(stream);
-                }
-
-                var arquivoList = doc.GetElementsByTagName("Arquivo");
-                foreach (XmlElement elemento in arquivoList)
-                {
-                    var idAttr = elemento.GetAttribute("ID");
-                    if (idAttr.Length >= 3)
-                    {
-                        int id = Convert.ToInt32(idAttr);
-                        string nome = elemento.GetElementsByTagName("Nome")[0].InnerText;
-                        string uf = elemento.GetElementsByTagName("UF")[0].InnerText;
-                        string padraoStr = elemento.GetElementsByTagName("PadraoNFSe")[0].InnerText.ToUpper();
-                        var padrao = (PadraoNFSe)Enum.Parse(typeof(PadraoNFSe), padraoStr, true);
-
-                        if (padrao == PadraoNFSe.None)
-                        {
-                            WriteLog($"CarregarMunicipio() - Padrão NFSe não encontrado para o município: {nome}.", true, true, "");
-                        }
-
-                        Propriedade.Municipios.Add(new Municipio(id, uf, nome, padrao));
-                    }
-                }
+                Propriedade.Municipios = Configuration.CarregarMunicipio();
             }
         }
 
@@ -939,13 +883,13 @@ namespace NFe.Components
                 }
                 else
                     if (origem.GetType().IsAssignableFrom(typeof(List<string>)))
-                {
-                    lEncontrou = populateClasse(classe, (origem as List<string>).ToArray());
-                }
-                else
-                {
-                    throw new Exception("Tipo de dados da origem desconhecido. (" + origem.GetType().ToString() + ")");
-                }
+                    {
+                        lEncontrou = populateClasse(classe, (origem as List<string>).ToArray());
+                    }
+                    else
+                    {
+                        throw new Exception("Tipo de dados da origem desconhecido. (" + origem.GetType().ToString() + ")");
+                    }
             }
             return lEncontrou;
         }

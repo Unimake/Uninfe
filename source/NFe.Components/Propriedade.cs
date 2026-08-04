@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Linq;
-using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe;
 
 namespace NFe.Components
 {
@@ -138,45 +136,17 @@ namespace NFe.Components
 
         public static TipoAplicativo TipoAplicativo { get; set; }
 
-        public static List<Municipio> Municipios { get; set; }
+        public static List<MunicipioNFSeConfiguracao> Municipios { get; set; }
 
-        private static List<Municipio> _Estados = null;
+        private static List<MunicipioNFSeConfiguracao> _Estados = null;
 
-        public static List<Municipio> Estados
+        public static List<MunicipioNFSeConfiguracao> Estados
         {
             get
             {
                 if (_Estados == null)
                 {
-                    _Estados = new List<Components.Municipio>();
-
-                    var doc = new XmlDocument();
-
-                    var config = new Configuracao();
-                    var stream = config.LoadXmlConfig(Unimake.Business.DFe.Configuration.ArquivoConfigGeral);
-
-                    doc.Load(stream);
-
-                    var arquivoList = doc.GetElementsByTagName("Arquivo");
-
-                    Console.WriteLine(arquivoList.Count);
-
-
-                    foreach (XmlNode arquivoNode in arquivoList)
-                    {
-                        var elemento = (XmlElement)arquivoNode;
-                        if (elemento.GetAttribute("ID").Length > 3 || elemento.GetElementsByTagName("UF")[0].InnerText == "SVRS" || elemento.GetElementsByTagName("UF")[0].InnerText == "AN")
-                            continue;
-                        {
-                            int id = Convert.ToInt32(elemento.GetAttribute("ID"));
-                            string nome = elemento.GetElementsByTagName("Nome")[0].InnerText;
-                            string uf = elemento.GetElementsByTagName("UF")[0].InnerText;
-                            PadraoNFSe padrao = PadraoNFSe.None;
-
-                            _Estados.Add(new Municipio(id, nome, uf, padrao));
-                        }
-
-                    }
+                    _Estados = Configuration.CarregarEstados();
                 }
                 return _Estados;
             }
@@ -274,6 +244,7 @@ namespace NFe.Components
             PedURLNFSe,
             PedURLNFSeSerie,
             PedSeqLoteNotaRPS,
+            PedConsRpsDisp,
             PedSubstNfse,
             PedSitNFSeRec,
             PedSitNFSeTom,
@@ -651,6 +622,12 @@ namespace NFe.Components
                 "-seqlotenotarps.xml", "",
                 "-seqlotenotarps.err",
                 "Consulta sequência do lote da nota RPS"));
+
+            ListaExtensoes.Add(TipoEnvio.PedConsRpsDisp, new ExtensaoClass(
+                "-ped-consrpsdisp.xml", "",
+                "-consrpsdisp.xml", "",
+                "-consrpsdisp.err",
+                "Consultar RPS disponível"));
 
             ListaExtensoes.Add(TipoEnvio.PedSubstNfse, new ExtensaoClass(
                 "-ped-substnfse.xml", "",
@@ -1375,6 +1352,11 @@ namespace NFe.Components
             public static string PedNfsePDF = Extensao(TipoEnvio.PedNFSePDF).EnvioXML;
 
             /// <summary>
+            /// -ped-consrpsdisp.xml
+            /// </summary>
+            public static string PedConsRpsDisp = Extensao(TipoEnvio.PedConsRpsDisp).EnvioXML;
+
+            /// <summary>
             /// -ped-convenio.xml
             /// </summary>
             public static string PedConvenio = Extensao(TipoEnvio.PedConvenio).EnvioXML;
@@ -1532,6 +1514,11 @@ namespace NFe.Components
         /// </summary>
         public class ExtRetorno
         {
+            /// <summary>
+            /// -diagdispdfe.xml
+            /// </summary>
+            public const string DiagnosticoDisponibilidadeDFe = "-diagdispdfe.xml";
+
             #region Extensoes que so estao aqui para quem utiliza o codigo em seus projetos
 
             public static string RetAltCon_XML = Extensao(TipoEnvio.AltCon).RetornoXML;
@@ -1793,6 +1780,11 @@ namespace NFe.Components
             /// -seqlotenotarps.err
             /// </summary>
             public const string SeqLoteNotaRPS_ERR = "-seqlotenotarps.err";
+
+            /// <summary>
+            /// -consrpsdisp.err
+            /// </summary>
+            public const string ConsRpsDisp_ERR = "-consrpsdisp.err";
 
             /// <summary>
             /// -convenio.xml

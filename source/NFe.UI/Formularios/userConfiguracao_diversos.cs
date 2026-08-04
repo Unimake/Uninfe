@@ -1,10 +1,8 @@
-using Newtonsoft.Json.Linq;
 using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Net;
 using System.Windows.Forms;
 using Unimake.Business.DFe.Servicos;
 namespace NFe.UI.Formularios
@@ -449,12 +447,12 @@ namespace NFe.UI.Formularios
             try
             {
                 var xuf = comboBox_UF.SelectedValue;
+                var padraoNfse = Functions.BuscaPadraoNFSe(Convert.ToInt32(xuf));
 
                 edtCodMun.Text = xuf.ToString();
 
-                edtPadrao.Text = EnumHelper.GetEnumItemDescription(Functions.BuscaPadraoNFSe(Convert.ToInt32(xuf)));
+                edtPadrao.Text = EnumHelper.GetEnumItemDescription(padraoNfse);
                 HabilitaUsuarioSenhaWS(Convert.ToInt32(edtCodMun.Text), TipoAplicativo.Nfse);
-
             }
             catch
             {
@@ -554,7 +552,7 @@ namespace NFe.UI.Formularios
 
         private void edtCodMun_Click(object sender, EventArgs e)
         {
-
+            var teste = "";
         }
 
         private void txtClienteID_Click(object sender, EventArgs e)
@@ -574,8 +572,8 @@ namespace NFe.UI.Formularios
                     edtCodMun.Visible = true;
                     edtPadrao.Visible = true;
                     lbl_Padrao.Visible = true;
-                    cboDiretorioSalvarComo.Visible = false;
-                    lbl_DiretorioSalvarComo.Visible = false;
+                    cboDiretorioSalvarComo.Visible = true;
+                    lbl_DiretorioSalvarComo.Visible = true;
                     comboBox_tpEmis.Visible = false;
                     metroLabel11.Visible = false;
                     checkBoxGravarEventosNaPastaEnviadosNFe.Visible = false;

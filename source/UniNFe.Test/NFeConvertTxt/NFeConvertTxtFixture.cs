@@ -21,10 +21,12 @@ namespace UniNFe.Test.NFeConvertTxt
                 "NFe_Reforma_Tributaria_Monofasica-nfe.txt",
                 "NFE_Venda_00002.txt",
                 "NFe_Venda_para_o_Governo.txt"
+                ,"NFCe-4.00.txt"
             };
 
             return Directory
                 .GetFiles(raiz, "*.txt", SearchOption.AllDirectories)
+                .Where(x => !x.Contains(Path.DirectorySeparatorChar + "Regressions" + Path.DirectorySeparatorChar))
                 .OrderBy(x => x, StringComparer.OrdinalIgnoreCase)
                 .Select(x => new object[] { x, conversoesComSucesso.Contains(Path.GetFileName(x)) });
         }

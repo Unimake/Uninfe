@@ -1253,7 +1253,7 @@ namespace NFe.ConvertTxt
                     detInfo.Imposto.IS.cClassTribIS = this.readValue(nodeDetImpostoIS, TpcnResources.cClassTribIS);
                     detInfo.Imposto.IS.vBCIS = this.readDouble(nodeDetImpostoIS, TpcnResources.vBCIS);
                     detInfo.Imposto.IS.pIS = this.readDouble(nodeDetImpostoIS, TpcnResources.pIS);
-                    detInfo.Imposto.IS.pISEspec = this.readDouble(nodeDetImpostoIS, TpcnResources.pISEspec);
+                    detInfo.Imposto.IS.adRemIS = this.readDouble(nodeDetImpostoIS, TpcnResources.adRemIS);
                     detInfo.Imposto.IS.uTrib = this.readValue(nodeDetImpostoIS, TpcnResources.uTrib);
                     detInfo.Imposto.IS.qTrib = this.readDouble(nodeDetImpostoIS,TpcnResources.qTrib);
                     detInfo.Imposto.IS.vIS = this.readDouble(nodeDetImpostoIS, TpcnResources.vIS);
@@ -1286,6 +1286,7 @@ namespace NFe.ConvertTxt
 
                             foreach (XmlNode nodeDetImpostoIBSCBSgIBSCBSgIBSUFgDevTrib in ((XmlElement)nodeDetImpostoIBSCBSgIBSCBSgIBSUF).GetElementsByTagName("gDevTrib"))
                             {
+                                detInfo.Imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.pDevTrib = this.readDouble(nodeDetImpostoIBSCBSgIBSCBSgIBSUFgDevTrib, TpcnResources.pDevTrib);
                                 detInfo.Imposto.IBSCBS.gIBSCBS.gIBSUF.gDevTrib.vDevTrib = this.readDouble(nodeDetImpostoIBSCBSgIBSCBSgIBSUFgDevTrib, TpcnResources.vDevTrib);
                             }
 
@@ -1314,6 +1315,7 @@ namespace NFe.ConvertTxt
 
                             foreach (XmlNode nodeDetImpostoIBSCBSgIBSCBSgIBSMungDevTrib in ((XmlElement)nodeDetImpostoIBSCBSgIBSCBSgIBSMun).GetElementsByTagName("gDevTrib"))
                             {
+                                detInfo.Imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.pDevTrib = this.readDouble(nodeDetImpostoIBSCBSgIBSCBSgIBSMungDevTrib, TpcnResources.pDevTrib);
                                 detInfo.Imposto.IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib = this.readDouble(nodeDetImpostoIBSCBSgIBSCBSgIBSMungDevTrib, TpcnResources.vDevTrib);
                             }
 
@@ -1342,6 +1344,7 @@ namespace NFe.ConvertTxt
 
                             foreach (XmlNode nodeDetImpostoIBSCBSgIBSCBSgCBSgDevTrib in ((XmlElement)nodeDetImpostoIBSCBSgIBSCBSgCBS).GetElementsByTagName("gDevTrib"))
                             {
+                                detInfo.Imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.pDevTrib = this.readDouble(nodeDetImpostoIBSCBSgIBSCBSgCBSgDevTrib, TpcnResources.pDevTrib);
                                 detInfo.Imposto.IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib = this.readDouble(nodeDetImpostoIBSCBSgIBSCBSgCBSgDevTrib, TpcnResources.vDevTrib);
                             }
 
@@ -1501,6 +1504,7 @@ namespace NFe.ConvertTxt
             nfe.emit.CRT = (TpcnCRT)this.readInt32(el, TpcnResources.CRT);
             nfe.emit.IE = this.readValue(el, TpcnResources.IE);
             nfe.emit.IEST = this.readValue(el, TpcnResources.IEST);
+            nfe.emit.ISUFEmit = this.readValue(el, TpcnResources.ISUFEmit);
             nfe.emit.IM = this.readValue(el, TpcnResources.IM);
             nfe.emit.xFant = this.readValue(el, TpcnResources.xFant);
             nfe.emit.xNome = this.readValue(el, TpcnResources.xNome);
@@ -1624,6 +1628,19 @@ namespace NFe.ConvertTxt
 
                     nfe.ide.gCompraGov.tpEnteGov = (TpcnTipoEnteGovernamental)this.readInt32(gCompraGov, TpcnResources.tpEnteGov);
                     nfe.ide.gCompraGov.pRedutor = this.readDouble(gCompraGov, TpcnResources.pRedutor);
+                    nfe.ide.gCompraGov.tpOperGov = (TpcnTipoOperacaoEnteGovernamental)this.readInt32(gCompraGov, TpcnResources.tpOperGov);
+                    foreach (XmlNode refDFeAnt in gCompraGov.GetElementsByTagName(TpcnResources.refDFeAnt.ToString()))
+                    {
+                        nfe.ide.gCompraGov.refDFeAnt.Add(refDFeAnt.InnerText);
+                    }
+                }
+                else if (nodeFilho.LocalName.Equals("gPagAntecipado"))
+                {
+                    XmlElement gPagAntecipado = nodeFilho as XmlElement;
+                    foreach (XmlNode refDFe in gPagAntecipado.GetElementsByTagName(TpcnResources.refDFe.ToString()))
+                    {
+                        nfe.ide.gPagAntecipado.refDFe.Add(refDFe.InnerText);
+                    }
                 }
             }
         }

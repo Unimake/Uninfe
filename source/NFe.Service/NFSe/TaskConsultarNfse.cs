@@ -278,6 +278,9 @@ namespace NFe.Service.NFSe
                             }
 
                             break;
+                        case "NFSe":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
+                            break;
                     }
                     break;
 
@@ -498,6 +501,10 @@ namespace NFe.Service.NFSe
                     else if (codMunicipio == 3549904 && xmlDoc.OuterXml.Contains("ginfes"))
                     {
                         versaoXML = "3.00";
+                    }
+                    else if (xmlDoc.OuterXml.Contains("versao=\"1.01\""))
+                    {
+                        versaoXML = "1.01";
                     }
 
                     break;

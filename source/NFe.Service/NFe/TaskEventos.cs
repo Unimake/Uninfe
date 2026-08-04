@@ -37,6 +37,8 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
+            var extensaoEnvioDiagnostico = string.Empty;
 
             try
             {
@@ -127,12 +129,13 @@ namespace NFe.Service
                             break;
                     }
 
-                    var configuracao = new Configuracao
+                    configuracao = new Configuracao
                     {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = (ehNFCe ? TipoDFe.NFCe : TipoDFe.NFe),
                         TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)tpEmis,
-                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                        ColetarTelemetriaDisponibilidade = true
                     };
 
                     if (ehNFCe)
@@ -196,9 +199,12 @@ namespace NFe.Service
                         }
                     }
 
+                    extensaoEnvioDiagnostico = xmlExtEnvio;
                     XmlRetorno(xmlExtEnvio, xmlExtRetorno);
 
                     LerRetornoEvento(emp);
+
+                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, extensaoEnvioDiagnostico);
                 }
                 else
                 {
@@ -311,6 +317,8 @@ namespace NFe.Service
                     //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
                     //Wandrey 09/03/2010
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, extensaoEnvioDiagnostico);
             }
             finally
             {

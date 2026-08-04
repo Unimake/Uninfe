@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Servicos.UMessenger;
 
 namespace NFe.Service
 {
@@ -80,36 +81,25 @@ namespace NFe.Service
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
-                AppId = Empresas.Configuracoes[emp].AppID_UMessenger,
-                Secret = Empresas.Configuracoes[emp].Secret_UMessenger
+                AppId = Empresas.Configuracoes[emp].MesmosDadosEb_Mb ? Empresas.Configuracoes[emp].AppID : Empresas.Configuracoes[emp].AppID_UMessenger,
+                Secret = Empresas.Configuracoes[emp].MesmosDadosEb_Mb ? Empresas.Configuracoes[emp].Secret : Empresas.Configuracoes[emp].Secret_UMessenger
             };
 
             try
             {
-                var assembly = typeof(Configuracao).Assembly;
-
-                object publishInstance = null;
-                var publishType = assembly.GetType("Unimake.Business.DFe.Servicos.UMessenger.PublishUMessenger");
-
-                publishInstance = Activator.CreateInstance(publishType, new object[] { conteudoXML.OuterXml, configuracao });
-
-                var executarMethod = publishInstance.GetType().GetMethod("Executar");
-                if (executarMethod == null) throw new Exception("A implementação do serviço uMessenger não expõe o método Executar().");
-                executarMethod.Invoke(publishInstance, null);
-
-                var retornoProp = publishInstance.GetType().GetProperty("RetornoWSString");
-                if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(publishInstance)?.ToString();
-
-                AdicionarUniNFeVersaoAoRetorno();
-                XmlRetorno(finalArqEnvio, finalArqRetorno);
-
-                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                using (var publishUMessenger = new PublishUMessenger(conteudoXML.OuterXml, configuracao))
                 {
-                    throw new Exception("A implementação do serviço uMessenger não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
-                }
+                    publishUMessenger.Executar();
+                    vStrXmlRetorno = publishUMessenger.RetornoWSString;
 
-                var disposeMethod = publishInstance.GetType().GetMethod("Dispose");
-                disposeMethod?.Invoke(publishInstance, null);
+                    AdicionarUniNFeVersaoAoRetorno();
+                    XmlRetorno(finalArqEnvio, finalArqRetorno);
+
+                    if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                    {
+                        throw new Exception("A implementação do serviço uMessenger não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    }
+                }
             }
             catch (Exception ex)
             {

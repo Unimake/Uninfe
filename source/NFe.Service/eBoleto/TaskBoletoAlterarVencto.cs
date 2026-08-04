@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
+using BoletoAlterarVenctoService = Unimake.Business.DFe.Servicos.EBoleto.BoletoAlterarVencto;
 
 namespace NFe.Service
 {
@@ -69,29 +70,20 @@ namespace NFe.Service
 
             try
             {
-                var assembly = typeof(Configuracao).Assembly;
-                var boletoType = assembly.GetType("Unimake.Business.DFe.Servicos.EBoleto.BoletoAlterarVencto");
-                if (boletoType == null) throw new Exception("A implementação do serviço eBoleto BoletoAlterarVencto não foi localizada na DLL.");
-
-                var boletoInstance = Activator.CreateInstance(boletoType, new object[] { ConteudoXML.OuterXml, configuracao });
-                var executarMethod = boletoInstance.GetType().GetMethod("Executar");
-                if (executarMethod == null) throw new Exception("A implementação do serviço eBoleto BoletoAlterarVencto não expõe o método Executar().");
-                executarMethod.Invoke(boletoInstance, null);
-
-                var retornoProp = boletoInstance.GetType().GetProperty("RetornoWSString");
-                if (retornoProp != null) vStrXmlRetorno = retornoProp.GetValue(boletoInstance)?.ToString();
-
-                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                using (var boleto = new BoletoAlterarVenctoService(ConteudoXML.OuterXml, configuracao))
                 {
-                    throw new Exception("A implementação do serviço eBoleto BoletoAlterarVencto não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    boleto.Executar();
+                    vStrXmlRetorno = boleto.RetornoWSString;
+
+                    if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                    {
+                        throw new Exception("A implementação do serviço eBoleto BoletoAlterarVencto não retornou RetornoWSString. Atualize a DLL para fornecer o XML de retorno pronto.");
+                    }
+
+                    vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
+
+                    XmlRetorno(finalArqEnvio, finalArqRetorno);
                 }
-
-                vStrXmlRetorno = AdicionarUniNFeVersaoAoRetorno(vStrXmlRetorno);
-
-                XmlRetorno(finalArqEnvio, finalArqRetorno);
-
-                var disposeMethod = boletoInstance.GetType().GetMethod("Dispose");
-                disposeMethod?.Invoke(boletoInstance, null);
             }
             catch (Exception ex)
             {

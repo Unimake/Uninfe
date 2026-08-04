@@ -39,6 +39,14 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - PENDENTE DE VALIDAÇÃO: criar `integracao/tratamento-de-erros.md`
 - PENDENTE DE VALIDAÇÃO: criar `integracao/logs.md`
 
+## Contingência
+
+- [Contingência](contingencia/)
+- [Contingência em formulário de segurança](contingencia/formulario-de-seguranca.md)
+- [Contingência SVC (RS, AN e SP)](contingencia/svc.md)
+- [Contingência Off-line](contingencia/off-line.md)
+- [Contingência EPEC](contingencia/epec.md)
+
 ## Servicos
 
 - [Consulta status de serviço](servicos/consulta-status-servico.md)
@@ -148,6 +156,10 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [GNRE - Consulta de resultado do lote](servicos/gnre/consulta-resultado-lote.md)
 - [GNRE - Recepção de lote](servicos/gnre/recepcao-lote.md)
 
+## Erros e soluções
+
+- [Erros e soluções](erros-e-solucoes/erros-e-solucoes.md)
+
 ## Referencias
 
 - [Referencias](referencias/)
@@ -157,6 +169,8 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)
 - [Perguntas frequentes](referencias/perguntas-frequentes.md)
+- [Reforma Tributária - NFe/NFCe](referencias/reforma-tributaria-nfe-nfce.md)
+- [Reforma Tributária - NFSe](referencias/reforma-tributaria-nfse.md)
 - PENDENTE DE VALIDAÇÃO: criar `referencias/estrutura-de-pastas.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/tipos-de-retorno.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/exemplos-xml.md`

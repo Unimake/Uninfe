@@ -20,6 +20,7 @@ namespace NFe.ConvertTxt
         public string IM { get; set; }
         public string CNAE { get; set; }
         public TpcnCRT CRT { get; set; }
+        public string ISUFEmit { get; set; }
 
         public Emit()
         {

@@ -38,6 +38,7 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
 
             try
             {
@@ -49,12 +50,13 @@ namespace NFe.Service
                     var xml = new ConsSitNFe();
                     xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsSitNFe>(ConteudoXML);
 
-                    var configuracao = new Configuracao
+                    configuracao = new Configuracao
                     {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = (dadosPedSit.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
                         TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)dadosPedSit.tpEmis,
-                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                        ColetarTelemetriaDisponibilidade = true
                     };
 
                     if (ConfiguracaoApp.Proxy)
@@ -87,6 +89,9 @@ namespace NFe.Service
                     LerRetornoSitNFe(dadosPedSit.chNFe);
 
                     XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
+
+                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
                 }
                 else
                 {
@@ -122,6 +127,9 @@ namespace NFe.Service
                     //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
                     //Wandrey 09/03/2010
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
             }
             finally
             {
@@ -353,6 +361,7 @@ namespace NFe.Service
                     #region Nota fiscal autorizada
 
                     case "100": //Autorizado o uso da NFe
+                    case "120": //Autorizado o uso da NFe, com alerta
                     case "150": //Autorizado o uso da NFe fora do prazo
                         var infConsSitList = retConsSitElemento.GetElementsByTagName("infProt");
                         if (infConsSitList != null)
@@ -373,6 +382,7 @@ namespace NFe.Service
                                 switch (strStat)
                                 {
                                     case "100": //NFe Autorizada
+                                    case "120": //NFe Autorizada com alerta
                                     case "150": //NFe Autorizada fora do prazo
                                         var strProtNfe = retConsSitElemento.GetElementsByTagName("protNFe")[0].OuterXml;
 
@@ -683,6 +693,7 @@ namespace NFe.Service
                 {
                     Auxiliar.WriteLog("TaskNFeConsultaSituacao: Ignorando XML invalido em EmProcessamento durante recuperacao. Arquivo=" + arquivo + ", chave procurada=" + chaveNFe + ", erro=" + ex.GetAllMessages(), true);
                 }
+
             }
 
             return string.Empty;

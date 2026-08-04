@@ -59,12 +59,57 @@
     return "../" + pathValue.split("/").map(encodeURIComponent).join("/");
   }
 
-  function hashFor(pathValue) {
-    return "#/" + pathValue;
+  function safeAnchor(anchorValue) {
+    try {
+      const decoded = decodeURIComponent(String(anchorValue || "").replace(/^#/, ""));
+      return /^[a-zA-Z][a-zA-Z0-9_.:-]*$/.test(decoded) ? decoded : "";
+    } catch (error) {
+      return "";
+    }
   }
 
-  function getHashPath() {
-    return safeDocPath(window.location.hash.replace(/^#\/?/, ""));
+  function docHref(pathValue, anchorValue) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("doc", pathValue);
+    url.hash = safeAnchor(anchorValue);
+    return url.pathname + url.search + url.hash;
+  }
+
+  function getUrlPath() {
+    const params = new URLSearchParams(window.location.search);
+    return safeDocPath(params.get("doc")) || safeDocPath(window.location.hash.replace(/^#\/?/, ""));
+  }
+
+  function getUrlAnchor() {
+    return window.location.hash.startsWith("#/") ? "" : safeAnchor(window.location.hash);
+  }
+
+  function setDocUrl(pathValue, replace, anchorValue) {
+    const href = docHref(pathValue, anchorValue);
+    if (replace) {
+      window.history.replaceState({ path: pathValue, anchor: safeAnchor(anchorValue) }, "", href);
+      return;
+    }
+
+    window.history.pushState({ path: pathValue, anchor: safeAnchor(anchorValue) }, "", href);
+  }
+
+  function navigateTo(pathValue, replace, anchorValue) {
+    const targetPath = safeDocPath(pathValue);
+    const targetAnchor = safeAnchor(anchorValue);
+    if (!targetPath) {
+      return;
+    }
+
+    if (targetPath !== state.currentPath || replace) {
+      setDocUrl(targetPath, replace, targetAnchor);
+      loadDocument(targetPath);
+    } else if (targetAnchor) {
+      setDocUrl(targetPath, replace, targetAnchor);
+      revealAnchor(targetAnchor);
+    }
+
+    closeMobileMenu();
   }
 
   function titleFor(pathValue) {
@@ -89,8 +134,10 @@
       introducao: 10,
       instalacao: 20,
       configuracao: 30,
-      referencias: 40,
-      servicos: 50,
+      contingencia: 40,
+      "erros-e-solucoes": 50,
+      referencias: 60,
+      servicos: 70,
       raiz: 900
     };
 
@@ -99,7 +146,7 @@
     }
 
     if (value.startsWith("servicos/")) {
-      return 60;
+      return 70;
     }
 
     return 800;
@@ -107,6 +154,15 @@
 
   function compareCategories(a, b) {
     return categoryRank(a) - categoryRank(b) || a.localeCompare(b, "pt-BR");
+  }
+
+  function categoryTitle(category) {
+    const titles = {
+      contingencia: "Contingência",
+      "erros-e-solucoes": "Erros e soluções"
+    };
+
+    return titles[normalizeText(category)] || category;
   }
 
   function renderNavigation() {
@@ -119,18 +175,22 @@
 
       const title = document.createElement("h2");
       title.className = "category-title";
-      title.textContent = category;
+      title.textContent = categoryTitle(category);
       section.appendChild(title);
 
       groups[category].forEach((doc) => {
         const link = document.createElement("a");
         const label = document.createElement("span");
         link.className = "nav-link";
-        link.href = hashFor(doc.path);
+        link.href = docHref(doc.path);
         link.dataset.path = doc.path;
         link.title = doc.title;
         label.textContent = doc.title;
         link.appendChild(label);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          navigateTo(doc.path, false);
+        });
         section.appendChild(link);
       });
 
@@ -170,7 +230,7 @@
 
     container.querySelectorAll("a[href]").forEach((link) => {
       const href = link.getAttribute("href");
-      if (!href || href.startsWith("#") || /^[a-z][a-z0-9+.-]*:/i.test(href)) {
+      if (!href || /^[a-z][a-z0-9+.-]*:/i.test(href)) {
         if (/^https?:\/\//i.test(href)) {
           link.target = "_blank";
           link.rel = "noopener noreferrer";
@@ -178,7 +238,21 @@
         return;
       }
 
-      const [filePart] = href.split("#");
+      if (href.startsWith("#")) {
+        const anchor = safeAnchor(href);
+        if (!anchor) {
+          return;
+        }
+
+        link.href = docHref(basePath, anchor);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          navigateTo(basePath, false, anchor);
+        });
+        return;
+      }
+
+      const [filePart, anchorPart] = href.split("#", 2);
       if (!filePart.toLowerCase().endsWith(".md")) {
         return;
       }
@@ -188,12 +262,51 @@
         return;
       }
 
-      link.href = hashFor(normalized);
+      const anchor = safeAnchor(anchorPart);
+      link.href = docHref(normalized, anchor);
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        window.location.hash = hashFor(normalized);
+        navigateTo(normalized, false, anchor);
       });
     });
+  }
+
+  function prepareDirectLinks(container) {
+    container.querySelectorAll("details[id]").forEach((details) => {
+      const anchor = safeAnchor(details.id);
+      const summary = details.querySelector(":scope > summary");
+      if (!anchor || !summary) {
+        return;
+      }
+
+      summary.title = "Clique para abrir ou fechar. Ao abrir, o link deste item fica na URL.";
+      details.addEventListener("toggle", () => {
+        if (details.open) {
+          setDocUrl(state.currentPath, true, anchor);
+        } else if (getUrlAnchor() === anchor) {
+          setDocUrl(state.currentPath, true, "");
+        }
+      });
+    });
+  }
+
+  function revealAnchor(anchorValue) {
+    const anchor = safeAnchor(anchorValue);
+    if (!anchor) {
+      return;
+    }
+
+    const target = document.getElementById(anchor);
+    if (!target || !elements.content.contains(target)) {
+      return;
+    }
+
+    const details = target.matches("details") ? target : target.closest("details");
+    if (details) {
+      details.open = true;
+    }
+
+    target.scrollIntoView({ block: "start" });
   }
 
   function normalizeRelativePath(parts) {
@@ -278,10 +391,12 @@
 
       elements.content.innerHTML = cleanHtml;
       rewriteMarkdownLinks(elements.content, targetPath);
+      prepareDirectLinks(elements.content);
       prepareMermaid(elements.content);
       await renderMermaid();
       setStatus("", false);
       elements.content.focus({ preventScroll: true });
+      revealAnchor(getUrlAnchor());
       document.title = titleFor(targetPath) + " - Documentacao UniNFe";
     } catch (error) {
       elements.content.innerHTML = "";
@@ -364,8 +479,13 @@
     results.forEach((doc) => {
       const link = document.createElement("a");
       link.className = "result-link";
-      link.href = hashFor(doc.path);
+      link.href = docHref(doc.path);
       link.innerHTML = `<strong>${escapeHtml(doc.title)}</strong><span>${escapeHtml(doc.category)}</span><small>${escapeHtml(snippet(doc.text, term))}</small>`;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        elements.searchResults.hidden = true;
+        navigateTo(doc.path, false);
+      });
       elements.searchResults.appendChild(link);
     });
   }
@@ -402,16 +522,16 @@
       setStatus("O indice de busca nao foi carregado. A navegacao continua disponivel, mas a pesquisa pode nao funcionar.", true);
     }
 
-    const initialPath = getHashPath() || defaultDocumentPath();
-    if (initialPath && !getHashPath()) {
-      window.history.replaceState(null, "", hashFor(initialPath));
+    const initialPath = getUrlPath() || defaultDocumentPath();
+    if (initialPath) {
+      setDocUrl(initialPath, true, getUrlAnchor());
     }
 
     await loadDocument(initialPath);
   }
 
-  window.addEventListener("hashchange", () => {
-    loadDocument(getHashPath());
+  window.addEventListener("popstate", () => {
+    loadDocument(getUrlPath());
     closeMobileMenu();
   });
 
