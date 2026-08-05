@@ -163,7 +163,6 @@
 		<infCTeSupl>
 			<qrCodCTe>http://www.fazenda.pr.gov.br/cte/qrcode?chCTe=99999999999999999999999999999999999999999999&amp;tpAmb=1</qrCodCTe>
 		</infCTeSupl>
-		
 	</CTe>
 	<protCTe versao="4.00" xmlns="http://www.portalfiscal.inf.br/cte">
 		<infProt>

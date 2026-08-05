@@ -64,7 +64,7 @@
 		<det nItem="1">
 			<prod>
 				<cProd>01041</cProd>
-				<cEAN />
+				<cEAN/>
 				<xProd>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd>
 				<NCM>84714900</NCM>
 				<CFOP>6101</CFOP>
@@ -72,7 +72,7 @@
 				<qCom>1</qCom>
 				<vUnCom>94.9000000000</vUnCom>
 				<vProd>94.90</vProd>
-				<cEANTrib />
+				<cEANTrib/>
 				<uTrib>LU</uTrib>
 				<qTrib>1</qTrib>
 				<vUnTrib>94.9000000000</vUnTrib>
