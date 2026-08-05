@@ -165,6 +165,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Referencias](referencias/)
 - [Apoio e Suporte](referencias/apoio-e-suporte.md)
 - [Menu principal](referencias/menu-principal.md)
+- [Notas técnicas e notícias para desenvolvedores](referencias/notas-tecnicas-e-noticias-para-desenvolvedores.md)
 - [Tela Log](referencias/tela-log.md)
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)
