@@ -164,7 +164,7 @@ Campos principais:
 2. O UniNFe identifica o XML como solicitação do uMessenger.
 3. O UniNFe lê o XML e aplica as configurações da empresa, incluindo ambiente, UF, preparação TLS, AppID e Secret do uMessenger.
 4. A solicitação é enviada ao serviço do uMessenger.
-5. O retorno é gravado como `<identificador>-ret-mb.xml` na pasta de retorno.
+5. O retorno devolvido pelo serviço é gravado como `<identificador>-ret-mb.xml` na pasta de retorno. O UniNFe inclui `UniNFeVersao` em cada grupo `Mensagem` ou diretamente em `uMessengerResponse` quando o retorno não possui esse grupo.
 6. Se ocorrer falha local antes ou durante o envio, o UniNFe grava `<identificador>-ret-mb.xml` com status de erro.
 7. O arquivo de solicitação é removido da pasta de envio após o processamento.
 
@@ -203,16 +203,23 @@ O ERP deve monitorar a pasta de retorno e aguardar:
 <identificador>-ret-mb.xml
 ```
 
-O retorno usa a raiz `uMessengerResponse` e contém um ou mais grupos `Mensagem`. Em cada mensagem, analise principalmente:
+O retorno usa a raiz `uMessengerResponse` e pode apresentar os dados de duas formas:
+
+- Em um ou mais grupos `Mensagem`, como ocorre no retorno de mensagens de texto.
+- Diretamente na raiz `uMessengerResponse`, como pode ocorrer nas notificações de boleto e PIX.
+
+O ERP deve aceitar os dois formatos e procurar os campos no grupo `Mensagem` ou diretamente na raiz, conforme o XML recebido.
+
+Campos principais:
 
 | Campo | Significado |
 |---|---|
-| `Mensagem/@Id` | Identificador da mensagem, quando informado no pedido. |
+| `Mensagem/@Id` | Identificador da mensagem, quando o retorno possui o grupo `Mensagem` e o identificador foi informado no pedido. |
 | `Status` | Código de status do envio. |
 | `Motivo` | Descrição do resultado. |
 | `messageID` | Identificador retornado para a mensagem enviada com sucesso. |
-| `TraceId` | Identificador técnico retornado em algumas falhas. |
-| `UniNFeVersao` | Versão do UniNFe que gerou o retorno. |
+| `TraceId` | Identificador técnico incluído quando uma falha fornece esse dado. |
+| `UniNFeVersao` | Versão do UniNFe que gravou o retorno. Fica dentro de cada `Mensagem` ou diretamente em `uMessengerResponse`. |
 
 Exemplo de retorno:
 
@@ -228,7 +235,19 @@ Exemplo de retorno:
 </uMessengerResponse>
 ```
 
-Quando ocorrer falha local, o UniNFe grava o mesmo arquivo de retorno `-ret-mb.xml`, informando o status e o motivo do erro. O serviço não usa arquivo `.err` próprio para este contrato.
+Exemplo de retorno sem o grupo `Mensagem`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<uMessengerResponse>
+  <Status>1</Status>
+  <Motivo>Mensagem enviada com sucesso.</Motivo>
+  <messageID>wamid.HBgMNTU0NDQwMDAwMDAwFQIAERgSQUJDREVGRw==</messageID>
+  <UniNFeVersao>5.1.0.138 | 07-04-2025 - 14:02:13</UniNFeVersao>
+</uMessengerResponse>
+```
+
+Quando ocorrer falha local, o UniNFe grava o mesmo arquivo de retorno `-ret-mb.xml`, com um grupo `Mensagem` que informa o status e o motivo do erro. Se a falha fornecer um identificador de rastreamento, o retorno também contém `TraceId`. O serviço não usa arquivo `.err` próprio para este contrato.
 
 ## Erros locais
 
@@ -256,4 +275,6 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-mb.xml`
 - Use `BilletNotification` para notificações de boleto.
 - Use `PIXNotification` para notificações de PIX.
 - Guarde o `messageID` retornado quando a mensagem for enviada com sucesso.
+- Não dependa exclusivamente da existência do grupo `Mensagem`; leia também os campos diretamente em `uMessengerResponse` quando esse grupo não estiver presente.
+- Registre o `TraceId` junto com o erro quando ele for retornado, pois esse identificador auxilia o rastreamento da falha.
 - Em retornos de erro, corrija a causa indicada em `Motivo` antes de reenviar a solicitação.
