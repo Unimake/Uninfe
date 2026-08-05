@@ -239,8 +239,6 @@
 				<infCpl>XXXXXXXX CX:[1] -XXXXXXXXXXXXXXX);[9999] -XXXXXXXXXXXXXXXXXXXX (RT 99)-(XXXX-XXX);XXXXXXXXX:[XXXXXXX];0;0</infCpl>
 			</infAdic>
 		</infNFe>
-		
-		
 	</NFe>
 	<protNFe versao="4.00" xmlns="http://www.portalfiscal.inf.br/nfe">
 		<infProt Id="ID999999999999999">

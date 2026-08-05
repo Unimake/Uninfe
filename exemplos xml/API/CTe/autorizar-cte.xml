@@ -40,7 +40,7 @@
 			<gCompraGov>
 				<tpEnteGov>1</tpEnteGov>
 				<pRedutor>1.0000</pRedutor>
-			</gCompraGov>		
+			</gCompraGov>
 		</ide>
 		<compl>
 			<xCaracAd>xCaracAd1</xCaracAd>
@@ -296,7 +296,7 @@
 					</GCBSCredPres>
 				</gIBSCBS>
 			</IBSCBS>
-			<vTotDFe>1.00</vTotDFe>		
+			<vTotDFe>1.00</vTotDFe>
 		</imp>
 		<infCTeNorm>
 			<infCarga>

@@ -178,7 +178,6 @@
 				<infAdFisco>Valor do frete: R$0.01|GTA: U-555973|O requerente deverá informar os dados do transportador no verso da NFA. Caso o transporte seja realizado por pessoa física/jurídica não inscrita no cadastro de contribuintes de Minas Gerais, esta Nota Fiscal deverá estar acompanhada do comprovante de recolhimento do ICMS sobre o transporte, se devido. Tipo de Emissão: Normal</infAdFisco>
 			</infAdic>
 		</infNFe>
-		
 	</NFe>
 	<protNFe versao="4.00" xmlns="http://www.portalfiscal.inf.br/nfe">
 		<infProt>

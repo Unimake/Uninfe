@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <eventoDCe versao="1.00" xmlns="http://www.portalfiscal.inf.br/dce">
-  <infEvento Id="ID9999999999999999999999999999999999999999999999999999999">
-    <cOrgao>35</cOrgao>
-    <tpAmb>2</tpAmb>
-    <tpEmit>2</tpEmit>
-    <CNPJAutor>99999999999999</CNPJAutor>
-    <CNPJUsEmit>99999999999999</CNPJUsEmit>
-    <chDCe>99999999999999999999999999999999999999999999</chDCe>
-    <dhEvento>2026-05-04T10:02:00-03:00</dhEvento>
-    <tpEvento>110111</tpEvento>
-    <nSeqEvento>1</nSeqEvento>
-    <detEvento versaoEvento="1.00">
-      <evCancDCe>
-        <descEvento>Cancelamento</descEvento>
-        <nProt>9999999999999999</nProt>
-        <xJust>TEXTO DE EXEMPLO</xJust>
-      </evCancDCe>
-    </detEvento>
-  </infEvento>
+	<infEvento Id="ID9999999999999999999999999999999999999999999999999999999">
+		<cOrgao>35</cOrgao>
+		<tpAmb>2</tpAmb>
+		<tpEmit>2</tpEmit>
+		<CNPJAutor>99999999999999</CNPJAutor>
+		<CNPJUsEmit>99999999999999</CNPJUsEmit>
+		<chDCe>99999999999999999999999999999999999999999999</chDCe>
+		<dhEvento>2026-05-04T10:02:00-03:00</dhEvento>
+		<tpEvento>110111</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="1.00">
+			<evCancDCe>
+				<descEvento>Cancelamento</descEvento>
+				<nProt>9999999999999999</nProt>
+				<xJust>TEXTO DE EXEMPLO</xJust>
+			</evCancDCe>
+		</detEvento>
+	</infEvento>
 </eventoDCe>

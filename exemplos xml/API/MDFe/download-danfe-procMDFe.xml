@@ -167,7 +167,6 @@
 		<infMDFeSupl>
 			<qrCodMDFe>https://dfe-portal.svrs.rs.gov.br/mdfe/QRCode?chMDFe=99999999999999999999999999999999999999999999&amp;tpAmb=1</qrCodMDFe>
 		</infMDFeSupl>
-		
 	</MDFe>
 	<protMDFe versao="3.00" xmlns="http://www.portalfiscal.inf.br/mdfe">
 		<infProt Id="MDFe999999999999999">
