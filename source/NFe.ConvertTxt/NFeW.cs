@@ -3208,15 +3208,15 @@ namespace NFe.ConvertTxt
                 nodeCurrent = ELide;
             }
 
-            if (Nfe.ide.gPagAntecipado.refDFe.Count > 0)
+            if (Nfe.ide.gPagAntecipado.refNFe.Count > 0)
             {
                 XmlElement eGPagAntecipado = doc.CreateElement(TpcnResources.gPagAntecipado.ToString());
                 ELide.AppendChild(eGPagAntecipado);
                 nodeCurrent = eGPagAntecipado;
 
-                foreach (var item in Nfe.ide.gPagAntecipado.refDFe)
+                foreach (var item in Nfe.ide.gPagAntecipado.refNFe)
                 {
-                    wCampo(item, TpcnTipoCampo.tcStr, TpcnResources.refDFe, ObOp.Obrigatorio);
+                    wCampo(item, TpcnTipoCampo.tcStr, TpcnResources.refNFe, ObOp.Obrigatorio);
                 }
             }
 

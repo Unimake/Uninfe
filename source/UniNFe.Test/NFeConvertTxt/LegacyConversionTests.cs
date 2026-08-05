@@ -1,5 +1,9 @@
+using System;
+using System.Collections;
 using System.IO;
+using System.Reflection;
 using System.Xml;
+using NFe.ConvertTxt;
 using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
@@ -47,6 +51,27 @@ namespace UniNFe.Test.NFeConvertTxt
                     Assert.Equal("4.00", infNFe.GetAttribute("versao"));
                 }
             }
+        }
+
+        [Fact]
+        public void PagamentoAntecipadoDeveUsarRefNFeNoLayoutENoXml()
+        {
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "RTC", "NFe_Reforma_Tributaria-nfe.txt");
+
+            using (var resultado = fixture.Converter(arquivo))
+            {
+                Assert.True(resultado.Sucesso, resultado.MensagemErro);
+                var xml = new XmlDocument();
+                xml.Load(Assert.Single(resultado.Arquivos).Caminho);
+
+                Assert.Equal(3, xml.SelectNodes("//*[local-name()='gPagAntecipado']/*[local-name()='refNFe']").Count);
+                Assert.Null(xml.SelectSingleNode("//*[local-name()='gPagAntecipado']/*[local-name()='refDFe']"));
+            }
+
+            var tipoCatalogo = typeof(ConversaoTXT).Assembly.GetType("NFe.ConvertTxt.NFeTxtLayoutCatalog", true);
+            var criar = tipoCatalogo.GetMethod("Criar", BindingFlags.Static | BindingFlags.NonPublic);
+            var layouts = (IDictionary)criar.Invoke(null, null);
+            Assert.EndsWith("BC01|refNFe|", (string)layouts["BC01"]);
         }
 
         [Fact]
