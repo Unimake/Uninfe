@@ -1,6 +1,6 @@
 ---
 name: uninfe-documentacao
-description: Gerar, revisar, organizar e manter documentacao Markdown do UniNFe de forma incremental. Use quando Codex precisar documentar o UniNFe, documentar um servico, tela/formulario, configuracao, integracao por troca de arquivos, modelos XML, retornos, erros, pastas, FAQ/perguntas frequentes, atualizar indice/catalogo de documentacao, revisar documentacao Markdown existente, ou criar/organizar paginas .md do UniNFe.
+description: Gerar, revisar, organizar e manter documentacao Markdown do UniNFe de forma incremental. Use quando Codex precisar documentar o UniNFe, documentar um servico, tela/formulario, configuracao, integracao por troca de arquivos, modelos XML, retornos, erros, pastas, FAQ/perguntas frequentes, recursos externos para desenvolvedores, atualizar indice/catalogo de documentacao, revisar documentacao Markdown existente, ou criar/organizar paginas .md do UniNFe.
 ---
 
 # UniNFe Documentacao
@@ -81,6 +81,15 @@ Quando houver manuais sobre a Reforma Tributária, mantenha-os em `docs/referenc
 - `reforma-tributaria-nfse.md`, exibido como `Reforma Tributária - NFSe`.
 
 O visualizador cria automaticamente as opções dentro da categoria `referencias` a partir dos arquivos Markdown. Para novos materiais, preserve o prefixo `reforma-tributaria-`, use um título visível no formato `Reforma Tributária - <assunto>`, atualize `docs/referencias/README.md`, `docs/index.md` e `docs/_catalogo-documentacao.md`, e regenere o índice do visualizador.
+
+### Recursos para desenvolvedores
+
+Mantenha em `docs/referencias/notas-tecnicas-e-noticias-para-desenvolvedores.md` os recursos externos usados por desenvolvedores para acompanhar notas técnicas, prazos, mudanças na legislação e novidades das integrações fiscais. A página deve aparecer no menu como `Notas técnicas e notícias para desenvolvedores` e reunir, atualmente:
+
+- a planilha `Notas técnicas e prazos`: `https://docs.google.com/spreadsheets/d/1vW6Gu_joO2mvua4rGjnBQ5LccVUVljvEpUtYin30BFs/edit?usp=sharing`;
+- o canal de WhatsApp `Wandrey Descomplica`: `https://whatsapp.com/channel/0029VaCYoen3gvWRRRbKve40`.
+
+Ao incluir, remover ou substituir um recurso, confirme o nome e a finalidade no destino, preserve uma explicação curta sobre quando usá-lo e deixe claro que decisões fiscais e implementações devem ser validadas nas publicações oficiais do órgão responsável. Atualize também `docs/referencias/README.md`, `docs/index.md` e `docs/_catalogo-documentacao.md`, e regenere `docs/viewer/docs-manifest.json` e `docs/viewer/search-index.json` com `node viewer/build-docs-index.js` a partir da pasta `docs`. Se somente o conteúdo ou o endereço de um recurso mudar, mantenha o mesmo caminho da página para não quebrar links diretos.
 
 ### Diagramas Mermaid
 

@@ -770,8 +770,8 @@ namespace NFe.ConvertTxt
                     break;
 
                 case "BC01":
-                    //layout = BC01|refDFe|
-                    NFe.ide.gPagAntecipado.refDFe.Add(this.LerString(TpcnResources.refDFe, ObOp.Obrigatorio, 44, 44));
+                    //layout = BC01|refNFe|
+                    NFe.ide.gPagAntecipado.refNFe.Add(this.LerString(TpcnResources.refNFe, ObOp.Obrigatorio, 44, 44));
                     break;
             }
         }

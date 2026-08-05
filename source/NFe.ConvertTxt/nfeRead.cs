@@ -1637,9 +1637,9 @@ namespace NFe.ConvertTxt
                 else if (nodeFilho.LocalName.Equals("gPagAntecipado"))
                 {
                     XmlElement gPagAntecipado = nodeFilho as XmlElement;
-                    foreach (XmlNode refDFe in gPagAntecipado.GetElementsByTagName(TpcnResources.refDFe.ToString()))
+                    foreach (XmlNode refNFe in gPagAntecipado.GetElementsByTagName(TpcnResources.refNFe.ToString()))
                     {
-                        nfe.ide.gPagAntecipado.refDFe.Add(refDFe.InnerText);
+                        nfe.ide.gPagAntecipado.refNFe.Add(refNFe.InnerText);
                     }
                 }
             }

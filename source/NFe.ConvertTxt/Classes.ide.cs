@@ -149,6 +149,6 @@ namespace NFe.ConvertTxt
 
     public class GPagAntecipado
     {
-        public List<string> refDFe { get; set; } = new List<string>();
+        public List<string> refNFe { get; set; } = new List<string>();
     }
 }

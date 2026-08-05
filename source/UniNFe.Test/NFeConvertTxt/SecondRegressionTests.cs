@@ -29,6 +29,8 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("20819_22716895000289_1_382026-nfe.txt")]
         [InlineData("2140_01955703000136_4_8_2026-nfe-orig.txt")]
         [InlineData("000071619_37870375000112_001_03_08_2026-nfe-orig.txt")]
+        [InlineData("58_78789542000182_4_8_2026-nfe-orig.txt")]
+        [InlineData("000001_01_01_05_08_2026-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -96,6 +98,16 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarIcms90PisECofinsOutros(legado);
                         ValidarIcms90PisECofinsOutros(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "58_78789542000182_4_8_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarReducaoZeradaDoIcms51(legado);
+                        ValidarReducaoZeradaDoIcms51(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "000001_01_01_05_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarNfceEmContingencia(legado);
+                        ValidarNfceEmContingencia(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -195,6 +207,19 @@ namespace UniNFe.Test.NFeConvertTxt
                 "0443351392",
                 "CENTERKASA COMERCIAL LTDA",
                 "NOVA ROCHA IND TINTAS LTDA",
+                "CIARIN COMERCIO E INDUSTRIA DE ARTIGOS P/ SELARIA LTDA",
+                "CIARIN METAIS",
+                "AGROPECUARIA GALPAO DO BOIADEIRO LTDA EPP",
+                "SUDOESTE TRANSPORTES LTDA",
+                "RUA EZIDIO BALLADELLI",
+                "RUA SALDANHA MARINHO",
+                "RUA ALMERINDA SILVEIRA COELHO",
+                "8330316005",
+                "9012364374",
+                "01468972000178",
+                "02343801000851",
+                "4433513934",
+                "236235023",
                 "devolucoes@leinertex.com.br",
                 "AV ANAPOLIS",
                 "AV JATAI",
@@ -301,6 +326,38 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("49", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='CST']")?.InnerText);
             Assert.Equal("7.6000", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='pCOFINS']")?.InnerText);
             Assert.Equal("11.15", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='prod']/*[local-name()='vOutro']")?.InnerText);
+        }
+
+        private static void ValidarReducaoZeradaDoIcms51(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var grupos = xml.SelectNodes("//*[local-name()='ICMS51']");
+
+            Assert.Equal(30, grupos.Count);
+            foreach (XmlNode grupo in grupos)
+            {
+                Assert.Equal("0.0000", grupo.SelectSingleNode("*[local-name()='pRedBC']")?.InnerText);
+            }
+            Assert.Equal("5801.49", xml.SelectSingleNode("//*[local-name()='IBSCBSTot']/*[local-name()='vBCIBSCBS']")?.InnerText);
+            Assert.Equal("5.80", xml.SelectSingleNode("//*[local-name()='IBSCBSTot']/*[local-name()='gIBS']/*[local-name()='vIBS']")?.InnerText);
+            Assert.Equal("52.21", xml.SelectSingleNode("//*[local-name()='IBSCBSTot']/*[local-name()='gCBS']/*[local-name()='vCBS']")?.InnerText);
+        }
+
+        private static void ValidarNfceEmContingencia(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+
+            Assert.Equal("65", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='mod']")?.InnerText);
+            Assert.Equal("6", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='tpEmis']")?.InnerText);
+            Assert.Equal("2026-08-05T13:00:00-03:00", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='dhCont']")?.InnerText);
+            Assert.Equal("SEFAZ SP FORA DO AR", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='xJust']")?.InnerText);
+            Assert.Equal("102", xml.SelectSingleNode("//*[local-name()='ICMSSN102']/*[local-name()='CSOSN']")?.InnerText);
+            Assert.Equal("99", xml.SelectSingleNode("//*[local-name()='PISOutr']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("99", xml.SelectSingleNode("//*[local-name()='COFINSOutr']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("232.30", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
+            Assert.Equal("232.30", xml.SelectSingleNode("//*[local-name()='total']/*[local-name()='vNFTot']")?.InnerText);
         }
     }
 }

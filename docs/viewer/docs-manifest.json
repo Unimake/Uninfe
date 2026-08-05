@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T14:12:00.175Z",
+  "generatedAt": "2026-08-05T14:15:05.867Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -83,6 +83,12 @@
       "id": "referencias-menu-principal-md",
       "title": "Menu Principal",
       "path": "referencias/menu-principal.md",
+      "category": "referencias"
+    },
+    {
+      "id": "referencias-notas-tecnicas-e-noticias-para-desenvolvedores-md",
+      "title": "Notas técnicas e notícias para desenvolvedores",
+      "path": "referencias/notas-tecnicas-e-noticias-para-desenvolvedores.md",
       "category": "referencias"
     },
     {
