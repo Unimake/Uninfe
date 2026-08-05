@@ -204,3 +204,165 @@ Consulte também:
 - [DFe - Distribuição de CT-e](../servicos/dfe/distribuicao-dfe-cte.md)
 
 </details>
+
+<details id="faq-retencao-pis-cofins-csll-nfse-sp-layout-2">
+<summary><strong>Como informar a retenção de PIS, COFINS e CSLL na NFS-e de São Paulo no layout 2 sem reduzir o valor do serviço?</strong></summary>
+
+O **valor total do serviço permanece sendo o valor contratado**. As retenções de PIS, COFINS e CSLL não reduzem esse valor no XML: elas reduzem somente o valor financeiro pago diretamente pelo tomador ao prestador.
+
+No exemplo de um serviço contratado por **R$ 435,00**, o cálculo fica assim:
+
+| Informação | Alíquota | Valor |
+|---|---:|---:|
+| Valor contratado da NFS-e | — | **R$ 435,00** |
+| PIS retido | 0,65% | R$ 2,83 |
+| COFINS retida | 3,00% | R$ 13,05 |
+| CSLL retida | 1,00% | R$ 4,35 |
+| **Total das retenções** | **4,65%** | **R$ 20,23** |
+| **Valor líquido a pagar** | — | **R$ 414,77** |
+
+> **Atenção:** a soma das alíquotas é **4,65%**, e não 4,35%.
+
+### Por que a NFS-e continua com o valor de R$ 435,00?
+
+A retenção funciona como uma divisão do pagamento:
+
+```text
+R$ 414,77  pagos diretamente ao prestador
+R$  20,23  retidos e recolhidos pelo tomador
+----------
+R$ 435,00  valor total do serviço contratado
+```
+
+Portanto, o prestador continua faturando **R$ 435,00**. A diferença é que ele recebe **R$ 414,77** diretamente do cliente, enquanto **R$ 20,23** são retidos pelo tomador para o recolhimento tributário correspondente.
+
+O valor líquido não deve substituir o valor bruto do serviço no XML. Primeiro existe o valor contratado; depois, as retenções são calculadas sobre ele e descontadas apenas do pagamento.
+
+### Qual tag representa o valor do serviço no layout 2?
+
+No layout 2 da Prefeitura de São Paulo não existe mais a tag `ValorServicos`. O manual orienta utilizar `ValorInicialCobrado` **ou** `ValorFinalCobrado`:
+
+> “O campo `<ValorServicos>` não existe na versão 2. Utilizar o valor do elemento `<ValorInicialCobrado>` ou `<ValorFinalCobrado>`.”
+
+Essas tags formam uma escolha no leiaute: deve ser informada **uma ou outra**, e não as duas.
+
+- `ValorInicialCobrado`: use quando o valor informado representa o preço antes dos tributos que serão acrescentados.
+- `ValorFinalCobrado`: use quando o valor informado já representa o total final contratado, incluindo os tributos que compõem o preço.
+
+Se **R$ 435,00** é o preço final definido no contrato e exibido na nota, o preenchimento coerente é:
+
+```xml
+<ValorFinalCobrado>435.00</ValorFinalCobrado>
+```
+
+Não informe o valor líquido como se fosse o valor do serviço:
+
+```xml
+<!-- Incorreto para este cenário -->
+<ValorFinalCobrado>414.77</ValorFinalCobrado>
+```
+
+Isso confundiria o **valor do serviço** com o **valor líquido do pagamento**.
+
+Mesmo quando a formação contratual do preço exigir `ValorInicialCobrado`, a retenção não transforma R$ 435,00 em R$ 414,77. A escolha entre valor inicial e valor final está ligada à formação do preço e ao cálculo dos tributos, não ao desconto financeiro das retenções.
+
+### Como informar PIS, COFINS e CSLL no XML?
+
+Desde **14/05/2026**, a Prefeitura de São Paulo determina a seguinte sistemática para os leiautes 1 e 2:
+
+- `ValorPIS`: valor total do PIS sobre a operação;
+- `ValorCOFINS`: valor total da COFINS sobre a operação;
+- `ValorCSLL`: apesar do nome da tag, recebe a **soma dos valores retidos de PIS, COFINS e CSLL** na emissão via Web Service;
+- `RetencaoPisCofins`: identifica quais contribuições foram retidas.
+
+Como as três contribuições foram retidas no exemplo, utilize:
+
+```xml
+<RetencaoPisCofins>3</RetencaoPisCofins>
+```
+
+O código `3` significa *PIS, COFINS e CSLL retidos*.
+
+Consulte a orientação oficial da Prefeitura: [Alteração na emissão de NFS-e: nova sistemática de indicação de tributos federais nos leiautes 1 e 2](https://notadomilhao.sf.prefeitura.sp.gov.br/noticias/alteracao-na-emissao-de-nfs-e-nova-sistematica-de-indicacao-de-tributos-federais-nos-leiautes-1-e-2/). Para conferir a versão mais recente do leiaute, consulte também os [manuais da Nota Fiscal Paulistana](https://notadomilhao.sf.prefeitura.sp.gov.br/manuais/).
+
+### Exemplo de fragmento XML
+
+O trecho abaixo considera que:
+
+- R$ 435,00 é o preço final contratado;
+- PIS, COFINS e CSLL estão sujeitos à retenção;
+- não há INSS, IR, multa, juros nem deduções legais;
+- as alíquotas são 0,65% de PIS, 3,00% de COFINS e 1,00% de CSLL.
+
+```xml
+<RPS>
+    <Assinatura>ASSINATURA_DO_RPS</Assinatura>
+
+    <ChaveRPS>
+        <InscricaoPrestador>INSCRICAO_MUNICIPAL</InscricaoPrestador>
+        <SerieRPS>SERIE</SerieRPS>
+        <NumeroRPS>NUMERO</NumeroRPS>
+    </ChaveRPS>
+
+    <TipoRPS>RPS</TipoRPS>
+    <DataEmissao>2026-08-05</DataEmissao>
+    <StatusRPS>N</StatusRPS>
+    <TributacaoRPS>T</TributacaoRPS>
+
+    <!-- A retenção não é uma dedução do valor do serviço. -->
+    <ValorDeducoes>0.00</ValorDeducoes>
+
+    <!-- Valores totais sobre a operação. -->
+    <ValorPIS>2.83</ValorPIS>
+    <ValorCOFINS>13.05</ValorCOFINS>
+    <ValorINSS>0.00</ValorINSS>
+    <ValorIR>0.00</ValorIR>
+
+    <!-- PIS 2,83 + COFINS 13,05 + CSLL 4,35 = 20,23. -->
+    <ValorCSLL>20.23</ValorCSLL>
+
+    <CodigoServico>CODIGO_SERVICO_SP</CodigoServico>
+    <AliquotaServicos>ALIQUOTA_ISS</AliquotaServicos>
+    <ISSRetido>false</ISSRetido>
+
+    <!-- Demais dados do tomador e do serviço. -->
+
+    <!-- Valor total contratado, antes das retenções. -->
+    <ValorFinalCobrado>435.00</ValorFinalCobrado>
+
+    <!-- Código 3: PIS, COFINS e CSLL retidos. -->
+    <RetencaoPisCofins>3</RetencaoPisCofins>
+
+    <!-- Demais campos obrigatórios do layout 2:
+         NBS, local da prestação, IBS/CBS etc. -->
+</RPS>
+```
+
+Esse é um **fragmento demonstrativo**. Para validá-lo contra o XSD, complete o documento conforme a versão vigente do leiaute, respeite a ordem dos elementos e informe os dados reais do prestador, do tomador, do serviço, da NBS, do local da prestação, do IBS/CBS, da discriminação e da assinatura.
+
+### O que deve aparecer na impressão?
+
+O resultado conceitualmente correto é:
+
+| Informação | Valor |
+|---|---:|
+| Valor total do serviço/NFS-e | **R$ 435,00** |
+| Contribuições sociais retidas | **R$ 20,23** |
+| Valor líquido a receber | **R$ 414,77** |
+
+A Prefeitura também informou que o espelho da NFS-e foi alterado para apresentar os campos **Contribuições Sociais – Retidas** e **Descrição Contribuições Sociais – Retidas**.
+
+### Resumo do preenchimento
+
+```text
+Valor do serviço/valor final cobrado: R$ 435,00
+Valor das deduções:                  R$   0,00
+Contribuições sociais retidas:       R$  20,23
+Valor líquido do pagamento:          R$ 414,77
+```
+
+Portanto, **não envie R$ 414,77 como valor total do serviço**. Esse é apenas o valor líquido restante depois das retenções.
+
+> **Ressalva fiscal:** confirme com o contador ou com o setor fiscal se PIS, COFINS e CSLL realmente devem ser retidos para o prestador, o tomador e o serviço envolvidos. O exemplo demonstra o preenchimento quando a retenção total de 4,65% já foi corretamente determinada.
+
+</details>

@@ -68,6 +68,8 @@ http://localhost:8080/viewer/?doc=referencias/perguntas-frequentes.md#faq-dfe-pa
 
 Ao abrir esse endereço, o visualizador expande a pergunta indicada. Ao clicar para abrir uma pergunta identificada, o fragmento correspondente também é colocado na URL, permitindo copiar o link diretamente do navegador.
 
+As perguntas do FAQ funcionam como um acordeão: ao abrir uma pergunta, outra pergunta que esteja aberta na mesma página é fechada automaticamente. O mesmo comportamento é aplicado aos blocos expansíveis de erros e soluções. A pergunta ou o erro indicado por um link direto permanece como o único item aberto após o carregamento da página.
+
 Os blocos expansíveis da seção de erros e soluções usam o mesmo recurso, com identificadores iniciados por `erro-`. Exemplo:
 
 ```text

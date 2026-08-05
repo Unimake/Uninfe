@@ -279,15 +279,33 @@
         return;
       }
 
-      summary.title = "Clique para abrir ou fechar. Ao abrir, o link deste item fica na URL.";
+      const isExclusive = details.matches('details[id^="faq-"], details[id^="erro-"]');
+      summary.title = isExclusive
+        ? "Clique para abrir. As demais respostas desta página serão fechadas."
+        : "Clique para abrir ou fechar. Ao abrir, o link deste item fica na URL.";
       details.addEventListener("toggle", () => {
         if (details.open) {
+          closeOtherExclusiveDetails(container, details);
           setDocUrl(state.currentPath, true, anchor);
         } else if (getUrlAnchor() === anchor) {
           setDocUrl(state.currentPath, true, "");
         }
       });
     });
+  }
+
+  function closeOtherExclusiveDetails(container, currentDetails) {
+    if (!currentDetails.matches('details[id^="faq-"], details[id^="erro-"]')) {
+      return;
+    }
+
+    container
+      .querySelectorAll('details[open][id^="faq-"], details[open][id^="erro-"]')
+      .forEach((details) => {
+        if (details !== currentDetails) {
+          details.open = false;
+        }
+      });
   }
 
   function revealAnchor(anchorValue) {
@@ -303,6 +321,7 @@
 
     const details = target.matches("details") ? target : target.closest("details");
     if (details) {
+      closeOtherExclusiveDetails(elements.content, details);
       details.open = true;
     }
 

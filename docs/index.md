@@ -170,6 +170,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)
 - [Perguntas frequentes](referencias/perguntas-frequentes.md)
+  - [Retenção de PIS, COFINS e CSLL na NFS-e de São Paulo — layout 2](referencias/perguntas-frequentes.md#faq-retencao-pis-cofins-csll-nfse-sp-layout-2)
 - [Reforma Tributária - NFe/NFCe](referencias/reforma-tributaria-nfe-nfce.md)
 - [Reforma Tributária - NFSe](referencias/reforma-tributaria-nfse.md)
 - PENDENTE DE VALIDAÇÃO: criar `referencias/estrutura-de-pastas.md`
