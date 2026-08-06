@@ -33,6 +33,9 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000001_01_01_05_08_2026-nfe-orig.txt")]
         [InlineData("08785-NFe.TXT")]
         [InlineData("31260803742159000170550020000003051000234068-NFE-orig.txt")]
+        [InlineData("060218_32336224000165_001_06_08_2026-nfe-orig.txt")]
+        [InlineData("NT60860218.TXT")]
+        [InlineData("27260821287558000170650010001143821778530846-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -120,6 +123,17 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarImpostoImportacaoZeradoEIcms51(legado);
                         ValidarImpostoImportacaoZeradoEIcms51(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "060218_32336224000165_001_06_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(nomeArquivo, "NT60860218.TXT", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarNfceEmContingenciaComImpostos(legado);
+                        ValidarNfceEmContingenciaComImpostos(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "27260821287558000170650010001143821778530846-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcmsSn500EReformaComCamposVazios(legado);
+                        ValidarIcmsSn500EReformaComCamposVazios(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -402,6 +416,46 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.NotNull(icms51);
             Assert.Equal(2, icms51.ChildNodes.Count);
             Assert.Null(icms51.SelectSingleNode("*[local-name()='modBC']"));
+        }
+
+        private static void ValidarNfceEmContingenciaComImpostos(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+
+            Assert.Equal(47, xml.DocumentElement.SelectSingleNode("*[local-name()='infNFe']")?.Attributes["Id"]?.Value.Length);
+            Assert.Equal("65", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='mod']")?.InnerText);
+            Assert.Equal("9", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='tpEmis']")?.InnerText);
+            Assert.Equal("2026-08-06T10:08:59-03:00", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='dhCont']")?.InnerText);
+            Assert.Equal("PROBLEMA DE CONECTIVIDADE PARA TESTE", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='xJust']")?.InnerText);
+            Assert.Equal("25.41", xml.SelectSingleNode("//*[local-name()='ICMS00']/*[local-name()='vICMS']")?.InnerText);
+            Assert.Equal("2.0000", xml.SelectSingleNode("//*[local-name()='ICMS00']/*[local-name()='pFCP']")?.InnerText);
+            Assert.Equal("2.54", xml.SelectSingleNode("//*[local-name()='ICMS00']/*[local-name()='vFCP']")?.InnerText);
+            Assert.Equal("2.10", xml.SelectSingleNode("//*[local-name()='PISAliq']/*[local-name()='vPIS']")?.InnerText);
+            Assert.Equal("9.65", xml.SelectSingleNode("//*[local-name()='COFINSAliq']/*[local-name()='vCOFINS']")?.InnerText);
+            Assert.Equal("127.03", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
+        }
+
+        private static void ValidarIcmsSn500EReformaComCamposVazios(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var icms = xml.SelectSingleNode("//*[local-name()='ICMSSN500']");
+
+            Assert.Equal("NFe27260821287558000170650010001143821800677760", xml.SelectSingleNode("//*[local-name()='infNFe']")?.Attributes["Id"]?.Value);
+            Assert.NotNull(icms);
+            Assert.Equal(2, icms.ChildNodes.Count);
+            Assert.Equal("500", icms.SelectSingleNode("*[local-name()='CSOSN']")?.InnerText);
+            Assert.Equal("06", xml.SelectSingleNode("//*[local-name()='PISNT']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("06", xml.SelectSingleNode("//*[local-name()='COFINSNT']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("000", xml.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("000001", xml.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='cClassTrib']")?.InnerText);
+            Assert.Equal("9.00", xml.SelectSingleNode("//*[local-name()='gIBSCBS']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("0.1000", xml.SelectSingleNode("//*[local-name()='gIBSUF']/*[local-name()='pIBSUF']")?.InnerText);
+            Assert.Equal("0.01", xml.SelectSingleNode("//*[local-name()='gIBSUF']/*[local-name()='vIBSUF']")?.InnerText);
+            Assert.Equal("0.9000", xml.SelectSingleNode("//*[local-name()='gCBS']/*[local-name()='pCBS']")?.InnerText);
+            Assert.Equal("0.08", xml.SelectSingleNode("//*[local-name()='gCBS']/*[local-name()='vCBS']")?.InnerText);
+            Assert.Equal("9.00", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
         }
     }
 }
