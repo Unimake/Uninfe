@@ -36,6 +36,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("060218_32336224000165_001_06_08_2026-nfe-orig.txt")]
         [InlineData("NT60860218.TXT")]
         [InlineData("27260821287558000170650010001143821778530846-nfe-orig.txt")]
+        [InlineData("nfe000077-NFE.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -123,6 +124,8 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarImpostoImportacaoZeradoEIcms51(legado);
                         ValidarImpostoImportacaoZeradoEIcms51(novo);
+                        ValidarPrecisaoDosValoresDoProduto(legado, true);
+                        ValidarPrecisaoDosValoresDoProduto(novo, false);
                     }
                     if (string.Equals(nomeArquivo, "060218_32336224000165_001_06_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase) ||
                         string.Equals(nomeArquivo, "NT60860218.TXT", StringComparison.OrdinalIgnoreCase))
@@ -134,6 +137,11 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarIcmsSn500EReformaComCamposVazios(legado);
                         ValidarIcmsSn500EReformaComCamposVazios(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "nfe000077-NFE.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarDfeReferenciadoPorItem(legado);
+                        ValidarDfeReferenciadoPorItem(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -418,6 +426,20 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Null(icms51.SelectSingleNode("*[local-name()='modBC']"));
         }
 
+        private static void ValidarPrecisaoDosValoresDoProduto(string conteudoXml, bool legado)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var produto = xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='prod']");
+
+            Assert.NotNull(produto);
+            Assert.Equal("22919.6000", produto.SelectSingleNode("*[local-name()='qCom']")?.InnerText);
+            Assert.Equal("22919.6000", produto.SelectSingleNode("*[local-name()='qTrib']")?.InnerText);
+            Assert.Equal(legado ? "14.0463140000" : "14.046314", produto.SelectSingleNode("*[local-name()='vUnCom']")?.InnerText);
+            Assert.Equal(legado ? "14.0463140000" : "14.046314", produto.SelectSingleNode("*[local-name()='vUnTrib']")?.InnerText);
+            Assert.Equal("321935.90", produto.SelectSingleNode("*[local-name()='vProd']")?.InnerText);
+        }
+
         private static void ValidarNfceEmContingenciaComImpostos(string conteudoXml)
         {
             var xml = new XmlDocument();
@@ -456,6 +478,19 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("0.9000", xml.SelectSingleNode("//*[local-name()='gCBS']/*[local-name()='pCBS']")?.InnerText);
             Assert.Equal("0.08", xml.SelectSingleNode("//*[local-name()='gCBS']/*[local-name()='vCBS']")?.InnerText);
             Assert.Equal("9.00", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
+        }
+
+        private static void ValidarDfeReferenciadoPorItem(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var referencias = xml.SelectNodes("//*[local-name()='det']/*[local-name()='DFeReferenciado']");
+
+            Assert.Equal(3, referencias.Count);
+            Assert.Equal("35260796597620000129550010001408741335108850", referencias[0].SelectSingleNode("*[local-name()='chaveAcesso']")?.InnerText);
+            Assert.Equal("991", referencias[0].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
+            Assert.Equal("25", referencias[1].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
+            Assert.Equal("15", referencias[2].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
         }
     }
 }
