@@ -298,7 +298,7 @@ namespace NFe.Service.NFSe
                 case PadraoNFSe.SMARAPD:
                     versaoXML = "2.04";
 
-                    if (codMunicipio == 3506003)
+                    if (codMunicipio == 3506003 || codMunicipio == 3530607)
                     {
                         versaoXML = "1.01";
                     }
