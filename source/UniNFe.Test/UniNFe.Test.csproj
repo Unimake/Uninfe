@@ -70,6 +70,7 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000001_01_01_05_08_2026-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\08785-NFe.TXT" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\31260803742159000170550020000003051000234068-NFE-orig.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\31260803742159000170550020000003051000234068-NFE-orig-v5.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\060218_32336224000165_001_06_08_2026-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\NT60860218.TXT" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\27260821287558000170650010001143821778530846-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />

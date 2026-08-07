@@ -33,6 +33,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000001_01_01_05_08_2026-nfe-orig.txt")]
         [InlineData("08785-NFe.TXT")]
         [InlineData("31260803742159000170550020000003051000234068-NFE-orig.txt")]
+        [InlineData("31260803742159000170550020000003051000234068-NFE-orig-v5.txt")]
         [InlineData("060218_32336224000165_001_06_08_2026-nfe-orig.txt")]
         [InlineData("NT60860218.TXT")]
         [InlineData("27260821287558000170650010001143821778530846-nfe-orig.txt")]
@@ -126,6 +127,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarImpostoImportacaoZeradoEIcms51(novo);
                         ValidarPrecisaoDosValoresDoProduto(legado, true);
                         ValidarPrecisaoDosValoresDoProduto(novo, false);
+                    }
+                    if (string.Equals(nomeArquivo, "31260803742159000170550020000003051000234068-NFE-orig-v5.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcms51ComBasePositiva(legado);
+                        ValidarIcms51ComBasePositiva(novo);
                     }
                     if (string.Equals(nomeArquivo, "060218_32336224000165_001_06_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase) ||
                         string.Equals(nomeArquivo, "NT60860218.TXT", StringComparison.OrdinalIgnoreCase))
@@ -491,6 +497,24 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("991", referencias[0].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
             Assert.Equal("25", referencias[1].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
             Assert.Equal("15", referencias[2].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
+        }
+
+        private static void ValidarIcms51ComBasePositiva(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var icms51 = xml.SelectSingleNode("//*[local-name()='ICMS51']");
+
+            Assert.NotNull(icms51);
+            Assert.Equal(9, icms51.ChildNodes.Count);
+            Assert.Null(icms51.SelectSingleNode("*[local-name()='modBC']"));
+            Assert.Equal("0.0000", icms51.SelectSingleNode("*[local-name()='pRedBC']")?.InnerText);
+            Assert.Equal("398422.66", icms51.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("0.0000", icms51.SelectSingleNode("*[local-name()='pICMS']")?.InnerText);
+            Assert.Equal("0.00", icms51.SelectSingleNode("*[local-name()='vICMSOp']")?.InnerText);
+            Assert.Equal("0.0000", icms51.SelectSingleNode("*[local-name()='pDif']")?.InnerText);
+            Assert.Equal("0.00", icms51.SelectSingleNode("*[local-name()='vICMSDif']")?.InnerText);
+            Assert.Equal("0.00", icms51.SelectSingleNode("*[local-name()='vICMS']")?.InnerText);
         }
     }
 }
