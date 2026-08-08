@@ -292,7 +292,7 @@ namespace NFe.Service
                         //Evento autorizado sem vinculação do evento à respectiva NF-e
                         try
                         {
-                            TFunctions.ExecutaUniDanfe(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
+                            UniDanfe.Executar(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
                         }
                         catch (Exception ex)
                         {

@@ -180,7 +180,7 @@ namespace NFe.Service.NFSe
                     //Disparar UniDANFE
                     try
                     {
-                        TFunctions.ExecutaUniDanfe(pathFile, dhEmi, Empresas.Configuracoes[emp]);
+                        UniDanfe.Executar(pathFile, dhEmi, Empresas.Configuracoes[emp]);
                     }
                     catch (Exception ex)
                     {

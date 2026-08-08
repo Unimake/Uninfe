@@ -133,7 +133,7 @@ namespace NFe.Service.CIOT
             {
                 try
                 {
-                    TFunctions.ExecutaUniDanfe(fullPathCIOTProc, dataProcessamento, Empresas.Configuracoes[emp]);
+                    UniDanfe.Executar(fullPathCIOTProc, dataProcessamento, Empresas.Configuracoes[emp]);
                 }
                 catch (Exception ex)
                 {

@@ -295,7 +295,7 @@ namespace NFe.Service.NFGas
                                             Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
                                             Path.GetFileName(strArquivoNFGasProc);
 
-                                        TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                        UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                     }
                                     catch (Exception ex)
                                     {

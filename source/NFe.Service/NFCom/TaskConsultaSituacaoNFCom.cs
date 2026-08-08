@@ -300,7 +300,7 @@ namespace NFe.Service.NFCom
                                                                         Path.GetFileName(strArquivoNFCom);
 
                                             // TODO: Ajustar a chamada ao UniDANFE quando a NFCom estiver implementada no software, tanto NFCom quanto evento da NFCom
-                                            TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                            UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                         }
                                         catch (Exception ex)
                                         {

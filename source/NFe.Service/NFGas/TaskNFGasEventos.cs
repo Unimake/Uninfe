@@ -120,7 +120,7 @@ namespace NFe.Service
                         //    case 110111: //Cancelamento
                         //        try
                         //        {
-                        //            TFunctions.ExecutaUniDanfe(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
+                        //            UniDanfe.Executar(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
                         //        }     
                         //        catch (Exception ex)
                         //        {

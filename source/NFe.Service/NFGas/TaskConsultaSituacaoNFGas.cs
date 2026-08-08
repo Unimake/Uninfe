@@ -302,7 +302,7 @@ namespace NFe.Service.NFGas
                                                                         Path.GetFileName(strArquivoNFGas);
 
                                             // TODO: Ajustar a chamada ao UniDANFE quando a NFGas estiver implementada no software, tanto NFGas quanto evento da NFGas
-                                            TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                            UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                         }
                                         catch (Exception ex)
                                         {

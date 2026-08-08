@@ -389,7 +389,7 @@ namespace NFe.Service
                                                     Propriedade.ExtRetorno.ProcMDFe;
                                                 try
                                                 {
-                                                    TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                                    UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                                 }
                                                 catch (Exception ex)
                                                 {

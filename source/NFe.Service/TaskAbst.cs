@@ -614,7 +614,7 @@ namespace NFe.Service
             }
             try
             {
-                TFunctions.ExecutaUniDanfe(arqDen, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                UniDanfe.Executar(arqDen, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
             }
             catch (Exception ex)
             {

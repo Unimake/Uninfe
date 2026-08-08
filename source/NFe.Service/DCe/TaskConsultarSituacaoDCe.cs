@@ -300,7 +300,7 @@ namespace NFe.Service.DCe
                                                                         Path.GetFileName(strArquivoDCe);
 
                                             // TODO: Ajustar a chamada ao UniDANFE quando a DCe estiver implementada no software, tanto DCe quanto evento da DCe
-                                            TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                            UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                         }
                                         catch (Exception ex)
                                         {

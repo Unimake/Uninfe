@@ -401,6 +401,7 @@
     <Compile Include="TaskLayouts.cs" />
     <Compile Include="TaskValidar.cs" />
     <Compile Include="TFunctions.cs" />
+    <Compile Include="UniDanfe.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Components.Info\NFe.Components.Info.csproj">

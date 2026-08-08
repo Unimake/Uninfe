@@ -304,7 +304,7 @@ namespace NFe.Service.NF3e
                                                                         Path.GetFileName(strArquivoNF3e);
 
                                             // TODO: Ajustar a chamada ao UniDANFE quando a NF3e estiver implementada no software, tanto NF3e quanto evento da NF3e
-                                            TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                            UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                         }
                                         catch (Exception ex)
                                         {
