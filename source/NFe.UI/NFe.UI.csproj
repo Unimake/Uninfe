@@ -50,7 +50,7 @@
       <HintPath>..\packages\BouncyCastle.Cryptography.2.7.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260805.1141.30\lib\net472\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20260810.1926.31\lib\net472\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.Cryptography, Version=10.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Cryptography.10.0.10\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
@@ -154,8 +154,8 @@
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Release'">
 			<ItemGroup>
-				<Reference Include="Unimake.Business.DFe, Version=2026.8.5.1141, Culture=neutral, processorArchitecture=MSIL">
-				  <HintPath>..\packages\Unimake.DFe.20260805.1141.30\lib\net472\Unimake.Business.DFe.dll</HintPath>
+				<Reference Include="Unimake.Business.DFe, Version=2026.8.10.1926, Culture=neutral, processorArchitecture=MSIL">
+				  <HintPath>..\packages\Unimake.DFe.20260810.1926.31\lib\net472\Unimake.Business.DFe.dll</HintPath>
 				</Reference>
 			</ItemGroup>
 		</When>

@@ -73,7 +73,7 @@
       <HintPath>..\packages\Unimake.EBank.Primitives.20260731.1624.57\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260805.1141.30\lib\net472\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20260810.1926.31\lib\net472\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.6, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.6\lib\net461\itextsharp.dll</HintPath>
@@ -258,8 +258,8 @@
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Release'">
 			<ItemGroup>
-				<Reference Include="Unimake.Business.DFe, Version=2026.8.5.1141, Culture=neutral, processorArchitecture=MSIL">
-				  <HintPath>..\packages\Unimake.DFe.20260805.1141.30\lib\net472\Unimake.Business.DFe.dll</HintPath>
+				<Reference Include="Unimake.Business.DFe, Version=2026.8.10.1926, Culture=neutral, processorArchitecture=MSIL">
+				  <HintPath>..\packages\Unimake.DFe.20260810.1926.31\lib\net472\Unimake.Business.DFe.dll</HintPath>
 				</Reference>
 			</ItemGroup>
 		</When>
