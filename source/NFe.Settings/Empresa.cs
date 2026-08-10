@@ -270,12 +270,13 @@ namespace NFe.Settings
                 }
             }
         }
-        /// <summary>
+        private X509Certificate2 _X509Certificado;
+
+        /// <summary>       
         /// Certificado digital
         /// </summary>
         [System.Xml.Serialization.XmlIgnore()]
         [AttributeTipoAplicacao(TipoAplicativo.Nulo)]
-        private X509Certificate2 _X509Certificado;
         public X509Certificate2 X509Certificado
         {
             get => _X509Certificado;
