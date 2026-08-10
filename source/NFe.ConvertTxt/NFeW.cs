@@ -151,10 +151,16 @@ namespace NFe.ConvertTxt
                 }
             }
             else if (!string.IsNullOrEmpty(NFe.resptecnico.hashCSRT) &&
-                NFe.resptecnico.hashCSRT.Length <= CSRT_MAX_TAMANHO &&
                 !Unimake.Business.DFe.Utility.Converter.IsSHA1Base64(NFe.resptecnico.hashCSRT))
             {
-                NFe.resptecnico.hashCSRT = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(NFe.resptecnico.hashCSRT + cChave);
+                if (NFe.resptecnico.hashCSRT.Length <= CSRT_MAX_TAMANHO)
+                {
+                    NFe.resptecnico.hashCSRT = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(NFe.resptecnico.hashCSRT + cChave);
+                }
+                else if (NFe.resptecnico.hashCSRT.EndsWith(cChave, StringComparison.Ordinal))
+                {
+                    NFe.resptecnico.hashCSRT = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(NFe.resptecnico.hashCSRT);
+                }
             }
 
             ///

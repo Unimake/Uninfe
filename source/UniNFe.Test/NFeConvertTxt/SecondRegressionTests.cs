@@ -38,6 +38,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("NT60860218.TXT")]
         [InlineData("27260821287558000170650010001143821778530846-nfe-orig.txt")]
         [InlineData("41260801182867000178550010001800011567804549-nfe-orig.txt")]
+        [InlineData("41260806225442000112550010002455051903698959-nfe-orig.txt")]
         [InlineData("nfe000077-NFE.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
@@ -149,6 +150,13 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarRastroValorItemEResponsavelTecnico(legado);
                         ValidarRastroValorItemEResponsavelTecnico(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "41260806225442000112550010002455051903698959-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        const string csrt = "CSRTTESTE0123456789012345678";
+                        var esperado = Unimake.Business.DFe.Utility.Converter.CalculateSHA1Hash(csrt + Assert.Single(conversaoNova.Documentos).Chave);
+                        Assert.Equal(esperado, ObterHashCsrt(legado));
+                        Assert.Equal(esperado, ObterHashCsrt(novo));
                     }
                     if (string.Equals(nomeArquivo, "nfe000077-NFE.txt", StringComparison.OrdinalIgnoreCase))
                     {
