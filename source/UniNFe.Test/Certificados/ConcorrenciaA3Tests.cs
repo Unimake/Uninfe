@@ -12,11 +12,25 @@ namespace UniNFe.Test.Certificados
     [Collection("Certificados Serial")]
     public class ConcorrenciaA3Tests : IDisposable
     {
+        private sealed class ProvedorFake : IProvedorCertificadoA3
+        {
+            internal bool EhA3 = true;
+
+            public bool IsA3(X509Certificate2 certificado) => EhA3;
+
+            public void SetPinPrivateKey(X509Certificate2 certificado, string pin)
+            {
+            }
+        }
+
         private readonly List<Empresa> configuracoesAnteriores;
+        private readonly ProvedorFake provedor = new ProvedorFake();
 
         public ConcorrenciaA3Tests()
         {
             configuracoesAnteriores = Empresas.Configuracoes;
+            GerenciadorPinCertificadoA3.ReiniciarParaTestes();
+            GerenciadorPinCertificadoA3.Provedor = provedor;
             Empresas.Configuracoes = new List<Empresa>
             {
                 CriarEmpresa("1111", "AA11"),
@@ -89,9 +103,47 @@ namespace UniNFe.Test.Certificados
             }
         }
 
+        [Fact]
+        public void CertificadosA1ComPinResidualContinuamParalelos()
+        {
+            provedor.EhA3 = false;
+            var executando = 0;
+            var maximo = 0;
+            using (var iniciaram = new CountdownEvent(2))
+            {
+                ThreadItem.ThreadStartHandler inicio = item =>
+                {
+                    var atual = Interlocked.Increment(ref executando);
+                    AtualizarMaximo(ref maximo, atual);
+                    iniciaram.Signal();
+                    iniciaram.Wait(2000);
+                    Interlocked.Decrement(ref executando);
+                };
+
+                ThreadItem.OnStarted += inicio;
+                try
+                {
+                    var thread1 = new Thread(CriarThreadItem(0, "a1-1.xml").Run);
+                    var thread2 = new Thread(CriarThreadItem(1, "a1-2.xml").Run);
+
+                    thread1.Start();
+                    thread2.Start();
+
+                    Assert.True(thread1.Join(3000));
+                    Assert.True(thread2.Join(3000));
+                    Assert.Equal(2, maximo);
+                }
+                finally
+                {
+                    ThreadItem.OnStarted -= inicio;
+                }
+            }
+        }
+
         public void Dispose()
         {
             Empresas.Configuracoes = configuracoesAnteriores;
+            GerenciadorPinCertificadoA3.ReiniciarParaTestes();
         }
 
         private static Empresa CriarEmpresa(string pin, string thumbprint)
@@ -108,6 +160,17 @@ namespace UniNFe.Test.Certificados
         private static ThreadItem CriarThreadItem(int empresa, string nome)
         {
             return new ThreadItem(new FileInfo(Path.Combine(Path.GetTempPath(), nome)), empresa);
+        }
+
+        private static void AtualizarMaximo(ref int maximo, int atual)
+        {
+            int anterior;
+            do
+            {
+                anterior = maximo;
+                if (atual <= anterior) return;
+            }
+            while (Interlocked.CompareExchange(ref maximo, atual, anterior) != anterior);
         }
     }
 }

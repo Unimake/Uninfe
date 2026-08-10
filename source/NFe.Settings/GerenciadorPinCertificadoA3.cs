@@ -30,6 +30,7 @@ namespace NFe.Settings
     {
         public bool Sucesso { get; internal set; }
         public bool TentativaExecutada { get; internal set; }
+        public bool PodeContinuarSemAutomacao { get; internal set; }
         public string Mensagem { get; internal set; }
         public Exception Excecao { get; internal set; }
     }
@@ -58,6 +59,11 @@ namespace NFe.Settings
                 return Falha("Não há PIN de certificado configurado para esta empresa.");
             }
 
+            if (!DeveSerializar(empresa))
+            {
+                return Falha("O certificado atual não foi confirmado como A3. O PIN armazenado não será aplicado.");
+            }
+
             var controle = Controles.GetOrAdd(empresa, _ => new Controle());
             lock (controle.Sincronizacao)
             {
@@ -70,7 +76,7 @@ namespace NFe.Settings
                 if (!tentativaExplicita && controle.Estado == EstadoPinCertificadoA3.Falhou)
                 {
                     empresa.CertificadoPINCarregado = false;
-                    return Falha("O carregamento automático do PIN já falhou nesta configuração. Corrija e valide o PIN na tela de configuração.");
+                    return FalhaAutomacao("O carregamento automático do PIN já falhou nesta configuração e não será repetido.", false, null);
                 }
 
                 try
@@ -82,9 +88,29 @@ namespace NFe.Settings
 
                     if (empresa.X509Certificado == null)
                     {
-                        throw new InvalidOperationException("O certificado configurado não foi localizado.");
+                        return Falha("O certificado configurado não foi localizado.");
                     }
 
+                    if (!empresa.X509Certificado.HasPrivateKey)
+                    {
+                        return Falha("O certificado selecionado não possui uma chave privada disponível.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    empresa.CertificadoPINCarregado = false;
+                    return new ResultadoCarregamentoPinA3
+                    {
+                        Sucesso = false,
+                        TentativaExecutada = false,
+                        PodeContinuarSemAutomacao = false,
+                        Mensagem = "Não foi possível preparar o certificado configurado.",
+                        Excecao = ex
+                    };
+                }
+
+                try
+                {
                     Provedor.SetPinPrivateKey(empresa.X509Certificado, empresa.CertificadoPIN);
                     controle.Estado = EstadoPinCertificadoA3.Carregado;
                     empresa.CertificadoPINCarregado = true;
@@ -95,13 +121,7 @@ namespace NFe.Settings
                 {
                     controle.Estado = EstadoPinCertificadoA3.Falhou;
                     empresa.CertificadoPINCarregado = false;
-                    return new ResultadoCarregamentoPinA3
-                    {
-                        Sucesso = false,
-                        TentativaExecutada = true,
-                        Mensagem = ClassificarFalha(ex),
-                        Excecao = ex
-                    };
+                    return FalhaAutomacao(ClassificarFalha(ex), true, ex);
                 }
             }
         }
@@ -132,7 +152,7 @@ namespace NFe.Settings
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(empresa.CertificadoPIN) || EhA3Conhecido(empresa))
+            if (EhA3Conhecido(empresa))
             {
                 return true;
             }
@@ -189,6 +209,7 @@ namespace NFe.Settings
         {
             Sucesso = true,
             TentativaExecutada = tentou,
+            PodeContinuarSemAutomacao = false,
             Mensagem = string.Empty
         };
 
@@ -196,7 +217,17 @@ namespace NFe.Settings
         {
             Sucesso = false,
             TentativaExecutada = false,
+            PodeContinuarSemAutomacao = false,
             Mensagem = mensagem
+        };
+
+        private static ResultadoCarregamentoPinA3 FalhaAutomacao(string mensagem, bool tentou, Exception excecao) => new ResultadoCarregamentoPinA3
+        {
+            Sucesso = false,
+            TentativaExecutada = tentou,
+            PodeContinuarSemAutomacao = true,
+            Mensagem = mensagem,
+            Excecao = excecao
         };
 
         private static string ClassificarFalha(Exception ex)

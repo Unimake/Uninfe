@@ -1,6 +1,7 @@
 using NFe.Settings;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,9 +16,10 @@ namespace UniNFe.Test.Certificados
         {
             internal int Chamadas;
             internal bool Falhar;
+            internal bool EhA3 = true;
             internal int Espera;
 
-            public bool IsA3(X509Certificate2 certificado) => true;
+            public bool IsA3(X509Certificate2 certificado) => EhA3;
 
             public void SetPinPrivateKey(X509Certificate2 certificado, string pin)
             {
@@ -79,6 +81,8 @@ namespace UniNFe.Test.Certificados
             Assert.False(empresa.CertificadoPINCarregado);
             Assert.Equal(1, provedor.Chamadas);
             Assert.DoesNotContain("1234", primeiro.Mensagem);
+            Assert.True(primeiro.PodeContinuarSemAutomacao);
+            Assert.True(segundo.PodeContinuarSemAutomacao);
         }
 
         [Fact]
@@ -106,7 +110,7 @@ namespace UniNFe.Test.Certificados
             var empresa = CriarEmpresa("1234");
             Assert.True(empresa.CarregarPinCertificadoA3(false).Sucesso);
 
-            empresa.X509Certificado = new X509Certificate2();
+            empresa.X509Certificado = CriarCertificadoComChavePrivada();
 
             Assert.False(empresa.CertificadoPINCarregado);
             Assert.True(empresa.CarregarPinCertificadoA3(false).Sucesso);
@@ -124,6 +128,37 @@ namespace UniNFe.Test.Certificados
             Assert.Equal(0, provedor.Chamadas);
         }
 
+        [Fact]
+        public void PinResidualEmCertificadoA1EhIgnorado()
+        {
+            var provedor = new ProvedorFake { EhA3 = false };
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+
+            var deveSerializar = empresa.DeveSerializarOperacaoA3();
+            var resultado = empresa.CarregarPinCertificadoA3(false);
+
+            Assert.False(deveSerializar);
+            Assert.False(resultado.Sucesso);
+            Assert.False(resultado.PodeContinuarSemAutomacao);
+            Assert.Equal(0, provedor.Chamadas);
+        }
+
+        [Fact]
+        public void CertificadoSemChavePrivadaContinuaSendoFalhaImpeditiva()
+        {
+            var provedor = new ProvedorFake();
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+            empresa.X509Certificado = new X509Certificate2();
+
+            var resultado = empresa.CarregarPinCertificadoA3(false);
+
+            Assert.False(resultado.Sucesso);
+            Assert.False(resultado.PodeContinuarSemAutomacao);
+            Assert.Equal(0, provedor.Chamadas);
+        }
+
         public void Dispose()
         {
             GerenciadorPinCertificadoA3.ReiniciarParaTestes();
@@ -137,8 +172,17 @@ namespace UniNFe.Test.Certificados
                 CertificadoInstalado = true,
                 CertificadoPIN = pin,
                 CertificadoDigitalThumbPrint = "00112233",
-                X509Certificado = new X509Certificate2()
+                X509Certificado = CriarCertificadoComChavePrivada()
             };
+        }
+
+        private static X509Certificate2 CriarCertificadoComChavePrivada()
+        {
+            using (var rsa = RSA.Create(2048))
+            {
+                var requisicao = new CertificateRequest("CN=UniNFe Teste A3", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+                return requisicao.CreateSelfSigned(DateTimeOffset.Now.AddDays(-1), DateTimeOffset.Now.AddDays(1));
+            }
         }
     }
 }

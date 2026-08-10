@@ -62,13 +62,18 @@ namespace NFe.Service
                             var resultadoPin = Empresas.Configuracoes[emp].CarregarPinCertificadoA3(false);
                             if (!resultadoPin.Sucesso)
                             {
-                                var erroPin = new Exception(resultadoPin.Mensagem, resultadoPin.Excecao);
                                 Auxiliar.WriteLog("Falha ao preparar certificado da empresa " +
                                     Empresas.Configuracoes[emp].CNPJ + ", certificado " +
                                     ThumbprintSeguro(Empresas.Configuracoes[emp]) + ", operação " + servico + ". " +
-                                    resultadoPin.Mensagem, true);
-                                GravaErroERP(arquivo, servico, erroPin, ErroPadrao.ErroNaoDetectado);
-                                return;
+                                    resultadoPin.Mensagem +
+                                    (resultadoPin.PodeContinuarSemAutomacao ? " O processamento continuará com a autenticação normal do middleware." : string.Empty), true);
+
+                                if (DeveInterromperProcessamentoPorFalhaPin(resultadoPin))
+                                {
+                                    var erroPin = new Exception(resultadoPin.Mensagem, resultadoPin.Excecao);
+                                    GravaErroERP(arquivo, servico, erroPin, ErroPadrao.ErroNaoDetectado);
+                                    return;
+                                }
                             }
                         }
                     }
@@ -718,8 +723,13 @@ namespace NFe.Service
                 case Servicos.DANFERelatorio:
                     return false;
                 default:
-                    return true;
+                    return empresa.DeveSerializarOperacaoA3();
             }
+        }
+
+        private static bool DeveInterromperProcessamentoPorFalhaPin(ResultadoCarregamentoPinA3 resultado)
+        {
+            return resultado != null && !resultado.Sucesso && !resultado.PodeContinuarSemAutomacao;
         }
 
         private static bool CaminhosIguais(string primeiro, string segundo)
