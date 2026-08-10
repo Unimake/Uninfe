@@ -1,5 +1,6 @@
 using NFe.Settings;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -15,6 +16,7 @@ namespace UniNFe.Test.Certificados
         private sealed class ProvedorFake : IProvedorCertificadoA3
         {
             internal int Chamadas;
+            internal Exception Excecao;
             internal bool Falhar;
             internal bool EhA3 = true;
             internal int Espera;
@@ -25,6 +27,7 @@ namespace UniNFe.Test.Certificados
             {
                 Interlocked.Increment(ref Chamadas);
                 if (Espera > 0) Thread.Sleep(Espera);
+                if (Excecao != null) throw Excecao;
                 if (Falhar) throw new InvalidOperationException("Falha simulada do provedor.");
             }
         }
@@ -100,6 +103,24 @@ namespace UniNFe.Test.Certificados
             Assert.True(resultado.Sucesso);
             Assert.True(empresa.CertificadoPINCarregado);
             Assert.Equal(2, provedor.Chamadas);
+        }
+
+        [Fact]
+        public void FalhaNativaInformaOperacaoECodigoSemExporPin()
+        {
+            var provedor = new ProvedorFake
+            {
+                Excecao = new Win32Exception(5, "CryptSetProvParam(KeyExchangePin) falhou.")
+            };
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+
+            var resultado = empresa.CarregarPinCertificadoA3(true);
+
+            Assert.False(resultado.Sucesso);
+            Assert.Contains("CryptSetProvParam(KeyExchangePin)", resultado.Mensagem);
+            Assert.Contains("0x00000005", resultado.Mensagem);
+            Assert.DoesNotContain("1234", resultado.Mensagem);
         }
 
         [Fact]
