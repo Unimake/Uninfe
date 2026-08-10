@@ -192,9 +192,12 @@
   <ItemGroup>
     <Compile Include="Auxiliar.cs" />
     <Compile Include="ConfiguracaoApp.cs" />
+    <Compile Include="ControleEncerramento.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Empresas.cs" />
+    <Compile Include="GerenciadorPinCertificadoA3.cs" />
+    <Compile Include="ProtecaoPinCertificado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

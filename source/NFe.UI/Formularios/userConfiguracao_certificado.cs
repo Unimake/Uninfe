@@ -28,6 +28,7 @@ namespace NFe.UI.Formularios
 
             var tltValidarProvider = new System.Windows.Forms.ToolTip();
             tltValidarProvider.SetToolTip(btnValidarProvider, "Testar o PIN informado.");
+            txtPinCertificado.MaxLength = 128;
 
             textBox_dadoscertificado.BackColor = txtArquivoCertificado.BackColor;
             textBox_dadoscertificado.Height = 160;
@@ -122,13 +123,7 @@ namespace NFe.UI.Formularios
             {
                 if (empresa.CertificadoInstalado)
                 {
-                    if (!string.IsNullOrEmpty(empresa.CertificadoPIN))
-                    {
-                        if (salvando)
-                        {
-                            ValidarCertificadoA3(true);
-                        }
-                    }
+                    // O PIN é validado somente por ação explícita do usuário ou just-in-time no processamento.
                 }
                 else
                 {
@@ -322,6 +317,12 @@ namespace NFe.UI.Formularios
 
         private void txtArquivoCertificado_TextChanged(object sender, EventArgs e)
         {
+            if (ReferenceEquals(sender, txtPinCertificado) && empresa != null &&
+                !string.Equals(empresa.CertificadoPIN, txtPinCertificado.Text, StringComparison.Ordinal))
+            {
+                empresa.InvalidarEstadoPinCertificado();
+            }
+
             if (changeEvent != null)
             {
                 changeEvent(sender, e);
@@ -337,10 +338,17 @@ namespace NFe.UI.Formularios
 
             if (ckbUsarCertificadoInstalado.Checked && ckbUsaCertificado.Checked)
             {
-                isA3 = empresa.X509Certificado.IsA3();
+                try
+                {
+                    isA3 = empresa.X509Certificado != null && empresa.X509Certificado.IsA3();
+                }
+                catch
+                {
+                    // False significa apenas que o A3 não pôde ser confirmado neste momento.
+                }
             }
 
-            if (isA3)
+            if (isA3 || !string.IsNullOrEmpty(txtPinCertificado.Text))
             {
                 btnValidarProvider.Visible = true;
                 txtPinCertificado.Visible = true;
@@ -351,7 +359,6 @@ namespace NFe.UI.Formularios
             }
             else
             {
-                txtPinCertificado.Text = string.Empty;
                 txtPinCertificado.Visible = false;
                 txtPinCertificado.Enabled = false;
                 btnValidarProvider.Visible = false;
@@ -389,7 +396,7 @@ namespace NFe.UI.Formularios
 
         private void btnValidarProvider_Click(object sender, EventArgs e)
         {
-            if (empresa.X509Certificado.IsA3())
+            if (empresa != null)
             {
                 try
                 {
@@ -418,13 +425,11 @@ namespace NFe.UI.Formularios
 
             try
             {
-                if (!empresa.CertificadoPINCarregado)
+                var resultado = empresa.CarregarPinCertificadoA3(true);
+                if (!resultado.Sucesso)
                 {
-                    empresa.X509Certificado.SetPinPrivateKey(empresa.CertificadoPIN);
-                    empresa.CertificadoPINCarregado = true;
+                    throw new Exception(resultado.Mensagem, resultado.Excecao);
                 }
-
-                Wait.Close();
 
                 if (!salvando)
                 {
@@ -434,16 +439,9 @@ namespace NFe.UI.Formularios
                         MessageBoxButtons.OK);
                 }
             }
-            catch (Exception ex)
+            finally
             {
                 Wait.Close();
-
-                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm,
-                    "PIN do certificado A3 é inválido.",
-                    provError,
-                    MessageBoxButtons.OK);
-
-                throw ex;
             }
         }
     }

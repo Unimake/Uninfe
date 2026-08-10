@@ -22,7 +22,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using Unimake.Business.DFe.Security;
 using Unimake.Business.DFe.Servicos;
 
 namespace NFe.Service
@@ -38,16 +37,6 @@ namespace NFe.Service
                 var servico = Servicos.Nulo;
                 try
                 {
-                    #region Carregar PIN A3 se ainda não carregou
-
-                    //Não pode carregar o PIN se o arquivo processado foi colocado na pasta GERAL, ou gera erro e para alguns serviços de funcionar, por exemplo a consulta informações do uninfe via pasta geral. 14/08/2021
-                    if (Path.GetDirectoryName(arquivo).ToLower() != Propriedade.PastaGeralTemporaria.ToLower())
-                    {
-                        CarregarPINA3(emp);
-                    }
-
-                    #endregion
-
                     if (emp == -1)
                     {
                         ValidarExtensao(arquivo);
@@ -66,6 +55,21 @@ namespace NFe.Service
                         if (servico == Servicos.Nulo)
                         {
                             throw new Exception("Não pode identificar o tipo de serviço baseado no arquivo " + arquivo);
+                        }
+
+                        if (DeveCarregarPin(emp, arquivo, servico))
+                        {
+                            var resultadoPin = Empresas.Configuracoes[emp].CarregarPinCertificadoA3(false);
+                            if (!resultadoPin.Sucesso)
+                            {
+                                var erroPin = new Exception(resultadoPin.Mensagem, resultadoPin.Excecao);
+                                Auxiliar.WriteLog("Falha ao preparar certificado da empresa " +
+                                    Empresas.Configuracoes[emp].CNPJ + ", certificado " +
+                                    ThumbprintSeguro(Empresas.Configuracoes[emp]) + ", operação " + servico + ". " +
+                                    resultadoPin.Mensagem, true);
+                                GravaErroERP(arquivo, servico, erroPin, ErroPadrao.ErroNaoDetectado);
+                                return;
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -686,28 +690,60 @@ namespace NFe.Service
         }
 
 
-        /// <summary>
-        /// Carrega o PIN do A3 se ainda não carregou
-        /// </summary>
-        /// <param name="emp">PIN de qual empresa?</param>
-        private void CarregarPINA3(int emp)
+        private static bool DeveCarregarPin(int emp, string arquivo, Servicos servico)
         {
-            if (!string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].CertificadoPIN) && !Empresas.Configuracoes[emp].CertificadoPINCarregado)
+            if (emp < 0 || emp >= Empresas.Configuracoes.Count)
             {
-                try
-                {
-                    if (Empresas.Configuracoes[emp].X509Certificado == null)
-                    {
-                        Empresas.Configuracoes[emp].X509Certificado = Empresas.Configuracoes[emp].BuscaConfiguracaoCertificado();
-                    }
-
-                    Empresas.Configuracoes[emp].X509Certificado.SetPinPrivateKey(Empresas.Configuracoes[emp].CertificadoPIN);
-                    Empresas.Configuracoes[emp].CertificadoPINCarregado = true;
-                }
-                catch
-                {
-                }
+                return false;
             }
+
+            var empresa = Empresas.Configuracoes[emp];
+            if (!empresa.UsaCertificado || string.IsNullOrWhiteSpace(empresa.CertificadoPIN) ||
+                CaminhosIguais(Path.GetDirectoryName(arquivo), Propriedade.PastaGeralTemporaria))
+            {
+                return false;
+            }
+
+            switch (servico)
+            {
+                case Servicos.UniNFeAlterarConfiguracoes:
+                case Servicos.UniNFeConsultaGeral:
+                case Servicos.UniNFeUpdate:
+                case Servicos.UniNFeConsultaInformacoes:
+                case Servicos.NFeConverterTXTparaXML:
+                case Servicos.NFeGerarChave:
+                case Servicos.EnviarFTP:
+                case Servicos.DANFEImpressao:
+                case Servicos.DANFEImpressao_Contingencia:
+                case Servicos.DANFERelatorio:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        private static bool CaminhosIguais(string primeiro, string segundo)
+        {
+            if (string.IsNullOrWhiteSpace(primeiro) || string.IsNullOrWhiteSpace(segundo))
+            {
+                return false;
+            }
+
+            var caminho1 = Path.GetFullPath(primeiro).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var caminho2 = Path.GetFullPath(segundo).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            return string.Equals(caminho1, caminho2, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string ThumbprintSeguro(Empresa empresa)
+        {
+            var thumbprint = empresa.CertificadoDigitalThumbPrint;
+            if (string.IsNullOrWhiteSpace(thumbprint))
+            {
+                return "não informado";
+            }
+
+            thumbprint = thumbprint.Replace(" ", string.Empty);
+            return thumbprint.Length <= 8 ? thumbprint : thumbprint.Substring(0, 8);
         }
 
         #endregion ProcessaArquivo()
@@ -1736,13 +1772,13 @@ namespace NFe.Service
         /// </summary>
         public void LimpezaTemporario()
         {
-            Thread.Sleep(600000); // 10 minutos para executar a primeira vez para evitar apagar arquivo que estava na pasta de envio e foi para a temp
+            if (ControleEncerramento.Aguardar(600000)) return; // 10 minutos para executar a primeira vez
 
-            while (true)
+            while (!ControleEncerramento.Solicitado)
             {
                 ExecutaLimpeza();
 
-                Thread.Sleep(new TimeSpan(1, 0, 0, 0));
+                if (ControleEncerramento.Aguardar((int)TimeSpan.FromDays(1).TotalMilliseconds)) return;
             }
         }
 
@@ -1757,7 +1793,7 @@ namespace NFe.Service
         {
             var hasAll = false;
 
-            while (true)
+            while (!ControleEncerramento.Solicitado)
             {
                 for (var i = 0; i < Empresas.Configuracoes.Count; i++)
                 {
@@ -1777,7 +1813,7 @@ namespace NFe.Service
                 }
                 if (hasAll)
                 {
-                    Thread.Sleep(60000); //Dorme por 1 minuto
+                    if (ControleEncerramento.Aguardar(60000)) return; //Dorme por 1 minuto
                 }
                 else
                 {
@@ -1823,7 +1859,7 @@ namespace NFe.Service
         {
             var oNFe = (TaskNFeGerarXMLPedRec)nfe;
 
-            while (true)
+            while (!ControleEncerramento.Solicitado)
             {
                 for (var i = 0; i < Empresas.Configuracoes.Count; i++)
                 {
@@ -1835,7 +1871,7 @@ namespace NFe.Service
                     }
                 }
 
-                Thread.Sleep(2000);
+                if (ControleEncerramento.Aguardar(2000)) return;
             }
         }
 
@@ -2624,7 +2660,7 @@ namespace NFe.Service
         {
             var hasAll = false;
 
-            while (true)
+            while (!ControleEncerramento.Solicitado)
             {
                 for (var i = 0; i < Empresas.Configuracoes.Count; i++)
                 {
@@ -2642,7 +2678,7 @@ namespace NFe.Service
                 }
                 if (hasAll)
                 {
-                    Thread.Sleep(720000); //Dorme por 12 minutos, para atender o problema do consumo indevido da SEFAZ
+                    if (ControleEncerramento.Aguardar(720000)) return; //Dorme por 12 minutos
                 }
                 else
                 {

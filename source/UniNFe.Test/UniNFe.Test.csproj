@@ -35,6 +35,8 @@
   <ItemGroup>
     <ProjectReference Include="..\NFe.Service\NFe.Service.csproj" />
     <ProjectReference Include="..\NFe.ConvertTxt\NFe.ConvertTxt.csproj" />
+    <ProjectReference Include="..\NFe.Settings\NFe.Settings.csproj" />
+    <ProjectReference Include="..\NFe.Threadings\NFe.Threadings.csproj" />
   </ItemGroup>
 
   <ItemGroup>

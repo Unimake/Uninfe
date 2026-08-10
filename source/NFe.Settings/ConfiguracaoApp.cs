@@ -1105,27 +1105,13 @@ namespace NFe.Settings
                         //Se o certificado digital for o instalado no windows, vamos tentar buscar ele no repositório para ver se existe.
                         if (Empresas.Configuracoes[emp].CertificadoInstalado)
                         {
-                            var oX509Cert = new X509Certificate2();
-                            var store = new X509Store("MY", StoreLocation.CurrentUser);
-                            store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                            var collection = store.Certificates;
-                            var collection1 = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, false);
-                            var collection2 = collection.Find(X509FindType.FindByKeyUsage, X509KeyUsageFlags.DigitalSignature, false);
-
-                            //Primeiro tento encontrar pelo thumbprint
-                            var collection3 = collection2.Find(X509FindType.FindByThumbprint, Empresas.Configuracoes[emp].CertificadoDigitalThumbPrint, false);
-                            if (collection3.Count <= 0)
+                            Empresas.Configuracoes[emp].X509Certificado = Empresas.Configuracoes[emp].BuscaConfiguracaoCertificado();
+                            if (Empresas.Configuracoes[emp].X509Certificado == null)
                             {
-                                //Se não encontrou pelo thumbprint tento pelo SerialNumber pegando o mesmo thumbprint que veio no arquivo de configurações para ver se não encontro.
-                                collection3 = collection2.Find(X509FindType.FindBySerialNumber, Empresas.Configuracoes[emp].CertificadoDigitalThumbPrint, false);
-
-                                if (collection3.Count <= 0)
-                                {
-                                    throw new Exception("Certificado digital informado não foi localizado no repositório do windows.");
-                                }
-
-                                Empresas.Configuracoes[emp].CertificadoDigitalThumbPrint = collection3[0].Thumbprint;
+                                throw new Exception("Certificado digital válido, com chave privada para assinatura, não foi localizado no repositório do Windows.");
                             }
+
+                            Empresas.Configuracoes[emp].CertificadoDigitalThumbPrint = Empresas.Configuracoes[emp].X509Certificado.Thumbprint;
                         }
                         else
                         {
@@ -1631,11 +1617,12 @@ namespace NFe.Settings
 
                 if (lConsultar)
                 {
-                    var store = new X509Store("MY", StoreLocation.CurrentUser);
-                    store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                    var collection = store.Certificates;
-                    var collection1 = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, false);
-                    var collection2 = collection.Find(X509FindType.FindByKeyUsage, X509KeyUsageFlags.DigitalSignature, false);
+                    using (var store = new X509Store("MY", StoreLocation.CurrentUser))
+                    {
+                        store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+                        var collection = store.Certificates;
+                        var collection1 = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, false);
+                        var collection2 = collection1.Find(X509FindType.FindByKeyUsage, X509KeyUsageFlags.DigitalSignature, false);
 
                     #region Cria XML de retorno
 
@@ -1657,6 +1644,10 @@ namespace NFe.Settings
 
                     for (var i = 0; i < collection2.Count; i++)
                     {
+                        if (!collection2[i].HasPrivateKey)
+                        {
+                            continue;
+                        }
                         #region layout retorno
 
                         /*layout de retorno - Renan Borges
@@ -1757,6 +1748,7 @@ namespace NFe.Settings
                     }
 
                     #endregion Monta XML de retorno com os certificados do tipo A1 que estão configurados no UniNFe com base no arquivo .PFX
+                    }
                 }
             }
             catch (Exception ex)

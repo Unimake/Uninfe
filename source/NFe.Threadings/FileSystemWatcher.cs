@@ -208,10 +208,10 @@ namespace NFe.Threadings
                 ///
                 /// TODO: entre este processo e o RaiseEvent está tendo uma demora considerável
                 ///
-                if (fi.Length > 0 || (fi.Name.ToLower().EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.sair_XML).EnvioTXT) ||
-                                      fi.Name.ToLower().EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedUpdatewsdl).EnvioTXT) ||
-                                      fi.Name.ToLower().EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedLayouts).EnvioTXT) ||
-                                      fi.Name.ToLower().EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedRestart).EnvioTXT)))
+                if (fi.Length > 0 || (fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.sair_XML).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
+                                      fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedUpdatewsdl).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
+                                      fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedLayouts).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
+                                      fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedRestart).EnvioTXT, StringComparison.OrdinalIgnoreCase)))
                 {
                     var tworker = new Thread(
                         new ThreadStart(
@@ -237,13 +237,11 @@ namespace NFe.Threadings
 
                     if (emp >= 0)
                     {
-                        if (fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioXML) >= 0 ||
-                            fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioTXT) >= 0)
-                        {
-                            Empresas.Configuracoes[emp].CriarFilaProcesamento = true;
-                        }
+                        var ehArquivoAlteracaoConfiguracao =
+                            fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioXML, StringComparison.OrdinalIgnoreCase) ||
+                            fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioTXT, StringComparison.OrdinalIgnoreCase);
 
-                        if (Empresas.Configuracoes[emp].X509Certificado.IsA3() || Empresas.Configuracoes[emp].CriarFilaProcesamento)
+                        if (Empresas.Configuracoes[emp].DeveSerializarOperacaoA3() || ehArquivoAlteracaoConfiguracao)
                         {
                             tworker.Join();
                         }
