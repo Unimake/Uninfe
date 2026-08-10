@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Concurrent;
+using System.ComponentModel;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Unimake.Business.DFe.Security;
 
@@ -237,7 +239,19 @@ namespace NFe.Settings
                 return ex.Message;
             }
 
-            return "O provedor criptográfico recusou ou não conseguiu configurar o PIN. Confira o token, o certificado e o middleware. Uma tentativa pode ter sido consumida.";
+            const string mensagem = "O provedor criptográfico recusou ou não conseguiu configurar o PIN. Confira o token, o certificado e o middleware. Uma tentativa pode ter sido consumida.";
+
+            if (ex is Win32Exception erroNativo)
+            {
+                return $"{mensagem} Detalhes do provedor: {erroNativo.Message} (código 0x{erroNativo.NativeErrorCode:X8}).";
+            }
+
+            if (ex is CryptographicException erroCriptografico)
+            {
+                return $"{mensagem} Detalhes criptográficos: {erroCriptografico.Message} (código 0x{erroCriptografico.HResult:X8}).";
+            }
+
+            return mensagem;
         }
 
         internal static void ReiniciarParaTestes()
