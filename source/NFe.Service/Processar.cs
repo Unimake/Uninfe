@@ -1606,18 +1606,8 @@ namespace NFe.Service
                 {
                     var xmlDoc = new XmlDocument();
                     xmlDoc.Load(arquivo);
-
-                    var xmlValidado = ValidarXMLSchema.Validar(xmlDoc, emp, true, arquivo);
-                    if (xmlValidado.Validado) //tenta validar
-                    {
-                        return;
-                        // verifica se o Status de erro for diferente de 5 que indica padrão não implementado na nova rotina de validação 
-                        // permitindo que caso o padrão não esteja na nova rotina seja utilizado a antiga
-                    }
-                    else if (!(xmlValidado.StatusValidacao.Equals("5")))
-                    {
-                        return;
-                    }
+                    ValidarXMLSchema.Validar(xmlDoc, emp, true, arquivo);
+                    return;
                 }
                 else
                 {

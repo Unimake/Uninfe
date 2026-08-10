@@ -135,7 +135,7 @@ namespace NFe.Validate
                     GravarXMLRetornoValidacao(arquivoXML, resultadoValidacao, emp, isNFSe);
 
                 }
-                else if (!(resultadoValidacao.StatusValidacao.Equals("5")))
+                else if (!resultadoValidacao.Validado)
                 {
                     GravarXMLRetornoValidacao(arquivoXML, resultadoValidacao, emp, isNFSe);
                     new Auxiliar().MoveArqErro(arquivoXML);
