@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Xml;
 using NFe.ConvertTxt;
 using NFe.Settings;
+using Unimake.Business.DFe.Utility;
 using Xunit;
 
 namespace UniNFe.Test.NFeConvertTxt
@@ -40,6 +41,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("41260801182867000178550010001800011567804549-nfe-orig.txt")]
         [InlineData("41260806225442000112550010002455051903698959-nfe-orig.txt")]
         [InlineData("nfe000077-NFE.txt")]
+        [InlineData("41260801182867000178550010001800811409310317-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -162,6 +164,10 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarDfeReferenciadoPorItem(legado);
                         ValidarDfeReferenciadoPorItem(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "41260801182867000178550010001800811409310317-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarInfAdProdAposNormalizacao(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -511,6 +517,23 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("991", referencias[0].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
             Assert.Equal("25", referencias[1].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
             Assert.Equal("15", referencias[2].SelectSingleNode("*[local-name()='nItem']")?.InnerText);
+        }
+
+        private static void ValidarInfAdProdAposNormalizacao(string conteudoXml)
+        {
+            var nfe = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.NFe.NFe>(conteudoXml);
+            var xml = XMLUtility.Serializar(nfe);
+            var detalhe = xml.SelectSingleNode("//*[local-name()='det']");
+            var produto = detalhe.SelectSingleNode("*[local-name()='prod']");
+            var imposto = detalhe.SelectSingleNode("*[local-name()='imposto']");
+            var informacaoAdicional = detalhe.SelectSingleNode("*[local-name()='infAdProd']");
+
+            Assert.NotNull(produto);
+            Assert.NotNull(imposto);
+            Assert.NotNull(informacaoAdicional);
+            Assert.Same(produto, detalhe.FirstChild);
+            Assert.Same(imposto, informacaoAdicional.PreviousSibling);
+            Assert.Equal("INFORMACAO ADICIONAL DO ITEM PARA TESTE DE ORDENACAO", informacaoAdicional.InnerText);
         }
 
         private static void ValidarIcms51ComBasePositiva(string conteudoXml)
