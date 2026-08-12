@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DeclaracaoOperacaoTransporte xmlns="http://www.antt.gov.br/ciot">
+	<ProvedorCIOT>ANTT</ProvedorCIOT>
 	<IdOperacaoTransporte>111111111111</IdOperacaoTransporte>
 	<TipoOperacao>1</TipoOperacao>
 	<CpfCnpjContratado>11111111111111</CpfCnpjContratado>
