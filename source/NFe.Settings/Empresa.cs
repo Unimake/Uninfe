@@ -367,6 +367,76 @@ namespace NFe.Settings
         /// Se verdadeiro, ativa a preparação do TLS antes do envio do XML
         /// </summary>
         public bool AtivarPreparacaoTLSAntesEnvioXML { get; set; }
+
+        /// <summary>
+        /// Identificação do integrador utilizada nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteIntegrador { get; set; }
+
+        /// <summary>
+        /// Token utilizado para autenticação nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteToken { get; set; }
+
+        /// <summary>
+        /// Usuário utilizado para autenticação nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteUsuario { get; set; }
+
+        /// <summary>
+        /// Senha utilizada para autenticação nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteSenha { get; set; }
+
+        /// <summary>
+        /// Valida a combinação de dados utilizada para autenticação na eFrete.
+        /// </summary>
+        public void ValidarConfiguracaoEFrete()
+        {
+            if (Servico != TipoAplicativo.CIOT && Servico != TipoAplicativo.Todos)
+            {
+                return;
+            }
+
+            var informouIntegrador = !string.IsNullOrWhiteSpace(EFreteIntegrador);
+            var informouToken = !string.IsNullOrWhiteSpace(EFreteToken);
+            var informouUsuario = !string.IsNullOrWhiteSpace(EFreteUsuario);
+            var informouSenha = !string.IsNullOrWhiteSpace(EFreteSenha);
+
+            if (informouUsuario != informouSenha)
+            {
+                throw new Exception("Para autenticação eFrete por credenciais, informe o usuário e a senha.");
+            }
+
+            if ((informouToken || informouUsuario) && !informouIntegrador)
+            {
+                throw new Exception("Para utilizar a autenticação eFrete, informe o Integrador.");
+            }
+        }
+
+        internal void CriptografarConfiguracaoEFrete()
+        {
+            EFreteIntegrador = Criptografia.criptografaSenha(EFreteIntegrador);
+            EFreteToken = Criptografia.criptografaSenha(EFreteToken);
+            EFreteUsuario = Criptografia.criptografaSenha(EFreteUsuario);
+            EFreteSenha = Criptografia.criptografaSenha(EFreteSenha);
+        }
+
+        internal void DescriptografarConfiguracaoEFrete()
+        {
+            EFreteIntegrador = Criptografia.descriptografaSenha(EFreteIntegrador);
+            EFreteToken = Criptografia.descriptografaSenha(EFreteToken);
+            EFreteUsuario = Criptografia.descriptografaSenha(EFreteUsuario);
+            EFreteSenha = Criptografia.descriptografaSenha(EFreteSenha);
+        }
         /// <summary>
         /// Inscrição Estadual informada no cadastro da empresa
         /// </summary>
@@ -735,6 +805,7 @@ namespace NFe.Settings
                     t.AppID = Criptografia.descriptografaSenha(t.AppID);
                     t.Secret_UMessenger = Criptografia.descriptografaSenha(t.Secret_UMessenger);
                     t.AppID_UMessenger = Criptografia.descriptografaSenha(t.AppID_UMessenger);
+                    t.DescriptografarConfiguracaoEFrete();
                     t.Nome = Nome;
                     t.CNPJ = CNPJ;
                     t.Servico = Servico;
@@ -1214,6 +1285,10 @@ namespace NFe.Settings
 
             empresa.UsuarioWS = string.Empty;
             empresa.SenhaWS = string.Empty;
+            empresa.EFreteIntegrador = string.Empty;
+            empresa.EFreteToken = string.Empty;
+            empresa.EFreteUsuario = string.Empty;
+            empresa.EFreteSenha = string.Empty;
 
             empresa.AmbienteCodigo = (int)TipoAmbiente.Homologacao; //2
             empresa.tpEmis = (int)TipoEmissao.Normal; //1
@@ -1321,6 +1396,7 @@ namespace NFe.Settings
                 dados.Secret = Criptografia.criptografaSenha(dados.Secret);
                 dados.AppID_UMessenger = Criptografia.criptografaSenha(dados.AppID_UMessenger);
                 dados.Secret_UMessenger = Criptografia.criptografaSenha(dados.Secret_UMessenger);
+                dados.CriptografarConfiguracaoEFrete();
 
                 var objObjectXMLSerializer = new ObjectXMLSerializer();
                 objObjectXMLSerializer.Save(dados, dados.NomeArquivoConfig);
