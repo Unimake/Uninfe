@@ -87,6 +87,7 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\399_15528301000160_1_11_08_2026-NFE-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\35260847498059000115550010004030011909226990-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\35260847498059000115550010004030021004029993-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\0000056689-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>

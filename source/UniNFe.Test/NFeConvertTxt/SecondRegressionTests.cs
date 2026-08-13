@@ -74,6 +74,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("399_15528301000160_1_11_08_2026-NFE-orig.txt")]
         [InlineData("35260847498059000115550010004030011909226990-nfe.txt")]
         [InlineData("35260847498059000115550010004030021004029993-nfe.txt")]
+        [InlineData("0000056689-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -263,6 +264,11 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             var dadosIdentificaveis = new[]
             {
+                "OXI GENESES COM.GASES EQUIPAMENTOS LTDA EPP",
+                "METACAULIM BRASIL INDUSTRIA COMERCIO LTDA",
+                "RUA  AGOSTINHO BALESTRIN",
+                "AV.HUMBERTO CERESER",
+                "vendas@metacaulim.com.br",
                 "LOTUS CENTRAL DE DIST DE HIGIENICOS LTDA",
                 "TEXTIL BICOLOR INDUSTRIA E COM DE CONFEC",
                 "R DR JOAO ALTES DE LIMA",
