@@ -14,6 +14,31 @@ namespace UniNFe.Test.NFeConvertTxt
     public sealed class SecondRegressionTests
     {
         [Theory]
+        [InlineData("35260847498059000115550010004030011909226990-nfe.txt", "6", "07", null, "1")]
+        [InlineData("35260847498059000115550010004030021004029993-nfe.txt", "5", null, "03", "0")]
+        public void DllDeveConverterNotaDeCreditoEDebitoSemMunicipioFatoGeradorIbs(
+            string nomeArquivo,
+            string finalidadeEsperada,
+            string tipoDebitoEsperado,
+            string tipoCreditoEsperado,
+            string tipoOperacaoEsperado)
+        {
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
+            var resultado = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+
+            Assert.True(resultado.Sucesso, resultado.MensagemErro);
+            var xml = new XmlDocument();
+            xml.LoadXml(Assert.Single(resultado.Documentos).Xml);
+
+            Assert.Equal(finalidadeEsperada, xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='finNFe']")?.InnerText);
+            Assert.Equal(tipoOperacaoEsperado, xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='tpNF']")?.InnerText);
+            Assert.Equal(tipoDebitoEsperado, xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='tpNFDebito']")?.InnerText);
+            Assert.Equal(tipoCreditoEsperado, xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='tpNFCredito']")?.InnerText);
+            Assert.Null(xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='cMunFGIBS']"));
+            Assert.NotNull(xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IBSCBS']"));
+        }
+
+        [Theory]
         [InlineData("0000042301054300027600113072026-NFE.txt")]
         [InlineData("versaoprouducao-nfe-orig.txt")]
         [InlineData("000580_08606985000105_001-nfe.txt")]
@@ -47,6 +72,8 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000023655_11092080000179_001_11_08_2026-nfe-orig.txt")]
         [InlineData("398_15528301000160_1_11_08_2026-NFE-orig.txt")]
         [InlineData("399_15528301000160_1_11_08_2026-NFE-orig.txt")]
+        [InlineData("35260847498059000115550010004030011909226990-nfe.txt")]
+        [InlineData("35260847498059000115550010004030021004029993-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -199,6 +226,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIpiEItemForaDoTotalDaNfe399(legado);
                         ValidarIpiEItemForaDoTotalDaNfe399(novo);
                     }
+                    if (nomeArquivo.StartsWith("352608474980590001155500100040300", StringComparison.OrdinalIgnoreCase))
+                    {
+                        legado = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(legado);
+                        novo = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -206,11 +238,35 @@ namespace UniNFe.Test.NFeConvertTxt
             }
         }
 
+        private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            foreach (XmlElement local in documento.SelectNodes("//*[local-name()='retirada' or local-name()='entrega']"))
+            {
+                var codigoPais = local.SelectSingleNode("*[local-name()='cPais' and text()='1058']");
+                var nomePais = local.SelectSingleNode("*[local-name()='xPais' and translate(text(), 'brasil', 'BRASIL')='BRASIL']");
+                if (codigoPais != null)
+                {
+                    local.RemoveChild(codigoPais);
+                }
+                if (nomePais != null)
+                {
+                    local.RemoveChild(nomePais);
+                }
+            }
+            return documento.OuterXml;
+        }
+
         [Fact]
         public void MassasTxtNaoDevemConterDadosIdentificaveisConhecidos()
         {
             var dadosIdentificaveis = new[]
             {
+                "LOTUS CENTRAL DE DIST DE HIGIENICOS LTDA",
+                "TEXTIL BICOLOR INDUSTRIA E COM DE CONFEC",
+                "R DR JOAO ALTES DE LIMA",
+                "VENDEDOR: VIVIANE",
                 "EMERSON SILVA GUEDES",
                 "contato@roguelimp.com.br",
                 "05976103804",
