@@ -75,6 +75,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("35260847498059000115550010004030011909226990-nfe.txt")]
         [InlineData("35260847498059000115550010004030021004029993-nfe.txt")]
         [InlineData("0000056689-nfe-orig.txt")]
+        [InlineData("NFe_000049184_08_27_14-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -227,7 +228,8 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIpiEItemForaDoTotalDaNfe399(legado);
                         ValidarIpiEItemForaDoTotalDaNfe399(novo);
                     }
-                    if (nomeArquivo.StartsWith("352608474980590001155500100040300", StringComparison.OrdinalIgnoreCase))
+                    if (nomeArquivo.StartsWith("352608474980590001155500100040300", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(nomeArquivo, "NFe_000049184_08_27_14-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
                         legado = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(legado);
                         novo = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(novo);
@@ -264,6 +266,13 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             var dadosIdentificaveis = new[]
             {
+                "AGILLE COMERCIO DE MEDICAMENTOS LTDA",
+                "OON ONCOLOGIA, ORTOPEDIA E NEUROLOGIA VET LTDA",
+                "cmanhaesvet@gmail.com",
+                "AV DAS AGUIAS",
+                "RUA FELIPE NEVES",
+                "AVENIDA ATLANTICA N 720",
+                "nfe@agillemed.com.br",
                 "OXI GENESES COM.GASES EQUIPAMENTOS LTDA EPP",
                 "METACAULIM BRASIL INDUSTRIA COMERCIO LTDA",
                 "RUA  AGOSTINHO BALESTRIN",
