@@ -73,6 +73,7 @@ Goto validarDllsCIOT
    if not exist "%filesDir%\netstandard2.0\System.Text.Encodings.Web.dll" goto erroDllsCIOT
    if not exist "%filesDir%\netstandard2.0\System.Text.Json.dll" goto erroDllsCIOT
    if not exist "%filesDir%\netstandard2.0\System.Threading.Tasks.Extensions.dll" goto erroDllsCIOT
+   if not exist "%filesDir%\netstandard2.0\System.Net.Http.WinHttpHandler.dll" goto erroDllsCIOT
    goto assinarDlls
 
 :erroDllsCIOT

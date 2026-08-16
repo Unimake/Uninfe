@@ -80,6 +80,7 @@ Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Re
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\System.Text.Encodings.Web.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\System.Text.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\System.Net.Http.WinHttpHandler.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ;----------------------------------------------------------------------------------------------------
 ;DLLs net472
