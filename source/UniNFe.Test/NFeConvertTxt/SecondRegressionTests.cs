@@ -76,6 +76,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("35260847498059000115550010004030021004029993-nfe.txt")]
         [InlineData("0000056689-nfe-orig.txt")]
         [InlineData("NFe_000049184_08_27_14-nfe.txt")]
+        [InlineData("002320_01_01_17_08_2026-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -234,6 +235,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         legado = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(legado);
                         novo = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(novo);
                     }
+                    if (string.Equals(nomeArquivo, "002320_01_01_17_08_2026-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarProdutoIpiEReformaDaNFe2320(legado);
+                        ValidarProdutoIpiEReformaDaNFe2320(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -259,6 +265,25 @@ namespace UniNFe.Test.NFeConvertTxt
                 }
             }
             return documento.OuterXml;
+        }
+
+        private static void ValidarProdutoIpiEReformaDaNFe2320(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var produto = documento.SelectSingleNode("//*[local-name()='det']/*[local-name()='prod']");
+
+            Assert.Equal("ABRACADEIRA ROSCA SEM FIM 51X64(200X212) INCA", produto.SelectSingleNode("*[local-name()='xProd']")?.InnerText);
+            Assert.Equal("73269090", produto.SelectSingleNode("*[local-name()='NCM']")?.InnerText);
+            Assert.Equal("1006200", produto.SelectSingleNode("*[local-name()='CEST']")?.InnerText);
+            Assert.Equal("SP010830", produto.SelectSingleNode("*[local-name()='cBenef']")?.InnerText);
+            Assert.Null(produto.SelectSingleNode("*[local-name()='EXTIPI']"));
+            Assert.Equal("5124", produto.SelectSingleNode("*[local-name()='CFOP']")?.InnerText);
+            Assert.Equal("500.0000", produto.SelectSingleNode("*[local-name()='qCom']")?.InnerText);
+            Assert.Equal("53", documento.SelectSingleNode("//*[local-name()='IPI']//*[local-name()='CST']")?.InnerText);
+            Assert.Equal("4219.50", documento.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='gIBSCBS']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("4392.18", documento.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
+            Assert.Equal("4261.68", documento.SelectSingleNode("//*[local-name()='total']/*[local-name()='vNFTot']")?.InnerText);
         }
 
         [Fact]
@@ -307,6 +332,12 @@ namespace UniNFe.Test.NFeConvertTxt
                 "1122911633",
                 "11997556655",
                 "luizlopes.nfe@uol.com.br",
+                "SOC.COM.MAT.P/CONSTR.LUIZ LOPES LTDA",
+                "108680702113",
+                "RUA MAJOR OTAVIANO",
+                "ROD. RAPOSO TAVARES KM-18 5",
+                "100441666118",
+                "60561719000557",
                 "VENDEDOR: 0110 WAGNER",
                 "AUTO VIDROS PRUDENTE",
                 "562319803111",
