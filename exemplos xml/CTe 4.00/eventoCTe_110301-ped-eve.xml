@@ -11,8 +11,8 @@
 		<detEvento versaoEvento="4.00">
 			<evCancVincPgto>
 				<descEvento>Cancelamento da vinculacao do pagamento</descEvento>
-				<nProt>nProt1</nProt>
-				<nProtVincPgto>nProtVincPgto1</nProtVincPgto>
+				<nProt>500000000000000</nProt>
+				<nProtVincPgto>500000000000000</nProtVincPgto>
 			</evCancVincPgto>
 		</detEvento>
 	</infEvento>

@@ -11,11 +11,11 @@
 		<detEvento versaoEvento="4.00">
 			<evVincPgto>
 				<descEvento>Vinculacao do Pagamento</descEvento>
-				<nProt>nProt1</nProt>
+				<nProt>500000000000000</nProt>
 				<pgto nPag="1" idTransacao="idTransacao1">
 					<tpMeioPgto>01</tpMeioPgto>
-					<CNPJReceb>11111111111111</CNPJReceb>
-					<CNPJBasePSP>00000000000000</CNPJBasePSP>
+					<CNPJReceb>00000000000000</CNPJReceb>
+					<CNPJBasePSP>00000000</CNPJBasePSP>
 				</pgto>
 			</evVincPgto>
 		</detEvento>
