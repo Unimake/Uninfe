@@ -159,6 +159,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 ## Erros e soluções
 
 - [Erros e soluções](erros-e-solucoes/erros-e-solucoes.md)
+  - [Falhas de conexão relacionadas aos certificados raiz do Windows](erros-e-solucoes/erros-e-solucoes.md#erro-certificados-raiz-windows-desatualizados)
 
 ## Referencias
 
