@@ -147,24 +147,71 @@ Consulte também:
 <details id="faq-nfe-sem-xml-completo-na-distribuicao">
 <summary><strong>Por que a consulta de documentos destinados não baixou o XML completo da NF-e?</strong></summary>
 
-Quando a distribuição DFe não retorna o XML completo de uma NF-e emitida contra o CNPJ da empresa, verifique primeiro se a nota foi manifestada. Para muitas situações, a SEFAZ libera apenas o resumo da NF-e até que o destinatário registre uma manifestação.
+Quando a distribuição DFe não retorna o XML completo de uma NF-e emitida contra o CNPJ da empresa, isso normalmente ocorre por uma destas causas:
 
-Pontos a conferir:
+- a NF-e ainda não recebeu uma manifestação que libere o documento completo para o destinatário;
+- o interessado começou a usar o serviço recentemente ou ficou mais de 60 dias sem consultar por `distNSU`;
+- o documento já está fora do período de disponibilidade da distribuição;
+- a NF-e ainda não foi sincronizada pela SEFAZ de origem com o Ambiente Nacional;
+- o ERP leu apenas o retorno principal e não importou os XMLs extraídos em `Retorno\dfe`.
 
-1. Confirme se a NF-e foi manifestada pelo destinatário.
-2. Se ainda não houve manifestação, envie um evento de manifestação, como `210210` para ciência da operação, quando esse for o evento adequado ao fluxo do ERP.
-3. Depois da manifestação homologada, execute novamente a distribuição DFe.
-4. Importe os XMLs extraídos na subpasta `Retorno\dfe`.
-5. Mantenha o controle de `ultNSU` no ERP para continuar a sequência correta das consultas.
+### Primeiro, identifique o que foi retornado
 
-Também existem limitações do ambiente nacional que podem impedir o download de documentos antigos ou anteriores ao início do uso do serviço:
+Abra o retorno `<identificador>-dist-dfe.xml` e verifique `cStat`, `xMotivo`, `ultNSU`, `maxNSU` e o schema de cada `docZip`:
 
-- Se o CNPJ nunca usou a distribuição DFe, a SEFAZ pode disponibilizar apenas documentos emitidos a partir da primeira consulta.
-- Se o CNPJ ficar muito tempo sem usar o serviço, a SEFAZ pode limitar novamente o histórico disponível.
-- Documentos muito antigos podem não estar mais disponíveis para download pela distribuição.
-- NF-e muito recente pode demorar alguns minutos para aparecer, dependendo da sincronização entre a SEFAZ de origem e o ambiente nacional.
+| Informação | O que significa |
+|---|---|
+| `resNFe` | Resumo da NF-e. O XML completo ainda não foi distribuído nessa consulta. |
+| `procNFe` | NF-e completa com o protocolo de autorização. O UniNFe extrai esse documento em `Retorno\dfe`. |
+| `cStat=137` | Nenhum documento foi localizado nessa consulta. Quando não houver mais documentos, aguarde pelo menos uma hora antes de consultar novamente. |
+| `cStat=138` | Há documentos localizados no lote de distribuição. Importe os XMLs extraídos em `Retorno\dfe`. |
+| `cStat=656` | Consumo indevido. Interrompa as consultas pelo período indicado pela SEFAZ; novas tentativas antes do prazo podem reiniciar a contagem do bloqueio. |
 
-Quando a NF-e não aparecer mesmo após manifestação e nova consulta, aguarde a sincronização e repita a distribuição DFe. Se a nota continuar ausente, avalie contato com a SEFAZ de origem para confirmar se o documento foi sincronizado com o ambiente nacional.
+O retorno principal informa o resultado da consulta, mas os documentos descompactados ficam na subpasta `Retorno\dfe`. Não conclua que o XML está ausente antes de verificar essa pasta.
+
+### Se foi retornado somente o resumo
+
+Antes da manifestação, o Ambiente Nacional pode disponibilizar ao destinatário apenas o resumo da NF-e. Para liberar o XML completo, envie uma manifestação compatível com a situação real da operação, como:
+
+| Código | Manifestação | Quando usar |
+|---|---|---|
+| `210210` | Ciência da operação | Quando o destinatário tomou conhecimento da NF-e, mas ainda precisa avaliar a operação. |
+| `210200` | Confirmação da operação | Quando a operação ocorreu e deve ser confirmada. |
+| `210240` | Operação não realizada | Quando a operação era conhecida, mas não foi realizada; exige a justificativa prevista no leiaute. |
+
+Não manifeste automaticamente todas as NF-e apenas para obter o XML. O ERP deve escolher o evento de acordo com a situação fiscal e operacional do documento.
+
+Depois que o evento for homologado:
+
+1. Aguarde a sincronização do evento com o Ambiente Nacional.
+2. Consulte novamente usando a sequência correta de `ultNSU`, respeitando o intervalo informado pela SEFAZ.
+3. Leia o novo retorno principal.
+4. Importe o `procNFe` extraído pelo UniNFe em `Retorno\dfe`.
+
+### Limites de histórico e continuidade
+
+Os documentos e resumos ficam disponíveis para distribuição por até **90 dias após a recepção pelo Ambiente Nacional da NF-e**. Esse prazo não deve ser contado somente pela data de emissão impressa no documento.
+
+A geração de NSU também considera a continuidade de uso de `distNSU`:
+
+- Para um novo usuário do serviço, a geração de NSU começa a partir do primeiro acesso; não são criados NSU retroativos.
+- Se o interessado ficar mais de 60 dias sem consultar por `distNSU`, a geração de NSU é interrompida e retomada a partir da próxima consulta; o período sem geração não é recuperado retroativamente.
+- Nessas duas situações, o primeiro acesso pode retornar `cStat=137`. Aguarde pelo menos uma hora antes da consulta seguinte para não provocar consumo indevido.
+
+Por isso, o ERP deve executar a distribuição continuamente e armazenar o `ultNSU` retornado. Não reinicie todas as consultas com `ultNSU` igual a zero e não mantenha aplicações independentes avançando a sequência do mesmo CNPJ sem coordenação.
+
+### Se a NF-e ainda não aparecer
+
+1. Confirme que o CNPJ ou CPF consultado é um ator autorizado a receber o documento.
+2. Verifique se o certificado digital permite consultar o interessado informado. Para pessoa jurídica, o CNPJ-base consultado deve ser o mesmo do certificado.
+3. Confirme a homologação da manifestação e a chave de acesso utilizada no evento.
+4. Continue a consulta a partir do último `ultNSU` efetivamente processado até que `ultNSU` seja igual a `maxNSU`.
+5. Se conhecer a chave de acesso e o documento ainda estiver no período de disponibilidade, faça uma consulta pontual por `consChNFe`. Se conhecer um NSU faltante, use `consNSU`.
+6. Considere que a ordem de distribuição segue a recepção no Ambiente Nacional, não necessariamente a ordem de emissão das NF-e.
+7. Se uma NF-e recente continuar ausente, aguarde a sincronização e consulte novamente após o intervalo permitido.
+8. Persistindo a ausência, contate a SEFAZ de origem para confirmar a sincronização com o Ambiente Nacional.
+
+O primeiro uso e a interrupção superior a 60 dias impedem a geração retroativa de NSU para a consulta sequencial, mas uma consulta pontual pode recuperar um documento conhecido que ainda esteja disponível. Se o XML não for retornado nem pela consulta pontual ou já estiver fora do período de disponibilidade, solicite-o ao emitente ou obtenha-o por outro canal fiscal autorizado. A distribuição DFe não deve ser usada como única forma de guarda dos XMLs da empresa.
 
 Consulte também:
 
@@ -202,6 +249,166 @@ Cuidados importantes:
 Consulte também:
 
 - [DFe - Distribuição de CT-e](../servicos/dfe/distribuicao-dfe-cte.md)
+
+</details>
+
+<details id="faq-gerar-idcsrt-hashcsrt-nfe-nfce">
+<summary><strong>Como gerar as tags idCSRT e hashCSRT da NF-e ou NFC-e com o UniNFe?</strong></summary>
+
+O `idCSRT` e o `hashCSRT` podem ser informados pelo ERP ou gerados pelo UniNFe. Para evitar XML incompleto, escolha uma das duas formas e envie ou configure **todos os dados do responsável técnico**.
+
+| Cenário | Comportamento do UniNFe |
+|---|---|
+| O ERP envia `CNPJ`, `xContato`, `email`, `fone`, `idCSRT` e `hashCSRT` | O UniNFe utiliza o grupo enviado pelo ERP. Não é necessário repetir esses dados na configuração da empresa. |
+| O ERP envia o grupo completo, mas o conteúdo de `hashCSRT` ainda não está no formato Base64 esperado | O UniNFe converte o conteúdo automaticamente. Para o resultado ser correto, o conteúdo informado deve corresponder ao **CSRT concatenado com a chave de acesso da NF-e ou NFC-e**. |
+| O ERP envia o grupo do responsável técnico sem `idCSRT`, sem `hashCSRT` ou com outros campos faltando | O UniNFe não combina esse grupo parcial com a configuração da empresa. O XML pode ser rejeitado na validação. |
+| O ERP não envia o grupo do responsável técnico e todos os campos estão preenchidos no UniNFe | O UniNFe cria o grupo completo e calcula o `hashCSRT` com o CSRT configurado e a chave de acesso do documento. |
+| O ERP não envia o grupo e a configuração do UniNFe está vazia ou incompleta | Não há dados suficientes para gerar corretamente o responsável técnico. Preencha a configuração completa ou faça o ERP enviar o grupo completo. |
+
+### Como configurar a geração pelo UniNFe
+
+1. Acesse **Configurações > Empresas**.
+2. Selecione a empresa e abra a aba **Responsável Técnico**.
+3. Preencha **CNPJ**, **Contato**, **E-mail**, **Telefone**, **ID CSRT** e **CSRT**.
+4. Salve a configuração.
+5. Faça o ERP omitir todo o grupo `infRespTec` do XML. Durante a preparação do documento, o UniNFe incluirá o grupo e calculará o `hashCSRT`.
+
+Preencher somente **ID CSRT** e **CSRT** não é suficiente. Os dados cadastrais do responsável técnico também precisam estar completos.
+
+### Como gerar pelo ERP
+
+O ERP deve enviar o grupo `infRespTec` completo. O `hashCSRT` é o resultado do SHA-1 aplicado à concatenação do CSRT com a chave de acesso do documento, convertido para Base64:
+
+```text
+hashCSRT = Base64(SHA-1(CSRT + chave de acesso))
+```
+
+Como a chave de acesso participa do cálculo, o hash deve ser gerado novamente para cada NF-e ou NFC-e. Não reutilize o `hashCSRT` de outro documento.
+
+### O que conferir quando ocorrer erro
+
+1. Confirme se o ERP enviou o grupo `infRespTec`. Se enviou, verifique se todos os campos necessários estão no próprio XML.
+2. Se o ERP não enviou o grupo, confira se todos os campos da aba **Responsável Técnico** estão preenchidos para a empresa correta.
+3. Confirme se o **ID CSRT** e o **CSRT** são os valores fornecidos pela SEFAZ para o responsável técnico.
+4. Se o ERP calculou o hash, confira se foi usada a chave de acesso do mesmo documento.
+5. Valide novamente o XML antes do envio.
+
+O CSRT é um código de segurança. Não o publique em capturas de tela, logs ou chamados de suporte. Quando precisar demonstrar o problema, envie o XML com esse dado protegido e informe apenas se a geração ficou sob responsabilidade do ERP ou do UniNFe.
+
+Consulte também:
+
+- [Tela Configurações — aba Responsável Técnico](../configuracao/telas-cadastros-configuracoes.md)
+- [Tela Validar XML](tela-validar-xml.md)
+
+</details>
+
+<details id="faq-impressao-ibs-cbs-danfe">
+<summary><strong>Como os novos tributos IBS e CBS devem aparecer no DANFE?</strong></summary>
+
+O XML da NF-e e o DANFE obedecem a especificações diferentes. O fato de o XML possuir os grupos de IBS e CBS não significa que esses campos possam ser acrescentados livremente ao documento impresso: o DANFE deve seguir o leiaute oficial aplicável ao tipo de impressão utilizado.
+
+Para o **DANFE convencional da NF-e**, a [Nota Técnica 2025.002 da NF-e/NFC-e](https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=04BIflQt1aY%3D) informa, na versão vigente consultada, que as alterações destinadas a exibir os novos tributos ainda estão em estudo e serão publicadas em uma versão futura. Por isso, o UniDANFE deve incorporar essas informações somente depois que o Portal Nacional da NF-e publicar a definição oficial correspondente.
+
+Isso não dispensa o preenchimento correto do XML. O ERP deve continuar gerando os grupos de IBS, CBS e Imposto Seletivo conforme a legislação, o schema e as regras de validação vigentes, mesmo quando a representação impressa ainda não mostrar todos esses dados.
+
+### Atenção ao DANFE Simplificado Tipo 2
+
+O **DANFE Simplificado Tipo 2** possui uma especificação própria. A [Nota Técnica 2026.003](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=2YdaBTIql%2Bk%3D) prevê uma divisão para os valores de CBS, IBS e Imposto Seletivo quando existirem no documento.
+
+Essa regra não deve ser aplicada automaticamente ao DANFE convencional. Para identificar corretamente o formato:
+
+| Situação | O que observar |
+|---|---|
+| DANFE convencional de NF-e | Aguarde e siga o leiaute oficial específico. Não crie campos ou posições por conta própria. |
+| DANFE Simplificado Tipo 2 | Na NF-e, o XML usa `tpImp=6`. A impressão deve seguir a especificação própria desse formato. |
+| Contingência Off-line com NF-e e DANFE Simplificado Tipo 2 | Além de `tpImp=6`, o XML usa `tpEmis=9` e deve ser transmitido posteriormente para autorização. |
+
+### O que conferir quando IBS ou CBS não aparecerem na impressão
+
+1. Abra o XML autorizado, normalmente o arquivo `-procNFe.xml`, e confirme se os grupos e valores de IBS/CBS estão presentes. A impressão não cria informações tributárias ausentes no XML.
+2. Confira o modelo do documento e o valor de `tpImp` para saber se a impressão é convencional ou DANFE Simplificado Tipo 2.
+3. Consulte a versão mais recente da nota técnica no Portal Nacional da NF-e. Não use somente uma cópia antiga salva localmente.
+4. Mantenha o UniDANFE atualizado para uma versão compatível com a especificação oficial aplicável.
+5. Gere novamente a impressão após a atualização, usando o mesmo XML autorizado, e compare o resultado com o leiaute publicado.
+
+Não inclua manualmente valores de IBS ou CBS em posições improvisadas do DANFE para tentar antecipar uma regra futura. Se houver uma exigência fiscal específica para a operação, confirme-a com o responsável tributário e confronte-a com a documentação oficial vigente.
+
+Consulte também:
+
+- [Reforma Tributária - NFe/NFCe](reforma-tributaria-nfe-nfce.md)
+- [Contingência Off-line](../contingencia/off-line.md)
+- [Notas técnicas e notícias para desenvolvedores](notas-tecnicas-e-noticias-para-desenvolvedores.md)
+
+</details>
+
+<details id="faq-documentacao-modelos-xml-nfse-nacional">
+<summary><strong>Onde encontro a documentação da NFS-e do Ambiente Nacional e os modelos de XML para o UniNFe?</strong></summary>
+
+Use duas fontes em conjunto:
+
+- [Documentação Atual da NFS-e Nacional](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/documentacao-atual/documentacao-atual): contém os manuais, anexos de leiaute, regras de negócio e esquemas XSD vigentes em produção.
+- [Modelos XML da NFS-e Nacional 1.01 para o UniNFe](https://www.unimake.com.br/uninfe/modelos.php?p=NFSe%2FNACIONAL%2F1.01): contém exemplos de arquivos com os sufixos reconhecidos pelo UniNFe para emissão, consulta, cancelamento, distribuição e eventos.
+
+Consulte sempre a página principal da documentação oficial antes de baixar os arquivos. O nome e a data do anexo podem mudar quando o Ambiente Nacional publica uma revisão, enquanto a página **Documentação Atual** permanece como ponto de entrada para a versão vigente.
+
+### Qual arquivo oficial devo consultar?
+
+Na página oficial, procure estes materiais:
+
+| Material | Para que serve |
+|---|---|
+| **ANEXO I — SEFIN/ADN — DPS/NFS-e** | Define os campos, grupos, tipos, tamanhos, ocorrências e regras de negócio da DPS e da NFS-e. |
+| **Esquemas XSD da NFS-e** | Validam a estrutura XML, namespace, ordem e formato dos elementos. |
+| **ANEXO II — Pedido de Registro de Evento/Eventos** | Define estruturas e regras dos eventos da NFS-e Nacional. |
+| **Anexos de domínio** | Fornecem códigos oficiais usados em campos como município, serviço, NBS e indicador da operação. |
+
+A versão 1.01 contempla os grupos relacionados à Reforma Tributária, mas os anexos e as regras podem receber revisões sem mudança do número principal da versão. Confira a data do arquivo antes de implementar ou corrigir o XML.
+
+Para testes, use a [Documentação Técnica de homologação/produção restrita](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/producao-restrita). Não misture planilha ou XSD de homologação com envio para produção, nem arquivos de produção com um ambiente de testes que esteja em outra revisão.
+
+### Como interpretar a planilha do Anexo I?
+
+As abas mais úteis são:
+
+- **LEIAUTE DPS_NFS-e**: apresenta a árvore de campos da DPS e da NFS-e, com caminho, descrição, tipo, tamanho e quantidade permitida. Para localizar a parte da DPS dentro da estrutura documentada, pesquise por `NFSe/infNFSe/DPS` em vez de depender de um número fixo de linha, pois as linhas mudam entre revisões.
+- **RN DPS_NFS-e**: reúne as regras de negócio e os códigos de rejeição. Pesquise pelo código retornado e leia a condição completa, os campos envolvidos e o ambiente em que a regra se aplica.
+
+O XSD e a aba de leiaute confirmam a estrutura, mas não substituem as regras de negócio. Um XML pode estar válido no XSD e ainda ser rejeitado por município, cadastro, tributação, data, ambiente ou combinação de campos.
+
+### Qual modelo XML devo usar?
+
+Escolha o arquivo correspondente à operação que o ERP realmente executará:
+
+| Necessidade | Modelo de referência |
+|---|---|
+| Emissão com os campos essenciais | `GerarNfseMinima-env-loterps.xml` |
+| Emissão com mais grupos preenchidos | `GerarNFSeEnvio-env-loterps.xml` |
+| Referência dos grupos disponíveis na DPS | `dps_com_todas_as_tags-env-loterps.xml` |
+| Cancelamento | `CancelarNFSe-ped-cannfse.xml` |
+| Consulta da NFS-e | `ConsultarNFSeEnvio-ped-sitnfse.xml` |
+| Consulta por DPS/RPS | `ConsultarNFSeRPS-ped-sitnfserps.xml` |
+| Consulta da distribuição por NSU | `ConsultarDistribuicaoNFSeNSU-cons-nsunfse.xml` |
+| Registro de evento | arquivos com final `-ped-regev.xml` |
+
+O arquivo `dps_com_todas_as_tags-env-loterps.xml` é uma referência para localizar grupos e campos. Não envie esse modelo inteiro sem avaliar as ocorrências, escolhas e regras aplicáveis à operação; alguns grupos são condicionais ou incompatíveis entre si.
+
+### Como adaptar um modelo sem gerar novas rejeições
+
+1. Confirme que a empresa está configurada no padrão **NACIONAL** e no ambiente correto.
+2. Baixe a planilha, os XSD e o modelo da mesma versão e ambiente.
+3. Escolha o modelo da operação e preserve o sufixo de arquivo esperado pelo UniNFe.
+4. Substitua todos os dados demonstrativos: identificadores, documentos, municípios, datas, séries, números, códigos de serviço, valores e informações tributárias.
+5. Recalcule identificadores compostos, como o `Id` da DPS, em vez de copiar o valor do exemplo.
+6. Remova grupos opcionais que não se aplicam e respeite a ordem dos elementos definida no XSD.
+7. Valide o XML e, se houver rejeição, procure o código na aba **RN DPS_NFS-e**.
+8. Compare a regra encontrada com os dados reais da operação e com as parametrizações do município antes de reenviar.
+
+Não corrija uma rejeição apenas copiando uma tag de outro exemplo. Primeiro confirme se o campo é permitido, obrigatório ou incompatível no cenário fiscal da DPS.
+
+Consulte também:
+
+- [Reforma Tributária - NFS-e](reforma-tributaria-nfse.md)
+- [Tela Validar XML](tela-validar-xml.md)
 
 </details>
 
