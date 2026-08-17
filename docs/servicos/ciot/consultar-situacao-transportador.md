@@ -4,6 +4,10 @@ O serviço de consulta de situação do transportador no CIOT permite que o ERP 
 
 Use este serviço quando for necessário validar ou consultar a situação cadastral/operacional de um transportador antes de seguir com operações CIOT.
 
+## Provedores
+
+O serviço está disponível para **ANTT** e **eFrete**. A estrutura principal é compartilhada. No eFrete, o modelo amplia a consulta com `DataPrevistaFimViagem` e `PlacasConsulta`.
+
 ## Pré-requisitos
 
 Antes de executar a consulta, confira:
@@ -14,6 +18,7 @@ Antes de executar a consulta, confira:
 - O ambiente está configurado conforme a consulta desejada.
 - As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet.
 - O CPF ou CNPJ do interessado, o CPF ou CNPJ do transportador e o RNTRC estão corretos.
+- Para eFrete, o integrador e a forma de autenticação estão configurados conforme a [visão geral do CIOT](README.md#configuração-do-efrete).
 
 ## Arquivo de envio
 
@@ -36,9 +41,14 @@ O conteúdo do XML deve usar a estrutura de consulta de situação do transporta
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ConsultarSituacaoTransportador xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>EFrete</ProvedorCIOT>
     <CpfCnpjInteressado>12345678000195</CpfCnpjInteressado>
     <CpfCnpjTransportador>12345678901</CpfCnpjTransportador>
     <RNTRCTransportador>012345678</RNTRCTransportador>
+    <DataPrevistaFimViagem>2026-08-17</DataPrevistaFimViagem>
+    <PlacasConsulta>
+        <Placa>ABC1D23</Placa>
+    </PlacasConsulta>
 </ConsultarSituacaoTransportador>
 ```
 
@@ -46,16 +56,19 @@ Campos principais:
 
 | Campo | Como preencher |
 |---|---|
+| `ProvedorCIOT` | Use `ANTT` ou `EFrete`. Deve ser o primeiro elemento dentro de `ConsultarSituacaoTransportador`. |
 | `CpfCnpjInteressado` | CPF ou CNPJ do interessado na consulta. |
 | `CpfCnpjTransportador` | CPF ou CNPJ do transportador consultado. |
 | `RNTRCTransportador` | RNTRC do transportador. |
+| `DataPrevistaFimViagem` | Data prevista para o fim da viagem no modelo eFrete. |
+| `PlacasConsulta` | Grupo de placas consultadas no modelo eFrete. |
 
 ## Fluxo de processamento
 
 1. O ERP grava o arquivo `<identificador>-consultar.xml` na pasta de envio.
 2. O UniNFe lê o XML `ConsultarSituacaoTransportador`.
 3. O UniNFe aplica as configurações da empresa, certificado, ambiente, proxy e conexão TLS quando configurado.
-4. O UniNFe envia a consulta ao serviço CIOT.
+4. O UniNFe envia a consulta ao provedor indicado em `ProvedorCIOT`.
 5. O retorno do serviço é gravado na pasta de retorno como `<identificador>-ret-consultar.xml`.
 6. Se ocorrer falha local, o UniNFe grava `<identificador>-ret-consultar.err` na pasta de retorno.
 7. O arquivo original da pasta de envio é removido após o processamento.
@@ -120,6 +133,8 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-consult
 
 - Use sempre o final `-consultar.xml` para consultar a situação do transportador no CIOT.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `ProvedorCIOT` como primeira tag, com `ANTT` ou `EFrete`.
+- No eFrete, preencha `DataPrevistaFimViagem` e `PlacasConsulta` conforme o modelo do provedor.
 - Informe corretamente o interessado, o transportador e o RNTRC.
 - Aguarde o arquivo `-ret-consultar.xml` para interpretar o retorno do serviço.
 - Não espere geração de XML processado em `Enviados\Autorizados` neste serviço.

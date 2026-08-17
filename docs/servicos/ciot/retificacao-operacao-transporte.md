@@ -4,6 +4,10 @@ O serviço de retificação da operação de transporte do CIOT permite que o ER
 
 Use este serviço quando uma operação de transporte CIOT já existente precisar ser retificada conforme as regras do serviço.
 
+## Provedor
+
+O modelo disponível para esta operação é da **ANTT**. Use `ANTT` em `ProvedorCIOT`; não há modelo eFrete para retificação da operação.
+
 ## Pré-requisitos
 
 Antes de enviar a retificação, confira:
@@ -38,11 +42,15 @@ O conteúdo do XML deve usar a estrutura de retificação de operação de trans
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RetificacaoOperacaoTransporte xmlns="http://www.antt.gov.br/ciot">
-    <!-- Dados da operação de transporte a serem retificados conforme o leiaute do CIOT -->
+    <ProvedorCIOT>ANTT</ProvedorCIOT>
+    <CodigoIdentificacaoOperacao>1234567890123456</CodigoIdentificacaoOperacao>
+    <!-- Demais dados da operação a serem retificados conforme o leiaute -->
 </RetificacaoOperacaoTransporte>
 ```
 
 O UniNFe identifica este serviço pelo elemento XML `RetificacaoOperacaoTransporte` e pelo final de arquivo `-ped-eve.xml`.
+
+`ProvedorCIOT` deve ser o primeiro elemento dentro de `RetificacaoOperacaoTransporte`.
 
 ## Fluxo de processamento
 
@@ -134,6 +142,7 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-ped-eve
 
 - Use sempre o final `-ped-eve.xml` para retificação da operação de transporte do CIOT.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `<ProvedorCIOT>ANTT</ProvedorCIOT>` como primeira tag.
 - Informe a operação que será retificada e os dados atualizados conforme o leiaute do CIOT.
 - Aguarde o arquivo `-ret-ped-eve.xml` para interpretar o retorno do serviço.
 - Armazene o XML `-procEventoCIOT.xml` quando a retificação for aceita.

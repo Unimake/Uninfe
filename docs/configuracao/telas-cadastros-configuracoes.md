@@ -211,6 +211,12 @@ A aba **Outras Configurações** exibe opções adicionais conforme o serviço d
 | Intervalo de tempo (em segundos) entre o envio de cada arquivo de NFSe | Intervalo entre envios de arquivos de NFS-e. Aparece para empresas configuradas com NFS-e. |
 | Versão do QrCode da NFCe (Deixe 0 para o padrão) | Versão do QR Code da NFC-e. Use `0` para manter o padrão do UniNFe. |
 | Ativar preparação de TLS antes do envio do XML? | Ativa uma preparação de TLS antes do envio do XML. Use somente quando houver problemas de conexão TLS. |
+| Integrador | Identifica o integrador nas operações CIOT enviadas ao eFrete. É obrigatório para usar o provedor eFrete. |
+| Token | Token de autenticação do eFrete. Quando informado, tem prioridade sobre usuário e senha. |
+| Usuário | Usuário de autenticação do eFrete. Deve ser preenchido junto com a senha. |
+| Senha | Senha de autenticação do eFrete. Deve ser preenchida junto com o usuário. |
+
+Os campos do grupo **Configuração eFrete (CIOT)** aparecem para empresas configuradas com o serviço CIOT ou com todos os serviços. A prioridade de autenticação é token, usuário e senha e, quando essas credenciais não forem informadas, certificado digital. Se houver token ou usuário e senha, o campo **Integrador** também deve estar preenchido. O provedor de cada solicitação é definido pela tag `ProvedorCIOT` do XML; consulte a [documentação do CIOT](../servicos/ciot/).
 
 ## Salvamento e validações
 
@@ -220,6 +226,8 @@ Ao salvar, o UniNFe valida as configurações da empresa e das abas aplicáveis 
 - UF ou município obrigatório quando o serviço exige;
 - tempo de consulta de autorização entre 2 e 15 segundos;
 - par **ID Token** e **CSC** preenchido em conjunto para NFC-e;
+- **Usuário** e **Senha** do eFrete preenchidos em conjunto;
+- **Integrador** preenchido quando houver token ou usuário e senha do eFrete;
 - senha de acesso à tela de configurações confirmada corretamente;
 - dados de proxy completos quando o proxy manual está ativo;
 - certificado digital válido quando configurado;

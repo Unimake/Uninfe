@@ -4,6 +4,10 @@ A declaração de operação de transporte do CIOT permite que o ERP registre um
 
 Use este serviço quando for necessário declarar uma nova operação de transporte e obter o XML processado da declaração.
 
+## Provedores
+
+A declaração está disponível para **ANTT** e **eFrete**. O eFrete reaproveita os grupos da declaração ANTT e amplia o XML com informações próprias de identificação, pagamento, participantes, motorista, impostos e instruções operacionais.
+
 ## Pré-requisitos
 
 Antes de enviar a declaração, confira na configuração da empresa:
@@ -15,6 +19,7 @@ Antes de enviar a declaração, confira na configuração da empresa:
 - O ambiente está configurado conforme a operação desejada.
 - As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet.
 - Os dados da operação de transporte, veículos, origem, destino, carga e pagamento estão preenchidos conforme as regras do CIOT.
+- Para eFrete, o integrador e a forma de autenticação estão configurados conforme a [visão geral do CIOT](README.md#configuração-do-efrete).
 
 ## Arquivo de envio
 
@@ -37,7 +42,7 @@ O conteúdo do XML deve usar a estrutura de declaração de operação de transp
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <DeclaracaoOperacaoTransporte xmlns="http://www.antt.gov.br/ciot">
-    <IdOperacaoTransporte>OP1234567890</IdOperacaoTransporte>
+    <ProvedorCIOT>EFrete</ProvedorCIOT>
     <TipoOperacao>1</TipoOperacao>
     <CpfCnpjContratado>12345678901</CpfCnpjContratado>
     <RNTRCContratado>012345678</RNTRCContratado>
@@ -45,15 +50,19 @@ O conteúdo do XML deve usar a estrutura de declaração de operação de transp
     <RNTRCContratante>987654321</RNTRCContratante>
     <ValorFrete>1500.50</ValorFrete>
     <DataDeclaracao>2026-05-25T10:00:00-03:00</DataDeclaracao>
+    <IdOperacaoCliente>CIOT-CLIENTE-0001</IdOperacaoCliente>
+    <MatrizCNPJ>12345678000195</MatrizCNPJ>
+    <FilialCNPJ>12345678000276</FilialCNPJ>
 </DeclaracaoOperacaoTransporte>
 ```
 
-O exemplo acima mostra apenas os campos iniciais. A declaração completa também pode conter grupos como veículos, origem e destino, dados da carga, informações de pagamento e indicadores operacionais.
+O exemplo acima mostra apenas campos iniciais do eFrete. A declaração completa também pode conter grupos como veículos, origem e destino, dados da carga, informações de pagamento e indicadores operacionais. Para ANTT, altere `ProvedorCIOT` para `ANTT` e siga o modelo da pasta desse provedor.
 
 ## Principais grupos do XML
 
 | Grupo ou campo | Para que serve |
 |---|---|
+| `ProvedorCIOT` | Seleciona `ANTT` ou `EFrete`. Deve ser o primeiro elemento dentro de `DeclaracaoOperacaoTransporte`. |
 | `IdOperacaoTransporte` | Identifica a operação de transporte declarada pelo ERP. |
 | `TipoOperacao` | Informa o tipo da operação declarada. |
 | `CpfCnpjContratado` e `RNTRCContratado` | Identificam o contratado e seu RNTRC. |
@@ -69,13 +78,25 @@ O exemplo acima mostra apenas os campos iniciais. A declaração completa també
 | `InfPagamento` | Informa os dados de pagamento, como tipo de pagamento, favorecido e dados de PIX quando aplicável. |
 | `InfIndicadoresOperacionais` | Indica características operacionais, como alto desempenho, retorno vazio e composição veicular. |
 
+### Ampliações do modelo eFrete
+
+Os modelos eFrete mantêm os grupos comuns sempre que possível e acrescentam campos como `IdOperacaoCliente`, `MatrizCNPJ`, `FilialCNPJ`, `TipoEmbalagem`, `TipoPagamentoEFrete`, `Motorista`, `Impostos` e dados detalhados dos participantes. Também podem incluir observações, entrega de documentação e quantidades de saques e transferências.
+
+Há três modelos de declaração eFrete em `exemplos xml/CIOT/eFrete`:
+
+- `declaracaoOperacaoTransporteCargaLotacaoCompleta-ciot.xml`;
+- `declaracaoOperacaoTransporteCargaFracionada-ciot.xml`;
+- `declaracaoOperacaoTransporteTacAgregado-ciot.xml`.
+
+Use o modelo correspondente ao tipo de operação. A presença e a obrigatoriedade dos grupos variam conforme esse tipo.
+
 ## Fluxo de processamento
 
 1. O ERP grava o arquivo `<identificador>-ciot.xml` na pasta de envio.
 2. O UniNFe lê o XML `DeclaracaoOperacaoTransporte`.
 3. O UniNFe aplica as configurações da empresa, certificado, ambiente, proxy e conexão TLS quando configurado.
 4. O XML é assinado e gravado em `Enviados\EmProcessamento` com o mesmo nome do arquivo de envio.
-5. O UniNFe envia a declaração ao serviço CIOT.
+5. O UniNFe envia a declaração ao provedor indicado em `ProvedorCIOT`.
 6. O retorno do serviço é gravado na pasta de retorno como `<identificador>-ret-ciot.xml`.
 7. Se o retorno indicar autorização da declaração, o UniNFe grava o XML processado `<identificador>-procCIOT.xml` em `Enviados\Autorizados`.
 8. O XML assinado `<identificador>-ciot.xml` também é movido para `Enviados\Autorizados`.
@@ -159,6 +180,8 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-ciot.xm
 
 - Use sempre o final `-ciot.xml` para declaração de operação de transporte.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `ProvedorCIOT` como primeira tag, com `ANTT` ou `EFrete`.
+- Para eFrete, parta do modelo correspondente a carga lotação completa, carga fracionada ou TAC agregado.
 - Mantenha o `<identificador>` único para evitar conflito de arquivos.
 - Aguarde o arquivo `-ret-ciot.xml` para interpretar o retorno do serviço.
 - Armazene o XML `-procCIOT.xml` quando a declaração for autorizada.

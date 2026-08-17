@@ -111,7 +111,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [BPe - Consulta de situação](servicos/bpe/consulta-situacao.md)
 - [BPe - Consulta status de serviço](servicos/bpe/consulta-status-servico.md)
 - [BPe - Eventos](servicos/bpe/eventos.md)
-- [CIOT](servicos/ciot/)
+- [CIOT - Visão geral e provedores ANTT e eFrete](servicos/ciot/)
 - [CIOT - Cancelamento da operação de transporte](servicos/ciot/cancelamento-operacao-transporte.md)
 - [CIOT - Consultar CIOT gerado](servicos/ciot/consultar-ciot-gerado.md)
 - [CIOT - Consultar exceção](servicos/ciot/consultar-excecao.md)
