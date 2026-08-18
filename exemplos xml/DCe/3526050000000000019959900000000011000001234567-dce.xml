@@ -1,5 +1,5 @@
 <DCe xmlns="http://www.portalfiscal.inf.br/dce">
-  <infDCe versao="1.00" Id="DCe3526050000000000019959900000000011000001234567">
+  <infDCe versao="1.00" Id="DCe35260500000000019959900000000011000001234567">
     <ide>
       <cUF>35</cUF>
       <cDC>000123</cDC>
@@ -71,8 +71,4 @@
       <xObs2>Declaracao 2</xObs2>
     </infDec>
   </infDCe>
-  <infDCeSupl>
-    <qrCodDCe>https://dce.test/qr</qrCodDCe>
-    <urlChave>https://dce.test/chave</urlChave>
-  </infDCeSupl>
 </DCe>
