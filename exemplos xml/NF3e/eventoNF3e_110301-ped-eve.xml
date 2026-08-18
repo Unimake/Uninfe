@@ -9,10 +9,10 @@
     <tpEvento>110301</tpEvento>
     <nSeqEvento>1</nSeqEvento>
     <detEvento versaoEvento="1.00">
-      <evCancVincPgto xmlns="http://www.portalfiscal.inf.br/nf3e">
+      <evCancVincPgto>
         <descEvento>Cancelamento da vinculacao do pagamento</descEvento>
-        <nProt>nProt1</nProt>
-        <nProtVincPgto>nProtVincPgto1</nProtVincPgto>
+        <nProt>5000000000000000</nProt>
+        <nProtVincPgto>5000000000000000</nProtVincPgto>
       </evCancVincPgto>
     </detEvento>
   </infEvento>

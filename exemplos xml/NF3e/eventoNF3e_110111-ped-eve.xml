@@ -11,7 +11,7 @@
 		<detEvento versaoEvento="1.00">
 			<evCancNF3e>
 				<descEvento>Cancelamento</descEvento>
-				<nProt>123456789012345</nProt>
+				<nProt>0000000000000000</nProt>
 				<xJust>Cancelamento de teste</xJust>
 			</evCancNF3e>
 		</detEvento>
