@@ -39,11 +39,15 @@
     <ProjectReference Include="..\NFe.Threadings\NFe.Threadings.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <Reference Include="Unimake.Business.DFe">
       <HintPath>..\NFe.ConvertTxt\bin\Release\Unimake.Business.DFe.dll</HintPath>
       <Private>true</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' != 'Release'">
+    <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj" />
   </ItemGroup>
 
   <ItemGroup>
