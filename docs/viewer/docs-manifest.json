@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T14:11:22.690Z",
+  "generatedAt": "2026-08-19T20:03:47.548Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -180,6 +180,24 @@
       "title": "Consulta GTIN",
       "path": "servicos/ccg/consulta-gtin.md",
       "category": "servicos/ccg"
+    },
+    {
+      "id": "servicos-ciot-cadastro-motorista-efrete-md",
+      "title": "Cadastro de motorista no eFrete",
+      "path": "servicos/ciot/cadastro-motorista-efrete.md",
+      "category": "servicos/ciot"
+    },
+    {
+      "id": "servicos-ciot-cadastro-proprietario-efrete-md",
+      "title": "Cadastro de proprietário no eFrete",
+      "path": "servicos/ciot/cadastro-proprietario-efrete.md",
+      "category": "servicos/ciot"
+    },
+    {
+      "id": "servicos-ciot-cadastro-veiculo-efrete-md",
+      "title": "Cadastro de veículo no eFrete",
+      "path": "servicos/ciot/cadastro-veiculo-efrete.md",
+      "category": "servicos/ciot"
     },
     {
       "id": "servicos-ciot-cancelamento-operacao-transporte-md",
