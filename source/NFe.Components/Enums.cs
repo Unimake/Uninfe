@@ -826,7 +826,7 @@ namespace NFe.Components
         /// <summary>
         /// Envio de Eventos da DCe
         /// </summary>
-        DCeRecepcaoEvento,    
+        DCeRecepcaoEvento,
 
         /// <summary>
         /// Envio do XML de DCe
@@ -837,7 +837,16 @@ namespace NFe.Components
         /// <summary>
         /// Nulo / Nenhum serviço em execução
         /// </summary>
-        Nulo
+        Nulo,
+
+        /// <summary>Gravar motorista na eFrete.</summary>
+        CIOTGravarMotorista,
+
+        /// <summary>Gravar proprietário na eFrete.</summary>
+        CIOTGravarProprietario,
+
+        /// <summary>Gravar veículo na eFrete.</summary>
+        CIOTGravarVeiculo
     }
 
     #endregion Servicos
