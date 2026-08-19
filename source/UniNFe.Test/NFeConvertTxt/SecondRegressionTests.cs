@@ -77,6 +77,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("0000056689-nfe-orig.txt")]
         [InlineData("NFe_000049184_08_27_14-nfe.txt")]
         [InlineData("002320_01_01_17_08_2026-nfe.txt")]
+        [InlineData("000017136_19041494000180_001_19_08_2026-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -240,6 +241,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarProdutoIpiEReformaDaNFe2320(legado);
                         ValidarProdutoIpiEReformaDaNFe2320(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000017136_19041494000180_001_19_08_2026-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarPagamentosDaNfce17136(legado);
+                        ValidarPagamentosDaNfce17136(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -284,6 +290,24 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("4219.50", documento.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='gIBSCBS']/*[local-name()='vBC']")?.InnerText);
             Assert.Equal("4392.18", documento.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
             Assert.Equal("4261.68", documento.SelectSingleNode("//*[local-name()='total']/*[local-name()='vNFTot']")?.InnerText);
+        }
+
+        private static void ValidarPagamentosDaNfce17136(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var pagamentos = documento.SelectNodes("//*[local-name()='detPag']");
+            var cartoes = documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='card']");
+
+            Assert.Equal(5, pagamentos.Count);
+            Assert.Equal(4, cartoes.Count);
+            Assert.Equal("196.00", pagamentos[0].SelectSingleNode("*[local-name()='vPag']")?.InnerText);
+            Assert.Equal("295.00", pagamentos[1].SelectSingleNode("*[local-name()='vPag']")?.InnerText);
+            Assert.Equal("300.00", pagamentos[2].SelectSingleNode("*[local-name()='vPag']")?.InnerText);
+            Assert.Equal("65.00", pagamentos[3].SelectSingleNode("*[local-name()='vPag']")?.InnerText);
+            Assert.Equal("24.00", pagamentos[4].SelectSingleNode("*[local-name()='vPag']")?.InnerText);
+            Assert.Equal("AUT001", cartoes[0].SelectSingleNode("*[local-name()='cAut']")?.InnerText);
+            Assert.Equal("AUT004", cartoes[3].SelectSingleNode("*[local-name()='cAut']")?.InnerText);
         }
 
         [Fact]
@@ -421,7 +445,19 @@ namespace UniNFe.Test.NFeConvertTxt
                 "103120939",
                 "6232081448",
                 "6232750800",
-                "420396)"
+                "420396)",
+                "ALTO DA BOA VISTA MATERIAS DE CONSTRUCAO LTDA",
+                "CENTERKASA",
+                "RUA JACINTO RAMOS",
+                "6235133655",
+                "58033)",
+                "TINTA LEINERTEX ACR FOSCA 18L AREIA",
+                "7898360090686",
+                "08561701000101",
+                "082853",
+                "739532",
+                "430893",
+                "526811"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
