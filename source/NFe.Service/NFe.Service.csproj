@@ -287,6 +287,9 @@
     <Compile Include="CIOT\TaskCIOTDeclaracaoOperacaoTransporte.cs" />
     <Compile Include="CIOT\TaskCIOTEncerramentoOperacaoTransporte.cs" />
     <Compile Include="CIOT\TaskCIOTGerarIdOperacaoTransporte.cs" />
+    <Compile Include="CIOT\TaskCIOTGravarMotorista.cs" />
+    <Compile Include="CIOT\TaskCIOTGravarProprietario.cs" />
+    <Compile Include="CIOT\TaskCIOTGravarVeiculo.cs" />
     <Compile Include="CIOT\TaskCIOTRetificacaoOperacaoTransporte.cs" />
     <Compile Include="Classes.cs" />
     <Compile Include="CTe\TaskConsultaStatusCTe.cs" />
