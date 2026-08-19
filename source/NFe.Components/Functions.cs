@@ -147,9 +147,6 @@ namespace NFe.Components
 
             switch (padraoNFSe)
             {
-                case PadraoNFSe.MEMORY:
-                    return 9999901;
-
                 case PadraoNFSe.ABASE:
                     return 9999902;
 

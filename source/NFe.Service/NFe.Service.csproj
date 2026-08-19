@@ -349,6 +349,7 @@
     <Compile Include="NFe\TaskDownloadNFCe.cs" />
     <Compile Include="NFe\TaskConsultaChavesNFCe.cs" />
     <Compile Include="NFSe\TaksConsultarConveioMunicipial.cs" />
+    <Compile Include="NFSe\ResolucaoCentralizadaNFSe.cs" />
     <Compile Include="NFSe\TaskConsultaEventosNFSeChaveAcesso.cs" />
     <Compile Include="NFSe\TaskConsultarDadosCadastrais.cs" />
     <Compile Include="NFSe\TaskConsultarDistribuicaoNSUNFSe.cs" />
