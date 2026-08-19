@@ -837,16 +837,7 @@ namespace NFe.Components
         /// <summary>
         /// Nulo / Nenhum serviço em execução
         /// </summary>
-        Nulo,
-
-        /// <summary>Gravar motorista na eFrete.</summary>
-        CIOTGravarMotorista,
-
-        /// <summary>Gravar proprietário na eFrete.</summary>
-        CIOTGravarProprietario,
-
-        /// <summary>Gravar veículo na eFrete.</summary>
-        CIOTGravarVeiculo
+        Nulo
     }
 
     #endregion Servicos

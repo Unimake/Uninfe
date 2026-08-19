@@ -567,18 +567,6 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTRetificacaoOperacaoTransporte(arquivo));
                             break;
 
-                        case Servicos.CIOTGravarMotorista:
-                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTGravarMotorista(arquivo));
-                            break;
-
-                        case Servicos.CIOTGravarProprietario:
-                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTGravarProprietario(arquivo));
-                            break;
-
-                        case Servicos.CIOTGravarVeiculo:
-                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTGravarVeiculo(arquivo));
-                            break;
-
                         #endregion CIOT
 
                         #region DCe
@@ -1360,18 +1348,6 @@ namespace NFe.Service
 
                             case "ConsultarCIOTGerado":
                                 tipoServico = Servicos.CIOTConsultarCIOTGerado;
-                                break;
-
-                            case "GravarMotorista":
-                                tipoServico = Servicos.CIOTGravarMotorista;
-                                break;
-
-                            case "GravarProprietario":
-                                tipoServico = Servicos.CIOTGravarProprietario;
-                                break;
-
-                            case "GravarVeiculo":
-                                tipoServico = Servicos.CIOTGravarVeiculo;
                                 break;
 
                             #endregion CIOT
@@ -2450,13 +2426,6 @@ namespace NFe.Service
                 case Servicos.CIOTDeclaracaoOperacaoTransporte:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).EnvioXML;
                     extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOT).RetornoERR;
-                    break;
-
-                case Servicos.CIOTGravarMotorista:
-                case Servicos.CIOTGravarProprietario:
-                case Servicos.CIOTGravarVeiculo:
-                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTCadastro).EnvioXML;
-                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTCadastro).RetornoERR;
                     break;
 
                 case Servicos.CIOTGerarIdOperacaoTransporte:
