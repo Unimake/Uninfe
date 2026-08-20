@@ -18,7 +18,6 @@ goto setupNormal
 @ECHO Compilando Unimake.DFe para WINDEV
 @ECHO ----------------------------------------------------------------------------------
 
-Pause
 goto compilarDLL
 
 :setupNormal
@@ -50,8 +49,6 @@ DEL /S /Q %filesDir%\App.config
 DEL /S /Q %filesDir%\TesteDLL_Unimake.Business.DFe.exe
 DEL /S /Q %filesDir%\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 DEL /S /Q %filesDir%\TesteDLL_Unimake.Business.DFe.exe.config
-:: Esta dll tem que pegar da pasta do VB6
-DEL /S /Q %filesDir%\System.Security.Cryptography.Xml.dll 
 
 ::Apaga os arquivos desnecessários
 DEL /S /Q %filesDir%\net462\*.xml
@@ -194,7 +191,8 @@ echo. > "%caminhoAssinar%\assinar.txt"
    goto ok
    
 :fimWindev
- ren d:\projetos\instaladores\Install_Unimake.DFe.exe d:\projetos\instaladores\Install_Unimake.DFe_for_windev.exe
+ del d:\projetos\instaladores\Install_Unimake.DFe_for_windev.exe
+ ren d:\projetos\instaladores\Install_Unimake.DFe.exe Install_Unimake.DFe_for_windev.exe
  goto ok
 
 :ok
