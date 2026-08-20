@@ -78,6 +78,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("NFe_000049184_08_27_14-nfe.txt")]
         [InlineData("002320_01_01_17_08_2026-nfe.txt")]
         [InlineData("000017136_19041494000180_001_19_08_2026-nfe-orig.txt")]
+        [InlineData("035814-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -246,11 +247,31 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarPagamentosDaNfce17136(legado);
                         ValidarPagamentosDaNfce17136(novo);
                     }
+                    if (string.Equals(nomeArquivo, "035814-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarPisECofinsDaNfe35814(legado);
+                        ValidarPisECofinsDaNfe35814(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
                 finally { if (Directory.Exists(pasta)) Directory.Delete(pasta, true); }
             }
+        }
+
+        private static void ValidarPisECofinsDaNfe35814(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var pis = documento.SelectSingleNode("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='PIS']/*");
+            var cofins = documento.SelectSingleNode("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='COFINS']/*");
+
+            Assert.Equal("PISAliq", pis?.LocalName);
+            Assert.Equal("01", pis?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+            Assert.Equal("0.00", pis?.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("COFINSAliq", cofins?.LocalName);
+            Assert.Equal("01", cofins?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+            Assert.Equal("0.00", cofins?.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
@@ -362,6 +383,15 @@ namespace UniNFe.Test.NFeConvertTxt
                 "ROD. RAPOSO TAVARES KM-18 5",
                 "100441666118",
                 "60561719000557",
+                "COMERCIO DE PRODUTOS AGROVETERINARIOS LTDA",
+                "CASA DO FAZENDEIRO",
+                "00131341545",
+                "36912368000173",
+                "AV MATO GROSSO 201",
+                "6634381569",
+                "JOSE ADELMO DE JESUS",
+                "45184984100",
+                "RUA JOSE ANDRE VAJAO",
                 "VENDEDOR: 0110 WAGNER",
                 "AUTO VIDROS PRUDENTE",
                 "562319803111",
