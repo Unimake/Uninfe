@@ -20,6 +20,7 @@ namespace NFe.Service
             ExtEnvioDFeTXT = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioTXT;
             ExtRetornoDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).RetornoXML;
             ExtRetEnvDFe_ERR = Propriedade.ExtRetorno.retEnvDFeCTe_ERR;
+            Configuracao configuracao = null;
 
             try
             {
@@ -99,12 +100,13 @@ namespace NFe.Service
                 {
                     var xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<DistDFeInt>(ConteudoXML);
 
-                    var configuracao = new Configuracao
+                    configuracao = new Configuracao
                     {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = TipoDFe.CTe,
                         TipoAmbiente = xml.TpAmb,
-                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                        ColetarTelemetriaDisponibilidade = true
                     };
 
                     if (ConfiguracaoApp.Proxy)
@@ -126,10 +128,14 @@ namespace NFe.Service
 
                     distribuicaoDFe.Dispose();
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, ExtEnvioDFe);
             }
             catch (Exception ex)
             {
                 WriteLogError(ex);
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, ExtEnvioDFe);
             }
             finally
             {

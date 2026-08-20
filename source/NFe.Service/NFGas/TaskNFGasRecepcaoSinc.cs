@@ -26,6 +26,7 @@ namespace NFe.Service.NFGas
             var emp = Empresas.FindEmpresaByThread();
             var ler = new LerXML();
             var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + (new FileInfo(NomeArquivoXML).Name);
+            Configuracao configuracao = null;
 
             try
             {
@@ -51,12 +52,13 @@ namespace NFe.Service.NFGas
                     }
                 }
 
-                var configuracao = new Configuracao
+                configuracao = new Configuracao
                 {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.NFGas,
                     TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
                 };
 
                 if (ConfiguracaoApp.Proxy)
@@ -100,6 +102,9 @@ namespace NFe.Service.NFGas
                 }
 
                 autorizacaoSinc.Dispose();
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -120,6 +125,9 @@ namespace NFe.Service.NFGas
                     TFunctions.GravarArqErroServico(arqXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProRec_ERR, ex);
                 }
                 catch { }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
             }
         }
 

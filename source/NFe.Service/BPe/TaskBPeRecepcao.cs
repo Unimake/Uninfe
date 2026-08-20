@@ -25,6 +25,7 @@ namespace NFe.Service.BPe
             var ler = new LerXML();
             var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + (new FileInfo(NomeArquivoXML).Name);
             Unimake.Business.DFe.Servicos.BPe.AutorizacaoBPe autorizacao = null;
+            Configuracao configuracao = null;
 
             try
             {
@@ -50,7 +51,7 @@ namespace NFe.Service.BPe
                     }
                 }
 
-                var configuracao = CriarConfiguracao(emp);
+                configuracao = CriarConfiguracao(emp);
 
                 autorizacao = new Unimake.Business.DFe.Servicos.BPe.AutorizacaoBPe(xmlBPe, configuracao);
                 autorizacao.Executar();
@@ -82,10 +83,16 @@ namespace NFe.Service.BPe
                 {
                     File.Delete(NomeArquivoXML);
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML);
             }
             catch (Exception ex)
             {
                 GravarErroEnvio(arqEmProcessamento, Propriedade.TipoEnvio.BPe, ex);
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML);
             }
             finally
             {
@@ -103,7 +110,8 @@ namespace NFe.Service.BPe
                 PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = TipoDFe.BPe,
                 TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                ColetarTelemetriaDisponibilidade = true
             };
 
             if (ConfiguracaoApp.Proxy)

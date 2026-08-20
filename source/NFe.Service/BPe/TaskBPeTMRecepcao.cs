@@ -19,6 +19,7 @@ namespace NFe.Service.BPe
             var emp = Empresas.FindEmpresaByThread();
             var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + (new FileInfo(NomeArquivoXML).Name);
             Unimake.Business.DFe.Servicos.BPe.AutorizacaoBPeTM autorizacao = null;
+            Configuracao configuracao = null;
 
             try
             {
@@ -42,7 +43,8 @@ namespace NFe.Service.BPe
                     }
                 }
 
-                autorizacao = new Unimake.Business.DFe.Servicos.BPe.AutorizacaoBPeTM(xmlBPeTM, CriarConfiguracao(emp));
+                configuracao = CriarConfiguracao(emp);
+                autorizacao = new Unimake.Business.DFe.Servicos.BPe.AutorizacaoBPeTM(xmlBPeTM, configuracao);
                 autorizacao.Executar();
 
                 ConteudoXML = autorizacao.ConteudoXMLAssinado;
@@ -72,10 +74,16 @@ namespace NFe.Service.BPe
                 {
                     File.Delete(NomeArquivoXML);
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.BPeTM).EnvioXML);
             }
             catch (Exception ex)
             {
                 GravarErroEnvio(arqEmProcessamento, Propriedade.TipoEnvio.BPeTM, ex);
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.BPeTM).EnvioXML);
             }
             finally
             {

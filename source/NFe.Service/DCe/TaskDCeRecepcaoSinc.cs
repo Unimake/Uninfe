@@ -26,6 +26,7 @@ namespace NFe.Service.DCe
             var emp = Empresas.FindEmpresaByThread();
             var ler = new LerXML();
             var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + (new FileInfo(NomeArquivoXML).Name);
+            Configuracao configuracao = null;
 
             try
             {
@@ -34,12 +35,13 @@ namespace NFe.Service.DCe
                 var xmlDCe = new Unimake.Business.DFe.Xml.DCe.DCe();
                 xmlDCe = xmlDCe.LerXML<Unimake.Business.DFe.Xml.DCe.DCe>(ConteudoXML);
 
-                var configuracao = new Configuracao
+                configuracao = new Configuracao
                 {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.DCe,
                     TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
                 };
 
                 if (ConfiguracaoApp.Proxy)
@@ -83,6 +85,9 @@ namespace NFe.Service.DCe
                 }
 
                 autorizacaoSinc.Dispose();
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -103,6 +108,9 @@ namespace NFe.Service.DCe
                     TFunctions.GravarArqErroServico(arqXML, Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML, Propriedade.ExtRetorno.ProRec_ERR, ex);
                 }
                 catch { }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.DCe).EnvioXML);
             }
         }
 

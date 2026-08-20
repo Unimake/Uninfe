@@ -9,6 +9,8 @@ namespace NFe.Service
 {
     public class TaskDownloadNFCe : TaskAbst
     {
+        private Configuracao configuracaoDiagnostico;
+
         #region Construtor
         public TaskDownloadNFCe(string arquivo)
         {
@@ -21,6 +23,7 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            configuracaoDiagnostico = null;
 
             //Definir o serviço que será executado para a classe
             Servico = Servicos.NFCeDownloadXML;
@@ -32,6 +35,9 @@ namespace NFe.Service
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
 
                 ExecuteDLL(emp);
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracaoDiagnostico, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -44,6 +50,9 @@ namespace NFe.Service
                 {
                     //Se falhou algo na hora de gravar o retorno.ERR(de erro) para o ERP
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracaoDiagnostico, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML);
             }
             finally
             {
@@ -76,17 +85,18 @@ namespace NFe.Service
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
                 Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Propriedade.ExtRetorno.DownloadNFCe_ERR);
 
-            var configuracao = new Configuracao
+            configuracaoDiagnostico = new Configuracao
             {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = TipoDFe.NFCe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
-                Servico = Unimake.Business.DFe.Servicos.Servico.NFCeDownloadXML
+                Servico = Unimake.Business.DFe.Servicos.Servico.NFCeDownloadXML,
+                ColetarTelemetriaDisponibilidade = true
             };
 
-            var downloadNFCe = new Unimake.Business.DFe.Servicos.NFCe.DownloadXML(conteudoXML.OuterXml, configuracao);
+            var downloadNFCe = new Unimake.Business.DFe.Servicos.NFCe.DownloadXML(conteudoXML.OuterXml, configuracaoDiagnostico);
             downloadNFCe.Executar();
 
             vStrXmlRetorno = downloadNFCe.RetornoWSString;
