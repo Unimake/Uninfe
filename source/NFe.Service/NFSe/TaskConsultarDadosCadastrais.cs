@@ -136,12 +136,6 @@ namespace NFe.Service.NFSe
             {
                 case PadraoNFSe.ISSNET:
                     versaoXML = "1.01";
-
-                    if (xmlDoc.InnerXml.Contains("xmlns=\"http://www.abrasf.org.br/nfse.xsd\""))
-                    {
-                        versaoXML = "2.04";
-                    }
-
                     break;
 
                 default:

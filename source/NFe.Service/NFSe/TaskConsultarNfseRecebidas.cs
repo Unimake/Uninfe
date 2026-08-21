@@ -147,8 +147,11 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.SMARAPD:
-                case PadraoNFSe.ISSNET:
                     versaoXML = "2.04";
+                    break;
+
+                case PadraoNFSe.ISSNET:
+                    versaoXML = "1.01";
                     break;
 
                 default:

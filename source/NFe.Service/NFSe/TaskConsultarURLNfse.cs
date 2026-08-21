@@ -130,10 +130,6 @@ namespace NFe.Service.NFSe
 
                 case PadraoNFSe.ISSNET:
                     versaoXML = "1.01";
-                    if (xmlDoc.GetElementsByTagName("Pedido").Count > 0)
-                    {
-                        versaoXML = "2.04";
-                    }
                     break;
 
                 default:

@@ -490,11 +490,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadraoNFSe.ISSNET:
-                    versaoXML = "2.04";
-                    if (xmlDoc.GetElementsByTagName("pedRegEvento").Count > 0)
-                    {
-                        versaoXML = "1.01";
-                    }
+                    versaoXML = "1.01";
                     break;
 
                 case PadraoNFSe.PROPRIOFORTALEZACE:
