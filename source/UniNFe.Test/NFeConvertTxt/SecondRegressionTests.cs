@@ -79,6 +79,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("002320_01_01_17_08_2026-nfe.txt")]
         [InlineData("000017136_19041494000180_001_19_08_2026-nfe-orig.txt")]
         [InlineData("035814-nfe-orig.txt")]
+        [InlineData("161540-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -252,6 +253,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarPisECofinsDaNfe35814(legado);
                         ValidarPisECofinsDaNfe35814(novo);
                     }
+                    if (string.Equals(nomeArquivo, "161540-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarImpostosDaNfce161540(legado);
+                        ValidarImpostosDaNfce161540(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -272,6 +278,23 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("COFINSAliq", cofins?.LocalName);
             Assert.Equal("01", cofins?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
             Assert.Equal("0.00", cofins?.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+        }
+
+        private static void ValidarImpostosDaNfce161540(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+
+            Assert.Equal("65", documento.SelectSingleNode("//*[local-name()='ide']/*[local-name()='mod']")?.InnerText);
+            Assert.Null(documento.SelectSingleNode("//*[local-name()='dest']"));
+            Assert.Equal("32.00", documento.SelectSingleNode("//*[local-name()='ICMS00']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("5.44", documento.SelectSingleNode("//*[local-name()='ICMS00']/*[local-name()='vICMS']")?.InnerText);
+            Assert.Equal("26.56", documento.SelectSingleNode("//*[local-name()='PISAliq']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("0.44", documento.SelectSingleNode("//*[local-name()='PISAliq']/*[local-name()='vPIS']")?.InnerText);
+            Assert.Equal("26.56", documento.SelectSingleNode("//*[local-name()='COFINSAliq']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("2.02", documento.SelectSingleNode("//*[local-name()='COFINSAliq']/*[local-name()='vCOFINS']")?.InnerText);
+            Assert.Equal("000001", documento.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='cClassTrib']")?.InnerText);
+            Assert.Equal("24.10", documento.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='gIBSCBS']/*[local-name()='vBC']")?.InnerText);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
