@@ -21,12 +21,7 @@ namespace NFe.Service.NFSe
     {
         internal static string DefinirVersao(XmlDocument conteudoXML, PadraoNFSe padraoNFSe, int codigoMunicipio)
         {
-            if (padraoNFSe == PadraoNFSe.ISSNET)
-            {
-                return "1.01";
-            }
-
-            return Unimake.Business.DFe.ValidarEstruturaXML.DefinirVersaoNFSe(conteudoXML, padraoNFSe, codigoMunicipio);
+            return ValidarEstruturaXML.DefinirVersaoNFSe(conteudoXML, padraoNFSe, codigoMunicipio);
         }
 
         internal static ResultadoResolucaoNFSe Resolver(XmlDocument conteudoXML, PadraoNFSe padraoNFSe, int codigoMunicipio)
@@ -37,7 +32,7 @@ namespace NFe.Service.NFSe
         internal static ResultadoResolucaoNFSe Resolver(XmlDocument conteudoXML, PadraoNFSe padraoNFSe, int codigoMunicipio, TipoAmbiente tipoAmbiente)
         {
             var versao = DefinirVersao(conteudoXML, padraoNFSe, codigoMunicipio);
-            var servico = Unimake.Business.DFe.ValidarEstruturaXML.DefinirTipoServicoNFSe(
+            var servico = ValidarEstruturaXML.DefinirTipoServicoNFSe(
                 conteudoXML,
                 padraoNFSe,
                 versao,
