@@ -111,7 +111,10 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [BPe - Consulta de situação](servicos/bpe/consulta-situacao.md)
 - [BPe - Consulta status de serviço](servicos/bpe/consulta-status-servico.md)
 - [BPe - Eventos](servicos/bpe/eventos.md)
-- [CIOT](servicos/ciot/)
+- [CIOT - Visão geral e provedores ANTT e eFrete](servicos/ciot/)
+- [CIOT - Cadastro de motorista no eFrete](servicos/ciot/cadastro-motorista-efrete.md)
+- [CIOT - Cadastro de proprietário no eFrete](servicos/ciot/cadastro-proprietario-efrete.md)
+- [CIOT - Cadastro de veículo no eFrete](servicos/ciot/cadastro-veiculo-efrete.md)
 - [CIOT - Cancelamento da operação de transporte](servicos/ciot/cancelamento-operacao-transporte.md)
 - [CIOT - Consultar CIOT gerado](servicos/ciot/consultar-ciot-gerado.md)
 - [CIOT - Consultar exceção](servicos/ciot/consultar-excecao.md)
@@ -159,6 +162,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 ## Erros e soluções
 
 - [Erros e soluções](erros-e-solucoes/erros-e-solucoes.md)
+  - [Falhas de conexão relacionadas aos certificados raiz do Windows](erros-e-solucoes/erros-e-solucoes.md#erro-certificados-raiz-windows-desatualizados)
 
 ## Referencias
 
@@ -170,6 +174,10 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)
 - [Perguntas frequentes](referencias/perguntas-frequentes.md)
+  - [NF-e sem XML completo na consulta de documentos destinados](referencias/perguntas-frequentes.md#faq-nfe-sem-xml-completo-na-distribuicao)
+  - [Geração de idCSRT e hashCSRT da NF-e/NFC-e](referencias/perguntas-frequentes.md#faq-gerar-idcsrt-hashcsrt-nfe-nfce)
+  - [Impressão de IBS e CBS no DANFE](referencias/perguntas-frequentes.md#faq-impressao-ibs-cbs-danfe)
+  - [Documentação e modelos XML da NFS-e Nacional](referencias/perguntas-frequentes.md#faq-documentacao-modelos-xml-nfse-nacional)
   - [Retenção de PIS, COFINS e CSLL na NFS-e de São Paulo — layout 2](referencias/perguntas-frequentes.md#faq-retencao-pis-cofins-csll-nfse-sp-layout-2)
 - [Reforma Tributária - NFe/NFCe](referencias/reforma-tributaria-nfe-nfce.md)
 - [Reforma Tributária - NFSe](referencias/reforma-tributaria-nfse.md)

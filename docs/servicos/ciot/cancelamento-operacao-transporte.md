@@ -4,6 +4,10 @@ O serviço de cancelamento da operação de transporte do CIOT permite que o ERP
 
 Use este serviço quando uma operação de transporte CIOT precisa ser cancelada conforme as regras do serviço.
 
+## Provedores
+
+O cancelamento está disponível para **ANTT** e **eFrete**. Informe o provedor como primeiro elemento do XML. Os dois modelos usam os mesmos campos de cancelamento; muda o valor de `ProvedorCIOT`.
+
 ## Pré-requisitos
 
 Antes de enviar o cancelamento, confira:
@@ -16,6 +20,7 @@ Antes de enviar o cancelamento, confira:
 - As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet.
 - O código de identificação da operação de transporte está correto.
 - O motivo do cancelamento está preenchido.
+- Para eFrete, o integrador e a forma de autenticação estão configurados conforme a [visão geral do CIOT](README.md#configuração-do-efrete).
 
 ## Arquivo de envio
 
@@ -38,6 +43,7 @@ O conteúdo do XML deve usar a estrutura de cancelamento de operação de transp
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <CancelamentoOperacaoTransporte xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>EFrete</ProvedorCIOT>
     <CodigoIdentificacaoOperacao>1234567890123456</CodigoIdentificacaoOperacao>
     <MotivoCancelamento>Operacao nao realizada</MotivoCancelamento>
 </CancelamentoOperacaoTransporte>
@@ -47,6 +53,7 @@ Campos principais:
 
 | Campo | Como preencher |
 |---|---|
+| `ProvedorCIOT` | Use `ANTT` ou `EFrete`. Deve ser o primeiro elemento dentro de `CancelamentoOperacaoTransporte`. |
 | `CodigoIdentificacaoOperacao` | Código da operação de transporte que será cancelada. |
 | `MotivoCancelamento` | Motivo do cancelamento que será enviado ao serviço CIOT. |
 
@@ -56,7 +63,7 @@ Campos principais:
 2. O UniNFe lê o XML `CancelamentoOperacaoTransporte`.
 3. O UniNFe aplica as configurações da empresa, certificado, ambiente, proxy e conexão TLS quando configurado.
 4. O XML é assinado e gravado em `Enviados\EmProcessamento` com o mesmo nome do arquivo de envio.
-5. O UniNFe envia o cancelamento ao serviço CIOT.
+5. O UniNFe envia o cancelamento ao provedor indicado em `ProvedorCIOT`.
 6. O retorno do serviço é gravado na pasta de retorno como `<identificador>-ret-ped-eve.xml`.
 7. Se o retorno indicar que o cancelamento foi aceito, o UniNFe grava o XML processado `<identificador>-procEventoCIOT.xml` em `Enviados\Autorizados`.
 8. O XML assinado `<identificador>-ped-eve.xml` também é movido para `Enviados\Autorizados`.
@@ -141,6 +148,7 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-ped-eve
 
 - Use sempre o final `-ped-eve.xml` para cancelamento da operação de transporte do CIOT.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `ProvedorCIOT` como primeira tag, com `ANTT` ou `EFrete`.
 - Informe corretamente o código da operação que será cancelada.
 - Preencha um motivo de cancelamento compatível com a situação real.
 - Aguarde o arquivo `-ret-ped-eve.xml` para interpretar o retorno do serviço.

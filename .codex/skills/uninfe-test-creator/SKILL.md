@@ -38,6 +38,8 @@ Use existing abstractions as the default approach:
 6. Keep assertions objective and behavior-oriented.
 7. Keep Portuguese messages for user-facing assertions/log expectations when applicable.
 
+Pure deterministic tests of an internal decision helper do not need a fixture or context when they do not execute a task, mutate global state, create files, use certificates, or invoke transport. Such tests complement rather than replace task execution tests when file-processing behavior changes.
+
 ## File placement pattern
 
 - Abstractions: `source/UniNFe.Test/Abstractions/*.cs`
@@ -48,7 +50,7 @@ Use existing abstractions as the default approach:
 ## Implementation workflow
 
 1. Identify the existing domain fixture and collection.
-2. If no fixture exists, create one inheriting from `TaskTestFixtureBase`.
+2. If the test executes a task and no fixture exists, create one inheriting from `TaskTestFixtureBase`.
 3. If setup is repeated, move it to a context class inheriting from `TaskTestContextBase`.
 4. Create or adjust tests to consume fixture context via `using (...)` to guarantee cleanup.
 5. Build and run targeted tests.

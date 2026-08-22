@@ -2,7 +2,11 @@
 
 O serviço de consulta de CIOT gerado permite que o ERP consulte uma operação de transporte já registrada no serviço CIOT. O ERP grava o XML de consulta na pasta de envio, o UniNFe transmite a solicitação e grava o retorno na pasta configurada para retornos.
 
-Use este serviço quando for necessário recuperar ou confirmar informações de um CIOT já gerado a partir do código de identificação da operação e do ano da declaração.
+Use este serviço quando for necessário recuperar ou confirmar informações de um CIOT já gerado. A identificação da consulta depende do provedor.
+
+## Provedores
+
+O serviço está disponível para **ANTT** e **eFrete**. Na ANTT, a consulta usa o código de identificação da operação e o ano da declaração. No eFrete, usa o CNPJ da matriz e o identificador da operação no sistema do cliente.
 
 ## Pré-requisitos
 
@@ -13,7 +17,8 @@ Antes de executar a consulta, confira:
 - O certificado digital está configurado e válido.
 - O ambiente está configurado conforme a operação consultada.
 - As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet.
-- O código de identificação da operação e o ano da declaração estão corretos.
+- Os campos de identificação exigidos pelo provedor estão corretos.
+- Para eFrete, o integrador e a forma de autenticação estão configurados conforme a [visão geral do CIOT](README.md#configuração-do-efrete).
 
 ## Arquivo de envio
 
@@ -36,6 +41,7 @@ O conteúdo do XML deve usar a estrutura de consulta de CIOT gerado:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ConsultarCIOTGerado xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>ANTT</ProvedorCIOT>
     <CodigoIdentificacaoOperacao>123456789012</CodigoIdentificacaoOperacao>
     <AnoDeclaracao>2026</AnoDeclaracao>
 </ConsultarCIOTGerado>
@@ -43,17 +49,30 @@ O conteúdo do XML deve usar a estrutura de consulta de CIOT gerado:
 
 Campos principais:
 
-| Campo | Como preencher |
-|---|---|
-| `CodigoIdentificacaoOperacao` | Código de identificação da operação de transporte que será consultada. |
-| `AnoDeclaracao` | Ano da declaração da operação de transporte. |
+Para consultar no eFrete, preserve a mesma tag raiz e o mesmo sufixo, mas use os campos próprios do provedor:
+
+```xml
+<ConsultarCIOTGerado xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>EFrete</ProvedorCIOT>
+    <MatrizCNPJ>12345678000199</MatrizCNPJ>
+    <IdOperacaoCliente>CIOT-CLIENTE-0001</IdOperacaoCliente>
+</ConsultarCIOTGerado>
+```
+
+| Campo | Provedor | Como preencher |
+|---|---|---|
+| `ProvedorCIOT` | Ambos | Use `ANTT` ou `EFrete`. Deve ser o primeiro elemento dentro de `ConsultarCIOTGerado`. |
+| `CodigoIdentificacaoOperacao` | ANTT | Código de identificação da operação de transporte que será consultada. |
+| `AnoDeclaracao` | ANTT | Ano da declaração da operação de transporte. |
+| `MatrizCNPJ` | eFrete | CNPJ da matriz vinculada à operação. |
+| `IdOperacaoCliente` | eFrete | Identificador atribuído à operação pelo sistema do cliente. |
 
 ## Fluxo de processamento
 
 1. O ERP grava o arquivo `<identificador>-consultar.xml` na pasta de envio.
 2. O UniNFe lê o XML `ConsultarCIOTGerado`.
 3. O UniNFe aplica as configurações da empresa, certificado, ambiente, proxy e conexão TLS quando configurado.
-4. O UniNFe envia a consulta ao serviço CIOT.
+4. O UniNFe envia a consulta ao provedor indicado em `ProvedorCIOT`.
 5. O retorno do serviço é gravado na pasta de retorno como `<identificador>-ret-consultar.xml`.
 6. Se ocorrer falha local, o UniNFe grava `<identificador>-ret-consultar.err` na pasta de retorno.
 7. O arquivo original da pasta de envio é removido após o processamento.
@@ -104,8 +123,7 @@ Se o UniNFe não conseguir concluir a consulta por falha local, será gerado:
 As causas mais comuns são:
 
 - XML fora da estrutura esperada para `ConsultarCIOTGerado`.
-- Código de identificação da operação ausente ou inválido.
-- Ano da declaração ausente ou inválido.
+- Campos de identificação exigidos pelo provedor ausentes ou inválidos.
 - Certificado digital ausente, inválido ou vencido.
 - Ambiente, proxy ou conexão TLS configurados incorretamente.
 - Falha de comunicação com o serviço CIOT.
@@ -117,8 +135,9 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-consult
 
 - Use sempre o final `-consultar.xml` para consultar CIOT gerado.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
-- Informe corretamente o código de identificação da operação.
-- Informe o ano da declaração correspondente à operação.
+- Informe `ProvedorCIOT` como primeira tag, com `ANTT` ou `EFrete`.
+- Para ANTT, informe o código da operação e o ano da declaração.
+- Para eFrete, informe o CNPJ da matriz e o identificador da operação no sistema do cliente.
 - Aguarde o arquivo `-ret-consultar.xml` para interpretar o retorno do serviço.
 - Não espere geração de `-procCIOT.xml` ou outro XML processado neste serviço.
 - Em erros `.err`, corrija a causa local antes de reenviar.

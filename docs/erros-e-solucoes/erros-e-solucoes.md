@@ -33,6 +33,55 @@ Antes de alterar certificados, rede, políticas de segurança ou o Registro do W
 
 Para testar o resultado de correções de rede, certificado ou TLS, utilize preferencialmente a [consulta de status do serviço](../servicos/consulta-status-servico.md).
 
+<details id="erro-certificados-raiz-windows-desatualizados">
+<summary><strong>Falhas de conexão com SEFAZ, Receita Federal ou prefeitura e mensagens sobre SSL/TLS, canal seguro ou certificado não confiável</strong></summary>
+
+**O que significa:** o Windows não conseguiu validar a cadeia do certificado apresentado pelo servidor HTTPS. Isso pode impedir a comunicação com webservices da SEFAZ, Receita Federal, prefeitura, bancos ou outros serviços, mesmo quando o certificado digital A1 ou A3 da empresa está válido.
+
+**Causa provável:** o repositório de Autoridades de Certificação Raiz Confiáveis do Windows pode estar desatualizado ou incompleto. A mesma mensagem também pode ser provocada por data e hora incorretas, proxy, firewall, inspeção HTTPS, configuração de TLS, certificado da empresa ou permissões da conta que executa o serviço. Por isso, não presuma que atualizar as raízes resolverá toda falha de conexão.
+
+**Como diagnosticar:**
+
+1. Registre a mensagem completa e confirme se ela menciona SSL/TLS, canal seguro, cadeia de certificados, certificado não confiável ou validação do certificado remoto.
+2. Confira a data, a hora e o fuso horário do Windows.
+3. Verifique se o problema ocorre com todos os serviços HTTPS ou somente com um órgão. Uma falha isolada também pode indicar indisponibilidade ou problema no certificado do servidor acessado.
+4. Se o UniNFe executa como serviço do Windows, faça os testes na mesma máquina e considere as permissões da conta do serviço.
+5. Antes de alterar o repositório de certificados, confirme com a infraestrutura se as raízes são administradas pelo Windows Update, por domínio ou por política de grupo.
+
+**Solução passo a passo:**
+
+1. Em servidores ou máquinas administradas, envolva a equipe de infraestrutura e siga o procedimento de backup ou restauração adotado pela empresa.
+2. Abra o **Prompt de Comando** ou o **PowerShell** como administrador.
+3. Execute o comando abaixo para gerar, por meio da Windows Update, o arquivo `roots.sst` com as autoridades certificadoras raiz confiáveis:
+
+```bat
+certutil -generateSSTFromWU roots.sst
+```
+
+4. Aguarde a conclusão do download. Não use um arquivo `roots.sst` recebido de fonte desconhecida.
+5. Importe o pacote no repositório de Autoridades de Certificação Raiz Confiáveis do Windows:
+
+```bat
+certutil -addstore -f root roots.sst
+```
+
+6. Reinicie o UniNFe ou o serviço do UniNFe.
+7. Repita a mesma operação ou execute uma consulta de status para confirmar o resultado.
+
+O arquivo `roots.sst` atualiza as raízes usadas pelo Windows para validar certificados de servidores. Ele não substitui, renova ou altera o certificado digital A1 ou A3 da empresa.
+
+**Cuidados importantes:**
+
+- Os comandos exigem acesso à internet e permissão administrativa.
+- Em ambientes controlados por domínio ou política de grupo, uma importação manual pode ser revertida ou contrariar a política da empresa.
+- Em ambientes críticos, faça primeiro o procedimento em homologação ou durante uma janela controlada.
+- Se o servidor não acessa a Windows Update, gere o pacote em uma máquina confiável e combine com a infraestrutura uma transferência e importação seguras.
+- Não desative permanentemente firewall, antivírus, inspeção HTTPS ou políticas de certificados para contornar o erro.
+
+**Como confirmar a correção:** execute uma consulta de status ou repita a operação original e confirme que o UniNFe recebeu uma resposta do webservice sem a mensagem de certificado ou canal seguro. Se a falha continuar, investigue proxy, firewall, data e hora, TLS, validade do certificado da empresa e permissões da conta do serviço antes de repetir a importação.
+
+</details>
+
 <details id="erro-timeout-conexao-443">
 <summary><strong>“Uma tentativa de conexão falhou... o host conectado não respondeu &lt;IP&gt;:443”</strong></summary>
 

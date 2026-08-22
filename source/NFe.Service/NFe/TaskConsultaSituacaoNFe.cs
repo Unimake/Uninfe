@@ -520,7 +520,7 @@ namespace NFe.Service
                                                                                 Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
                                                                                 Path.GetFileName(strArquivoNFe);
 
-                                                    TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                                    UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                                 }
                                                 catch (Exception ex)
                                                 {

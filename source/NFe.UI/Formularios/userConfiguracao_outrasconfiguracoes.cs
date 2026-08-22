@@ -53,11 +53,17 @@ namespace NFe.UI.Formularios
                 udVersaoQrCodeNFCe.Visible = false;
             }
 
+            grpEFrete.Visible = empresa.Servico == TipoAplicativo.CIOT || empresa.Servico == TipoAplicativo.Todos;
+
             chkSalvarXMLDistribuicao.Checked = empresa.SalvarSomenteXMLDistribuicao;
             chkAtivarPreparacaoTLSAntesEnvioXML.Checked = empresa.AtivarPreparacaoTLSAntesEnvioXML;
             lblAvisoPreparacaoTLSAntesEnvioXML.Visible = chkAtivarPreparacaoTLSAntesEnvioXML.Checked;
             udTempoEnvioNFSe.Text = empresa.TempoEnvioNFSe.ToString();
             udVersaoQrCodeNFCe.Text = empresa.VersaoQRCodeNFCe.ToString();
+            txtEFreteIntegrador.Text = empresa.EFreteIntegrador ?? string.Empty;
+            txtEFreteToken.Text = empresa.EFreteToken ?? string.Empty;
+            txtEFreteUsuario.Text = empresa.EFreteUsuario ?? string.Empty;
+            txtEFreteSenha.Text = empresa.EFreteSenha ?? string.Empty;
         }
 
         public void Validar(bool salvando = true)
@@ -66,6 +72,11 @@ namespace NFe.UI.Formularios
             empresa.AtivarPreparacaoTLSAntesEnvioXML = chkAtivarPreparacaoTLSAntesEnvioXML.Checked;
             empresa.TempoEnvioNFSe = Convert.ToInt32(udTempoEnvioNFSe.Text);
             empresa.VersaoQRCodeNFCe = Convert.ToInt32(udVersaoQrCodeNFCe.Text);
+            empresa.EFreteIntegrador = txtEFreteIntegrador.Text;
+            empresa.EFreteToken = txtEFreteToken.Text;
+            empresa.EFreteUsuario = txtEFreteUsuario.Text;
+            empresa.EFreteSenha = txtEFreteSenha.Text;
+            empresa.ValidarConfiguracaoEFrete();
         }
 
         public void FocusFirstControl()
@@ -98,6 +109,11 @@ namespace NFe.UI.Formularios
         private void chkAtivarPreparacaoTLSAntesEnvioXML_CheckedChanged(object sender, EventArgs e)
         {
             lblAvisoPreparacaoTLSAntesEnvioXML.Visible = chkAtivarPreparacaoTLSAntesEnvioXML.Checked;
+            changeEvent?.Invoke(sender, e);
+        }
+
+        private void EFrete_TextChanged(object sender, EventArgs e)
+        {
             changeEvent?.Invoke(sender, e);
         }
     }

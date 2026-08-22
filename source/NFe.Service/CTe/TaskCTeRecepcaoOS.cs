@@ -211,7 +211,7 @@ namespace NFe.Service
                                 {
 
                                     //Disparar o UniDANFe
-                                    TFunctions.ExecutaUniDanfe(arquivoAutorizado, autorizacao.CTeOS.InfCTe.Ide.DhEmi.DateTime, Empresas.Configuracoes[emp]);
+                                    UniDanfe.Executar(arquivoAutorizado, autorizacao.CTeOS.InfCTe.Ide.DhEmi.DateTime, Empresas.Configuracoes[emp]);
                                 }
                                 catch (Exception ex)
                                 {
@@ -262,7 +262,7 @@ namespace NFe.Service
                                 try
                                 {
                                     //Disparar o UniDANFe
-                                    TFunctions.ExecutaUniDanfe(arquivoDenegado, autorizacao.CTeOS.InfCTe.Ide.DhEmi.DateTime, Empresas.Configuracoes[emp]);
+                                    UniDanfe.Executar(arquivoDenegado, autorizacao.CTeOS.InfCTe.Ide.DhEmi.DateTime, Empresas.Configuracoes[emp]);
                                 }
                                 catch (Exception ex)
                                 {

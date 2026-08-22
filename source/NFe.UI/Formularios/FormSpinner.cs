@@ -82,8 +82,10 @@ namespace NFe.UI.Formularios
                 Application.DoEvents();
             });
 
-            t.Abort();
-            GC.Collect();
+            if (t != null && t.IsAlive && !ReferenceEquals(Thread.CurrentThread, t))
+            {
+                t.Join(1000);
+            }
         }
     }
 }

@@ -86,7 +86,7 @@ namespace NFe.Service.NFSe
 
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).RetornoXML;
-            var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
+            var versaoXML = ResolucaoCentralizadaNFSe.DefinirVersao(conteudoXML, padraoNFSe, municipio);
             var servico = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoTomado;
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
@@ -124,93 +124,5 @@ namespace NFe.Service.NFSe
             consultarNfseServicoTomado.Dispose();
         }
 
-        /// <summary>
-        /// Executa o serviço utilizando a DLL do UniNFe.
-        /// </summary>
-        /// <param name="emp">Empresa que está enviando o XML</param>
-        /// <param name="municipio">Código do município para onde será enviado o XML</param>
-        /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
-        private string DefinirVersaoXML(int codMunicipio, XmlDocument xmlDoc, PadraoNFSe padraoNFSe)
-        {
-            var versaoXML = "0.00";
-
-            switch (padraoNFSe)
-            {
-                case PadraoNFSe.TECNOSISTEMAS:
-                case PadraoNFSe.GIF:
-                case PadraoNFSe.HM2SOLUCOES:
-                    versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.SONNER:
-                case PadraoNFSe.FIORILLI:
-                case PadraoNFSe.PRODEB:
-                    versaoXML = "2.01";
-                    break;
-
-                case PadraoNFSe.WEBISS:
-                case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.FUTURIZE:
-                    versaoXML = "2.02";
-                    break;
-
-                case PadraoNFSe.SIMPLISS:
-                    if (codMunicipio == 3306305 || codMunicipio == 4202404)
-                    {
-                        versaoXML = "2.03";
-                        break;
-                    }
-                    versaoXML = "3.00";
-                    break;
-
-                case PadraoNFSe.DSF:
-                case PadraoNFSe.FISCO:
-                case PadraoNFSe.RLZ_INFORMATICA:
-                case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.TIPLAN:
-                    versaoXML = "2.03";
-                    break;
-
-                case PadraoNFSe.COPLAN:
-                    versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.ADM_SISTEMAS:
-                    versaoXML = "2.03";
-                    break;
-
-                case PadraoNFSe.EL:
-                case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.GISSONLINE:
-                    versaoXML = "2.04";
-                    break;
-
-                case PadraoNFSe.ISSNET:
-                    versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.SIGCORP:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 4204202 || codMunicipio == 3131307 || codMunicipio == 3530805 || codMunicipio == 3145208)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.SMARAPD:
-                    versaoXML = "2.04";
-                    break;
-
-                case PadraoNFSe.FINTEL:
-                    versaoXML = "2.02";
-                    break;
-
-                default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de NFSe Tomadas.");
-            }
-
-            return versaoXML;
-        }
     }
 }

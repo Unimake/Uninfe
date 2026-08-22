@@ -81,12 +81,15 @@ Source: ..\source\uninfe\bin\Release\System.Formats.Asn1.dll; DestDir: {app}; Fl
 Source: ..\source\uninfe\bin\Release\System.IdentityModel.Tokens.Jwt.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.IO.Pipelines.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Memory.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\System.Net.Http.WinHttpHandler.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Numerics.Vectors.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\System.Resources.Extensions.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Runtime.CompilerServices.Unsafe.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Security.Cryptography.Xml.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Text.Encodings.Web.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Text.Json.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\System.Threading.Tasks.Extensions.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.AuthServer.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
@@ -101,9 +104,8 @@ Source: ..\source\uninfe\bin\Release\Unimake.Utils.dll; DestDir: {app}; Flags: i
 Source: ..\source\uninfe\bin\Release\UniNFe.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\UniNFe.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 
-Source: ..\source\uninfe.service\bin\Release\Topshelf.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\source\uninfe\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe.service\bin\Release\UniNFe.Service.exe.config; DestDir: {app}; Flags: ignoreversion; Check: SistemaOperacionalSuportaNet481
 
 [Icons]
 Name: {group}\UniNFe - Monitor DF-e; Filename: {app}\uninfe.exe; WorkingDir: {app}; IconFilename: {app}\uninfe.exe; IconIndex: 0; Languages: ; Comment: Aplicativo responsável por monitorar os arquivos de documentos fiscais eletrônicos (NF-e, NFC-e, CT-e, MDF-e, NFS-e, etc.) para assinar, validar e enviar ao SEFAZ.

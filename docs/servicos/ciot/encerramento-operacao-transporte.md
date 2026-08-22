@@ -4,6 +4,10 @@ O serviço de encerramento da operação de transporte do CIOT permite que o ERP
 
 Use este serviço quando a operação de transporte foi concluída e precisa ser encerrada no CIOT conforme as regras do serviço.
 
+## Provedores
+
+O encerramento está disponível para **ANTT** e **eFrete**. Os dois provedores usam o código da operação. O modelo ANTT também contém os grupos com origem, destino e dados da carga; o modelo eFrete disponível usa apenas o código da operação além da tag do provedor.
+
 ## Pré-requisitos
 
 Antes de enviar o encerramento, confira:
@@ -16,6 +20,7 @@ Antes de enviar o encerramento, confira:
 - As configurações de proxy estão preenchidas, se a rede exigir proxy para acesso à internet.
 - O código de identificação da operação de transporte está correto.
 - Os dados de origem, destino, distância, viagens e carga estão preenchidos conforme a operação realizada.
+- Para eFrete, o integrador e a forma de autenticação estão configurados conforme a [visão geral do CIOT](README.md#configuração-do-efrete).
 
 ## Arquivo de envio
 
@@ -38,6 +43,7 @@ O conteúdo do XML deve usar a estrutura de encerramento de operação de transp
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <EncerramentoOperacaoTransporte xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>ANTT</ProvedorCIOT>
     <CodigoIdentificacaoOperacao>1234567890123456</CodigoIdentificacaoOperacao>
     <OrigemDestino>
         <ParOrigemDestino>
@@ -59,18 +65,28 @@ O conteúdo do XML deve usar a estrutura de encerramento de operação de transp
 </EncerramentoOperacaoTransporte>
 ```
 
+No eFrete, use a mesma tag raiz e o mesmo sufixo com a estrutura do modelo do provedor:
+
+```xml
+<EncerramentoOperacaoTransporte xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>EFrete</ProvedorCIOT>
+    <CodigoIdentificacaoOperacao>123456789012</CodigoIdentificacaoOperacao>
+</EncerramentoOperacaoTransporte>
+```
+
 ## Principais grupos do XML
 
 | Grupo ou campo | Para que serve |
 |---|---|
+| `ProvedorCIOT` | Seleciona `ANTT` ou `EFrete`. Deve ser o primeiro elemento dentro de `EncerramentoOperacaoTransporte`. |
 | `CodigoIdentificacaoOperacao` | Código da operação de transporte que será encerrada. |
-| `OrigemDestino` | Grupo com os pares de origem e destino da operação realizada. |
+| `OrigemDestino` | Grupo do modelo ANTT com os pares de origem e destino da operação realizada. |
 | `ParOrigemDestino` | Informa um trecho da operação, com origem, destino, distância e quantidade de viagens. |
 | `Origem` | Dados do município e CEP de origem. |
 | `Destino` | Dados do município e CEP de destino. |
 | `DistanciaPercorrida` | Distância percorrida no trecho informado. |
 | `QtdViagens` | Quantidade de viagens realizadas para o trecho. |
-| `DadosCarga` | Dados da carga transportada no encerramento. |
+| `DadosCarga` | Dados da carga transportada no encerramento do modelo ANTT. |
 | `PesoTotalCarga` | Peso total da carga transportada. |
 
 ## Fluxo de processamento
@@ -79,7 +95,7 @@ O conteúdo do XML deve usar a estrutura de encerramento de operação de transp
 2. O UniNFe lê o XML `EncerramentoOperacaoTransporte`.
 3. O UniNFe aplica as configurações da empresa, certificado, ambiente, proxy e conexão TLS quando configurado.
 4. O XML é assinado e gravado em `Enviados\EmProcessamento` com o mesmo nome do arquivo de envio.
-5. O UniNFe envia o encerramento ao serviço CIOT.
+5. O UniNFe envia o encerramento ao provedor indicado em `ProvedorCIOT`.
 6. O retorno do serviço é gravado na pasta de retorno como `<identificador>-ret-ped-eve.xml`.
 7. Se o retorno indicar que o encerramento foi aceito, o UniNFe grava o XML processado `<identificador>-procEventoCIOT.xml` em `Enviados\Autorizados`.
 8. O XML assinado `<identificador>-ped-eve.xml` também é movido para `Enviados\Autorizados`.
@@ -151,7 +167,7 @@ As causas mais comuns são:
 
 - XML fora da estrutura esperada para `EncerramentoOperacaoTransporte`.
 - Código de identificação da operação ausente ou inválido.
-- Dados de origem, destino, distância, viagens ou carga ausentes ou inválidos.
+- Dados exigidos pelo provedor ausentes ou inválidos.
 - Certificado digital ausente, inválido ou vencido.
 - Ambiente, proxy ou conexão TLS configurados incorretamente.
 - Falha de assinatura.
@@ -164,8 +180,9 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-ped-eve
 
 - Use sempre o final `-ped-eve.xml` para encerramento da operação de transporte do CIOT.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `ProvedorCIOT` como primeira tag, com `ANTT` ou `EFrete`.
 - Informe corretamente o código da operação que será encerrada.
-- Preencha os dados de origem, destino, viagem e carga conforme a operação realizada.
+- Para ANTT, preencha os dados de origem, destino, viagem e carga conforme a operação realizada.
 - Aguarde o arquivo `-ret-ped-eve.xml` para interpretar o retorno do serviço.
 - Armazene o XML `-procEventoCIOT.xml` quando o encerramento for aceito.
 - Em rejeições, corrija os dados quando possível e envie uma nova solicitação.

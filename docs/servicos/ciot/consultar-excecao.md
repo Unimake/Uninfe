@@ -4,6 +4,10 @@ O serviço de consulta de exceção do CIOT permite que o ERP consulte informaç
 
 Use este serviço quando for necessário verificar se há informação de exceção relacionada ao CPF ou CNPJ do transportador.
 
+## Provedor
+
+O modelo disponível para esta operação é da **ANTT**. Use `ANTT` em `ProvedorCIOT`; não há modelo eFrete para consulta de exceção.
+
 ## Pré-requisitos
 
 Antes de executar a consulta, confira:
@@ -36,6 +40,7 @@ O conteúdo do XML deve usar a estrutura de consulta de exceção:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ConsultarExcecao xmlns="http://www.antt.gov.br/ciot">
+    <ProvedorCIOT>ANTT</ProvedorCIOT>
     <CpfCnpjTransportador>12345678901</CpfCnpjTransportador>
 </ConsultarExcecao>
 ```
@@ -44,6 +49,7 @@ Campos principais:
 
 | Campo | Como preencher |
 |---|---|
+| `ProvedorCIOT` | Use `ANTT`. Deve ser o primeiro elemento dentro de `ConsultarExcecao`. |
 | `CpfCnpjTransportador` | CPF ou CNPJ do transportador que será consultado. |
 
 ## Fluxo de processamento
@@ -114,6 +120,7 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-consult
 
 - Use sempre o final `-consultar.xml` para consultar exceção do CIOT.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `<ProvedorCIOT>ANTT</ProvedorCIOT>` como primeira tag.
 - Informe corretamente o CPF ou CNPJ do transportador.
 - Aguarde o arquivo `-ret-consultar.xml` para interpretar o retorno do serviço.
 - Não espere geração de XML processado em `Enviados\Autorizados` neste serviço.

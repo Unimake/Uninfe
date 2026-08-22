@@ -9,6 +9,8 @@ namespace NFe.Service
 {
     public class TaskConsultaChavesNFCe : TaskAbst
     {
+        private Configuracao configuracaoDiagnostico;
+
         #region Construtor
         public TaskConsultaChavesNFCe(string arquivo)
         {
@@ -21,6 +23,7 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            configuracaoDiagnostico = null;
 
             // Definir o serviço que será executado
             Servico = Servicos.NFCeConsultaChaves;
@@ -32,6 +35,9 @@ namespace NFe.Service
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
 
                 ExecuteDLL(emp);
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracaoDiagnostico, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.ConsultaChavesNFCe).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -44,6 +50,9 @@ namespace NFe.Service
                 {
                     //Se falhou algo na hora de gravar o retorno.ERR(de erro) para o ERP
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracaoDiagnostico, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.ConsultaChavesNFCe).EnvioXML);
             }
             finally
             {
@@ -76,7 +85,7 @@ namespace NFe.Service
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
                 Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Propriedade.ExtRetorno.ConsultaChavesNFCe_ERR);
 
-            var configuracao = new Configuracao
+            configuracaoDiagnostico = new Configuracao
             {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = TipoDFe.NFCe,
@@ -84,10 +93,11 @@ namespace NFe.Service
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo,
                 Servico = Unimake.Business.DFe.Servicos.Servico.NFCeConsultaChaves,
-                SchemaVersao = "1.00"
+                SchemaVersao = "1.00",
+                ColetarTelemetriaDisponibilidade = true
             };
 
-            var listagemChavesNFCe = new Unimake.Business.DFe.Servicos.NFCe.ConsultaChaves(conteudoXML.OuterXml, configuracao);
+            var listagemChavesNFCe = new Unimake.Business.DFe.Servicos.NFCe.ConsultaChaves(conteudoXML.OuterXml, configuracaoDiagnostico);
             listagemChavesNFCe.Executar();
 
             vStrXmlRetorno = listagemChavesNFCe.RetornoWSString;

@@ -20,18 +20,20 @@ namespace NFe.Service.BPe
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
 
             try
             {
                 var xml = new EventoBPe();
                 xml = xml.LerXML<EventoBPe>(ConteudoXML);
 
-                var configuracao = new Configuracao
+                configuracao = new Configuracao
                 {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.BPe,
                     TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
                 };
 
                 if (ConfiguracaoApp.Proxy)
@@ -53,6 +55,9 @@ namespace NFe.Service.BPe
                 LerRetornoEvento(emp, recepcaoEvento.Result);
 
                 recepcaoEvento.Dispose();
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -63,6 +68,9 @@ namespace NFe.Service.BPe
                 catch
                 {
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
             finally
             {

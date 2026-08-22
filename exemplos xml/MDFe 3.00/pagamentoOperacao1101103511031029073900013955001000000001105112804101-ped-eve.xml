@@ -13,8 +13,8 @@
         <descEvento>Pagamento Operação MDF-e</descEvento>
         <nProt>935200000016234</nProt>
         <infViagens>
-          <qtdViagens>1</qtdViagens>
-          <nroViagem>1795</nroViagem>
+          <qtdViagens>00001</qtdViagens>
+          <nroViagem>01795</nroViagem>
         </infViagens>
         <infPag>
           <xNome>CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>

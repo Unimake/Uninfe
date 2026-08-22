@@ -4,6 +4,10 @@ O serviço de geração do identificador da operação de transporte do CIOT per
 
 Use este serviço quando o ERP precisar obter o identificador da operação de transporte antes de seguir com os demais processos do CIOT.
 
+## Provedor
+
+O modelo disponível para esta operação é da **ANTT**. Use `ANTT` em `ProvedorCIOT`; não há modelo eFrete para geração do identificador da operação.
+
 ## Pré-requisitos
 
 Antes de enviar a solicitação, confira na configuração da empresa:
@@ -38,6 +42,7 @@ O conteúdo do XML deve usar a estrutura de geração do identificador da opera�
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <GerarIdOperacaoTransporte xmlns="http://www.antt.gov.br/ciot" versao="1.00">
+    <ProvedorCIOT>ANTT</ProvedorCIOT>
     <CpfCnpj>41942626000102</CpfCnpj>
 </GerarIdOperacaoTransporte>
 ```
@@ -47,6 +52,7 @@ Campos principais:
 | Campo | Como preencher |
 |---|---|
 | `versao` | Versão do leiaute da solicitação. |
+| `ProvedorCIOT` | Use `ANTT`. Deve ser o primeiro elemento dentro de `GerarIdOperacaoTransporte`. |
 | `CpfCnpj` | CPF ou CNPJ usado para solicitar o identificador da operação de transporte. |
 
 ## Fluxo de processamento
@@ -140,6 +146,7 @@ Depois de corrigir o problema, gere novamente o arquivo `<identificador>-GerarId
 - Use sempre o final `-GerarIdOpTransp.xml` para solicitar a geração do identificador.
 - Preserve maiúsculas e minúsculas nos nomes dos arquivos.
 - Use o namespace `http://www.antt.gov.br/ciot` no XML.
+- Informe `<ProvedorCIOT>ANTT</ProvedorCIOT>` como primeira tag.
 - Mantenha o `<identificador>` único para evitar conflito de arquivos.
 - Aguarde o arquivo `-ret-GerarIdOpTransp.xml` para interpretar o retorno do serviço.
 - Armazene o XML `-procIdOpTransp.xml` quando o identificador for gerado com sucesso.

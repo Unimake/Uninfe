@@ -13,8 +13,8 @@
 				<descEvento>Pagamento Operacao MDF-e</descEvento>
 				<nProt>999999999999999</nProt>
 				<infViagens>
-					<qtdViagens>1</qtdViagens>
-					<nroViagem>7184</nroViagem>
+					<qtdViagens>00001</qtdViagens>
+					<nroViagem>07184</nroViagem>
 				</infViagens>
 				<infPag>
 					<xNome>TESTE TRANSPORTE E OPERACOES LTDA</xNome>

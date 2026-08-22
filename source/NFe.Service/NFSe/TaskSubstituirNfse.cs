@@ -86,7 +86,7 @@ namespace NFe.Service.NFSe
 
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).RetornoXML;
-            var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
+            var versaoXML = ResolucaoCentralizadaNFSe.DefinirVersao(conteudoXML, padraoNFSe, municipio);
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
 
@@ -123,122 +123,5 @@ namespace NFe.Service.NFSe
             substituirNfse.Dispose();
         }
 
-        /// <summary>
-        /// Retorna a versão do XML que está sendo enviado para o município de acordo com o Padrão/Município
-        /// </summary>
-        /// <param name="codMunicipio">Código do município para onde será enviado o XML</param>
-        /// <param name="xmlDoc">Conteúdo do XML da NFSe</param>
-        /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
-        /// <returns>Retorna a versão do XML que está sendo enviado para o município de acordo com o Padrão/Município</returns>
-        private string DefinirVersaoXML(int codMunicipio, XmlDocument xmlDoc, PadraoNFSe padraoNFSe)
-        {
-            var versaoXML = "0.00";
-
-            switch (padraoNFSe)
-            {
-                case PadraoNFSe.TECNOSISTEMAS:
-                    versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.DBSELLER:
-                    versaoXML = "1.00";
-
-                    if (codMunicipio == 4319901)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.BETHA_CLOUD:
-                    versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.CENTI:
-                    versaoXML = "2.00";
-                    break;
-
-                case PadraoNFSe.SONNER:
-                case PadraoNFSe.FIORILLI:
-                case PadraoNFSe.PRODEB:
-                    versaoXML = "2.01";
-                    break;
-
-                case PadraoNFSe.AVMB:
-                case PadraoNFSe.WEBISS:
-                case PadraoNFSe.PORTAL_FACIL:
-                case PadraoNFSe.MODERNIZACAO_PUBLICA:
-                case PadraoNFSe.FUTURIZE:
-                    versaoXML = "2.02";
-                    break;
-
-                case PadraoNFSe.SIMPLISS:
-                case PadraoNFSe.FISCO:
-                case PadraoNFSe.RLZ_INFORMATICA:
-                case PadraoNFSe.ELOTECH:
-                case PadraoNFSe.TIPLAN:
-                    versaoXML = "2.03";
-                    break;
-
-
-                case PadraoNFSe.COPLAN:
-                    versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.DSF:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 3170206)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.EL:
-                case PadraoNFSe.TRIBUTUS:
-                case PadraoNFSe.IPM:
-                    versaoXML = "2.04";
-                    break;
-
-                case PadraoNFSe.ISSNET:
-                    versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.SIGCORP:
-                    versaoXML = "2.03";
-
-                    if (codMunicipio == 4204202 || codMunicipio == 3131307 || codMunicipio == 3530805 ||
-                        codMunicipio == 3145208 || codMunicipio == 3300704)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.SMARAPD:
-                    versaoXML = "1.01";
-
-                    if (codMunicipio == 3205002 || codMunicipio == 3516200)
-                    {
-                        versaoXML = "2.04";
-                    }
-                    break;
-
-                case PadraoNFSe.ADM_SISTEMAS:
-                    versaoXML = "2.03";
-                    break;
-
-                case PadraoNFSe.FINTEL:
-                    versaoXML = "2.02";
-                    break;
-
-                case PadraoNFSe.PRONIM:
-                    versaoXML = "2.03";
-                    break;
-
-                default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Substituir NFS-e.");
-            }
-
-            return versaoXML;
-        }
     }
 }

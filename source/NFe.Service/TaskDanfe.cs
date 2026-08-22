@@ -93,7 +93,7 @@ ExportarPasta|Enviar | Enviados | Erros
                     throw new Exception("Pasta contendo o UniDANFE não definida para a empresa: " + Empresas.Configuracoes[emp].Nome);
                 }
 
-                TFunctions.ExecutaUniDanfe_ReportEmail(emp, datai, dataf, imprimir, exportarPasta, fm);
+                UniDanfe.ExecutarRelatorioEmail(emp, datai, dataf, imprimir, exportarPasta, fm);
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ ExportarPasta|Enviar | Enviados | Erros
                 if (string.IsNullOrEmpty(Empresas.Configuracoes[emp].PastaExeUniDanfe))
                     throw new Exception("Pasta contendo o UniDANFE não definida para a empresa: " + Empresas.Configuracoes[emp].Nome);
 
-                TFunctions.ExecutaUniDanfe(NomeArquivoXML, DateTime.Today, Empresas.Configuracoes[emp]);
+                UniDanfe.Executar(NomeArquivoXML, DateTime.Today, Empresas.Configuracoes[emp]);
             }
             catch (Exception ex)
             {
@@ -258,7 +258,7 @@ opcoes|
                     {
                         throw new Exception("Pasta contendo o UniDANFE não definida para a empresa: " + Empresas.Configuracoes[emp].Nome);
                     }
-                    TFunctions.ExecutaUniDanfe(aFilename, DateTime.Today, Empresas.Configuracoes[emp], args);
+                    UniDanfe.Executar(aFilename, DateTime.Today, Empresas.Configuracoes[emp], args);
                 }
                 else
                     throw new Exception("Arquivo '" + aFilename + "' deve estar na pasta de 'Autorizados/Denegados' da empresa: " + Empresas.Configuracoes[emp].Nome);

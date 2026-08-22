@@ -31,7 +31,11 @@ namespace NFe.Service.CIOT
                 TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoUF = (int)UFBrasil.AN,
-                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                EFreteIntegrador = Empresas.Configuracoes[emp].EFreteIntegrador,
+                EFreteToken = Empresas.Configuracoes[emp].EFreteToken,
+                EFreteUsuario = Empresas.Configuracoes[emp].EFreteUsuario,
+                EFreteSenha = Empresas.Configuracoes[emp].EFreteSenha
             };
 
             if (ConfiguracaoApp.Proxy)

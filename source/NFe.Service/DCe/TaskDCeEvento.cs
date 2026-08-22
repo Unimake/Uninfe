@@ -22,18 +22,20 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
 
             try
             {
                 var xml = new EventoDCe();
                 xml = xml.LerXML<EventoDCe>(ConteudoXML);
 
-                var configuracao = new Configuracao
+                configuracao = new Configuracao
                 {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                     TipoDFe = TipoDFe.DCe,
                     TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao.Normal),
-                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
                 };
 
                 var recepcaoEvento = new Unimake.Business.DFe.Servicos.DCe.RecepcaoEvento(xml, configuracao);
@@ -47,6 +49,9 @@ namespace NFe.Service
                 LerRetornoEvento(emp, recepcaoEvento.Result);
 
                 recepcaoEvento.Dispose();
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -60,6 +65,9 @@ namespace NFe.Service
                     //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
                     //Wandrey 09/03/2010
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
             finally
             {
@@ -120,7 +128,7 @@ namespace NFe.Service
                         //    case 110111: //Cancelamento
                         //        try
                         //        {
-                        //            TFunctions.ExecutaUniDanfe(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
+                        //            UniDanfe.Executar(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
                         //        }     
                         //        catch (Exception ex)
                         //        {

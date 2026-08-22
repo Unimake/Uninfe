@@ -134,7 +134,7 @@ namespace NFe.Service.CIOT
             {
                 try
                 {
-                    TFunctions.ExecutaUniDanfe(fullPathCIOTProc, dataEncerramento, Empresas.Configuracoes[emp]);
+                    UniDanfe.Executar(fullPathCIOTProc, dataEncerramento, Empresas.Configuracoes[emp]);
                 }
                 catch (Exception ex)
                 {

@@ -10,7 +10,7 @@
 		<nSeqEvento>1</nSeqEvento>
 		<detEvento versaoEvento="3.00">
 			<evAlteracaoPagtoServMDFe xmlns="http://www.portalfiscal.inf.br/mdfe">
-				<descEvento>Alteracao Pagamento Servico MDFe </descEvento>
+				<descEvento>Alteracao Pagamento Servico MDFe</descEvento>
 				<nProt>999999999999999</nProt>
 				<infPag>
 					<xNome>TESTE TRANSPORTE E OPERACOES LTDA</xNome>
@@ -82,7 +82,7 @@
 					<tpAntecip>1</tpAntecip>
 					<infBanc>
 						<codBanco>000</codBanco>
-						<codAgencia>000000</codAgencia>
+						<codAgencia>000</codAgencia>
 					</infBanc>
 				</infPag>
 			</evAlteracaoPagtoServMDFe>

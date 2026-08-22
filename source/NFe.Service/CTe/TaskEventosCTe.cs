@@ -188,7 +188,7 @@ namespace NFe.Service
                                     case ConvertTxt.tpEventos.tpEvEPEC:
                                         try
                                         {
-                                            TFunctions.ExecutaUniDanfe(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
+                                            UniDanfe.Executar(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
                                         }
                                         catch(Exception ex)
                                         {

@@ -355,7 +355,7 @@ namespace NFe.Service
                                                         PastaEnviados.Autorizados.ToString() + "\\" +
                                                         Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
                                                         Path.GetFileName(strArquivoNFeProc);
-                                                    TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                                    UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -395,7 +395,7 @@ namespace NFe.Service
                                                         Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
                                                         Functions.ExtrairNomeArq(strArquivoCTe, Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML) + Propriedade.ExtRetorno.Den;
 
-                                                    TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                                    UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                                 }
                                                 catch (Exception ex)
                                                 {

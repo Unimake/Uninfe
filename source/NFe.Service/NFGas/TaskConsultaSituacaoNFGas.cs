@@ -26,6 +26,7 @@ namespace NFe.Service.NFGas
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
 
             try
             {
@@ -34,12 +35,13 @@ namespace NFe.Service.NFGas
                     var xmlConsSitNFGas = new Unimake.Business.DFe.Xml.NFGas.ConsSitNFGas();
                     xmlConsSitNFGas = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsSitNFGas>(ConteudoXML);
 
-                    var configuracao = new Configuracao
+                    configuracao = new Configuracao
                     {
                     PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = TipoDFe.NFGas,
                         TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                        ColetarTelemetriaDisponibilidade = true
                     };
 
                     if (ConfiguracaoApp.Proxy)
@@ -60,6 +62,9 @@ namespace NFe.Service.NFGas
                     XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
 
                     consultaProtocolo.Dispose();
+
+                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
                 }
             }
             catch (Exception ex)
@@ -73,6 +78,9 @@ namespace NFe.Service.NFGas
                     //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
                     //Wandrey 09/03/2010
                 }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
             }
             finally
             {
@@ -302,7 +310,7 @@ namespace NFe.Service.NFGas
                                                                         Path.GetFileName(strArquivoNFGas);
 
                                             // TODO: Ajustar a chamada ao UniDANFE quando a NFGas estiver implementada no software, tanto NFGas quanto evento da NFGas
-                                            TFunctions.ExecutaUniDanfe(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                            UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
                                         }
                                         catch (Exception ex)
                                         {

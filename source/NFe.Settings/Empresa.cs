@@ -192,11 +192,35 @@ namespace NFe.Settings
         /// UsaCertificado
         /// Define se a empresa necessita de um certificado digital para assinatura/transmissao
         /// </summary>
-        public bool UsaCertificado { get; set; }
+        private bool _UsaCertificado;
+        public bool UsaCertificado
+        {
+            get => _UsaCertificado;
+            set
+            {
+                if (_UsaCertificado != value)
+                {
+                    _UsaCertificado = value;
+                    InvalidarEstadoPinCertificado();
+                }
+            }
+        }
         /// <summary>
         /// Define a utilização do certficado instalado no windows ou através de arquivo
         /// </summary>
-        public bool CertificadoInstalado { get; set; }
+        private bool _CertificadoInstalado;
+        public bool CertificadoInstalado
+        {
+            get => _CertificadoInstalado;
+            set
+            {
+                if (_CertificadoInstalado != value)
+                {
+                    _CertificadoInstalado = value;
+                    InvalidarEstadoPinCertificado();
+                }
+            }
+        }
         /// <summary>
         /// Quando utilizar o certificado através de arquivo será necessário informar o local de armazenamento do certificado digital
         /// </summary>
@@ -208,7 +232,19 @@ namespace NFe.Settings
         /// <summary>
         /// Utilizado para certificados A3
         /// </summary>
-        public string CertificadoPIN { get; set; }
+        private string _CertificadoPIN;
+        public string CertificadoPIN
+        {
+            get => _CertificadoPIN;
+            set
+            {
+                if (!string.Equals(_CertificadoPIN, value, StringComparison.Ordinal))
+                {
+                    _CertificadoPIN = value;
+                    InvalidarEstadoPinCertificado();
+                }
+            }
+        }
         /// <summary>
         /// Utiliza
         /// </summary>
@@ -221,13 +257,53 @@ namespace NFe.Settings
         /// <summary>
         /// Certificado digital - ThumbPrint
         /// </summary>
-        public string CertificadoDigitalThumbPrint { get; set; }
-        /// <summary>
+        private string _CertificadoDigitalThumbPrint;
+        public string CertificadoDigitalThumbPrint
+        {
+            get => _CertificadoDigitalThumbPrint;
+            set
+            {
+                if (!string.Equals(_CertificadoDigitalThumbPrint, value, StringComparison.OrdinalIgnoreCase))
+                {
+                    _CertificadoDigitalThumbPrint = value;
+                    InvalidarEstadoPinCertificado();
+                }
+            }
+        }
+        private X509Certificate2 _X509Certificado;
+
+        /// <summary>       
         /// Certificado digital
         /// </summary>
         [System.Xml.Serialization.XmlIgnore()]
         [AttributeTipoAplicacao(TipoAplicativo.Nulo)]
-        public X509Certificate2 X509Certificado { get; set; }
+        public X509Certificate2 X509Certificado
+        {
+            get => _X509Certificado;
+            set
+            {
+                if (!ReferenceEquals(_X509Certificado, value))
+                {
+                    _X509Certificado = value;
+                    InvalidarEstadoPinCertificado();
+                }
+            }
+        }
+
+        public void InvalidarEstadoPinCertificado()
+        {
+            GerenciadorPinCertificadoA3.Invalidar(this);
+        }
+
+        public ResultadoCarregamentoPinA3 CarregarPinCertificadoA3(bool tentativaExplicita)
+        {
+            return GerenciadorPinCertificadoA3.Carregar(this, tentativaExplicita);
+        }
+
+        public bool DeveSerializarOperacaoA3()
+        {
+            return GerenciadorPinCertificadoA3.DeveSerializar(this);
+        }
         /// <summary>
         /// Gravar o retorno da NFe também em TXT
         /// </summary>
@@ -291,6 +367,76 @@ namespace NFe.Settings
         /// Se verdadeiro, ativa a preparação do TLS antes do envio do XML
         /// </summary>
         public bool AtivarPreparacaoTLSAntesEnvioXML { get; set; }
+
+        /// <summary>
+        /// Identificação do integrador utilizada nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteIntegrador { get; set; }
+
+        /// <summary>
+        /// Token utilizado para autenticação nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteToken { get; set; }
+
+        /// <summary>
+        /// Usuário utilizado para autenticação nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteUsuario { get; set; }
+
+        /// <summary>
+        /// Senha utilizada para autenticação nos serviços eFrete do CIOT.
+        /// </summary>
+        [AttributeTipoAplicacao(TipoAplicativo.CIOT)]
+        [AttributeTipoAplicacao(TipoAplicativo.Todos)]
+        public string EFreteSenha { get; set; }
+
+        /// <summary>
+        /// Valida a combinação de dados utilizada para autenticação na eFrete.
+        /// </summary>
+        public void ValidarConfiguracaoEFrete()
+        {
+            if (Servico != TipoAplicativo.CIOT && Servico != TipoAplicativo.Todos)
+            {
+                return;
+            }
+
+            var informouIntegrador = !string.IsNullOrWhiteSpace(EFreteIntegrador);
+            var informouToken = !string.IsNullOrWhiteSpace(EFreteToken);
+            var informouUsuario = !string.IsNullOrWhiteSpace(EFreteUsuario);
+            var informouSenha = !string.IsNullOrWhiteSpace(EFreteSenha);
+
+            if (informouUsuario != informouSenha)
+            {
+                throw new Exception("Para autenticação eFrete por credenciais, informe o usuário e a senha.");
+            }
+
+            if ((informouToken || informouUsuario) && !informouIntegrador)
+            {
+                throw new Exception("Para utilizar a autenticação eFrete, informe o Integrador.");
+            }
+        }
+
+        internal void CriptografarConfiguracaoEFrete()
+        {
+            EFreteIntegrador = Criptografia.criptografaSenha(EFreteIntegrador);
+            EFreteToken = Criptografia.criptografaSenha(EFreteToken);
+            EFreteUsuario = Criptografia.criptografaSenha(EFreteUsuario);
+            EFreteSenha = Criptografia.criptografaSenha(EFreteSenha);
+        }
+
+        internal void DescriptografarConfiguracaoEFrete()
+        {
+            EFreteIntegrador = Criptografia.descriptografaSenha(EFreteIntegrador);
+            EFreteToken = Criptografia.descriptografaSenha(EFreteToken);
+            EFreteUsuario = Criptografia.descriptografaSenha(EFreteUsuario);
+            EFreteSenha = Criptografia.descriptografaSenha(EFreteSenha);
+        }
         /// <summary>
         /// Inscrição Estadual informada no cadastro da empresa
         /// </summary>
@@ -582,17 +728,6 @@ namespace NFe.Settings
             threads = new List<Thread>();
         }
 
-        ~Empresa()
-        {
-            foreach (var thr in threads)
-            {
-                if (thr.IsAlive)
-                {
-                    thr.Abort();
-                }
-            }
-        }
-
         #region BuscaConfiguracao()
         public string BuscaConfiguracao(ref int tipoerro)
         {
@@ -652,7 +787,17 @@ namespace NFe.Settings
                         }
                     }
 
-                    t.CertificadoPIN = Criptografia.descriptografaSenha(t.CertificadoPIN);
+                    string pin;
+                    string mensagemPin;
+                    if (ProtecaoPinCertificado.TryDesproteger(t.CertificadoPIN, out pin, out mensagemPin))
+                    {
+                        t.CertificadoPIN = pin;
+                    }
+                    else
+                    {
+                        t.CertificadoPIN = string.Empty;
+                        Auxiliar.WriteLog(mensagemPin + " Empresa: " + t.CNPJ + ".", true, true);
+                    }
                     t.FTPNomeDoServidor = Criptografia.descriptografaSenha(t.FTPNomeDoServidor);
                     t.FTPNomeDoUsuario = Criptografia.descriptografaSenha(t.FTPNomeDoUsuario);
                     t.FTPSenha = Criptografia.descriptografaSenha(t.FTPSenha);
@@ -660,6 +805,7 @@ namespace NFe.Settings
                     t.AppID = Criptografia.descriptografaSenha(t.AppID);
                     t.Secret_UMessenger = Criptografia.descriptografaSenha(t.Secret_UMessenger);
                     t.AppID_UMessenger = Criptografia.descriptografaSenha(t.AppID_UMessenger);
+                    t.DescriptografarConfiguracaoEFrete();
                     t.Nome = Nome;
                     t.CNPJ = CNPJ;
                     t.Servico = Servico;
@@ -669,6 +815,7 @@ namespace NFe.Settings
                     }
 
                     t.CopyObjectTo(this);
+                    InvalidarEstadoPinCertificado();
 
                     if (t.UnidadeFederativaCodigo.Equals(4205407))
                     {
@@ -717,33 +864,31 @@ namespace NFe.Settings
                 //Certificado instalado no windows
                 if (CertificadoInstalado)
                 {
-                    var store = new X509Store("MY", StoreLocation.CurrentUser);
-                    store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                    var collection = store.Certificates;
-                    X509Certificate2Collection collection1 = null;
-                    if (!string.IsNullOrEmpty(CertificadoDigitalThumbPrint))
+                    using (var store = new X509Store("MY", StoreLocation.CurrentUser))
                     {
-                        collection1 = collection.Find(X509FindType.FindByThumbprint, CertificadoDigitalThumbPrint, false);
-                    }
-                    else
-                    {
-                        collection1 = collection.Find(X509FindType.FindBySubjectDistinguishedName, Certificado, false);
-                    }
-
-                    for (var i = 0; i < collection1.Count; i++)
-                    {
-                        //Verificar a validade do certificado
-                        if (DateTime.Compare(DateTime.Now, collection1[i].NotAfter) == -1)
+                        store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+                        var collection = store.Certificates;
+                        X509Certificate2Collection encontrados;
+                        if (!string.IsNullOrEmpty(CertificadoDigitalThumbPrint))
                         {
-                            x509Cert = collection1[i];
-                            break;
+                            encontrados = collection.Find(X509FindType.FindByThumbprint, CertificadoDigitalThumbPrint.Replace(" ", string.Empty), false);
                         }
-                    }
+                        else
+                        {
+                            encontrados = collection.Find(X509FindType.FindBySubjectDistinguishedName, Certificado, false);
+                        }
 
-                    //Se não encontrou nenhum certificado com validade correta, vou pegar o primeiro certificado, porem vai travar na hora de tentar enviar a nota fiscal, por conta da validade. Wandrey 06/04/2011
-                    if (x509Cert == null && collection1.Count > 0)
-                    {
-                        x509Cert = collection1[0];
+                        var agora = DateTime.Now;
+                        for (var i = 0; i < encontrados.Count; i++)
+                        {
+                            var candidato = encontrados[i];
+                            if (candidato.NotBefore <= agora && agora <= candidato.NotAfter &&
+                                candidato.HasPrivateKey && PermiteAssinaturaDigital(candidato) &&
+                                (x509Cert == null || candidato.NotAfter > x509Cert.NotAfter))
+                            {
+                                x509Cert = candidato;
+                            }
+                        }
                     }
                 }
                 else //Certificado está sendo acessado direto do arquivo .PFX
@@ -763,10 +908,30 @@ namespace NFe.Settings
                         fs.Read(buffer, 0, buffer.Length);
                         x509Cert = new X509Certificate2(buffer, CertificadoSenha);
                     }
+
+                    var agora = DateTime.Now;
+                    if (x509Cert.NotBefore > agora || agora > x509Cert.NotAfter || !x509Cert.HasPrivateKey || !PermiteAssinaturaDigital(x509Cert))
+                    {
+                        throw new Exception("O certificado informado não está válido ou não possui chave privada para assinatura digital.");
+                    }
                 }
             }
 
             return x509Cert;
+        }
+
+        private static bool PermiteAssinaturaDigital(X509Certificate2 certificado)
+        {
+            foreach (X509Extension extensao in certificado.Extensions)
+            {
+                var keyUsage = extensao as X509KeyUsageExtension;
+                if (keyUsage != null)
+                {
+                    return (keyUsage.KeyUsages & X509KeyUsageFlags.DigitalSignature) == X509KeyUsageFlags.DigitalSignature;
+                }
+            }
+
+            return true;
         }
         #endregion
 
@@ -1120,6 +1285,10 @@ namespace NFe.Settings
 
             empresa.UsuarioWS = string.Empty;
             empresa.SenhaWS = string.Empty;
+            empresa.EFreteIntegrador = string.Empty;
+            empresa.EFreteToken = string.Empty;
+            empresa.EFreteUsuario = string.Empty;
+            empresa.EFreteSenha = string.Empty;
 
             empresa.AmbienteCodigo = (int)TipoAmbiente.Homologacao; //2
             empresa.tpEmis = (int)TipoEmissao.Normal; //1
@@ -1218,14 +1387,7 @@ namespace NFe.Settings
                     dados.CertificadoSenha = Criptografia.criptografaSenha(dados.CertificadoSenha);
                 }
 
-                if (ClsX509Certificate2Extension.IsA3(dados.X509Certificado))
-                {
-                    dados.CertificadoPIN = Criptografia.criptografaSenha(dados.CertificadoPIN);
-                }
-                else
-                {
-                    dados.CertificadoPIN = string.Empty;
-                }
+                dados.CertificadoPIN = ProtecaoPinCertificado.Proteger(dados.CertificadoPIN);
 
                 dados.FTPNomeDoServidor = Criptografia.criptografaSenha(dados.FTPNomeDoServidor);
                 dados.FTPNomeDoUsuario = Criptografia.criptografaSenha(dados.FTPNomeDoUsuario);
@@ -1234,20 +1396,21 @@ namespace NFe.Settings
                 dados.Secret = Criptografia.criptografaSenha(dados.Secret);
                 dados.AppID_UMessenger = Criptografia.criptografaSenha(dados.AppID_UMessenger);
                 dados.Secret_UMessenger = Criptografia.criptografaSenha(dados.Secret_UMessenger);
+                dados.CriptografarConfiguracaoEFrete();
 
                 var objObjectXMLSerializer = new ObjectXMLSerializer();
                 objObjectXMLSerializer.Save(dados, dados.NomeArquivoConfig);
 
                 Empresas.FindConfEmpresa(CNPJ, Servico).Nome = Nome;
             }
-            catch (Exception ex)
+            catch
             {
                 if (empresaNova)
                 {
                     Empresas.Configuracoes.Remove(this);
                 }
 
-                throw ex;
+                throw;
             }
         }
         #endregion
