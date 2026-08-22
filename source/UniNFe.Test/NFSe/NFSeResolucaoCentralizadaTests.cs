@@ -42,7 +42,7 @@ namespace UniNFe.Test.NFSe
 
         [Theory]
         [InlineData("<ConsultarDpsDisponivelEnvio xmlns=\"http://www.sped.fazenda.gov.br/nfse\"><IM>1</IM></ConsultarDpsDisponivelEnvio>", "1.01")]
-        [InlineData("<ConsultarRpsDisponivelEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><Pedido /></ConsultarRpsDisponivelEnvio>", "2.04")]
+        [InlineData("<ConsultarRpsDisponivelEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><Pedido /></ConsultarRpsDisponivelEnvio>", "1.01")]
         public void DeveUsarVersaoConfiguradaNaConsultaRpsDisponivelISSNET(string conteudoXML, string versaoEsperada)
         {
             var xml = CriarXml(conteudoXML);
