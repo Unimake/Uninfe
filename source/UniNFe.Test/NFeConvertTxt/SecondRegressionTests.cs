@@ -80,6 +80,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000017136_19041494000180_001_19_08_2026-nfe-orig.txt")]
         [InlineData("035814-nfe-orig.txt")]
         [InlineData("161540-nfe-orig.txt")]
+        [InlineData("000015493-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -258,6 +259,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarImpostosDaNfce161540(legado);
                         ValidarImpostosDaNfce161540(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000015493-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcms10DaNfe15493(legado);
+                        ValidarIcms10DaNfe15493(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -295,6 +301,20 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("2.02", documento.SelectSingleNode("//*[local-name()='COFINSAliq']/*[local-name()='vCOFINS']")?.InnerText);
             Assert.Equal("000001", documento.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='cClassTrib']")?.InnerText);
             Assert.Equal("24.10", documento.SelectSingleNode("//*[local-name()='IBSCBS']/*[local-name()='gIBSCBS']/*[local-name()='vBC']")?.InnerText);
+        }
+
+        private static void ValidarIcms10DaNfe15493(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var icms = documento.SelectSingleNode("//*[local-name()='ICMS10']");
+
+            Assert.NotNull(icms);
+            Assert.Null(icms.SelectSingleNode("*[local-name()='pMVAST']"));
+            Assert.Null(icms.SelectSingleNode("*[local-name()='pRedBCST']"));
+            Assert.Equal("5585.21", icms.SelectSingleNode("*[local-name()='vBCST']")?.InnerText);
+            Assert.Equal("18.0000", icms.SelectSingleNode("*[local-name()='pICMSST']")?.InnerText);
+            Assert.Equal("335.12", icms.SelectSingleNode("*[local-name()='vICMSST']")?.InnerText);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
@@ -415,6 +435,22 @@ namespace UniNFe.Test.NFeConvertTxt
                 "JOSE ADELMO DE JESUS",
                 "45184984100",
                 "RUA JOSE ANDRE VAJAO",
+                "VOL IMPORTS - MG",
+                "0032376020050",
+                "30999720000173",
+                "AV DOUTOR ROFLES CECILIO",
+                "3432124039",
+                "MILLS PESADOS LOCACAO SERVICOS E LOGISTICA SA",
+                "671666958115",
+                "gestaonotas.pesados@mills.com.br",
+                "01633840003099",
+                "R FIORAVANTE MANCINO",
+                "1154306482",
+                "CLIENTE RETIRA",
+                "DHIEFFERSON FELIPE RENDE SANTOS",
+                "5500021454",
+                "SN/013244",
+                "FROTA 1417",
                 "VENDEDOR: 0110 WAGNER",
                 "AUTO VIDROS PRUDENTE",
                 "562319803111",
