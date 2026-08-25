@@ -109,8 +109,9 @@ namespace NFe.Service.NFSe
 
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).RetornoXML;
-            var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
-            var servico = DefinirServico(municipio, conteudoXML);
+            var resolucao = ResolucaoCentralizadaNFSe.Resolver(conteudoXML, padraoNFSe, municipio);
+            var versaoXML = resolucao.Versao;
+            var servico = resolucao.Servico;
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
 
@@ -177,127 +178,6 @@ namespace NFe.Service.NFSe
             }
         }
 
-        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc)
-        {
-            var result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSituacaoLoteRps;
 
-            var padraoNFSe = Functions.BuscaPadraoNFSe(municipio);
-
-            switch (padraoNFSe)
-            {
-                case PadraoNFSe.PAULISTANA:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaInformacoesLote;
-                    break;
-
-                case PadraoNFSe.GIF:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeObterCriticaLote;
-                    break;
-
-                case PadraoNFSe.AGILI:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarRequerimentoCancelamento;
-                    break;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Retorna a versão do XML que está sendo enviado para o município de acordo com o Padrão/Município
-        /// </summary>
-        /// <param name="codMunicipio">Código do município para onde será enviado o XML</param>
-        /// <param name="xmlDoc">Conteúdo do XML da NFSe</param>
-        /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
-        /// <returns>Retorna a versão do XML que está sendo enviado para o município de acordo com o Padrão/Município</returns>
-        private string DefinirVersaoXML(int codMunicipio, XmlDocument xmlDoc, PadraoNFSe padraoNFSe)
-        {
-            var versaoXML = "0.00";
-
-            switch (padraoNFSe)
-            {
-                case PadraoNFSe.GIF:
-                case PadraoNFSe.EQUIPLANO:
-                case PadraoNFSe.MEMORY:
-                case PadraoNFSe.AGILI:
-                case PadraoNFSe.SALVADOR_BA:
-                case PadraoNFSe.METROPOLIS:
-                case PadraoNFSe.INTERSOL:
-                case PadraoNFSe.PRONIM:
-                    versaoXML = "1.00";
-                    break;
-
-                case PadraoNFSe.BETHA_CLOUD:
-                case PadraoNFSe.QUASAR:
-                    versaoXML = "1.01";
-                    break;
-
-                case PadraoNFSe.PAULISTANA:
-                    versaoXML = "1.00";
-                    if (xmlDoc.InnerXml.Contains("Versao=\"2\"") || xmlDoc.InnerXml.Contains("Versao=\"2.00\""))
-                    {
-                        versaoXML = "2.00";
-                    }
-                    break;
-
-
-                case PadraoNFSe.TIPLAN:
-                    versaoXML = "2.01";
-
-                    if (codMunicipio == 3304003)
-                    {
-                        versaoXML = "2.03";
-                    }
-                    break;
-
-                case PadraoNFSe.FINTEL:
-                    versaoXML = "2.02";
-                    break;
-
-                case PadraoNFSe.TINUS:
-                    versaoXML = "1.00";
-                    if (xmlDoc.InnerXml.Contains("versao=\"2.03\""))
-                    {
-                        versaoXML = "2.03";
-                        break;
-                    }
-                    break;
-
-                case PadraoNFSe.PROPRIOFORTALEZACE:
-                    versaoXML = "4.00";
-                    break;
-
-                case PadraoNFSe.GINFES:
-                    versaoXML = "3.01";
-                    break;
-
-                case PadraoNFSe.SIMPLISS:   //Versão 2.03 não possui esse serviço -> Blumenau - SC e Volta Redonda - RJ
-                case PadraoNFSe.DSF:        //DSF não possui este serviço, porém, São José dos Campos - SP aceita layout do padrão GINFES e aceita este serviço na versão 3.00
-                    versaoXML = "3.01";
-                    break;
-
-                case PadraoNFSe.PUBLICA:
-                    versaoXML = "3.00";
-                    break;
-
-                case PadraoNFSe.EL:
-                    versaoXML = "2.04";
-                    break;
-
-                case PadraoNFSe.DBSELLER:
-                    versaoXML = "1.00";
-
-                    if (codMunicipio == 4319901)
-                    {
-                        versaoXML = "2.04";
-                    }
-
-                    break;
-
-                default:
-                    throw new Exception("Padrão de NFSe " + padraoNFSe.ToString() + " não é válido para Consulta de Situação de Lote RPS.");
-
-            }
-
-            return versaoXML;
-        }
     }
 }

@@ -14,12 +14,12 @@
 		<observacao/>
 	</nf>
 	<prestador>
-		<cpfcnpj>09117473333250</cpfcnpj>
+		<cpfcnpj>06117473000150</cpfcnpj>
 		<cidade>7749</cidade>
 	</prestador>
 	<tomador>
 		<tipo>F</tipo>
-		<cpfcnpj>77988006037</cpfcnpj>
+		<cpfcnpj>99999999999999</cpfcnpj>
 		<ie/>
 		<nome_razao_social>EMPRESA TESTE</nome_razao_social>
 		<sobrenome_nome_fantasia>EMPRESA TESTE</sobrenome_nome_fantasia>

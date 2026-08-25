@@ -18,6 +18,9 @@ Use exatamente os valores `ANTT` ou `EFrete`. O UniNFe lê essa tag e encaminha 
 
 | Serviço | ANTT | eFrete |
 |---|:---:|:---:|
+| [Cadastro de motorista](cadastro-motorista-efrete.md) | Não | Sim |
+| [Cadastro de proprietário](cadastro-proprietario-efrete.md) | Não | Sim |
+| [Cadastro de veículo](cadastro-veiculo-efrete.md) | Não | Sim |
 | [Cancelamento da operação de transporte](cancelamento-operacao-transporte.md) | Sim | Sim |
 | [Consultar CIOT gerado](consultar-ciot-gerado.md) | Sim | Sim |
 | [Consultar exceção](consultar-excecao.md) | Sim | Não há modelo eFrete |
@@ -51,6 +54,9 @@ Parta sempre do modelo do provedor e do serviço que será consumido. Não envie
 
 ## Serviços documentados
 
+- [Cadastro de motorista no eFrete](cadastro-motorista-efrete.md)
+- [Cadastro de proprietário no eFrete](cadastro-proprietario-efrete.md)
+- [Cadastro de veículo no eFrete](cadastro-veiculo-efrete.md)
 - [Cancelamento da operação de transporte do CIOT](cancelamento-operacao-transporte.md)
 - [Consultar CIOT gerado](consultar-ciot-gerado.md)
 - [Consultar exceção do CIOT](consultar-excecao.md)

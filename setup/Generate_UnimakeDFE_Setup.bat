@@ -9,10 +9,25 @@ SET "caminhoAssinar=\\192.168.0.48\assinar"
 DEL /S /Q %cd%\err
 RD /S /Q %filesDir%
 
+if /i "%1"=="windev" goto setupWindev
+
+goto setupNormal
+
+:setupWindev
+@ECHO ----------------------------------------------------------------------------------
+@ECHO Compilando Unimake.DFe para WINDEV
+@ECHO ----------------------------------------------------------------------------------
+
+goto compilarDLL
+
+:setupNormal
 @ECHO ----------------------------------------------------------------------------------
 @ECHO Compilando Unimake.DFe
 @ECHO ----------------------------------------------------------------------------------
 
+goto compilarDLL
+
+:compilarDLL
 dotnet build D:\projetos\github\Unimake.DFe\source\Unimake.DFe.sln --configuration INTEROP_Release --force
 
 pause
@@ -34,8 +49,6 @@ DEL /S /Q %filesDir%\App.config
 DEL /S /Q %filesDir%\TesteDLL_Unimake.Business.DFe.exe
 DEL /S /Q %filesDir%\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 DEL /S /Q %filesDir%\TesteDLL_Unimake.Business.DFe.exe.config
-:: Esta dll tem que pegar da pasta do VB6
-DEL /S /Q %filesDir%\System.Security.Cryptography.Xml.dll 
 
 ::Apaga os arquivos desnecessários
 DEL /S /Q %filesDir%\net462\*.xml
@@ -132,9 +145,17 @@ Goto loopAssinarStandard
 @ECHO Compilando script
 @ECHO ----------------------------------------------------------------------------------
 
-CALL %istool% Unimake.DFe.iss
+ if /i "%1"=="windev" goto windev
 
+ CALL %istool% Unimake.DFe.iss
+ 
+ Goto gerarSetupFim
+ 
+:windev 
+ CALL %istool% Unimake.DFe_For_WINDEV.iss
+ Goto gerarSetupFim
 
+:gerarSetupFim
 @ECHO:
 @ECHO ----------------------------------------------------------------------------------
 @ECHO Verifique as mensagens de erro. Pressione CTRL+C para terminar a compilação ou ...
@@ -161,10 +182,18 @@ echo. > "%caminhoAssinar%\assinar.txt"
 
    copy \\192.168.0.48\assinar\arquivos\Install_Unimake.DFe.exe d:\projetos\instaladores\Install_Unimake.DFe.exe
    del \\192.168.0.48\assinar\arquivos\Install_Unimake.DFe.exe
+   
+   if /i "%1"=="windev" goto fimWindev
+   
    python "c:\program files (x86)\s3cmd\s3cmd" put "D:\projetos\instaladores\Install_Unimake.DFe.exe" s3://unimakedownload/Install_Unimake.DFe.exe --acl-public
    call sendftp.bat "Install_Unimake.DFe.exe"
   
    goto ok
+   
+:fimWindev
+ del d:\projetos\instaladores\Install_Unimake.DFe_for_windev.exe
+ ren d:\projetos\instaladores\Install_Unimake.DFe.exe Install_Unimake.DFe_for_windev.exe
+ goto ok
 
 :ok
  exit /B 0

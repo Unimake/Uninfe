@@ -47,6 +47,13 @@ Main projects:
 - Before sending anything that requires a certificate, follow existing patterns for `CertVencido(emp)`, `CarregarPINA3(emp)`, and `CertificadoDigital`.
 - Do not bypass validations for `tpAmb`, `tpEmis`, DFe key, schemas, or signatures.
 
+## Centralized NFSe Resolution
+
+- NFSe tasks must use the internal resolver in `NFe.Service.NFSe` for version and dynamic service selection. Do not recreate provider, municipality, root, or version switches inside individual tasks.
+- Tasks with a fixed service use only centralized version resolution. Tasks with a dynamic service consume the combined version/service result; when the service depends on the environment, pass `Empresas.Configuracoes[emp].AmbienteCodigo` explicitly.
+- Keep resolver tests deterministic and free of certificates, transport, and external endpoints. When a task's file-processing behavior changes, add a separate fixture/context test that executes the task.
+- Coordinate resolver behavior changes with the sibling `Unimake.DFe` checkout and run focused tests in both repositories.
+
 ## TXT Regression Data And Anonymization
 
 - Whenever a user supplies a real TXT to reproduce NFe/NFCe conversion or compare the legacy UniNFe converter with Unimake.DFe, anonymize it before copying it into `exemplos xml`, `source/UniNFe.Test`, or the DLL repository.
@@ -80,7 +87,8 @@ Main projects:
 dotnet build source/uninfe.sln --no-restore
 ```
 
-- There is no broad automated test suite evident in the repository. For service changes, validate by build and with equivalent XML/TXT examples in `exemplos xml` when practical.
+- `source/UniNFe.Test` contains focused automated tests. Run the impacted classes and use equivalent XML/TXT examples in `exemplos xml` when practical.
+- Debug and Beta builds consume the sibling `Unimake.DFe` project directly to support joint maintenance. Release consumes the configured NuGet package; preserve this split when changing references.
 
 ## Special Care
 
