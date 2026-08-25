@@ -190,9 +190,6 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
-                case PadraoNFSe.NACIONAL:
-                    versaoXML = (xmlDoc.GetElementsByTagName(xmlDoc.DocumentElement.Name)[0]).Attributes.GetNamedItem("versao").Value;
-                    break;
 
                 case PadraoNFSe.PROPRIOBARUERISP:
                     versaoXML = "1.00";
@@ -247,7 +244,6 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
-                case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.PRODATA:
                     nomeTag = "Base64Pdf";
                     break;
