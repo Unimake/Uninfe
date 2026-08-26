@@ -189,7 +189,6 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
-                case PadraoNFSe.NACIONAL:
                 case PadraoNFSe.PRODATA:
                     nomeTag = "Base64Pdf";
                     break;
