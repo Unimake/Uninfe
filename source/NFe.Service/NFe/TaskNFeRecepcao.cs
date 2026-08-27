@@ -6,7 +6,6 @@ using System.IO;
 using System.Threading;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
-using Unimake.Business.DFe.Xml.DARE;
 using Unimake.Business.DFe.Xml.NFe;
 using Unimake.Exceptions;
 
@@ -60,11 +59,6 @@ namespace NFe.Service
             var oFluxoNfe = new FluxoNfe();
             var ler = new LerXML();
             Configuracao configuracao = null;
-
-            var prefixoArqLote = "-num-lot";
-            var pastaLoteRetorno = Empresas.Configuracoes[emp].PastaXmlRetorno;
-            var arqLoteRetornoXML = Path.Combine(pastaLoteRetorno, Functions.ExtrairNomeArq(NomeArqTempXMLLote, prefixoArqLote + ".xml") + "-num-lot.xml");
-            var arqLoteRetornoTXT = Path.Combine(pastaLoteRetorno, Functions.ExtrairNomeArq(NomeArqTempTXTLote, prefixoArqLote + ".txt") + "-num-lot.txt");
 
             try
             {
@@ -167,11 +161,11 @@ namespace NFe.Service
 
                 #region Mover o arquivo de lote aqui para evitar gerar ele antes das validações dos XMLs e erros
 
-                File.Move(NomeArqTempXMLLote, arqLoteRetornoXML);
-                if (Empresas.Configuracoes[emp].GravarRetornoTXTNFe)
-                {
-                    File.Move(NomeArqTempTXTLote, arqLoteRetornoTXT);
-                }
+                PublicarArquivosNumeroLote(
+                    Empresas.Configuracoes[emp].PastaXmlRetorno,
+                    NomeArqTempXMLLote,
+                    NomeArqTempTXTLote,
+                    Empresas.Configuracoes[emp].GravarRetornoTXTNFe);
 
                 #endregion
 
@@ -305,6 +299,47 @@ namespace NFe.Service
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML);
             }
+        }
+
+        /// <summary>
+        /// Publica na pasta de retorno os arquivos com o número do lote gerado pelo UniNFe.
+        /// </summary>
+        /// <param name="pastaRetorno">Pasta de retorno da empresa.</param>
+        /// <param name="arquivoTemporarioXML">Arquivo XML temporário com o número do lote.</param>
+        /// <param name="arquivoTemporarioTXT">Arquivo TXT temporário com o número do lote.</param>
+        /// <param name="publicarTXT">Indica se o retorno TXT deve ser publicado.</param>
+        /// <returns>Verdadeiro quando os arquivos pertencem ao fluxo de lote gerado pelo UniNFe.</returns>
+        internal static bool PublicarArquivosNumeroLote(string pastaRetorno, string arquivoTemporarioXML, string arquivoTemporarioTXT, bool publicarTXT)
+        {
+            if (string.IsNullOrWhiteSpace(arquivoTemporarioXML))
+            {
+                return false;
+            }
+
+            var prefixoArqLote = "-num-lot";
+            var arquivoRetornoXML = Path.Combine(pastaRetorno, Functions.ExtrairNomeArq(arquivoTemporarioXML, prefixoArqLote + ".xml") + "-num-lot.xml");
+
+            PublicarArquivoNumeroLote(arquivoTemporarioXML, arquivoRetornoXML);
+
+            if (publicarTXT)
+            {
+                var arquivoRetornoTXT = Path.Combine(pastaRetorno, Functions.ExtrairNomeArq(arquivoTemporarioTXT, prefixoArqLote + ".txt") + "-num-lot.txt");
+
+                PublicarArquivoNumeroLote(arquivoTemporarioTXT, arquivoRetornoTXT);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Copia o arquivo temporário para o retorno, substituindo eventual retorno anterior, e exclui a origem.
+        /// </summary>
+        /// <param name="arquivoTemporario">Arquivo temporário.</param>
+        /// <param name="arquivoRetorno">Arquivo que será disponibilizado para o ERP.</param>
+        private static void PublicarArquivoNumeroLote(string arquivoTemporario, string arquivoRetorno)
+        {
+            File.Copy(arquivoTemporario, arquivoRetorno, true);
+            Functions.DeletarArquivo(arquivoTemporario);
         }
 
         /// <summary>
