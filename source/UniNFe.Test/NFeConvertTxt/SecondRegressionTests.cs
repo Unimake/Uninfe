@@ -81,6 +81,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("035814-nfe-orig.txt")]
         [InlineData("161540-nfe-orig.txt")]
         [InlineData("000015493-nfe.txt")]
+        [InlineData("000000892-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -264,6 +265,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIcms10DaNfe15493(legado);
                         ValidarIcms10DaNfe15493(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000000892-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarReferenciaProdutorItensEPagamentosDaNfe892(legado);
+                        ValidarReferenciaProdutorItensEPagamentosDaNfe892(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -315,6 +321,32 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("5585.21", icms.SelectSingleNode("*[local-name()='vBCST']")?.InnerText);
             Assert.Equal("18.0000", icms.SelectSingleNode("*[local-name()='pICMSST']")?.InnerText);
             Assert.Equal("335.12", icms.SelectSingleNode("*[local-name()='vICMSST']")?.InnerText);
+        }
+
+        private static void ValidarReferenciaProdutorItensEPagamentosDaNfe892(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var referencia = documento.SelectSingleNode("//*[local-name()='ide']/*[local-name()='NFref']/*[local-name()='refNFP']");
+
+            Assert.NotNull(referencia);
+            Assert.Null(referencia.SelectSingleNode("*[local-name()='CNPJ']"));
+            Assert.Equal("11144477735", referencia.SelectSingleNode("*[local-name()='CPF']")?.InnerText);
+            Assert.Equal("1234567890", referencia.SelectSingleNode("*[local-name()='IE']")?.InnerText);
+            Assert.Equal("04", referencia.SelectSingleNode("*[local-name()='mod']")?.InnerText);
+            Assert.Equal("890", referencia.SelectSingleNode("*[local-name()='serie']")?.InnerText);
+            Assert.Equal("1", referencia.SelectSingleNode("*[local-name()='nNF']")?.InnerText);
+            Assert.Equal(6, documento.SelectNodes("//*[local-name()='det']").Count);
+            Assert.Equal(6, documento.SelectNodes("//*[local-name()='ICMSSN102']").Count);
+            Assert.Equal(6, documento.SelectNodes("//*[local-name()='ICMSSN102']/*[local-name()='orig' and text()='0']").Count);
+            Assert.Equal(6, documento.SelectNodes("//*[local-name()='ICMSSN102']/*[local-name()='CSOSN' and text()='102']").Count);
+            Assert.Equal(6, documento.SelectNodes("//*[local-name()='IPI']/*[local-name()='CNPJProd' and text()='00000000000000']").Count);
+            Assert.Equal(0, documento.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala']").Count);
+            Assert.Equal("4700.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='pag']/*[local-name()='detPag']").Count);
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='tPag' and text()='90']").Count);
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='vPag' and text()='0.00']").Count);
+            Assert.Equal(0, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='xPag']").Count);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
@@ -451,6 +483,22 @@ namespace UniNFe.Test.NFeConvertTxt
                 "5500021454",
                 "SN/013244",
                 "FROTA 1417",
+                "M. L. SCHWERTNER PLANTAS",
+                "MLS PLANTAS",
+                "1280058657",
+                "28508340000147",
+                "PRIMEIRO DE MAIO",
+                "51997012925",
+                "PAULO JAIR HOLDEFER",
+                "05579449020",
+                "2131010863",
+                "R BOA VISTA",
+                "5135624755",
+                "JASMIM PLANTAS ORNAMENTAIS",
+                "00001280019163",
+                "R RS 122 KM 09",
+                "87215802000105",
+                "68711275",
                 "VENDEDOR: 0110 WAGNER",
                 "AUTO VIDROS PRUDENTE",
                 "562319803111",
