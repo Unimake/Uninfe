@@ -54,6 +54,16 @@ namespace NFe.Service
         /// </summary>
         protected string Bkp3NomeArqXmlLote;
 
+        /// <summary>
+        /// Nome do arquivo que será movido para a pasta de retorno para o ERP se tudo der certo no envio do lote de notas fiscais eletrônicas (XML)
+        /// </summary>
+        public string NomeArqTempXMLLote { get; private set; }
+
+        /// <summary>
+        /// Nome do arquivo que será movido para a pasta de retorno para o ERP se tudo der certo no envio do lote de notas fiscais eletrônicas (TXT)
+        /// </summary>
+        public string NomeArqTempTXTLote { get; private set; }
+
         #endregion Atributos
 
         #region Propriedades
@@ -551,11 +561,16 @@ namespace NFe.Service
             oSettings.OmitXmlDeclaration = false;
             XmlWriter oXmlLoteERP = null;
 
-            var cArqLoteRetorno = NomeArqLoteRetERP(NomeArquivoXML);
+            var cArqLoteEnvioTemp = NomeArqLoteRetERP(NomeArquivoXML);
 
             try
             {
-                oXmlLoteERP = XmlWriter.Create(cArqLoteRetorno, oSettings);
+                if (File.Exists(cArqLoteEnvioTemp))
+                {
+                    File.Delete(cArqLoteEnvioTemp);
+                }
+
+                oXmlLoteERP = XmlWriter.Create(cArqLoteEnvioTemp, oSettings);
 
                 oXmlLoteERP.WriteStartDocument();
                 oXmlLoteERP.WriteStartElement("DadosLoteNfe");
@@ -565,12 +580,21 @@ namespace NFe.Service
                 oXmlLoteERP.Flush();
                 oXmlLoteERP.Close();
 
+                NomeArqTempXMLLote = cArqLoteEnvioTemp;
+
                 var emp = Empresas.FindEmpresaByThread();
                 if (Empresas.Configuracoes[emp].GravarRetornoTXTNFe)
                 {
-                    var TXTRetorno = Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(cArqLoteRetorno, ".xml") + ".txt";
+                    var TXTRetorno = Empresas.Configuracoes[emp].PastaXmlEnvio + "\\Temp\\" + Functions.ExtrairNomeArq(cArqLoteEnvioTemp, ".xml") + ".txt";
+
+                    if (File.Exists(TXTRetorno))
+                    {
+                        File.Delete(TXTRetorno);
+                    }
 
                     File.WriteAllText(TXTRetorno, intNumeroLote.ToString() + ";");
+
+                    NomeArqTempTXTLote = TXTRetorno;
                 }
             }
             finally
@@ -4218,7 +4242,7 @@ namespace NFe.Service
                 ext = Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML;
             }
 
-            return Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
+            return Empresas.Configuracoes[emp].PastaXmlEnvio + "\\Temp\\" +
                     Functions.ExtrairNomeArq(NomeArquivoXML, ext) + "-num-lot.xml";
         }
 

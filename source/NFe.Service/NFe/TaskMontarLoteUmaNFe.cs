@@ -47,9 +47,14 @@ namespace NFe.Service
 
                         if (!File.Exists(nomeArqEmProcessamento))
                         {
-                            var xmlLote = LoteNfe(ConteudoXML, NomeArquivoXML, oDadosNfe.versao, oDadosNfe.mod);
+                            var xmlLote = LoteNfe(ConteudoXML, NomeArquivoXML, oDadosNfe.versao, oDadosNfe.mod);                            
+                            
+                            var nfeRecepcao = new TaskNFeRecepcao(xmlLote)
+                            {
+                                NomeArqTempXMLLote = oGerarXML.NomeArqTempXMLLote,
+                                NomeArqTempTXTLote = oGerarXML.NomeArqTempTXTLote
+                            };
 
-                            var nfeRecepcao = new TaskNFeRecepcao(xmlLote);
                             nfeRecepcao.Execute();
                         }
                         else

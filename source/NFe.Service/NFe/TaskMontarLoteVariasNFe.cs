@@ -180,7 +180,12 @@ namespace NFe.Service
                         fsArquivo.Close();
 
                         var xmlLote = LoteNfe(notas, versaoXml, modeloDFe);
-                        var nfeRecepcao = new TaskNFeRecepcao(xmlLote);
+                        var nfeRecepcao = new TaskNFeRecepcao(xmlLote)
+                        {
+                            NomeArqTempXMLLote = oGerarXML.NomeArqTempXMLLote,
+                            NomeArqTempTXTLote = oGerarXML.NomeArqTempTXTLote
+                        };
+
                         nfeRecepcao.Execute();
                     }
                     catch (Exception ex)
