@@ -83,6 +83,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000015493-nfe.txt")]
         [InlineData("000000892-nfe.txt")]
         [InlineData("000002191-nfe-orig.txt")]
+        [InlineData("000000200-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -276,6 +277,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIcmsSn500DaNfe2191(legado);
                         ValidarIcmsSn500DaNfe2191(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000000200-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarCofinsAliquotaDaNfe200(legado);
+                        ValidarCofinsAliquotaDaNfe200(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -367,6 +373,20 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal(2, documento.SelectNodes("//*[local-name()='ICMSSN500']/*[local-name()='CSOSN' and text()='500']").Count);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='ICMSSN102']").Count);
             Assert.Equal("OUTROS MEIOS", documento.SelectSingleNode("//*[local-name()='detPag']/*[local-name()='xPag']")?.InnerText);
+        }
+
+        private static void ValidarCofinsAliquotaDaNfe200(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var grupos = documento.SelectNodes("//*[local-name()='COFINSAliq']");
+
+            Assert.Equal(3, grupos.Count);
+            Assert.Equal(3, documento.SelectNodes("//*[local-name()='COFINSAliq']/*[local-name()='CST' and text()='01']").Count);
+            Assert.Equal(0, documento.SelectNodes("//*[local-name()='COFINSOutr']").Count);
+            Assert.Equal("45007.60", grupos[0].SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("3.0000", grupos[0].SelectSingleNode("*[local-name()='pCOFINS']")?.InnerText);
+            Assert.Equal("1350.23", grupos[0].SelectSingleNode("*[local-name()='vCOFINS']")?.InnerText);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
@@ -614,7 +634,19 @@ namespace UniNFe.Test.NFeConvertTxt
                 "082853",
                 "739532",
                 "430893",
-                "526811"
+                "526811",
+                "FS HOME SIGNS COMERCIO DE PLASTICOS LTDA",
+                "451219138113",
+                "65624784000174",
+                "RUA MARIO SAURIN",
+                "PARQUE DOS BURITIS",
+                "17991926177",
+                "ORION HOME DESIGN LTDA",
+                "191052997118",
+                "61182144000109",
+                "ESTRADA ARTUR FORNAZARI",
+                "LIMOEIRO",
+                "Referente Pedido Nr.: 828"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
