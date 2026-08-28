@@ -82,6 +82,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("161540-nfe-orig.txt")]
         [InlineData("000015493-nfe.txt")]
         [InlineData("000000892-nfe.txt")]
+        [InlineData("000002191-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -270,6 +271,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarReferenciaProdutorItensEPagamentosDaNfe892(legado);
                         ValidarReferenciaProdutorItensEPagamentosDaNfe892(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000002191-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcmsSn500DaNfe2191(legado);
+                        ValidarIcmsSn500DaNfe2191(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -349,6 +355,18 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal(1, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='vPag' and text()='0.00']").Count);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='indPag']").Count);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='xPag']").Count);
+        }
+
+        private static void ValidarIcmsSn500DaNfe2191(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='ICMSSN500']").Count);
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='ICMSSN500']/*[local-name()='orig' and text()='0']").Count);
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='ICMSSN500']/*[local-name()='CSOSN' and text()='500']").Count);
+            Assert.Equal(0, documento.SelectNodes("//*[local-name()='ICMSSN102']").Count);
+            Assert.Equal("OUTROS MEIOS", documento.SelectSingleNode("//*[local-name()='detPag']/*[local-name()='xPag']")?.InnerText);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
