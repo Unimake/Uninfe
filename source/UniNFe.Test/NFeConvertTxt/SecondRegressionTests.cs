@@ -267,9 +267,8 @@ namespace UniNFe.Test.NFeConvertTxt
                     }
                     if (string.Equals(nomeArquivo, "000000892-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
-                        ValidarReferenciaProdutorItensEPagamentosDaNfe892(legado, false);
-                        ValidarReferenciaProdutorItensEPagamentosDaNfe892(novo, true);
-                        novo = OmitirIndicadorEscala(novo);
+                        ValidarReferenciaProdutorItensEPagamentosDaNfe892(legado);
+                        ValidarReferenciaProdutorItensEPagamentosDaNfe892(novo);
                     }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
@@ -324,7 +323,7 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("335.12", icms.SelectSingleNode("*[local-name()='vICMSST']")?.InnerText);
         }
 
-        private static void ValidarReferenciaProdutorItensEPagamentosDaNfe892(string xml, bool deveGerarIndicadorEscala)
+        private static void ValidarReferenciaProdutorItensEPagamentosDaNfe892(string xml)
         {
             var documento = new XmlDocument();
             documento.LoadXml(xml);
@@ -342,7 +341,7 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal(6, documento.SelectNodes("//*[local-name()='ICMSSN102']/*[local-name()='orig' and text()='0']").Count);
             Assert.Equal(6, documento.SelectNodes("//*[local-name()='ICMSSN102']/*[local-name()='CSOSN' and text()='102']").Count);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='IPI']/*[local-name()='CNPJProd']").Count);
-            Assert.Equal(deveGerarIndicadorEscala ? 6 : 0, documento.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala' and text()='S']").Count);
+            Assert.Equal(0, documento.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala']").Count);
             Assert.Equal("4700.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='cobr']/*[local-name()='fat']").Count);
             Assert.Equal(1, documento.SelectNodes("//*[local-name()='pag']/*[local-name()='detPag']").Count);
@@ -350,17 +349,6 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal(1, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='vPag' and text()='0.00']").Count);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='indPag']").Count);
             Assert.Equal(0, documento.SelectNodes("//*[local-name()='detPag']/*[local-name()='xPag']").Count);
-        }
-
-        private static string OmitirIndicadorEscala(string xml)
-        {
-            var documento = new XmlDocument();
-            documento.LoadXml(xml);
-            foreach (XmlElement indicador in documento.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala']"))
-            {
-                indicador.ParentNode.RemoveChild(indicador);
-            }
-            return documento.OuterXml;
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
