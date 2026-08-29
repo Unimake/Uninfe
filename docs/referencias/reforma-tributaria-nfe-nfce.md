@@ -8,11 +8,12 @@ Este manual orienta a classificação IBS/CBS de itens de NFe e NFCe com as tabe
 
 ## 1. Visão geral
 
-As sete tabelas não são alternativas: elas se complementam. Algumas ajudam a decidir a tributação; outras validam o resultado e indicam os grupos técnicos do XML.
+As oito tabelas não são alternativas: elas se complementam. Algumas ajudam a decidir a tributação; outras validam o resultado e indicam os grupos técnicos do XML.
 
 | Tabela | Papel na solução |
 | --- | --- |
 | [Tabela de Operações](https://www.unimake.com.br/downloads/Tabela_Operacao.json) | Ponto de partida. Classifica a natureza da operação e fornece o enquadramento padrão ou prioritário. |
+| [Tabela CFOP](https://www.unimake.com.br/downloads/tabela_cfop.json) | Catálogo dos CFOPs com descrição, tipo e destino da operação, vigência e indicadores de aplicação, inclusive para NF-e e exclusão de IBS/CBS. |
 | [Tabela NCM](https://www.unimake.com.br/downloads/tabela_ncm.json) | Identifica o produto e aponta enquadramento direto, anexos ordinários e exceções legais prioritárias. |
 | [Tipos de aplicação da exceção prioritária](https://www.unimake.com.br/downloads/tabela_ncm_tipo_aplicacao_anexo_excecao_prioritaria.json) | Traduz o `Tipo_Aplicacao` de uma exceção do NCM em condição de negócio e pergunta orientadora. Ajuda a decidir quando a aplicação pode automatizar e quando deve solicitar confirmação. |
 | [Tabela de Anexos da LC 214](https://www.unimake.com.br/downloads/tabela_anexos_lc214.json) | Catálogo descritivo dos Anexos I a XV. É usado para interpretar a finalidade de cada anexo apontado pelo NCM; não contém a regra de seleção por si só. |
@@ -384,6 +385,7 @@ A reimportação do mesmo arquivo deve ser idempotente. Propriedades desconhecid
 - [Tabela CST e cClassTrib Unimake](https://www.unimake.com.br/downloads/tabela_cst_classtrib_ibscbs.json)
 - [Tabela de Crédito Presumido IBS/CBS Unimake](https://www.unimake.com.br/downloads/tabela_ccredpres.json)
 - [Tabela de Operações Unimake](https://www.unimake.com.br/downloads/Tabela_Operacao.json)
+- [Tabela CFOP Unimake](https://www.unimake.com.br/downloads/tabela_cfop.json)
 - [Tabela de Anexos LC 214 Unimake](https://www.unimake.com.br/downloads/tabela_anexos_lc214.json)
 
 > Este manual descreve a lógica de integração das tabelas e a sua aplicação técnica. A definição fiscal da finalidade, a classificação correta do produto e a confirmação dos requisitos legais de cada benefício devem permanecer sujeitas à validação tributária da empresa.
