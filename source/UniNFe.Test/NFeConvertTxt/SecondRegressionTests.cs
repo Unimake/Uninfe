@@ -84,6 +84,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000000892-nfe.txt")]
         [InlineData("000002191-nfe-orig.txt")]
         [InlineData("000000200-nfe.txt")]
+        [InlineData("000062981-nfe-orig.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -282,6 +283,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarCofinsAliquotaDaNfe200(legado);
                         ValidarCofinsAliquotaDaNfe200(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000062981-nfe-orig.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarItensImpostosETotaisDaNfce62981(legado);
+                        ValidarItensImpostosETotaisDaNfce62981(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -387,6 +393,31 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("45007.60", grupos[0].SelectSingleNode("*[local-name()='vBC']")?.InnerText);
             Assert.Equal("3.0000", grupos[0].SelectSingleNode("*[local-name()='pCOFINS']")?.InnerText);
             Assert.Equal("1350.23", grupos[0].SelectSingleNode("*[local-name()='vCOFINS']")?.InnerText);
+        }
+
+        private static void ValidarItensImpostosETotaisDaNfce62981(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+
+            Assert.Equal("65", documento.SelectSingleNode("//*[local-name()='ide']/*[local-name()='mod']")?.InnerText);
+            Assert.Equal(3, documento.SelectNodes("//*[local-name()='det']").Count);
+            Assert.Equal(3, documento.SelectNodes("//*[local-name()='prod']/*[local-name()='CEST']").Count);
+            Assert.Equal(1, documento.SelectNodes("//*[local-name()='ICMS60']").Count);
+            Assert.Equal(2, documento.SelectNodes("//*[local-name()='ICMS00']").Count);
+            Assert.Equal(3, documento.SelectNodes("//*[local-name()='PISNT']/*[local-name()='CST' and text()='07']").Count);
+            Assert.Equal(3, documento.SelectNodes("//*[local-name()='COFINSNT']/*[local-name()='CST' and text()='07']").Count);
+            Assert.Equal(3, documento.SelectNodes("//*[local-name()='IBSCBS']").Count);
+            Assert.Equal("18.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("3.24", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vICMS']")?.InnerText);
+            Assert.Equal("107.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vProd']")?.InnerText);
+            Assert.Equal("107.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
+            Assert.Equal("27.28", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vTotTrib']")?.InnerText);
+            Assert.Equal("103.76", documento.SelectSingleNode("//*[local-name()='IBSCBSTot']/*[local-name()='vBCIBSCBS']")?.InnerText);
+            Assert.Equal("107.00", documento.SelectSingleNode("//*[local-name()='vNFTot']")?.InnerText);
+            Assert.Equal("04", documento.SelectSingleNode("//*[local-name()='detPag']/*[local-name()='tPag']")?.InnerText);
+            Assert.Equal("107.00", documento.SelectSingleNode("//*[local-name()='detPag']/*[local-name()='vPag']")?.InnerText);
+            Assert.Equal("2", documento.SelectSingleNode("//*[local-name()='detPag']/*[local-name()='card']/*[local-name()='tpIntegra']")?.InnerText);
         }
 
         private static string OmitirPaisBrasilOpcionalDeRetiradaEEntrega(string xml)
@@ -646,7 +677,18 @@ namespace UniNFe.Test.NFeConvertTxt
                 "61182144000109",
                 "ESTRADA ARTUR FORNAZARI",
                 "LIMOEIRO",
-                "Referente Pedido Nr.: 828"
+                "Referente Pedido Nr.: 828",
+                "REDE CAFE TANTA LTDA",
+                "CAFE TANTA",
+                "224291586114",
+                "30985309000149",
+                "AVENIDA PROFESSOR JOSE PEDRETTI NETO",
+                "CONJ HAB FREI FIDELI",
+                "01438136127",
+                "ACES CABO 1.2MT IPHONE",
+                "PAO DE QUEIJO UN",
+                "NESCAFE CHOCOLATE ALPINO",
+                "Op: LUCELIA"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
