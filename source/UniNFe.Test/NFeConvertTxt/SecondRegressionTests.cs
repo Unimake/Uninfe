@@ -13,6 +13,31 @@ namespace UniNFe.Test.NFeConvertTxt
     [Collection("NFeConvertTxt")]
     public sealed class SecondRegressionTests
     {
+        [Fact]
+        public void ConversorLegadoDeveRejeitarTxtSemCabecalhoNotaFiscal()
+        {
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000411-nfe.txt");
+            var arquivoTemporario = Path.GetTempFileName();
+            try
+            {
+                var linhas = File.ReadAllLines(arquivo);
+                var linhasSemCabecalho = new string[linhas.Length - 1];
+                Array.Copy(linhas, 1, linhasSemCabecalho, 0, linhasSemCabecalho.Length);
+                File.WriteAllLines(arquivoTemporario, linhasSemCabecalho);
+
+                var fixture = new NFeConvertTxtFixture();
+                using (var resultado = fixture.Converter(arquivoTemporario))
+                {
+                    Assert.False(resultado.Sucesso);
+                    Assert.Contains("segmento A", resultado.MensagemErro, StringComparison.OrdinalIgnoreCase);
+                }
+            }
+            finally
+            {
+                File.Delete(arquivoTemporario);
+            }
+        }
+
         [Theory]
         [InlineData("35260847498059000115550010004030011909226990-nfe.txt", "6", "07", null, "1")]
         [InlineData("35260847498059000115550010004030021004029993-nfe.txt", "5", null, "03", "0")]
@@ -85,6 +110,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000002191-nfe-orig.txt")]
         [InlineData("000000200-nfe.txt")]
         [InlineData("000062981-nfe-orig.txt")]
+        [InlineData("000000411-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -288,6 +314,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarItensImpostosETotaisDaNfce62981(legado);
                         ValidarItensImpostosETotaisDaNfce62981(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000000411-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarChaveEInformacoesAdicionaisDaNfce411(legado);
+                        ValidarChaveEInformacoesAdicionaisDaNfce411(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -308,6 +339,22 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("COFINSAliq", cofins?.LocalName);
             Assert.Equal("01", cofins?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
             Assert.Equal("0.00", cofins?.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+        }
+
+        private static void ValidarChaveEInformacoesAdicionaisDaNfce411(string xml)
+        {
+            const string chaveEsperada = "35260899999999000191650000000004111000007768";
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+
+            Assert.Equal("NFe" + chaveEsperada, documento.SelectSingleNode("//*[local-name()='infNFe']")?.Attributes?["Id"]?.Value);
+            Assert.Equal("00000776", documento.SelectSingleNode("//*[local-name()='ide']/*[local-name()='cNF']")?.InnerText);
+            Assert.Equal("8", documento.SelectSingleNode("//*[local-name()='ide']/*[local-name()='cDV']")?.InnerText);
+            Assert.Null(documento.SelectSingleNode("//*[local-name()='infAdic']"));
+            Assert.Equal("60", documento.SelectSingleNode("//*[local-name()='ICMS60']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("07", documento.SelectSingleNode("//*[local-name()='PISNT']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("07", documento.SelectSingleNode("//*[local-name()='COFINSNT']/*[local-name()='CST']")?.InnerText);
+            Assert.Equal("30.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
         }
 
         private static void ValidarImpostosDaNfce161540(string xml)
@@ -688,7 +735,16 @@ namespace UniNFe.Test.NFeConvertTxt
                 "ACES CABO 1.2MT IPHONE",
                 "PAO DE QUEIJO UN",
                 "NESCAFE CHOCOLATE ALPINO",
-                "Op: LUCELIA"
+                "Op: LUCELIA",
+                "B.B. DE OLIVEIRA CENTRO AUTOMOTIVO - EPP",
+                "QUITANDA DOS PNEUS",
+                "379260061119",
+                "24531255000149",
+                "ESTRADA DE SAO BENTO",
+                "JD ODETE",
+                "08598100",
+                "1146458785",
+                "35260824531255000149650000000004111000007760"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
