@@ -111,6 +111,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000000200-nfe.txt")]
         [InlineData("000062981-nfe-orig.txt")]
         [InlineData("000000411-nfe.txt")]
+        [InlineData("000027937-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -319,6 +320,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarChaveEInformacoesAdicionaisDaNfce411(legado);
                         ValidarChaveEInformacoesAdicionaisDaNfce411(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000027937-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIcmsComplementarSemModalidadeSt(legado);
+                        ValidarIcmsComplementarSemModalidadeSt(novo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -355,6 +361,21 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("07", documento.SelectSingleNode("//*[local-name()='PISNT']/*[local-name()='CST']")?.InnerText);
             Assert.Equal("07", documento.SelectSingleNode("//*[local-name()='COFINSNT']/*[local-name()='CST']")?.InnerText);
             Assert.Equal("30.00", documento.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
+        }
+
+        private static void ValidarIcmsComplementarSemModalidadeSt(string xml)
+        {
+            var documento = new XmlDocument();
+            documento.LoadXml(xml);
+            var icms = documento.SelectSingleNode("//*[local-name()='ICMSSN900']");
+
+            Assert.NotNull(icms);
+            Assert.Equal("2", documento.SelectSingleNode("//*[local-name()='ide']/*[local-name()='finNFe']")?.InnerText);
+            Assert.Equal("3", icms.SelectSingleNode("*[local-name()='modBC']")?.InnerText);
+            Assert.Equal("269.00", icms.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("18.0000", icms.SelectSingleNode("*[local-name()='pICMS']")?.InnerText);
+            Assert.Equal("9.98", icms.SelectSingleNode("*[local-name()='vICMS']")?.InnerText);
+            Assert.Null(icms.SelectSingleNode("*[local-name()='modBCST']"));
         }
 
         private static void ValidarImpostosDaNfce161540(string xml)
@@ -744,7 +765,19 @@ namespace UniNFe.Test.NFeConvertTxt
                 "JD ODETE",
                 "08598100",
                 "1146458785",
-                "35260824531255000149650000000004111000007760"
+                "35260824531255000149650000000004111000007760",
+                "ELEB-MATERIAIS ELETRICOS LTDA",
+                "0010379490048",
+                "08746947000158",
+                "RUA MARTINS BARBOSA",
+                "36090300",
+                "3232221948",
+                "POSTO ECO LTDA",
+                "3670838040021",
+                "03845434000180",
+                "AV BRASIL",
+                "36081500",
+                "31260608746947000158550000000274421121715254"
             };
 
             var pasta = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");

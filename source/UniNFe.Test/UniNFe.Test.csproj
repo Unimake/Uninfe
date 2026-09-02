@@ -103,6 +103,7 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000000200-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000062981-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000000411-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\000027937-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
