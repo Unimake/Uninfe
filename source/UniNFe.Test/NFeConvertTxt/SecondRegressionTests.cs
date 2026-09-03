@@ -112,6 +112,10 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000062981-nfe-orig.txt")]
         [InlineData("000000411-nfe.txt")]
         [InlineData("000027937-nfe.txt")]
+        [InlineData("RTC2026-NFe621-nfe.txt")]
+        [InlineData("RTC2026-NFe622-nfe.txt")]
+        [InlineData("RTC2026-NFe623-nfe.txt")]
+        [InlineData("RTC2026-NFe624-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -325,6 +329,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIcmsComplementarSemModalidadeSt(legado);
                         ValidarIcmsComplementarSemModalidadeSt(novo);
                     }
+                    if (nomeArquivo.StartsWith("RTC2026-", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarModeloRtc2026(legado, nomeArquivo);
+                        ValidarModeloRtc2026(novo, nomeArquivo);
+                    }
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
                     Assert.True(diferenca == null, diferenca);
                 }
@@ -376,6 +385,35 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("18.0000", icms.SelectSingleNode("*[local-name()='pICMS']")?.InnerText);
             Assert.Equal("9.98", icms.SelectSingleNode("*[local-name()='vICMS']")?.InnerText);
             Assert.Null(icms.SelectSingleNode("*[local-name()='modBCST']"));
+        }
+
+        private static void ValidarModeloRtc2026(string conteudoXml, string nomeArquivo)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var numero = nomeArquivo.Substring("RTC2026-NFe".Length, 3);
+
+            Assert.Equal(numero, xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='nNF']")?.InnerText);
+            Assert.Equal("PRODUTO-TESTE", xml.SelectSingleNode("//*[local-name()='prod']/*[local-name()='cProd']")?.InnerText);
+            Assert.Equal("SEM GTIN", xml.SelectSingleNode("//*[local-name()='prod']/*[local-name()='cEAN']")?.InnerText);
+            Assert.NotNull(xml.SelectSingleNode("//*[local-name()='IBSCBS']"));
+            Assert.NotNull(xml.SelectSingleNode("//*[local-name()='IBSCBSTot']"));
+            Assert.NotNull(xml.SelectSingleNode("//*[local-name()='vNFTot']"));
+            Assert.Equal("RESPONSAVEL TECNICO TESTE", xml.SelectSingleNode("//*[local-name()='infRespTec']/*[local-name()='xContato']")?.InnerText);
+            Assert.Equal("AAAAAAAAAAAAAAAAAAAAAAAAAAA=", xml.SelectSingleNode("//*[local-name()='infRespTec']/*[local-name()='hashCSRT']")?.InnerText);
+
+            if (numero == "622")
+            {
+                Assert.Equal("1", xml.SelectSingleNode("//*[local-name()='prod']/*[local-name()='indBemMovelUsado']")?.InnerText);
+                Assert.Equal("95.0000", xml.SelectSingleNode("//*[local-name()='ICMS20']/*[local-name()='pRedBC']")?.InnerText);
+                Assert.Equal("20.00", xml.SelectSingleNode("//*[local-name()='IBSCBSTot']/*[local-name()='gIBS']/*[local-name()='vIBS']")?.InnerText);
+                Assert.Equal("180.00", xml.SelectSingleNode("//*[local-name()='IBSCBSTot']/*[local-name()='gCBS']/*[local-name()='vCBS']")?.InnerText);
+            }
+
+            if (numero == "623")
+            {
+                Assert.Equal("41260799999999000191550010000006211152363383", xml.SelectSingleNode("//*[local-name()='NFref']/*[local-name()='refNFe']")?.InnerText);
+            }
         }
 
         private static void ValidarImpostosDaNfce161540(string xml)

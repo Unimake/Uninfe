@@ -104,6 +104,10 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000062981-nfe-orig.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000000411-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000027937-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\RTC2026-NFe621-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\RTC2026-NFe622-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\RTC2026-NFe623-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\RTC2026-NFe624-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
