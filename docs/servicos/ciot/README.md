@@ -29,6 +29,7 @@ Use exatamente os valores `ANTT` ou `EFrete`. O UniNFe lê essa tag e encaminha 
 | [Declaração de operação de transporte](declaracao-operacao-transporte.md) | Sim | Sim |
 | [Encerramento da operação de transporte](encerramento-operacao-transporte.md) | Sim | Sim |
 | [Gerar identificador da operação de transporte](gerar-id-operacao-transporte.md) | Sim | Não há modelo eFrete |
+| [Obter o PDF da operação de transporte](obter-pdf-operacao-transporte-efrete.md) | Não | Sim |
 | [Retificação da operação de transporte](retificacao-operacao-transporte.md) | Sim | Não há modelo eFrete |
 
 ## Configuração do eFrete
@@ -65,4 +66,5 @@ Parta sempre do modelo do provedor e do serviço que será consumido. Não envie
 - [Declaração de operação de transporte do CIOT](declaracao-operacao-transporte.md)
 - [Encerramento da operação de transporte do CIOT](encerramento-operacao-transporte.md)
 - [Gerar identificador da operação de transporte do CIOT](gerar-id-operacao-transporte.md)
+- [Obter o PDF da operação de transporte no eFrete](obter-pdf-operacao-transporte-efrete.md)
 - [Retificação da operação de transporte do CIOT](retificacao-operacao-transporte.md)

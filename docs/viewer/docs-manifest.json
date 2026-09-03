@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T20:03:47.548Z",
+  "generatedAt": "2026-09-03T20:15:13.159Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -245,6 +245,12 @@
       "id": "servicos-ciot-gerar-id-operacao-transporte-md",
       "title": "Gerar identificador da operação de transporte do CIOT",
       "path": "servicos/ciot/gerar-id-operacao-transporte.md",
+      "category": "servicos/ciot"
+    },
+    {
+      "id": "servicos-ciot-obter-pdf-operacao-transporte-efrete-md",
+      "title": "Obter o PDF da operação de transporte no eFrete",
+      "path": "servicos/ciot/obter-pdf-operacao-transporte-efrete.md",
       "category": "servicos/ciot"
     },
     {

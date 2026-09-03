@@ -123,6 +123,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [CIOT - Declaração de operação de transporte](servicos/ciot/declaracao-operacao-transporte.md)
 - [CIOT - Encerramento da operação de transporte](servicos/ciot/encerramento-operacao-transporte.md)
 - [CIOT - Gerar identificador da operação de transporte](servicos/ciot/gerar-id-operacao-transporte.md)
+- [CIOT - Obter o PDF da operação de transporte no eFrete](servicos/ciot/obter-pdf-operacao-transporte-efrete.md)
 - [CIOT - Retificação da operação de transporte](servicos/ciot/retificacao-operacao-transporte.md)
 - [DCe](servicos/dce/)
 - [DCe - Autorização síncrona](servicos/dce/autorizacao-sincrona.md)
