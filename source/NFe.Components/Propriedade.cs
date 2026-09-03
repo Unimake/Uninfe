@@ -424,6 +424,11 @@ namespace NFe.Components
             /// Cadastros exclusivos da eFrete
             /// </summary>
             CIOTCadastro,
+
+            /// <summary>
+            /// Obtenção do PDF da operação de transporte na eFrete
+            /// </summary>
+            CIOTPdf,
         }
 
         private static readonly Dictionary<TipoEnvio, ExtensaoClass> ListaExtensoes = new Dictionary<TipoEnvio, ExtensaoClass>();
@@ -1188,6 +1193,13 @@ namespace NFe.Components
                "-ret-cadciot.xml", "",
                "-ret-cadciot.err",
                "XML de cadastro eFrete do CIOT"
+               ));
+
+            ListaExtensoes.Add(TipoEnvio.CIOTPdf, new ExtensaoClass(
+               "-pdfciot.xml", "",
+               "-ret-pdfciot.xml", "",
+               "-ret-pdfciot.err",
+               "XML para obtenção do PDF da operação de transporte na eFrete"
                ));
 
             #endregion CIOT

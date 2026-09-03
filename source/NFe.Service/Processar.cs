@@ -579,6 +579,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTGravarVeiculo(arquivo));
                             break;
 
+                        case Servicos.CIOTObterOperacaoTransportePdf:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskCIOTObterOperacaoTransportePdf(arquivo));
+                            break;
+
                         #endregion CIOT
 
                         #region DCe
@@ -1372,6 +1376,10 @@ namespace NFe.Service
 
                             case "GravarVeiculo":
                                 tipoServico = Servicos.CIOTGravarVeiculo;
+                                break;
+
+                            case "ObterOperacaoTransportePdf":
+                                tipoServico = Servicos.CIOTObterOperacaoTransportePdf;
                                 break;
 
                             #endregion CIOT
@@ -2457,6 +2465,11 @@ namespace NFe.Service
                 case Servicos.CIOTGravarVeiculo:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTCadastro).EnvioXML;
                     extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTCadastro).RetornoERR;
+                    break;
+
+                case Servicos.CIOTObterOperacaoTransportePdf:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTPdf).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTPdf).RetornoERR;
                     break;
 
                 case Servicos.CIOTGerarIdOperacaoTransporte:

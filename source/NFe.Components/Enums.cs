@@ -846,7 +846,10 @@ namespace NFe.Components
         CIOTGravarProprietario,
 
         /// <summary>Gravar veículo na eFrete.</summary>
-        CIOTGravarVeiculo
+        CIOTGravarVeiculo,
+
+        /// <summary>Obter o PDF da operação de transporte na eFrete.</summary>
+        CIOTObterOperacaoTransportePdf
     }
 
     #endregion Servicos
