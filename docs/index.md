@@ -181,7 +181,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
   - [Documentação e modelos XML da NFS-e Nacional](referencias/perguntas-frequentes.md#faq-documentacao-modelos-xml-nfse-nacional)
   - [Retenção de PIS, COFINS e CSLL na NFS-e de São Paulo — layout 2](referencias/perguntas-frequentes.md#faq-retencao-pis-cofins-csll-nfse-sp-layout-2)
 - [Reforma Tributária - NFe/NFCe](referencias/reforma-tributaria-nfe-nfce.md)
-- [Reforma Tributária - NFSe](referencias/reforma-tributaria-nfse.md)
+- [Reforma Tributária - NFSe](referencias/reforma-tributaria-nfse.md) — inclui tabelas de alíquotas do ISSQN por município e UF.
 - PENDENTE DE VALIDAÇÃO: criar `referencias/estrutura-de-pastas.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/tipos-de-retorno.md`
 - PENDENTE DE VALIDAÇÃO: criar `referencias/exemplos-xml.md`

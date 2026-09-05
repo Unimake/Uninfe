@@ -126,6 +126,41 @@ Esta tabela contém a correlação entre a lista de serviços da LC 116, a Nomen
 | `Codigo` | `010101` |
 | Ligação NBS | `Item_LC_116 = "01.01"` |
 
+### 5.1 Tabelas de alíquotas do ISSQN por município
+
+As tabelas de alíquotas do ISSQN são organizadas por UF e podem auxiliar o cadastro e a validação da tributação municipal da NFS-e. Cada registro relaciona o município e o código do serviço à alíquota e ao seu período de vigência.
+
+Os arquivos usam os seguintes campos:
+
+| Campo | Conteúdo |
+| --- | --- |
+| `codigo_ibge` | Código IBGE do município. |
+| `uf` | Sigla da unidade federativa. |
+| `nome_municipio` | Nome do município. |
+| `codigo_servico` | Código do serviço ao qual a alíquota se aplica. |
+| `incidencia` | Código de incidência relacionado ao serviço. |
+| `aliquota` | Percentual de ISSQN informado para o município e o serviço. |
+| `dt_ini` | Data inicial de vigência da alíquota. |
+| `dt_fim` | Data final de vigência. Quando estiver vazia, o registro não informa uma data de encerramento. |
+
+Mantenha códigos e alíquotas como texto durante a importação, valide as datas de vigência e selecione o arquivo correspondente à UF do município. Como o ISSQN é municipal, confirme a regra aplicável na legislação e no portal oficial do município antes de emitir a NFS-e.
+
+| UF | Arquivo JSON | UF | Arquivo JSON |
+| --- | --- | --- | --- |
+| AC | [Alíquotas de ISSQN dos municípios do Acre](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ac.json) | AL | [Alíquotas de ISSQN dos municípios de Alagoas](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_al.json) |
+| AM | [Alíquotas de ISSQN dos municípios do Amazonas](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_am.json) | AP | [Alíquotas de ISSQN dos municípios do Amapá](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ap.json) |
+| BA | [Alíquotas de ISSQN dos municípios da Bahia](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ba.json) | CE | [Alíquotas de ISSQN dos municípios do Ceará](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ce.json) |
+| ES | [Alíquotas de ISSQN dos municípios do Espírito Santo](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_es.json) | GO | [Alíquotas de ISSQN dos municípios de Goiás](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_go.json) |
+| MA | [Alíquotas de ISSQN dos municípios do Maranhão](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ma.json) | MG | [Alíquotas de ISSQN dos municípios de Minas Gerais](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_mg.json) |
+| MS | [Alíquotas de ISSQN dos municípios de Mato Grosso do Sul](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ms.json) | MT | [Alíquotas de ISSQN dos municípios de Mato Grosso](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_mt.json) |
+| PA | [Alíquotas de ISSQN dos municípios do Pará](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_pa.json) | PB | [Alíquotas de ISSQN dos municípios da Paraíba](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_pb.json) |
+| PE | [Alíquotas de ISSQN dos municípios de Pernambuco](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_pe.json) | PI | [Alíquotas de ISSQN dos municípios do Piauí](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_pi.json) |
+| PR | [Alíquotas de ISSQN dos municípios do Paraná](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_pr.json) | RJ | [Alíquotas de ISSQN dos municípios do Rio de Janeiro](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_rj.json) |
+| RN | [Alíquotas de ISSQN dos municípios do Rio Grande do Norte](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_rn.json) | RO | [Alíquotas de ISSQN dos municípios de Rondônia](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_ro.json) |
+| RR | [Alíquotas de ISSQN dos municípios de Roraima](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_rr.json) | RS | [Alíquotas de ISSQN dos municípios do Rio Grande do Sul](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_rs.json) |
+| SC | [Alíquotas de ISSQN dos municípios de Santa Catarina](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_sc.json) | SE | [Alíquotas de ISSQN dos municípios de Sergipe](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_se.json) |
+| SP | [Alíquotas de ISSQN dos municípios de São Paulo](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_sp.json) | TO | [Alíquotas de ISSQN dos municípios do Tocantins](https://www.unimake.com.br/downloads/tabela_aliquotas_issqn_municipios_to.json) |
+
 ## 6. CST, cClassTrib e crédito presumido
 
 Depois de encontrar a linha correta da NBS, procure o `cClassTrib` na tabela geral de CST e classificação tributária:

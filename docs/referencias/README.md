@@ -7,7 +7,7 @@ Pasta reservada para paginas de referencia, como estrutura de pastas, tipos de r
 - [Notas técnicas e notícias para desenvolvedores](notas-tecnicas-e-noticias-para-desenvolvedores.md)
 - [Perguntas frequentes](perguntas-frequentes.md)
 - [Reforma Tributária - NFe/NFCe](reforma-tributaria-nfe-nfce.md)
-- [Reforma Tributária - NFSe](reforma-tributaria-nfse.md)
+- [Reforma Tributária - NFSe](reforma-tributaria-nfse.md) — inclui tabelas de alíquotas do ISSQN por município e UF.
 - [Tela Log](tela-log.md)
 - [Tela Sobre](tela-sobre.md)
 - [Tela Validar XML](tela-validar-xml.md)
