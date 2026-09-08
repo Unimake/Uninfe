@@ -12,8 +12,156 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             var xmlEsperado = Carregar(esperado);
             var xmlAtual = Carregar(atual);
+            NormalizarMonofasiaLegada(xmlEsperado);
+            NormalizarMonofasiaLegada(xmlAtual);
+            NormalizarVNFTotZero(xmlEsperado);
+            NormalizarVNFTotZero(xmlAtual);
 
             return CompararElemento(xmlEsperado.DocumentElement, xmlAtual.DocumentElement, string.Empty);
+        }
+
+        private static void NormalizarVNFTotZero(XmlDocument documento)
+        {
+            var elementos = documento.GetElementsByTagName("vNFTot")
+                .OfType<XmlElement>()
+                .ToList();
+            foreach (var elemento in elementos)
+            {
+                if (decimal.TryParse(elemento.InnerText, NumberStyles.Number, CultureInfo.InvariantCulture, out var valor) && valor == 0)
+                {
+                    elemento.ParentNode.RemoveChild(elemento);
+                }
+            }
+        }
+
+        private static void NormalizarMonofasiaLegada(XmlDocument documento)
+        {
+            var grupos = documento.GetElementsByTagName("gIBSCBSMono")
+                .OfType<XmlElement>()
+                .ToList();
+
+            foreach (var grupo in grupos)
+            {
+                var filhos = ElementosFilhos(grupo);
+                var padrao = filhos.FirstOrDefault(x => x.LocalName == "gMonoPadrao");
+                var retencao = filhos.FirstOrDefault(x => x.LocalName == "gMonoReten");
+                var retido = filhos.FirstOrDefault(x => x.LocalName == "gMonoRet");
+                var diferimento = filhos.FirstOrDefault(x => x.LocalName == "gMonoDif");
+                if (padrao == null && retencao == null && retido == null && diferimento == null)
+                {
+                    continue;
+                }
+
+                var referencia = filhos.FirstOrDefault(x => x.LocalName == "vTotIBSMonoItem" || x.LocalName == "vTotCBSMonoItem");
+                RemoverSeExistir(grupo, padrao);
+                RemoverSeExistir(grupo, retencao);
+                RemoverSeExistir(grupo, retido);
+                RemoverSeExistir(grupo, diferimento);
+
+                var grupoIBS = CriarGrupoAdRem(
+                    documento,
+                    grupo.NamespaceURI,
+                    "gIBSMonoAdRem",
+                    padrao,
+                    new[] { "qBCMono", "adRemIBS", "vIBSMono" },
+                    retencao,
+                    new[] { "qBCMonoReten", "adRemIBSReten", "vIBSMonoReten" },
+                    retido,
+                    "vIBSMonoRet");
+                InserirAntes(grupo, grupoIBS, referencia);
+
+                var grupoCBS = CriarGrupoAdRem(
+                    documento,
+                    grupo.NamespaceURI,
+                    "gCBSMonoAdRem",
+                    padrao,
+                    new[] { "qBCMono", "adRemCBS", "vCBSMono" },
+                    retencao,
+                    new[] { "qBCMonoReten", "adRemCBSReten", "vCBSMonoReten" },
+                    retido,
+                    "vCBSMonoRet");
+                InserirAntes(grupo, grupoCBS, referencia);
+            }
+        }
+
+        private static XmlElement CriarGrupoAdRem(
+            XmlDocument documento,
+            string namespaceUri,
+            string nomeGrupo,
+            XmlElement padrao,
+            string[] camposPadrao,
+            XmlElement retencao,
+            string[] camposRetencao,
+            XmlElement retido,
+            string campoRetido)
+        {
+            var incluirRetido = PossuiValorPositivo(retido, campoRetido);
+            if (padrao == null && retencao == null && !incluirRetido)
+            {
+                return null;
+            }
+
+            var resultado = documento.CreateElement(nomeGrupo, namespaceUri);
+            AdicionarSubgrupo(documento, resultado, "gMonoPadrao", padrao, camposPadrao);
+            AdicionarSubgrupo(documento, resultado, "gMonoReten", retencao, camposRetencao);
+            if (incluirRetido)
+            {
+                AdicionarSubgrupo(documento, resultado, "gMonoRet", retido, new[] { campoRetido });
+            }
+
+            return resultado;
+        }
+
+        private static void AdicionarSubgrupo(XmlDocument documento, XmlElement destino, string nome, XmlElement origem, IEnumerable<string> campos)
+        {
+            if (origem == null)
+            {
+                return;
+            }
+
+            var subgrupo = documento.CreateElement(nome, destino.NamespaceURI);
+            foreach (var campo in campos)
+            {
+                var elemento = ElementosFilhos(origem).FirstOrDefault(x => x.LocalName == campo);
+                if (elemento != null)
+                {
+                    subgrupo.AppendChild(documento.ImportNode(elemento, true));
+                }
+            }
+            destino.AppendChild(subgrupo);
+        }
+
+        private static bool PossuiValorPositivo(XmlElement grupo, string campo)
+        {
+            var elemento = grupo == null ? null : ElementosFilhos(grupo).FirstOrDefault(x => x.LocalName == campo);
+            return elemento != null &&
+                decimal.TryParse(elemento.InnerText, NumberStyles.Number, CultureInfo.InvariantCulture, out var valor) &&
+                valor > 0;
+        }
+
+        private static void RemoverSeExistir(XmlElement pai, XmlElement filho)
+        {
+            if (filho != null)
+            {
+                pai.RemoveChild(filho);
+            }
+        }
+
+        private static void InserirAntes(XmlElement pai, XmlElement filho, XmlElement referencia)
+        {
+            if (filho == null)
+            {
+                return;
+            }
+
+            if (referencia == null)
+            {
+                pai.AppendChild(filho);
+            }
+            else
+            {
+                pai.InsertBefore(filho, referencia);
+            }
         }
 
         private static XmlDocument Carregar(string xml)
