@@ -1,0 +1,216 @@
+fix(uninfe): informa o CIOT completo na consulta do PDF eFrete
+
+Atualiza o modelo XML e o teste do serviço para incluir o código verificador exigido pela eFrete.
+
+ID #187560
+
+fix(nfe): preserva compatibilidade após atualização da monofasia
+
+Converte as propriedades legadas para os novos grupos Ad Rem de IBS e CBS.
+Mantém a distinção entre vNFTot não informado e explicitamente zerado.
+Reforça a conversão do registro UB85 e os testes de serialização e schema.
+
+ID #187553
+
+test(uninfe): adapta comparador às alterações do schema da NFe
+
+Normaliza os grupos monofásicos legados e o vNFTot zerado antes da
+comparação entre os conversores legado e atual.
+
+ID #187553
+
+docs: Documentado links das tabelas de aliquotas de ISSQN por município.
+
+ID #187461
+
+test(conversao-txt): compara RTC com redução integral entre legado e DLL
+
+Garante a equivalência dos conversores e registra os valores informados pelo ERP no item e nos totais da nota.
+
+ID #187301
+
+docs(ciot): documenta a obtenção do PDF da operação de transporte no eFrete
+
+ID #187404
+
+feat(uninfe): processa a obtenção do PDF do CIOT pela eFrete
+
+Reconhece o novo XML de envio, executa a consulta pela DLL e gera os arquivos de retorno XML, PDF ou erro com extensões próprias.
+
+ID #187404
+
+test(conversao-txt): compara modelos RTC entre os geradores legado e atual
+
+Garante no UniNFe a equivalência dos XMLs e preserva campos específicos da reforma tributária.
+
+ID #187301
+
+test(nfe): adiciona regressão para modBCST vazio no ICMSSN900
+
+Valida a conversão de uma NFe complementar com massa anonimizada e garante que o marcador interno de campo opcional não seja serializado no XML.
+
+ID #187301
+
+feat(skill): exige o ticket antes de gerar mensagens de commit
+
+ID #187164
+
+chore(txt): Melhoria no modelo de TXT de geração da chave de DFes.
+
+ID #187164
+
+test(nfe): Testes regreção da conversão do TXT da NFe/NFCe.
+
+ID #187301
+
+test(nfce): compara a geração entre os conversores legado e atual
+
+Verifica a equivalência estrutural dos XMLs e protege a nova massa anonimizada contra a reintrodução de dados identificáveis.
+
+ID #187170
+
+docs(nfe): inclui tabela CFOP nas referências da reforma tributária
+
+ID #187170
+
+test(nfe): cobre a conversão legada de COFINS por alíquota
+
+Compara os XMLs dos conversores, valida o grupo COFINSAliq e adiciona uma massa anonimizada com proteção contra reintrodução de dados identificáveis.
+
+ID #187017
+
+test(nfe): cobre a equivalência do CSOSN 500 entre os conversores
+
+Compara o XML legado com o gerado pela DLL e verifica os grupos ICMSSN500 dos produtos usando uma massa anonimizada.
+
+ID #187017
+
+test(nfe): ajusta a comparação da NFe 892 sem indicador de escala
+
+Mantém a massa anonimizada equivalente entre o conversor legado e a DLL quando o produto não possui CEST.
+
+ID #187017
+
+fix: Corrigido falha que gravava o XML de numero de lote da NFe/NFCe mesmo apresentando erro antes da tentativa de envio. ID #187143
+
+fix: Corrigido falha que gravava o XML de numero de lote da NFe/NFCe mesmo apresentando erro antes da tentativa de envio. ID #187143
+
+test(nfe): registra a divergência corrigida de indEscala no UniNFe
+
+Confirma que a DLL gera o indicador omitido pelo conversor legado e mantém o restante do XML equivalente para a massa anonimizada.
+
+ID #187017
+
+test(nfe): adiciona regressão para conversão de nota com referência de produtor
+
+Valida itens do Simples Nacional, informações de IPI, totalização, pagamentos e compatibilidade com o schema usando uma massa anonimizada.
+
+ID #187017
+
+fix: remove condicional de padrão NACIONAL do processamento de PDF. ID #187040
+
+chore: Adiciona exemplo de XML para Consultar Situação Lote RPS de Fortaleza - CE de padrão próprio. ID #187062
+
+Resolução de Merge
+
+Megrde da main
+
+fix(nfse): remove consulta de PDF do padrão Nacional
+
+ID #187040
+
+test(nfe): adiciona regressão diferencial para percentuais opcionais do ICMS10
+
+Compara o XML gerado pelo UniNFe legado com a DLL usando uma massa anonimizada e verifica os valores do ICMS-ST.
+
+ID #187017
+
+docs(ia): Criado skill para melhorar a etapa de planejamento associado ao "Modo Planejamento" do CODEX. ID #186943
+
+Merge branch 'main' of https://github.com/Unimake/Uninfe
+
+chore(XML): Melhorias nos modelos de XML da NFSe IPM 1.20 e NFSe ambiente NACIONAL. ID #186943
+
+fix: delega definição da versão do ISSNET para DLL
+ID #185932
+
+chore: remove suporte à versão 2.04 do padrão ISSNET
+ID #185932
+
+chore: remove suporte à versão 2.04 do padrão ISSNET
+ID #185932
+
+test(nfe): compara impostos da NFC-e entre os conversores TXT
+
+Garante a equivalência entre o XML legado do UniNFe e o XML gerado pela DLL para uma NFC-e sem destinatário.
+
+ID #186658
+
+feat: Implementado rotina de diagnostico de disponibilidade dos serviços em vários documentos: BPe, DCe, DFe, NF4e, NFCom, NFe, NFGas.
+
+ID #186651
+
+test: Novos testes da conersão do TXT da NFe/NFCe para XML.
+
+ID #186658
+
+chore: Modelo de XML de BPeTM. ID #186651
+
+config: Adaptada skill para gerar texto dos commits. ID #186818
+
+chore: Criado script para gerar um setup de instalação da DLL exclusivo para WINDEV. ID #186651
+
+chore: Melhoria modelos XML CIOT e Frete; Criado setup de instalação da DLL exclusivamente para WINDEV. ID #186650
+
+config: Atualizadas as instruções de manutenção e testes da resolução centralizada de NFSe. ID #186807
+
+test: Adicionados testes para a resolução centralizada de versões e serviços da NFSe. ID #186807
+
+refactor: Centralizada a resolução de versões e serviços das operações de NFSe; Removido o tratamento obsoleto do padrão MEMORY nas configurações de NFSe. ID #186807
+
+docs: Gerado documentação do novos serviços do CIOT via e Frente: Cadastro Motoristas, Proprietários e Veículos. ID #185768
+
+test: Criado novos testes de conversão do TXT da NFe/NFCe para XML. ID #186658
+
+chore: Adicionados XMLs de exemplo para os cadastros de motorista, proprietário e veículo no eFrete. ID #186650
+
+test: Adicionados testes dos serviços e das extensões de retorno dos cadastros eFrete do CIOT. ID #186650
+
+feat: Adicionado suporte aos cadastros de motorista, proprietário e veículo no eFrete do CIOT. ID #186650
+
+Revert "feat: Adicionado suporte aos cadastros de motorista, proprietário e veículo no eFrete do CIOT. ID #9999999"
+
+This reverts commit 0b8fe92afbc374b5638ae1d1e7d5ac3b10ce67e4.
+
+feat: Adicionado suporte aos cadastros de motorista, proprietário e veículo no eFrete do CIOT. ID #9999999
+
+chore: Correções XMLs modelos da NFe. ID #186651
+
+chore: Correções XMLs modelos do MDFe e NF3e. ID #186651
+
+chore: Organização de modelos de XML que não são mais utilizados. ID #186651
+
+chore: Correções XMLs modelos do MDFe, DCe e GNRE. ID #186651
+
+chore: Movido exemplos de XMLs do SAT e MFE para pasta antigos. ID #186651
+
+chore: Ajustes modelos de XML de eventos do CTe. ID #186651
+
+docs: Movido faq para erros e soluções, estava no lugar errado. ID #185768
+
+docs: Criado novos FAQs na documentação. ID #185768
+
+test: Adicionada regressão da conversão TXT da NFe para preservar campos do produto, IPI e IBS/CBS. ID #186658
+
+docs: Atualizado documentação CIOT prevendo eFrete. ID #185768
+
+chore: Alterado numeração da versão BETA do UniNFe.
+
+chore: Atualização pacote NUGET Unimake.DFe. ID #186743
+
+Principais alterações:
+
+feat: Alterado classe de serialização da NFe/NFCe para garantir a ordem das tags no caso de conversão de TXT para XML. ID #186547
+fix: Correção na conversão to TXT da NFe/NFCe para XML. ID #186547
+fix: Corrige UF de para Santa Catarina para o município Morro da Fumaça.  ID #186270
+fix: Corrigida autenticação mTLS nas consultas ao ADN da NFS-e Nacional. ID #186444
