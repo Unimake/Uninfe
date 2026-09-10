@@ -14,6 +14,22 @@ namespace UniNFe.Test.NFeConvertTxt
     public sealed class SecondRegressionTests
     {
         [Fact]
+        public void ConversoresDevemRejeitarTxtSemSegmentoB()
+        {
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000001-nfe.txt");
+            var fixture = new NFeConvertTxtFixture();
+
+            using (var legado = fixture.Converter(arquivo))
+            {
+                var novo = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+
+                Assert.False(legado.Sucesso);
+                Assert.False(novo.Sucesso);
+                Assert.Empty(novo.Documentos);
+            }
+        }
+
+        [Fact]
         public void ConversorLegadoDeveRejeitarTxtSemCabecalhoNotaFiscal()
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000411-nfe.txt");
@@ -112,6 +128,8 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000062981-nfe-orig.txt")]
         [InlineData("000000411-nfe.txt")]
         [InlineData("000027937-nfe.txt")]
+        [InlineData("000002722-nfe.txt")]
+        [InlineData("000000001-corrigido-nfe.txt")]
         [InlineData("NFe_RTC_CST200_Reducao100_TribRegular-nfe.txt")]
         [InlineData("RTC2026-NFe621-nfe.txt")]
         [InlineData("RTC2026-NFe622-nfe.txt")]
@@ -330,6 +348,16 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIcmsComplementarSemModalidadeSt(legado);
                         ValidarIcmsComplementarSemModalidadeSt(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000002722-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarAusenciaDeIcmsNoSegundoItem(legado);
+                        ValidarAusenciaDeIcmsNoSegundoItem(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "000000001-corrigido-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarIdentificacaoIncluidaNoTxt(legado);
+                        ValidarIdentificacaoIncluidaNoTxt(novo);
+                    }
                     if (string.Equals(nomeArquivo, "NFe_RTC_CST200_Reducao100_TribRegular-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
                         ValidarRtcComReducaoIntegralEValoresInformadosPeloErp(legado);
@@ -363,6 +391,30 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.Equal("2629.50", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
             Assert.Equal("2445.43", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
             Assert.Equal("2629.50", xml.SelectSingleNode("//*[local-name()='total']/*[local-name()='vNFTot']")?.InnerText);
+        }
+
+        private static void ValidarAusenciaDeIcmsNoSegundoItem(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var itens = xml.SelectNodes("//*[local-name()='det']");
+
+            Assert.Equal(2, itens.Count);
+            Assert.NotNull(itens[0].SelectSingleNode("*[local-name()='imposto']/*[local-name()='ICMS']"));
+            Assert.Null(itens[1].SelectSingleNode("*[local-name()='imposto']/*[local-name()='ICMS']"));
+            Assert.Equal("8751.75", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vBC']")?.InnerText);
+            Assert.Equal("1575.32", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vICMS']")?.InnerText);
+            Assert.Equal("0.00", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vPIS']")?.InnerText);
+            Assert.Equal("0.00", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vCOFINS']")?.InnerText);
+        }
+
+        private static void ValidarIdentificacaoIncluidaNoTxt(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+
+            Assert.Equal("TRANSFERENCIA DE BENS E MERCADORIAS", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='natOp']")?.InnerText);
+            Assert.Equal("1", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='nNF']")?.InnerText);
         }
 
         private static void ValidarPisECofinsDaNfe35814(string xml)
