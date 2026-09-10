@@ -22,6 +22,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
     <PackageReference Include="System.Text.Json" Version="10.0.11" />
@@ -46,8 +47,18 @@
     </Reference>
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DFeProjectConfiguration>Debug</DFeProjectConfiguration>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
+    <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
+  </PropertyGroup>
+
   <ItemGroup Condition="'$(Configuration)' != 'Release'">
-    <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj" />
+    <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
+      <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

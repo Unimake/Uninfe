@@ -195,21 +195,8 @@ namespace NFe.Service
     }
     public class ITextEvents : PdfPageEventHelper
     {
-        // This is the contentbyte object of the writer
-        PdfContentByte cb;
-
-        // we will put the final number of pages in a template
-        PdfTemplate headerTemplate, footerTemplate;
-
-        // this is the BaseFont we are going to use for the header / footer
-        BaseFont bf = null;
-
         // This keeps track of the creation time
         DateTime PrintTime = DateTime.Now;
-
-        #region Fields
-        private string _header;
-        #endregion
 
     }
 }

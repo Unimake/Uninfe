@@ -552,7 +552,6 @@ namespace NFe.UI.Formularios
 
         private void edtCodMun_Click(object sender, EventArgs e)
         {
-            var teste = "";
         }
 
         private void txtClienteID_Click(object sender, EventArgs e)
