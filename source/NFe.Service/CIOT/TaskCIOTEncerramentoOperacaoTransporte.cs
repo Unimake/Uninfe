@@ -72,7 +72,10 @@ namespace NFe.Service.CIOT
         private void FinalizarCIOT(ServicosCIOT.EncerramentoOperacaoTransporte encerramento, int emp, XmlCIOT.EncerramentoOperacaoTransporte xmlCIOT)
         {
             var fileCIOT = Path.GetFileName(NomeArquivoXML);
-            var dataEncerramento = encerramento.Result.DataEncerramento.Date;
+            var dataEncerramento = ObterDataEncerramentoParaDistribuicao(
+                xmlCIOT.ProvedorCIOT,
+                encerramento.Result.DataEncerramento.Date,
+                DateTime.Today);
 
             var fullPathCIOTEmProcessamento =
                 Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnviado,
@@ -145,6 +148,29 @@ namespace NFe.Service.CIOT
             {
                 Auxiliar.WriteLog("TaskCIOTEncerramentoOperacaoTransporte: O arquivo " + fullPathCIOTProc + " não foi encontrado para gerar o DANFE do CIOT.", false);
             }
+        }
+
+        /// <summary>
+        /// Obtém a data usada exclusivamente para organizar os arquivos autorizados.
+        /// </summary>
+        /// <param name="provedorCIOT">Provedor informado no XML de envio.</param>
+        /// <param name="dataEncerramento">Data devolvida pelo provedor.</param>
+        /// <param name="dataProcessamento">Data em que o UniNFe processou o encerramento.</param>
+        /// <returns>Data que deve ser usada na distribuição dos arquivos.</returns>
+        internal static DateTime ObterDataEncerramentoParaDistribuicao(
+            Unimake.Business.DFe.Servicos.ProvedorCIOT? provedorCIOT,
+            DateTime dataEncerramento,
+            DateTime dataProcessamento)
+        {
+            // A eFrete não devolve DataEncerramento. A data de processamento é usada
+            // somente na organização física dos arquivos e não é incluída no XML retornado.
+            if (provedorCIOT == Unimake.Business.DFe.Servicos.ProvedorCIOT.EFrete &&
+                dataEncerramento == DateTime.MinValue)
+            {
+                return dataProcessamento.Date;
+            }
+
+            return dataEncerramento.Date;
         }
     }
 }
