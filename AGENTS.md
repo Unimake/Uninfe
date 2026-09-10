@@ -107,3 +107,10 @@ dotnet build source/uninfe.sln --no-restore
 - Keep the static documentation viewer index updated: whenever `.md` files under `docs` are created, removed, or renamed, run `node viewer/build-docs-index.js` from the `docs` folder and commit the regenerated `docs/viewer/docs-manifest.json` and `docs/viewer/search-index.json`.
 - Preserve Markdown Mermaid blocks when editing documentation, especially fenced blocks declared as `mermaid`, because the static viewer renders them as diagrams.
 - Use the `uninfe-documentacao` skill for tasks involving UniNFe documentation, service documentation, screen/form documentation, configuration documentation, file-exchange integration documentation, Markdown page organization, index updates, or documentation review.
+
+## Planejamento NF-e ABI (DevPlanner)
+
+- Para executar NF-e ABI, leia `docsplan/CODEX-START-HERE.md` e use somente a etapa explicitamente autorizada.
+- Em toda etapa `002+`, releia `C:\Users\Wandrey\OneDrive\Downloads\NFeAbi`, compare hashes e pare se a fonte mudou.
+- Somente o DEV aprova etapas. Não inicie a sucessora após entregar.
+- Produção permanece sem endpoint; não invente URL nem copie homologação para produção.

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "stage_id": "UAB-000",
+  "state": "DELIVERED_FOR_REVIEW",
+  "attempt_id": "attempt-0001",
+  "attempt_archive": "docsplan/plans/evidence/UAB-000/attempts/attempt-0001",
+  "base_state": "read-only inspection 2026-09-10",
+  "started_at": "2026-09-10T00:00:00-03:00",
+  "finished_at": "2026-09-10T00:00:01-03:00",
+  "files": [
+    "docsplan/planning/PROJECT-BRIEF.md",
+    "docsplan/plans/TRACEABILITY.md",
+    "docsplan/plans/UAB-000-planning-baseline.md"
+  ],
+  "hashes_sha256": {
+    "docsplan/planning/PROJECT-BRIEF.md": "E357EBFDE913265DC874792B63A628D5E3EB98B42EC560DE0CAE3753DA154FA0",
+    "docsplan/plans/TRACEABILITY.md": "8C349AB4D6F06DB4BFCEB66091B43B205BCBB7E3DE15E7CBD61B354FC32E2F3A",
+    "docsplan/plans/UAB-000-planning-baseline.md": "5254A92C6D2B8FBE9DD9FD0F61CC128D3251A27CCD2A267C8659FA0C06472C12"
+  },
+  "commands": [
+    {
+      "command": "pwsh -NoProfile -File .agents/skills/plan-linter/scripts/test-plan.ps1 -RepositoryRoot .",
+      "result": "PASS",
+      "exit_code": 0,
+      "evidence": "docsplan/plans/evidence/UAB-000/TESTS.md"
+    }
+  ],
+  "tests": {
+    "status": "PASS_WITH_JUSTIFIED_NA",
+    "executed": [
+      "plan linter"
+    ],
+    "not_executed": [
+      "testes do produto: proibidos na etapa 000"
+    ]
+  },
+  "decisions": [
+    "DEC-001",
+    "DEC-002",
+    "DEC-003"
+  ],
+  "models_used": [
+    {
+      "part_id": "UAB-000-P01",
+      "role": "planner",
+      "profile": "DEEP",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "context_id": "plan-main"
+    },
+    {
+      "part_id": "UAB-000-P02",
+      "role": "executor",
+      "profile": "DEEP",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "context_id": "plan-main"
+    },
+    {
+      "part_id": "UAB-000-P03",
+      "role": "reviewer",
+      "profile": "INDEPENDENT_REVIEW",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "context_id": "plan-review-independent"
+    },
+    {
+      "part_id": "UAB-000-P04",
+      "role": "documenter",
+      "profile": "ECONOMY",
+      "model": "gpt-5.6-luna",
+      "effort": "low",
+      "context_id": "plan-main"
+    }
+  ],
+  "not_executed": [
+    "implementação do produto"
+  ],
+  "limitations": [
+    "WSDL de homologação recusou handshake TLS sem ambiente fiscal preparado"
+  ],
+  "next_stage_started": false,
+  "layout_migration_note": "Referências normalizadas de docs para docsplan por solicitação do DEV em 2026-09-10; identidade attempt-0001 preservada."
+}

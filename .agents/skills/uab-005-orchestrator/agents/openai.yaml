@@ -1,0 +1,4 @@
+interface:
+  display_name: "UAB-005 Orchestrator"
+  short_description: "Executa somente UAB-005 e para no gate humano."
+  default_prompt: "Use $uab-005-orchestrator para executar somente UAB-005, registrar evidence e não iniciar a sucessora."

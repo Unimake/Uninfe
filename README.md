@@ -176,3 +176,39 @@ Veja também:
 Este projeto é distribuído sob a licença MIT.
 
 Consulte [LICENSE](LICENSE).
+
+<!-- DEVPLANNER:START -->
+## Planejamento DevPlanner - NF-e ABI
+
+### Leitura obrigatória do DEV
+
+Antes de qualquer execução, leia `AGENTS.md`, `docsplan/CODEX-START-HERE.md`, `docsplan/planning/PROJECT-BRIEF.md`, `docsplan/plans/PDCA.md`, o plano e o manifesto da etapa autorizada. A pasta documental externa `C:\Users\Wandrey\OneDrive\Downloads\NFeAbi` deve ser relida no Plan e no Check de toda etapa `002+`; mudança de hash interrompe a execução e exige análise de impacto.
+
+### Como o plano funciona
+
+`UAB-000` entrega esta base; sua aprovação permite somente a revisão `UAB-001`. Produto começa em `UAB-002` apenas depois da aprovação da `001`. Somente o DEV marca `APPROVED`, e cada etapa para em `DELIVERED_FOR_REVIEW`.
+
+### Como executar uma etapa
+
+Use linguagem explícita: `Execute somente UAB-NNN`. Para aprovar, use `Aprovo UAB-NNN`. Para reprovar, use `Reprovei UAB-NNN: motivo`. Para retomar, use `Retome somente UAB-NNN`.
+
+### O que revisar antes de aprovar
+
+Confira incremento demonstrável, diff restrito, build/testes, arquivos ERP quando aplicável, hashes da documentação oficial, rollback, limitações e dossiê imutável em `docsplan/plans/evidence/`.
+
+### Reprovação, bloqueio e retomada
+
+Reprovação cria `REWORK` com motivo e novo AttemptId. Falta de decisão, certificado, endpoint publicado ou documento coerente resulta em `BLOCKED`, preservando checkpoint. Aprovação e início da sucessora são transições separadas.
+
+### Fontes de verdade
+
+- Estado: `docsplan/plans/PDCA.md`.
+- Decisões: `docsplan/plans/DECISION-REGISTER.md`.
+- Riscos: `docsplan/planning/RISK-REGISTER.md`.
+- Modelos: `docsplan/plans/MODEL-CATALOG.md`.
+- Evidências: `docsplan/plans/evidence/`.
+
+### Validação do plano
+
+Execute `pwsh -NoProfile -File .agents/skills/plan-linter/scripts/test-plan.ps1 -RepositoryRoot .`. Resultado diferente de zero impede entrega ou aprovação.
+<!-- DEVPLANNER:END -->
