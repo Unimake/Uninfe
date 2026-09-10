@@ -8,13 +8,15 @@ namespace UniNFe.Test.CIOT
 {
     public class ObterOperacaoTransportePdfEFreteTests
     {
-        [Fact]
-        public void TaskUsaServicoEExtensoesExclusivasDoPdfCIOT()
+        [Theory]
+        [InlineData("4321")]
+        [InlineData("XXXX")]
+        public void TaskUsaServicoEExtensoesExclusivasDoPdfCIOT(string codigoVerificador)
         {
             var arquivo = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + "-pdfciot.xml");
             try
             {
-                File.WriteAllText(arquivo, "<ObterOperacaoTransportePdf xmlns=\"http://www.antt.gov.br/ciot\"><ProvedorCIOT>EFrete</ProvedorCIOT><CodigoIdentificacaoOperacao>992000000126/4321</CodigoIdentificacaoOperacao></ObterOperacaoTransportePdf>");
+                File.WriteAllText(arquivo, "<ObterOperacaoTransportePdf xmlns=\"http://www.antt.gov.br/ciot\"><ProvedorCIOT>EFrete</ProvedorCIOT><CodigoIdentificacaoOperacao>992000000126/" + codigoVerificador + "</CodigoIdentificacaoOperacao></ObterOperacaoTransportePdf>");
                 var task = new TaskCIOTObterOperacaoTransportePdf(arquivo);
                 var extensao = Propriedade.Extensao(Propriedade.TipoEnvio.CIOTPdf);
 
