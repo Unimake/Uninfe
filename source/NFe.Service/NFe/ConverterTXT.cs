@@ -51,7 +51,7 @@ namespace NFe.Service
                 ///
                 /// processa a conversão
                 /// 
-                var resultadoConversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+                var resultadoConversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo, Unimake.Business.DFe.Servicos.VersaoLeiauteMonofasia.Legado);
 
                 //Deu tudo certo com a conversão?
                 if (resultadoConversao.Sucesso)

@@ -44,7 +44,7 @@ namespace NFe.ConvertTxt
             cFileName = string.Empty;
             XMLString = string.Empty;
 
-            var resultadoConversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(cArquivo);
+            var resultadoConversao = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(cArquivo, VersaoLeiauteMonofasia.Legado);
             if (!resultadoConversao.Sucesso)
             {
                 cMensagemErro = resultadoConversao.MensagemErro;
