@@ -130,6 +130,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000027937-nfe.txt")]
         [InlineData("000002722-nfe.txt")]
         [InlineData("000000001-corrigido-nfe.txt")]
+        [InlineData("000000001-rtc-zerado-nfe.txt")]
         [InlineData("NFe_RTC_CST200_Reducao100_TribRegular-nfe.txt")]
         [InlineData("RTC2026-NFe621-nfe.txt")]
         [InlineData("RTC2026-NFe622-nfe.txt")]
@@ -358,6 +359,11 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIdentificacaoIncluidaNoTxt(legado);
                         ValidarIdentificacaoIncluidaNoTxt(novo);
                     }
+                    if (string.Equals(nomeArquivo, "000000001-rtc-zerado-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarRtcZeradaDaNfe140889(legado);
+                        ValidarRtcZeradaDaNfe140889(novo);
+                    }
                     if (string.Equals(nomeArquivo, "NFe_RTC_CST200_Reducao100_TribRegular-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
                         ValidarRtcComReducaoIntegralEValoresInformadosPeloErp(legado);
@@ -415,6 +421,17 @@ namespace UniNFe.Test.NFeConvertTxt
 
             Assert.Equal("TRANSFERENCIA DE BENS E MERCADORIAS", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='natOp']")?.InnerText);
             Assert.Equal("1", xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='nNF']")?.InnerText);
+        }
+
+        private static void ValidarRtcZeradaDaNfe140889(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+
+            Assert.Equal(2, xml.SelectNodes("//*[local-name()='IBSCBS']").Count);
+            Assert.Equal(2, xml.SelectNodes("//*[local-name()='IBSCBS']/*[local-name()='CST' and text()='000']").Count);
+            Assert.Equal(2, xml.SelectNodes("//*[local-name()='IBSCBS']/*[local-name()='cClassTrib' and text()='000001']").Count);
+            Assert.Null(xml.SelectSingleNode("//*[local-name()='total']/*[local-name()='vNFTot']"));
         }
 
         private static void ValidarPisECofinsDaNfe35814(string xml)
