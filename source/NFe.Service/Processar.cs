@@ -1301,6 +1301,24 @@ namespace NFe.Service
 
                             #endregion NFGas
 
+                            #region NFeABI
+
+                            case "consStatServNFeABI":
+                                if (arq.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML))
+                                {
+                                    tipoServico = Servicos.NFeABIStatusServico;
+                                }
+                                break;
+
+                            case "NFeABI":
+                                if (arq.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).EnvioXML))
+                                {
+                                    tipoServico = Servicos.NFeABIAutorizacaoSinc;
+                                }
+                                break;
+
+                            #endregion NFeABI
+
                             #region BPe
 
                             case "consStatServBPe":
@@ -2349,6 +2367,27 @@ namespace NFe.Service
 
         #region GravaErroERP()
 
+        private static bool TryGetExtensoesErroNFeABI(Servicos servico, out string extRet, out string extRetERR)
+        {
+            switch (servico)
+            {
+                case Servicos.NFeABIStatusServico:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Sta_ERR;
+                    return true;
+
+                case Servicos.NFeABIAutorizacaoSinc:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).EnvioXML;
+                    extRetERR = Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).RetornoERR;
+                    return true;
+
+                default:
+                    extRet = string.Empty;
+                    extRetERR = string.Empty;
+                    return false;
+            }
+        }
+
         /// <summary>
         /// Gravar o erro ocorrido para o ERP
         /// </summary>
@@ -2361,8 +2400,10 @@ namespace NFe.Service
             var extRetERR = string.Empty;
             var extRet = string.Empty;
 
-            switch (servico)
+            if (!TryGetExtensoesErroNFeABI(servico, out extRet, out extRetERR))
             {
+                switch (servico)
+                {
                 #region NFe / CTe / MDFe
 
                 case Servicos.NFeInutilizarNumeros:
@@ -2657,6 +2698,7 @@ namespace NFe.Service
                         extRetERR = ".err";
                     }
                     break;
+                }
             }
             if (!string.IsNullOrEmpty(extRet))
             {

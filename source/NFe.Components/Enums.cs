@@ -849,7 +849,21 @@ namespace NFe.Components
         CIOTGravarVeiculo,
 
         /// <summary>Obter o PDF da operação de transporte na eFrete.</summary>
-        CIOTObterOperacaoTransportePdf
+        CIOTObterOperacaoTransportePdf,
+
+        #region NFeABI
+
+        /// <summary>
+        /// Consulta status serviço NFeABI
+        /// </summary>
+        NFeABIStatusServico,
+
+        /// <summary>
+        /// Envio síncrono do XML de NFeABI
+        /// </summary>
+        NFeABIAutorizacaoSinc
+
+        #endregion NFeABI
     }
 
     #endregion Servicos
@@ -915,7 +929,7 @@ namespace NFe.Components
         /// <summary>
         /// Aplicativo ou serviços para processamentos dos XMLs de todos os DFEs (exceto NFSe)
         /// </summary>
-        [Description("NF-e, NFC-e, NF3-e, NFCom, NFGas, BPe, CIOT, CT-e, MDF-e, GNRE, DCe ,DARE e EFD Reinf e eSocial")]
+        [Description("NF-e, NF-e ABI, NFC-e, NF3-e, NFCom, NFGas, BPe, CIOT, CT-e, MDF-e, GNRE, DCe, DARE, EFD Reinf e eSocial")]
         Todos = 10,
 
         /// <summary>
@@ -953,6 +967,12 @@ namespace NFe.Components
         /// </summary>
         [Description("BPe")]
         BPe = 16,
+
+        /// <summary>
+        /// Aplicativo ou serviços para processamentos dos XMLs da NF-e ABI
+        /// </summary>
+        [Description("NF-e ABI")]
+        NFeABI = 17,
 
         [Description("")]
         Nulo = 100

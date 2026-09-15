@@ -342,6 +342,7 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.NF3e:
                 case TipoAplicativo.NFCom:
                 case TipoAplicativo.NFGas:
+                case TipoAplicativo.NFeABI:
                 case TipoAplicativo.BPe:
                 case TipoAplicativo.CIOT:
                     textBox_PastaXmlEmLote.Visible = false;

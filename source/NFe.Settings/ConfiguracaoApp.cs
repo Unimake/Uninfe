@@ -507,6 +507,7 @@ namespace NFe.Settings
                         case TipoAplicativo.NF3e:
                         case TipoAplicativo.NFCom:
                         case TipoAplicativo.NFGas:
+                        case TipoAplicativo.NFeABI:
                         case TipoAplicativo.BPe:
                         case TipoAplicativo.CIOT:
                             _xValids.Add(new xValid(empresa.PastaXmlEnvio, "Informe a pasta de envio dos arquivos XML.", "A pasta de envio dos arquivos XML informada não existe.", true));
@@ -1525,7 +1526,7 @@ namespace NFe.Settings
                     var lista = EnumHelper.ToStrings(typeof(TipoAplicativo));
                     if (!lista.Contains(servico))
                     {
-                        throw new Exception(string.Format("Serviço deve ser ({0}, {1}, {2}, {3}, {4}, {6}, {7}, {8}, {9}, {10}, {11} ou {12})",
+                        throw new Exception(string.Format("Serviço deve ser ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14} ou {15})",
                                                           EnumHelper.GetDescription(TipoAplicativo.Nfe),
                                                           EnumHelper.GetDescription(TipoAplicativo.Cte),
                                                           EnumHelper.GetDescription(TipoAplicativo.Nfse),
@@ -1539,6 +1540,7 @@ namespace NFe.Settings
                                                           EnumHelper.GetDescription(TipoAplicativo.NF3e),
                                                           EnumHelper.GetDescription(TipoAplicativo.NFCom),
                                                           EnumHelper.GetDescription(TipoAplicativo.NFGas),
+                                                          EnumHelper.GetDescription(TipoAplicativo.NFeABI),
                                                           EnumHelper.GetDescription(TipoAplicativo.BPe),
                                                           EnumHelper.GetDescription(TipoAplicativo.CIOT)));
                     }
@@ -1550,9 +1552,9 @@ namespace NFe.Settings
                 }
                 else
                 {
-                    if (!("0,1,2,3,4,6,7,8,9,10,11,12").Contains(servico))
+                    if (Array.IndexOf("0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17".Split(','), servico) < 0)
                     {
-                        throw new Exception(string.Format("Serviço deve ser ({0} p/{1}, {2} p/{3}, {4} p/{5}, {6} p/{7}, {8} p/{9}, {10} p/{11}, {12} p/{13}, {14} p/{15}, {16} p/{17}, {18} p/{19}, {20} p/{21}, {22} p/{23})",
+                        throw new Exception(string.Format("Serviço deve ser ({0} p/{1}, {2} p/{3}, {4} p/{5}, {6} p/{7}, {8} p/{9}, {10} p/{11}, {12} p/{13}, {14} p/{15}, {16} p/{17}, {18} p/{19}, {20} p/{21}, {22} p/{23}, {24} p/{25}, {26} p/{27}, {28} p/{29} ou {30} p/{31})",
                             (int)TipoAplicativo.Nfe, EnumHelper.GetDescription(TipoAplicativo.Nfe),
                             (int)TipoAplicativo.Cte, EnumHelper.GetDescription(TipoAplicativo.Cte),
                             (int)TipoAplicativo.Nfse, EnumHelper.GetDescription(TipoAplicativo.Nfse),
@@ -1566,6 +1568,7 @@ namespace NFe.Settings
                             (int)TipoAplicativo.NF3e, EnumHelper.GetDescription(TipoAplicativo.NF3e),
                             (int)TipoAplicativo.NFCom, EnumHelper.GetDescription(TipoAplicativo.NFCom),
                             (int)TipoAplicativo.NFGas, EnumHelper.GetDescription(TipoAplicativo.NFGas),
+                            (int)TipoAplicativo.NFeABI, EnumHelper.GetDescription(TipoAplicativo.NFeABI),
                             (int)TipoAplicativo.BPe, EnumHelper.GetDescription(TipoAplicativo.BPe),
                             (int)TipoAplicativo.CIOT, EnumHelper.GetDescription(TipoAplicativo.CIOT)));
                     }

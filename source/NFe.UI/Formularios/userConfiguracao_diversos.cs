@@ -205,6 +205,7 @@ namespace NFe.UI.Formularios
                     this.empresa.Servico.Equals(TipoAplicativo.NF3e) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFCom) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFGas) ||
+                    this.empresa.Servico.Equals(TipoAplicativo.NFeABI) ||
                     this.empresa.Servico.Equals(TipoAplicativo.BPe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.CIOT) ||
                     this.empresa.Servico.Equals(TipoAplicativo.DCe))
@@ -220,6 +221,7 @@ namespace NFe.UI.Formularios
                     this.empresa.Servico.Equals(TipoAplicativo.NF3e) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFCom) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFGas) ||
+                    this.empresa.Servico.Equals(TipoAplicativo.NFeABI) ||
                     this.empresa.Servico.Equals(TipoAplicativo.BPe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.CIOT) ||
                      this.empresa.Servico.Equals(TipoAplicativo.DCe))
@@ -365,6 +367,7 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NF3e ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFGas ||
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFeABI ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.BPe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.CIOT;
 
@@ -376,6 +379,7 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NF3e ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCom ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFGas ||
+                                     (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFeABI ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.BPe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.CIOT ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.DCe;
@@ -649,6 +653,7 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.NF3e:
                 case TipoAplicativo.NFCom:
                 case TipoAplicativo.NFGas:
+                case TipoAplicativo.NFeABI:
                 case TipoAplicativo.BPe:
                 case TipoAplicativo.CIOT:
                     comboBox_UF.Visible = true;

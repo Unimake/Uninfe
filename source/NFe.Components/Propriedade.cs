@@ -429,6 +429,11 @@ namespace NFe.Components
             /// Obtenção do PDF da operação de transporte na eFrete
             /// </summary>
             CIOTPdf,
+
+            /// <summary>
+            /// NF-e ABI
+            /// </summary>
+            NFeABI,
         }
 
         private static readonly Dictionary<TipoEnvio, ExtensaoClass> ListaExtensoes = new Dictionary<TipoEnvio, ExtensaoClass>();
@@ -1132,6 +1137,17 @@ namespace NFe.Components
                ));
 
             #endregion NFGas
+
+            #region NFeABI
+
+            ListaExtensoes.Add(TipoEnvio.NFeABI, new ExtensaoClass(
+               "-nfeabi.xml", "",
+               "-ret-nfeabi.xml", "",
+               "-ret-nfeabi.err",
+               "XML de NF-e ABI"
+               ));
+
+            #endregion NFeABI
 
             #region BPe
 
@@ -2000,6 +2016,20 @@ namespace NFe.Components
             public const string NFGas_ERR = "-nfgas.err";
 
             #endregion NFGas
+
+            #region NFeABI
+
+            /// <summary>
+            /// -procNFeABI.xml
+            /// </summary>
+            public const string ProcNFeABI = "-procNFeABI.xml";
+
+            /// <summary>
+            /// -ret-nfeabi.err
+            /// </summary>
+            public const string NFeABI_ERR = "-ret-nfeabi.err";
+
+            #endregion NFeABI
 
             #region BPe
 
