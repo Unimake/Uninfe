@@ -12,6 +12,7 @@ using NFe.Service.GNRE;
 using NFe.Service.NF3e;
 using NFe.Service.NFCom;
 using NFe.Service.NFGas;
+using NFe.Service.NFeABI;
 using NFe.Service.BPe;
 using NFe.Settings;
 using NFe.Validate;
@@ -502,6 +503,14 @@ namespace NFe.Service
 
                         #endregion NFGas
 
+                        #region NFeABI
+
+                        case Servicos.NFeABIStatusServico:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusNFeABI(arquivo));
+                            break;
+
+                        #endregion NFeABI
+
                         #region BPe
 
                         case Servicos.BPeStatusServico:
@@ -665,6 +674,7 @@ namespace NFe.Service
                     switch (servico)
                     {
                         case Servicos.NFeConsultaStatusServico:
+                        case Servicos.NFeABIStatusServico:
                         case Servicos.UniNFeUpdate:
                         case Servicos.Nulo:
 
