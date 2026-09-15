@@ -182,7 +182,7 @@ Consulte [LICENSE](LICENSE).
 
 ### Leitura obrigatória do DEV
 
-Antes de qualquer execução, leia `AGENTS.md`, `docsplan/CODEX-START-HERE.md`, `docsplan/planning/PROJECT-BRIEF.md`, `docsplan/plans/PDCA.md`, o plano e o manifesto da etapa autorizada. A pasta documental externa `C:\Users\Wandrey\OneDrive\Downloads\NFeAbi` deve ser relida no Plan e no Check de toda etapa `002+`; mudança de hash interrompe a execução e exige análise de impacto.
+Antes de qualquer execução, leia `AGENTS.md`, `docsplan/nfeabi/CODEX-START-HERE.md`, `docsplan/nfeabi/planning/PROJECT-BRIEF.md`, `docsplan/nfeabi/plans/PDCA.md`, o plano e o manifesto da etapa autorizada. A pasta documental externa `C:\Users\Wandrey\OneDrive\Downloads\NFeAbi` deve ser relida no Plan e no Check de toda etapa `002+`; mudança de hash interrompe a execução e exige análise de impacto.
 
 ### Como o plano funciona
 
@@ -194,7 +194,7 @@ Use linguagem explícita: `Execute somente UAB-NNN`. Para aprovar, use `Aprovo U
 
 ### O que revisar antes de aprovar
 
-Confira incremento demonstrável, diff restrito, build/testes, arquivos ERP quando aplicável, hashes da documentação oficial, rollback, limitações e dossiê imutável em `docsplan/plans/evidence/`.
+Confira incremento demonstrável, diff restrito, build/testes, arquivos ERP quando aplicável, hashes da documentação oficial, rollback, limitações e dossiê imutável em `docsplan/nfeabi/plans/evidence/`.
 
 ### Reprovação, bloqueio e retomada
 
@@ -202,11 +202,11 @@ Reprovação cria `REWORK` com motivo e novo AttemptId. Falta de decisão, certi
 
 ### Fontes de verdade
 
-- Estado: `docsplan/plans/PDCA.md`.
-- Decisões: `docsplan/plans/DECISION-REGISTER.md`.
-- Riscos: `docsplan/planning/RISK-REGISTER.md`.
-- Modelos: `docsplan/plans/MODEL-CATALOG.md`.
-- Evidências: `docsplan/plans/evidence/`.
+- Estado: `docsplan/nfeabi/plans/PDCA.md`.
+- Decisões: `docsplan/nfeabi/plans/DECISION-REGISTER.md`.
+- Riscos: `docsplan/nfeabi/planning/RISK-REGISTER.md`.
+- Modelos: `docsplan/nfeabi/plans/MODEL-CATALOG.md`.
+- Evidências: `docsplan/nfeabi/plans/evidence/`.
 
 ### Validação do plano
 

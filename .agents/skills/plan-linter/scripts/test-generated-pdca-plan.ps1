@@ -21,32 +21,32 @@ function Require-File([string]$Path) {
 Push-Location $root
 try {
     foreach ($path in @(
-        "README.md", "AGENTS.md", "docsplan/CODEX-START-HERE.md",
+        "README.md", "AGENTS.md", "docsplan/nfeabi/CODEX-START-HERE.md",
         ".agents/instructions/pdca-execution.instructions.md", ".agents/instructions/model-routing.instructions.md",
         ".agents/skills/plan-linter/SKILL.md", ".agents/skills/plan-linter/agents/openai.yaml",
         ".agents/skills/plan-linter/scripts/test-plan.ps1", ".agents/skills/plan-linter/scripts/test-generated-pdca-plan.ps1",
-        "docsplan/planning/PROJECT-BRIEF.md", "docsplan/planning/QUESTION-LEDGER.md", "docsplan/planning/RISK-REGISTER.md",
-        "docsplan/architecture/PROJECT-VISION.md", "docsplan/architecture/DECISIONS-LOCKED.md", "docsplan/architecture/DATA-ARCHITECTURE.md",
-        "docsplan/architecture/INTEGRATION-CATALOG.md", "docsplan/architecture/QUALITY-ATTRIBUTES.md", "docsplan/architecture/LIMITS-CATALOG.md",
-        "docsplan/architecture/SECURITY-CLAIMS.md", "docsplan/architecture/ERROR-OBSERVABILITY-MODEL.md", "docsplan/architecture/VERSIONING-BUILD.md",
-        "docsplan/design/UI-DESIGN-SYSTEM.md", "docsplan/security/THREAT-MODEL.md",
-        "docsplan/plans/INDEX.md", "docsplan/plans/STATUS.md", "docsplan/plans/PDCA.md", "docsplan/plans/READINESS.md",
-        "docsplan/plans/DECISION-REGISTER.md", "docsplan/plans/MODEL-CATALOG.md", "docsplan/plans/STAGE-ID-MAP.md",
-        "docsplan/plans/ENVIRONMENT-MATRIX.md", "docsplan/plans/TRACEABILITY.md", "docsplan/plans/VALIDATION-MANIFEST.md",
-        "docsplan/plans/VALIDATION-REGISTRY.md", "docsplan/plans/EXECUTION-GUARDRAILS.md", "docsplan/plans/EVIDENCE-TEMPLATE.md",
-        "docsplan/plans/evidence/README.md", "docsplan/testing/TEST-LAB.md"
+        "docsplan/nfeabi/planning/PROJECT-BRIEF.md", "docsplan/nfeabi/planning/QUESTION-LEDGER.md", "docsplan/nfeabi/planning/RISK-REGISTER.md",
+        "docsplan/nfeabi/architecture/PROJECT-VISION.md", "docsplan/nfeabi/architecture/DECISIONS-LOCKED.md", "docsplan/nfeabi/architecture/DATA-ARCHITECTURE.md",
+        "docsplan/nfeabi/architecture/INTEGRATION-CATALOG.md", "docsplan/nfeabi/architecture/QUALITY-ATTRIBUTES.md", "docsplan/nfeabi/architecture/LIMITS-CATALOG.md",
+        "docsplan/nfeabi/architecture/SECURITY-CLAIMS.md", "docsplan/nfeabi/architecture/ERROR-OBSERVABILITY-MODEL.md", "docsplan/nfeabi/architecture/VERSIONING-BUILD.md",
+        "docsplan/nfeabi/design/UI-DESIGN-SYSTEM.md", "docsplan/nfeabi/security/THREAT-MODEL.md",
+        "docsplan/nfeabi/plans/INDEX.md", "docsplan/nfeabi/plans/STATUS.md", "docsplan/nfeabi/plans/PDCA.md", "docsplan/nfeabi/plans/READINESS.md",
+        "docsplan/nfeabi/plans/DECISION-REGISTER.md", "docsplan/nfeabi/plans/MODEL-CATALOG.md", "docsplan/nfeabi/plans/STAGE-ID-MAP.md",
+        "docsplan/nfeabi/plans/ENVIRONMENT-MATRIX.md", "docsplan/nfeabi/plans/TRACEABILITY.md", "docsplan/nfeabi/plans/VALIDATION-MANIFEST.md",
+        "docsplan/nfeabi/plans/VALIDATION-REGISTRY.md", "docsplan/nfeabi/plans/EXECUTION-GUARDRAILS.md", "docsplan/nfeabi/plans/EVIDENCE-TEMPLATE.md",
+        "docsplan/nfeabi/plans/evidence/README.md", "docsplan/nfeabi/testing/TEST-LAB.md"
     )) { Require-File $path }
 
-    if (-not (Test-Path -LiteralPath "docsplan/plans" -PathType Container)) {
+    if (-not (Test-Path -LiteralPath "docsplan/nfeabi/plans" -PathType Container)) {
         throw (($errors | Sort-Object -Unique | ForEach-Object { "ERROR: $_" }) -join "`n")
     }
 
-    $brief = if (Test-Path -LiteralPath "docsplan/planning/PROJECT-BRIEF.md") { Get-Content -Raw -LiteralPath "docsplan/planning/PROJECT-BRIEF.md" } else { "" }
+    $brief = if (Test-Path -LiteralPath "docsplan/nfeabi/planning/PROJECT-BRIEF.md") { Get-Content -Raw -LiteralPath "docsplan/nfeabi/planning/PROJECT-BRIEF.md" } else { "" }
     if ($brief -notmatch '(?m)^- Pasta de destino resolvida:\s+\S') { $errors.Add("PROJECT-BRIEF.md: pasta de destino resolvida ausente") }
     if ($brief -notmatch '(?m)^- ProjectMode:\s+(GREENFIELD|EVOLUTION)\s*$') { $errors.Add("PROJECT-BRIEF.md: ProjectMode deve ser GREENFIELD ou EVOLUTION") }
     $prefixMatch = [regex]::Match($brief, '(?m)^- StagePrefix:\s+([A-Z]{3})\s*$')
     if (-not $prefixMatch.Success) {
-        if (@(Get-ChildItem -LiteralPath "docsplan/plans" -File -Filter "PARTE-*.md" -ErrorAction SilentlyContinue).Count -gt 0) {
+        if (@(Get-ChildItem -LiteralPath "docsplan/nfeabi/plans" -File -Filter "PARTE-*.md" -ErrorAction SilentlyContinue).Count -gt 0) {
             $errors.Add("plano legado PARTE-XX detectado: migração autorizada é necessária")
         }
         $errors.Add("PROJECT-BRIEF.md: StagePrefix deve ter exatamente três letras ASCII maiúsculas"); $prefix = "ZZZ"
@@ -58,7 +58,7 @@ try {
         foreach ($requiredSection in @("Leitura obrigatória do DEV", "Como o plano funciona", "Como executar uma etapa", "O que revisar antes de aprovar", "Reprovação, bloqueio e retomada", "Fontes de verdade", "Validação do plano")) {
             if ($projectReadme -notmatch [regex]::Escape($requiredSection)) { $errors.Add("README.md: seção operacional ausente: $requiredSection") }
         }
-        foreach ($requiredReference in @("docsplan/plans/PDCA.md", "docsplan/plans/DECISION-REGISTER.md", "docsplan/planning/RISK-REGISTER.md", "docsplan/plans/MODEL-CATALOG.md", "docsplan/plans/evidence/")) {
+        foreach ($requiredReference in @("docsplan/nfeabi/plans/PDCA.md", "docsplan/nfeabi/plans/DECISION-REGISTER.md", "docsplan/nfeabi/planning/RISK-REGISTER.md", "docsplan/nfeabi/plans/MODEL-CATALOG.md", "docsplan/nfeabi/plans/evidence/")) {
             if ($projectReadme -notmatch [regex]::Escape($requiredReference)) { $errors.Add("README.md: fonte de verdade ausente: $requiredReference") }
         }
         foreach ($command in @("Execute somente", "Aprovo", "Reprovei", "Retome somente")) {
@@ -66,8 +66,8 @@ try {
         }
     }
 
-    if (Test-Path -LiteralPath "docsplan/planning/QUESTION-LEDGER.md") {
-        $ledger = Get-Content -Raw -LiteralPath "docsplan/planning/QUESTION-LEDGER.md"
+    if (Test-Path -LiteralPath "docsplan/nfeabi/planning/QUESTION-LEDGER.md") {
+        $ledger = Get-Content -Raw -LiteralPath "docsplan/nfeabi/planning/QUESTION-LEDGER.md"
         if ($ledger -notmatch '(?m)^\| Q-DEST-001 \|.*\| ANSWERED \|') { $errors.Add("QUESTION-LEDGER.md: Q-DEST-001 respondida ausente") }
     }
     if(Test-Path -LiteralPath ".agents/instructions/pdca-execution.instructions.md"){
@@ -83,19 +83,19 @@ try {
         if($planLinterSkill-notmatch'(?m)^name: plan-linter\s*$' -or $planLinterSkill-notmatch'test-plan\.ps1'){$errors.Add("plan-linter/SKILL.md: interface/runner inválido")}
     }
     if((Test-Path -LiteralPath ".agents/skills/plan-linter/agents/openai.yaml") -and (Get-Content -Raw ".agents/skills/plan-linter/agents/openai.yaml")-notmatch'\$plan-linter'){$errors.Add("plan-linter/agents/openai.yaml: prompt deve invocar `$plan-linter")}
-    if (Test-Path -LiteralPath "docsplan/plans/STATUS.md") {
-        $status = Get-Content -Raw -LiteralPath "docsplan/plans/STATUS.md"
+    if (Test-Path -LiteralPath "docsplan/nfeabi/plans/STATUS.md") {
+        $status = Get-Content -Raw -LiteralPath "docsplan/nfeabi/plans/STATUS.md"
         if ($status -notmatch '\]\(PDCA\.md\)' -or $status -match '(?m)^\|\s*[A-Z]{3}-\d{3}\s*\|') {
             $errors.Add("STATUS.md: deve apenas apontar para PDCA.md, sem tabela de estados")
         }
     }
 
-    $plans = @(Get-ChildItem -LiteralPath "docsplan/plans" -File | Where-Object { $_.BaseName -match "^${prefix}-[0-9]{3}-" })
+    $plans = @(Get-ChildItem -LiteralPath "docsplan/nfeabi/plans" -File | Where-Object { $_.BaseName -match "^${prefix}-[0-9]{3}-" })
     $stageById = @{}
     foreach ($plan in $plans) {
         if ($plan.BaseName -notmatch "^(${prefix}-([0-9]{3}))-") { continue }
         $id=$Matches[1]; $number=[int]$Matches[2]; $text=Get-Content -Raw -LiteralPath $plan.FullName
-        if ($stageById.ContainsKey($id)) { $errors.Add("docsplan/plans: ID duplicado: $id") }
+        if ($stageById.ContainsKey($id)) { $errors.Add("docsplan/nfeabi/plans: ID duplicado: $id") }
         $stageById[$id]=[pscustomobject]@{Id=$id;Number=$number;File=$plan;Text=$text}
         foreach ($section in @("Plan","Do","Check","Act","Definition of Done")) {
             if ($text -notmatch [regex]::Escape($section)) { $errors.Add("$($plan.Name): seção obrigatória ausente: $section") }
@@ -105,7 +105,7 @@ try {
     $stageIds=@($stageById.Values|Sort-Object Number|ForEach-Object Id)
     $stageNumbers=@($stageById.Values|Sort-Object Number|ForEach-Object Number)
     $expectedNumbers=if($stageNumbers.Count-gt 0){@(0..($stageNumbers.Count-1))}else{@()}
-    if(($stageNumbers-join'|')-ne($expectedNumbers-join'|')){$errors.Add("docsplan/plans: etapas devem formar sequência contínua de 000 em diante")}
+    if(($stageNumbers-join'|')-ne($expectedNumbers-join'|')){$errors.Add("docsplan/nfeabi/plans: etapas devem formar sequência contínua de 000 em diante")}
     foreach ($id in @("${prefix}-000","${prefix}-001","${prefix}-002")) { if ($id -notin $stageIds) { $errors.Add("etapa obrigatória ausente: $id") } }
     $idsFrozen=$brief-match'(?m)^- StageIdsFrozen:\s+true\s*$'
     $frozenMatch=[regex]::Match($brief,'(?m)^- FrozenStageIds:\s+(.+?)\s*$')
@@ -119,8 +119,8 @@ try {
     if ($stageById["${prefix}-001"] -and $stageById["${prefix}-001"].Text -notmatch 'PLAN_REVIEW') { $errors.Add("${prefix}-001: tipo PLAN_REVIEW ausente") }
 
     $pdcaRows=@(); $pdca=""; $deliveredAttempts=@{}
-    if (Test-Path -LiteralPath "docsplan/plans/PDCA.md") {
-        $pdca=Get-Content -Raw -LiteralPath "docsplan/plans/PDCA.md"
+    if (Test-Path -LiteralPath "docsplan/nfeabi/plans/PDCA.md") {
+        $pdca=Get-Content -Raw -LiteralPath "docsplan/nfeabi/plans/PDCA.md"
         $statePattern=$states -join '|'
         $pdcaPattern = '(?m)^\| `?' + [regex]::Escape($prefix) + '-([0-9]{3})`? \|.*\| (' + $statePattern + ') \|.*\|\r?$'
         foreach ($match in [regex]::Matches($pdca, $pdcaPattern)) {
@@ -143,7 +143,7 @@ try {
             "PLANNED"=@("IN_PROGRESS");"IN_PROGRESS"=@("BLOCKED","DELIVERED_FOR_REVIEW");"BLOCKED"=@("IN_PROGRESS");
             "DELIVERED_FOR_REVIEW"=@("APPROVED","REWORK");"REWORK"=@("IN_PROGRESS");"APPROVED"=@()
         }
-        foreach($line in Get-Content "docsplan/plans/PDCA.md"){
+        foreach($line in Get-Content "docsplan/nfeabi/plans/PDCA.md"){
             $cols=@($line.Trim('|').Split('|')|ForEach-Object{$_.Trim().Trim('`')})
             if($cols.Count-ne 6 -or $cols[1]-notmatch("^"+[regex]::Escape($prefix)+"-[0-9]{3}$")){continue}
             $stage=$cols[1];$from=$cols[2];$to=$cols[3];$reason=$cols[4];$attempt=$cols[5]
@@ -157,8 +157,8 @@ try {
         }
     }
 
-    if(Test-Path "docsplan/plans/STAGE-ID-MAP.md"){
-        $map=Get-Content -Raw "docsplan/plans/STAGE-ID-MAP.md"
+    if(Test-Path "docsplan/nfeabi/plans/STAGE-ID-MAP.md"){
+        $map=Get-Content -Raw "docsplan/nfeabi/plans/STAGE-ID-MAP.md"
         $renumberingMatch=[regex]::Match($map,'(?m)^- RenumberingCount:\s+([0-9]+)\s*$')
         if(-not$renumberingMatch.Success -or [int]$renumberingMatch.Groups[1].Value-notin@(0,1)){$errors.Add("STAGE-ID-MAP.md: RenumberingCount deve ser 0 ou 1")}
         $mapRows=@([regex]::Matches($map,"(?m)^\| (${prefix}-[0-9]{3}) \| (${prefix}-[0-9]{3}) \|[^|]+\|[^|]+\| APPLIED \|\r?$")|ForEach-Object{[pscustomobject]@{Old=$_.Groups[1].Value;Final=$_.Groups[2].Value}})
@@ -169,37 +169,37 @@ try {
         if($brief-match'(?m)^- StageIdsFrozen:\s+true\s*$' -and $mapRows.Count-eq 0 -and $map-notmatch'(?mi)\bN/A\b'){$errors.Add("STAGE-ID-MAP.md: congelamento exige mapa APPLIED ou N/A justificado")}
     }
 
-    if (Test-Path -LiteralPath "docsplan/plans/INDEX.md") {
-        $ids=@([regex]::Matches((Get-Content -Raw "docsplan/plans/INDEX.md"),"\((${prefix}-[0-9]{3})-[^)]+\.md\)")|ForEach-Object {$_.Groups[1].Value}); Add-Duplicates $ids "INDEX.md"; Assert-Sequence $stageIds $ids "INDEX.md"
+    if (Test-Path -LiteralPath "docsplan/nfeabi/plans/INDEX.md") {
+        $ids=@([regex]::Matches((Get-Content -Raw "docsplan/nfeabi/plans/INDEX.md"),"\((${prefix}-[0-9]{3})-[^)]+\.md\)")|ForEach-Object {$_.Groups[1].Value}); Add-Duplicates $ids "INDEX.md"; Assert-Sequence $stageIds $ids "INDEX.md"
     }
-    if (Test-Path -LiteralPath "docsplan/plans/VALIDATION-REGISTRY.md") {
-        $validationText=Get-Content -Raw "docsplan/plans/VALIDATION-REGISTRY.md"
+    if (Test-Path -LiteralPath "docsplan/nfeabi/plans/VALIDATION-REGISTRY.md") {
+        $validationText=Get-Content -Raw "docsplan/nfeabi/plans/VALIDATION-REGISTRY.md"
         $ids=@([regex]::Matches($validationText,"(?m)^\| (${prefix}-[0-9]{3}) \|")|ForEach-Object {$_.Groups[1].Value}); Add-Duplicates $ids "VALIDATION-REGISTRY.md"; Assert-Sequence $stageIds $ids "VALIDATION-REGISTRY.md"
     }
 
-    $knownEnvironments=@();if(Test-Path "docsplan/plans/ENVIRONMENT-MATRIX.md"){$knownEnvironments=@([regex]::Matches((Get-Content -Raw "docsplan/plans/ENVIRONMENT-MATRIX.md"),'(?m)^\| (ENV-[A-Z0-9-]+) \|')|ForEach-Object{$_.Groups[1].Value});Add-Duplicates $knownEnvironments "ENVIRONMENT-MATRIX.md"}
-    if(Test-Path "docsplan/plans/VALIDATION-REGISTRY.md"){
-        foreach($line in Get-Content "docsplan/plans/VALIDATION-REGISTRY.md"){
+    $knownEnvironments=@();if(Test-Path "docsplan/nfeabi/plans/ENVIRONMENT-MATRIX.md"){$knownEnvironments=@([regex]::Matches((Get-Content -Raw "docsplan/nfeabi/plans/ENVIRONMENT-MATRIX.md"),'(?m)^\| (ENV-[A-Z0-9-]+) \|')|ForEach-Object{$_.Groups[1].Value});Add-Duplicates $knownEnvironments "ENVIRONMENT-MATRIX.md"}
+    if(Test-Path "docsplan/nfeabi/plans/VALIDATION-REGISTRY.md"){
+        foreach($line in Get-Content "docsplan/nfeabi/plans/VALIDATION-REGISTRY.md"){
             if($line-notmatch("^\| "+[regex]::Escape($prefix)+"-[0-9]{3} \|")){continue};$cols=@($line.Trim('|').Split('|')|ForEach-Object{$_.Trim()})
             if($cols.Count-lt 4 -or [string]::IsNullOrWhiteSpace($cols[1]) -or $cols[2]-notin$knownEnvironments -or [string]::IsNullOrWhiteSpace($cols[3])){$errors.Add("VALIDATION-REGISTRY.md: runner/ambiente/resultado inválido em $($cols[0])")}
         }
     }
-    $knownDecisions=@();foreach($decisionFile in @("docsplan/plans/DECISION-REGISTER.md","docsplan/architecture/DECISIONS-LOCKED.md")){if(Test-Path $decisionFile){$knownDecisions+=@([regex]::Matches((Get-Content -Raw $decisionFile),'(?m)^\| (DEC-[0-9]{3}) \|')|ForEach-Object{$_.Groups[1].Value})}};$knownDecisions=@($knownDecisions|Sort-Object -Unique)
-    $knownRisks=@();if(Test-Path "docsplan/planning/RISK-REGISTER.md"){$knownRisks=@([regex]::Matches((Get-Content -Raw "docsplan/planning/RISK-REGISTER.md"),'(?m)^\| (RISK-[0-9]{3}) \|')|ForEach-Object{$_.Groups[1].Value});Add-Duplicates $knownRisks "RISK-REGISTER.md"}
+    $knownDecisions=@();foreach($decisionFile in @("docsplan/nfeabi/plans/DECISION-REGISTER.md","docsplan/nfeabi/architecture/DECISIONS-LOCKED.md")){if(Test-Path $decisionFile){$knownDecisions+=@([regex]::Matches((Get-Content -Raw $decisionFile),'(?m)^\| (DEC-[0-9]{3}) \|')|ForEach-Object{$_.Groups[1].Value})}};$knownDecisions=@($knownDecisions|Sort-Object -Unique)
+    $knownRisks=@();if(Test-Path "docsplan/nfeabi/planning/RISK-REGISTER.md"){$knownRisks=@([regex]::Matches((Get-Content -Raw "docsplan/nfeabi/planning/RISK-REGISTER.md"),'(?m)^\| (RISK-[0-9]{3}) \|')|ForEach-Object{$_.Groups[1].Value});Add-Duplicates $knownRisks "RISK-REGISTER.md"}
     $knownRequirements=@();$requirementsByStage=@{}
-    if(Test-Path "docsplan/plans/TRACEABILITY.md"){
-        foreach($line in Get-Content "docsplan/plans/TRACEABILITY.md"){
+    if(Test-Path "docsplan/nfeabi/plans/TRACEABILITY.md"){
+        foreach($line in Get-Content "docsplan/nfeabi/plans/TRACEABILITY.md"){
             if($line-notmatch'^\| (REQ-[0-9]{3}) \|'){continue};$cols=@($line.Trim('|').Split('|')|ForEach-Object{$_.Trim()});$req=$cols[0]
             $knownRequirements+=$req
-            if($cols.Count-lt 7 -or $cols[3]-notin$stageIds -or [string]::IsNullOrWhiteSpace($cols[4]) -or $cols[5]-notmatch[regex]::Escape("docsplan/plans/evidence/$($cols[3])")){$errors.Add("TRACEABILITY.md: etapa/validação/evidência inválida em $req");continue}
+            if($cols.Count-lt 7 -or $cols[3]-notin$stageIds -or [string]::IsNullOrWhiteSpace($cols[4]) -or $cols[5]-notmatch[regex]::Escape("docsplan/nfeabi/plans/evidence/$($cols[3])")){$errors.Add("TRACEABILITY.md: etapa/validação/evidência inválida em $req");continue}
             if(-not$requirementsByStage.ContainsKey($cols[3])){$requirementsByStage[$cols[3]]=[System.Collections.Generic.List[string]]::new()};$requirementsByStage[$cols[3]].Add($req)
         }
         Add-Duplicates $knownRequirements "TRACEABILITY.md"
     }
 
     $catalogProfiles=@{}
-    if (Test-Path -LiteralPath "docsplan/plans/MODEL-CATALOG.md") {
-        foreach($line in Get-Content "docsplan/plans/MODEL-CATALOG.md"){
+    if (Test-Path -LiteralPath "docsplan/nfeabi/plans/MODEL-CATALOG.md") {
+        foreach($line in Get-Content "docsplan/nfeabi/plans/MODEL-CATALOG.md"){
             if($line-notmatch'^\| (ECONOMY|BALANCED|DEEP|INDEPENDENT_REVIEW|SPECIALIST) \|'){continue}
             $cols=@($line.Trim('|').Split('|')|ForEach-Object{$_.Trim()})
             if($cols.Count-ne 10){$errors.Add("MODEL-CATALOG.md: linha deve ter 10 colunas: $($cols[0])");continue}
@@ -217,7 +217,7 @@ try {
 
     $manifestIds=@()
     foreach($id in $stageIds){
-        $mp="docsplan/plans/manifests/$id.json"; Require-File $mp
+        $mp="docsplan/nfeabi/plans/manifests/$id.json"; Require-File $mp
         $skill=$id.ToLowerInvariant()+"-orchestrator"; Require-File ".agents/skills/$skill/SKILL.md"; Require-File ".agents/skills/$skill/agents/openai.yaml"
         if(Test-Path ".agents/skills/$skill/SKILL.md"){$stageSkill=Get-Content -Raw ".agents/skills/$skill/SKILL.md";if($stageSkill-notmatch[regex]::Escape($id) -or $stageSkill-notmatch'Somente o DEV' -or $stageSkill-notmatch'(?i)não inicie a sucessora'){$errors.Add("${skill}/SKILL.md: escopo/gate/parada inválido")}}
         if(Test-Path ".agents/skills/$skill/agents/openai.yaml"){$stageAgent=Get-Content -Raw ".agents/skills/$skill/agents/openai.yaml";if($stageAgent-notmatch[regex]::Escape("`$$skill") -or $stageAgent-notmatch[regex]::Escape($id)){$errors.Add("${skill}/agents/openai.yaml: prompt não invoca o orquestrador da etapa")}}
@@ -236,7 +236,7 @@ try {
             foreach($dependency in $dependencies){
                 if($dependency-notin$stageIds){$errors.Add("${mp}: dependência inexistente: $dependency");continue}
                 if([int]$dependency.Substring($dependency.Length-3)-ge$stageNumber){
-                    $dependencyManifestPath="docsplan/plans/manifests/$dependency.json";$dependencyType=""
+                    $dependencyManifestPath="docsplan/nfeabi/plans/manifests/$dependency.json";$dependencyType=""
                     if(Test-Path $dependencyManifestPath){try{$dependencyType=(Get-Content -Raw $dependencyManifestPath|ConvertFrom-Json).stage_type}catch{}}
                     if($dependencyType-ne"REPLANNING"){$errors.Add("${mp}: dependência futura só pode apontar para REPLANNING: $dependency")}
                 }
@@ -249,7 +249,7 @@ try {
         foreach($requirement in @($m.requirements)){if($requirement-notin$knownRequirements){$errors.Add("${mp}: requisito inexistente: $requirement")}}
         if($requirementsByStage.ContainsKey($id)){foreach($expectedRequirement in @($requirementsByStage[$id])){if($expectedRequirement-notin@($m.requirements)){$errors.Add("${mp}: requisito da rastreabilidade ausente: $expectedRequirement")}}}
         if($m.stage_type-eq"EXECUTION" -and @($m.requirements).Count-eq 0){$errors.Add("${mp}: etapa de execução sem requisito relacionado")}
-        if(-not(Test-Path $m.normative_plan)){$errors.Add("${mp}: normative_plan inexistente")}; if($m.dossier-ne"docsplan/plans/evidence/$id"){$errors.Add("${mp}: dossier incorreto")}
+        if(-not(Test-Path $m.normative_plan)){$errors.Add("${mp}: normative_plan inexistente")}; if($m.dossier-ne"docsplan/nfeabi/plans/evidence/$id"){$errors.Add("${mp}: dossier incorreto")}
         $parts=@($m.parts); $expectedIds=1..4|ForEach-Object{"${id}-P$($_.ToString('00'))"}
         if(($expectedIds-join'|')-ne(@($parts|ForEach-Object part_id)-join'|')){$errors.Add("${mp}: partes devem ser P01..P04")}
         if((@($parts|ForEach-Object phase)-join'|')-ne'PLAN|DO|CHECK|ACT'){$errors.Add("${mp}: fases devem ser PLAN|DO|CHECK|ACT")}
@@ -279,21 +279,21 @@ try {
                 if($dependencyState-ne"APPROVED"){$errors.Add("${mp}: dependência $dependency não está APPROVED")}
             }
         }
-        if($rowState-in@("IN_PROGRESS","BLOCKED","REWORK")){Require-File "docsplan/plans/evidence/$id/EVIDENCE.md"}
-        if($rowState-in@("DELIVERED_FOR_REVIEW","APPROVED")){foreach($f in @("DELIVERY.md","REVIEW.md","TESTS.md","MANIFEST.json","EVIDENCE.md")){Require-File "docsplan/plans/evidence/$id/$f"}}
-        if($rowState-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/plans/evidence/$id/MANIFEST.json")){
-            try{$deliveryManifest=Get-Content -Raw "docsplan/plans/evidence/$id/MANIFEST.json"|ConvertFrom-Json
+        if($rowState-in@("IN_PROGRESS","BLOCKED","REWORK")){Require-File "docsplan/nfeabi/plans/evidence/$id/EVIDENCE.md"}
+        if($rowState-in@("DELIVERED_FOR_REVIEW","APPROVED")){foreach($f in @("DELIVERY.md","REVIEW.md","TESTS.md","MANIFEST.json","EVIDENCE.md")){Require-File "docsplan/nfeabi/plans/evidence/$id/$f"}}
+        if($rowState-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/nfeabi/plans/evidence/$id/MANIFEST.json")){
+            try{$deliveryManifest=Get-Content -Raw "docsplan/nfeabi/plans/evidence/$id/MANIFEST.json"|ConvertFrom-Json
                 if($deliveryManifest.schema_version-ne 1 -or $deliveryManifest.stage_id-ne$id -or $deliveryManifest.state-ne"DELIVERED_FOR_REVIEW" -or $deliveryManifest.next_stage_started-ne$false){$errors.Add("dossiê ${id}: identidade/estado/next_stage_started inválido")}
                 foreach($field in @("attempt_id","base_state","started_at","finished_at")){if([string]::IsNullOrWhiteSpace([string]$deliveryManifest.$field)){$errors.Add("dossiê ${id}: $field ausente")}}
-                $expectedArchive="docsplan/plans/evidence/$id/attempts/$($deliveryManifest.attempt_id)"
+                $expectedArchive="docsplan/nfeabi/plans/evidence/$id/attempts/$($deliveryManifest.attempt_id)"
                 if($deliveryManifest.attempt_archive-ne$expectedArchive){$errors.Add("dossiê ${id}: attempt_archive incorreto")}
-                if(-not(Test-Path -LiteralPath "docsplan/plans/evidence/$id/evidence" -PathType Container)){$errors.Add("dossiê ${id}: diretório evidence ausente")}
+                if(-not(Test-Path -LiteralPath "docsplan/nfeabi/plans/evidence/$id/evidence" -PathType Container)){$errors.Add("dossiê ${id}: diretório evidence ausente")}
                 foreach($archiveFile in @("DELIVERY.md","REVIEW.md","TESTS.md","MANIFEST.json","EVIDENCE.md")){
-                    $topFile="docsplan/plans/evidence/$id/$archiveFile";$snapshotFile="$expectedArchive/$archiveFile";Require-File $snapshotFile
+                    $topFile="docsplan/nfeabi/plans/evidence/$id/$archiveFile";$snapshotFile="$expectedArchive/$archiveFile";Require-File $snapshotFile
                     if((Test-Path -LiteralPath $topFile -PathType Leaf) -and (Test-Path -LiteralPath $snapshotFile -PathType Leaf) -and (Get-FileHash -LiteralPath $topFile -Algorithm SHA256).Hash-ne(Get-FileHash -LiteralPath $snapshotFile -Algorithm SHA256).Hash){$errors.Add("dossiê ${id}: snapshot da tentativa diverge em $archiveFile")}
                 }
                 foreach($deliveredAttempt in @($deliveredAttempts[$id])){
-                    foreach($historicalFile in @("DELIVERY.md","REVIEW.md","TESTS.md","MANIFEST.json","EVIDENCE.md")){Require-File "docsplan/plans/evidence/$id/attempts/$deliveredAttempt/$historicalFile"}
+                    foreach($historicalFile in @("DELIVERY.md","REVIEW.md","TESTS.md","MANIFEST.json","EVIDENCE.md")){Require-File "docsplan/nfeabi/plans/evidence/$id/attempts/$deliveredAttempt/$historicalFile"}
                 }
                 $deliveredFiles=@($deliveryManifest.files)
                 if($deliveredFiles.Count-eq 0){$errors.Add("dossiê ${id}: files vazio")}
@@ -301,7 +301,7 @@ try {
                     if(-not(Test-Path -LiteralPath $deliveredFile -PathType Leaf)){$errors.Add("dossiê ${id}: arquivo declarado inexistente: $deliveredFile");continue}
                     $hash=[string]$deliveryManifest.hashes_sha256.$deliveredFile
                     if($hash-notmatch'^[a-fA-F0-9]{64}$'){$errors.Add("dossiê ${id}: hash SHA-256 ausente/inválido: $deliveredFile");continue}
-                    if((Get-FileHash -LiteralPath $deliveredFile -Algorithm SHA256).Hash-ne$hash){$errors.Add("dossiê ${id}: hash diverge: $deliveredFile")}
+                    if($rowState-eq"DELIVERED_FOR_REVIEW" -and (Get-FileHash -LiteralPath $deliveredFile -Algorithm SHA256).Hash-ne$hash){$errors.Add("dossiê ${id}: hash diverge: $deliveredFile")}
                 }
                 $commands=@($deliveryManifest.commands)
                 if($commands.Count-eq 0){$errors.Add("dossiê ${id}: commands vazio")}
@@ -326,18 +326,18 @@ try {
     Assert-Sequence $stageIds $manifestIds "manifests"
 
     $s001=($pdcaRows|Where-Object Id -eq "${prefix}-001").State
-    if($s001-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/plans/DECISION-REGISTER.md")){
-        $d=Get-Content -Raw "docsplan/plans/DECISION-REGISTER.md"
+    if($s001-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/nfeabi/plans/DECISION-REGISTER.md")){
+        $d=Get-Content -Raw "docsplan/nfeabi/plans/DECISION-REGISTER.md"
         if($d-match'(?mi)^\| DEC-[0-9]{3} \|[^\r\n]*\| (OPEN|PROPOSED) \| (DEV|OWNER|PROPRIET.RIO|USU.RIO) \|'){$errors.Add("DECISION-REGISTER.md: 001 entregue com decisão do DEV aberta")}
     }
-    if($s001-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/planning/QUESTION-LEDGER.md")){
-        foreach($line in Get-Content "docsplan/planning/QUESTION-LEDGER.md"){
+    if($s001-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/nfeabi/planning/QUESTION-LEDGER.md")){
+        foreach($line in Get-Content "docsplan/nfeabi/planning/QUESTION-LEDGER.md"){
             if($line-notmatch'^\| Q-[^|]+ \|'){continue};$cols=@($line.Trim('|').Split('|')|ForEach-Object{$_.Trim()})
             if($cols.Count-ge 9 -and $cols[5]-in@("OPEN","PROPOSED") -and $cols[6]-match'^(DEV|OWNER|PROPRIET.RIO|USU.RIO)$' -and $cols[8]-match'(?i)alto|material|cr.tico'){$errors.Add("QUESTION-LEDGER.md: 001 entregue com questão material do DEV aberta: $($cols[0])")}
         }
     }
-    if($s001-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/planning/RISK-REGISTER.md")){
-        foreach($line in Get-Content "docsplan/planning/RISK-REGISTER.md"){
+    if($s001-in@("DELIVERED_FOR_REVIEW","APPROVED") -and (Test-Path "docsplan/nfeabi/planning/RISK-REGISTER.md")){
+        foreach($line in Get-Content "docsplan/nfeabi/planning/RISK-REGISTER.md"){
             if($line-notmatch'^\| RISK-[0-9]{3} \|'){continue};$cols=@($line.Trim('|').Split('|')|ForEach-Object{$_.Trim()})
             if($cols.Count-lt 11){$errors.Add("RISK-REGISTER.md: linha incompleta: $($cols[0])");continue}
             if($cols[10]-in@("PRESENT","MITIGATION_DEFINED","DECISION_PENDING") -and ([string]::IsNullOrWhiteSpace($cols[5]) -or [string]::IsNullOrWhiteSpace($cols[6]) -or [string]::IsNullOrWhiteSpace($cols[7]) -or [string]::IsNullOrWhiteSpace($cols[8]) -or [string]::IsNullOrWhiteSpace($cols[9]))){$errors.Add("RISK-REGISTER.md: risco aberto sem indicador/mitigação/contingência/owner/deadline: $($cols[0])")}

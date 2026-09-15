@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "stage_id": "UAB-001",
+  "state": "DELIVERED_FOR_REVIEW",
+  "attempt_id": "attempt-0001",
+  "attempt_archive": "docsplan/nfeabi/plans/evidence/UAB-001/attempts/attempt-0001",
+  "base_state": "UAB-000 APPROVED; UAB-001 IN_PROGRESS",
+  "started_at": "2026-09-14T22:29:16-03:00",
+  "finished_at": "2026-09-15T07:00:00-03:00",
+  "files": [
+    "docsplan/nfeabi/plans/evidence/UAB-001/DELIVERY.md",
+    "docsplan/nfeabi/plans/evidence/UAB-001/REVIEW.md",
+    "docsplan/nfeabi/plans/evidence/UAB-001/TESTS.md",
+    "docsplan/nfeabi/plans/evidence/UAB-001/EVIDENCE.md",
+    "docsplan/nfeabi/plans/PDCA.md",
+    "docsplan/nfeabi/plans/TRACEABILITY.md",
+    "docsplan/nfeabi/plans/READINESS.md"
+  ],
+  "hashes_sha256": {
+    "docsplan/nfeabi/plans/evidence/UAB-001/DELIVERY.md": "1AE97FFF1181843C1AAB8A4B62500BC999EF5119F4BF4DA948CB467DFC753593",
+    "docsplan/nfeabi/plans/evidence/UAB-001/REVIEW.md": "865A7FFDBB3F6868C67C1DE88CB888882631F09DCF7EB21FBBA98B246B15C742",
+    "docsplan/nfeabi/plans/evidence/UAB-001/TESTS.md": "BD735CADE46D9AECC245605CE6956F9D77F6B04880D3E5039652E20C0548E28D",
+    "docsplan/nfeabi/plans/evidence/UAB-001/EVIDENCE.md": "855DD17FF2CE82B3C7E95F881E0D1F9ADBEFFA7E190858541007A1066E615224",
+    "docsplan/nfeabi/plans/PDCA.md": "8B29EE69E4F72603CBE613484B280A1C5DEAB62D0A508EF941C4097790AA1505",
+    "docsplan/nfeabi/plans/TRACEABILITY.md": "859DA8DE2EECCA1DE5B302519181C36A4CAE2308A97ADA945DB9F475DEFD54AD",
+    "docsplan/nfeabi/plans/READINESS.md": "477F7F64E3F3ED9D2A5067D9B8A9C1CC18C912539C881DDCA79F2CF26B4283DF"
+  },
+  "commands": [
+    { "command": "pwsh -NoProfile -File .agents/skills/plan-linter/scripts/test-plan.ps1 -RepositoryRoot .", "result": "PASS", "exit_code": 0, "evidence": "docsplan/nfeabi/plans/evidence/UAB-001/TESTS.md" }
+  ],
+  "tests": {
+    "status": "PASS_WITH_JUSTIFIED_NA",
+    "executed": ["revisão independente CHECK/P03", "plan linter", "auditoria de escopo e hashes"],
+    "not_executed": ["build/testes do produto: N/A justificado; etapa de planejamento"]
+  },
+  "decisions": ["DEC-001", "DEC-002", "DEC-003", "DEC-004", "DEC-005", "DEC-006", "DEC-007"],
+  "models_used": [
+    { "part_id": "UAB-001-P01", "role": "planner", "profile": "DEEP", "model": "gpt-6-astra", "effort": "high", "context_id": "uab001-main" },
+    { "part_id": "UAB-001-P02", "role": "executor", "profile": "DEEP", "model": "gpt-6-astra", "effort": "high", "context_id": "uab001-main" },
+    { "part_id": "UAB-001-P03", "role": "reviewer", "profile": "INDEPENDENT_REVIEW", "model": "gpt-6-astra", "effort": "high", "context_id": "/root/uab001_independent_review" },
+    { "part_id": "UAB-001-P04", "role": "documenter", "profile": "ECONOMY", "model": "gpt-5.6-luna", "effort": "low", "context_id": "/root/uab001_act_dossier" }
+  ],
+  "not_executed": ["implementação do produto", "UAB-002"],
+  "limitations": ["build de produto N/A por etapa exclusivamente de planejamento"],
+  "next_stage_started": false
+}

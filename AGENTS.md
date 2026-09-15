@@ -110,7 +110,7 @@ dotnet build source/uninfe.sln --no-restore
 
 ## Planejamento NF-e ABI (DevPlanner)
 
-- Para executar NF-e ABI, leia `docsplan/CODEX-START-HERE.md` e use somente a etapa explicitamente autorizada.
+- Para executar NF-e ABI, leia `docsplan/nfeabi/CODEX-START-HERE.md` e use somente a etapa explicitamente autorizada.
 - Em toda etapa `002+`, releia `C:\Users\Wandrey\OneDrive\Downloads\NFeAbi`, compare hashes e pare se a fonte mudou.
 - Somente o DEV aprova etapas. Não inicie a sucessora após entregar.
 - Produção permanece sem endpoint; não invente URL nem copie homologação para produção.

@@ -1,0 +1,12 @@
+UAB-001 validation — 2026-09-15
+
+PASS source aggregate: 22 files, 0383F95D81140925C4EF91046C2D723CA9D94F477E138069F7202D79D9CCCAD8
+PASS schema aggregate: 20 files, BA44B39981C4DF3860A6BE9AA7C0739904D664377EABE963AB52AC8C2E74AE40
+PASS manifests JSON: 12 delivery/stage JSON files parsed
+PASS migration: 65 tracked source-plan files have a corresponding file under docsplan/nfeabi; zero missing
+PASS references: no active reference to the former plan roots; no duplicated nfeabi root; normalized PL_NFeABI_1.00
+PASS independent review: no material finding remains
+PASS plan linter: Generated PDCA plan validation passed: 7 stages, prefix UAB, 7 manifests
+PASS git diff --check
+N/A product build/tests: UAB-001 is planning-only; UAB-002+ will use Debug exclusively
+STATE UAB-000=APPROVED UAB-001=DELIVERED_FOR_REVIEW UAB-002=PLANNED
