@@ -32,3 +32,4 @@
 | 2026-09-15 | UAB-003 | DELIVERED_FOR_REVIEW | APPROVED | revisão e aprovação explícitas pelo DEV | attempt-0001 |
 | 2026-09-15 | UAB-004 | PLANNED | IN_PROGRESS | execução exclusiva autorizada pelo DEV após aprovação da UAB-003; fontes normativas, handoff e ambiente Debug revalidados | attempt-0001 |
 | 2026-09-15 | UAB-004 | IN_PROGRESS | DELIVERED_FOR_REVIEW | ACT/P04 concluído; build controlado, suite NFeABI 34/34, diff check e linter verdes; primeira compilação completa bloqueada por acesso negado no checkout irmão; aguarda aprovação do DEV | attempt-0001 |
+

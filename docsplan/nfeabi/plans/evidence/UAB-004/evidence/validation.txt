@@ -1,0 +1,13 @@
+UAB-004 final validation
+source full read: PASS 22/22; aggregate=0383F95D81140925C4EF91046C2D723CA9D94F477E138069F7202D79D9CCCAD8
+schemas parsed: PASS 20/20; aggregate=BA44B39981C4DF3860A6BE9AA7C0739904D664377EABE963AB52AC8C2E74AE40
+sibling handoff: PASS; clean HEAD=308864d94; approved ancestor=3f8811253
+initial full Debug build: BLOCKED; MSB3021 access denied writing sibling artifact
+controlled NFe.Service Debug build: PASS; errors=0; warnings=22 legacy
+ConsultaStatusNFeABITests Debug: PASS 14/14
+NFeABI Debug suite: PASS 34/34
+independent review: PASS
+git diff --check: PASS
+Release/online: NOT EXECUTED
+result: DELIVERED_FOR_REVIEW; DEV approval required; UAB-005 PLANNED
+

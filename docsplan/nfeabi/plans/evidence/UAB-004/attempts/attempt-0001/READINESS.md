@@ -11,3 +11,4 @@ UAB-003 foi aprovada explicitamente pelo DEV em 2026-09-15 na `attempt-0001`.
 UAB-004 está `DELIVERED_FOR_REVIEW` na `attempt-0001`. A fonte normativa foi relida integralmente e reproduziu os agregados aprovados; fontes 22/22 e schemas 20/20 conferidos. O checkout irmão está limpo em `308864d94`, descendente do handoff aprovado `3f8811253`. A aprovação permanece exclusiva do DEV.
 
 Toda validação de produto usará `Debug` e a referência direta ao checkout irmão da Unimake.DFe. `Release` e atualização do pacote NuGet ficam fora deste plano até a publicação conduzida pelo DEV.
+

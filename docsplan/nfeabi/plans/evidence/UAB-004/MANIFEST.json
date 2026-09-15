@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "stage_id": "UAB-004",
+  "state": "DELIVERED_FOR_REVIEW",
+  "attempt_id": "attempt-0001",
+  "attempt_archive": "docsplan/nfeabi/plans/evidence/UAB-004/attempts/attempt-0001",
+  "base_state": "UAB-003 APPROVED; UAB-004 IN_PROGRESS",
+  "started_at": "2026-09-15T11:15:43-03:00",
+  "finished_at": "2026-09-15T11:54:49-03:00",
+  "files": [
+    "source/NFe.Service/NFe.Service.csproj",
+    "source/NFe.Service/Processar.cs",
+    "source/NFe.Service/NFeABI/TaskConsultaStatusNFeABI.cs",
+    "source/UniNFe.Test/NFeABI/ConsultaStatusNFeABITests.cs",
+    "docsplan/nfeabi/plans/evidence/UAB-004/DELIVERY.md",
+    "docsplan/nfeabi/plans/evidence/UAB-004/REVIEW.md",
+    "docsplan/nfeabi/plans/evidence/UAB-004/TESTS.md",
+    "docsplan/nfeabi/plans/evidence/UAB-004/EVIDENCE.md",
+    "docsplan/nfeabi/plans/evidence/UAB-004/evidence/SOURCE-HASHES.md",
+    "docsplan/nfeabi/plans/evidence/UAB-004/evidence/INTEGRATION-AUDIT.md",
+    "docsplan/nfeabi/plans/evidence/UAB-004/evidence/validation.txt",
+    "docsplan/nfeabi/plans/PDCA.md",
+    "docsplan/nfeabi/plans/READINESS.md",
+    "docsplan/nfeabi/plans/TRACEABILITY.md",
+    "docsplan/nfeabi/plans/manifests/UAB-003.json",
+    "docsplan/nfeabi/plans/manifests/UAB-004.json"
+  ],
+  "hashes_sha256": {
+    "source/NFe.Service/NFe.Service.csproj": "3443B161BE78945D042D23635B953E3241481B36E7DC233543BE6BAC306ECF24",
+    "source/NFe.Service/Processar.cs": "C3FD26343C29DC6F12261D2632F06F4D9824524C3BF68E81971EB9D62894799B",
+    "source/NFe.Service/NFeABI/TaskConsultaStatusNFeABI.cs": "D96FF3BD11820CAEE950A8729A3690123E9E9BCE7A78AD12E52C3B9AC1D553F8",
+    "source/UniNFe.Test/NFeABI/ConsultaStatusNFeABITests.cs": "C932134B2D514F8A35C89FB6A85904A0D5D7314907EE2C603B04F927E3088D00",
+    "docsplan/nfeabi/plans/evidence/UAB-004/DELIVERY.md": "0AC08BB1D348F01AF7665401C28EED2D9548DD0F52DC930A1F42EBB3FD15B409",
+    "docsplan/nfeabi/plans/evidence/UAB-004/REVIEW.md": "78045EBB48BDA64BF9120092AC4B190616288C7D355D63A36603830C1B4318D1",
+    "docsplan/nfeabi/plans/evidence/UAB-004/TESTS.md": "8D43DDB6B3C0E2FA55C263DAB7C47CB2426002F61603323D79F5AE2FF6131C96",
+    "docsplan/nfeabi/plans/evidence/UAB-004/EVIDENCE.md": "E5A120AFB4CC3DC14FA821FA095DBF539CC344E4B648651D49DE6247543997AD",
+    "docsplan/nfeabi/plans/evidence/UAB-004/evidence/SOURCE-HASHES.md": "1FE853DB5FA3B4455ECA558AA482F0B50E06B8B711FA5AA0757ED45FD3FBF402",
+    "docsplan/nfeabi/plans/evidence/UAB-004/evidence/INTEGRATION-AUDIT.md": "2DB7C7E1F499AFD9F95537CE68AAD83AF0D706358A83FC0CDA59BD3BD05AE724",
+    "docsplan/nfeabi/plans/evidence/UAB-004/evidence/validation.txt": "E235AF855D6BADE2045F67B2998CBBC0974847901A6D1B7C39772CF61174D4A7",
+    "docsplan/nfeabi/plans/PDCA.md": "1A26430DF469F156CEE37131AD1CA4EB72284D43FD9216ED0E7777EF5D0DE101",
+    "docsplan/nfeabi/plans/READINESS.md": "FB23F3A719B245FE7FA6D540D38497A1CE8D87F1E7B8ECA33C48BF8336D47749",
+    "docsplan/nfeabi/plans/TRACEABILITY.md": "F3A1794283204428E23B10D3AEFCB65CA9589C51466BB1972CD54B1049866C86",
+    "docsplan/nfeabi/plans/manifests/UAB-003.json": "78046C32F26585B8571C720F1E52CBA1E1ED3FB58935B814D550F41579A560D8",
+    "docsplan/nfeabi/plans/manifests/UAB-004.json": "37D4684C91D1C370EA12802A1D23A16FA74CD209A4DE08CEAB9B5F76BDAD16CC"
+  },
+  "commands": [
+    {
+      "command": "dotnet build source/NFe.Service/NFe.Service.csproj --no-restore -p:Configuration=Debug -p:ConfigurationName=Debug -p:BuildProjectReferences=false -m:1 -nodeReuse:false",
+      "result": "PASS: 0 erros, 22 avisos legados",
+      "exit_code": 0,
+      "evidence": "docsplan/nfeabi/plans/evidence/UAB-004/evidence/validation.txt"
+    },
+    {
+      "command": "dotnet test source/UniNFe.Test/UniNFe.Test.csproj --no-restore -p:Configuration=Debug -p:ConfigurationName=Debug -p:BuildProjectReferences=false -m:1 -nodeReuse:false --filter FullyQualifiedName~NFeABI",
+      "result": "PASS: 34/34",
+      "exit_code": 0,
+      "evidence": "docsplan/nfeabi/plans/evidence/UAB-004/evidence/validation.txt"
+    },
+    {
+      "command": "pwsh -NoProfile -File .agents/skills/plan-linter/scripts/test-plan.ps1 -RepositoryRoot .",
+      "result": "PASS",
+      "exit_code": 0,
+      "evidence": "docsplan/nfeabi/plans/evidence/UAB-004/evidence/validation.txt"
+    }
+  ],
+  "tests": {
+    "status": "PASS_WITH_JUSTIFIED_NA",
+    "executed": [
+      "build NFe.Service Debug",
+      "ConsultaStatusNFeABITests 14/14",
+      "suíte NFeABI 34/34",
+      "revisão independente",
+      "git diff --check",
+      "plan linter"
+    ],
+    "not_executed": [
+      "transporte fiscal online",
+      "Release/NuGet",
+      "UAB-005"
+    ]
+  },
+  "decisions": ["DEC-002", "DEC-007"],
+  "models_used": [
+    {
+      "part_id": "UAB-004-P01",
+      "role": "planner",
+      "profile": "DEEP",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "context_id": "/root/uab004_plan"
+    },
+    {
+      "part_id": "UAB-004-P02",
+      "role": "executor",
+      "profile": "BALANCED",
+      "model": "gpt-5.6-terra",
+      "effort": "medium",
+      "context_id": "/root/uab004_implementation"
+    },
+    {
+      "part_id": "UAB-004-P03",
+      "role": "reviewer",
+      "profile": "INDEPENDENT_REVIEW",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "context_id": "/root/uab004_independent_review"
+    },
+    {
+      "part_id": "UAB-004-P04",
+      "role": "documenter",
+      "profile": "ECONOMY",
+      "model": "gpt-5.6-luna",
+      "effort": "low",
+      "context_id": "/root/uab004_act_dossier"
+    }
+  ],
+  "limitations": [
+    "a primeira compilação completa recebeu MSB3021 ao tentar escrever artefato no checkout irmão",
+    "a validação final usou o binário Debug existente com BuildProjectReferences=false",
+    "o OutputPath histórico do projeto clássico é bin/Release também sob Configuration=Debug",
+    "nenhum teste fiscal online ou comando Release foi executado"
+  ],
+  "next_stage_started": false
+}

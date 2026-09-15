@@ -6,7 +6,7 @@
   "depends_on": [
     "UAB-002"
   ],
-  "status": "DELIVERED_FOR_REVIEW",
+  "status": "APPROVED",
   "human_gate": true,
   "critical_gate": true,
   "normative_plan": "docsplan/nfeabi/plans/UAB-003-file-contracts.md",

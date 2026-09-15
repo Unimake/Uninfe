@@ -10,3 +10,4 @@
 | REQ-006 | autorização síncrona e procNFeABI recuperável | MOC/repo | UAB-005 | fault injection e fixtures | `docsplan/nfeabi/plans/evidence/UAB-005/EVIDENCE.md` | PLANNED |
 | REQ-007 | produção sem URL e serviços futuros ausentes | pedido/DEV | UAB-005 | negativo fail-closed | `docsplan/nfeabi/plans/evidence/UAB-005/EVIDENCE.md` | PLANNED |
 | REQ-008 | testes/docs operacionais e índices | AGENTS/DEV | UAB-006 | builds, testes e viewer index | `docsplan/nfeabi/plans/evidence/UAB-006/EVIDENCE.md` | PLANNED |
+
