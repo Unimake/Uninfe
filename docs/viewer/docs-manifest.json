@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T18:05:17.623Z",
+  "generatedAt": "2026-09-15T17:46:05.318Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -564,6 +564,18 @@
       "title": "Inutilização de numeração de NFe e NFCe",
       "path": "servicos/nfe/inutilizacao-numeracao.md",
       "category": "servicos/nfe"
+    },
+    {
+      "id": "servicos-nfeabi-autorizacao-sincrona-md",
+      "title": "Autorização síncrona de NF-e ABI",
+      "path": "servicos/nfeabi/autorizacao-sincrona.md",
+      "category": "servicos/nfeabi"
+    },
+    {
+      "id": "servicos-nfeabi-consulta-status-servico-md",
+      "title": "Consulta status de serviço da NF-e ABI",
+      "path": "servicos/nfeabi/consulta-status-servico.md",
+      "category": "servicos/nfeabi"
     },
     {
       "id": "servicos-nfgas-autorizacao-sincrona-md",

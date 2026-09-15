@@ -1,0 +1,21 @@
+UAB-006 attempt-0001 — validação integrada Debug/offline
+
+PASS  Normativa Plan: 22/22 fontes; XSD 20/20; agregado 0383F95D81140925C4EF91046C2D723CA9D94F477E138069F7202D79D9CCCAD8
+PASS  Normativa Check: mesmos totais e hashes reproduzidos
+PASS  DLL irmã: HEAD 308864d942a6e5270bf3fab3021265c41bb13058 limpo; handoff 3f8811253 ancestral
+LIMIT dotnet build source\uninfe.sln -c Debug --no-restore -m:1 -nodeReuse:false
+      acesso negado ao copiar System.Net.Http.WinHttpHandler.dll no checkout irmão; 1 erro, 0 avisos
+PASS  dotnet build source\NFe.Service\NFe.Service.csproj -c Debug --no-restore -p:BuildProjectReferences=false -m:1 -nodeReuse:false
+      0 erros, 0 avisos
+PASS  dotnet test source\UniNFe.Test\UniNFe.Test.csproj -c Debug --no-restore -p:BuildProjectReferences=false -m:1 -nodeReuse:false --filter FullyQualifiedName~NFeABI
+      64 aprovados, 0 falhos, 0 ignorados
+PASS  ExemploPublicoEhPreparadoEAssinadoPelaDllSemTransporte
+      1 aprovado, 0 falhos, 0 ignorados
+PASS  allowlist offline da DLL Debug: SchemaFoundationTest 14/14; PublicApiTest 2/2; SerializacaoNFeABITest 3/3; EventosNFeABITest 9/9; ServicosPublicadosTest 43/43; total 71/71
+PASS  node viewer/build-docs-index.js — 107 documentos indexados
+PASS  checker de links Markdown das páginas NF-e ABI — 0 falhos; link do XML público absoluto
+PASS  revisão independente P03 após correções — sem achado material remanescente
+PASS  git diff --check
+PASS  plan-linter no fechamento
+
+Não executados: transporte fiscal online, produção, Release/NuGet, publish/deploy, consulta de protocolo, eventos ou etapa sucessora.
