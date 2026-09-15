@@ -38,6 +38,7 @@
     <ProjectReference Include="..\NFe.ConvertTxt\NFe.ConvertTxt.csproj" />
     <ProjectReference Include="..\NFe.Settings\NFe.Settings.csproj" />
     <ProjectReference Include="..\NFe.Threadings\NFe.Threadings.csproj" />
+    <ProjectReference Include="..\NFe.UI\NFe.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
