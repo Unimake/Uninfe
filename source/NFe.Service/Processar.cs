@@ -509,6 +509,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusNFeABI(arquivo));
                             break;
 
+                        case Servicos.NFeABIAutorizacaoSinc:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskNFeABIRecepcaoSinc(arquivo));
+                            break;
+
                         #endregion NFeABI
 
                         #region BPe
