@@ -1,0 +1,11 @@
+UAB-003 final validation
+focused Debug tests: 20/20 PASS
+NFe.UI Debug build: PASS; warnings=0; errors=0
+independent retest --no-build: 20/20 PASS
+git diff check: PASS
+sources Plan/Check: 22/22 hash 0383F95D81140925C4EF91046C2D723CA9D94F477E138069F7202D79D9CCCAD8
+schemas: 20/20 hash BA44B39981C4DF3860A6BE9AA7C0739904D664377EABE963AB52AC8C2E74AE40
+checkout sibling: PASS; clean HEAD 308864d94 descendant of approved 3f8811253; NFeABI diff empty
+scope audit: PASS; no Task, dispatch, transport, proc generation, endpoint or UAB-004
+plan linter: PASS; 7 stages, prefix UAB, 7 manifests
+result: DELIVERED_FOR_REVIEW; DEV approval required; UAB-004 PLANNED

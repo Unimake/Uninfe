@@ -1,0 +1,3 @@
+# Revisão independente UAB-003
+
+Resultado final: PASS, sem achado material. A revisão inicialmente apontou dois P2: ausência de pares raiz+sufixo e cobertura de seletor/erro/Todos. Ambos foram corrigidos; o reteste independente `--no-build` terminou 20/20 PASS. Durante a revisão do DEV, também foi corrigido o corte visual da descrição de `Todos` no cadastro de nova empresa: combo com 700 px para texto medido em 587 px, seguida de build Debug verde. O diff check passou. Limitações registradas em EVIDENCE: `*Undefined*Build.bat` não fatal, projetos clássicos imprimem `bin\\Release` com Configuration=Debug, rodada extra teve MSB3021 por sandbox, sem interação UI manual/online e sessão 87916 permaneceu running por segurança.

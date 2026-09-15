@@ -1,0 +1,7 @@
+# Hashes das fontes
+
+Plan/Check: 22/22 — `0383F95D81140925C4EF91046C2D723CA9D94F477E138069F7202D79D9CCCAD8`.
+
+Schemas: 20/20 — `BA44B39981C4DF3860A6BE9AA7C0739904D664377EABE963AB52AC8C2E74AE40`.
+
+Checkout irmão: `308864d94` (descendente de `3f8811253`), limpo no início da validação; alterações externas sem NFeABI.
