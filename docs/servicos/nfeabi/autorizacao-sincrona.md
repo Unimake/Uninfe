@@ -14,7 +14,7 @@ Antes do envio, confira na configuração da empresa:
 - As configurações de proxy estão preenchidas, quando exigidas pela rede.
 - O XML segue o leiaute NF-e ABI 1.00, o namespace `http://www.portalfiscal.inf.br/nfeabi` e o modelo fiscal `77`.
 
-O arquivo [exemplo-nfeabi.xml no repositório](https://github.com/Unimake/Uninfe/blob/main/exemplos%20xml/NFeAbi/exemplo-nfeabi.xml) apresenta a estrutura de entrada com valores exclusivamente sintéticos. Substitua todos os dados demonstrativos pelos dados fiscais da operação e confira o leiaute aplicável antes do envio. O exemplo não contém assinatura: o UniNFe prepara e assina o documento durante o processamento.
+O arquivo [41260912345678000123770010000000011012345670-nfeabi.xml no repositório](https://github.com/Unimake/Uninfe/blob/main/exemplos%20xml/NFeAbi/41260912345678000123770010000000011012345670-nfeabi.xml) apresenta a estrutura de entrada com valores exclusivamente sintéticos. Substitua todos os dados demonstrativos pelos dados fiscais da operação e confira o leiaute aplicável antes do envio. O exemplo não contém assinatura: o UniNFe prepara e assina o documento durante o processamento.
 
 ## Arquivo de envio
 
@@ -25,6 +25,8 @@ Grave o XML na pasta de envio da empresa com o final fixo:
 ```
 
 O identificador deve ser único para evitar conflito entre documentos. O XML deve ter a raiz `NFeABI` e a versão `1.00`.
+
+Se o XML já contiver o grupo `infRespTec`, o UniNFe preserva os dados informados pelo ERP. Quando o grupo estiver ausente e houver dados de responsável técnico configurados para a empresa, o UniNFe inclui somente os campos preenchidos e assina novamente o documento antes da transmissão.
 
 ## Fluxo de processamento
 
@@ -38,13 +40,13 @@ O identificador deve ser único para evitar conflito entre documentos. O XML dev
 
 ```mermaid
 flowchart TD
-    A["ERP gera <identificador>-nfeabi.xml"] --> B["Pasta de envio da empresa"]
+    A["ERP gera<br/><identificador>-nfeabi.xml"] --> B["Pasta de envio<br/>da empresa"]
     B --> C["UniNFe prepara o XML"]
     C --> D["Enviados\\EmProcessamento"]
     D --> E["Autorização síncrona<br/>em homologação"]
     E --> F["<identificador>-ret-nfeabi.xml"]
     F --> G{"Autorizada?"}
-    G -->|Sim| H["<identificador>-procNFeABI.xml<br/>em Autorizados\<subpasta por data>"]
+    G -->|Sim| H["<identificador>-procNFeABI.xml<br/>em Autorizados<br/><subpasta por data>"]
     G -->|Não| I["XML preparado na<br/>pasta de erros"]
     C -->|Erro local| J["<identificador>-ret-nfeabi.err"]
     E -->|Erro local| J
@@ -63,7 +65,7 @@ flowchart TD
 
 ## Como tratar o retorno
 
-O ERP deve aguardar o arquivo `<identificador>-ret-nfeabi.xml` e analisar o status e o motivo retornados. A autorização é confirmada somente quando o retorno indicar sucesso e o XML `<identificador>-procNFeABI.xml` estiver disponível para armazenamento.
+O ERP deve aguardar o arquivo `<identificador>-ret-nfeabi.xml` e analisar `cStat` e `xMotivo`. O UniNFe considera a autorização concluída quando `cStat` é `100`, o protocolo corresponde ao documento enviado e o XML `<identificador>-procNFeABI.xml` está disponível para armazenamento.
 
 Em rejeição fiscal, corrija o XML no ERP e gere uma nova solicitação.
 

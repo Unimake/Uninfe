@@ -9,4 +9,4 @@
 | REQ-005 | status por arquivo com retorno/erro/diagnóstico | portal/repo | UAB-004 | testes de contexto | `docsplan/nfeabi/plans/evidence/UAB-004/EVIDENCE.md` | APPROVED |
 | REQ-006 | autorização síncrona e procNFeABI recuperável | MOC/repo | UAB-005 | fault injection e fixtures | `docsplan/nfeabi/plans/evidence/UAB-005/EVIDENCE.md` | APPROVED |
 | REQ-007 | produção sem URL e serviços futuros ausentes | pedido/DEV | UAB-005 | negativo fail-closed | `docsplan/nfeabi/plans/evidence/UAB-005/EVIDENCE.md` | APPROVED |
-| REQ-008 | testes/docs operacionais e índices | AGENTS/DEV | UAB-006 | builds, testes e viewer index | `docsplan/nfeabi/plans/evidence/UAB-006/EVIDENCE.md` | DELIVERED_FOR_REVIEW |
+| REQ-008 | testes/docs operacionais e índices | AGENTS/DEV | UAB-006 | builds, testes e viewer index | `docsplan/nfeabi/plans/evidence/UAB-006/EVIDENCE.md` | APPROVED |

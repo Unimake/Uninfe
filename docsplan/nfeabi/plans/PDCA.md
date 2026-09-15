@@ -8,7 +8,7 @@
 | UAB-003 | registro e contratos públicos de arquivo | APPROVED | UAB-002 APPROVED | ENV-UNI-DEBUG |
 | UAB-004 | fluxo de consulta de status | APPROVED | UAB-003 APPROVED | ENV-UNI-DEBUG |
 | UAB-005 | autorização síncrona e persistência | APPROVED | UAB-004 APPROVED | ENV-UNI-DEBUG |
-| UAB-006 | validação integrada e documentação operacional | DELIVERED_FOR_REVIEW | UAB-005 APPROVED | ENV-INTEGRATED |
+| UAB-006 | validação integrada e documentação operacional | APPROVED | UAB-005 APPROVED | ENV-INTEGRATED |
 
 ## Histórico
 
@@ -38,3 +38,4 @@
 | 2026-09-15 | UAB-005 | DELIVERED_FOR_REVIEW | APPROVED | revisão e aprovação explícitas pelo DEV | attempt-0001 |
 | 2026-09-15 | UAB-006 | PLANNED | IN_PROGRESS | execução exclusiva autorizada pelo DEV após aprovação da UAB-005; fontes normativas, handoff e ambiente integrado Debug revalidados | attempt-0001 |
 | 2026-09-15 | UAB-006 | IN_PROGRESS | DELIVERED_FOR_REVIEW | ACT/P04 concluído; documentação, exemplo sintético, índices, testes integrados offline, CHECK/P03 e linter verdes; limitação de acesso ao checkout irmão registrada; aguarda aprovação do DEV | attempt-0001 |
+| 2026-09-15 | UAB-006 | DELIVERED_FOR_REVIEW | APPROVED | revisão e aprovação explícitas pelo DEV; plano UAB-000 a UAB-006 concluído | attempt-0001 |
