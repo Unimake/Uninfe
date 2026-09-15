@@ -1,0 +1,6 @@
+Build Debug controlado: PASS — 0 erros/0 avisos.
+Suíte NFeABI Debug: PASS — 63/63.
+CHECK/P03 independente: PASS.
+git diff --check: PASS.
+Plan linter: PASS.
+Limitação: build completa falhou ao copiar System.Net.Http.WinHttpHandler.dll para checkout irmão (acesso negado); validação final usou BuildProjectReferences=false. OutputPath clássico é bin/Release sob Debug; nenhum Release foi executado.
