@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "stage_id": "UAB-002",
+  "state": "DELIVERED_FOR_REVIEW",
+  "attempt_id": "attempt-0001",
+  "attempt_archive": "docsplan/nfeabi/plans/evidence/UAB-002/attempts/attempt-0001",
+  "base_state": "UAB-001 APPROVED; UAB-002 IN_PROGRESS",
+  "started_at": "2026-09-15T07:05:00-03:00",
+  "finished_at": "2026-09-15T07:19:29-03:00",
+  "files": ["source/UniNFe.Test/NFeABI/DllHandoffTests.cs", "docsplan/nfeabi/plans/evidence/UAB-002/DELIVERY.md", "docsplan/nfeabi/plans/evidence/UAB-002/REVIEW.md", "docsplan/nfeabi/plans/evidence/UAB-002/TESTS.md", "docsplan/nfeabi/plans/evidence/UAB-002/EVIDENCE.md", "docsplan/nfeabi/plans/evidence/UAB-002/evidence/SOURCE-HASHES.md", "docsplan/nfeabi/plans/evidence/UAB-002/evidence/DLL-HANDOFF.md", "docsplan/nfeabi/plans/evidence/UAB-002/evidence/validation.txt", "docsplan/nfeabi/plans/PDCA.md", "docsplan/nfeabi/plans/TRACEABILITY.md", "docsplan/nfeabi/plans/READINESS.md", "docsplan/nfeabi/planning/RISK-REGISTER.md"],
+  "hashes_sha256": {
+    "source/UniNFe.Test/NFeABI/DllHandoffTests.cs": "5EEA1045B1D67FB96471A49EC6A80D1B873ACF0DC3C723EDA4BBF15F34B56372",
+    "docsplan/nfeabi/plans/evidence/UAB-002/DELIVERY.md": "9E3AFE7B43F90EB60DC5DB0AF84082C047D9A908C3CAA0F40E9AC5471C9D54FA",
+    "docsplan/nfeabi/plans/evidence/UAB-002/REVIEW.md": "32A68A89A2FF00A986F1D8EE9131D884ABC091D48642035E05747C38D800B8F1",
+    "docsplan/nfeabi/plans/evidence/UAB-002/TESTS.md": "D8E73F1DAB78440B87D33A32F92D3CFCE9F2301E035B51528F5E167775B9DA22",
+    "docsplan/nfeabi/plans/evidence/UAB-002/EVIDENCE.md": "75BC409660F8A69610FB9EACEF10FCF852B8E15728249CCC488BABB4042E953B",
+    "docsplan/nfeabi/plans/evidence/UAB-002/evidence/SOURCE-HASHES.md": "17E1677F91DAD2B01C65454ECCEBB3A43A868A729D7D8EDE3292B4C0758E7AF6",
+    "docsplan/nfeabi/plans/evidence/UAB-002/evidence/DLL-HANDOFF.md": "FC514A2F5C753C3B3A056A9564EDB62168FAF24544D3202D08EE4139950C5E84",
+    "docsplan/nfeabi/plans/evidence/UAB-002/evidence/validation.txt": "742855F1BE8B4133722183882A0E12EC985BC8333ACC3EC49EB48BC799A20BC5",
+    "docsplan/nfeabi/plans/PDCA.md": "865D5D307E9F902EE7D1A89981E2356D7098110236523F62A43029FB2C4CC324",
+    "docsplan/nfeabi/plans/TRACEABILITY.md": "2D5C69DC475FAEB906C4B4B814DBC04D17F7F49885299D4749EC4BA3BC643192",
+    "docsplan/nfeabi/plans/READINESS.md": "8B038CBEABD8C576087E3DC6B67A9F87CC41841B4AF1B91D8041C3DCE7EDD782",
+    "docsplan/nfeabi/planning/RISK-REGISTER.md": "3D1551AC9217F2C286E6EB30686C82D273ABB18F5FAC2C889ABEC40BDB055C7B"
+  },
+  "commands": [{"command": "pwsh -NoProfile -File .agents/skills/plan-linter/scripts/test-plan.ps1 -RepositoryRoot .", "result": "PASS", "exit_code": 0, "evidence": "docsplan/nfeabi/plans/evidence/UAB-002/evidence/validation.txt"}],
+  "tests": {"status": "PASS_WITH_JUSTIFIED_NA", "executed": ["build Debug", "smoke test 6/6", "revisão independente", "git diff check"], "not_executed": ["Release/NuGet", "fluxo de produto", "UAB-003"]},
+  "decisions": ["DEC-001", "DEC-007"],
+  "models_used": [
+    {"part_id":"UAB-002-P01","role":"planner","profile":"DEEP","model":"gpt-6-astra","effort":"high","context_id":"uab002-main"},
+    {"part_id":"UAB-002-P02","role":"executor","profile":"BALANCED","model":"gpt-5.6-terra","effort":"medium","context_id":"/root/uab002_balanced_executor"},
+    {"part_id":"UAB-002-P03","role":"reviewer","profile":"INDEPENDENT_REVIEW","model":"gpt-6-astra","effort":"high","context_id":"/root/uab002_independent_review"},
+    {"part_id":"UAB-002-P04","role":"documenter","profile":"ECONOMY","model":"gpt-5.6-luna","effort":"low","context_id":"/root/uab002_act_dossier"}
+  ],
+  "limitations": ["*Undefined*Build.bat apareceu no stdout apesar de exit 0", "checkout irmão recebeu alterações externas do evento NFe 211120 após o gate; contrato NFeABI não tocado; revalidar antes da próxima compilação"],
+  "next_stage_started": false
+}

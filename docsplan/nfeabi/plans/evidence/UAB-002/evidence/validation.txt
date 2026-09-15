@@ -1,0 +1,10 @@
+UAB-002 attempt-0001 validation
+Fonte normativa: PASS 22/22; agregado SHA-256 0383F95D81140925C4EF91046C2D723CA9D94F477E138069F7202D79D9CCCAD8
+Schemas PL_NFeABI_1.00: PASS 20/20; agregado SHA-256 BA44B39981C4DF3860A6BE9AA7C0739904D664377EABE963AB52AC8C2E74AE40
+Build Debug consumidor: PASS; exit 0; 0 erros; 0 avisos
+Teste focado NFeABI: PASS; 6/6
+DLL consumidor/irmã: PASS; SHA-256 626AC2A0EB712E97BA48474F90F6522768C09AB0B5324F68A2E8752545E4F138
+Git diff check: PASS
+Limitação não bloqueante: *Undefined*Build.bat apareceu no stdout apesar de exit 0
+Fato posterior: checkout irmão recebeu alterações externas do evento NFe 211120 após o CHECK/ACT; contrato NFeABI não tocado; revalidar antes da próxima compilação
+Resultado do gate: DELIVERED_FOR_REVIEW; aprovação exclusiva do DEV; UAB-003 PLANNED

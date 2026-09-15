@@ -3,9 +3,9 @@
 - Pasta de destino resolvida: C:\projetos\github\UniNFe
 - ProjectMode: EVOLUTION
 - StagePrefix: UAB
-- PlanningStatus: DRAFT
-- StageIdsFrozen: false
-- FrozenStageIds: N/A
+- PlanningStatus: READY_FOR_EXECUTION
+- StageIdsFrozen: true
+- FrozenStageIds: UAB-002, UAB-003, UAB-004, UAB-005, UAB-006
 - Proprietário/autoridade: DEV
 - Resultado: Integrar no UniNFe os serviços NF-e ABI oficialmente publicados após o handoff validado da DLL, preservando contratos ERP, WinForms/.NET Framework 4.8.1 e processamento por pastas.
 - Fonte documental obrigatória e recorrente: C:\Users\Wandrey\OneDrive\Downloads\NFeAbi

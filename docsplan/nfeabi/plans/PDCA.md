@@ -3,8 +3,8 @@
 | Etapa | Incremento | Estado | Dependências | Ambiente |
 |---|---|---|---|---|
 | UAB-000 | base do planejamento | APPROVED | nenhuma | ENV-PLAN |
-| UAB-001 | revisão de contratos ERP e congelamento | DELIVERED_FOR_REVIEW | UAB-000 APPROVED | ENV-PLAN |
-| UAB-002 | gate do handoff da DLL e baseline | PLANNED | UAB-001 APPROVED | ENV-UNI-DEBUG |
+| UAB-001 | revisão de contratos ERP e congelamento | APPROVED | UAB-000 APPROVED | ENV-PLAN |
+| UAB-002 | gate do handoff da DLL e baseline | DELIVERED_FOR_REVIEW | UAB-001 APPROVED | ENV-UNI-DEBUG |
 | UAB-003 | registro e contratos públicos de arquivo | PLANNED | UAB-002 APPROVED | ENV-UNI-DEBUG |
 | UAB-004 | fluxo de consulta de status | PLANNED | UAB-003 APPROVED | ENV-UNI-DEBUG |
 | UAB-005 | autorização síncrona e persistência | PLANNED | UAB-004 APPROVED | ENV-UNI-DEBUG |
@@ -23,3 +23,6 @@
 | 2026-09-14 | UAB-000 | DELIVERED_FOR_REVIEW | APPROVED | revisão e aprovação explícitas pelo DEV | attempt-0002 |
 | 2026-09-14 | UAB-001 | PLANNED | IN_PROGRESS | execução exclusiva autorizada pelo DEV; predecessora aprovada, handoff ABI-006 confirmado e fontes normativas conferidas | attempt-0001 |
 | 2026-09-15 | UAB-001 | IN_PROGRESS | DELIVERED_FOR_REVIEW | ACT/P04 concluído; revisão CHECK/P03 independente sem achado material; linter verde; aguarda aprovação do DEV | attempt-0001 |
+| 2026-09-15 | UAB-001 | DELIVERED_FOR_REVIEW | APPROVED | revisão e aprovação explícitas pelo DEV | attempt-0001 |
+| 2026-09-15 | UAB-002 | PLANNED | IN_PROGRESS | execução exclusiva autorizada pelo DEV após aprovação da UAB-001; handoff, fontes e ambiente Debug em conferência | attempt-0001 |
+| 2026-09-15 | UAB-002 | IN_PROGRESS | DELIVERED_FOR_REVIEW | ACT/P04 concluído; CHECK/P03 independente sem achado material; linter verde; limitação não bloqueante registrada; aguarda aprovação do DEV | attempt-0001 |
