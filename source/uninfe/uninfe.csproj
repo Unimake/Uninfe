@@ -88,7 +88,7 @@
       <HintPath>..\packages\Unimake.EBank.Primitives.20260911.2038.23\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20260915.1624.35\lib\net472\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20260918.1641.36\lib\net472\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.12, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.12\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -263,8 +263,8 @@
     <Reference Include="Unimake.MessageBroker, Version=2025.10.16.36, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.MessageBroker.20251016.36.37\lib\netstandard2.0\Unimake.MessageBroker.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.MessageBroker.Primitives, Version=2025.6.23.1022, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.MessageBroker.Primitives.20250623.1022.24\lib\netstandard2.0\Unimake.MessageBroker.Primitives.dll</HintPath>
+    <Reference Include="Unimake.MessageBroker.Primitives, Version=2026.9.18.1114, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.MessageBroker.Primitives.20260918.1114.46\lib\netstandard2.0\Unimake.MessageBroker.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Primitives, Version=2026.8.26.2146, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Primitives.20260826.2146.14\lib\netstandard2.0\Unimake.Primitives.dll</HintPath>
@@ -364,9 +364,9 @@
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Release'">
 			<ItemGroup>				
-				<Reference Include="Unimake.Business.DFe, Version=2026.9.15.1624, Culture=neutral, processorArchitecture=MSIL">
-				  <HintPath>..\packages\Unimake.DFe.20260915.1624.35\lib\net472\Unimake.Business.DFe.dll</HintPath>
-				</Reference>
+				<Reference Include="Unimake.Business.DFe, Version=2026.9.18.1641, Culture=neutral, processorArchitecture=MSIL">
+				  <HintPath>..\packages\Unimake.DFe.20260918.1641.36\lib\net472\Unimake.Business.DFe.dll</HintPath>
+				</Reference>				
 			</ItemGroup>
 		</When>
 		<Otherwise>
