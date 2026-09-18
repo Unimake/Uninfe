@@ -427,6 +427,11 @@ namespace NFe.Settings
         /// </remarks>
         public static void CarregaConfiguracao(bool uniNFeServico = false)
         {
+            foreach (var empresaAnterior in Empresas.Configuracoes)
+            {
+                GerenciadorPinCertificadoA3.Liberar(empresaAnterior);
+            }
+
             Empresas.Configuracoes.Clear();
             Empresas.ExisteErroDiretorio = false;
             Empresas.CriarPasta(true);

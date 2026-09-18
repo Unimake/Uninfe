@@ -6,7 +6,7 @@
   "depends_on": [
     "UAB-004"
   ],
-  "status": "PLANNED",
+  "status": "APPROVED",
   "human_gate": true,
   "critical_gate": true,
   "normative_plan": "docsplan/nfeabi/plans/UAB-005-authorization-flow.md",

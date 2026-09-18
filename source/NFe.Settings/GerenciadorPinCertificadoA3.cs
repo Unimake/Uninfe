@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Unimake.Business.DFe.Security;
@@ -17,15 +18,49 @@ namespace NFe.Settings
 
     internal interface IProvedorCertificadoA3
     {
+        bool HasCachedPrivateKeyContext(X509Certificate2 certificado);
         bool IsA3(X509Certificate2 certificado);
         void SetPinPrivateKey(X509Certificate2 certificado, string pin);
     }
 
     internal sealed class ProvedorCertificadoA3 : IProvedorCertificadoA3
     {
+        public bool HasCachedPrivateKeyContext(X509Certificate2 certificado)
+        {
+            if (certificado == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                return HasCertificateProperty(certificado, 1) ||
+                    HasCertificateProperty(certificado, 5) ||
+                    HasCertificateProperty(certificado, 78);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool IsA3(X509Certificate2 certificado) => certificado != null && certificado.IsA3();
 
         public void SetPinPrivateKey(X509Certificate2 certificado, string pin) => certificado.SetPinPrivateKey(pin);
+
+        private static bool HasCertificateProperty(X509Certificate2 certificado, int propertyId)
+        {
+            var size = 0u;
+            return CertGetCertificateContextProperty(certificado.Handle, propertyId, IntPtr.Zero, ref size);
+        }
+
+        [DllImport("crypt32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool CertGetCertificateContextProperty(
+            IntPtr certificateContext,
+            int propertyId,
+            IntPtr data,
+            ref uint dataSize);
     }
 
     public sealed class ResultadoCarregamentoPinA3
@@ -47,6 +82,7 @@ namespace NFe.Settings
 
         private static readonly ConcurrentDictionary<Empresa, Controle> Controles = new ConcurrentDictionary<Empresa, Controle>();
         private static readonly ConcurrentDictionary<string, byte> CertificadosA3Conhecidos = new ConcurrentDictionary<string, byte>(StringComparer.OrdinalIgnoreCase);
+        private static readonly object SincronizacaoIdentificacao = new object();
         internal static IProvedorCertificadoA3 Provedor { get; set; } = new ProvedorCertificadoA3();
 
         internal static ResultadoCarregamentoPinA3 Carregar(Empresa empresa, bool tentativaExplicita)
@@ -71,8 +107,14 @@ namespace NFe.Settings
             {
                 if (!tentativaExplicita && controle.Estado == EstadoPinCertificadoA3.Carregado)
                 {
-                    empresa.CertificadoPINCarregado = true;
-                    return Sucesso(false);
+                    if (Provedor.HasCachedPrivateKeyContext(empresa.X509Certificado))
+                    {
+                        empresa.CertificadoPINCarregado = true;
+                        return Sucesso(false);
+                    }
+
+                    controle.Estado = EstadoPinCertificadoA3.Invalidado;
+                    empresa.CertificadoPINCarregado = false;
                 }
 
                 if (!tentativaExplicita && controle.Estado == EstadoPinCertificadoA3.Falhou)
@@ -147,6 +189,25 @@ namespace NFe.Settings
             empresa.CertificadoPINCarregado = false;
         }
 
+        internal static void Liberar(Empresa empresa)
+        {
+            if (empresa == null)
+            {
+                return;
+            }
+
+            Controle controle;
+            if (Controles.TryRemove(empresa, out controle))
+            {
+                lock (controle.Sincronizacao)
+                {
+                    controle.Estado = EstadoPinCertificadoA3.Invalidado;
+                }
+            }
+
+            empresa.CertificadoPINCarregado = false;
+        }
+
         internal static bool DeveSerializar(Empresa empresa)
         {
             if (empresa == null || !empresa.UsaCertificado)
@@ -154,25 +215,28 @@ namespace NFe.Settings
                 return false;
             }
 
-            if (EhA3Conhecido(empresa))
+            lock (SincronizacaoIdentificacao)
             {
-                return true;
-            }
-
-            try
-            {
-                if (Provedor.IsA3(empresa.X509Certificado))
+                if (EhA3Conhecido(empresa))
                 {
-                    MarcarA3Conhecido(empresa);
                     return true;
                 }
-            }
-            catch
-            {
-                // Uma consulta inconclusiva não deve apagar reconhecimento positivo anterior.
-            }
 
-            return EhA3Conhecido(empresa);
+                try
+                {
+                    if (Provedor.IsA3(empresa.X509Certificado))
+                    {
+                        MarcarA3Conhecido(empresa);
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    // Uma consulta inconclusiva não deve apagar reconhecimento positivo anterior.
+                }
+
+                return EhA3Conhecido(empresa);
+            }
         }
 
         private static void MarcarA3Conhecido(Empresa empresa)
@@ -260,5 +324,7 @@ namespace NFe.Settings
             CertificadosA3Conhecidos.Clear();
             Provedor = new ProvedorCertificadoA3();
         }
+
+        internal static int QuantidadeControlesParaTestes => Controles.Count;
     }
 }

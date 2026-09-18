@@ -19,9 +19,18 @@ namespace UniNFe.Test.Certificados
             internal Exception Excecao;
             internal bool Falhar;
             internal bool EhA3 = true;
+            internal bool ContextoDisponivel = true;
             internal int Espera;
+            internal int ChamadasIsA3;
 
-            public bool IsA3(X509Certificate2 certificado) => EhA3;
+            public bool HasCachedPrivateKeyContext(X509Certificate2 certificado) => ContextoDisponivel;
+
+            public bool IsA3(X509Certificate2 certificado)
+            {
+                Interlocked.Increment(ref ChamadasIsA3);
+                if (Espera > 0) Thread.Sleep(Espera);
+                return EhA3;
+            }
 
             public void SetPinPrivateKey(X509Certificate2 certificado, string pin)
             {
@@ -67,6 +76,22 @@ namespace UniNFe.Test.Certificados
 
             Assert.All(resultados, resultado => Assert.True(resultado.Sucesso));
             Assert.Equal(1, provedor.Chamadas);
+        }
+
+        [Fact]
+        public async Task IdentificacaoConcorrenteDoMesmoCertificadoExecutaUmaSonda()
+        {
+            var provedor = new ProvedorFake { Espera = 50 };
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+
+            var tarefas = Enumerable.Range(0, 10)
+                .Select(_ => Task.Run(() => empresa.DeveSerializarOperacaoA3()))
+                .ToArray();
+            var resultados = await Task.WhenAll(tarefas);
+
+            Assert.All(resultados, Assert.True);
+            Assert.Equal(1, provedor.ChamadasIsA3);
         }
 
         [Fact]
@@ -136,6 +161,50 @@ namespace UniNFe.Test.Certificados
             Assert.False(empresa.CertificadoPINCarregado);
             Assert.True(empresa.CarregarPinCertificadoA3(false).Sucesso);
             Assert.Equal(2, provedor.Chamadas);
+        }
+
+        [Fact]
+        public void ContextoNativoPerdidoReaplicaPin()
+        {
+            var provedor = new ProvedorFake();
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+            Assert.True(empresa.CarregarPinCertificadoA3(false).Sucesso);
+
+            provedor.ContextoDisponivel = false;
+            var resultado = empresa.CarregarPinCertificadoA3(false);
+
+            Assert.True(resultado.Sucesso);
+            Assert.Equal(2, provedor.Chamadas);
+        }
+
+        [Fact]
+        public void FalhaAutomaticaEmExecucaoNaoInterativaEhImpeditiva()
+        {
+            var provedor = new ProvedorFake { Falhar = true };
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+
+            var resultado = PreparadorCertificadoA3.Preparar(empresa, false);
+
+            Assert.False(resultado.Sucesso);
+            Assert.False(resultado.PodeContinuarSemAutomacao);
+            Assert.Contains("não é interativa", resultado.Mensagem);
+        }
+
+        [Fact]
+        public void LiberarEmpresaRemoveControleRetido()
+        {
+            var provedor = new ProvedorFake();
+            GerenciadorPinCertificadoA3.Provedor = provedor;
+            var empresa = CriarEmpresa("1234");
+            Assert.True(empresa.CarregarPinCertificadoA3(false).Sucesso);
+            Assert.Equal(1, GerenciadorPinCertificadoA3.QuantidadeControlesParaTestes);
+
+            GerenciadorPinCertificadoA3.Liberar(empresa);
+
+            Assert.Equal(0, GerenciadorPinCertificadoA3.QuantidadeControlesParaTestes);
+            Assert.False(empresa.CertificadoPINCarregado);
         }
 
         [Fact]

@@ -331,9 +331,13 @@ namespace NFe.UI
 
         private string ExecutarConsulta(int emp, TipoAplicativo servico, int amb, int cUF, string versao)
         {
+            IDisposable bloqueioA3 = null;
             try
             {
-                var configuracao = CriarConfiguracao(Empresas.Configuracoes[emp], servico, versao, cUF, amb);
+                var empresa = Empresas.Configuracoes[emp];
+                bloqueioA3 = CoordenadorOperacaoCertificadoA3.Entrar(empresa);
+                PreparadorCertificadoA3.PrepararOuLancar(empresa, true);
+                var configuracao = CriarConfiguracao(empresa, servico, versao, cUF, amb);
 
                 object consStatServ = null;
                 IDisposable statusServico = null;
@@ -438,6 +442,10 @@ namespace NFe.UI
             catch (Exception ex)
             {
                 return ex.Message;
+            }
+            finally
+            {
+                bloqueioA3?.Dispose();
             }
         }
 

@@ -58,9 +58,13 @@ namespace NFe.Service
                             throw new Exception("Não pode identificar o tipo de serviço baseado no arquivo " + arquivo);
                         }
 
-                        if (DeveCarregarPin(emp, arquivo, servico))
+                        var deveCarregarPin = DeveCarregarPin(emp, arquivo, servico);
+
+                        if (deveCarregarPin)
                         {
-                            var resultadoPin = Empresas.Configuracoes[emp].CarregarPinCertificadoA3(false);
+                            var resultadoPin = PreparadorCertificadoA3.Preparar(
+                                Empresas.Configuracoes[emp],
+                                Environment.UserInteractive);
                             if (!resultadoPin.Sucesso)
                             {
                                 Auxiliar.WriteLog("Falha ao preparar certificado da empresa " +
@@ -507,6 +511,10 @@ namespace NFe.Service
 
                         case Servicos.NFeABIStatusServico:
                             DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusNFeABI(arquivo));
+                            break;
+
+                        case Servicos.NFeABIAutorizacaoSinc:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskNFeABIRecepcaoSinc(arquivo));
                             break;
 
                         #endregion NFeABI

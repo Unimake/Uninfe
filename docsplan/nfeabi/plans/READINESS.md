@@ -8,6 +8,12 @@ UAB-002 foi aprovada explicitamente pelo DEV em 2026-09-15 na `attempt-0001`, ap
 
 UAB-003 foi aprovada explicitamente pelo DEV em 2026-09-15 na `attempt-0001`.
 
-UAB-004 está `DELIVERED_FOR_REVIEW` na `attempt-0001`. A fonte normativa foi relida integralmente e reproduziu os agregados aprovados; fontes 22/22 e schemas 20/20 conferidos. O checkout irmão está limpo em `308864d94`, descendente do handoff aprovado `3f8811253`. A aprovação permanece exclusiva do DEV.
+UAB-004 foi aprovada explicitamente pelo DEV em 2026-09-15 na `attempt-0001`.
+
+UAB-005 foi aprovada explicitamente pelo DEV em 2026-09-15 na `attempt-0001`.
+
+UAB-006 foi aprovada explicitamente pelo DEV em 2026-09-15 na `attempt-0001`, após documentação operacional, exemplo sintético, índices, gates integrados Debug/offline e revisão independente. A build completa permaneceu limitada por acesso negado ao copiar uma dependência no checkout irmão; a limitação está registrada no dossiê.
+
+O plano NF-e ABI do UniNFe, de UAB-000 a UAB-006, está concluído e todas as etapas estão `APPROVED`. Não há etapa sucessora definida neste plano.
 
 Toda validação de produto usará `Debug` e a referência direta ao checkout irmão da Unimake.DFe. `Release` e atualização do pacote NuGet ficam fora deste plano até a publicação conduzida pelo DEV.

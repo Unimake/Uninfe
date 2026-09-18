@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "stage_id": "UAB-005",
+  "state": "DELIVERED_FOR_REVIEW",
+  "attempt_id": "attempt-0001",
+  "attempt_archive": "docsplan/nfeabi/plans/evidence/UAB-005/attempts/attempt-0001",
+  "base_state": "UAB-004 APPROVED; UAB-005 IN_PROGRESS",
+  "started_at": "2026-09-15T12:19:17-03:00",
+  "finished_at": "2026-09-15T13:39:00-03:00",
+  "files": ["source/NFe.Service/NFeABI/TaskNFeABIRecepcaoSinc.cs","source/NFe.Service/Processar.cs","source/NFe.Service/NFe.Service.csproj","source/UniNFe.Test/NFeABI/AutorizacaoNFeABITests.cs","docsplan/nfeabi/plans/evidence/UAB-005/DELIVERY.md","docsplan/nfeabi/plans/evidence/UAB-005/REVIEW.md","docsplan/nfeabi/plans/evidence/UAB-005/TESTS.md","docsplan/nfeabi/plans/evidence/UAB-005/EVIDENCE.md","docsplan/nfeabi/plans/evidence/UAB-005/evidence/SOURCE-HASHES.md","docsplan/nfeabi/plans/evidence/UAB-005/evidence/INTEGRATION-AUDIT.md","docsplan/nfeabi/plans/evidence/UAB-005/evidence/validation.txt","docsplan/nfeabi/plans/PDCA.md","docsplan/nfeabi/plans/READINESS.md","docsplan/nfeabi/plans/TRACEABILITY.md"],
+  "hashes_sha256": {
+    "source/NFe.Service/NFe.Service.csproj": "F6EC50419EFAF0068B26ECD1C54A1A35D26C4445FE3C63DB203E3938BA8B07EE",
+    "source/NFe.Service/Processar.cs": "6DDD8BFFCCED0CED3A8FFB1C3A68ACE37B5A33A4C7CE9C9330BBAA4C1340E32D",
+    "source/NFe.Service/NFeABI/TaskNFeABIRecepcaoSinc.cs": "4E795AE33B3C28FC0F048C66A66D5FE2EFBC6FDCC649C60ADD14073976E3342F",
+    "source/UniNFe.Test/NFeABI/AutorizacaoNFeABITests.cs": "AFD160620512A42A46572D7A9C8215CDB71064FF7FE169BBBD109A00D8DB6F4B",
+    "docsplan/nfeabi/plans/evidence/UAB-005/DELIVERY.md": "2CC2EACC507E1DE30E312724E555173709B912B10B01B257E9CEF16AA28C53D2",
+    "docsplan/nfeabi/plans/evidence/UAB-005/REVIEW.md": "363ED161EE7D53B2A2235B47F613ACA4C643C1D004A80D02A6BE2B1EBB965AAE",
+    "docsplan/nfeabi/plans/evidence/UAB-005/TESTS.md": "036B643A45F755B19755E328BDDDE4CDB36DCAC0E8FF42CE30FB0A59B085D028",
+    "docsplan/nfeabi/plans/evidence/UAB-005/EVIDENCE.md": "ABAA2CC64D889E7C25F61952E2F5B0626158322ECF5DF52B1FAAD9D448F1F371",
+    "docsplan/nfeabi/plans/evidence/UAB-005/evidence/SOURCE-HASHES.md": "533D417153B061E2AD7F5048D13264ABF4117D6F3AD4DF54549703E7E791BD4C",
+    "docsplan/nfeabi/plans/evidence/UAB-005/evidence/INTEGRATION-AUDIT.md": "6D7E3FE3A48B420311AD79132F0C7AE9501463311FC4784A68FB857D803FBF8C",
+    "docsplan/nfeabi/plans/evidence/UAB-005/evidence/validation.txt": "681EE56AE0324E6D284A0B4AA9D0A91FCB83609AD81BD5CA7B853D36530FC4AD",
+    "docsplan/nfeabi/plans/PDCA.md": "7A6A7B2E05F83717AB1F87FF33DD6C9B3A92867442B4751C050A495188290F37",
+    "docsplan/nfeabi/plans/READINESS.md": "50A0E3ABFADF3C8FBCC9AA58BF54C11E8B7AA89DD7CA4D63CFBEE95F3F4620AD",
+    "docsplan/nfeabi/plans/TRACEABILITY.md": "A7830F7B991278A06F29FFEB4E6FCDED86C5C97E2967B291E5B6535C199DCCE0"
+  },
+  "commands": [
+    {"command":"dotnet build source/NFe.Service/NFe.Service.csproj --no-restore -p:Configuration=Debug -p:ConfigurationName=Debug -p:BuildProjectReferences=false -m:1 -nodeReuse:false","result":"PASS: 0 erros, 0 avisos","evidence":"docsplan/nfeabi/plans/evidence/UAB-005/evidence/validation.txt","exit_code":0},
+    {"command":"dotnet test source/UniNFe.Test/UniNFe.Test.csproj --no-restore -p:Configuration=Debug --filter FullyQualifiedName~NFeABI","result":"PASS: 63/63","evidence":"docsplan/nfeabi/plans/evidence/UAB-005/evidence/validation.txt","exit_code":0},
+    {"command":"git diff --check","result":"PASS","evidence":"docsplan/nfeabi/plans/evidence/UAB-005/evidence/validation.txt","exit_code":0},
+    {"command":"pwsh -NoProfile -File .agents/skills/plan-linter/scripts/test-plan.ps1 -RepositoryRoot .","result":"PASS","evidence":"docsplan/nfeabi/plans/evidence/UAB-005/evidence/validation.txt","exit_code":0}
+  ],
+  "decisions": ["DEC-002","DEC-003","DEC-006","DEC-007"],
+  "requirements": ["REQ-006","REQ-007"],
+  "models_used": [
+    {"part_id":"UAB-005-P01","role":"planner","profile":"DEEP","model":"gpt-6-astra","effort":"high","context_id":"/root/uab005_plan"},
+    {"part_id":"UAB-005-P02","role":"executor","profile":"BALANCED","model":"gpt-5.6-terra","effort":"medium","context_id":"/root/uab005_balanced_executor"},
+    {"part_id":"UAB-005-P03","role":"reviewer","profile":"INDEPENDENT_REVIEW","model":"gpt-6-astra","effort":"high","context_id":"/root/uab005_independent_review"},
+    {"part_id":"UAB-005-P04","role":"documenter","profile":"ECONOMY","model":"gpt-5.6-luna","effort":"low","context_id":"/root/uab005_act_dossier"}
+  ],
+  "supporting_contexts": [
+    {"part_id":"UAB-005-P02","role":"executor-corrections","profile":"BALANCED","model":"gpt-5.6-terra","effort":"medium","context_id":"/root/uab005_test_completion"}
+  ],
+  "tests": {"status":"PASS_WITH_JUSTIFIED_NA","executed":["build Debug","NFeABI 63/63","P03 independente","git diff --check","plan linter"],"not_executed":["transporte fiscal online","Release/NuGet","UAB-006"]},
+  "next_stage_started": false
+}

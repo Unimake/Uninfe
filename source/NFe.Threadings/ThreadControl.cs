@@ -16,8 +16,6 @@ namespace NFe.Threadings
     /// </summary>
     public class ThreadItem : IDisposable
     {
-        private static readonly SemaphoreSlim SemaforoA3 = new SemaphoreSlim(1, 1);
-
         #region delegates
 
         public delegate void ThreadStartHandler(ThreadItem item);
@@ -67,24 +65,13 @@ namespace NFe.Threadings
         /// </summary>
         public void Run()
         {
-            var serializarA3 = Empresa >= 0 && Empresa < Empresas.Configuracoes.Count &&
-                Empresas.Configuracoes[Empresa].DeveSerializarOperacaoA3();
-            if (serializarA3)
+            var empresa = Empresa >= 0 && Empresa < Empresas.Configuracoes.Count
+                ? Empresas.Configuracoes[Empresa]
+                : null;
+            using (CoordenadorOperacaoCertificadoA3.Entrar(empresa))
             {
-                SemaforoA3.Wait();
-                try
-                {
-                    Processar(this);
-                }
-                finally
-                {
-                    SemaforoA3.Release();
-                }
-
-                return;
+                Processar(this);
             }
-
-            Processar(this);
         }
 
         private void Processar(ThreadItem item)
