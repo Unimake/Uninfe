@@ -199,6 +199,7 @@
   <ItemGroup>
     <Compile Include="Auxiliar.cs" />
     <Compile Include="ConfiguracaoApp.cs" />
+    <Compile Include="CoordenadorOperacaoCertificadoA3.cs" />
     <Compile Include="ControleEncerramento.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Empresa.cs" />

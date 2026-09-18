@@ -16,6 +16,8 @@ namespace UniNFe.Test.Certificados
         {
             internal bool EhA3 = true;
 
+            public bool HasCachedPrivateKeyContext(X509Certificate2 certificado) => true;
+
             public bool IsA3(X509Certificate2 certificado) => EhA3;
 
             public void SetPinPrivateKey(X509Certificate2 certificado, string pin)
@@ -100,6 +102,50 @@ namespace UniNFe.Test.Certificados
             finally
             {
                 ThreadItem.OnStarted -= inicio;
+            }
+        }
+
+        [Fact]
+        public void TelaEProcessamentoDeArquivoCompartilhamMesmoBloqueioA3()
+        {
+            var entrouArquivo = new ManualResetEventSlim(false);
+            var liberarArquivo = new ManualResetEventSlim(false);
+            var entrouTela = false;
+            ThreadItem.ThreadStartHandler inicio = item =>
+            {
+                entrouArquivo.Set();
+                liberarArquivo.Wait(3000);
+            };
+
+            ThreadItem.OnStarted += inicio;
+            try
+            {
+                var threadArquivo = new Thread(CriarThreadItem(0, "arquivo.xml").Run);
+                var threadTela = new Thread(() =>
+                {
+                    using (CoordenadorOperacaoCertificadoA3.Entrar(Empresas.Configuracoes[0]))
+                    {
+                        entrouTela = true;
+                    }
+                });
+
+                threadArquivo.Start();
+                Assert.True(entrouArquivo.Wait(3000));
+                threadTela.Start();
+                Thread.Sleep(100);
+                Assert.False(entrouTela);
+
+                liberarArquivo.Set();
+                Assert.True(threadArquivo.Join(3000));
+                Assert.True(threadTela.Join(3000));
+                Assert.True(entrouTela);
+            }
+            finally
+            {
+                liberarArquivo.Set();
+                ThreadItem.OnStarted -= inicio;
+                entrouArquivo.Dispose();
+                liberarArquivo.Dispose();
             }
         }
 

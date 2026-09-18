@@ -51,10 +51,15 @@ namespace NFe.UI
                 {
                     var xmlDoc = new XmlDocument();
                     xmlDoc.Load(arquivo);
-                    var xmlValidado = ValidarXMLSchema.Validar(xmlDoc, Emp, false);
-                    edtTipoarquivo.Text = xmlValidado.Descricao;
-                    textBox_resultado.Text = xmlValidado.MensagemRetorno;
-                    return;
+                    var empresa = Empresas.Configuracoes[Emp];
+                    using (CoordenadorOperacaoCertificadoA3.Entrar(empresa))
+                    {
+                        PreparadorCertificadoA3.PrepararOuLancar(empresa, true);
+                        var xmlValidado = ValidarXMLSchema.Validar(xmlDoc, Emp, false);
+                        edtTipoarquivo.Text = xmlValidado.Descricao;
+                        textBox_resultado.Text = xmlValidado.MensagemRetorno;
+                        return;
+                    }
                 }
                 catch (Exception ex)
                 {

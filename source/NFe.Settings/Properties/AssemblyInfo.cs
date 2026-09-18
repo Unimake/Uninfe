@@ -35,3 +35,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("UniNFe.Test")]
+[assembly: InternalsVisibleTo("NFe.Service")]
+[assembly: InternalsVisibleTo("NFe.Threadings")]
+[assembly: InternalsVisibleTo("NFe.UI")]

@@ -11,7 +11,7 @@
    set "caminhoAssinar=\\192.168.0.48\assinar"
    set "caminhoAssinarArquivos=%caminhoAssinar%\arquivos"
    set "caminhoDLLRelease=..\source\uninfe\bin\release"
-	set "caminhoSVRRelease=..\source\uninfe.service\bin\release"
+   set "caminhoSVRRelease=..\source\uninfe.service\bin\release"
 	   
    goto copiarDLLReleaseAssinar
    
@@ -75,7 +75,9 @@
 :beta
    del c:\projetos\instaladores\iuninfe5_beta.exe
    copy c:\projetos\instaladores\iuninfe5.exe c:\projetos\instaladores\iuninfe5_beta.exe
-  
+
+   if /i "%3"=="setup" goto fim
+   
    python "c:\program files (x86)\s3cmd\s3cmd" put c:\projetos\instaladores\iuninfe5_beta.exe s3://unimakedownload/iuninfe5_beta.exe --acl-public
    
    call sendftp.bat "iuninfe5_beta.exe"
