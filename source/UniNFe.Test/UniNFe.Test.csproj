@@ -27,6 +27,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.12" />
     <PackageReference Include="System.Text.Json" Version="10.0.12" />
+    <PackageReference Include="Unimake.DFe" Version="20260918.1641.36" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -40,27 +41,6 @@
     <ProjectReference Include="..\NFe.Settings\NFe.Settings.csproj" />
     <ProjectReference Include="..\NFe.Threadings\NFe.Threadings.csproj" />
     <ProjectReference Include="..\NFe.UI\NFe.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Unimake.Business.DFe">
-      <HintPath>..\NFe.ConvertTxt\bin\Release\Unimake.Business.DFe.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-  </ItemGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
-    <DFeProjectConfiguration>Debug</DFeProjectConfiguration>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' != 'Release' and '$(DFeProjectConfiguration)' == ''">
-    <DFeProjectConfiguration>$(Configuration)</DFeProjectConfiguration>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(Configuration)' != 'Release'">
-    <ProjectReference Include="..\..\..\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj">
-      <Properties>Configuration=$(DFeProjectConfiguration);Platform=$(Platform);TargetFramework=netstandard2.0</Properties>
-    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
