@@ -131,6 +131,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000002722-nfe.txt")]
         [InlineData("000000001-corrigido-nfe.txt")]
         [InlineData("000000001-rtc-zerado-nfe.txt")]
+        [InlineData("000000011-devolucao-rtc-nfe.txt")]
         [InlineData("NFe_RTC_CST200_Reducao100_TribRegular-nfe.txt")]
         [InlineData("RTC2026-NFe621-nfe.txt")]
         [InlineData("RTC2026-NFe622-nfe.txt")]
@@ -374,11 +375,59 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarModeloRtc2026(legado, nomeArquivo);
                         ValidarModeloRtc2026(novo, nomeArquivo);
                     }
-                    var diferenca = NFeConvertTxtXmlComparer.Comparar(legado, novo);
+                    var legadoParaComparacao = legado;
+                    var novoParaComparacao = novo;
+                    if (string.Equals(nomeArquivo, "000000011-devolucao-rtc-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Assert.Null(ObterElemento(legado, "indEscala"));
+                        Assert.Equal("S", ObterElemento(novo, "indEscala")?.InnerText);
+                        Assert.Equal("NFe33260999999999000191550050000000111003282235", ObterElemento(novo, "infNFe")?.GetAttribute("Id"));
+                        Assert.Equal("00328223", ObterElemento(novo, "cNF")?.InnerText);
+                        legadoParaComparacao = RemoverIdentificacaoDinamica(legado);
+                        novoParaComparacao = RemoverElemento(RemoverIdentificacaoDinamica(novo), "indEscala");
+                    }
+
+                    var diferenca = NFeConvertTxtXmlComparer.Comparar(legadoParaComparacao, novoParaComparacao);
                     Assert.True(diferenca == null, diferenca);
                 }
                 finally { if (Directory.Exists(pasta)) Directory.Delete(pasta, true); }
             }
+        }
+
+        private static XmlElement ObterElemento(string conteudoXml, string nome)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            return xml.SelectSingleNode("//*[local-name()='" + nome + "']") as XmlElement;
+        }
+
+        private static string RemoverElemento(string conteudoXml, string nome)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var elemento = xml.SelectSingleNode("//*[local-name()='" + nome + "']");
+            if (elemento != null)
+            {
+                elemento.ParentNode.RemoveChild(elemento);
+            }
+            return xml.OuterXml;
+        }
+
+        private static string RemoverIdentificacaoDinamica(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            var infNFe = xml.SelectSingleNode("//*[local-name()='infNFe']") as XmlElement;
+            infNFe?.RemoveAttribute("Id");
+            foreach (var nome in new[] { "cNF", "cDV" })
+            {
+                var elemento = xml.SelectSingleNode("//*[local-name()='ide']/*[local-name()='" + nome + "']");
+                if (elemento != null)
+                {
+                    elemento.ParentNode.RemoveChild(elemento);
+                }
+            }
+            return xml.OuterXml;
         }
 
         private static void ValidarRtcComReducaoIntegralEValoresInformadosPeloErp(string conteudoXml)
