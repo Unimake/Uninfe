@@ -19,7 +19,7 @@ Main projects:
 ## Implementation Rules
 
 - Preserve the current style: classic C#, project-based namespaces (`NFe.Components`, `NFe.Service`, `NFe.Settings`, `NFe.UI`, etc.), existing domain names, and `#region` usage where files already use it.
-- Do not migrate projects to SDK-style, modern .NET, `PackageReference`, or newer frameworks unless explicitly requested.
+- Do not migrate the classic .NET Framework projects to SDK-style, `PackageReference`, or newer frameworks unless explicitly requested. `UniNFe.Test` is already SDK-style and uses `PackageReference`; preserve that exception.
 - Avoid new dependencies when an existing helper or library already covers the need, especially `Unimake.Business.DFe`, `Unimake.*`, `Functions`, `Auxiliar`, `TFunctions`, `GerarXML`, `LerXML`, and `ValidarXMLNew`.
 - Use `Path.Combine` in new code when practical, but preserve existing comparisons, suffixes, and extensions when they are part of the ERP/file contract.
 - User-facing and ERP-facing errors/logs should be in Portuguese and follow the objective tone already used in the codebase.
@@ -80,7 +80,7 @@ Main projects:
 ## Build And Validation
 
 - Main solution: `source/uninfe.sln`.
-- Projects use .NET Framework 4.8.1 and `packages.config`.
+- Production projects use .NET Framework 4.8.1 and `packages.config`; `UniNFe.Test` targets .NET Framework 4.8.1 with `PackageReference`.
 - Before finishing relevant changes, validate with a build of the affected project or solution when the environment allows it, for example:
 
 ```powershell
@@ -88,7 +88,15 @@ dotnet build source/uninfe.sln --no-restore
 ```
 
 - `source/UniNFe.Test` contains focused automated tests. Run the impacted classes and use equivalent XML/TXT examples in `exemplos xml` when practical.
-- Debug and Beta builds consume the sibling `Unimake.DFe` project directly to support joint maintenance. Release consumes the configured NuGet package; preserve this split when changing references.
+- Debug, Beta and Release consume `Unimake.DFe` exclusively through NuGet. Never reintroduce the sibling project into `source/uninfe.sln` or add a `ProjectReference`/absolute checkout path to it.
+
+## Unimake.DFe NuGet Workflow
+
+- The classic projects reference both `Unimake.Business.DFe.dll` and `GeradorCIOTShared.dll` from the same `Unimake.DFe` package under `lib/netstandard2.0`. Do not recreate a duplicated `lib/net472` path or a separate local reference for the CIOT DLL.
+- `UniNFe.Test` must use an unconditional, exact-version `PackageReference` to `Unimake.DFe`; do not restore conditional binary references or configuration-specific project references.
+- For joint maintenance with the sibling checkout, generate an immutable local package with `C:\projetos\github\Unimake.DFe\source\packDFeOffline.bat`. The package is placed in `C:\projetos\NuGetOffline`, and the `Unimake Offline` source belongs in the user's NuGet configuration, never in a repository `NuGet.Config`.
+- A version that exists only in the offline feed may be used temporarily for local build and test work, but it must not be committed in UniNFe. Commit the version change only after that exact package version exists on nuget.org.
+- After selecting an offline package, validate the affected tests and the relevant Debug, Beta and Release builds. The checkout directory of `Unimake.DFe` alone no longer changes what UniNFe compiles.
 
 ## Special Care
 
