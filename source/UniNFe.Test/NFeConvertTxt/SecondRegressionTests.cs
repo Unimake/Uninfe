@@ -132,6 +132,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000000001-corrigido-nfe.txt")]
         [InlineData("000000001-rtc-zerado-nfe.txt")]
         [InlineData("000000011-devolucao-rtc-nfe.txt")]
+        [InlineData("000000011-devolucao-rtc-referenciada-nfe.txt")]
         [InlineData("NFe_RTC_CST200_Reducao100_TribRegular-nfe.txt")]
         [InlineData("RTC2026-NFe621-nfe.txt")]
         [InlineData("RTC2026-NFe622-nfe.txt")]
@@ -385,6 +386,15 @@ namespace UniNFe.Test.NFeConvertTxt
                         Assert.Equal("00328223", ObterElemento(novo, "cNF")?.InnerText);
                         legadoParaComparacao = RemoverIdentificacaoDinamica(legado);
                         novoParaComparacao = RemoverElemento(RemoverIdentificacaoDinamica(novo), "indEscala");
+                    }
+                    if (string.Equals(nomeArquivo, "000000011-devolucao-rtc-referenciada-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Assert.Equal("33260999999999000191550050000000081003099869", ObterElemento(legado, "chaveAcesso")?.InnerText);
+                        Assert.Equal("33260999999999000191550050000000081003099869", ObterElemento(novo, "chaveAcesso")?.InnerText);
+                        Assert.Equal("2", ObterElemento(legado, "nItem")?.InnerText);
+                        Assert.Equal("2", ObterElemento(novo, "nItem")?.InnerText);
+                        legadoParaComparacao = RemoverIdentificacaoDinamica(legado);
+                        novoParaComparacao = RemoverIdentificacaoDinamica(novo);
                     }
 
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legadoParaComparacao, novoParaComparacao);
