@@ -3,6 +3,7 @@ using NFe.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Xml;
@@ -84,13 +85,25 @@ namespace UniNFe.Test.Abstractions
 
         protected void ExecutarEmThread(string threadName, Action action)
         {
-            var thread = new Thread(() => action())
+            ExceptionDispatchInfo falha = null;
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    action();
+                }
+                catch (Exception ex)
+                {
+                    falha = ExceptionDispatchInfo.Capture(ex);
+                }
+            })
             {
                 Name = threadName
             };
 
             thread.Start();
             thread.Join();
+            falha?.Throw();
         }
 
         #endregion Protected Methods

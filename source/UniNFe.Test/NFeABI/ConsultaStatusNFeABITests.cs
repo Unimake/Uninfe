@@ -88,12 +88,16 @@ namespace UniNFe.Test.NFeABI
             Assert.Equal("usuario-proxy", capturada.ProxyUser);
             Assert.Equal("segredo-proxy", capturada.ProxyPassword);
 
+#if DEBUG || _BETA
             var diagnostico = File.ReadAllText(Path.Combine(pasta, "status-diagdispdfe.xml"));
             Assert.Contains("<ResultadoOperacao>RetornoFiscalRecebido</ResultadoOperacao>", diagnostico);
             Assert.Contains("<CategoriaFalha>Nenhuma</CategoriaFalha>", diagnostico);
             Assert.Contains("<CStat>" + cStat + "</CStat>", diagnostico);
             Assert.DoesNotContain("segredo-proxy", diagnostico);
             Assert.DoesNotContain("consStatServNFeABI", diagnostico);
+#else
+            Assert.False(File.Exists(Path.Combine(pasta, "status-diagdispdfe.xml")));
+#endif
         }
 
         [Theory]
@@ -111,9 +115,13 @@ namespace UniNFe.Test.NFeABI
             var erro = File.ReadAllText(Path.Combine(pasta, "status-sta.err"));
             Assert.Contains("Falha de " + categoria, erro);
             Assert.DoesNotContain("NAO_VAZAR", erro);
+#if DEBUG || _BETA
             var diagnostico = File.ReadAllText(Path.Combine(pasta, "status-diagdispdfe.xml"));
             Assert.Contains("<CategoriaFalha>" + categoria + "</CategoriaFalha>", diagnostico);
             Assert.DoesNotContain("NAO_VAZAR", diagnostico);
+#else
+            Assert.False(File.Exists(Path.Combine(pasta, "status-diagdispdfe.xml")));
+#endif
         }
 
         [Theory]

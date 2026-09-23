@@ -53,12 +53,15 @@ namespace UniNFe.Test.NFeABI
             Assert.False(File.Exists(Path.Combine(pasta, "EmProcessamento", "pedido-procNFeABI.xml")));
 
             // retorno previamente persistido só permite finalizar localmente; o fake não pode ser chamado.
+            arquivo = Pedido();
             File.WriteAllText(Path.Combine(pasta, "pedido-ret-nfeabi.xml"), Retorno("100", "CHAVE"));
             Directory.CreateDirectory(Path.Combine(pasta, "EmProcessamento"));
             File.WriteAllText(Path.Combine(pasta, "EmProcessamento", "pedido-nfeabi.xml"), Assinado());
             TaskNFeABIRecepcaoSinc.CriarAutorizacao = (x, c) => { throw new Exception("não pode retransmitir"); };
             ExecutarEmThread("0", () => new TaskNFeABIRecepcaoSinc(arquivo).Execute());
             Assert.Equal(1, chamadas);
+            Assert.False(File.Exists(arquivo));
+            Assert.False(File.Exists(Path.Combine(pasta, "EmProcessamento", "pedido-nfeabi.xml")));
         }
 
         [Fact]
@@ -197,11 +200,15 @@ namespace UniNFe.Test.NFeABI
             ExecutarEmThread("0", () => new TaskNFeABIRecepcaoSinc(Pedido()).Execute());
 
             Assert.False(factoryFoiChamada);
+#if DEBUG || _BETA
             var diagnostico = File.ReadAllText(Path.Combine(pasta, "pedido-diagdispdfe.xml"));
             Assert.Contains("<TipoDFe>NFeABI</TipoDFe>", diagnostico);
             Assert.Contains("<CategoriaFalha>Configuracao</CategoriaFalha>", diagnostico);
             Assert.Contains("<RespostaFiscalRecebida>Nao</RespostaFiscalRecebida>", diagnostico);
             Assert.DoesNotContain("NAO_VAZAR", diagnostico);
+#else
+            Assert.False(File.Exists(Path.Combine(pasta, "pedido-diagdispdfe.xml")));
+#endif
         }
 
         [Theory]
@@ -216,11 +223,15 @@ namespace UniNFe.Test.NFeABI
             ExecutarEmThread("0", () => new TaskNFeABIRecepcaoSinc(Pedido()).Execute());
 
             Assert.Contains("Falha de " + categoria, File.ReadAllText(Path.Combine(pasta, "pedido-ret-nfeabi.err")));
+#if DEBUG || _BETA
             var diagnostico = File.ReadAllText(Path.Combine(pasta, "pedido-diagdispdfe.xml"));
             Assert.Contains("<CategoriaFalha>" + categoria + "</CategoriaFalha>", diagnostico);
             Assert.Contains("<Preparado>Sim</Preparado>", diagnostico);
             Assert.Contains("<TransporteIniciado>Sim</TransporteIniciado>", diagnostico);
             Assert.DoesNotContain("NAO_VAZAR", diagnostico);
+#else
+            Assert.False(File.Exists(Path.Combine(pasta, "pedido-diagdispdfe.xml")));
+#endif
         }
 
         [Fact]
