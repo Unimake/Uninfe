@@ -79,6 +79,45 @@ namespace UniNFe.Test.NFeConvertTxt
             Assert.NotNull(xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IBSCBS']"));
         }
 
+        [Fact]
+        public void N02ComCst90DevePreservarXmlLegadoDaEntregaFutura323950()
+        {
+            var origem = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000323950-entrega-futura-nfe.txt");
+            var arquivo = Path.GetTempFileName();
+            var pasta = Path.Combine(Path.GetTempPath(), "UniNFe.Test", "NFeConvertTxt", Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(pasta);
+            try
+            {
+                var linhas = Array.FindAll(File.ReadAllLines(origem), linha =>
+                    !linha.StartsWith("N06|", StringComparison.OrdinalIgnoreCase) &&
+                    !linha.StartsWith("--", StringComparison.Ordinal));
+                File.WriteAllLines(arquivo, linhas);
+
+                var fixture = new NFeConvertTxtFixture();
+                using (var resultado = fixture.Converter(arquivo))
+                {
+                    Assert.True(resultado.Sucesso, resultado.MensagemErro);
+                    var gerador = new NFeW { cMensagemErro = string.Empty };
+                    typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic)
+                        .Invoke(gerador, new object[] { resultado.Nota, pasta, arquivo });
+                    var legado = File.ReadAllText(gerador.cFileName);
+                    Assert.Equal("90", ObterElemento(legado, "ICMS90")?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+
+                    var conversaoNova = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+                    Assert.True(conversaoNova.Sucesso, conversaoNova.MensagemErro);
+                    var novo = Assert.Single(conversaoNova.Documentos).Xml;
+                    Assert.Equal("90", ObterElemento(novo, "ICMS90")?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+                    Assert.Null(ObterElemento(novo, "ICMS00"));
+                    Assert.Null(NFeConvertTxtXmlComparer.Comparar(legado, novo));
+                }
+            }
+            finally
+            {
+                File.Delete(arquivo);
+                Directory.Delete(pasta, true);
+            }
+        }
+
         [Theory]
         [InlineData("0000042301054300027600113072026-NFE.txt")]
         [InlineData("versaoprouducao-nfe-orig.txt")]
@@ -138,6 +177,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("RTC2026-NFe622-nfe.txt")]
         [InlineData("RTC2026-NFe623-nfe.txt")]
         [InlineData("RTC2026-NFe624-nfe.txt")]
+        [InlineData("000323950-entrega-futura-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -395,6 +435,13 @@ namespace UniNFe.Test.NFeConvertTxt
                         Assert.Equal("2", ObterElemento(novo, "nItem")?.InnerText);
                         legadoParaComparacao = RemoverIdentificacaoDinamica(legado);
                         novoParaComparacao = RemoverIdentificacaoDinamica(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "000323950-entrega-futura-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Assert.Equal("41", ObterElemento(legado, "ICMS40")?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+                        Assert.Equal("41", ObterElemento(novo, "ICMS40")?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+                        Assert.Null(ObterElemento(legado, "ICMS90"));
+                        Assert.Null(ObterElemento(novo, "ICMS90"));
                     }
 
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legadoParaComparacao, novoParaComparacao);
