@@ -4,6 +4,8 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
+using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
@@ -39,8 +41,7 @@ namespace NFe.Service
         /// <param name="erroPadrao">Informe o erro padrão do UniNFe</param>
         public static void GravarArqErroServico(string arquivo, string finalArqEnvio, string finalArqErro, Exception exception, ErroPadrao erroPadrao, bool moveArqErro, string nomeArqRetorno = "")
         {
-            var ex = exception.GetLastException();
-            var erroMessage = MontaStringErro(ex.Message, ex.StackTrace, ex.Source, ex.GetType().ToString(), ex.TargetSite.ToString(), ex.GetHashCode().ToString(), erroPadrao);
+            var erroMessage = MontaStringErro(exception, erroPadrao, Propriedade.Versao, Propriedade.DataHoraUltimaModificacaoAplicacao);
             GravarArqErroServico(arquivo, finalArqEnvio, finalArqErro, erroMessage, moveArqErro, nomeArqRetorno);
 
             EnviarMB(exception);
@@ -78,14 +79,6 @@ namespace NFe.Service
         {
             var emp = Empresas.FindEmpresaByThread();
 
-            //Qualquer erro ocorrido o aplicativo vai mover o XML com falha da pasta de envio
-            //para a pasta de XML´s com erros. Futuramente ele é excluido quando outro igual
-            //for gerado corretamente.
-            if (moveArqErro)
-            {
-                MoveArqErro(arquivo);
-            }
-
             //Grava arquivo de ERRO para o ERP
             var pastaRetorno = Empresas.Configuracoes[emp].PastaXmlRetorno;
             var fi = new FileInfo(arquivo);
@@ -98,14 +91,37 @@ namespace NFe.Service
 
             try
             {
-                // Gerar log do erro
-                Auxiliar.WriteLog(erroMessage, true);
+                // A exceção completa já contém a pilha da falha. Registra antes de
+                // movimentar o arquivo para preservar a causa se a movimentação falhar.
+                var empresa = Empresas.Configuracoes[emp];
+                Auxiliar.WriteLog("Falha no processamento do arquivo.\r\nArquivoEntrada|" + arquivo +
+                    "\r\nArquivoRetornoPrevisto|" + arqErro +
+                    "\r\nTipoAplicativo|" + empresa.Servico +
+                    "\r\nAmbienteCodigo|" + empresa.AmbienteCodigo +
+                    "\r\n" + erroMessage, false);
             }
             catch
             {
             }
 
-            File.WriteAllText(arqErro, erroMessage);
+            try
+            {
+                if (moveArqErro)
+                {
+                    MoveArqErro(arquivo);
+                }
+
+                File.WriteAllText(arqErro, erroMessage);
+                Auxiliar.WriteLog("Retorno de erro gravado para o ERP. ArquivoEntrada=" + arquivo +
+                    ", ArquivoRetorno=" + arqErro, false);
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog("Falha ao movimentar o arquivo ou gravar o retorno de erro para o ERP. " +
+                    "ArquivoEntrada=" + arquivo + ", ArquivoRetornoPrevisto=" + arqErro +
+                    "\r\nExcecaoCompleta|" + ex, false);
+                throw;
+            }
 
             // grava o arquivo de erro no FTP
             new GerarXML(emp).XmlParaFTP(emp, arqErro);
@@ -118,25 +134,66 @@ namespace NFe.Service
         /// </summary>
         /// <param name="exception">Objeto da exception</param>
         /// <param name="erroPadrao">ErroPadrao</param>
+        /// <param name="versao">Versão do aplicativo</param>
+        /// <param name="dataHoraAplicacao">Data e hora da última modificação do aplicativo</param>
         /// <returns>Retorna uma string com o erro ocorrido.</returns>
-        private static string MontaStringErro(string message, string stackTrace, string source, string getType, string targetSite, string hashCode, ErroPadrao erroPadrao)
+        internal static string MontaStringErro(Exception exception, ErroPadrao erroPadrao, string versao, string dataHoraAplicacao)
         {
+            var ex = exception.GetLastException();
             var erroMessage = string.Empty;
 
-            erroMessage += "Versão UniNFe|" + Propriedade.Versao + " - " + Propriedade.DataHoraUltimaModificacaoAplicacao + "\r\n" +
+            erroMessage += "Versão UniNFe|" + versao + " - " + dataHoraAplicacao + "\r\n" +
                 "ErrorCode|" + ((int)erroPadrao).ToString("0000000000") +
                 "\r\n" +
-                "Message|" + message +
+                "Message|" + ex.Message +
                 "\r\n" +
-                "StackTrace|" + stackTrace +
+                "StackTrace|" + ex.StackTrace +
                 "\r\n" +
-                "Source|" + source +
+                "Source|" + ex.Source +
                 "\r\n" +
-                "Type|" + getType +
+                "Type|" + ex.GetType().ToString() +
                 "\r\n" +
-                "TargetSite|" + targetSite +
+                "TargetSite|" + ex.TargetSite?.ToString() +
                 "\r\n" +
-                "HashCode|" + hashCode;
+                "HashCode|" + ex.GetHashCode().ToString();
+
+            // Preserva os campos anteriores para os ERPs e acrescenta o contexto
+            // que seria perdido ao registrar somente a exceção mais interna.
+            var falhaAutenticacao = false;
+            var falhaCertificadoRemoto = false;
+            for (var atual = exception; atual != null; atual = atual.InnerException)
+            {
+                var webException = atual as WebException;
+                if (webException != null)
+                {
+                    erroMessage += "\r\nWebExceptionStatus|" + webException.Status;
+                    falhaCertificadoRemoto |= webException.Status == WebExceptionStatus.TrustFailure;
+                }
+
+                if (atual is AuthenticationException)
+                {
+                    falhaAutenticacao = true;
+                    falhaCertificadoRemoto |= atual.Message.IndexOf("certificado remoto", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        atual.Message.IndexOf("remote certificate", StringComparison.OrdinalIgnoreCase) >= 0;
+                }
+            }
+
+            if (falhaCertificadoRemoto)
+            {
+                erroMessage += "\r\nDiagnostico|Falha na validação do certificado HTTPS apresentado pelo servidor remoto. " +
+                    "Esta mensagem não comprova problema no certificado A1/A3 da empresa. " +
+                    "Verifique a validade e a cadeia de confiança do certificado do servidor, o domínio da URL acessada, " +
+                    "a data e hora do computador e a inspeção HTTPS do proxy, firewall ou antivírus. " +
+                    "Consulte a exceção completa e confirme a causa no ambiente em que ocorreu a falha.";
+            }
+            else if (falhaAutenticacao)
+            {
+                erroMessage += "\r\nDiagnostico|Falha de autenticação da conexão segura (SSL/TLS). " +
+                    "Consulte a exceção completa para investigar certificados e negociação de segurança. " +
+                    "Não é possível atribuir a falha ao certificado remoto apenas pelo tipo da exceção.";
+            }
+
+            erroMessage += "\r\nExcecaoCompleta|" + exception.ToString();
 
             return erroMessage;
         }
@@ -178,7 +235,7 @@ namespace NFe.Service
 
                     Functions.Move(Arquivo, vNomeArquivo);
 
-                    Auxiliar.WriteLog("O arquivo " + Arquivo + " foi movido para " + vNomeArquivo, true);
+                    Auxiliar.WriteLog("O arquivo " + Arquivo + " foi movido para " + vNomeArquivo, false);
                 }
                 else
                 {

@@ -928,6 +928,15 @@ namespace NFe.Components
                     (string.IsNullOrEmpty(CNPJEmpresa) ? "" : CNPJEmpresa) +
                     DateTime.Now.ToString("yyyy-MMM-dd") + ".log";
 
+                // Captura o contexto uma única vez, inclusive quando há novas tentativas de gravação.
+                var instante = DateTime.Now;
+                var thread = Thread.CurrentThread;
+                var contextoThread = " [Thread: " + thread.ManagedThreadId +
+                    (string.IsNullOrEmpty(thread.Name) ? "" : " / " + thread.Name) + "]";
+                if (gravarStackTrace)
+                {
+                    msg += "\r\nPILHA DO PONTO DE REGISTRO (não é a pilha da exceção):\r\n" + Environment.StackTrace;
+                }
                 DateTime startTime;
                 DateTime stopTime;
                 TimeSpan elapsedTime;
@@ -944,12 +953,6 @@ namespace NFe.Components
                     StreamWriter arquivoWS = null;
                     try
                     {
-                        //Se for para gravar ot race
-                        if (gravarStackTrace)
-                        {
-                            msg += "\r\nSTACK TRACE:";
-                            msg += "\r\n" + Environment.StackTrace;
-                        }
 
 #if _BETA
                         var versaoBeta = true;
@@ -958,7 +961,7 @@ namespace NFe.Components
 #endif
 
                         arquivoWS = new StreamWriter(fileName, true, Encoding.UTF8);
-                        arquivoWS.WriteLine(DateTime.Now.ToLongTimeString() + " - [Versão UniNFe" + (versaoBeta ? " (BETA)" : "") + ": " + Propriedade.Versao + "] - " + msg);
+                        arquivoWS.WriteLine(instante.ToString("yyyy-MM-dd HH:mm:ss.fff") + " - [Versão UniNFe" + (versaoBeta ? " (BETA)" : "") + ": " + Propriedade.Versao + "]" + contextoThread + " - " + msg);
                         arquivoWS.Flush();
                         arquivoWS.Close();
                         break;

@@ -28,7 +28,7 @@ namespace NFe.Threadings
 #if DEBUG
             Debug.WriteLine(String.Format("Contagem em processamento: '{0}'.", FileSystemWatcher._pool.GetLifetimeService()));
 #endif
-            Auxiliar.WriteLog("O arquivo " + item.FileInfo.FullName + " iniciou o processamento (Data criação: " + item.FileInfo.LastWriteTime + ")", false);
+            Auxiliar.WriteLog("O arquivo " + item.FileInfo.FullName + " iniciou o processamento (Última alteração do arquivo: " + item.FileInfo.LastWriteTime + ")", false);
             Processar(item);
         }
 
@@ -53,7 +53,7 @@ namespace NFe.Threadings
         /// <param name="item"></param>
         protected void ThreadItem_OnReleased(ThreadItem item)
         {
-            Auxiliar.WriteLog("O arquivo " + item.FileInfo.FullName + " foi descarregado da lista de processamento (Data criação: " + item.FileInfo.LastWriteTime + ")", false);
+            Auxiliar.WriteLog("O arquivo " + item.FileInfo.FullName + " foi descarregado da lista de processamento (Última alteração do arquivo: " + item.FileInfo.LastWriteTime + ")", false);
 
             //Se estiver reconfigurando o UniNFe, tem que reiniciar as threads
             if (item.FileInfo.FullName.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioXML) >= 0 ||
@@ -73,7 +73,7 @@ namespace NFe.Threadings
         protected void ThreadItem_OnEnded(ThreadItem item)
         {
             int listCount = FileSystemWatcher._pool.Release();
-            Auxiliar.WriteLog("O arquivo " + item.FileInfo.FullName + " finalizou o processamento. Itens disponiveis no Semaforo (" + listCount.ToString() + "). (Data criação: " + item.FileInfo.LastWriteTime + ")", false);            
+            Auxiliar.WriteLog("O arquivo " + item.FileInfo.FullName + " encerrou a execução. Consulte o retorno para verificar o resultado. Vagas disponíveis no semáforo (" + listCount.ToString() + "). (Última alteração do arquivo: " + item.FileInfo.LastWriteTime + ")", false);
         }
         #endregion
 
