@@ -8,27 +8,31 @@ namespace NFe.Service.NFGas
 {
     public class TaskConsultaStatusNFGas : TaskAbst
     {
-        public TaskConsultaStatusNFGas(string arquivo)
-        {
-            Servico = Servicos.NFGasStatusServico;
-            NomeArquivoXML = arquivo;
-            if (vXmlNfeDadosMsgEhXML)
-            {
-                ConteudoXML.PreserveWhitespace = false;
-                ConteudoXML.Load(arquivo);
-            }
-        }
-
-        #region Classe com os dados do XML da consulta do status do serviço da NFe
+        #region Private Fields
 
         /// <summary>
         /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
         /// </summary>
         private DadosPedSta dadosPedSta;
 
-        #endregion Classe com os dados do XML da consulta do status do serviço da NFe
+        #endregion Private Fields
 
-        #region Execute
+        #region Public Constructors
+
+        public TaskConsultaStatusNFGas(string arquivo)
+        {
+            Servico = Servicos.NFGasStatusServico;
+            NomeArquivoXML = arquivo;
+            if(vXmlNfeDadosMsgEhXML)
+            {
+                ConteudoXML.PreserveWhitespace = false;
+                ConteudoXML.Load(arquivo);
+            }
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -66,7 +70,7 @@ namespace NFe.Service.NFGas
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
@@ -101,6 +105,6 @@ namespace NFe.Service.NFGas
             }
         }
 
-        #endregion Execute
+        #endregion Public Methods
     }
 }

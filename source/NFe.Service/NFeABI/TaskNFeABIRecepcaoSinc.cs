@@ -16,6 +16,7 @@ namespace NFe.Service.NFeABI
         internal interface IAutorizacaoNFeABI : IDisposable
         {
             XmlDocument Assinado { get; }
+
             string Executar();
         }
 
@@ -49,7 +50,7 @@ namespace NFe.Service.NFeABI
             try
             {
                 ValidarPedido(emp, ConteudoXML);
-                if (AdicionarInfRespTec(emp, ConteudoXML))
+                if(AdicionarInfRespTec(emp, ConteudoXML))
                 {
                     RemoverAssinaturaAnterior(ConteudoXML);
                 }
@@ -68,7 +69,7 @@ namespace NFe.Service.NFeABI
                         Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).EnvioXML) +
                     "-ret-nfeabi.xml");
 
-                if (File.Exists(retornoRecuperavel) &&
+                if(File.Exists(retornoRecuperavel) &&
                     !File.Exists(emProcessamento) &&
                     TentarConcluirCleanupFinal(
                         emp,
@@ -82,9 +83,9 @@ namespace NFe.Service.NFeABI
                 }
 
                 string retorno;
-                if (File.Exists(nomeRetorno))
+                if(File.Exists(nomeRetorno))
                 {
-                    if (!File.Exists(emProcessamento))
+                    if(!File.Exists(emProcessamento))
                     {
                         throw new Exception("Retorno remoto sem XML assinado para retomada local.");
                     }
@@ -95,9 +96,9 @@ namespace NFe.Service.NFeABI
                     respostaRecebida = true;
                     respostaPersistida = true;
                 }
-                else if (File.Exists(retornoRecuperavel))
+                else if(File.Exists(retornoRecuperavel))
                 {
-                    if (!File.Exists(emProcessamento))
+                    if(!File.Exists(emProcessamento))
                     {
                         throw new Exception("Retorno recuperável sem XML assinado para retomada local.");
                     }
@@ -111,14 +112,14 @@ namespace NFe.Service.NFeABI
                 }
                 else
                 {
-                    if (File.Exists(emProcessamento))
+                    if(File.Exists(emProcessamento))
                     {
                         throw new Exception("Estado remoto da NF-e ABI incerto; aguarde o retorno antes de retransmitir.");
                     }
 
-                    using (var autorizacao = (CriarAutorizacao ?? CriarAutorizacaoPadrao)(ConteudoXML, configuracao))
+                    using(var autorizacao = (CriarAutorizacao ?? CriarAutorizacaoPadrao)(ConteudoXML, configuracao))
                     {
-                        if (autorizacao == null || autorizacao.Assinado == null)
+                        if(autorizacao == null || autorizacao.Assinado == null)
                         {
                             throw new Exception("Não foi possível preparar o XML assinado da NF-e ABI.");
                         }
@@ -129,7 +130,7 @@ namespace NFe.Service.NFeABI
                         transporteIniciado = true;
                         retorno = autorizacao.Executar();
                     }
-                    if (string.IsNullOrWhiteSpace(retorno))
+                    if(string.IsNullOrWhiteSpace(retorno))
                     {
                         throw new Exception("O serviço de autorização da NF-e ABI não retornou evidências completas.");
                     }
@@ -141,10 +142,10 @@ namespace NFe.Service.NFeABI
                 }
 
                 var cStat = ValidarRetornoFiscal(retorno, ConteudoXML);
-                if (cStat != "100")
+                if(cStat != "100")
                 {
                     TFunctions.MoveArqErro(emProcessamento);
-                    if (File.Exists(emProcessamento))
+                    if(File.Exists(emProcessamento))
                     {
                         throw new Exception("Não foi possível arquivar a rejeição da NF-e ABI.");
                     }
@@ -176,7 +177,7 @@ namespace NFe.Service.NFeABI
                 resultadoOperacao = "RetornoFiscalRecebido";
                 categoriaFalha = "Nenhuma";
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 categoriaFalha = ClassificarFalha(ex);
                 GravarErroSeguro(emp, categoriaFalha);
@@ -205,6 +206,7 @@ namespace NFe.Service.NFeABI
         private sealed class AutorizacaoNFeABIAdapter : IAutorizacaoNFeABI
         {
             private readonly Unimake.Business.DFe.Servicos.NFeABI.AutorizacaoSinc autorizacao;
+
             internal AutorizacaoNFeABIAdapter(Unimake.Business.DFe.Servicos.NFeABI.AutorizacaoSinc autorizacao)
             {
                 this.autorizacao = autorizacao;
@@ -256,30 +258,30 @@ namespace NFe.Service.NFeABI
         private static void ValidarPedido(int emp, XmlDocument xml)
         {
             var ide = xml.GetElementsByTagName("ide");
-            if (ide.Count == 0 || ((XmlElement)ide[0]).GetElementsByTagName("tpAmb").Count == 0)
+            if(ide.Count == 0 || ((XmlElement)ide[0]).GetElementsByTagName("tpAmb").Count == 0)
             {
                 throw new Exception("Pedido de autorização da NF-e ABI inválido.");
             }
 
             var ambiente = ((XmlElement)ide[0]).GetElementsByTagName("tpAmb")[0].InnerText;
 
-            if (ambiente != Empresas.Configuracoes[emp].AmbienteCodigo.ToString())
+            if(ambiente != Empresas.Configuracoes[emp].AmbienteCodigo.ToString())
             {
                 throw new Exception("O ambiente do pedido da NF-e ABI diverge da configuração da empresa.");
             }
 
-            if (ambiente == "1")
+            if(ambiente == "1")
             {
                 throw new Exception("O endpoint de produção da NF-e ABI ainda não foi publicado.");
             }
 
-            if (Empresas.Configuracoes[emp].UsaCertificado &&
+            if(Empresas.Configuracoes[emp].UsaCertificado &&
                 Empresas.Configuracoes[emp].X509Certificado == null)
             {
                 throw new Exception("Certificado digital não configurado para a autorização da NF-e ABI.");
             }
 
-            if (Empresas.Configuracoes[emp].UsaCertificado &&
+            if(Empresas.Configuracoes[emp].UsaCertificado &&
                 new Unimake.Business.Security.CertificadoDigital().Vencido(
                     Empresas.Configuracoes[emp].X509Certificado))
             {
@@ -289,13 +291,13 @@ namespace NFe.Service.NFeABI
 
         private static bool AdicionarInfRespTec(int emp, XmlDocument xml)
         {
-            if (xml.GetElementsByTagName("infRespTec").Count > 0)
+            if(xml.GetElementsByTagName("infRespTec").Count > 0)
             {
                 return false;
             }
 
             var empresa = Empresas.Configuracoes[emp];
-            if (string.IsNullOrEmpty(empresa.RespTecCNPJ) &&
+            if(string.IsNullOrEmpty(empresa.RespTecCNPJ) &&
                 string.IsNullOrEmpty(empresa.RespTecXContato) &&
                 string.IsNullOrEmpty(empresa.RespTecEmail) &&
                 string.IsNullOrEmpty(empresa.RespTecTelefone))
@@ -317,7 +319,7 @@ namespace NFe.Service.NFeABI
 
         private static void AdicionarElemento(XmlDocument xml, XmlElement pai, string nome, string valor)
         {
-            if (!string.IsNullOrEmpty(valor))
+            if(!string.IsNullOrEmpty(valor))
             {
                 var elemento = xml.CreateElement(nome, pai.NamespaceURI);
                 elemento.InnerText = valor;
@@ -328,7 +330,7 @@ namespace NFe.Service.NFeABI
         private static void RemoverAssinaturaAnterior(XmlDocument xml)
         {
             var assinaturas = xml.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#");
-            for (var i = assinaturas.Count - 1; i >= 0; i--)
+            for(var i = assinaturas.Count - 1; i >= 0; i--)
                 assinaturas[i].ParentNode.RemoveChild(assinaturas[i]);
         }
 
@@ -340,7 +342,7 @@ namespace NFe.Service.NFeABI
 
         private void PersistirRetornoBruto(string retorno)
         {
-            if (PersistirRetorno != null)
+            if(PersistirRetorno != null)
             {
                 PersistirRetorno(retorno);
             }
@@ -358,7 +360,7 @@ namespace NFe.Service.NFeABI
             var x = new XmlDocument();
             x.LoadXml(retorno);
 
-            if (x.DocumentElement == null ||
+            if(x.DocumentElement == null ||
                 x.DocumentElement.LocalName != "retNFeABI" ||
                 x.DocumentElement.NamespaceURI != "http://www.portalfiscal.inf.br/nfeabi" ||
                 x.DocumentElement.GetAttribute("versao") != "1.00")
@@ -369,7 +371,7 @@ namespace NFe.Service.NFeABI
             var stat = ExigirElementoDireto(x.DocumentElement, "cStat");
 
             int codigo;
-            if (stat.InnerText.Trim().Length != 3 || !int.TryParse(stat.InnerText.Trim(), out codigo))
+            if(stat.InnerText.Trim().Length != 3 || !int.TryParse(stat.InnerText.Trim(), out codigo))
             {
                 throw new Exception("Retorno técnico da NF-e ABI sem cStat conclusivo.");
             }
@@ -382,7 +384,7 @@ namespace NFe.Service.NFeABI
             var amb = ExigirElementoDireto(x.DocumentElement, "tpAmb");
             var pedidoAmb = ObterElementoPedido(assinado, "tpAmb");
 
-            if (pedidoAmb == null || amb.InnerText.Trim() != pedidoAmb.InnerText.Trim())
+            if(pedidoAmb == null || amb.InnerText.Trim() != pedidoAmb.InnerText.Trim())
             {
                 throw new Exception("Ambiente do retorno da NF-e ABI inconsistente.");
             }
@@ -392,11 +394,11 @@ namespace NFe.Service.NFeABI
 
         private static XmlElement ObterElementoDireto(XmlElement pai, string nome)
         {
-            foreach (XmlNode filho in pai.ChildNodes)
+            foreach(XmlNode filho in pai.ChildNodes)
             {
                 var elemento = filho as XmlElement;
 
-                if (elemento != null && elemento.LocalName == nome && elemento.NamespaceURI == "http://www.portalfiscal.inf.br/nfeabi")
+                if(elemento != null && elemento.LocalName == nome && elemento.NamespaceURI == "http://www.portalfiscal.inf.br/nfeabi")
                 {
                     return elemento;
                 }
@@ -408,7 +410,7 @@ namespace NFe.Service.NFeABI
         private static XmlElement ExigirElementoDireto(XmlElement pai, string nome)
         {
             var elemento = ObterElementoDireto(pai, nome);
-            if (elemento == null || string.IsNullOrWhiteSpace(elemento.InnerText))
+            if(elemento == null || string.IsNullOrWhiteSpace(elemento.InnerText))
             {
                 throw new Exception("Retorno técnico da NF-e ABI sem " + nome + ".");
             }
@@ -430,13 +432,13 @@ namespace NFe.Service.NFeABI
             ValidarRetornoFiscal(retorno, assinado);
 
             var p = ExigirElementoDireto(x.DocumentElement, "protNFeABI");
-            if (p.GetAttribute("versao") != "1.00")
+            if(p.GetAttribute("versao") != "1.00")
             {
                 throw new Exception("Protocolo da NF-e ABI sem versão válida.");
             }
 
             var infNFe = assinado.GetElementsByTagName("infNFeABI");
-            if (infNFe.Count == 0 || infNFe[0].Attributes["Id"] == null)
+            if(infNFe.Count == 0 || infNFe[0].Attributes["Id"] == null)
             {
                 throw new Exception("Retorno de autorização sem protocolo.");
             }
@@ -449,7 +451,7 @@ namespace NFe.Service.NFeABI
             ExigirElementoDireto(infProt, "verAplic");
             ExigirElementoDireto(infProt, "dhRecbto");
             ExigirElementoDireto(infProt, "xMotivo");
-            if (stat.InnerText.Trim() != "100" ||
+            if(stat.InnerText.Trim() != "100" ||
                 ch.InnerText != chave ||
                 amb.InnerText.Trim() != ObterElementoPedido(assinado, "tpAmb").InnerText.Trim())
             {
@@ -458,7 +460,7 @@ namespace NFe.Service.NFeABI
 
             var dig = ExigirElementoDireto(infProt, "digVal");
             var refDig = assinado.GetElementsByTagName("DigestValue");
-            if (refDig.Count == 0 || dig.InnerText.Trim() != refDig[0].InnerText.Trim())
+            if(refDig.Count == 0 || dig.InnerText.Trim() != refDig[0].InnerText.Trim())
             {
                 throw new Exception("Digest do protocolo da NF-e ABI inconsistente.");
             }
@@ -477,12 +479,12 @@ namespace NFe.Service.NFeABI
 
         private static void GravarSemSobrescrever(string arquivo, string conteudo)
         {
-            if (File.Exists(arquivo) && File.ReadAllText(arquivo) != conteudo)
+            if(File.Exists(arquivo) && File.ReadAllText(arquivo) != conteudo)
             {
                 throw new Exception("Colisão incompatível de evidência da NF-e ABI.");
             }
 
-            if (!File.Exists(arquivo))
+            if(!File.Exists(arquivo))
             {
                 File.WriteAllText(arquivo, conteudo, new UTF8Encoding(false));
             }
@@ -490,16 +492,16 @@ namespace NFe.Service.NFeABI
 
         private void MoverSeguro(string arquivo, PastaEnviados destino)
         {
-            if (!File.Exists(arquivo))
+            if(!File.Exists(arquivo))
             {
                 return;
             }
 
             var data = ObterDataEmissao(ConteudoXML);
             var caminhoDestino = ObterCaminhoDestino(arquivo, destino, data);
-            if (File.Exists(caminhoDestino))
+            if(File.Exists(caminhoDestino))
             {
-                if (File.ReadAllText(arquivo) != File.ReadAllText(caminhoDestino))
+                if(File.ReadAllText(arquivo) != File.ReadAllText(caminhoDestino))
                 {
                     throw new Exception("Colisão incompatível de evidência da NF-e ABI.");
                 }
@@ -510,7 +512,7 @@ namespace NFe.Service.NFeABI
 
             (MoverArquivo ?? MoverArquivoPadrao)(arquivo, destino, data);
 
-            if (!File.Exists(caminhoDestino) || File.Exists(arquivo))
+            if(!File.Exists(caminhoDestino) || File.Exists(arquivo))
             {
                 throw new Exception("Não foi possível confirmar a movimentação da NF-e ABI.");
             }
@@ -537,7 +539,7 @@ namespace NFe.Service.NFeABI
             XmlDocument original = null;
             var autorizado = false;
 
-            if (File.Exists(originalFinal))
+            if(File.Exists(originalFinal))
             {
                 original = CarregarXml(originalFinal);
                 autorizado = true;
@@ -545,7 +547,7 @@ namespace NFe.Service.NFeABI
             else
             {
                 var erro = Path.Combine(Empresas.Configuracoes[emp].PastaXmlErro, Path.GetFileName(emProcessamento));
-                if (!File.Exists(erro))
+                if(!File.Exists(erro))
                 {
                     return false;
                 }
@@ -554,14 +556,14 @@ namespace NFe.Service.NFeABI
             }
 
             var cStat = ValidarRetornoFiscal(retorno, original);
-            if (autorizado != (cStat == "100"))
+            if(autorizado != (cStat == "100"))
             {
                 throw new Exception("Evidência final da NF-e ABI incompatível.");
             }
 
-            if (autorizado)
+            if(autorizado)
             {
-                if (!File.Exists(procFinal))
+                if(!File.Exists(procFinal))
                 {
                     return false;
                 }
@@ -571,7 +573,7 @@ namespace NFe.Service.NFeABI
                 var nfeNoProc = ObterElementoDireto(proc.DocumentElement, "NFeABI");
                 var protNoProc = ObterElementoDireto(proc.DocumentElement, "protNFeABI");
 
-                if (proc.DocumentElement.LocalName != "nfeabiProc" ||
+                if(proc.DocumentElement.LocalName != "nfeabiProc" ||
                     proc.DocumentElement.NamespaceURI != "http://www.portalfiscal.inf.br/nfeabi" ||
                     nfeNoProc == null ||
                     protNoProc == null ||
@@ -583,15 +585,15 @@ namespace NFe.Service.NFeABI
             }
 
             var pedidoNormalizado = ClonarSemAssinatura(ConteudoXML);
-            if (AdicionarInfRespTec(emp, pedidoNormalizado))
+            if(AdicionarInfRespTec(emp, pedidoNormalizado))
             {
                 RemoverAssinaturaAnterior(pedidoNormalizado);
             }
 
             var arquivadoNormalizado = ClonarSemAssinatura(original);
-            if (pedidoNormalizado.OuterXml != arquivadoNormalizado.OuterXml)
+            if(pedidoNormalizado.OuterXml != arquivadoNormalizado.OuterXml)
             {
-                if (!File.Exists(retornoPublico))
+                if(!File.Exists(retornoPublico))
                 {
                     Excluir(retornoRecuperavel);
                     return false;
@@ -633,7 +635,7 @@ namespace NFe.Service.NFeABI
         private static string ObterChave(XmlDocument xml)
         {
             var inf = xml.GetElementsByTagName("infNFeABI");
-            if (inf.Count == 0 || inf[0].Attributes["Id"] == null)
+            if(inf.Count == 0 || inf[0].Attributes["Id"] == null)
             {
                 throw new Exception("NF-e ABI sem chave para retomada.");
             }
@@ -643,14 +645,14 @@ namespace NFe.Service.NFeABI
 
         private static void Excluir(string arquivo)
         {
-            if (!File.Exists(arquivo))
+            if(!File.Exists(arquivo))
             {
                 return;
             }
 
             (ExcluirArquivo ?? File.Delete)(arquivo);
 
-            if (File.Exists(arquivo))
+            if(File.Exists(arquivo))
             {
                 throw new Exception("Não foi possível concluir o cleanup da NF-e ABI.");
             }
@@ -669,7 +671,7 @@ namespace NFe.Service.NFeABI
         {
             var dhEmi = xml.GetElementsByTagName("dhEmi");
             DateTime data;
-            if (dhEmi.Count == 0 || !DateTime.TryParse(dhEmi[0].InnerText, out data))
+            if(dhEmi.Count == 0 || !DateTime.TryParse(dhEmi[0].InnerText, out data))
             {
                 throw new Exception("dhEmi da NF-e ABI ausente ou inválida.");
             }
@@ -685,43 +687,43 @@ namespace NFe.Service.NFeABI
         private static string ClassificarFalha(Exception ex)
         {
             var mensagem = ex == null ? string.Empty : ex.Message ?? string.Empty;
-            if (mensagem.IndexOf("certificado", StringComparison.OrdinalIgnoreCase) >= 0)
+            if(mensagem.IndexOf("certificado", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Certificado";
             }
 
-            if (mensagem.IndexOf("proxy", StringComparison.OrdinalIgnoreCase) >= 0)
+            if(mensagem.IndexOf("proxy", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Proxy";
             }
 
-            if (mensagem.IndexOf("tls", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("tls", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("ssl", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "TLS";
             }
 
-            if (mensagem.IndexOf("dns", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("dns", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("host", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "DNS";
             }
 
-            if (mensagem.IndexOf("produção", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("produção", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("ambiente", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("pedido", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Configuracao";
             }
 
-            if (mensagem.IndexOf("persist", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("persist", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("colisão", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("movimenta", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Persistencia";
             }
 
-            if (mensagem.IndexOf("retorno", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("retorno", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("vazia", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Retorno";
@@ -770,7 +772,7 @@ namespace NFe.Service.NFeABI
                     Encoding = new UTF8Encoding(false)
                 };
 
-                using (var w = XmlWriter.Create(
+                using(var w = XmlWriter.Create(
                     Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nome),
                     configuracao))
                 {

@@ -9,8 +9,19 @@ namespace NFe.Service
     /// <summary>
     /// Classe para consultar status do serviço do CTe
     /// </summary>
-    public class TaskCTeConsultaStatus: TaskAbst
+    public class TaskCTeConsultaStatus : TaskAbst
     {
+        #region Private Fields
+
+        /// <summary>
+        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
+        /// </summary>
+        private DadosPedSta dadosPedSta;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
         public TaskCTeConsultaStatus(string arquivo)
         {
             Servico = Servicos.CTeConsultaStatusServico;
@@ -19,20 +30,13 @@ namespace NFe.Service
             ConteudoXML.Load(arquivo);
         }
 
-        #region Classe com os dados do XML da consulta do status do serviço da NFe
-
-        /// <summary>
-        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
-        /// </summary>
-        private DadosPedSta dadosPedSta;
-
-        #endregion Classe com os dados do XML da consulta do status do serviço da NFe
-
-        #region Execute
+        #endregion Public Constructors
 
         /// <summary>
         /// Executa o serviço solicitado
         /// </summary>
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -105,6 +109,6 @@ namespace NFe.Service
             }
         }
 
-        #endregion Execute
+        #endregion Public Methods
     }
 }

@@ -9,6 +9,65 @@ namespace NFe.Service.BPe
 {
     public class TaskBPeEventos : TaskAbst
     {
+        #region Private Methods
+
+        private void LerRetornoEvento(int emp, RetEventoBPe retornoEventoBPe)
+        {
+            var docEventoOriginal = ConteudoXML;
+            var autorizou = false;
+
+            var versao = retornoEventoBPe.Versao;
+            var infEvento = retornoEventoBPe.InfEvento;
+
+            var cStatCons = infEvento.CStat;
+            var xMotivo = string.Empty;
+
+            if(infEvento.XMotivo != null)
+            {
+                xMotivo = infEvento.XMotivo;
+            }
+
+            if(cStatCons == 134 || cStatCons == 135 || cStatCons == 136)
+            {
+                var chBPe = infEvento.ChBPe;
+                var nSeqEvento = Convert.ToInt32("0" + infEvento.NSeqEvento);
+                var tpEvento = (int)infEvento.TpEvento;
+
+                var idEventoOriginal = (docEventoOriginal.GetElementsByTagName("infEvento")[0]).Attributes.GetNamedItem(TpcnResources.Id.ToString()).Value;
+                var idEventoRetorno = TpcnResources.ID.ToString() + tpEvento + chBPe + nSeqEvento.ToString((idEventoOriginal.Length <= 54 ? "00" : "000"));
+
+                foreach(XmlNode env in docEventoOriginal.GetElementsByTagName("infEvento"))
+                {
+                    if(idEventoOriginal == idEventoRetorno)
+                    {
+                        autorizou = true;
+
+                        oGerarXML.XmlDistEventoBPe(emp, chBPe, nSeqEvento.ToString((idEventoOriginal.Length <= 54 ? "00" : "000")), tpEvento,
+                            env.ParentNode.OuterXml, retornoEventoBPe.GerarXML().OuterXml, infEvento.DhRegEvento.DateTime, true, versao);
+
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                if(Empresas.Configuracoes[emp].DocumentosRejeitados)
+                {
+                    var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
+                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(cStatCons).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Evento do BPe rejeitado");
+                }
+            }
+
+            if(!autorizou)
+            {
+                oAux.MoveArqErro(NomeArquivoXML);
+            }
+        }
+
+        #endregion Private Methods
+
+        #region Public Constructors
+
         public TaskBPeEventos(string arquivo)
         {
             Servico = Servicos.BPeRecepcaoEvento;
@@ -16,6 +75,10 @@ namespace NFe.Service.BPe
             ConteudoXML.PreserveWhitespace = false;
             ConteudoXML.Load(arquivo);
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -53,7 +116,7 @@ namespace NFe.Service.BPe
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
@@ -78,57 +141,6 @@ namespace NFe.Service.BPe
             }
         }
 
-        private void LerRetornoEvento(int emp, RetEventoBPe retornoEventoBPe)
-        {
-            var docEventoOriginal = ConteudoXML;
-            var autorizou = false;
-
-            var versao = retornoEventoBPe.Versao;
-            var infEvento = retornoEventoBPe.InfEvento;
-
-            var cStatCons = infEvento.CStat;
-            var xMotivo = string.Empty;
-
-            if (infEvento.XMotivo != null)
-            {
-                xMotivo = infEvento.XMotivo;
-            }
-
-            if (cStatCons == 134 || cStatCons == 135 || cStatCons == 136)
-            {
-                var chBPe = infEvento.ChBPe;
-                var nSeqEvento = Convert.ToInt32("0" + infEvento.NSeqEvento);
-                var tpEvento = (int)infEvento.TpEvento;
-
-                var idEventoOriginal = (docEventoOriginal.GetElementsByTagName("infEvento")[0]).Attributes.GetNamedItem(TpcnResources.Id.ToString()).Value;
-                var idEventoRetorno = TpcnResources.ID.ToString() + tpEvento + chBPe + nSeqEvento.ToString((idEventoOriginal.Length <= 54 ? "00" : "000"));
-
-                foreach (XmlNode env in docEventoOriginal.GetElementsByTagName("infEvento"))
-                {
-                    if (idEventoOriginal == idEventoRetorno)
-                    {
-                        autorizou = true;
-
-                        oGerarXML.XmlDistEventoBPe(emp, chBPe, nSeqEvento.ToString((idEventoOriginal.Length <= 54 ? "00" : "000")), tpEvento,
-                            env.ParentNode.OuterXml, retornoEventoBPe.GerarXML().OuterXml, infEvento.DhRegEvento.DateTime, true, versao);
-
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                if (Empresas.Configuracoes[emp].DocumentosRejeitados)
-                {
-                    var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(cStatCons).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - Evento do BPe rejeitado");
-                }
-            }
-
-            if (!autorizou)
-            {
-                oAux.MoveArqErro(NomeArquivoXML);
-            }
-        }
+        #endregion Public Methods
     }
 }

@@ -8,18 +8,28 @@ namespace NFe.Service.BPe
 {
     public class TaskConsultaStatusBPe : TaskAbst
     {
+        #region Private Fields
+
+        private DadosPedSta dadosPedSta;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
         public TaskConsultaStatusBPe(string arquivo)
         {
             Servico = Servicos.BPeStatusServico;
             NomeArquivoXML = arquivo;
-            if (vXmlNfeDadosMsgEhXML)
+            if(vXmlNfeDadosMsgEhXML)
             {
                 ConteudoXML.PreserveWhitespace = false;
                 ConteudoXML.Load(arquivo);
             }
         }
 
-        private DadosPedSta dadosPedSta;
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -57,7 +67,7 @@ namespace NFe.Service.BPe
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
@@ -83,5 +93,7 @@ namespace NFe.Service.BPe
                 }
             }
         }
+
+        #endregion Public Methods
     }
 }

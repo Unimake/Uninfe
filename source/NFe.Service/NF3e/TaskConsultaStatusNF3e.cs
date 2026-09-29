@@ -12,27 +12,31 @@ namespace NFe.Service.NF3e
 {
     public class TaskConsultaStatusNF3e : TaskAbst
     {
-        public TaskConsultaStatusNF3e(string arquivo)
-        {
-            Servico = Servicos.NF3eStatusServico;
-            NomeArquivoXML = arquivo;
-            if (vXmlNfeDadosMsgEhXML)
-            {
-                ConteudoXML.PreserveWhitespace = false;
-                ConteudoXML.Load(arquivo);
-            }
-        }
-
-        #region Classe com os dados do XML da consulta do status do serviço da NFe
+        #region Private Fields
 
         /// <summary>
         /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
         /// </summary>
         private DadosPedSta dadosPedSta;
 
-        #endregion Classe com os dados do XML da consulta do status do serviço da NFe
+        #endregion Private Fields
 
-        #region Execute
+        #region Public Constructors
+
+        public TaskConsultaStatusNF3e(string arquivo)
+        {
+            Servico = Servicos.NF3eStatusServico;
+            NomeArquivoXML = arquivo;
+            if(vXmlNfeDadosMsgEhXML)
+            {
+                ConteudoXML.PreserveWhitespace = false;
+                ConteudoXML.Load(arquivo);
+            }
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -70,7 +74,7 @@ namespace NFe.Service.NF3e
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
@@ -105,6 +109,6 @@ namespace NFe.Service.NF3e
             }
         }
 
-        #endregion Execute
+        #endregion Public Methods
     }
 }

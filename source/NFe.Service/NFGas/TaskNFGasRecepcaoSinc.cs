@@ -11,6 +11,233 @@ namespace NFe.Service.NFGas
 {
     public class TaskNFGasRecepcaoSinc : TaskAbst
     {
+        #region Private Methods
+
+        private void FinalizarNFGas(XmlNodeList protNFGasList, FluxoNfe fluxoNFe, int emp, XmlDocument conteudoXmlNFGas)
+        {
+            var oLerXml = new LerXML();
+
+            foreach(XmlNode protNFGasNode in protNFGasList)
+            {
+                var protNFGasElemento = (XmlElement)protNFGasNode;
+
+                var strProtNFGas = protNFGasElemento.OuterXml;
+
+                var infProtList = protNFGasElemento.GetElementsByTagName("infProt");
+
+                foreach(XmlNode infProtNode in infProtList)
+                {
+                    var tirarFluxo = true;
+                    var infProtElemento = (XmlElement)(infProtNode);
+
+                    var strChaveNFGas = string.Empty;
+                    var strStat = string.Empty;
+                    var xMotivo = string.Empty;
+
+                    if(infProtElemento.GetElementsByTagName(TpcnResources.chNFGas.ToString())[0] != null)
+                    {
+                        strChaveNFGas = "NFGas" + infProtElemento.GetElementsByTagName(TpcnResources.chNFGas.ToString())[0].InnerText;
+                    }
+
+                    if(infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0] != null)
+                    {
+                        strStat = infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
+                    }
+
+                    if(infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0] != null)
+                    {
+                        xMotivo = infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0].InnerText;
+                    }
+
+                    // Definir o nome do arquivo da NFe e seu caminho
+                    var strNomeArqNFGas = "";
+                    strNomeArqNFGas = new FileInfo(NomeArquivoXML).Name;
+
+                    if(string.IsNullOrEmpty(strNomeArqNFGas))
+                    {
+                        if(string.IsNullOrEmpty(strChaveNFGas))
+                        {
+                            oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
+                            throw new Exception("FinalizarNFGas(): Não pode obter o nome do arquivo");
+                        }
+
+                        strNomeArqNFGas = strChaveNFGas.Substring(5) + Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML;
+                    }
+
+                    var strArquivoNFGas = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + strNomeArqNFGas;
+
+                    //Atualizar a Tag de status da NFGas no fluxo para que se ocorrer alguma falha na exclusão eu tenha esta campo para ter uma referencia em futuras consultas
+                    fluxoNFe.AtualizarTag(strChaveNFGas, FluxoNfe.ElementoEditavel.cStat, strStat);
+
+                    switch(strStat)
+                    {
+                        case "100": // NFGas autorizado
+
+                            if(File.Exists(strArquivoNFGas))
+                            {
+                                var strArquivoNFGasProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" +
+                                    Functions.ExtrairNomeArq(strNomeArqNFGas, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML) + Propriedade.ExtRetorno.ProcNFGas;
+
+                                if(conteudoXmlNFGas == null)
+                                {
+                                    conteudoXmlNFGas = new XmlDocument();
+                                    conteudoXmlNFGas.Load(strArquivoNFGas);
+                                }
+
+                                oLerXml.NFGas(conteudoXmlNFGas);
+
+                                // Verifica se a -NFGas.xml existe na pasta de autorizados
+                                var NFGasJaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML,
+                                    Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
+
+                                // Verifica se a -procNFGas.xml existe na pasta de autorizados
+                                var procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML,
+                                    Propriedade.ExtRetorno.ProcNFGas);
+
+                                if(!procNFGasJaNaAutorizada)
+                                {
+                                    if(!File.Exists(strArquivoNFGasProc))
+                                    {
+                                        oGerarXML.XmlDistNFGas(strArquivoNFGas, strProtNFGas, Propriedade.ExtRetorno.ProcNFGas, oLerXml.oDadosNfe.versao);
+                                    }
+                                }
+
+                                if(!(procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProcNFGas)))
+                                {
+                                    //Mover a NFGasPRoc da pasta de NFGas em processamento para a NFGas Autorizada
+                                    //Para evitar falhar, tenho que mover primeiro o XML de distribuição (-procNFGas.xml) para
+                                    //depois mover o da NFGas (-NFGas.xml), pois se ocorrer algum erro, tenho como reconstruir o cenário,
+                                    //assim sendo não inverta as posições. Wandrey 08/10/2009
+                                    TFunctions.MoverArquivo(strArquivoNFGasProc, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
+
+                                    // Atualizar a situação para que eu só mova o arquivo com final -NFGas.xml para a pasta autorizado se
+                                    // a procNFGas já estiver lá, ou vai ficar na pasta emProcessamento para tentar gerar novamente.
+                                    // Isso vai dar uma maior segurança para não deixar sem gerar o -procNFGas.xml. Wandrey 13/12/2012
+                                    procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProcNFGas);
+                                }
+
+                                if(!NFGasJaAutorizada && procNFGasJaNaAutorizada)
+                                {
+                                    // Mover a NFGas da pasta de NFGas em processamento para NFGas Autorizada
+                                    // Para evitar falhar, tenho que mover primeiro o XML de distribuição (-procnfe.xml) para
+                                    // depois mover o da NFGas (-NFGas.xml), pois se ocorrer algum erro, tenho como reconstruir o cenário.
+                                    // assim sendo não inverta as posições. Wandrey 08/10/2009
+                                    if(!Empresas.Configuracoes[emp].SalvarSomenteXMLDistribuicao)
+                                    {
+                                        TFunctions.MoverArquivo(strArquivoNFGas, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
+                                    }
+                                    else
+                                    {
+                                        TFunctions.MoverArquivo(strArquivoNFGas, PastaEnviados.Originais, oLerXml.oDadosNfe.dEmi);
+                                    }
+                                }
+
+                                if(procNFGasJaNaAutorizada)
+                                {
+                                    try
+                                    {
+                                        var strArquivoDist = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                            PastaEnviados.Autorizados.ToString() + "\\" +
+                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
+                                            Path.GetFileName(strArquivoNFGasProc);
+
+                                        UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        Auxiliar.WriteLog("TaskNFGasRecepcaoSinc: " + ex.Message, false);
+                                    }
+                                }
+
+                                // Vou verificar se estão os dois arquivos na pasta Autorizados, se tiver eu tiro do fluxo caso contrário não. Wandrey 13/02/2012
+                                NFGasJaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
+                                procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProcNFGas);
+
+                                if(!procNFGasJaNaAutorizada || !NFGasJaAutorizada)
+                                {
+                                    tirarFluxo = false;
+                                }
+                            }
+
+                            break;
+
+                        default: // NFGas foi rejeitada
+                                 // O Status da NFGas tem que ser maior que 1 ou deu algum erro na hora de ler o XML de retorno da consulta do recibo, sendo assim, vou mantar a nota no fluxo para consultar novamente.
+
+                            if(Convert.ToInt32(strStat) >= 1)
+                            {
+                                // Mover o XML da NFGas a pasta de XML´s com erro
+                                oAux.MoveArqErro(strArquivoNFGas);
+
+                                if(Empresas.Configuracoes[emp].DocumentosRejeitados)
+                                {
+                                    var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
+                                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - NFGas´s estão sendo rejeitados");
+                                }
+                            }
+                            else
+                            {
+                                tirarFluxo = false;
+                            }
+
+                            break;
+                    }
+
+                    // Deletar a NFGas do arquivo de controle de fluxo
+                    if(tirarFluxo)
+                    {
+                        fluxoNFe.ExcluirNfeFluxo(strChaveNFGas);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Finalizar a NFGas no processo síncrono
+        /// </summary>
+        /// <param name="xmlRetorno">Conteúdo do XML retornado pela SEFAZ</param>
+        /// <param name="emp">Código da empresa</param>
+        private void FinalizarNFGasSincrono(string xmlRetorno, int emp)
+        {
+            var xml = new XmlDocument();
+            xml.Load(Functions.StringXmlToStream(xmlRetorno));
+
+            var protNFGas = xml.GetElementsByTagName("protNFGas");
+            var fluxoNFe = new FluxoNfe();
+
+            FinalizarNFGas(protNFGas, fluxoNFe, emp, ConteudoXML);
+        }
+
+        #endregion Private Methods
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Salvar o arquivo da NFGas assinado na pasta EmProcessamento
+        /// </summary>
+        /// <param name="emp">Código da empresa</param>
+        /// <param name="arqEmProcessamento">Onde será salvo o XML assinado</param>
+        /// <param name="nomeTag">Nome da tag que abre o XML</param>
+        protected void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento, string nomeTag)
+        {
+            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
+
+            var sw = File.CreateText(arqEmProcessamento);
+            sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
+            sw.Close();
+
+            //if (File.Exists(arqEmProcessamento))
+            //{
+            //    File.Delete(NomeArquivoXML);
+            //}
+        }
+
+        #endregion Protected Methods
+
+        #region Public Constructors
+
         public TaskNFGasRecepcaoSinc(string arquivo)
         {
             Servico = Servicos.NFGasAutorizacaoSinc;
@@ -19,7 +246,9 @@ namespace NFe.Service.NFGas
             ConteudoXML.Load(arquivo);
         }
 
-        #region Execute
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -35,9 +264,9 @@ namespace NFe.Service.NFGas
                 var xmlNFGas = new Unimake.Business.DFe.Xml.NFGas.NFGas();
                 xmlNFGas = xmlNFGas.LerXML<Unimake.Business.DFe.Xml.NFGas.NFGas>(ConteudoXML);
 
-                if (xmlNFGas.InfNFGas.GRespTec == null)
+                if(xmlNFGas.InfNFGas.GRespTec == null)
                 {
-                    if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecCNPJ) ||
+                    if(!string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecCNPJ) ||
                         !string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecEmail) ||
                         !string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecTelefone) ||
                         !string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecXContato))
@@ -73,7 +302,7 @@ namespace NFe.Service.NFGas
 
                 vStrXmlRetorno = autorizacaoSinc.RetornoWSString;
 
-                if (autorizacaoSinc.Result.CStat == 100)
+                if(autorizacaoSinc.Result.CStat == 100)
                 {
                     FinalizarNFGasSincrono(vStrXmlRetorno, emp);
                 }
@@ -81,7 +310,7 @@ namespace NFe.Service.NFGas
                 {
                     oAux.MoveArqErro(arqEmProcessamento);
 
-                    if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                    if(Empresas.Configuracoes[emp].DocumentosRejeitados)
                     {
                         var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
                         sendMessageToWhatsApp.AlertNotification("Rejeição: " + autorizacaoSinc.Result.CStat.ToString("000") + "-" + autorizacaoSinc.Result.XMotivo.Trim(), "UNINFE - NFGas´s estão sendo rejeitados");
@@ -90,7 +319,7 @@ namespace NFe.Service.NFGas
 
                 oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).RetornoXML, vStrXmlRetorno);
 
-                if (File.Exists(NomeArquivoXML))
+                if(File.Exists(NomeArquivoXML))
                 {
                     File.Delete(NomeArquivoXML);
                 }
@@ -100,17 +329,17 @@ namespace NFe.Service.NFGas
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
                     var arqXML = NomeArquivoXML;
 
-                    if (File.Exists(arqEmProcessamento))
+                    if(File.Exists(arqEmProcessamento))
                     {
                         arqXML = arqEmProcessamento;
 
-                        if (File.Exists(NomeArquivoXML))
+                        if(File.Exists(NomeArquivoXML))
                         {
                             TFunctions.MoveArqErro(NomeArquivoXML);
                         }
@@ -125,231 +354,6 @@ namespace NFe.Service.NFGas
             }
         }
 
-        /// <summary>
-        /// Salvar o arquivo da NFGas assinado na pasta EmProcessamento
-        /// </summary>
-        /// <param name="emp">Código da empresa</param>
-        /// <param name="arqEmProcessamento">Onde será salvo o XML assinado</param>
-        /// <param name="nomeTag">Nome da tag que abre o XML</param>
-        protected void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento, string nomeTag)
-        {
-            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
-
-            var sw = File.CreateText(arqEmProcessamento);
-            sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
-            sw.Close();
-
-            //if (File.Exists(arqEmProcessamento))
-            //{
-            //    File.Delete(NomeArquivoXML);
-            //}
-        }
-
-        #endregion Execute
-
-        #region FinalizarNFGasSincrono()
-
-        /// <summary>
-        /// Finalizar a NFGas no processo síncrono
-        /// </summary>
-        /// <param name="xmlRetorno">Conteúdo do XML retornado pela SEFAZ</param>
-        /// <param name="emp">Código da empresa</param>
-        private void FinalizarNFGasSincrono(string xmlRetorno, int emp)
-        {
-            var xml = new XmlDocument();
-            xml.Load(Functions.StringXmlToStream(xmlRetorno));
-
-            var protNFGas = xml.GetElementsByTagName("protNFGas");
-            var fluxoNFe = new FluxoNfe();
-
-            FinalizarNFGas(protNFGas, fluxoNFe, emp, ConteudoXML);
-        }
-
-        #endregion FinalizarNFGasSincrono()
-
-        #region FinalizarNFGas()
-
-        private void FinalizarNFGas(XmlNodeList protNFGasList, FluxoNfe fluxoNFe, int emp, XmlDocument conteudoXmlNFGas)
-        {
-            var oLerXml = new LerXML();
-
-            foreach (XmlNode protNFGasNode in protNFGasList)
-            {
-                var protNFGasElemento = (XmlElement)protNFGasNode;
-
-                var strProtNFGas = protNFGasElemento.OuterXml;
-
-                var infProtList = protNFGasElemento.GetElementsByTagName("infProt");
-
-                foreach (XmlNode infProtNode in infProtList)
-                {
-                    var tirarFluxo = true;
-                    var infProtElemento = (XmlElement)(infProtNode);
-
-                    var strChaveNFGas = string.Empty;
-                    var strStat = string.Empty;
-                    var xMotivo = string.Empty;
-
-                    if (infProtElemento.GetElementsByTagName(TpcnResources.chNFGas.ToString())[0] != null)
-                    {
-                        strChaveNFGas = "NFGas" + infProtElemento.GetElementsByTagName(TpcnResources.chNFGas.ToString())[0].InnerText;
-                    }
-
-                    if (infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0] != null)
-                    {
-                        strStat = infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
-                    }
-
-                    if (infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0] != null)
-                    {
-                        xMotivo = infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0].InnerText;
-                    }
-
-                    // Definir o nome do arquivo da NFe e seu caminho
-                    var strNomeArqNFGas = "";
-                    strNomeArqNFGas = new FileInfo(NomeArquivoXML).Name;
-
-                    if (string.IsNullOrEmpty(strNomeArqNFGas))
-                    {
-                        if (string.IsNullOrEmpty(strChaveNFGas))
-                        {
-                            oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
-                            throw new Exception("FinalizarNFGas(): Não pode obter o nome do arquivo");
-                        }
-
-                        strNomeArqNFGas = strChaveNFGas.Substring(5) + Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML;
-                    }
-
-                    var strArquivoNFGas = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + strNomeArqNFGas;
-
-                    //Atualizar a Tag de status da NFGas no fluxo para que se ocorrer alguma falha na exclusão eu tenha esta campo para ter uma referencia em futuras consultas
-                    fluxoNFe.AtualizarTag(strChaveNFGas, FluxoNfe.ElementoEditavel.cStat, strStat);
-
-                    switch (strStat)
-                    {
-                        case "100": // NFGas autorizado
-
-                            if (File.Exists(strArquivoNFGas))
-                            {
-                                var strArquivoNFGasProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" +
-                                    Functions.ExtrairNomeArq(strNomeArqNFGas, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML) + Propriedade.ExtRetorno.ProcNFGas;
-
-                                if (conteudoXmlNFGas == null)
-                                {
-                                    conteudoXmlNFGas = new XmlDocument();
-                                    conteudoXmlNFGas.Load(strArquivoNFGas);
-                                }
-
-                                oLerXml.NFGas(conteudoXmlNFGas);
-
-                                // Verifica se a -NFGas.xml existe na pasta de autorizados
-                                var NFGasJaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML,
-                                    Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
-
-                                // Verifica se a -procNFGas.xml existe na pasta de autorizados
-                                var procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML,
-                                    Propriedade.ExtRetorno.ProcNFGas);
-
-                                if (!procNFGasJaNaAutorizada)
-                                {
-                                    if (!File.Exists(strArquivoNFGasProc))
-                                    {
-                                        oGerarXML.XmlDistNFGas(strArquivoNFGas, strProtNFGas, Propriedade.ExtRetorno.ProcNFGas, oLerXml.oDadosNfe.versao);
-                                    }
-                                }
-
-                                if (!(procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProcNFGas)))
-                                {
-                                    //Mover a NFGasPRoc da pasta de NFGas em processamento para a NFGas Autorizada
-                                    //Para evitar falhar, tenho que mover primeiro o XML de distribuição (-procNFGas.xml) para
-                                    //depois mover o da NFGas (-NFGas.xml), pois se ocorrer algum erro, tenho como reconstruir o cenário,
-                                    //assim sendo não inverta as posições. Wandrey 08/10/2009
-                                    TFunctions.MoverArquivo(strArquivoNFGasProc, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
-
-                                    // Atualizar a situação para que eu só mova o arquivo com final -NFGas.xml para a pasta autorizado se
-                                    // a procNFGas já estiver lá, ou vai ficar na pasta emProcessamento para tentar gerar novamente.
-                                    // Isso vai dar uma maior segurança para não deixar sem gerar o -procNFGas.xml. Wandrey 13/12/2012
-                                    procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProcNFGas);
-                                }
-
-                                if (!NFGasJaAutorizada && procNFGasJaNaAutorizada)
-                                {
-                                    // Mover a NFGas da pasta de NFGas em processamento para NFGas Autorizada
-                                    // Para evitar falhar, tenho que mover primeiro o XML de distribuição (-procnfe.xml) para
-                                    // depois mover o da NFGas (-NFGas.xml), pois se ocorrer algum erro, tenho como reconstruir o cenário.
-                                    // assim sendo não inverta as posições. Wandrey 08/10/2009
-                                    if (!Empresas.Configuracoes[emp].SalvarSomenteXMLDistribuicao)
-                                    {
-                                        TFunctions.MoverArquivo(strArquivoNFGas, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
-                                    }
-                                    else
-                                    {
-                                        TFunctions.MoverArquivo(strArquivoNFGas, PastaEnviados.Originais, oLerXml.oDadosNfe.dEmi);
-                                    }
-                                }
-
-                                if (procNFGasJaNaAutorizada)
-                                {
-                                    try
-                                    {
-                                        var strArquivoDist = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                            PastaEnviados.Autorizados.ToString() + "\\" +
-                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
-                                            Path.GetFileName(strArquivoNFGasProc);
-
-                                        UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Auxiliar.WriteLog("TaskNFGasRecepcaoSinc: " + ex.Message, false);
-                                    }
-                                }
-
-                                // Vou verificar se estão os dois arquivos na pasta Autorizados, se tiver eu tiro do fluxo caso contrário não. Wandrey 13/02/2012
-                                NFGasJaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML);
-                                procNFGasJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFGas, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFGas).EnvioXML, Propriedade.ExtRetorno.ProcNFGas);
-
-                                if (!procNFGasJaNaAutorizada || !NFGasJaAutorizada)
-                                {
-                                    tirarFluxo = false;
-                                }
-                            }
-
-                            break;
-
-                        default: // NFGas foi rejeitada
-                                 // O Status da NFGas tem que ser maior que 1 ou deu algum erro na hora de ler o XML de retorno da consulta do recibo, sendo assim, vou mantar a nota no fluxo para consultar novamente.
-
-                            if (Convert.ToInt32(strStat) >= 1)
-                            {
-                                // Mover o XML da NFGas a pasta de XML´s com erro
-                                oAux.MoveArqErro(strArquivoNFGas);
-
-                                if (Empresas.Configuracoes[emp].DocumentosRejeitados)
-                                {
-                                    var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - NFGas´s estão sendo rejeitados");
-                                }
-                            }
-                            else
-                            {
-                                tirarFluxo = false;
-                            }
-
-                            break;
-                    }
-
-                    // Deletar a NFGas do arquivo de controle de fluxo
-                    if (tirarFluxo)
-                    {
-                        fluxoNFe.ExcluirNfeFluxo(strChaveNFGas);
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        #endregion FinalizarNFGas()
+        #endregion Public Methods
     }
 }

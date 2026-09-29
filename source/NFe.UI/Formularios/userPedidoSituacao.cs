@@ -21,148 +21,11 @@ using BPeStatusServico = Unimake.Business.DFe.Servicos.BPe.StatusServico;
 using NFeConsStatServ = Unimake.Business.DFe.Xml.NFe.ConsStatServ;
 using NFeStatusServico = Unimake.Business.DFe.Servicos.NFe.StatusServico;
 
-
 namespace NFe.UI
 {
     public partial class userPedidoSituacao : UserControl1
     {
-        private int Emp;
-        private bool todasEmpresas;
-
-        public userPedidoSituacao()
-        {
-            InitializeComponent();
-        }
-
-        public override void UpdateControles()
-        {
-            base.UpdateControles();
-
-            cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
-            cbEmpresa.SelectedIndexChanged -= cbEmpresa_SelectedIndexChanged;
-            try
-            {
-                cbAmbiente.DataSource = EnumHelper.ToList(typeof(TipoAmbiente), true, true);
-                cbAmbiente.DisplayMember = "Value";
-                cbAmbiente.ValueMember = "Key";
-
-                var lista = EnumHelper.ToList(typeof(TipoEmissao), true, true, "2,4,5,9");
-
-                cbEmissao.DataSource = lista;
-                cbEmissao.DisplayMember = "Value";
-                cbEmissao.ValueMember = "Key";
-
-                cbServico.DataSource = uninfeDummy.DatasouceTipoAplicativo(true);
-                cbServico.DisplayMember = "Value";
-                cbServico.ValueMember = "Key";
-
-                cbEmpresa.DataSource = Auxiliar.CarregaEmpresa(true, true);
-                cbEmpresa.ValueMember = "Key";
-                cbEmpresa.DisplayMember = NFeStrConstants.Nome;
-
-                comboUf.DisplayMember = "nome";
-                comboUf.ValueMember = "valor";
-                comboUf.DataSource = Functions.CarregaEstados();
-
-                int posicao = uninfeDummy.xmlParams.ReadValue(GetType().Name, "last_empresa", 0);
-                if (posicao > (cbEmpresa.DataSource as System.Collections.ArrayList).Count)
-                    posicao = 0;
-
-                cbEmpresa.SelectedIndex = posicao;
-                cbVersao.SelectedIndex = 0;
-            }
-            finally
-            {
-                cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
-                cbEmpresa.SelectedIndexChanged += cbEmpresa_SelectedIndexChanged;
-
-                cbEmpresa_SelectedIndexChanged(null, null);
-                if (cbServico.SelectedValue == null)
-                {
-                    ChangeVersao(Empresas.Configuracoes[0].Servico);
-                }
-                else
-                {
-                    ChangeVersao((TipoAplicativo)cbServico.SelectedValue);
-                }
-            }
-        }
-
-        private void cbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Emp = -1;
-            cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
-            cbServico.Enabled = true;
-
-            try
-            {
-                if (!cbEmpresa.SelectedValue.Equals("Todos"))
-                {
-                    var list = (cbEmpresa.DataSource as System.Collections.ArrayList)[cbEmpresa.SelectedIndex] as ComboElem;
-                    Emp = Empresas.FindConfEmpresaIndex(list.Valor, EnumHelper.StringToEnum<TipoAplicativo>(list.Servico));
-                    if (Emp >= 0)
-                    {
-                        uninfeDummy.xmlParams.WriteValue(GetType().Name, "last_empresa", cbEmpresa.SelectedIndex);
-                        uninfeDummy.xmlParams.Save();
-
-                        comboUf.SelectedValue = Functions.CodigoParaUF(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo).Trim();
-
-                        //Posicionar o elemento da combo Ambiente
-                        cbAmbiente.SelectedValue = Empresas.Configuracoes[Emp].AmbienteCodigo;
-
-                        //Exibir CNPJ da empresa
-                        txtCNPJ.Text = uninfeDummy.FmtCnpjCpf(Empresas.Configuracoes[Emp].CNPJ, true);
-
-                        //Posicionar o elemento da combo tipo de emissão
-                        if (Empresas.Configuracoes[Emp].tpEmis == 1 || Empresas.Configuracoes[Emp].tpEmis == 6 ||
-                            Empresas.Configuracoes[Emp].tpEmis == 7 || Empresas.Configuracoes[Emp].tpEmis == 8)
-                        {
-                            cbEmissao.SelectedValue = Empresas.Configuracoes[Emp].tpEmis;
-                        }
-
-                        ChangeVersao(Empresas.Configuracoes[Emp].Servico);
-
-                        //Posicionar o elemento da combo tipo de servico
-                        if (Empresas.Configuracoes[Emp].Servico != TipoAplicativo.Todos)
-                        {
-                            cbServico.SelectedValue = (int)Empresas.Configuracoes[Emp].Servico;
-                        }
-                        else
-                        {
-                            cbServico.SelectedValue = (int)TipoAplicativo.Nfe;
-                            cbServico.Enabled = true;
-                        }
-                    }
-                }
-                else
-                {
-                    comboUf.SelectedValue = string.Empty;
-                    txtCNPJ.Text = string.Empty;
-                    cbServico.SelectedValue = string.Empty;
-                }
-            }
-            catch (Exception ex)
-            {
-                cbServico.Enabled = false;
-                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "");
-            }
-            finally
-            {
-                cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
-                buttonPesquisa.Enabled =
-                    cbAmbiente.Enabled =
-                    cbEmissao.Enabled =
-                    cbVersao.Enabled =
-                    cbServico.Enabled =
-                    comboUf.Enabled = Emp >= 0;
-
-                if (cbEmpresa.SelectedValue.Equals("Todos"))
-                {
-                    cbAmbiente.Enabled = true;
-                    buttonPesquisa.Enabled = true;
-                }
-            }
-        }
+        #region Private Fields
 
         private static readonly Dictionary<TipoAplicativo, string[]> VersoesPorServico = new Dictionary<TipoAplicativo, string[]>
         {
@@ -177,27 +40,25 @@ namespace NFe.UI
             { TipoAplicativo.BPe,new[] { "1.00" } }
         };
 
-        private void ChangeVersao(TipoAplicativo servico)
+        private int Emp;
+        private bool todasEmpresas;
+
+        #endregion Private Fields
+
+        #region Private Methods
+
+        private void AdicionarConsultaNaGrid(int emp, TipoAplicativo servico, int amb, int cUF, string versao)
         {
-            cbVersao.Enabled = true;
+            var empresa = Empresas.Configuracoes[emp];
+            string nomeEmpresa = empresa.Nome;
+            string nomeUF = Functions.CodigoParaUF(cUF);
+            string tipoServico = servico.ToString();
 
-            cbVersao.Items.Clear();
+            // Executa a consulta diretamente pela DLL e obtém o resultado
+            string result = ExecutarConsulta(emp, servico, amb, cUF, versao);
 
-            if (VersoesPorServico.TryGetValue(servico, out var versoes))
-                cbVersao.Items.AddRange(versoes);
-            else
-                cbVersao.Items.Add("4.00");
-
-            cbVersao.SelectedIndex = 0;
-        }
-
-        private void cbServico_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbServico.SelectedValue != null)
-            {
-                TipoAplicativo servico = (TipoAplicativo)cbServico.SelectedValue;
-                ChangeVersao(servico);
-            }
+            metroGridSituacao.Rows.Add(new object[] { nomeEmpresa, nomeUF, tipoServico, result });
+            Application.DoEvents();
         }
 
         private void buttonPesquisa_Click(object sender, EventArgs e)
@@ -216,30 +77,30 @@ namespace NFe.UI
                 TipoAplicativo servico = TipoAplicativo.Nulo;
                 int cUF = 0;
 
-                if (!todasEmpresas)
+                if(!todasEmpresas)
                 {
                     servico = (TipoAplicativo)cbServico.SelectedValue;
                     cUF = Functions.UFParaCodigo(comboUf.SelectedValue.ToString());
 
-                    switch (servico)
+                    switch(servico)
                     {
                         case TipoAplicativo.Cte:
-                            if (tpEmis == TipoEmissao.ContingenciaSVCAN)// cbEmissao.SelectedIndex == 4)
+                            if(tpEmis == TipoEmissao.ContingenciaSVCAN)// cbEmissao.SelectedIndex == 4)
                                 throw new Exception("CT-e não dispõe do tipo de contingência SVCAN.");
                             break;
 
                         case TipoAplicativo.Nfe:
-                            if (tpEmis == TipoEmissao.ContingenciaSVCSP)// cbEmissao.SelectedIndex == 3)
+                            if(tpEmis == TipoEmissao.ContingenciaSVCSP)// cbEmissao.SelectedIndex == 3)
                                 throw new Exception("NF-e não dispõe do tipo de contingência SVCSP.");
                             break;
 
                         case TipoAplicativo.MDFe:
-                            if (tpEmis != TipoEmissao.Normal)
+                            if(tpEmis != TipoEmissao.Normal)
                                 throw new Exception("MDF-e só dispõe do tipo de emissão Normal.");
                             break;
 
                         case TipoAplicativo.NFCe:
-                            if (tpEmis != TipoEmissao.Normal)
+                            if(tpEmis != TipoEmissao.Normal)
                                 throw new Exception("NFC-e só dispõe do tipo de emissão Normal.");
                             break;
                     }
@@ -247,16 +108,16 @@ namespace NFe.UI
 
                 Formularios.Wait.Show("Consulta a situação do serviço...");
 
-                if (todasEmpresas)
+                if(todasEmpresas)
                 {
-                    for (int i = 0; i < Empresas.Configuracoes.Count; i++)
+                    for(int i = 0; i < Empresas.Configuracoes.Count; i++)
                     {
                         int emp = Empresas.FindConfEmpresaIndex(Empresas.Configuracoes[i].CNPJ, Empresas.Configuracoes[i].Servico);
 
                         servico = Empresas.Configuracoes[emp].Servico;
                         cUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
 
-                        switch (servico)
+                        switch(servico)
                         {
                             case TipoAplicativo.Todos:
                                 AdicionarConsultaNaGrid(emp, TipoAplicativo.Nfe, amb, cUF, "4.00");
@@ -304,7 +165,7 @@ namespace NFe.UI
                     AdicionarConsultaNaGrid(Emp, servico, amb, cUF, versao);
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 txtMensagem.Text = ex.Message;
             }
@@ -314,19 +175,121 @@ namespace NFe.UI
             }
         }
 
-
-        private void AdicionarConsultaNaGrid(int emp, TipoAplicativo servico, int amb, int cUF, string versao)
+        private void cbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var empresa = Empresas.Configuracoes[emp];
-            string nomeEmpresa = empresa.Nome;
-            string nomeUF = Functions.CodigoParaUF(cUF);
-            string tipoServico = servico.ToString();
+            Emp = -1;
+            cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
+            cbServico.Enabled = true;
 
-            // Executa a consulta diretamente pela DLL e obtém o resultado
-            string result = ExecutarConsulta(emp, servico, amb, cUF, versao);
+            try
+            {
+                if(!cbEmpresa.SelectedValue.Equals("Todos"))
+                {
+                    var list = (cbEmpresa.DataSource as System.Collections.ArrayList)[cbEmpresa.SelectedIndex] as ComboElem;
+                    Emp = Empresas.FindConfEmpresaIndex(list.Valor, EnumHelper.StringToEnum<TipoAplicativo>(list.Servico));
+                    if(Emp >= 0)
+                    {
+                        uninfeDummy.xmlParams.WriteValue(GetType().Name, "last_empresa", cbEmpresa.SelectedIndex);
+                        uninfeDummy.xmlParams.Save();
 
-            metroGridSituacao.Rows.Add(new object[] { nomeEmpresa, nomeUF, tipoServico, result });
-            Application.DoEvents();
+                        comboUf.SelectedValue = Functions.CodigoParaUF(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo).Trim();
+
+                        //Posicionar o elemento da combo Ambiente
+                        cbAmbiente.SelectedValue = Empresas.Configuracoes[Emp].AmbienteCodigo;
+
+                        //Exibir CNPJ da empresa
+                        txtCNPJ.Text = uninfeDummy.FmtCnpjCpf(Empresas.Configuracoes[Emp].CNPJ, true);
+
+                        //Posicionar o elemento da combo tipo de emissão
+                        if(Empresas.Configuracoes[Emp].tpEmis == 1 || Empresas.Configuracoes[Emp].tpEmis == 6 ||
+                            Empresas.Configuracoes[Emp].tpEmis == 7 || Empresas.Configuracoes[Emp].tpEmis == 8)
+                        {
+                            cbEmissao.SelectedValue = Empresas.Configuracoes[Emp].tpEmis;
+                        }
+
+                        ChangeVersao(Empresas.Configuracoes[Emp].Servico);
+
+                        //Posicionar o elemento da combo tipo de servico
+                        if(Empresas.Configuracoes[Emp].Servico != TipoAplicativo.Todos)
+                        {
+                            cbServico.SelectedValue = (int)Empresas.Configuracoes[Emp].Servico;
+                        }
+                        else
+                        {
+                            cbServico.SelectedValue = (int)TipoAplicativo.Nfe;
+                            cbServico.Enabled = true;
+                        }
+                    }
+                }
+                else
+                {
+                    comboUf.SelectedValue = string.Empty;
+                    txtCNPJ.Text = string.Empty;
+                    cbServico.SelectedValue = string.Empty;
+                }
+            }
+            catch(Exception ex)
+            {
+                cbServico.Enabled = false;
+                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "");
+            }
+            finally
+            {
+                cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
+                buttonPesquisa.Enabled =
+                    cbAmbiente.Enabled =
+                    cbEmissao.Enabled =
+                    cbVersao.Enabled =
+                    cbServico.Enabled =
+                    comboUf.Enabled = Emp >= 0;
+
+                if(cbEmpresa.SelectedValue.Equals("Todos"))
+                {
+                    cbAmbiente.Enabled = true;
+                    buttonPesquisa.Enabled = true;
+                }
+            }
+        }
+
+        private void cbServico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbServico.SelectedValue != null)
+            {
+                TipoAplicativo servico = (TipoAplicativo)cbServico.SelectedValue;
+                ChangeVersao(servico);
+            }
+        }
+
+        private void ChangeVersao(TipoAplicativo servico)
+        {
+            cbVersao.Enabled = true;
+
+            cbVersao.Items.Clear();
+
+            if(VersoesPorServico.TryGetValue(servico, out var versoes))
+                cbVersao.Items.AddRange(versoes);
+            else
+                cbVersao.Items.Add("4.00");
+
+            cbVersao.SelectedIndex = 0;
+        }
+
+        private Configuracao CriarConfiguracao(Empresa empresa, TipoAplicativo servico, string versao, int? cUF = null, int? ambiente = null)
+        {
+            var config = new Configuracao
+            {
+                PrepararConexaoTLSAntesDoEnvio = empresa.AtivarPreparacaoTLSAntesEnvioXML,
+                TipoDFe = MapearServicoParaTipoDFe(servico),
+                TipoEmissao = (TipoEmissao)empresa.tpEmis,
+                CodigoUF = cUF ?? Functions.UFParaCodigo(comboUf.SelectedValue.ToString()),
+                TipoAmbiente = (TipoAmbiente)(ambiente ?? (int)cbAmbiente.SelectedValue),
+                SchemaVersao = versao,
+                CertificadoDigital = empresa.X509Certificado
+            };
+
+            ConfiguracaoApp.AplicarConfiguracaoProxy(config);
+
+            return config;
         }
 
         private string ExecutarConsulta(int emp, TipoAplicativo servico, int amb, int cUF, string versao)
@@ -343,7 +306,7 @@ namespace NFe.UI
                 IDisposable statusServico = null;
                 string xMotivo = string.Empty;
 
-                switch (servico)
+                switch(servico)
                 {
                     case TipoAplicativo.Nfe:
                         consStatServ = new NFeConsStatServ
@@ -432,14 +395,14 @@ namespace NFe.UI
                         return "Serviço de consulta não disponível para este modelo de documento.";
                 }
 
-                using (statusServico)
+                using(statusServico)
                 {
                     dynamic servicoDyn = statusServico;
                     servicoDyn.Executar();
                     return servicoDyn.Result.XMotivo;
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return ex.Message;
             }
@@ -449,36 +412,9 @@ namespace NFe.UI
             }
         }
 
-        private void metroGridSituacao_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            txtMensagem.Text = metroGridSituacao.SelectedRows[0].Cells[columnSitucao.Index].Value.ToString();
-        }
-
-        private Configuracao CriarConfiguracao(Empresa empresa, TipoAplicativo servico, string versao, int? cUF = null, int? ambiente = null)
-        {
-
-            var config = new Configuracao
-            {
-                PrepararConexaoTLSAntesDoEnvio = empresa.AtivarPreparacaoTLSAntesEnvioXML,
-                TipoDFe = MapearServicoParaTipoDFe(servico),
-                TipoEmissao = (TipoEmissao)empresa.tpEmis,
-                CodigoUF = cUF ?? Functions.UFParaCodigo(comboUf.SelectedValue.ToString()),
-                TipoAmbiente = (TipoAmbiente)(ambiente ?? (int)cbAmbiente.SelectedValue),
-                SchemaVersao = versao,
-                CertificadoDigital = empresa.X509Certificado
-            };
-
-            ConfiguracaoApp.AplicarConfiguracaoProxy(config);
-
-            return config;
-        }
-
         private TipoDFe MapearServicoParaTipoDFe(TipoAplicativo servico)
         {
-            switch (servico)
+            switch(servico)
             {
                 case TipoAplicativo.Nfe: return TipoDFe.NFe;
                 case TipoAplicativo.NFCe: return TipoDFe.NFCe;
@@ -491,5 +427,82 @@ namespace NFe.UI
                 default: return TipoDFe.Desconhecido;
             }
         }
+
+        private void metroGridSituacao_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex < 0)
+                return;
+
+            txtMensagem.Text = metroGridSituacao.SelectedRows[0].Cells[columnSitucao.Index].Value.ToString();
+        }
+
+        #endregion Private Methods
+
+        #region Public Constructors
+
+        public userPedidoSituacao()
+        {
+            InitializeComponent();
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public override void UpdateControles()
+        {
+            base.UpdateControles();
+
+            cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
+            cbEmpresa.SelectedIndexChanged -= cbEmpresa_SelectedIndexChanged;
+            try
+            {
+                cbAmbiente.DataSource = EnumHelper.ToList(typeof(TipoAmbiente), true, true);
+                cbAmbiente.DisplayMember = "Value";
+                cbAmbiente.ValueMember = "Key";
+
+                var lista = EnumHelper.ToList(typeof(TipoEmissao), true, true, "2,4,5,9");
+
+                cbEmissao.DataSource = lista;
+                cbEmissao.DisplayMember = "Value";
+                cbEmissao.ValueMember = "Key";
+
+                cbServico.DataSource = uninfeDummy.DatasouceTipoAplicativo(true);
+                cbServico.DisplayMember = "Value";
+                cbServico.ValueMember = "Key";
+
+                cbEmpresa.DataSource = Auxiliar.CarregaEmpresa(true, true);
+                cbEmpresa.ValueMember = "Key";
+                cbEmpresa.DisplayMember = NFeStrConstants.Nome;
+
+                comboUf.DisplayMember = "nome";
+                comboUf.ValueMember = "valor";
+                comboUf.DataSource = Functions.CarregaEstados();
+
+                int posicao = uninfeDummy.xmlParams.ReadValue(GetType().Name, "last_empresa", 0);
+                if(posicao > (cbEmpresa.DataSource as System.Collections.ArrayList).Count)
+                    posicao = 0;
+
+                cbEmpresa.SelectedIndex = posicao;
+                cbVersao.SelectedIndex = 0;
+            }
+            finally
+            {
+                cbServico.SelectedIndexChanged += cbServico_SelectedIndexChanged;
+                cbEmpresa.SelectedIndexChanged += cbEmpresa_SelectedIndexChanged;
+
+                cbEmpresa_SelectedIndexChanged(null, null);
+                if(cbServico.SelectedValue == null)
+                {
+                    ChangeVersao(Empresas.Configuracoes[0].Servico);
+                }
+                else
+                {
+                    ChangeVersao((TipoAplicativo)cbServico.SelectedValue);
+                }
+            }
+        }
+
+        #endregion Public Methods
     }
 }

@@ -8,6 +8,8 @@ namespace NFe.Service
 {
     public class TaskMDFeConsNaoEncerrado : TaskAbst
     {
+        #region Public Constructors
+
         public TaskMDFeConsNaoEncerrado(string arquivo)
         {
             Servico = Servicos.MDFeConsultaNaoEncerrado;
@@ -15,6 +17,10 @@ namespace NFe.Service
             ConteudoXML.PreserveWhitespace = false;
             ConteudoXML.Load(arquivo);
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -53,7 +59,7 @@ namespace NFe.Service
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.MDFeConsNaoEncerrados).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
@@ -87,5 +93,7 @@ namespace NFe.Service
                 }
             }
         }
+
+        #endregion Public Methods
     }
 }

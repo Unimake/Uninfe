@@ -15,11 +15,115 @@ namespace NFe.UI.Formularios
     [ToolboxItem(false)]
     public partial class userConfiguracao_geral : MetroFramework.Controls.MetroUserControl
     {
+        #region Private Methods
+
+        private void cbProxy_CheckedChanged(object sender, EventArgs e)
+        {
+            tbUsuario_TextChanged(sender, e);
+
+            lblPorta.Enabled =
+                lblSenha.Enabled =
+                lblUsuario.Enabled =
+                lblServidor.Enabled =
+                tbUsuario.Enabled =
+                tbSenha.Enabled =
+                nudPorta.Enabled =
+                tbServidor.Enabled = chkConfProxyAuto.Enabled = cbProxy.Checked;
+        }
+
+        private void chkConfProxyAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfiguracaoApp.DetectarConfiguracaoProxyAuto = chkConfProxyAuto.Checked;
+            if(chkConfProxyAuto.Checked)
+            {
+                nudPorta.Clear();
+                tbServidor.Clear();
+                nudPorta.Enabled = false;
+                tbServidor.Enabled = false;
+            }
+            else
+            {
+                nudPorta.Enabled = true;
+                tbServidor.Enabled = true;
+            }
+        }
+
+        private void chkManterAtualizado_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfiguracaoApp.ManterAtualizado = chkManterAtualizado.Checked;
+            this.metroButton1.Enabled = true;
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            this.tbUsuario.Focus();
+
+            try
+            {
+                this.Validar();
+                new ConfiguracaoApp().GravarConfigGeral();
+                this.metroButton1.Enabled = false;
+                this.Modificado = false;
+            }
+            catch(Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void nudPorta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsNumber(e.KeyChar) && e.KeyChar != '\b';
+        }
+
+        private void tbUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                SelectNextControl(this.ActiveControl, true, true, true, false);
+                e.Handled = true;
+            }
+        }
+
+        private void tbUsuario_TextChanged(object sender, EventArgs e)
+        {
+            this.Modificado = true;
+            this.metroButton1.Enabled = true;
+        }
+
+        #endregion Private Methods
+
+        #region Public Properties
+
         public bool Modificado { get; private set; }
+
+        #endregion Public Properties
+
+        #region Public Constructors
 
         public userConfiguracao_geral()
         {
             InitializeComponent();
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public void FocusFirstControl()
+        {
+            Timer t = new Timer();
+            t.Interval = 50;
+            t.Tick += (sender, e) =>
+            {
+                ((Timer)sender).Stop();
+                ((Timer)sender).Dispose();
+                if(tbUsuario.Enabled)
+                    this.tbUsuario.Focus();
+                else
+                    this.tbSenhaConfig.Focus();
+            };
+            t.Start();
         }
 
         public void PopulateConfGeral()
@@ -48,12 +152,12 @@ namespace NFe.UI.Formularios
         public void Validar()
         {
             //Verificar se as senhas são idênticas
-            if (tbSenhaConfig.Text.Trim() != tbSenhaConfig2.Text.Trim())
+            if(tbSenhaConfig.Text.Trim() != tbSenhaConfig2.Text.Trim())
             {
                 tbSenhaConfig.Focus();
                 throw new Exception("As senhas de acesso a tela de configurações devem ser idênticas.");
             }
-            if (cbProxy.Checked &&
+            if(cbProxy.Checked &&
                 ((Convert.ToInt32("0" + nudPorta.Text) == 0 && !ConfiguracaoApp.DetectarConfiguracaoProxyAuto) ||
                 //Caso a propriedade referente a detecção de proxy automatico esteja selecionada
                 (string.IsNullOrEmpty(tbServidor.Text) && !ConfiguracaoApp.DetectarConfiguracaoProxyAuto) ||
@@ -76,95 +180,6 @@ namespace NFe.UI.Formularios
             ConfiguracaoApp.ManterAtualizado = chkManterAtualizado.Checked;
         }
 
-        public void FocusFirstControl()
-        {
-            Timer t = new Timer();
-            t.Interval = 50;
-            t.Tick += (sender, e) =>
-            {
-                ((Timer)sender).Stop();
-                ((Timer)sender).Dispose();
-                if (tbUsuario.Enabled)
-                    this.tbUsuario.Focus();
-                else
-                    this.tbSenhaConfig.Focus();
-            };
-            t.Start();
-        }
-
-        private void nudPorta_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsNumber(e.KeyChar) && e.KeyChar != '\b';
-        }
-
-        private void tbUsuario_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SelectNextControl(this.ActiveControl, true, true, true, false);
-                e.Handled = true;
-            }
-        }
-
-        private void metroButton1_Click(object sender, EventArgs e)
-        {
-            this.tbUsuario.Focus();
-
-            try
-            {
-                this.Validar();
-                new ConfiguracaoApp().GravarConfigGeral();
-                this.metroButton1.Enabled = false;
-                this.Modificado = false;
-            }
-            catch (Exception ex)
-            {
-                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void tbUsuario_TextChanged(object sender, EventArgs e)
-        {
-            this.Modificado = true;
-            this.metroButton1.Enabled = true;
-        }
-
-        private void cbProxy_CheckedChanged(object sender, EventArgs e)
-        {
-            tbUsuario_TextChanged(sender, e);
-
-            lblPorta.Enabled =
-                lblSenha.Enabled =
-                lblUsuario.Enabled =
-                lblServidor.Enabled =
-                tbUsuario.Enabled =
-                tbSenha.Enabled =
-                nudPorta.Enabled =
-                tbServidor.Enabled = chkConfProxyAuto.Enabled = cbProxy.Checked;
-        }
-
-        private void chkConfProxyAuto_CheckedChanged(object sender, EventArgs e)
-        {
-            ConfiguracaoApp.DetectarConfiguracaoProxyAuto = chkConfProxyAuto.Checked;
-            if (chkConfProxyAuto.Checked)
-            {
-                nudPorta.Clear();
-                tbServidor.Clear();
-                nudPorta.Enabled = false;
-                tbServidor.Enabled = false;
-            }
-            else
-            {
-                nudPorta.Enabled = true;
-                tbServidor.Enabled = true;
-            }
-        }
-
-        private void chkManterAtualizado_CheckedChanged(object sender, EventArgs e)
-        {
-            ConfiguracaoApp.ManterAtualizado = chkManterAtualizado.Checked;
-            this.metroButton1.Enabled = true;
-        }
+        #endregion Public Methods
     }
 }
-

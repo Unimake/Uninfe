@@ -9,27 +9,51 @@ namespace NFe.Service
 {
     public class TaskNFeConsultaStatus : TaskAbst
     {
-        public TaskNFeConsultaStatus(string arquivo)
-        {
-            Servico = Servicos.NFeConsultaStatusServico;
-            NomeArquivoXML = arquivo;
-            if (vXmlNfeDadosMsgEhXML)
-            {
-                ConteudoXML.PreserveWhitespace = false;
-                ConteudoXML.Load(arquivo);
-            }
-        }
-
-        #region Classe com os dados do XML da consulta do status do serviço da NFe
+        #region Private Fields
 
         /// <summary>
         /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
         /// </summary>
         private DadosPedSta dadosPedSta;
 
-        #endregion Classe com os dados do XML da consulta do status do serviço da NFe
+        #endregion Private Fields
 
-        #region Execute
+        #region Protected Methods
+
+        /// <summary>
+        /// Faz a leitura do XML de pedido do status de serviço
+        /// </summary>
+        /// <param name="cArquivoXml">Nome do XML a ser lido</param>
+        /// <by>Wandrey Mundin Ferreira</by>
+        ///
+        protected override void PedSta(int emp, DadosPedSta dadosPedSta)
+        {
+            base.PedSta(emp, dadosPedSta);
+
+            if(string.IsNullOrEmpty(dadosPedSta.versao))
+            {
+                throw new Exception(NFeStrConstants.versaoError);
+            }
+        }
+
+        #endregion Protected Methods
+
+        #region Public Constructors
+
+        public TaskNFeConsultaStatus(string arquivo)
+        {
+            Servico = Servicos.NFeConsultaStatusServico;
+            NomeArquivoXML = arquivo;
+            if(vXmlNfeDadosMsgEhXML)
+            {
+                ConteudoXML.PreserveWhitespace = false;
+                ConteudoXML.Load(arquivo);
+            }
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -40,7 +64,7 @@ namespace NFe.Service
                 dadosPedSta = new DadosPedSta();
                 PedSta(emp, dadosPedSta);
 
-                if (vXmlNfeDadosMsgEhXML)
+                if(vXmlNfeDadosMsgEhXML)
                 {
                     var xml = new ConsStatServ();
                     xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsStatServ>(ConteudoXML);
@@ -56,7 +80,7 @@ namespace NFe.Service
 
                     ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
-                    if (dadosPedSta.mod == "65")
+                    if(dadosPedSta.mod == "65")
                     {
                         var statusServico = new Unimake.Business.DFe.Servicos.NFCe.StatusServico(xml, configuracao);
                         statusServico.Executar();
@@ -84,7 +108,7 @@ namespace NFe.Service
                 {
                     var f = Path.GetFileNameWithoutExtension(NomeArquivoXML) + ".xml";
 
-                    if (NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    if(NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
                     {
                         f = Path.Combine(Empresas.Configuracoes[emp].PastaValidar, f);
                     }
@@ -92,7 +116,7 @@ namespace NFe.Service
                     oGerarXML.StatusServicoNFe(f, dadosPedSta.tpAmb, dadosPedSta.tpEmis, dadosPedSta.cUF, dadosPedSta.versao);
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 var extRet = vXmlNfeDadosMsgEhXML ? Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML :
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioTXT;
@@ -128,26 +152,6 @@ namespace NFe.Service
             }
         }
 
-        #endregion Execute
-
-        #region PedSta()
-
-        /// <summary>
-        /// Faz a leitura do XML de pedido do status de serviço
-        /// </summary>
-        /// <param name="cArquivoXml">Nome do XML a ser lido</param>
-        /// <by>Wandrey Mundin Ferreira</by>
-        ///
-        protected override void PedSta(int emp, DadosPedSta dadosPedSta)
-        {
-            base.PedSta(emp, dadosPedSta);
-
-            if (string.IsNullOrEmpty(dadosPedSta.versao))
-            {
-                throw new Exception(NFeStrConstants.versaoError);
-            }
-        }
-
-        #endregion PedSta()
+        #endregion Public Methods
     }
 }

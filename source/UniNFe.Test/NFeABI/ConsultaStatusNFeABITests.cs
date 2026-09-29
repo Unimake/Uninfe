@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using UniNFe.Test.Abstractions;
 using Unimake.Business.DFe.Servicos;
+using UniNFe.Test.Abstractions;
 using Xunit;
 
 namespace UniNFe.Test.NFeABI
@@ -134,7 +134,7 @@ namespace UniNFe.Test.NFeABI
             Assert.Equal(retorno, File.ReadAllText(Path.Combine(pasta, "status-sta.xml")));
             Assert.NotNull(capturada);
             Assert.Equal(usarProxy, capturada.HasProxy);
-            if (usarProxy)
+            if(usarProxy)
             {
                 Assert.False(capturada.ProxyAutoDetect);
                 Assert.Equal("proxy.example.com", capturada.ProxyServer);
@@ -235,7 +235,7 @@ namespace UniNFe.Test.NFeABI
         public void CertificadoVencidoNaoExecutaTransporte()
         {
             var arquivo = CriarPedido();
-            using (var rsa = RSA.Create(2048))
+            using(var rsa = RSA.Create(2048))
             {
                 var request = new CertificateRequest("CN=UniNFe Teste", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
                 certificadoTemporario = request.CreateSelfSigned(DateTimeOffset.UtcNow.AddDays(-3), DateTimeOffset.UtcNow.AddDays(-2));
@@ -279,7 +279,7 @@ namespace UniNFe.Test.NFeABI
             ConfiguracaoApp.ProxySenha = proxySenhaAnterior;
             Empresas.Configuracoes = configuracoesAnteriores;
             certificadoTemporario?.Dispose();
-            if (Directory.Exists(pasta))
+            if(Directory.Exists(pasta))
             {
                 Directory.Delete(pasta, true);
             }

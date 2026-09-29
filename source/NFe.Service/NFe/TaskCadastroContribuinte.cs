@@ -8,8 +8,66 @@ using Unimake.Business.DFe.Xml.NFe;
 
 namespace NFe.Service
 {
-    public class TaskCadastroContribuinte: TaskAbst
+    public class TaskCadastroContribuinte : TaskAbst
     {
+        #region Private Fields
+
+        /// <summary>
+        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s da consulta do cadastro do contribuinte
+        /// </summary>
+        private DadosConsCad dadosConsCad;
+
+        #endregion Private Fields
+
+        #region Private Methods
+
+        /// <summary>
+        /// Faz a leitura do XML de consulta do cadastro do contribuinte e disponibiliza os valores de algumas tag´s
+        /// </summary>
+        /// <param name="cArquivoXML">Caminho e nome do arquivo XML da consulta do cadastro do contribuinte a ser lido</param>
+        private void ConsCad(int emp)
+        {
+            dadosConsCad.CNPJ =
+                dadosConsCad.IE =
+                dadosConsCad.UF =
+                dadosConsCad.versao = string.Empty;
+
+            dadosConsCad.tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+
+            if(Path.GetExtension(NomeArquivoXML).ToLower() == ".txt")
+            {
+                var cLinhas = Functions.LerArquivo(NomeArquivoXML);
+                Functions.PopulateClasse(dadosConsCad, cLinhas);
+            }
+            else
+            {
+                var ConsCadList = ConteudoXML.GetElementsByTagName("ConsCad");
+                foreach(XmlNode ConsCadNode in ConsCadList)
+                {
+                    var ConsCadElemento = (XmlElement)ConsCadNode;
+
+                    dadosConsCad.versao = ConsCadElemento.Attributes[TpcnResources.versao.ToString()].InnerText;
+
+                    var infConsList = ConsCadElemento.GetElementsByTagName("infCons");
+
+                    foreach(XmlNode infConsNode in infConsList)
+                    {
+                        var infConsElemento = (XmlElement)infConsNode;
+                        Functions.PopulateClasse(dadosConsCad, infConsElemento);
+                    }
+                }
+            }
+
+            if(dadosConsCad.versao == "")
+            {
+                throw new Exception(NFeStrConstants.versaoError);
+            }
+        }
+
+        #endregion Private Methods
+
+        #region Public Constructors
+
         public TaskCadastroContribuinte(string arquivo)
         {
             Servico = Servicos.ConsultaCadastroContribuinte;
@@ -21,16 +79,9 @@ namespace NFe.Service
             }
         }
 
-        #region Classe com os Dados do XML da Consulta Cadastro do Contribuinte
+        #endregion Public Constructors
 
-        /// <summary>
-        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s da consulta do cadastro do contribuinte
-        /// </summary>
-        private DadosConsCad dadosConsCad;
-
-        #endregion Classe com os Dados do XML da Consulta Cadastro do Contribuinte
-
-        #region Execute
+        #region Public Methods
 
         public override void Execute()
         {
@@ -49,7 +100,7 @@ namespace NFe.Service
 
                     configuracao = new Configuracao
                     {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                        PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = TipoDFe.NFe,
                         CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                         ColetarTelemetriaDisponibilidade = true
@@ -125,10 +176,6 @@ namespace NFe.Service
             }
         }
 
-        #endregion Execute
-
-        #region Gravar consCad
-
         public string GravarXml(string arquivo) => oGerarXML.ConsultaCadastro(arquivo,
                 dadosConsCad.UF,
                 dadosConsCad.CNPJ,
@@ -136,53 +183,6 @@ namespace NFe.Service
                 dadosConsCad.CPF,
                 dadosConsCad.versao);
 
-        #endregion Gravar consCad
-
-        #region ConsCad()
-
-        /// <summary>
-        /// Faz a leitura do XML de consulta do cadastro do contribuinte e disponibiliza os valores de algumas tag´s
-        /// </summary>
-        /// <param name="cArquivoXML">Caminho e nome do arquivo XML da consulta do cadastro do contribuinte a ser lido</param>
-        private void ConsCad(int emp)
-        {
-            dadosConsCad.CNPJ =
-                dadosConsCad.IE =
-                dadosConsCad.UF =
-                dadosConsCad.versao = string.Empty;
-
-            dadosConsCad.tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
-
-            if(Path.GetExtension(NomeArquivoXML).ToLower() == ".txt")
-            {
-                var cLinhas = Functions.LerArquivo(NomeArquivoXML);
-                Functions.PopulateClasse(dadosConsCad, cLinhas);
-            }
-            else
-            {
-                var ConsCadList = ConteudoXML.GetElementsByTagName("ConsCad");
-                foreach(XmlNode ConsCadNode in ConsCadList)
-                {
-                    var ConsCadElemento = (XmlElement)ConsCadNode;
-
-                    dadosConsCad.versao = ConsCadElemento.Attributes[TpcnResources.versao.ToString()].InnerText;
-
-                    var infConsList = ConsCadElemento.GetElementsByTagName("infCons");
-
-                    foreach(XmlNode infConsNode in infConsList)
-                    {
-                        var infConsElemento = (XmlElement)infConsNode;
-                        Functions.PopulateClasse(dadosConsCad, infConsElemento);
-                    }
-                }
-            }
-
-            if(dadosConsCad.versao == "")
-            {
-                throw new Exception(NFeStrConstants.versaoError);
-            }
-        }
-
-        #endregion ConsCad()
+        #endregion Public Methods
     }
 }
