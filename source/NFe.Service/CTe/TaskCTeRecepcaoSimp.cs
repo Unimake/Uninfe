@@ -51,13 +51,7 @@ namespace NFe.Service
                     ColetarTelemetriaDisponibilidade = true
                 };
 
-                if (ConfiguracaoApp.Proxy)
-                {
-                    configuracao.HasProxy = true;
-                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                }
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                 var autorizacaoSimp = new Unimake.Business.DFe.Servicos.CTe.AutorizacaoSimp(xmlCTe, configuracao);
                 autorizacaoSimp.Executar();

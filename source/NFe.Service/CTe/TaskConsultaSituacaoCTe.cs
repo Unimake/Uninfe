@@ -55,13 +55,7 @@ namespace NFe.Service
                     ColetarTelemetriaDisponibilidade = true
                 };
 
-                if (ConfiguracaoApp.Proxy)
-                {
-                    configuracao.HasProxy = true;
-                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                }
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                 if (dadosPedSit.chNFe.Substring(20, 2) == "67")
                 {

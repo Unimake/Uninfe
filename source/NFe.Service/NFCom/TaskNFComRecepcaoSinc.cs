@@ -61,13 +61,7 @@ namespace NFe.Service.NFCom
                     ColetarTelemetriaDisponibilidade = true
                 };
 
-                if (ConfiguracaoApp.Proxy)
-                {
-                    configuracao.HasProxy = true;
-                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                }
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                 var autorizacaoSinc = new Unimake.Business.DFe.Servicos.NFCom.AutorizacaoSinc(xmlNFCom, configuracao);
 

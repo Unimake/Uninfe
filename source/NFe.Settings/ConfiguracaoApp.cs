@@ -104,6 +104,24 @@ namespace NFe.Settings
 
         #region Métodos gerais
 
+        public static void AplicarConfiguracaoProxy(Unimake.Business.DFe.Servicos.Configuracao configuracao)
+        {
+            if (!Proxy)
+            {
+                return;
+            }
+
+            configuracao.HasProxy = true;
+            configuracao.ProxyAutoDetect = DetectarConfiguracaoProxyAuto;
+            if (!DetectarConfiguracaoProxyAuto)
+            {
+                configuracao.ProxyServer = ProxyServidor;
+                configuracao.ProxyPort = ProxyPorta;
+            }
+            configuracao.ProxyUser = ProxyUsuario;
+            configuracao.ProxyPassword = ProxySenha;
+        }
+
         public static bool ExtractResourceToDisk(System.Reflection.Assembly ass, string s, string fileoutput)
         {
             var extraido = false;

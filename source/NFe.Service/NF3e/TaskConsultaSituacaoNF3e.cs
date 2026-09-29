@@ -44,13 +44,7 @@ namespace NFe.Service.NF3e
                         ColetarTelemetriaDisponibilidade = true
                     };
 
-                    if (ConfiguracaoApp.Proxy)
-                    {
-                        configuracao.HasProxy = true;
-                        configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                        configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                        configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                    }
+                    ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                     var consultaProtocolo = new Unimake.Business.DFe.Servicos.NF3e.ConsultaProtocolo(xmlConsSitNF3e, configuracao);
                     consultaProtocolo.Executar();

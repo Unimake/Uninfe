@@ -471,12 +471,7 @@ namespace NFe.UI
                 CertificadoDigital = empresa.X509Certificado
             };
 
-            if (!string.IsNullOrEmpty(ConfiguracaoApp.ProxyServidor))
-            {
-                config.HasProxy = true;
-                config.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                config.ProxyPassword = ConfiguracaoApp.ProxySenha;
-            }
+            ConfiguracaoApp.AplicarConfiguracaoProxy(config);
 
             return config;
         }
