@@ -1,4 +1,4 @@
-﻿<ConsultarNfseDpsEnvio versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+﻿<ConsultarNfseDpsEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
   <IdentificacaoDps>
     <NumDPS>1</NumDPS>
     <SerieDPS>1</SerieDPS>
