@@ -9,9 +9,13 @@ namespace NFe.Service
 {
     public class TaskCTeRecepcaoSimp : TaskCTeRecepcaoSinc
     {
+        #region Public Constructors
+
         public TaskCTeRecepcaoSimp(string arquivo) : base(arquivo) => Servico = Servicos.CTeEnviarSimp;
 
-        #region Execute
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -25,9 +29,9 @@ namespace NFe.Service
                 var xmlCTe = new CTeSimp();
                 xmlCTe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<CTeSimp>(ConteudoXML);
 
-                if (xmlCTe.InfCTe.InfRespTec == null)
+                if(xmlCTe.InfCTe.InfRespTec == null)
                 {
-                    if (!string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecCNPJ) ||
+                    if(!string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecCNPJ) ||
                         !string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecEmail) ||
                         !string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecTelefone) ||
                         !string.IsNullOrEmpty(Empresas.Configuracoes[emp].RespTecXContato))
@@ -51,13 +55,7 @@ namespace NFe.Service
                     ColetarTelemetriaDisponibilidade = true
                 };
 
-                if (ConfiguracaoApp.Proxy)
-                {
-                    configuracao.HasProxy = true;
-                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                }
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                 var autorizacaoSimp = new Unimake.Business.DFe.Servicos.CTe.AutorizacaoSimp(xmlCTe, configuracao);
                 autorizacaoSimp.Executar();
@@ -80,9 +78,9 @@ namespace NFe.Service
                 //    FinalizarCTeSincrono(vStrXmlRetorno, emp);
                 //}
 
-                #endregion
+                #endregion Código utilizado para testes -> Não apague
 
-                if (autorizacaoSimp.Result.CStat == 104 || autorizacaoSimp.Result.CStat == 100)
+                if(autorizacaoSimp.Result.CStat == 104 || autorizacaoSimp.Result.CStat == 100)
                 {
                     FinalizarCTeSincrono(vStrXmlRetorno, emp);
                 }
@@ -90,7 +88,7 @@ namespace NFe.Service
                 {
                     oAux.MoveArqErro(arqEmProcessamento);
 
-                    if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                    if(Empresas.Configuracoes[emp].DocumentosRejeitados)
                     {
                         var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
                         sendMessageToWhatsApp.AlertNotification("Rejeição: " + autorizacaoSimp.Result.CStat.ToString("000") + "-" + autorizacaoSimp.Result.XMotivo, "UNINFE - CTe´s estão sendo rejeitados");
@@ -99,7 +97,7 @@ namespace NFe.Service
 
                 oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
 
-                if (File.Exists(NomeArquivoXML))
+                if(File.Exists(NomeArquivoXML))
                 {
                     File.Delete(NomeArquivoXML);
                 }
@@ -109,17 +107,17 @@ namespace NFe.Service
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 try
                 {
                     var arqXML = NomeArquivoXML;
 
-                    if (File.Exists(arqEmProcessamento))
+                    if(File.Exists(arqEmProcessamento))
                     {
                         arqXML = arqEmProcessamento;
 
-                        if (File.Exists(NomeArquivoXML))
+                        if(File.Exists(NomeArquivoXML))
                         {
                             TFunctions.MoveArqErro(NomeArquivoXML);
                         }
@@ -134,6 +132,6 @@ namespace NFe.Service
             }
         }
 
-        #endregion
+        #endregion Public Methods
     }
 }

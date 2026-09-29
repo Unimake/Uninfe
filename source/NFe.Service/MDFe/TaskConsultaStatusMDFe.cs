@@ -9,8 +9,19 @@ namespace NFe.Service
     /// <summary>
     /// Classe para consultar status do serviço do MDFe
     /// </summary>
-    public class TaskMDFeConsultaStatus: TaskAbst
+    public class TaskMDFeConsultaStatus : TaskAbst
     {
+        #region Private Fields
+
+        /// <summary>
+        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
+        /// </summary>
+        private DadosPedSta dadosPedSta;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
         public TaskMDFeConsultaStatus(string arquivo)
         {
             Servico = Servicos.MDFeConsultaStatusServico;
@@ -19,16 +30,9 @@ namespace NFe.Service
             ConteudoXML.Load(arquivo);
         }
 
-        #region Classe com os dados do XML da consulta do status do serviço da NFe
+        #endregion Public Constructors
 
-        /// <summary>
-        /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s do status do serviço
-        /// </summary>
-        private DadosPedSta dadosPedSta;
-
-        #endregion Classe com os dados do XML da consulta do status do serviço da NFe
-
-        #region Execute
+        #region Public Methods
 
         /// <summary>
         /// Executa o serviço solicitado
@@ -55,13 +59,7 @@ namespace NFe.Service
                     ColetarTelemetriaDisponibilidade = true
                 };
 
-                if(ConfiguracaoApp.Proxy)
-                {
-                    configuracao.HasProxy = true;
-                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                }
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                 var statusServico = new Unimake.Business.DFe.Servicos.MDFe.StatusServico(xml, configuracao);
                 statusServico.Executar();
@@ -109,6 +107,6 @@ namespace NFe.Service
             }
         }
 
-        #endregion Execute
+        #endregion Public Methods
     }
 }

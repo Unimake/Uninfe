@@ -10,8 +10,14 @@ namespace NFe.Service
 {
     public class TaskDFeRecepcaoCTe : TaskDFeRecepcao
     {
+        #region Public Constructors
+
         public TaskDFeRecepcaoCTe(string arquivo)
             : base(arquivo) => Servico = Servicos.CTeDistribuicaoDFe;
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Execute()
         {
@@ -24,7 +30,7 @@ namespace NFe.Service
 
             try
             {
-                if (!vXmlNfeDadosMsgEhXML)
+                if(!vXmlNfeDadosMsgEhXML)
                 {
                     // -------------------------------------------
                     // Estrutura do TXT
@@ -43,13 +49,13 @@ namespace NFe.Service
 
                     var xml = new DistDFeInt();
 
-                    foreach (var item in cLinhas)
+                    foreach(var item in cLinhas)
                     {
                         var conteudo = item.Split("|".ToCharArray());
                         var nomeTag = conteudo[0].ToLower();
                         var conteudoTag = conteudo[1];
 
-                        switch (nomeTag)
+                        switch(nomeTag)
                         {
                             case "versao":
                                 xml.Versao = conteudoTag;
@@ -85,11 +91,12 @@ namespace NFe.Service
                                 };
                                 break;
                         }
-                    };
+                    }
+                    ;
 
                     var fileXML = Path.GetFileNameWithoutExtension(NomeArquivoXML) + ".xml";
 
-                    if (NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                    if(NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
                     {
                         fileXML = Path.Combine(Empresas.Configuracoes[emp].PastaValidar, fileXML);
                     }
@@ -102,20 +109,14 @@ namespace NFe.Service
 
                     configuracao = new Configuracao
                     {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                        PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = TipoDFe.CTe,
                         TipoAmbiente = xml.TpAmb,
                         CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                         ColetarTelemetriaDisponibilidade = true
                     };
 
-                    if (ConfiguracaoApp.Proxy)
-                    {
-                        configuracao.HasProxy = true;
-                        configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                        configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                        configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                    }
+                    ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
                     var distribuicaoDFe = new DistribuicaoDFe(xml, configuracao);
                     distribuicaoDFe.Executar();
@@ -131,7 +132,7 @@ namespace NFe.Service
 
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, ExtEnvioDFe);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 WriteLogError(ex);
 
@@ -149,5 +150,7 @@ namespace NFe.Service
                 }
             }
         }
+
+        #endregion Public Methods
     }
 }

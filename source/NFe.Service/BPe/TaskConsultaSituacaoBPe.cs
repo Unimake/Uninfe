@@ -10,84 +10,7 @@ namespace NFe.Service.BPe
 {
     public class TaskConsultaSituacaoBPe : TaskAbst
     {
-        public TaskConsultaSituacaoBPe(string arquivo)
-        {
-            Servico = Servicos.BPeConsultaProtocolo;
-            NomeArquivoXML = arquivo;
-            if (vXmlNfeDadosMsgEhXML)
-            {
-                ConteudoXML.PreserveWhitespace = false;
-                ConteudoXML.Load(arquivo);
-            }
-        }
-
-        public override void Execute()
-        {
-            var emp = Empresas.FindEmpresaByThread();
-            Configuracao configuracao = null;
-
-            try
-            {
-                if (vXmlNfeDadosMsgEhXML)
-                {
-                    var xmlConsSitBPe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsSitBPe>(ConteudoXML);
-
-                    configuracao = new Configuracao
-                    {
-                        PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
-                        TipoDFe = TipoDFe.BPe,
-                        TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-                        ColetarTelemetriaDisponibilidade = true
-                    };
-
-                    if (ConfiguracaoApp.Proxy)
-                    {
-                        configuracao.HasProxy = true;
-                        configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                        configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                        configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                    }
-
-                    var consultaProtocolo = new Unimake.Business.DFe.Servicos.BPe.ConsultaProtocolo(xmlConsSitBPe, configuracao);
-                    consultaProtocolo.Executar();
-
-                    vStrXmlRetorno = consultaProtocolo.RetornoWSString;
-
-                    LerRetornoSitBPe(xmlConsSitBPe, consultaProtocolo.Result, emp);
-
-                    XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
-
-                    consultaProtocolo.Dispose();
-
-                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
-                }
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.ExtRetorno.Sit_ERR, ex);
-                }
-                catch
-                {
-                }
-
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
-            }
-            finally
-            {
-                try
-                {
-                    Functions.DeletarArquivo(NomeArquivoXML);
-                }
-                catch
-                {
-                }
-            }
-        }
+        #region Private Methods
 
         private void LerRetornoSitBPe(ConsSitBPe xmlConsSitBPe, RetConsSitBPe retornoConsSitBPe, int emp)
         {
@@ -99,7 +22,7 @@ namespace NFe.Service.BPe
             var strChaveBPe = "BPe" + xmlConsSitBPe.ChBPe;
             var strNomeArqBPe = oFluxoNFe.LerTag(strChaveBPe, FluxoNfe.ElementoFixo.ArqNFe);
 
-            if (string.IsNullOrEmpty(strNomeArqBPe))
+            if(string.IsNullOrEmpty(strNomeArqBPe))
             {
                 strNomeArqBPe = strChaveBPe.Substring(3) + Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML;
             }
@@ -108,23 +31,23 @@ namespace NFe.Service.BPe
 
             var naoEhDaEmpresa = !Functions.ChaveDFePertenceEmpresa(xmlConsSitBPe.ChBPe, Empresas.Configuracoes[emp].CNPJ, Empresas.Configuracoes[emp].UnidadeFederativaCodigo);
 
-            if (!File.Exists(strArquivoBPe))
+            if(!File.Exists(strArquivoBPe))
             {
-                if (naoEhDaEmpresa)
+                if(naoEhDaEmpresa)
                 {
                     return;
                 }
 
                 var arquivos = Directory.GetFiles(Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString(), "*-bpe.*");
 
-                foreach (var arquivo in arquivos)
+                foreach(var arquivo in arquivos)
                 {
                     var arqXML = new XmlDocument();
                     arqXML.Load(arquivo);
 
                     var chave = ((XmlElement)arqXML.GetElementsByTagName("infBPe")[0]).GetAttribute("Id").Substring(3);
 
-                    if (chave.Equals(xmlConsSitBPe.ChBPe))
+                    if(chave.Equals(xmlConsSitBPe.ChBPe))
                     {
                         strNomeArqBPe = Path.GetFileName(arquivo);
                         strArquivoBPe = arquivo;
@@ -136,7 +59,7 @@ namespace NFe.Service.BPe
             var cStatCons = retornoConsSitBPe.CStat;
             var xMotivo = retornoConsSitBPe.XMotivo ?? string.Empty;
 
-            switch (cStatCons)
+            switch(cStatCons)
             {
                 case 252:
                 case 226:
@@ -152,11 +75,11 @@ namespace NFe.Service.BPe
 
                 case 100:
                 case 150:
-                    if (retornoConsSitBPe.ProtBPe != null && retornoConsSitBPe.ProtBPe.Count > 0 && retornoConsSitBPe.ProtBPe[0].InfProt != null)
+                    if(retornoConsSitBPe.ProtBPe != null && retornoConsSitBPe.ProtBPe.Count > 0 && retornoConsSitBPe.ProtBPe[0].InfProt != null)
                     {
                         var infProt = retornoConsSitBPe.ProtBPe[0].InfProt;
 
-                        switch (infProt.CStat)
+                        switch(infProt.CStat)
                         {
                             case 100:
                             case 150:
@@ -167,14 +90,14 @@ namespace NFe.Service.BPe
                                 var strArquivoBPeProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString()
                                     + "\\" + Functions.ExtrairNomeArq(strArquivoBPe, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML) + Propriedade.ExtRetorno.ProcBPe;
 
-                                if (File.Exists(strArquivoBPe))
+                                if(File.Exists(strArquivoBPe))
                                 {
                                     var conteudoXML = new XmlDocument();
 
                                     try
                                     {
                                         var file = new FileInfo(strArquivoBPe);
-                                        if (file.Length == 0)
+                                        if(file.Length == 0)
                                         {
                                             throw new Exception();
                                         }
@@ -187,14 +110,14 @@ namespace NFe.Service.BPe
                                         goto default;
                                     }
 
-                                    if (Empresas.Configuracoes[emp].CompararDigestValueDFeRetornadoSEFAZ)
+                                    if(Empresas.Configuracoes[emp].CompararDigestValueDFeRetornadoSEFAZ)
                                     {
                                         var digestValueConsultaSituacaoBPe = infProt.DigVal;
                                         var digestValueNota = conteudoXML.GetElementsByTagName("DigestValue")[0].InnerText;
 
-                                        if (!string.IsNullOrEmpty(digestValueConsultaSituacaoBPe) && !string.IsNullOrEmpty(digestValueNota))
+                                        if(!string.IsNullOrEmpty(digestValueConsultaSituacaoBPe) && !string.IsNullOrEmpty(digestValueNota))
                                         {
-                                            if (!digestValueConsultaSituacaoBPe.Equals(digestValueNota))
+                                            if(!digestValueConsultaSituacaoBPe.Equals(digestValueNota))
                                             {
                                                 oAux.MoveArqErro(strArquivoBPe);
                                                 throw new Exception("O valor do DigestValue da consulta situação é diferente do DigestValue do BPe");
@@ -204,23 +127,23 @@ namespace NFe.Service.BPe
 
                                     var procBPeJaNaAutorizada = oAux.EstaAutorizada(strArquivoBPe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML, Propriedade.ExtRetorno.ProcBPe);
 
-                                    if (!procBPeJaNaAutorizada && !File.Exists(strArquivoBPeProc))
+                                    if(!procBPeJaNaAutorizada && !File.Exists(strArquivoBPeProc))
                                     {
                                         Auxiliar.WriteLog("TaskConsultaSituacaoBPe: Gerou o arquivo de distribuição através da consulta situação do BPe.", false);
                                         oGerarXML.XmlDistBPe(strArquivoBPe, strProtBPe, Propriedade.ExtRetorno.ProcBPe, oLerXml.oDadosNfe.versao);
                                     }
 
-                                    if (!(procBPeJaNaAutorizada = oAux.EstaAutorizada(strArquivoBPe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML, Propriedade.ExtRetorno.ProcBPe)))
+                                    if(!(procBPeJaNaAutorizada = oAux.EstaAutorizada(strArquivoBPe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML, Propriedade.ExtRetorno.ProcBPe)))
                                     {
                                         TFunctions.MoverArquivo(strArquivoBPeProc, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
                                         procBPeJaNaAutorizada = oAux.EstaAutorizada(strArquivoBPe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML, Propriedade.ExtRetorno.ProcBPe);
                                     }
 
-                                    if (!oAux.EstaAutorizada(strArquivoBPe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML))
+                                    if(!oAux.EstaAutorizada(strArquivoBPe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.BPe).EnvioXML))
                                     {
-                                        if (procBPeJaNaAutorizada)
+                                        if(procBPeJaNaAutorizada)
                                         {
-                                            if (!Empresas.Configuracoes[emp].SalvarSomenteXMLDistribuicao)
+                                            if(!Empresas.Configuracoes[emp].SalvarSomenteXMLDistribuicao)
                                             {
                                                 TFunctions.MoverArquivo(strArquivoBPe, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
                                             }
@@ -232,14 +155,14 @@ namespace NFe.Service.BPe
                                     }
                                     else
                                     {
-                                        if (procBPeJaNaAutorizada)
+                                        if(procBPeJaNaAutorizada)
                                         {
                                             oAux.MoveArqErro(strArquivoBPe);
                                         }
                                     }
                                 }
 
-                                if (File.Exists(strArquivoBPeProc))
+                                if(File.Exists(strArquivoBPeProc))
                                 {
                                     Functions.DeletarArquivo(strArquivoBPeProc);
                                 }
@@ -267,7 +190,7 @@ namespace NFe.Service.BPe
                     oFluxoNFe.ExcluirNfeFluxo(strChaveBPe);
                     RemoverArqTemp(strChaveBPe, emp);
 
-                    if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                    if(Empresas.Configuracoes[emp].DocumentosRejeitados)
                     {
                         var enviaMensagemParaWhatsApp = new SendMessageToWhatsApp(emp);
                         enviaMensagemParaWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(cStatCons).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - BPe´s estão sendo rejeitados");
@@ -279,5 +202,88 @@ namespace NFe.Service.BPe
                     goto case 9999;
             }
         }
+
+        #endregion Private Methods
+
+        #region Public Constructors
+
+        public TaskConsultaSituacaoBPe(string arquivo)
+        {
+            Servico = Servicos.BPeConsultaProtocolo;
+            NomeArquivoXML = arquivo;
+            if(vXmlNfeDadosMsgEhXML)
+            {
+                ConteudoXML.PreserveWhitespace = false;
+                ConteudoXML.Load(arquivo);
+            }
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public override void Execute()
+        {
+            var emp = Empresas.FindEmpresaByThread();
+            Configuracao configuracao = null;
+
+            try
+            {
+                if(vXmlNfeDadosMsgEhXML)
+                {
+                    var xmlConsSitBPe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsSitBPe>(ConteudoXML);
+
+                    configuracao = new Configuracao
+                    {
+                        PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                        TipoDFe = TipoDFe.BPe,
+                        TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                        ColetarTelemetriaDisponibilidade = true
+                    };
+
+                    ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
+
+                    var consultaProtocolo = new Unimake.Business.DFe.Servicos.BPe.ConsultaProtocolo(xmlConsSitBPe, configuracao);
+                    consultaProtocolo.Executar();
+
+                    vStrXmlRetorno = consultaProtocolo.RetornoWSString;
+
+                    LerRetornoSitBPe(xmlConsSitBPe, consultaProtocolo.Result, emp);
+
+                    XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
+
+                    consultaProtocolo.Dispose();
+
+                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
+                }
+            }
+            catch(Exception ex)
+            {
+                try
+                {
+                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.ExtRetorno.Sit_ERR, ex);
+                }
+                catch
+                {
+                }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
+            }
+            finally
+            {
+                try
+                {
+                    Functions.DeletarArquivo(NomeArquivoXML);
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        #endregion Public Methods
     }
 }

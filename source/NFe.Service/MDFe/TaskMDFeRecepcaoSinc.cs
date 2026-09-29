@@ -10,129 +10,186 @@ namespace NFe.Service
 {
     public class TaskMDFeRecepcaoSinc : TaskAbst
     {
-        public TaskMDFeRecepcaoSinc(string arquivo)
+        #region Private Methods
+
+        private void FinalizarMDFe(XmlNodeList protNFeList, FluxoNfe fluxoNFe, int emp, XmlDocument conteudoXMLLote)
         {
-            Servico = Servicos.MDFeEnviarSinc;
+            var oLerXml = new LerXML();
 
-            NomeArquivoXML = arquivo;
-            ConteudoXML.PreserveWhitespace = false;
-            ConteudoXML.Load(arquivo);
-        }
-
-        #region Execute
-
-        public override void Execute()
-        {
-            var emp = Empresas.FindEmpresaByThread();
-
-            var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + (new FileInfo(NomeArquivoXML).Name);
-            Configuracao configuracao = null;
-
-            try
+            foreach(XmlNode protNFeNode in protNFeList)
             {
-                var xmlMDFe = new MDFe();
-                xmlMDFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<MDFe>(ConteudoXML);
+                var protNFeElemento = (XmlElement)protNFeNode;
 
-                configuracao = new Configuracao
+                var strProtNfe = protNFeElemento.OuterXml;
+
+                var infProtList = protNFeElemento.GetElementsByTagName("infProt");
+
+                foreach(XmlNode infProtNode in infProtList)
                 {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
-                    TipoDFe = TipoDFe.MDFe,
-                    TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
-                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
-                    ColetarTelemetriaDisponibilidade = true
-                };
+                    var tirarFluxo = true;
+                    var infProtElemento = (XmlElement)infProtNode;
 
-                if (ConfiguracaoApp.Proxy)
-                {
-                    configuracao.HasProxy = true;
-                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-                }
+                    var strChaveNFe = string.Empty;
+                    var strStat = string.Empty;
+                    var xMotivo = string.Empty;
 
-                var autorizacaoSinc = new Unimake.Business.DFe.Servicos.MDFe.AutorizacaoSinc(xmlMDFe, configuracao);
-                autorizacaoSinc.Executar();
-
-                ConteudoXML = autorizacaoSinc.ConteudoXMLAssinado;
-
-                SalvarArquivoEmProcessamento(emp, arqEmProcessamento);
-
-                vStrXmlRetorno = autorizacaoSinc.RetornoWSString;
-
-                if (autorizacaoSinc.Result.CStat == 100)
-                {
-                    FinalizarMDFeSincrono(vStrXmlRetorno, emp, xmlMDFe.InfMDFe.Chave);
-                }
-                else
-                {
-                    oAux.MoveArqErro(arqEmProcessamento);
-
-                    if (Empresas.Configuracoes[emp].DocumentosRejeitados)
+                    if(infProtElemento.GetElementsByTagName(TpcnResources.chMDFe.ToString())[0] != null)
                     {
-                        var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                        sendMessageToWhatsApp.AlertNotification("Rejeição: " + autorizacaoSinc.Result.CStat.ToString("000") + "-" + autorizacaoSinc.Result.XMotivo.Trim(), "UNINFE - MDFe´s estão sendo rejeitados");
+                        strChaveNFe = "MDFe" + infProtElemento.GetElementsByTagName(TpcnResources.chMDFe.ToString())[0].InnerText;
                     }
-                }
 
-                oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
-
-                if (File.Exists(NomeArquivoXML))
-                {
-                    File.Delete(NomeArquivoXML);
-                }
-
-                autorizacaoSinc.Dispose();
-
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    var arqXML = NomeArquivoXML;
-
-                    if (File.Exists(arqEmProcessamento))
+                    if(infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0] != null)
                     {
-                        arqXML = arqEmProcessamento;
+                        strStat = infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
+                    }
 
-                        if (File.Exists(NomeArquivoXML))
+                    if(infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0] != null)
+                    {
+                        xMotivo = infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0].InnerText;
+                    }
+
+                    //Definir o nome do arquivo da NFe e seu caminho
+                    var strNomeArqNfe = "";
+                    strNomeArqNfe = new FileInfo(NomeArquivoXML).Name;
+
+                    // se por algum motivo o XML não existir no "Fluxo", então o arquivo tem que existir
+                    // na pasta "EmProcessamento" assinada.
+                    if(string.IsNullOrEmpty(strNomeArqNfe))
+                    {
+                        if(string.IsNullOrEmpty(strChaveNFe))
                         {
-                            TFunctions.MoveArqErro(NomeArquivoXML);
+                            oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
+                            throw new Exception("LerRetornoLoteMDFe(): Não pode obter o nome do arquivo");
                         }
+
+                        strNomeArqNfe = strChaveNFe.Substring(4) + Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML;
+                    }
+                    var strArquivoNFe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + strNomeArqNfe;
+
+                    //Atualizar a Tag de status da NFe no fluxo para que se ocorrer alguma falha na exclusão eu tenha esta campo para ter uma referencia em futuras consultas
+                    fluxoNFe.AtualizarTag(strChaveNFe, FluxoNfe.ElementoEditavel.cStat, strStat);
+
+                    switch(strStat)
+                    {
+                        case "100": //MDFe Autorizado
+                            if(File.Exists(strArquivoNFe))
+                            {
+                                //Juntar o protocolo com a NFE já copiando para a pasta de autorizadas
+                                var strArquivoNFeProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                    PastaEnviados.EmProcessamento.ToString() + "\\" +
+                                    Functions.ExtrairNomeArq(strNomeArqNfe, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML) + Propriedade.ExtRetorno.ProcMDFe;
+
+                                //Ler o XML para pegar a data de emissão para criar a pasta dos XML´s autorizados
+                                if(conteudoXMLLote == null)
+                                {
+                                    conteudoXMLLote = new XmlDocument();
+                                    conteudoXMLLote.Load(strArquivoNFe);
+                                }
+                                oLerXml.Mdfe(conteudoXMLLote);
+
+                                //Verificar se a -nfe.xml existe na pasta de autorizados
+                                var NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
+
+                                //Verificar se o -procNfe.xml existe na past de autorizados
+                                var procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe);
+
+                                //Se o XML de distribuição não estiver na pasta de autorizados
+                                if(!procNFeJaNaAutorizada)
+                                {
+                                    if(!File.Exists(strArquivoNFeProc))
+                                    {
+                                        oGerarXML.XmlDistMDFe(strArquivoNFe, strProtNfe, Propriedade.ExtRetorno.ProcMDFe, oLerXml.oDadosNfe.versao);
+                                    }
+                                }
+
+                                if(!(procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe)))
+                                {
+                                    //Mover a nfePRoc da pasta de NFE em processamento para a NFe Autorizada
+                                    //Para envitar falhar, tenho que mover primeiro o XML de distribuição (-procnfe.xml) para
+                                    //depois mover o da nfe (-nfe.xml), pois se ocorrer algum erro, tenho como reconstruir o senário,
+                                    //assim sendo não inverta as posições. Wandrey 08/10/2009
+                                    TFunctions.MoverArquivo(strArquivoNFeProc, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
+
+                                    //Atualizar a situação para que eu só mova o arquivo com final -NFe.xml para a pasta autorizado se
+                                    //a procnfe já estiver lá, ou vai ficar na pasta emProcessamento para tentar gerar novamente.
+                                    //Isso vai dar uma maior segurança para não deixar sem gerar o -procnfe.xml. Wandrey 13/12/2012
+                                    procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe);
+                                }
+
+                                if(!NFeJaNaAutorizada && procNFeJaNaAutorizada)
+                                {
+                                    //Mover a NFE da pasta de NFE em processamento para NFe Autorizada
+                                    //Para envitar falhar, tenho que mover primeiro o XML de distribuição (-procnfe.xml) para
+                                    //depois mover o da nfe (-nfe.xml), pois se ocorrer algum erro, tenho como reconstruir o senário.
+                                    //assim sendo não inverta as posições. Wandrey 08/10/2009
+                                    if(!Empresas.Configuracoes[emp].SalvarSomenteXMLDistribuicao)
+                                    {
+                                        TFunctions.MoverArquivo(strArquivoNFe, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
+                                    }
+                                    else
+                                    {
+                                        TFunctions.MoverArquivo(strArquivoNFe, PastaEnviados.Originais, oLerXml.oDadosNfe.dEmi);
+                                    }
+                                }
+
+                                //Disparar a geração/impressao do UniDanfe. 03/02/2010 - Wandrey
+                                if(procNFeJaNaAutorizada)
+                                {
+                                    try
+                                    {
+                                        var strArquivoDist = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
+                                            PastaEnviados.Autorizados.ToString() + "\\" +
+                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
+                                            Path.GetFileName(strArquivoNFeProc);
+
+                                        UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        Auxiliar.WriteLog("TaskMDFeRetRecepcao: " + ex.Message, false);
+                                    }
+                                }
+                                //Vou verificar se estão os dois arquivos na pasta Autorizados, se tiver eu tiro do fluxo caso contrário não. Wandrey 13/02/2012
+                                NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
+                                procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe);
+                                if(!procNFeJaNaAutorizada || !NFeJaNaAutorizada)
+                                {
+                                    tirarFluxo = false;
+                                }
+                            }
+                            break;
+
+                        default: //NFe foi rejeitada
+                                 //O Status da NFe tem que ser maior que 1 ou deu algum erro na hora de ler o XML de retorno da consulta do recibo, sendo assim, vou mantar a nota no fluxo para consultar novamente.
+                            if(Convert.ToInt32(strStat) >= 1)
+                            {
+                                //Mover o XML da NFE a pasta de XML´s com erro
+                                oAux.MoveArqErro(strArquivoNFe);
+
+                                if(Empresas.Configuracoes[emp].DocumentosRejeitados)
+                                {
+                                    var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
+                                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - MDFe´s estão sendo rejeitados");
+                                }
+                            }
+                            else
+                            {
+                                tirarFluxo = false;
+                            }
+
+                            break;
                     }
 
-                    //Gravar o arquivo de erro de retorno para o ERP, caso ocorra
-                    TFunctions.GravarArqErroServico(arqXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProRec_ERR, ex);
-                }
-                catch { }
+                    //Deletar a NFE do arquivo de controle de fluxo
+                    if(tirarFluxo)
+                    {
+                        fluxoNFe.ExcluirNfeFluxo(strChaveNFe);
+                    }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
+                    break;
+                }
             }
         }
-
-        /// <summary>
-        /// Salvar o arquivo do MDFe assinado na pasta EmProcessamento
-        /// </summary>
-        /// <param name="emp">Codigo da empresa</param>
-        private void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento)
-        {
-            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
-
-            var sw = File.CreateText(arqEmProcessamento);
-            sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName("MDFe")[0].OuterXml);
-            sw.Close();
-
-            //if (File.Exists(arqEmProcessamento))
-            //{
-            //    File.Delete(NomeArquivoXML);
-            //}
-        }
-
-        #endregion Execute
-
-        #region FinalizarNFeSincrono()
 
         /// <summary>
         /// Finalizar a NFe no processo Síncrono
@@ -155,185 +212,126 @@ namespace NFe.Service
             FinalizarMDFe(protMDFe, fluxoNFe, emp, ConteudoXML);
         }
 
-        #endregion FinalizarNFeSincrono()
-
-        private void FinalizarMDFe(XmlNodeList protNFeList, FluxoNfe fluxoNFe, int emp, XmlDocument conteudoXMLLote)
+        /// <summary>
+        /// Salvar o arquivo do MDFe assinado na pasta EmProcessamento
+        /// </summary>
+        /// <param name="emp">Codigo da empresa</param>
+        private void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento)
         {
-            var oLerXml = new LerXML();
+            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
 
-            foreach (XmlNode protNFeNode in protNFeList)
+            var sw = File.CreateText(arqEmProcessamento);
+            sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName("MDFe")[0].OuterXml);
+            sw.Close();
+
+            //if (File.Exists(arqEmProcessamento))
+            //{
+            //    File.Delete(NomeArquivoXML);
+            //}
+        }
+
+        #endregion Private Methods
+
+        #region Public Constructors
+
+        public TaskMDFeRecepcaoSinc(string arquivo)
+        {
+            Servico = Servicos.MDFeEnviarSinc;
+
+            NomeArquivoXML = arquivo;
+            ConteudoXML.PreserveWhitespace = false;
+            ConteudoXML.Load(arquivo);
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public override void Execute()
+        {
+            var emp = Empresas.FindEmpresaByThread();
+
+            var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + (new FileInfo(NomeArquivoXML).Name);
+            Configuracao configuracao = null;
+
+            try
             {
-                var protNFeElemento = (XmlElement)protNFeNode;
+                var xmlMDFe = new MDFe();
+                xmlMDFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<MDFe>(ConteudoXML);
 
-                var strProtNfe = protNFeElemento.OuterXml;
-
-                var infProtList = protNFeElemento.GetElementsByTagName("infProt");
-
-                foreach (XmlNode infProtNode in infProtList)
+                configuracao = new Configuracao
                 {
-                    var tirarFluxo = true;
-                    var infProtElemento = (XmlElement)infProtNode;
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                    TipoDFe = TipoDFe.MDFe,
+                    TipoEmissao = Unimake.Business.DFe.Servicos.TipoEmissao.Normal,
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
+                };
 
-                    var strChaveNFe = string.Empty;
-                    var strStat = string.Empty;
-                    var xMotivo = string.Empty;
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
-                    if (infProtElemento.GetElementsByTagName(TpcnResources.chMDFe.ToString())[0] != null)
-                    {
-                        strChaveNFe = "MDFe" + infProtElemento.GetElementsByTagName(TpcnResources.chMDFe.ToString())[0].InnerText;
-                    }
+                var autorizacaoSinc = new Unimake.Business.DFe.Servicos.MDFe.AutorizacaoSinc(xmlMDFe, configuracao);
+                autorizacaoSinc.Executar();
 
-                    if (infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0] != null)
-                    {
-                        strStat = infProtElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
-                    }
+                ConteudoXML = autorizacaoSinc.ConteudoXMLAssinado;
 
-                    if (infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0] != null)
-                    {
-                        xMotivo = infProtElemento.GetElementsByTagName(TpcnResources.xMotivo.ToString())[0].InnerText;
-                    }
+                SalvarArquivoEmProcessamento(emp, arqEmProcessamento);
 
-                    //Definir o nome do arquivo da NFe e seu caminho
-                    var strNomeArqNfe = "";
-                    strNomeArqNfe = new FileInfo(NomeArquivoXML).Name;
+                vStrXmlRetorno = autorizacaoSinc.RetornoWSString;
 
-                    // se por algum motivo o XML não existir no "Fluxo", então o arquivo tem que existir
-                    // na pasta "EmProcessamento" assinada.
-                    if (string.IsNullOrEmpty(strNomeArqNfe))
-                    {
-                        if (string.IsNullOrEmpty(strChaveNFe))
-                        {
-                            oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
-                            throw new Exception("LerRetornoLoteMDFe(): Não pode obter o nome do arquivo");
-                        }
-
-                        strNomeArqNfe = strChaveNFe.Substring(4) + Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML;
-                    }
-                    var strArquivoNFe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + strNomeArqNfe;
-
-                    //Atualizar a Tag de status da NFe no fluxo para que se ocorrer alguma falha na exclusão eu tenha esta campo para ter uma referencia em futuras consultas
-                    fluxoNFe.AtualizarTag(strChaveNFe, FluxoNfe.ElementoEditavel.cStat, strStat);
-
-                    switch (strStat)
-                    {
-                        case "100": //MDFe Autorizado
-                            if (File.Exists(strArquivoNFe))
-                            {
-                                //Juntar o protocolo com a NFE já copiando para a pasta de autorizadas
-                                var strArquivoNFeProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                    PastaEnviados.EmProcessamento.ToString() + "\\" +
-                                    Functions.ExtrairNomeArq(strNomeArqNfe, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML) + Propriedade.ExtRetorno.ProcMDFe;
-
-                                //Ler o XML para pegar a data de emissão para criar a pasta dos XML´s autorizados
-                                if (conteudoXMLLote == null)
-                                {
-                                    conteudoXMLLote = new XmlDocument();
-                                    conteudoXMLLote.Load(strArquivoNFe);
-                                }
-                                oLerXml.Mdfe(conteudoXMLLote);
-
-                                //Verificar se a -nfe.xml existe na pasta de autorizados
-                                var NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
-
-                                //Verificar se o -procNfe.xml existe na past de autorizados
-                                var procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe);
-
-                                //Se o XML de distribuição não estiver na pasta de autorizados
-                                if (!procNFeJaNaAutorizada)
-                                {
-                                    if (!File.Exists(strArquivoNFeProc))
-                                    {
-                                        oGerarXML.XmlDistMDFe(strArquivoNFe, strProtNfe, Propriedade.ExtRetorno.ProcMDFe, oLerXml.oDadosNfe.versao);
-                                    }
-                                }
-
-                                if (!(procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe)))
-                                {
-                                    //Mover a nfePRoc da pasta de NFE em processamento para a NFe Autorizada
-                                    //Para envitar falhar, tenho que mover primeiro o XML de distribuição (-procnfe.xml) para
-                                    //depois mover o da nfe (-nfe.xml), pois se ocorrer algum erro, tenho como reconstruir o senário,
-                                    //assim sendo não inverta as posições. Wandrey 08/10/2009
-                                    TFunctions.MoverArquivo(strArquivoNFeProc, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
-
-                                    //Atualizar a situação para que eu só mova o arquivo com final -NFe.xml para a pasta autorizado se
-                                    //a procnfe já estiver lá, ou vai ficar na pasta emProcessamento para tentar gerar novamente.
-                                    //Isso vai dar uma maior segurança para não deixar sem gerar o -procnfe.xml. Wandrey 13/12/2012
-                                    procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe);
-                                }
-
-                                if (!NFeJaNaAutorizada && procNFeJaNaAutorizada)
-                                {
-                                    //Mover a NFE da pasta de NFE em processamento para NFe Autorizada
-                                    //Para envitar falhar, tenho que mover primeiro o XML de distribuição (-procnfe.xml) para
-                                    //depois mover o da nfe (-nfe.xml), pois se ocorrer algum erro, tenho como reconstruir o senário.
-                                    //assim sendo não inverta as posições. Wandrey 08/10/2009
-                                    if (!Empresas.Configuracoes[emp].SalvarSomenteXMLDistribuicao)
-                                    {
-                                        TFunctions.MoverArquivo(strArquivoNFe, PastaEnviados.Autorizados, oLerXml.oDadosNfe.dEmi);
-                                    }
-                                    else
-                                    {
-                                        TFunctions.MoverArquivo(strArquivoNFe, PastaEnviados.Originais, oLerXml.oDadosNfe.dEmi);
-                                    }
-                                }
-
-                                //Disparar a geração/impressao do UniDanfe. 03/02/2010 - Wandrey
-                                if (procNFeJaNaAutorizada)
-                                {
-                                    try
-                                    {
-                                        var strArquivoDist = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                            PastaEnviados.Autorizados.ToString() + "\\" +
-                                            Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(oLerXml.oDadosNfe.dEmi) +
-                                            Path.GetFileName(strArquivoNFeProc);
-
-                                        UniDanfe.Executar(strArquivoDist, oLerXml.oDadosNfe.dEmi, Empresas.Configuracoes[emp]);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Auxiliar.WriteLog("TaskMDFeRetRecepcao: " + ex.Message, false);
-                                    }
-                                }
-                                //Vou verificar se estão os dois arquivos na pasta Autorizados, se tiver eu tiro do fluxo caso contrário não. Wandrey 13/02/2012
-                                NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
-                                procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProcMDFe);
-                                if (!procNFeJaNaAutorizada || !NFeJaNaAutorizada)
-                                {
-                                    tirarFluxo = false;
-                                }
-                            }
-                            break;
-
-                        default: //NFe foi rejeitada
-                                 //O Status da NFe tem que ser maior que 1 ou deu algum erro na hora de ler o XML de retorno da consulta do recibo, sendo assim, vou mantar a nota no fluxo para consultar novamente.
-                            if (Convert.ToInt32(strStat) >= 1)
-                            {
-                                //Mover o XML da NFE a pasta de XML´s com erro
-                                oAux.MoveArqErro(strArquivoNFe);
-
-                                if (Empresas.Configuracoes[emp].DocumentosRejeitados)
-                                {
-                                    var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
-                                    sendMessageToWhatsApp.AlertNotification("Rejeição: " + Convert.ToInt32(strStat).ToString("000") + "-" + xMotivo.Trim(), "UNINFE - MDFe´s estão sendo rejeitados");
-                                }
-                            }
-                            else
-                            {
-                                tirarFluxo = false;
-                            }
-
-                            break;
-                    }
-
-                    //Deletar a NFE do arquivo de controle de fluxo
-                    if (tirarFluxo)
-                    {
-                        fluxoNFe.ExcluirNfeFluxo(strChaveNFe);
-                    }
-
-                    break;
+                if(autorizacaoSinc.Result.CStat == 100)
+                {
+                    FinalizarMDFeSincrono(vStrXmlRetorno, emp, xmlMDFe.InfMDFe.Chave);
                 }
+                else
+                {
+                    oAux.MoveArqErro(arqEmProcessamento);
+
+                    if(Empresas.Configuracoes[emp].DocumentosRejeitados)
+                    {
+                        var sendMessageToWhatsApp = new SendMessageToWhatsApp(emp);
+                        sendMessageToWhatsApp.AlertNotification("Rejeição: " + autorizacaoSinc.Result.CStat.ToString("000") + "-" + autorizacaoSinc.Result.XMotivo.Trim(), "UNINFE - MDFe´s estão sendo rejeitados");
+                    }
+                }
+
+                oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
+
+                if(File.Exists(NomeArquivoXML))
+                {
+                    File.Delete(NomeArquivoXML);
+                }
+
+                autorizacaoSinc.Dispose();
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
+            }
+            catch(Exception ex)
+            {
+                try
+                {
+                    var arqXML = NomeArquivoXML;
+
+                    if(File.Exists(arqEmProcessamento))
+                    {
+                        arqXML = arqEmProcessamento;
+
+                        if(File.Exists(NomeArquivoXML))
+                        {
+                            TFunctions.MoveArqErro(NomeArquivoXML);
+                        }
+                    }
+
+                    //Gravar o arquivo de erro de retorno para o ERP, caso ocorra
+                    TFunctions.GravarArqErroServico(arqXML, Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML, Propriedade.ExtRetorno.ProRec_ERR, ex);
+                }
+                catch { }
+
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
             }
         }
+
+        #endregion Public Methods
     }
 }

@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using UniNFe.Test.Abstractions;
 using Unimake.Business.DFe.Servicos;
+using UniNFe.Test.Abstractions;
 using Xunit;
 
 namespace UniNFe.Test.NFeABI
@@ -19,6 +19,8 @@ namespace UniNFe.Test.NFeABI
         private readonly bool proxyAnterior;
         private readonly bool proxyAutoAnterior;
         private readonly bool checarConexaoAnterior;
+        private readonly string proxyServidorAnterior;
+        private readonly int proxyPortaAnterior;
         private readonly string proxyUsuarioAnterior;
         private readonly string proxySenhaAnterior;
         private readonly string pasta;
@@ -31,6 +33,8 @@ namespace UniNFe.Test.NFeABI
             proxyAnterior = ConfiguracaoApp.Proxy;
             proxyAutoAnterior = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
             checarConexaoAnterior = ConfiguracaoApp.ChecarConexaoInternet;
+            proxyServidorAnterior = ConfiguracaoApp.ProxyServidor;
+            proxyPortaAnterior = ConfiguracaoApp.ProxyPorta;
             proxyUsuarioAnterior = ConfiguracaoApp.ProxyUsuario;
             proxySenhaAnterior = ConfiguracaoApp.ProxySenha;
             pasta = Path.Combine(Path.GetTempPath(), "UniNFe.Test.NFeABI", Guid.NewGuid().ToString("N"));
@@ -61,6 +65,8 @@ namespace UniNFe.Test.NFeABI
         {
             ConfiguracaoApp.Proxy = true;
             ConfiguracaoApp.DetectarConfiguracaoProxyAuto = true;
+            ConfiguracaoApp.ProxyServidor = "proxy-antigo.example.com";
+            ConfiguracaoApp.ProxyPorta = 3128;
             ConfiguracaoApp.ProxyUsuario = "usuario-proxy";
             ConfiguracaoApp.ProxySenha = "segredo-proxy";
             var arquivo = CriarPedido();
@@ -85,6 +91,8 @@ namespace UniNFe.Test.NFeABI
             Assert.True(capturada.PrepararConexaoTLSAntesDoEnvio);
             Assert.True(capturada.HasProxy);
             Assert.True(capturada.ProxyAutoDetect);
+            Assert.Null(capturada.ProxyServer);
+            Assert.Equal(0, capturada.ProxyPort);
             Assert.Equal("usuario-proxy", capturada.ProxyUser);
             Assert.Equal("segredo-proxy", capturada.ProxyPassword);
 
@@ -98,6 +106,47 @@ namespace UniNFe.Test.NFeABI
 #else
             Assert.False(File.Exists(Path.Combine(pasta, "status-diagdispdfe.xml")));
 #endif
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void StatusRespeitaUsoDoProxyEEnviaServidorEPorta(bool usarProxy)
+        {
+            ConfiguracaoApp.Proxy = usarProxy;
+            ConfiguracaoApp.DetectarConfiguracaoProxyAuto = false;
+            ConfiguracaoApp.ProxyServidor = "proxy.example.com";
+            ConfiguracaoApp.ProxyPorta = 3128;
+            ConfiguracaoApp.ProxyUsuario = "usuario-proxy";
+            ConfiguracaoApp.ProxySenha = "segredo-proxy";
+            var arquivo = CriarPedido();
+            var retorno = "<retConsStatServNFeABI xmlns=\"http://www.portalfiscal.inf.br/nfeabi\" versao=\"1.00\"><tpAmb>2</tpAmb><verAplic>TESTE</verAplic><cStat>107</cStat><xMotivo>OK</xMotivo><cUF>41</cUF><dhRecbto>2026-09-15T00:00:00-03:00</dhRecbto></retConsStatServNFeABI>";
+            Configuracao capturada = null;
+            TaskConsultaStatusNFeABI.ExecutarConsulta = (xml, configuracao) =>
+            {
+                capturada = configuracao;
+                return retorno;
+            };
+
+            ExecutarEmThread("0", () => new TaskConsultaStatusNFeABI(arquivo).Execute());
+
+            Assert.False(File.Exists(arquivo));
+            Assert.Equal(retorno, File.ReadAllText(Path.Combine(pasta, "status-sta.xml")));
+            Assert.NotNull(capturada);
+            Assert.Equal(usarProxy, capturada.HasProxy);
+            if(usarProxy)
+            {
+                Assert.False(capturada.ProxyAutoDetect);
+                Assert.Equal("proxy.example.com", capturada.ProxyServer);
+                Assert.Equal(3128, capturada.ProxyPort);
+                Assert.Equal("usuario-proxy", capturada.ProxyUser);
+                Assert.Equal("segredo-proxy", capturada.ProxyPassword);
+            }
+            else
+            {
+                Assert.Null(capturada.ProxyServer);
+                Assert.Equal(0, capturada.ProxyPort);
+            }
         }
 
         [Theory]
@@ -186,7 +235,7 @@ namespace UniNFe.Test.NFeABI
         public void CertificadoVencidoNaoExecutaTransporte()
         {
             var arquivo = CriarPedido();
-            using (var rsa = RSA.Create(2048))
+            using(var rsa = RSA.Create(2048))
             {
                 var request = new CertificateRequest("CN=UniNFe Teste", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
                 certificadoTemporario = request.CreateSelfSigned(DateTimeOffset.UtcNow.AddDays(-3), DateTimeOffset.UtcNow.AddDays(-2));
@@ -224,11 +273,13 @@ namespace UniNFe.Test.NFeABI
             ConfiguracaoApp.Proxy = proxyAnterior;
             ConfiguracaoApp.DetectarConfiguracaoProxyAuto = proxyAutoAnterior;
             ConfiguracaoApp.ChecarConexaoInternet = checarConexaoAnterior;
+            ConfiguracaoApp.ProxyServidor = proxyServidorAnterior;
+            ConfiguracaoApp.ProxyPorta = proxyPortaAnterior;
             ConfiguracaoApp.ProxyUsuario = proxyUsuarioAnterior;
             ConfiguracaoApp.ProxySenha = proxySenhaAnterior;
             Empresas.Configuracoes = configuracoesAnteriores;
             certificadoTemporario?.Dispose();
-            if (Directory.Exists(pasta))
+            if(Directory.Exists(pasta))
             {
                 Directory.Delete(pasta, true);
             }

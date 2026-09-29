@@ -40,7 +40,7 @@ namespace NFe.Service.NFeABI
 
                 configuracao = CriarConfiguracao(emp, consulta);
                 vStrXmlRetorno = (ExecutarConsulta ?? ExecutarConsultaPadrao)(ConteudoXML.OuterXml, configuracao);
-                if (string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                if(string.IsNullOrWhiteSpace(vStrXmlRetorno))
                 {
                     throw new Exception("O serviço de status da NF-e ABI retornou uma resposta vazia.");
                 }
@@ -54,7 +54,7 @@ namespace NFe.Service.NFeABI
                 categoriaFalha = "Nenhuma";
                 excluirEntrada = true;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 categoriaFalha = ClassificarFalha(ex);
                 GravarErroSeguro(emp, categoriaFalha);
@@ -63,7 +63,7 @@ namespace NFe.Service.NFeABI
             {
                 GravarDiagnosticoPassivo(emp, resultadoOperacao, categoriaFalha, cStat);
 
-                if (excluirEntrada)
+                if(excluirEntrada)
                 {
                     try
                     {
@@ -79,7 +79,7 @@ namespace NFe.Service.NFeABI
 
         private static string ExecutarConsultaPadrao(string xmlOriginal, Configuracao configuracao)
         {
-            using (var statusServico = new Unimake.Business.DFe.Servicos.NFeABI.StatusServico(xmlOriginal, configuracao))
+            using(var statusServico = new Unimake.Business.DFe.Servicos.NFeABI.StatusServico(xmlOriginal, configuracao))
             {
                 statusServico.Executar();
                 return statusServico.RetornoWSString;
@@ -99,40 +99,34 @@ namespace NFe.Service.NFeABI
                 ColetarTelemetriaDisponibilidade = true
             };
 
-            if (ConfiguracaoApp.Proxy)
-            {
-                configuracao.HasProxy = true;
-                configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-            }
+            ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
             return configuracao;
         }
 
         private static void ValidarPedido(int emp, ConsStatServNFeABI consulta)
         {
-            if (consulta == null || consulta.Versao != "1.00" || consulta.XServ != "STATUS")
+            if(consulta == null || consulta.Versao != "1.00" || consulta.XServ != "STATUS")
             {
                 throw new Exception("Pedido de status da NF-e ABI inválido.");
             }
 
-            if ((int)consulta.TpAmb != Empresas.Configuracoes[emp].AmbienteCodigo)
+            if((int)consulta.TpAmb != Empresas.Configuracoes[emp].AmbienteCodigo)
             {
                 throw new Exception("O ambiente do pedido de status da NF-e ABI diverge da configuração da empresa.");
             }
 
-            if (consulta.TpAmb == TipoAmbiente.Producao)
+            if(consulta.TpAmb == TipoAmbiente.Producao)
             {
                 throw new Exception("O endpoint de produção da NF-e ABI ainda não foi publicado.");
             }
 
-            if (Empresas.Configuracoes[emp].UsaCertificado && Empresas.Configuracoes[emp].X509Certificado == null)
+            if(Empresas.Configuracoes[emp].UsaCertificado && Empresas.Configuracoes[emp].X509Certificado == null)
             {
                 throw new Exception("Certificado digital não configurado para a consulta de status da NF-e ABI.");
             }
 
-            if (Empresas.Configuracoes[emp].UsaCertificado &&
+            if(Empresas.Configuracoes[emp].UsaCertificado &&
                 new Unimake.Business.Security.CertificadoDigital().Vencido(Empresas.Configuracoes[emp].X509Certificado))
             {
                 throw new Exception("Certificado digital vencido para a consulta de status da NF-e ABI.");
@@ -142,7 +136,7 @@ namespace NFe.Service.NFeABI
         private void GravarDiagnosticoPassivo(int emp, string resultadoOperacao, string categoriaFalha, string cStat)
         {
 #if _BETA || DEBUG
-            if (emp < 0 || emp >= Empresas.Configuracoes.Count)
+            if(emp < 0 || emp >= Empresas.Configuracoes.Count)
             {
                 return;
             }
@@ -154,14 +148,14 @@ namespace NFe.Service.NFeABI
                     Propriedade.ExtRetorno.DiagnosticoDisponibilidadeDFe;
                 var caminhoArquivo = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nomeArquivo);
 
-                using (var writer = XmlWriter.Create(caminhoArquivo, new XmlWriterSettings { Encoding = new UTF8Encoding(false), Indent = true }))
+                using(var writer = XmlWriter.Create(caminhoArquivo, new XmlWriterSettings { Encoding = new UTF8Encoding(false), Indent = true }))
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("DiagnosticoDisponibilidadeDFe");
                     writer.WriteElementString("TipoDFe", TipoDFe.NFeABI.ToString());
                     writer.WriteElementString("ResultadoOperacao", resultadoOperacao);
                     writer.WriteElementString("CategoriaFalha", categoriaFalha);
-                    if (!string.IsNullOrWhiteSpace(cStat))
+                    if(!string.IsNullOrWhiteSpace(cStat))
                     {
                         writer.WriteElementString("CStat", cStat);
                     }
@@ -179,31 +173,31 @@ namespace NFe.Service.NFeABI
         private static string ClassificarFalha(Exception ex)
         {
             var mensagem = ex == null ? string.Empty : ex.Message ?? string.Empty;
-            if (mensagem.IndexOf("certificado", StringComparison.OrdinalIgnoreCase) >= 0)
+            if(mensagem.IndexOf("certificado", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Certificado";
             }
 
-            if (mensagem.IndexOf("proxy", StringComparison.OrdinalIgnoreCase) >= 0)
+            if(mensagem.IndexOf("proxy", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Proxy";
             }
 
-            if (mensagem.IndexOf("tls", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("tls", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("ssl", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("canal seguro", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "TLS";
             }
 
-            if (mensagem.IndexOf("dns", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("dns", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("nome remoto", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("host", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "DNS";
             }
 
-            if (mensagem.IndexOf("produção", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("produção", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("ambiente", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("configuração", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -211,7 +205,7 @@ namespace NFe.Service.NFeABI
                 return "Configuracao";
             }
 
-            if (mensagem.IndexOf("vazia", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if(mensagem.IndexOf("vazia", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 mensagem.IndexOf("retorno", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 return "Retorno";
@@ -223,7 +217,7 @@ namespace NFe.Service.NFeABI
         private static Exception CriarExcecaoSegura(string categoriaFalha)
         {
             try { throw new Exception("Falha de " + categoriaFalha + " na consulta de status da NF-e ABI."); }
-            catch (Exception ex) { return ex; }
+            catch(Exception ex) { return ex; }
         }
 
         private void GravarErroSeguro(int emp, string categoriaFalha)

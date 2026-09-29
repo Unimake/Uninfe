@@ -8,6 +8,14 @@ namespace NFe.Service.CIOT
 {
     public abstract class TaskCIOTBase : TaskAbst
     {
+        #region Protected Properties
+
+        protected abstract Propriedade.TipoEnvio TipoEnvioXML { get; }
+
+        #endregion Protected Properties
+
+        #region Protected Constructors
+
         protected TaskCIOTBase(string arquivo)
         {
             NomeArquivoXML = arquivo;
@@ -15,7 +23,9 @@ namespace NFe.Service.CIOT
             ConteudoXML.Load(arquivo);
         }
 
-        protected abstract Propriedade.TipoEnvio TipoEnvioXML { get; }
+        #endregion Protected Constructors
+
+        #region Protected Methods
 
         /// <summary>
         /// Cria o objeto de configuração para consumir o serviço
@@ -38,44 +48,18 @@ namespace NFe.Service.CIOT
                 EFreteSenha = Empresas.Configuracoes[emp].EFreteSenha
             };
 
-            if (ConfiguracaoApp.Proxy)
-            {
-                configuracao.HasProxy = true;
-                configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
-                configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
-                configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
-            }
+            ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
             return configuracao;
         }
 
-        /// <summary>
-        /// Grava o XML retornado pelo web-service na pasta de Retorno, utilizando o mesmo nome do arquivo de envio, porém com a extensão de retorno
-        /// </summary>
-        protected void GravarRetorno()
+        protected void DeletarArquivo()
         {
-            oGerarXML.XmlRetorno(Propriedade.Extensao(TipoEnvioXML).EnvioXML, Propriedade.Extensao(TipoEnvioXML).RetornoXML, vStrXmlRetorno);
-
-            if (File.Exists(NomeArquivoXML))
+            try
             {
-                File.Delete(NomeArquivoXML);
+                Functions.DeletarArquivo(NomeArquivoXML);
             }
-        }
-
-        /// <summary>
-        /// Salvar o arquivo da DCe assinado na pasta EmProcessamento
-        /// </summary>
-        /// <param name="emp">Código da empresa</param>
-        /// <param name="arqEmProcessamento">Onde será salvo o XML assinado</param>
-        /// <param name="nomeTag">Nome da tag que abre o XML</param>
-        protected void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento, string nomeTag)
-        {
-            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
-
-            using (var sw = File.CreateText(arqEmProcessamento))
-            {
-                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
-            }
+            catch { }
         }
 
         /// <summary>
@@ -91,13 +75,35 @@ namespace NFe.Service.CIOT
             catch { }
         }
 
-        protected void DeletarArquivo()
+        /// <summary>
+        /// Grava o XML retornado pelo web-service na pasta de Retorno, utilizando o mesmo nome do arquivo de envio, porém com a extensão de retorno
+        /// </summary>
+        protected void GravarRetorno()
         {
-            try
+            oGerarXML.XmlRetorno(Propriedade.Extensao(TipoEnvioXML).EnvioXML, Propriedade.Extensao(TipoEnvioXML).RetornoXML, vStrXmlRetorno);
+
+            if(File.Exists(NomeArquivoXML))
             {
-                Functions.DeletarArquivo(NomeArquivoXML);
+                File.Delete(NomeArquivoXML);
             }
-            catch { }
         }
+
+        /// <summary>
+        /// Salvar o arquivo da DCe assinado na pasta EmProcessamento
+        /// </summary>
+        /// <param name="emp">Código da empresa</param>
+        /// <param name="arqEmProcessamento">Onde será salvo o XML assinado</param>
+        /// <param name="nomeTag">Nome da tag que abre o XML</param>
+        protected void SalvarArquivoEmProcessamento(int emp, string arqEmProcessamento, string nomeTag)
+        {
+            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
+
+            using(var sw = File.CreateText(arqEmProcessamento))
+            {
+                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName(nomeTag)[0].OuterXml);
+            }
+        }
+
+        #endregion Protected Methods
     }
 }

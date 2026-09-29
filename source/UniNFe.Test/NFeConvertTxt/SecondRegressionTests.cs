@@ -178,6 +178,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("RTC2026-NFe623-nfe.txt")]
         [InlineData("RTC2026-NFe624-nfe.txt")]
         [InlineData("000323950-entrega-futura-nfe.txt")]
+        [InlineData("000047246-importacao-quatro-itens-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -442,6 +443,17 @@ namespace UniNFe.Test.NFeConvertTxt
                         Assert.Equal("41", ObterElemento(novo, "ICMS40")?.SelectSingleNode("*[local-name()='CST']")?.InnerText);
                         Assert.Null(ObterElemento(legado, "ICMS90"));
                         Assert.Null(ObterElemento(novo, "ICMS90"));
+                    }
+                    if (string.Equals(nomeArquivo, "000047246-importacao-quatro-itens-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        foreach (var conteudoXml in new[] { legado, novo })
+                        {
+                            var xmlImportacao = new XmlDocument();
+                            xmlImportacao.LoadXml(conteudoXml);
+                            Assert.Equal(4, xmlImportacao.SelectNodes("//*[local-name()='infNFe']/*[local-name()='det']").Count);
+                            Assert.Equal(4, xmlImportacao.SelectNodes("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IPI']/*[local-name()='IPINT']").Count);
+                            Assert.Equal(0, xmlImportacao.SelectNodes("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IPI']/*[local-name()='IPITrib']").Count);
+                        }
                     }
 
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legadoParaComparacao, novoParaComparacao);
