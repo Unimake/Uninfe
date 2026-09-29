@@ -94,7 +94,7 @@ namespace NFe.UI.Formularios
 
         private void nudPorta_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsNumber(e.KeyChar);
+            e.Handled = !char.IsNumber(e.KeyChar) && e.KeyChar != '\b';
         }
 
         private void tbUsuario_KeyDown(object sender, KeyEventArgs e)
