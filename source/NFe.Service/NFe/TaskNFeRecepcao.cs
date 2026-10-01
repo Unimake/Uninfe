@@ -36,6 +36,55 @@ namespace NFe.Service
         }
 
         /// <summary>
+        /// Ajusta grupos monofásicos legados para a modalidade exigida no ano da emissão em homologação.
+        /// Produção permanece no leiaute legado até que sua ativação seja deliberadamente autorizada.
+        /// </summary>
+        /// <param name="lote">Lote de NFe/NFCe que será autorizado.</param>
+        internal static void AjustarLeiauteMonofasiaHomologacao(EnviNFe lote)
+        {
+            if(lote?.NFe == null)
+            {
+                return;
+            }
+
+            foreach(var nfe in lote.NFe)
+            {
+                var infNFe = nfe?.InfNFeField;
+                if(infNFe?.Ide == null || infNFe.Ide.TpAmb != TipoAmbiente.Homologacao || infNFe.Det == null)
+                {
+                    continue;
+                }
+
+                var versaoLeiaute = ObterVersaoLeiauteMonofasia(infNFe.Ide.DhEmi.Year);
+                foreach(var detalhe in infNFe.Det)
+                {
+                    var monofasia = detalhe?.Imposto?.IBSCBS?.GIBSCBSMono;
+                    if(monofasia != null && monofasia.VersaoLeiaute == VersaoLeiauteMonofasia.Legado)
+                    {
+                        monofasia.VersaoLeiaute = versaoLeiaute;
+                    }
+                }
+            }
+        }
+
+        private static VersaoLeiauteMonofasia ObterVersaoLeiauteMonofasia(int anoEmissao)
+        {
+            if(anoEmissao < 2026)
+            {
+                return VersaoLeiauteMonofasia.Legado;
+            }
+
+            if(anoEmissao == 2026)
+            {
+                return VersaoLeiauteMonofasia.Atual2026;
+            }
+
+            return anoEmissao <= 2028
+                ? VersaoLeiauteMonofasia.Atual2027A2028
+                : VersaoLeiauteMonofasia.Atual2029EmDiante;
+        }
+
+        /// <summary>
         /// Finalizar a NFe no processo Síncrono
         /// </summary>
         /// <param name="xmlRetorno">Conteúdo do XML retornado da SEFAZ</param>
@@ -401,6 +450,8 @@ namespace NFe.Service
 
                 var xmlNFe = new EnviNFe();
                 xmlNFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EnviNFe>(ConteudoXML);
+
+                AjustarLeiauteMonofasiaHomologacao(xmlNFe);
 
                 //remover assinatura gerada pelo ERP para que o UNINFE assine novamente.
                 for(var i = 0; i < xmlNFe.NFe.Count; i++)
