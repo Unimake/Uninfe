@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -179,6 +180,8 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("RTC2026-NFe624-nfe.txt")]
         [InlineData("000323950-entrega-futura-nfe.txt")]
         [InlineData("000047246-importacao-quatro-itens-nfe.txt")]
+        [InlineData("000024804-retorno-vasilhames-nfe.txt")]
+        [InlineData("000024804-retorno-vasilhames-vc01-nfe.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -455,6 +458,20 @@ namespace UniNFe.Test.NFeConvertTxt
                             Assert.Equal(0, xmlImportacao.SelectNodes("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IPI']/*[local-name()='IPITrib']").Count);
                         }
                     }
+                    if (nomeArquivo.StartsWith("000024804-retorno-vasilhames", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Assert.Null(ObterElemento(legado, "indEscala"));
+                        var xmlNovo = new XmlDocument();
+                        xmlNovo.LoadXml(novo);
+                        Assert.Equal(6, xmlNovo.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala' and text()='S']").Count);
+                        var referenciasEsperadas = nomeArquivo.Contains("-vc01-") ? 6 : 0;
+                        Assert.Equal(referenciasEsperadas, xmlNovo.SelectNodes("//*[local-name()='det']/*[local-name()='DFeReferenciado']").Count);
+                        var xmlLegado = new XmlDocument();
+                        xmlLegado.LoadXml(legado);
+                        Assert.Equal(referenciasEsperadas, xmlLegado.SelectNodes("//*[local-name()='det']/*[local-name()='DFeReferenciado']").Count);
+                        legadoParaComparacao = NormalizarRetornoVasilhames(legado);
+                        novoParaComparacao = NormalizarRetornoVasilhames(novo);
+                    }
 
                     var diferenca = NFeConvertTxtXmlComparer.Comparar(legadoParaComparacao, novoParaComparacao);
                     Assert.True(diferenca == null, diferenca);
@@ -468,6 +485,21 @@ namespace UniNFe.Test.NFeConvertTxt
             var xml = new XmlDocument();
             xml.LoadXml(conteudoXml);
             return xml.SelectSingleNode("//*[local-name()='" + nome + "']") as XmlElement;
+        }
+
+        private static string NormalizarRetornoVasilhames(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            foreach (XmlNode elemento in xml.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala']"))
+            {
+                elemento.ParentNode.RemoveChild(elemento);
+            }
+            foreach (XmlNode elemento in xml.SelectNodes("//*[local-name()='prod']/*[local-name()='vUnCom' or local-name()='vUnTrib']"))
+            {
+                elemento.InnerText = decimal.Parse(elemento.InnerText, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
+            }
+            return xml.OuterXml;
         }
 
         private static string RemoverElemento(string conteudoXml, string nome)
