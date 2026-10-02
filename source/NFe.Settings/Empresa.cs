@@ -887,6 +887,7 @@ namespace NFe.Settings
                         }
 
                         var agora = DateTime.Now;
+                        X509Certificate2 certificadoVencido = null;
                         for (var i = 0; i < encontrados.Count; i++)
                         {
                             var candidato = encontrados[i];
@@ -896,6 +897,18 @@ namespace NFe.Settings
                             {
                                 x509Cert = candidato;
                             }
+                            else if (candidato.NotAfter < agora && candidato.HasPrivateKey &&
+                                PermiteAssinaturaDigital(candidato) &&
+                                (certificadoVencido == null || candidato.NotAfter > certificadoVencido.NotAfter))
+                            {
+                                certificadoVencido = candidato;
+                            }
+                        }
+
+                        //O vencimento deve ser tratado no processamento para gerar o .err vinculado ao arquivo do ERP.
+                        if (x509Cert == null)
+                        {
+                            x509Cert = certificadoVencido;
                         }
                     }
                 }
@@ -918,7 +931,8 @@ namespace NFe.Settings
                     }
 
                     var agora = DateTime.Now;
-                    if (x509Cert.NotBefore > agora || agora > x509Cert.NotAfter || !x509Cert.HasPrivateKey || !PermiteAssinaturaDigital(x509Cert))
+                    //Permitir o carregamento vencido; CertVencido bloqueia o processamento com o retorno esperado pelo ERP.
+                    if (x509Cert.NotBefore > agora || !x509Cert.HasPrivateKey || !PermiteAssinaturaDigital(x509Cert))
                     {
                         throw new Exception("O certificado informado não está válido ou não possui chave privada para assinatura digital.");
                     }

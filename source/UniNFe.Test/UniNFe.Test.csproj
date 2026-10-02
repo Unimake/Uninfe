@@ -31,7 +31,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.12" />
     <PackageReference Include="System.Text.Json" Version="10.0.12" />
-    <PackageReference Include="Unimake.DFe" Version="20261001.1940.10" />
+    <PackageReference Include="Unimake.DFe" Version="20261002.1114.54" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
       <PrivateAssets>all</PrivateAssets>
