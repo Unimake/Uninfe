@@ -425,11 +425,11 @@ namespace UniNFe.Test.NFeConvertTxt
                     if (string.Equals(nomeArquivo, "000000011-devolucao-rtc-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
                         Assert.Null(ObterElemento(legado, "indEscala"));
-                        Assert.Equal("S", ObterElemento(novo, "indEscala")?.InnerText);
+                        Assert.Null(ObterElemento(novo, "indEscala"));
                         Assert.Equal("NFe33260999999999000191550050000000111003282235", ObterElemento(novo, "infNFe")?.GetAttribute("Id"));
                         Assert.Equal("00328223", ObterElemento(novo, "cNF")?.InnerText);
                         legadoParaComparacao = RemoverIdentificacaoDinamica(legado);
-                        novoParaComparacao = RemoverElemento(RemoverIdentificacaoDinamica(novo), "indEscala");
+                        novoParaComparacao = RemoverIdentificacaoDinamica(novo);
                     }
                     if (string.Equals(nomeArquivo, "000000011-devolucao-rtc-referenciada-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
@@ -463,7 +463,7 @@ namespace UniNFe.Test.NFeConvertTxt
                         Assert.Null(ObterElemento(legado, "indEscala"));
                         var xmlNovo = new XmlDocument();
                         xmlNovo.LoadXml(novo);
-                        Assert.Equal(6, xmlNovo.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala' and text()='S']").Count);
+                        Assert.Equal(0, xmlNovo.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala']").Count);
                         var referenciasEsperadas = nomeArquivo.Contains("-vc01-") ? 6 : 0;
                         Assert.Equal(referenciasEsperadas, xmlNovo.SelectNodes("//*[local-name()='det']/*[local-name()='DFeReferenciado']").Count);
                         var xmlLegado = new XmlDocument();
@@ -491,25 +491,9 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             var xml = new XmlDocument();
             xml.LoadXml(conteudoXml);
-            foreach (XmlNode elemento in xml.SelectNodes("//*[local-name()='prod']/*[local-name()='indEscala']"))
-            {
-                elemento.ParentNode.RemoveChild(elemento);
-            }
             foreach (XmlNode elemento in xml.SelectNodes("//*[local-name()='prod']/*[local-name()='vUnCom' or local-name()='vUnTrib']"))
             {
                 elemento.InnerText = decimal.Parse(elemento.InnerText, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
-            }
-            return xml.OuterXml;
-        }
-
-        private static string RemoverElemento(string conteudoXml, string nome)
-        {
-            var xml = new XmlDocument();
-            xml.LoadXml(conteudoXml);
-            var elemento = xml.SelectSingleNode("//*[local-name()='" + nome + "']");
-            if (elemento != null)
-            {
-                elemento.ParentNode.RemoveChild(elemento);
             }
             return xml.OuterXml;
         }
