@@ -2,7 +2,10 @@
 using NFe.Components.Info;
 using NFe.Settings;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
+using System.Security.Principal;
 using Topshelf;
 
 namespace UniNFe.Service
@@ -18,8 +21,20 @@ namespace UniNFe.Service
                 //Esta deve ser a primeira linha do Main, não coloque nada antes dela. Wandrey 31/07/2009
                 Propriedade.AssemblyEXE = Assembly.GetExecutingAssembly();
 
+                using (var identidade = WindowsIdentity.GetCurrent())
+                using (var processo = Process.GetCurrentProcess())
+                {
+                    WriteLog($"[Inicialização do serviço] Conta efetiva: {identidade.Name}; " +
+                        $"autenticação: {identidade.AuthenticationType}; execução interativa: {Environment.UserInteractive}; " +
+                        $"PID: {processo.Id}; sessão: {processo.SessionId}; " +
+                        $"processo de 64 bits: {Environment.Is64BitProcess}; CLR: {Environment.Version}; " +
+                        $"executável: {Propriedade.AssemblyEXE.Location}; diretório atual: {Directory.GetCurrentDirectory()}.");
+                }
+
+                WriteLog("[Inicialização do serviço] Verificando configurações e bloqueios de execução.");
                 if (Aplicacao.UniNFeSevicoAppExecutando())
                 {
+                    WriteLog("[Inicialização do serviço] Execução interrompida pela verificação de instância em execução.");
                     return;
                 }
 
@@ -61,10 +76,7 @@ namespace UniNFe.Service
         /// <param name="msg">Mensagem a ser grava no LOG</param>
         public static void WriteLog(string msg)
         {
-            var o = ConfiguracaoApp.GravarLogOperacoesRealizadas;
-            ConfiguracaoApp.GravarLogOperacoesRealizadas = true;
-            Auxiliar.WriteLog(msg, false);
-            ConfiguracaoApp.GravarLogOperacoesRealizadas = o;
+            Auxiliar.WriteLog(msg, false, true);
         }
     }
 }

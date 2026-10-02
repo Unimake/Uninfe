@@ -38,7 +38,7 @@ namespace UniNFe.Service
             {
                 _timer.Enabled = false;
                 _servicosIniciados = true;
-                Program.WriteLog("Serviço iniciado na pasta: " + Propriedade.PastaExecutavel);
+                Program.WriteLog("Iniciando processamento do serviço na pasta: " + Propriedade.PastaExecutavel);
                 IniciarServicosUniNFe();
             }
             else if (_tentativas >= MaxTentativas)
@@ -60,10 +60,14 @@ namespace UniNFe.Service
             try
             {
                 // Adicione aqui outras verificações necessárias (ex: rede, certificado, etc)
-                return Directory.Exists(Propriedade.PastaExecutavel);
+                var acessivel = Directory.Exists(Propriedade.PastaExecutavel);
+                Program.WriteLog($"[Inicialização do serviço] Verificação da pasta local '{Propriedade.PastaExecutavel}': {acessivel}. " +
+                    "Esta verificação não testa o acesso às pastas de rede das empresas.");
+                return acessivel;
             }
-            catch
+            catch (Exception ex)
             {
+                Program.WriteLog($"[Inicialização do serviço] Falha na verificação da pasta local: {ex}");
                 return false;
             }
         }
@@ -90,24 +94,62 @@ namespace UniNFe.Service
 
         private void IniciarServicosUniNFe()
         {
-            Propriedade.TipoAplicativo = TipoAplicativo.Todos;
-            ConfiguracaoApp.StartVersoes();
-            Empresas.CarregaConfiguracao(true);
-
-            foreach (var empresa in Empresas.Configuracoes)
+            var etapa = "Carregar versões";
+            try
             {
-                if (empresa.X509Certificado == null && empresa.UsaCertificado)
-                {
-                    var msg = $"Não pode ler o certificado da empresa: {empresa.CNPJ} => {empresa.Nome} => {empresa.Servico}";
-                    var f = Path.Combine(empresa.PastaXmlRetorno, $"uninfeServico_{DateTime.Now:yyyy-MMM-dd_hh-mm-ss}.err");
-                    File.WriteAllText(f, msg);
-                    Program.WriteLog(msg);
-                }
-            }
+                Propriedade.TipoAplicativo = TipoAplicativo.Todos;
+                Program.WriteLog("[Inicialização do serviço] " + etapa + ".");
+                ConfiguracaoApp.StartVersoes();
+                etapa = "Carregar configurações das empresas";
+                Program.WriteLog("[Inicialização do serviço] " + etapa + ".");
+                Empresas.CarregaConfiguracao(true);
+                Program.WriteLog($"[Inicialização do serviço] Empresas carregadas: {Empresas.Configuracoes.Count}; " +
+                    $"há erro de diretório: {Empresas.ExisteErroDiretorio}.");
 
-            Auxiliar.ConversaoNovaVersao(string.Empty);
-            ThreadService.Start();
-            new ThreadControlEvents();
+                foreach (var empresa in Empresas.Configuracoes)
+                {
+                    etapa = "Verificar configuração da empresa " + empresa.CNPJ;
+                    Program.WriteLog($"[Inicialização do serviço] Empresa: {empresa.CNPJ}; serviço: {empresa.Servico}; " +
+                        $"usa certificado: {empresa.UsaCertificado}; certificado instalado no Windows: {empresa.CertificadoInstalado}; " +
+                        $"certificado carregado: {empresa.X509Certificado != null}.");
+                    RegistrarPasta(empresa.CNPJ, "Envio", empresa.PastaXmlEnvio);
+                    RegistrarPasta(empresa.CNPJ, "Retorno", empresa.PastaXmlRetorno);
+                    RegistrarPasta(empresa.CNPJ, "Erro", empresa.PastaXmlErro);
+
+                    if (empresa.X509Certificado == null && empresa.UsaCertificado)
+                    {
+                        var msg = $"Não pode ler o certificado da empresa: {empresa.CNPJ} => {empresa.Nome} => {empresa.Servico}";
+                        var f = Path.Combine(empresa.PastaXmlRetorno, $"uninfeServico_{DateTime.Now:yyyy-MMM-dd_hh-mm-ss}.err");
+                        etapa = "Gravar aviso de certificado no arquivo " + f;
+                        Program.WriteLog($"[Inicialização do serviço] {msg}. Tentando gravar aviso em '{f}'.");
+                        File.WriteAllText(f, msg);
+                        Program.WriteLog(msg);
+                    }
+                }
+
+                etapa = "Executar conversões de atualização";
+                Program.WriteLog("[Inicialização do serviço] " + etapa + ".");
+                Auxiliar.ConversaoNovaVersao(string.Empty);
+                etapa = "Iniciar threads de processamento";
+                Program.WriteLog("[Inicialização do serviço] " + etapa + ".");
+                ThreadService.Start();
+                etapa = "Iniciar controle de eventos";
+                Program.WriteLog("[Inicialização do serviço] " + etapa + ".");
+                new ThreadControlEvents();
+                Program.WriteLog("[Inicialização do serviço] Inicialização do processamento concluída.");
+            }
+            catch (Exception ex)
+            {
+                Program.WriteLog($"[Inicialização do serviço] Inicialização interrompida. Etapa: {etapa}; " +
+                    $"HRESULT: 0x{ex.HResult:X8}. Exceção original: {ex}");
+                throw;
+            }
+        }
+
+        private static void RegistrarPasta(string cnpj, string finalidade, string pasta)
+        {
+            Program.WriteLog($"[Inicialização do serviço] Empresa: {cnpj}; pasta de {finalidade}: '{pasta}'; " +
+                $"Directory.Exists: {Directory.Exists(pasta)}. O resultado não comprova permissão de gravação.");
         }
 
         private void PararServicosUniNFe()

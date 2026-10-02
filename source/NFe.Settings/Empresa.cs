@@ -742,6 +742,7 @@ namespace NFe.Settings
 
             if (File.Exists(NomeArquivoConfig))
             {
+                var etapaConfiguracao = "Ler arquivo de configuração";
                 try
                 {
                     var objObjectXMLSerializer = new ObjectXMLSerializer();
@@ -767,6 +768,7 @@ namespace NFe.Settings
                         File.WriteAllText(NomeArquivoConfig, temp);
                     }
                     var t = new Empresa();
+                    etapaConfiguracao = "Desserializar configuração";
                     t = (Empresa)objObjectXMLSerializer.Load(typeof(Empresa), NomeArquivoConfig);
 
                     if (!temp.Contains("<UsaCertificado>"))
@@ -779,6 +781,7 @@ namespace NFe.Settings
                         t.FTPPassivo = false;
                     }
 
+                    etapaConfiguracao = "Desproteger credenciais da configuração";
                     if (t.UsaCertificado)
                     {
                         if (!t.CertificadoInstalado && !string.IsNullOrEmpty(t.CertificadoSenha))
@@ -814,11 +817,13 @@ namespace NFe.Settings
                         t.UsaCertificado = true;
                     }
 
+                    etapaConfiguracao = "Aplicar configuração da empresa";
                     t.CopyObjectTo(this);
                     InvalidarEstadoPinCertificado();
 
                     if (t.UnidadeFederativaCodigo.Equals(4205407))
                     {
+                        etapaConfiguracao = "Recuperar configuração NFSe Softplan";
                         var result = t.RecuperarConfiguracaoNFSeSoftplan(t.CNPJ);
                         ClientID = result.ClientID;
                         ClientSecret = result.ClientSecret;
@@ -826,8 +831,10 @@ namespace NFe.Settings
                         TokenNFSeExpire = result.TokenNFSeExpire;
                     }
 
+                    etapaConfiguracao = "Criar pastas da empresa";
                     CriarPastasDaEmpresa();
 
+                    etapaConfiguracao = "Carregar certificado digital";
                     X509Certificado = BuscaConfiguracaoCertificado();
                 }
                 catch (Exception ex)
@@ -835,7 +842,8 @@ namespace NFe.Settings
                     string mensagemErro = "Ocorreu um erro ao efetuar a leitura das configurações da empresa " +
                         CNPJ + "=" + Nome.Trim() + ". Por favor entre na tela de configurações desta empresa e reconfigure.\r\n\r\nErro: " + ex.Message;
 
-                    Auxiliar.WriteLog($"{mensagemErro}\r\n\r\nNome arquivo de configuração com falha {NomeArquivoConfig}", true, true);
+                    Auxiliar.WriteLog($"{mensagemErro}\r\n\r\nNome arquivo de configuração com falha {NomeArquivoConfig}" +
+                        $"\r\nEtapa: {etapaConfiguracao}; HRESULT: 0x{ex.HResult:X8}.\r\nExceção original: {ex}", false, true);
 
                     //Não vou mais fazer isso pois estava gerando problemas com Certificados A3 - Renan 18/06/2013
                     //empresa.Certificado = string.Empty;
