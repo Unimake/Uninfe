@@ -182,6 +182,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000047246-importacao-quatro-itens-nfe.txt")]
         [InlineData("000024804-retorno-vasilhames-nfe.txt")]
         [InlineData("000024804-retorno-vasilhames-vc01-nfe.txt")]
+        [InlineData("000107590-venda-nfce-rtc.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", nomeArquivo);
@@ -335,7 +336,8 @@ namespace UniNFe.Test.NFeConvertTxt
                         ValidarIpiEItemForaDoTotalDaNfe399(novo);
                     }
                     if (nomeArquivo.StartsWith("352608474980590001155500100040300", StringComparison.OrdinalIgnoreCase) ||
-                        string.Equals(nomeArquivo, "NFe_000049184_08_27_14-nfe.txt", StringComparison.OrdinalIgnoreCase))
+                        string.Equals(nomeArquivo, "NFe_000049184_08_27_14-nfe.txt", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(nomeArquivo, "000107590-venda-nfce-rtc.txt", StringComparison.OrdinalIgnoreCase))
                     {
                         legado = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(legado);
                         novo = OmitirPaisBrasilOpcionalDeRetiradaEEntrega(novo);
@@ -399,6 +401,11 @@ namespace UniNFe.Test.NFeConvertTxt
                     {
                         ValidarAusenciaDeIcmsNoSegundoItem(legado);
                         ValidarAusenciaDeIcmsNoSegundoItem(novo);
+                    }
+                    if (string.Equals(nomeArquivo, "000107590-venda-nfce-rtc.txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        ValidarTotaisInformadosNaNfce107590(legado);
+                        ValidarTotaisInformadosNaNfce107590(novo);
                     }
                     if (string.Equals(nomeArquivo, "000000001-corrigido-nfe.txt", StringComparison.OrdinalIgnoreCase))
                     {
@@ -478,6 +485,17 @@ namespace UniNFe.Test.NFeConvertTxt
                 }
                 finally { if (Directory.Exists(pasta)) Directory.Delete(pasta, true); }
             }
+        }
+
+        private static void ValidarTotaisInformadosNaNfce107590(string conteudoXml)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(conteudoXml);
+            Assert.Equal("597.84", xml.SelectSingleNode("//*[local-name()='prod']/*[local-name()='vProd']")?.InnerText);
+            Assert.Equal("55.00", xml.SelectSingleNode("//*[local-name()='prod']/*[local-name()='vFrete']")?.InnerText);
+            Assert.Equal("652.84", xml.SelectSingleNode("//*[local-name()='ICMSTot']/*[local-name()='vNF']")?.InnerText);
+            Assert.Equal("546.75", xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='vItem']")?.InnerText);
+            Assert.Equal("546.75", xml.SelectSingleNode("//*[local-name()='total']/*[local-name()='vNFTot']")?.InnerText);
         }
 
         private static XmlElement ObterElemento(string conteudoXml, string nome)
@@ -963,6 +981,10 @@ namespace UniNFe.Test.NFeConvertTxt
                 "9013566450",
                 "0443351392",
                 "CENTERKASA COMERCIAL LTDA",
+                "SONIA ROSA DE BARROS",
+                "16082230191",
+                "R SENADOR JOAO KUBISTCHEK",
+                "6235650013",
                 "NOVA ROCHA IND TINTAS LTDA",
                 "CIARIN COMERCIO E INDUSTRIA DE ARTIGOS P/ SELARIA LTDA",
                 "CIARIN METAIS",

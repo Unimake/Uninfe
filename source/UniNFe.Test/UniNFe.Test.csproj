@@ -116,6 +116,7 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000047246-importacao-quatro-itens-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000024804-retorno-vasilhames-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000024804-retorno-vasilhames-vc01-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="NFeConvertTxt\Fixtures\Regressions\000107590-venda-nfce-rtc.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   </Project>
