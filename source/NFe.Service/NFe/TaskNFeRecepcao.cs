@@ -2,6 +2,7 @@ using NFe.Components;
 using NFe.Exceptions;
 using NFe.Settings;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml;
@@ -20,9 +21,189 @@ namespace NFe.Service
         /// </summary>
         private DadosRecClass dadosRec;
 
+        private readonly HashSet<string> arquivosNumeroLotePublicados = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
         #endregion Private Fields
 
         #region Private Methods
+
+        private IEnumerable<KeyValuePair<string, string>> ObterArquivosNumeroLote()
+        {
+            if(ArquivosTemporariosNumeroLote != null && ArquivosTemporariosNumeroLote.Count > 0)
+            {
+                return ArquivosTemporariosNumeroLote;
+            }
+
+            return new[] { new KeyValuePair<string, string>(NomeArqTempXMLLote, NomeArqTempTXTLote) };
+        }
+
+        private void PublicarNumerosLote(int emp, bool continuarEmCasoDeErro)
+        {
+            foreach(var arquivos in ObterArquivosNumeroLote())
+            {
+                PublicarNumeroLote(emp, arquivos.Key, continuarEmCasoDeErro);
+                if(Empresas.Configuracoes[emp].GravarRetornoTXTNFe && !string.IsNullOrWhiteSpace(arquivos.Key))
+                {
+                    PublicarNumeroLote(emp, arquivos.Value, continuarEmCasoDeErro);
+                }
+            }
+        }
+
+        private void PublicarNumeroLote(int emp, string arquivoTemporario, bool continuarEmCasoDeErro)
+        {
+            if(string.IsNullOrWhiteSpace(arquivoTemporario) || arquivosNumeroLotePublicados.Contains(arquivoTemporario))
+            {
+                return;
+            }
+
+            try
+            {
+                var arquivoRetorno = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, Path.GetFileName(arquivoTemporario));
+                File.Copy(arquivoTemporario, arquivoRetorno, true);
+                // O ERP pode consumir o retorno antes de uma falha na publicação do próximo arquivo.
+                arquivosNumeroLotePublicados.Add(arquivoTemporario);
+                Auxiliar.WriteLog("TaskNFeRecepcao: Número do lote publicado para o ERP. Arquivo=" + arquivoRetorno, false);
+                Functions.DeletarArquivo(arquivoTemporario);
+            }
+            catch(Exception ex)
+            {
+                Auxiliar.WriteLog("TaskNFeRecepcao: Falha ao publicar o número do lote para o ERP. Arquivo=" + arquivoTemporario + ", erro=" + ex.GetAllMessages(), true);
+                if(!continuarEmCasoDeErro)
+                {
+                    throw;
+                }
+            }
+        }
+
+        private void LimparNumerosLotePublicados(int emp)
+        {
+            foreach(var arquivos in ObterArquivosNumeroLote())
+            {
+                LimparNumeroLote(arquivos.Key, arquivosNumeroLotePublicados.Contains(arquivos.Key ?? string.Empty));
+                LimparNumeroLote(arquivos.Value, !Empresas.Configuracoes[emp].GravarRetornoTXTNFe ||
+                    arquivosNumeroLotePublicados.Contains(arquivos.Value ?? string.Empty));
+            }
+        }
+
+        private static void LimparNumeroLote(string arquivo, bool excluir)
+        {
+            if(!excluir || string.IsNullOrWhiteSpace(arquivo))
+            {
+                return;
+            }
+
+            try
+            {
+                Functions.DeletarArquivo(arquivo);
+            }
+            catch(Exception ex)
+            {
+                Auxiliar.WriteLog("TaskNFeRecepcao: Falha ao excluir referência temporária de lote já publicada. Arquivo=" + arquivo + ", erro=" + ex.GetAllMessages(), true);
+            }
+        }
+
+        private string ObterNomeArquivoNFe(int emp, string chaveNFe)
+        {
+            var nome = new FluxoNfe().LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+            if(!string.IsNullOrWhiteSpace(nome))
+            {
+                return nome;
+            }
+
+            foreach(var pasta in ObterPastasNFe(emp))
+            {
+                if(!Directory.Exists(pasta))
+                {
+                    continue;
+                }
+
+                foreach(var arquivo in Directory.GetFiles(pasta, "*" + Propriedade.ExtEnvio.NFe))
+                {
+                    try
+                    {
+                        var xml = new XmlDocument();
+                        xml.Load(arquivo);
+                        foreach(XmlElement infNFe in xml.GetElementsByTagName("infNFe"))
+                        {
+                            if(infNFe.GetAttribute("Id") == chaveNFe)
+                            {
+                                return Path.GetFileName(arquivo);
+                            }
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Auxiliar.WriteLog("TaskNFeRecepcao: Falha ao identificar XML da nota. Arquivo=" + arquivo + ", erro=" + ex.GetAllMessages(), true);
+                    }
+                }
+            }
+
+            throw new Exception("Não foi possível localizar o arquivo XML da nota com chave " + chaveNFe + ".");
+        }
+
+        private static IEnumerable<string> ObterPastasNFe(int emp)
+        {
+            var empresa = Empresas.Configuracoes[emp];
+            if(!string.IsNullOrWhiteSpace(empresa.PastaXmlEnvio))
+            {
+                yield return Path.Combine(empresa.PastaXmlEnvio, "temp");
+            }
+
+            if(!string.IsNullOrWhiteSpace(empresa.PastaXmlEmLote))
+            {
+                yield return Path.Combine(empresa.PastaXmlEmLote, "temp");
+            }
+
+            if(!string.IsNullOrWhiteSpace(empresa.PastaXmlEnviado))
+            {
+                yield return Path.Combine(empresa.PastaXmlEnviado, PastaEnviados.EmProcessamento.ToString());
+            }
+        }
+
+        private void EncerrarFalhaLocal(int emp)
+        {
+            foreach(XmlElement infNFe in ConteudoXML.GetElementsByTagName("infNFe"))
+            {
+                EncerrarFalhaLocal(emp, infNFe);
+            }
+        }
+
+        private void EncerrarFalhaLocal(int emp, XmlElement infNFe)
+        {
+            var empresa = Empresas.Configuracoes[emp];
+            var chave = infNFe.GetAttribute("Id");
+            try
+            {
+                var nome = ObterNomeArquivoNFe(emp, chave);
+                var moveu = false;
+                foreach(var pasta in ObterPastasNFe(emp))
+                {
+                    var arquivo = Path.Combine(pasta, nome);
+                    if(File.Exists(arquivo))
+                    {
+                        TFunctions.MoveArqErro(arquivo);
+                        if(File.Exists(arquivo) || !File.Exists(Path.Combine(empresa.PastaXmlErro, nome)))
+                        {
+                            throw new IOException("Não foi possível confirmar o XML da nota na pasta de erro.");
+                        }
+
+                        moveu = true;
+                    }
+                }
+
+                if(!moveu)
+                {
+                    throw new IOException("O arquivo XML da nota não foi localizado para movimentação à pasta de erro.");
+                }
+
+                new FluxoNfe().ExcluirNfeFluxo(chave);
+                Auxiliar.WriteLog("TaskNFeRecepcao: Falha local encerrada. XML movido para Erro e nota retirada do fluxo. Chave=" + chave, false);
+            }
+            catch(Exception ex)
+            {
+                Auxiliar.WriteLog("TaskNFeRecepcao: Falha ao encerrar nota com erro local. XML e fluxo pendentes de recuperação. Chave=" + chave + ", erro=" + ex.GetAllMessages(), true);
+            }
+        }
 
         /// <summary>
         /// Copia o arquivo temporário para o retorno, substituindo eventual retorno anterior, e exclui a origem.
@@ -252,19 +433,7 @@ namespace NFe.Service
                     var xmlElementNFe = (XmlElement)nodeNFe;
                     var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
 
-                    var fluxoNFe = new FluxoNfe();
-                    var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
-
-                    //Se não encontrar o nome do arquivo da NFe no FluxoNFe.XML, vou tentar pegar o nome do arquivo pelos XMLs que estão na pasta TEMP
-                    if(string.IsNullOrWhiteSpace(nomeArqNFe))
-                    {
-                        nomeArqNFe = NomeArquivoXMLTemp(Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnvio, "temp"), chaveNFe, "NFe", "infNFe");
-
-                        if(string.IsNullOrWhiteSpace(nomeArqNFe))
-                        {
-                            nomeArqNFe = NomeArquivoXMLTemp(Path.Combine(Empresas.Configuracoes[emp].PastaXmlEmLote, "temp"), chaveNFe, "NFe", "infNFe");
-                        }
-                    }
+                    var nomeArqNFe = ObterNomeArquivoNFe(emp, chaveNFe);
 
                     var arqEmProcessamento = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnviado, PastaEnviados.EmProcessamento.ToString(), nomeArqNFe);
 
@@ -299,26 +468,22 @@ namespace NFe.Service
         /// <param name="exception">Exceção gerada</param>
         private void SalvarArquivoErroValidacao(int emp, ValidarXMLException exception)
         {
-            try
+            PublicarNumerosLote(emp, true);
+            foreach(XmlElement infNFe in ConteudoXML.GetElementsByTagName("infNFe"))
             {
-                var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
-
-                foreach(var nodeNFe in nodeListNFe)
+                try
                 {
-                    var xmlElementNFe = (XmlElement)nodeNFe;
-                    var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
-
-                    var fluxoNFe = new FluxoNfe();
-                    var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
-                    var arqXMLNFe = Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqNFe;
-
-                    TFunctions.GravarArqErroServico(arqXMLNFe, Propriedade.ExtEnvio.NFe, Propriedade.ExtRetorno.Nfe_ERR, exception, ErroPadrao.ValidarXML, true);
+                    var nome = ObterNomeArquivoNFe(emp, infNFe.GetAttribute("Id"));
+                    var arquivo = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnvio, "temp", nome);
+                    // Encerrar antes do .ERR permite ao ERP reenviar a nota corrigida assim que consumir o erro.
+                    EncerrarFalhaLocal(emp, infNFe);
+                    // A movimentação ocorre separadamente para não impedir o retorno se a pasta Erro falhar.
+                    TFunctions.GravarArqErroServico(arquivo, Propriedade.ExtEnvio.NFe, Propriedade.ExtRetorno.Nfe_ERR, exception, ErroPadrao.ValidarXML, false);
                 }
-            }
-            catch
-            {
-                //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
-                //Wandrey 16/03/2010
+                catch(Exception ex)
+                {
+                    Auxiliar.WriteLog("TaskNFeRecepcao: Falha ao gravar erro de validação para o ERP. ErroOriginal=" + exception.GetAllMessages() + ", erroRetorno=" + ex.GetAllMessages(), true);
+                }
             }
         }
 
@@ -327,12 +492,20 @@ namespace NFe.Service
         /// </summary>
         /// <param name="ex">Objeto com a exception</param>
         /// <param name="dadosNFe">Dados da NFe/NFCe</param>
-        private void TrataException(Exception ex, DadosNFeClass dadosNFe, int emp)
+        private void TrataException(Exception ex, DadosNFeClass dadosNFe, int emp, bool envioIniciado)
         {
+            PublicarNumerosLote(emp, true);
+            if(envioIniciado)
+            {
+                PreservarArquivoParaRecuperacao(emp, dadosNFe, ex);
+            }
+            else
+            {
+                EncerrarFalhaLocal(emp);
+            }
+
             try
             {
-                //new FluxoNfe().ExcluirNfeFluxo(dadosNFe.chavenfe);
-
                 if(dadosNFe.indSinc)
                 {
                     TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.ExtEnvio.EnvLot, Propriedade.ExtRetorno.ProRec_ERR, ex, ErroPadrao.ErroNaoDetectado, false);
@@ -341,17 +514,25 @@ namespace NFe.Service
                 {
                     TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec_ERR, ex, ErroPadrao.ErroNaoDetectado, false);
                 }
-
-                PreservarArquivoParaRecuperacao(emp, dadosNFe, ex);
             }
-            catch
+            catch(Exception retornoEx)
             {
-                //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
-                //Wandrey 16/03/2010
+                Auxiliar.WriteLog("TaskNFeRecepcao: Falha ao gravar erro para o ERP. ErroOriginal=" + ex.GetAllMessages() + ", erroRetorno=" + retornoEx.GetAllMessages(), true);
             }
         }
 
         #endregion Private Methods
+
+        #region Internal Properties
+
+        internal List<KeyValuePair<string, string>> ArquivosTemporariosNumeroLote { get; set; }
+
+        internal Func<EnviNFe, Configuracao, Unimake.Business.DFe.Servicos.NFe.Autorizacao> CriarAutorizacao { get; set; } =
+            (xml, configuracao) => configuracao.TipoDFe == TipoDFe.NFCe
+                ? new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xml, configuracao)
+                : new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xml, configuracao);
+
+        #endregion Internal Properties
 
         #region Internal Methods
 
@@ -396,12 +577,12 @@ namespace NFe.Service
         #region Public Properties
 
         /// <summary>
-        /// Nome do arquivo que será movido para a pasta de retorno para o ERP se tudo der certo no envio do lote de notas fiscais eletrônicas (TXT)
+        /// Nome do arquivo temporário com o número do lote que será disponibilizado ao ERP no sucesso ou no erro (TXT).
         /// </summary>
         public string NomeArqTempTXTLote { get; set; }
 
         /// <summary>
-        /// Nome do arquivo que será movido para a pasta de retorno para o ERP se tudo der certo no envio do lote de notas fiscais eletrônicas (XML)
+        /// Nome do arquivo temporário com o número do lote que será disponibilizado ao ERP no sucesso ou no erro (XML).
         /// </summary>
         public string NomeArqTempXMLLote { get; set; }
 
@@ -438,6 +619,7 @@ namespace NFe.Service
             var oFluxoNfe = new FluxoNfe();
             var ler = new LerXML();
             Configuracao configuracao = null;
+            var envioIniciado = false;
 
             try
             {
@@ -497,10 +679,11 @@ namespace NFe.Service
                         configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
                     }
 
-                    var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, configuracao);
+                    var autorizacao = CriarAutorizacao(xmlNFe, configuracao);
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
                     SalvarArquivoEmProcessamento(emp, "TaskNFeRecepcao: XML assinado salvo em EmProcessamento antes do envio NFCe para preservar recuperacao em caso de falha tecnica.");
 
+                    envioIniciado = true;
                     autorizacao.Executar();
 
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
@@ -516,10 +699,11 @@ namespace NFe.Service
                 }
                 else
                 {
-                    var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, configuracao);
+                    var autorizacao = CriarAutorizacao(xmlNFe, configuracao);
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
                     SalvarArquivoEmProcessamento(emp, "TaskNFeRecepcao: XML assinado salvo em EmProcessamento antes do envio NFe para preservar recuperacao em caso de falha tecnica.");
 
+                    envioIniciado = true;
                     autorizacao.Executar();
 
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
@@ -534,15 +718,11 @@ namespace NFe.Service
                     autorizacao.Dispose();
                 }
 
-                #region Mover o arquivo de lote aqui para evitar gerar ele antes das validações dos XMLs e erros
+                #region Publicar números do lote após a execução da autorização
 
-                PublicarArquivosNumeroLote(
-                    Empresas.Configuracoes[emp].PastaXmlRetorno,
-                    NomeArqTempXMLLote,
-                    NomeArqTempTXTLote,
-                    Empresas.Configuracoes[emp].GravarRetornoTXTNFe);
+                PublicarNumerosLote(emp, false);
 
-                #endregion Mover o arquivo de lote aqui para evitar gerar ele antes das validações dos XMLs e erros
+                #endregion Publicar números do lote após a execução da autorização
 
                 if(string.IsNullOrWhiteSpace(vStrXmlRetorno))
                 {
@@ -640,11 +820,15 @@ namespace NFe.Service
             }
             catch(ExceptionEnvioXML ex)
             {
-                TrataException(ex, ler.oDadosNfe, emp);
+                TrataException(ex, ler.oDadosNfe, emp, envioIniciado);
             }
             catch(ExceptionSemInternet ex)
             {
-                TrataException(ex, ler.oDadosNfe, emp);
+                TrataException(ex, ler.oDadosNfe, emp, envioIniciado);
+            }
+            catch(ValidatorDFeException ex)
+            {
+                TrataException(ex, ler.oDadosNfe, emp, false);
             }
             catch(ValidarXMLException ex)
             {
@@ -652,23 +836,11 @@ namespace NFe.Service
             }
             catch(Exception ex)
             {
-                TrataException(ex, ler.oDadosNfe, emp);
+                TrataException(ex, ler.oDadosNfe, emp, envioIniciado);
             }
             finally
             {
-                #region Exclui arquivo de lote da pasta temp
-
-                if(File.Exists(NomeArqTempXMLLote))
-                {
-                    Functions.DeletarArquivo(NomeArqTempXMLLote);
-                }
-
-                if(File.Exists(NomeArqTempTXTLote))
-                {
-                    Functions.DeletarArquivo(NomeArqTempTXTLote);
-                }
-
-                #endregion Exclui arquivo de lote da pasta temp
+                LimparNumerosLotePublicados(emp);
 
                 DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML);

@@ -183,7 +183,8 @@ namespace NFe.Service
                         var nfeRecepcao = new TaskNFeRecepcao(xmlLote)
                         {
                             NomeArqTempXMLLote = oGerarXML.NomeArqTempXMLLote,
-                            NomeArqTempTXTLote = oGerarXML.NomeArqTempTXTLote
+                            NomeArqTempTXTLote = oGerarXML.NomeArqTempTXTLote,
+                            ArquivosTemporariosNumeroLote = new List<KeyValuePair<string, string>>(oGerarXML.ArquivosTemporariosNumeroLote)
                         };
 
                         nfeRecepcao.Execute();

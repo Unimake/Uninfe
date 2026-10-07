@@ -55,14 +55,16 @@ namespace NFe.Service
         protected string Bkp3NomeArqXmlLote;
 
         /// <summary>
-        /// Nome do arquivo que será movido para a pasta de retorno para o ERP se tudo der certo no envio do lote de notas fiscais eletrônicas (XML)
+        /// Nome do arquivo temporário com o número do lote que será disponibilizado ao ERP no sucesso ou no erro (XML)
         /// </summary>
         public string NomeArqTempXMLLote { get; private set; }
 
         /// <summary>
-        /// Nome do arquivo que será movido para a pasta de retorno para o ERP se tudo der certo no envio do lote de notas fiscais eletrônicas (TXT)
+        /// Nome do arquivo temporário com o número do lote que será disponibilizado ao ERP no sucesso ou no erro (TXT)
         /// </summary>
         public string NomeArqTempTXTLote { get; private set; }
+
+        internal List<KeyValuePair<string, string>> ArquivosTemporariosNumeroLote { get; } = new List<KeyValuePair<string, string>>();
 
         #endregion Atributos
 
@@ -118,6 +120,10 @@ namespace NFe.Service
         public XmlDocument LoteNfe(Servicos servico, List<ArquivoXMLDFe> arquivosXMLDFe, string versaoXml, string modeloDFe)
         {
             Servico = servico;
+
+            ArquivosTemporariosNumeroLote.Clear();
+            NomeArqTempXMLLote = null;
+            NomeArqTempTXTLote = null;
 
             var excluirFluxo = true;
 
@@ -252,6 +258,9 @@ namespace NFe.Service
         /// <date>15/04/2009</date>
         protected void IniciarLoteNfe(int intNumeroLote, string versaoXml, string modeloDFe, int nfesCount)
         {
+            // As referências devem pertencer ao XML do lote corrente, inclusive quando a montagem divide as notas.
+            ArquivosTemporariosNumeroLote.Clear();
+
             XMLLoteDFe = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
             var indSinc = "";
@@ -581,6 +590,7 @@ namespace NFe.Service
                 oXmlLoteERP.Close();
 
                 NomeArqTempXMLLote = cArqLoteEnvioTemp;
+                NomeArqTempTXTLote = null;
 
                 var emp = Empresas.FindEmpresaByThread();
                 if (Empresas.Configuracoes[emp].GravarRetornoTXTNFe)
@@ -596,6 +606,8 @@ namespace NFe.Service
 
                     NomeArqTempTXTLote = TXTRetorno;
                 }
+
+                ArquivosTemporariosNumeroLote.Add(new KeyValuePair<string, string>(NomeArqTempXMLLote, NomeArqTempTXTLote));
             }
             finally
             {
