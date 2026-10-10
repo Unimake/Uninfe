@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net481</TargetFramework>
@@ -119,4 +119,12 @@
     <Content Include="NFeConvertTxt\Fixtures\Regressions\000107590-venda-nfce-rtc.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
-  </Project>
+    <ItemGroup>
+    <Content Include="CTe\Resources\CTe_AtualizacaoSchemas.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="CTe\Resources\CTeOS_AtualizacaoSchemas.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="CTe\Resources\CTeSimp_AtualizacaoSchemas.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NFCom\Resources\NFCom_AtualizacaoSchemas.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
