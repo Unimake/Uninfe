@@ -127,4 +127,7 @@
   <ItemGroup>
     <Content Include="NFCom\Resources\NFCom_AtualizacaoSchemas.xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="NF3e\Resources\NF3e_AtualizacaoSchemas.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
