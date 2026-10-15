@@ -31,6 +31,29 @@ namespace UniNFe.Test.NFeConvertTxt
         }
 
         [Fact]
+        public void DllDeveRejeitarGrupoGCurtoSemG02OuG02A()
+        {
+            var origem = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000011-devolucao-rtc-nfe.txt");
+            var arquivoTemporario = Path.GetTempFileName();
+            try
+            {
+                var conteudo = File.ReadAllText(origem).Replace("G02|99999999000191", string.Empty);
+                File.WriteAllText(arquivoTemporario, conteudo);
+
+                var resultado = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivoTemporario);
+
+                Assert.False(resultado.Sucesso);
+                Assert.Empty(resultado.Documentos);
+                Assert.Contains("Grupo G (entrega)", resultado.MensagemErro);
+                Assert.Contains("G02/G02A", resultado.MensagemErro);
+            }
+            finally
+            {
+                File.Delete(arquivoTemporario);
+            }
+        }
+
+        [Fact]
         public void ConversorLegadoDeveRejeitarTxtSemCabecalhoNotaFiscal()
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000411-nfe.txt");
