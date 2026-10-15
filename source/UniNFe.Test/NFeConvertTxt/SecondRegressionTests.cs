@@ -182,6 +182,7 @@ namespace UniNFe.Test.NFeConvertTxt
         [InlineData("000047246-importacao-quatro-itens-nfe.txt")]
         [InlineData("000024804-retorno-vasilhames-nfe.txt")]
         [InlineData("000024804-retorno-vasilhames-vc01-nfe.txt")]
+        [InlineData("000024800-credito-ciap-nfe.txt")]
         [InlineData("000107590-venda-nfce-rtc.txt")]
         public void NovoXmlDeveSerIgualAoLegado(string nomeArquivo)
         {
@@ -833,6 +834,10 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             var dadosIdentificaveis = new[]
             {
+                "LBA-LINHA BRANCA E AUTOMOTIVA LTDA",
+                "nfe@lba.ind.br",
+                "RODOVIA ARNALDO JULIO MAUERBERG",
+                "12791583000286",
                 "AGILLE COMERCIO DE MEDICAMENTOS LTDA",
                 "OON ONCOLOGIA, ORTOPEDIA E NEUROLOGIA VET LTDA",
                 "cmanhaesvet@gmail.com",
