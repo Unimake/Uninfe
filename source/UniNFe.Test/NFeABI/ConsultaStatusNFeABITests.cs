@@ -160,8 +160,10 @@ namespace UniNFe.Test.NFeABI
 
             ExecutarEmThread("0", () => new TaskConsultaStatusNFeABI(arquivo).Execute());
 
-            Assert.True(File.Exists(arquivo) || File.Exists(Path.Combine(pastaErro, "status-ped-sta.xml")));
+            Assert.True(File.Exists(arquivo));
             var erro = File.ReadAllText(Path.Combine(pasta, "status-sta.err"));
+            Assert.Contains("Versão UniNFe|", erro);
+            Assert.Contains("ErrorCode|", erro);
             Assert.Contains("Falha de " + categoria, erro);
             Assert.DoesNotContain("NAO_VAZAR", erro);
 #if DEBUG || _BETA
@@ -184,12 +186,12 @@ namespace UniNFe.Test.NFeABI
             ExecutarEmThread("0", () => new TaskConsultaStatusNFeABI(arquivo).Execute());
 
             Assert.False(File.Exists(Path.Combine(pasta, "status-sta.xml")));
-            Assert.True(File.Exists(arquivo) || File.Exists(Path.Combine(pastaErro, "status-ped-sta.xml")));
+            Assert.True(File.Exists(arquivo));
             Assert.Contains("Falha de Retorno", File.ReadAllText(Path.Combine(pasta, "status-sta.err")));
         }
 
         [Fact]
-        public void FalhaAoArquivarPreservaPedidoOriginalEGravaErroFallback()
+        public void PastaDeErroIndisponivelPreservaPedidoOriginalEGravaErroPadrao()
         {
             var arquivo = CriarPedido();
             Directory.Delete(pastaErro);
@@ -198,7 +200,10 @@ namespace UniNFe.Test.NFeABI
             ExecutarEmThread("0", () => new TaskConsultaStatusNFeABI(arquivo).Execute());
 
             Assert.True(File.Exists(arquivo));
-            Assert.Contains("Falha de DNS", File.ReadAllText(Path.Combine(pasta, "status-sta.err")));
+            var erro = File.ReadAllText(Path.Combine(pasta, "status-sta.err"));
+            Assert.Contains("Versão UniNFe|", erro);
+            Assert.Contains("ErrorCode|", erro);
+            Assert.Contains("Falha de DNS", erro);
         }
 
         [Fact]

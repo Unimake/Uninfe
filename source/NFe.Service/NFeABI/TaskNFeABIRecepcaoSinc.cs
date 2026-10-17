@@ -734,21 +734,46 @@ namespace NFe.Service.NFeABI
 
         private void GravarErroSeguro(int emp, string categoria)
         {
+            var erroSeguro = CriarExcecaoSegura(categoria);
             try
             {
-                var nome = Functions.ExtrairNomeArq(
+                TFunctions.GravarArqErroServico(
                     NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).EnvioXML) +
-                    Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).RetornoERR;
-
-                File.WriteAllText(
-                    Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nome),
-                    "Falha de " + categoria + " na autorização da NF-e ABI.",
-                    new UTF8Encoding(false));
+                    Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).EnvioXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).RetornoERR,
+                    erroSeguro,
+                    ErroPadrao.ErroNaoDetectado,
+                    false);
             }
-            catch
+            catch(Exception ex)
             {
+                try
+                {
+                    var extensao = Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI);
+                    var nome = Functions.ExtrairNomeArq(NomeArquivoXML, extensao.EnvioXML) + extensao.RetornoERR;
+                    var caminho = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nome);
+                    if(!File.Exists(caminho))
+                    {
+                        File.WriteAllText(caminho, TFunctions.MontaStringErro(
+                            erroSeguro, ErroPadrao.ErroNaoDetectado, "indisponível", "indisponível"),
+                            new UTF8Encoding(false));
+                    }
+                }
+                catch(Exception falhaFallback)
+                {
+                    try { Auxiliar.WriteLog("Falha ao gravar o retorno de erro alternativo da NF-e ABI. " + falhaFallback, false); }
+                    catch { }
+                }
+
+                try { Auxiliar.WriteLog("Falha ao gravar o retorno de erro da NF-e ABI pelo método padrão. " + ex, false); }
+                catch { }
             }
+        }
+
+        private static Exception CriarExcecaoSegura(string categoria)
+        {
+            try { throw new Exception("Falha de " + categoria + " na autorização da NF-e ABI."); }
+            catch(Exception ex) { return ex; }
         }
 
         private void GravarDiagnosticoPassivo(

@@ -227,20 +227,31 @@ namespace NFe.Service.NFeABI
             {
                 TFunctions.GravarArqErroServico(NomeArquivoXML,
                     Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML,
-                    Propriedade.ExtRetorno.Sta_ERR, erroSeguro);
+                    Propriedade.ExtRetorno.Sta_ERR, erroSeguro,
+                    ErroPadrao.ErroNaoDetectado, false);
             }
-            catch
+            catch(Exception ex)
             {
                 try
                 {
                     var nome = Functions.ExtrairNomeArq(NomeArquivoXML,
                         Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML) + Propriedade.ExtRetorno.Sta_ERR;
-                    File.WriteAllText(Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nome), erroSeguro.Message);
+                    var caminho = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nome);
+                    if(!File.Exists(caminho))
+                    {
+                        File.WriteAllText(caminho, TFunctions.MontaStringErro(
+                            erroSeguro, ErroPadrao.ErroNaoDetectado, "indisponível", "indisponível"),
+                            new UTF8Encoding(false));
+                    }
                 }
-                catch
+                catch(Exception falhaFallback)
                 {
-                    // A falha na gravação do .ERR não pode interromper o monitor.
+                    try { Auxiliar.WriteLog("Falha ao gravar o retorno alternativo da consulta de status da NF-e ABI. " + falhaFallback, false); }
+                    catch { }
                 }
+
+                try { Auxiliar.WriteLog("Falha ao gravar o retorno de erro da consulta de status da NF-e ABI. " + ex, false); }
+                catch { }
             }
         }
 

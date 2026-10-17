@@ -18,6 +18,7 @@ namespace UniNFe.Test.NFeABI
     public class AutorizacaoNFeABITests : TaskTestFixtureBase, IDisposable
     {
         private readonly List<Empresa> anterior;
+        private readonly System.Reflection.Assembly assemblyExeAnterior;
         private readonly string pasta;
         private readonly string erro;
         private X509Certificate2 certificadoTemporario;
@@ -25,6 +26,8 @@ namespace UniNFe.Test.NFeABI
         public AutorizacaoNFeABITests()
         {
             anterior = Empresas.Configuracoes;
+            assemblyExeAnterior = Propriedade.AssemblyEXE;
+            Propriedade.AssemblyEXE = typeof(AutorizacaoNFeABITests).Assembly;
             pasta = Path.Combine(Path.GetTempPath(), "UniNFe.Test.NFeABI", Guid.NewGuid().ToString("N")); erro = Path.Combine(pasta, "Erro");
             Directory.CreateDirectory(pasta); Directory.CreateDirectory(erro);
             Empresas.Configuracoes = new List<Empresa> { new Empresa { PastaXmlEnvio = pasta, PastaXmlEnviado = pasta, PastaXmlRetorno = pasta, PastaXmlErro = erro, PastaValidar = pasta, AmbienteCodigo = 2, Servico = TipoAplicativo.NFeABI, UsaCertificado = false } };
@@ -222,7 +225,14 @@ namespace UniNFe.Test.NFeABI
 
             ExecutarEmThread("0", () => new TaskNFeABIRecepcaoSinc(Pedido()).Execute());
 
-            Assert.Contains("Falha de " + categoria, File.ReadAllText(Path.Combine(pasta, "pedido-ret-nfeabi.err")));
+            var erro = File.ReadAllText(Path.Combine(pasta, "pedido-ret-nfeabi.err"));
+            Assert.Contains("Versão UniNFe|", erro);
+            Assert.Contains("ErrorCode|", erro);
+            Assert.Contains("Message|Falha de " + categoria + " na autorização da NF-e ABI.", erro);
+            Assert.Contains("StackTrace|", erro);
+            Assert.Contains("ExcecaoCompleta|", erro);
+            Assert.DoesNotContain("NAO_VAZAR", erro);
+            Assert.True(File.Exists(Path.Combine(pasta, "pedido-nfeabi.xml")));
 #if DEBUG || _BETA
             var diagnostico = File.ReadAllText(Path.Combine(pasta, "pedido-diagdispdfe.xml"));
             Assert.Contains("<CategoriaFalha>" + categoria + "</CategoriaFalha>", diagnostico);
@@ -232,6 +242,22 @@ namespace UniNFe.Test.NFeABI
 #else
             Assert.False(File.Exists(Path.Combine(pasta, "pedido-diagdispdfe.xml")));
 #endif
+        }
+
+        [Fact]
+        public void ErroMantemFormatoPadraoSeVersaoDoExecutavelNaoEstiverDisponivel()
+        {
+            Propriedade.AssemblyEXE = null;
+            TaskNFeABIRecepcaoSinc.CriarAutorizacao = (x, c) => new Fake(() => { throw new Exception("segredo=NAO_VAZAR"); });
+
+            ExecutarEmThread("0", () => new TaskNFeABIRecepcaoSinc(Pedido()).Execute());
+
+            var erro = File.ReadAllText(Path.Combine(pasta, "pedido-ret-nfeabi.err"));
+            Assert.Contains("Versão UniNFe|indisponível", erro);
+            Assert.Contains("ErrorCode|", erro);
+            Assert.Contains("Message|Falha de Transporte na autorização da NF-e ABI.", erro);
+            Assert.DoesNotContain("NAO_VAZAR", erro);
+            Assert.True(File.Exists(Path.Combine(pasta, "pedido-nfeabi.xml")));
         }
 
         [Fact]
@@ -424,6 +450,7 @@ namespace UniNFe.Test.NFeABI
         {
             TaskNFeABIRecepcaoSinc.CriarAutorizacao = null; TaskNFeABIRecepcaoSinc.MoverArquivo = null; TaskNFeABIRecepcaoSinc.PersistirRetorno = null; TaskNFeABIRecepcaoSinc.ExcluirArquivo = null;
             Empresas.Configuracoes = anterior;
+            Propriedade.AssemblyEXE = assemblyExeAnterior;
             certificadoTemporario?.Dispose();
             if (Directory.Exists(pasta)) Directory.Delete(pasta, true);
         }
