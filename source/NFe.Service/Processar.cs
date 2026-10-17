@@ -513,6 +513,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaStatusNFeABI(arquivo));
                             break;
 
+                        case Servicos.NFeABIConsultaProtocolo:
+                            DirecionarArquivo(emp, false, true, arquivo, new TaskConsultaSituacaoNFeABI(arquivo));
+                            break;
+
                         case Servicos.NFeABIAutorizacaoSinc:
                             DirecionarArquivo(emp, false, true, arquivo, new TaskNFeABIRecepcaoSinc(arquivo));
                             break;
@@ -683,6 +687,7 @@ namespace NFe.Service
                     {
                         case Servicos.NFeConsultaStatusServico:
                         case Servicos.NFeABIStatusServico:
+                        case Servicos.NFeABIConsultaProtocolo:
                         case Servicos.UniNFeUpdate:
                         case Servicos.Nulo:
 
@@ -1325,6 +1330,13 @@ namespace NFe.Service
                                 if (arq.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML))
                                 {
                                     tipoServico = Servicos.NFeABIStatusServico;
+                                }
+                                break;
+
+                            case "consSitNFeABI":
+                                if (arq.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML))
+                                {
+                                    tipoServico = Servicos.NFeABIConsultaProtocolo;
                                 }
                                 break;
 
@@ -2392,6 +2404,11 @@ namespace NFe.Service
                 case Servicos.NFeABIStatusServico:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.Sta_ERR;
+                    return true;
+
+                case Servicos.NFeABIConsultaProtocolo:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Sit_ERR;
                     return true;
 
                 case Servicos.NFeABIAutorizacaoSinc:

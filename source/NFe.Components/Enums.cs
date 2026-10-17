@@ -861,7 +861,12 @@ namespace NFe.Components
         /// <summary>
         /// Envio síncrono do XML de NFeABI
         /// </summary>
-        NFeABIAutorizacaoSinc
+        NFeABIAutorizacaoSinc,
+
+        /// <summary>
+        /// Consulta protocolo da NFeABI
+        /// </summary>
+        NFeABIConsultaProtocolo
 
         #endregion NFeABI
     }
