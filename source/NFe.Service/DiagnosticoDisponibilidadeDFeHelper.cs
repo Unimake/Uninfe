@@ -17,6 +17,8 @@ namespace NFe.Service
     {
         public static void Gravar(int emp, Configuracao configuracao, string nomeArquivoXML, string extensaoEnvio)
         {
+            return;
+
 #if _BETA || DEBUG
             if (configuracao == null)
             {
