@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T18:17:15.276Z",
+  "generatedAt": "2026-10-17T19:44:55.522Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -569,6 +569,12 @@
       "id": "servicos-nfeabi-autorizacao-sincrona-md",
       "title": "Autorização síncrona de NF-e ABI",
       "path": "servicos/nfeabi/autorizacao-sincrona.md",
+      "category": "servicos/nfeabi"
+    },
+    {
+      "id": "servicos-nfeabi-consulta-protocolo-md",
+      "title": "Consulta de protocolo da NF-e ABI",
+      "path": "servicos/nfeabi/consulta-protocolo.md",
       "category": "servicos/nfeabi"
     },
     {

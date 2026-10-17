@@ -92,6 +92,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [NF-e ABI](servicos/nfeabi/)
 - [NF-e ABI - Autorização síncrona](servicos/nfeabi/autorizacao-sincrona.md)
 - [NF-e ABI - Consulta status de serviço](servicos/nfeabi/consulta-status-servico.md)
+- [NF-e ABI - Consulta de protocolo](servicos/nfeabi/consulta-protocolo.md)
 - [NFCom](servicos/nfcom/)
 - [NFCom - Autorização síncrona](servicos/nfcom/autorizacao-sincrona.md)
 - [NFCom - Consulta de situação](servicos/nfcom/consulta-situacao.md)
