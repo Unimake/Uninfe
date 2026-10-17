@@ -14,15 +14,19 @@ namespace UniNFe.Test.CTe
     public class QRCodeContingenciaCTeTests
     {
         [Theory]
-        [InlineData("CTe", TipoAmbiente.Producao)]
-        [InlineData("CTe", TipoAmbiente.Homologacao)]
-        [InlineData("CTeOS", TipoAmbiente.Producao)]
-        [InlineData("CTeOS", TipoAmbiente.Homologacao)]
-        [InlineData("CTeSimp", TipoAmbiente.Producao)]
-        [InlineData("CTeSimp", TipoAmbiente.Homologacao)]
-        public void PacoteGeraEValidaQRCodeOfflineAssinado(string documento, TipoAmbiente ambiente)
+        [InlineData("CTe", TipoAmbiente.Producao, TipoEmissao.ContingenciaOfflineCTe)]
+        [InlineData("CTe", TipoAmbiente.Homologacao, TipoEmissao.ContingenciaOfflineCTe)]
+        [InlineData("CTeOS", TipoAmbiente.Producao, TipoEmissao.ContingenciaOfflineCTe)]
+        [InlineData("CTeOS", TipoAmbiente.Homologacao, TipoEmissao.ContingenciaOfflineCTe)]
+        [InlineData("CTeSimp", TipoAmbiente.Producao, TipoEmissao.ContingenciaOfflineCTe)]
+        [InlineData("CTeSimp", TipoAmbiente.Homologacao, TipoEmissao.ContingenciaOfflineCTe)]
+        [InlineData("CTe", TipoAmbiente.Producao, TipoEmissao.ContingenciaEPEC)]
+        [InlineData("CTe", TipoAmbiente.Homologacao, TipoEmissao.ContingenciaEPEC)]
+        [InlineData("CTeSimp", TipoAmbiente.Producao, TipoEmissao.ContingenciaEPEC)]
+        [InlineData("CTeSimp", TipoAmbiente.Homologacao, TipoEmissao.ContingenciaEPEC)]
+        public void PacoteGeraEValidaQRCodeDeContingenciaAssinado(string documento, TipoAmbiente ambiente, TipoEmissao emissao)
         {
-            var xml = CriarXml(documento, ambiente);
+            var xml = CriarXml(documento, ambiente, emissao);
             using (var rsa = RSA.Create())
             {
                 rsa.KeySize = 2048;
@@ -44,7 +48,7 @@ namespace UniNFe.Test.CTe
                     Assert.Equal("chCTe=" + chave, parametros[0]);
                     Assert.Equal("tpAmb=" + (int)ambiente, parametros[1]);
                     Assert.StartsWith("sign=", parametros[2]);
-                    Assert.Equal("2", chave.Substring(34, 1));
+                    Assert.Equal(((int)emissao).ToString(), chave.Substring(34, 1));
                     var assinatura = Convert.FromBase64String(parametros[2].Substring(5));
                     using (var chavePublica = certificado.GetRSAPublicKey())
                     {
@@ -54,26 +58,26 @@ namespace UniNFe.Test.CTe
             }
         }
 
-        private static XmlDocument CriarXml(string documento, TipoAmbiente ambiente)
+        private static XmlDocument CriarXml(string documento, TipoAmbiente ambiente, TipoEmissao emissao)
         {
             var texto = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "CTe", "Resources", documento + "_AtualizacaoSchemas.xml"));
             switch (documento)
             {
                 case "CTe":
                     var cte = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.CTe.CTe>(texto);
-                    cte.InfCTe.Ide.TpEmis = TipoEmissao.ContingenciaOfflineCTe;
+                    cte.InfCTe.Ide.TpEmis = emissao;
                     cte.InfCTe.Ide.TpAmb = ambiente;
                     cte.Signature = null;
                     return cte.GerarXML();
                 case "CTeOS":
                     var cteOS = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.CTeOS.CTeOS>(texto);
-                    cteOS.InfCTe.Ide.TpEmis = TipoEmissao.ContingenciaOfflineCTe;
+                    cteOS.InfCTe.Ide.TpEmis = emissao;
                     cteOS.InfCTe.Ide.TpAmb = ambiente;
                     cteOS.Signature = null;
                     return cteOS.GerarXML();
                 case "CTeSimp":
                     var cteSimp = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.CTeSimp.CTeSimp>(texto);
-                    cteSimp.InfCTe.Ide.TpEmis = TipoEmissao.ContingenciaOfflineCTe;
+                    cteSimp.InfCTe.Ide.TpEmis = emissao;
                     cteSimp.InfCTe.Ide.TpAmb = ambiente;
                     cteSimp.Signature = null;
                     return cteSimp.GerarXML();

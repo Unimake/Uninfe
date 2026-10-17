@@ -73,7 +73,7 @@
       <HintPath>..\packages\Unimake.EBank.Primitives.20260911.2038.23\lib\netstandard2.0\EBank.Solutions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="GeradorCIOTShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20261017.1433.10\lib\netstandard2.0\GeradorCIOTShared.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20261017.1623.10\lib\netstandard2.0\GeradorCIOTShared.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.6, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.6\lib\net461\itextsharp.dll</HintPath>
@@ -233,7 +233,7 @@
       <HintPath>..\packages\Unimake.AuthServer.20250707.1650.48\lib\netstandard2.0\Unimake.AuthServer.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Business.DFe, Version=2026.10.17.1433, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20261017.1433.10\lib\netstandard2.0\Unimake.Business.DFe.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20261017.1623.10\lib\netstandard2.0\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="Unimake.Cryptography, Version=2026.9.18.1832, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Unimake.Cryptography.20260918.1832.16\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
@@ -332,6 +332,7 @@
     <Compile Include="NFGas\TaskNFGasEventos.cs" />
     <Compile Include="NFGas\TaskNFGasRecepcaoSinc.cs" />
     <Compile Include="NFeABI\TaskConsultaStatusNFeABI.cs" />
+    <Compile Include="NFeABI\TaskConsultaSituacaoNFeABI.cs" />
     <Compile Include="NFeABI\TaskNFeABIRecepcaoSinc.cs" />
     <Compile Include="NFe\TaskDownloadNFCe.cs" />
     <Compile Include="NFe\TaskConsultaChavesNFCe.cs" />

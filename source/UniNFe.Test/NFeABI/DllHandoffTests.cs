@@ -42,12 +42,16 @@ namespace UniNFe.Test.NFeABI
         {
             var construtorStatus = typeof(NFeABIStatusServico)
                 .GetConstructor(new[] { typeof(ConsStatServNFeABI), typeof(Configuracao) });
+            var construtorConsulta = typeof(Unimake.Business.DFe.Servicos.NFeABI.ConsultaProtocolo)
+                .GetConstructor(new[] { typeof(ConsSitNFeABI), typeof(Configuracao) });
             var construtorAutorizacao = typeof(NFeABIAutorizacaoSinc)
                 .GetConstructor(new[] { typeof(XmlNFeABI), typeof(Configuracao) });
 
             Assert.NotNull(construtorStatus);
+            Assert.NotNull(construtorConsulta);
             Assert.NotNull(construtorAutorizacao);
             Assert.True(typeof(NFeABIStatusServico).IsPublic);
+            Assert.True(typeof(Unimake.Business.DFe.Servicos.NFeABI.ConsultaProtocolo).IsPublic);
             Assert.True(typeof(NFeABIAutorizacaoSinc).IsPublic);
         }
     }

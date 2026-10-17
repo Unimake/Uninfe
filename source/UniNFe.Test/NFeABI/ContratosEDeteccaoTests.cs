@@ -63,6 +63,7 @@ namespace UniNFe.Test.NFeABI
             Assert.Equal(151, (int)Servicos.CIOTObterOperacaoTransportePdf);
             Assert.Equal(152, (int)Servicos.NFeABIStatusServico);
             Assert.Equal(153, (int)Servicos.NFeABIAutorizacaoSinc);
+            Assert.Equal(154, (int)Servicos.NFeABIConsultaProtocolo);
             Assert.Equal(732, (int)TpcnResources.vCredPresumido);
             Assert.Equal(733, (int)TpcnResources.chNFeABI);
         }
@@ -86,6 +87,7 @@ namespace UniNFe.Test.NFeABI
         [Theory]
         [InlineData("NFeABI", "-nfeabi.xml", Servicos.NFeABIAutorizacaoSinc)]
         [InlineData("consStatServNFeABI", "-ped-sta.xml", Servicos.NFeABIStatusServico)]
+        [InlineData("consSitNFeABI", "-ped-sit.xml", Servicos.NFeABIConsultaProtocolo)]
         public void RaizesOficiaisSaoDetectadas(string raiz, string sufixo, Servicos esperado)
         {
             Assert.Equal(esperado, Detectar(raiz, sufixo));
@@ -98,6 +100,7 @@ namespace UniNFe.Test.NFeABI
 
             Assert.Equal(Servicos.NFeABIAutorizacaoSinc, Detectar("NFeABI", "-nfeabi.xml"));
             Assert.Equal(Servicos.NFeABIStatusServico, Detectar("consStatServNFeABI", "-ped-sta.xml"));
+            Assert.Equal(Servicos.NFeABIConsultaProtocolo, Detectar("consSitNFeABI", "-ped-sit.xml"));
         }
 
         [Theory]
@@ -122,6 +125,7 @@ namespace UniNFe.Test.NFeABI
         [Theory]
         [InlineData("NFeABI", "-nfgas.xml")]
         [InlineData("consStatServNFeABI", "-nfeabi.xml")]
+        [InlineData("consSitNFeABI", "-ped-sta.xml")]
         public void RaizNFeABINaoAceitaSufixoDeOutroContrato(string raiz, string sufixo)
         {
             Assert.Equal(Servicos.Nulo, Detectar(raiz, sufixo));
@@ -141,6 +145,7 @@ namespace UniNFe.Test.NFeABI
         [Theory]
         [InlineData(Servicos.NFeABIAutorizacaoSinc, "-nfeabi.xml", "-ret-nfeabi.err")]
         [InlineData(Servicos.NFeABIStatusServico, "-ped-sta.xml", "-sta.err")]
+        [InlineData(Servicos.NFeABIConsultaProtocolo, "-ped-sit.xml", "-sit.err")]
         public void ErroERPUsaContratoAprovado(Servicos servico, string entrada, string erro)
         {
             var metodo = typeof(Processar).GetMethod("TryGetExtensoesErroNFeABI", BindingFlags.Static | BindingFlags.NonPublic);
