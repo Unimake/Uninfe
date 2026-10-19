@@ -34,7 +34,8 @@ namespace NFe.Service.NFSe
 
                 var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosConsNsuNfse.cMunicipio);
 
-                ExecuteDLL(emp, oDadosConsNsuNfse.cMunicipio, padraoNFSe);
+                //Somente o nacional tem isso, vamos fixar e independente do padrão do município a consulta será desviada para o Nacional. Wandrey
+                ExecuteDLL(emp, 1001058, PadraoNFSe.NACIONAL);
             }
             catch
             {
@@ -82,13 +83,13 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
-                CodigoMunicipio = TFunctions.DefiniMunicioPadrao(padraoNFSe, municipio),
+                CodigoMunicipio = municipio,
                 Servico = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarDistribuicaoNFSeNSU,
-                SchemaVersao = versaoXML,
+                SchemaVersao = versaoXML
             };
 
             var consultarNsu = new Unimake.Business.DFe.Servicos.NFSe.ConsultarDistribuicaoNFSeNSU(conteudoXML.OuterXml, configuracao);
