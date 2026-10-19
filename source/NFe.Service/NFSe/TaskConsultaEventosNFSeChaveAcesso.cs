@@ -1,6 +1,5 @@
 using NFe.Components;
 using NFe.Settings;
-using System;
 using System.IO;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
@@ -30,11 +29,8 @@ namespace NFe.Service.NFSe
                                          Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedConsEventosNFSeChaveAcesso).EnvioXML) + Propriedade.ExtRetorno.ConsEventosNFSeChaveAcesso_ERR);
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
 
-                oDadosConsEventosNFSeChaveAcesso = new DadosConsEventosNFSeChaveAcesso(emp);
-
-                var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosConsEventosNFSeChaveAcesso.cMunicipio);
-
-                ExecuteDLL(emp, oDadosConsEventosNFSeChaveAcesso.cMunicipio, padraoNFSe);
+                //Somente o nacional tem isso, vamos fixar e independente do padrão do município a consulta será desviada para o Nacional. Wandrey
+                ExecuteDLL(emp, 1001058, PadraoNFSe.NACIONAL);
             }
             catch
             {
@@ -82,7 +78,7 @@ namespace NFe.Service.NFSe
 
             var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
             {
-                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                 TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,

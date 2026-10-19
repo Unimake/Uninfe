@@ -1,6 +1,5 @@
 using NFe.Components;
 using NFe.Settings;
-using System;
 using System.IO;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
@@ -29,10 +28,6 @@ namespace NFe.Service.NFSe
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" +
                                          Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedConsNsuNfse).EnvioXML) + Propriedade.ExtRetorno.ConsNsuNfse_ERR);
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
-
-                oDadosConsNsuNfse = new DadosConsNsuNfse(emp);
-
-                var padraoNFSe = Functions.BuscaPadraoNFSe(oDadosConsNsuNfse.cMunicipio);
 
                 //Somente o nacional tem isso, vamos fixar e independente do padrão do município a consulta será desviada para o Nacional. Wandrey
                 ExecuteDLL(emp, 1001058, PadraoNFSe.NACIONAL);
