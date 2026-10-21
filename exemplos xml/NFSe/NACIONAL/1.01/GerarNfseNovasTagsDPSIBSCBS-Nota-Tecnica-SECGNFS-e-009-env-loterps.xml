@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MODELO DIDATICO - Dados ficticios para divulgacao e suporte. Demonstra grupos novos e alternativas de preenchimento; mantenha somente os grupos aplicaveis a operacao e ajuste os codigos e valores. Validacao XSD nao substitui as regras de negocio do ambiente Nacional. -->
+<DPS versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+	<infDPS Id="DPS410550821234567800019500003000000000000052">
+		<tpAmb>2</tpAmb>
+		<dhEmi>2026-10-21T10:00:00-03:00</dhEmi>
+		<verAplic>1.00</verAplic>
+		<serie>3</serie>
+		<nDPS>52</nDPS>
+		<dCompet>2026-10-21</dCompet>
+		<tpEmit>1</tpEmit>
+		<!-- NOVO LOCAL: finNFSe pertence a infDPS, mesmo quando IBSCBS nao for informado. -->
+		<finNFSe>0</finNFSe>
+		<cLocEmi>4105508</cLocEmi>
+		<prest>
+			<CNPJ>12345678000195</CNPJ>
+			<regTrib>
+				<opSimpNac>3</opSimpNac>
+				<regApTribSN>1</regApTribSN>
+				<regEspTrib>0</regEspTrib>
+			</regTrib>
+		</prest>
+		<toma>
+			<CNPJ>12345678000195</CNPJ>
+			<xNome>CLIENTE TESTE</xNome>
+			<end>
+				<endNac>
+					<cMun>4128104</cMun>
+					<CEP>80000000</CEP>
+				</endNac>
+				<xLgr>RUA EXEMPLO</xLgr>
+				<nro>9001</nro>
+				<xBairro>BAIRRO TESTE</xBairro>
+			</end>
+			<email>cliente@example.com</email>
+		</toma>
+		<serv>
+			<locPrest>
+				<cLocPrestacao>4105508</cLocPrestacao>
+			</locPrest>
+			<cServ>
+				<cTribNac>010101</cTribNac>
+				<cNBS>115022000</cNBS>
+				<cIntContrib>SERVICOTESTE</cIntContrib>
+				<xDescServ>SERVICO TESTE - MODELO DIDATICO DO LEIAUTE</xDescServ>
+			</cServ>
+		</serv>
+		<valores>
+			<vServPrest>
+				<vServ>1500.00</vServ>
+			</vServPrest>
+			<!-- NOVO: vAjusteBC substitui vDedRed; os documentos antes informados em gReeRepRes tambem passam a este grupo. -->
+			<vAjusteBC>
+				<!-- Escolha pAjusteBCISSQN OU vAjusteBCISSQN; ambos sao opcionais. Exemplo alternativo: <vAjusteBCISSQN>150.00</vAjusteBCISSQN>. Os documentos podem coexistir com a opcao escolhida. -->
+				<pAjusteBCISSQN>10.00</pAjusteBCISSQN>
+				<documentos>
+					<!-- Cada docAjusteBC usa uma alternativa: dFeNacional, docFiscalOutro OU docOutro. Dados e valores sao ficticios. -->
+					<docAjusteBC>
+						<tpAjusteBC>2</tpAjusteBC>
+						<vTotDoc>100.00</vTotDoc>
+						<vAjusteAplic>50.00</vAjusteAplic>
+						<docOutro>
+							<nDoc>1</nDoc>
+							<xDoc>DOCUMENTO TESTE</xDoc>
+						</docOutro>
+						<fornec>
+							<CNPJ>12345678000195</CNPJ>
+						</fornec>
+					</docAjusteBC>
+					<!-- Cada docAjusteBC usa uma alternativa: dFeNacional, docFiscalOutro OU docOutro. Dados e valores sao ficticios. -->
+					<docAjusteBC>
+						<tpAjusteBC>105</tpAjusteBC>
+						<vTotDoc>100.00</vTotDoc>
+						<vAjusteAplic>50.00</vAjusteAplic>
+						<dtEmiDoc>2026-10-20</dtEmiDoc>
+						<dtCompDoc>2026-10-01</dtCompDoc>
+						<docFiscalOutro>
+							<cMunDocFiscal>4106902</cMunDocFiscal>
+							<nDocFiscal>2</nDocFiscal>
+							<xDocFiscal>DOCUMENTO FISCAL TESTE</xDocFiscal>
+						</docFiscalOutro>
+					</docAjusteBC>
+					<!-- Cada docAjusteBC usa uma alternativa: dFeNacional, docFiscalOutro OU docOutro. Dados e valores sao ficticios. -->
+					<docAjusteBC>
+						<tpAjusteBC>199</tpAjusteBC>
+						<xTpAjusteBC>OUTRO REEMBOLSO TESTE</xTpAjusteBC>
+						<vTotDoc>100.00</vTotDoc>
+						<vAjusteAplic>50.00</vAjusteAplic>
+						<dFeNacional>
+							<tipoChaveDFe>1</tipoChaveDFe>
+							<chaveDFe>11111111111111111111111111111111111111111111</chaveDFe>
+						</dFeNacional>
+						<fornec>
+							<CNPJ>12345678000195</CNPJ>
+						</fornec>
+					</docAjusteBC>
+				</documentos>
+			</vAjusteBC>
+			<trib>
+				<tribMun>
+					<tribISSQN>1</tribISSQN>
+					<tpRetISSQN>1</tpRetISSQN>
+				</tribMun>
+				<totTrib>
+					<vTotTrib>
+						<vTotTribFed>0.00</vTotTribFed>
+						<vTotTribEst>0.00</vTotTribEst>
+						<vTotTribMun>0.00</vTotTribMun>
+					</vTotTrib>
+				</totTrib>
+			</trib>
+		</valores>
+		<IBSCBS>
+			<indFinal>0</indFinal>
+			<cIndOp>000001</cIndOp>
+			<indDest>0</indDest>
+			<!-- NOVO IMOVEL: cMun, gLocacao opcional e ate 99 gUnidImob. Escolha cCIB OU end em cada unidade. -->
+			<imovel>
+				<cMun>4106902</cMun>
+				<gLocacao>
+					<pCopropriedade>50.00</pCopropriedade>
+					<vTotOper>1500.00</vTotOper>
+					<vDescIncondTot>10.00</vDescIncondTot>
+					<vDescCondTot>5.00</vDescCondTot>
+					<dVencOrig>2026-11-01</dVencOrig>
+				</gLocacao>
+				<gUnidImob>
+					<inscImobFisc>000123</inscImobFisc>
+					<cCIB>12345678</cCIB>
+					<gAjusteBCLocImoveis>
+						<tpAjusteBCLocImoveis>01</tpAjusteBCLocImoveis>
+						<vAjusteBCLocImoveis>10.00</vAjusteBCLocImoveis>
+					</gAjusteBCLocImoveis>
+					<gAjusteBCLocImoveis>
+						<tpAjusteBCLocImoveis>04</tpAjusteBCLocImoveis>
+						<vAjusteBCLocImoveis>20.00</vAjusteBCLocImoveis>
+					</gAjusteBCLocImoveis>
+					<gAjusteBCLocImoveis>
+						<tpAjusteBCLocImoveis>99</tpAjusteBCLocImoveis>
+						<xTpAjusteBCLocImoveis>OUTRA PARCELA TESTE</xTpAjusteBCLocImoveis>
+						<vAjusteBCLocImoveis>5.00</vAjusteBCLocImoveis>
+					</gAjusteBCLocImoveis>
+				</gUnidImob>
+				<gUnidImob>
+					<end>
+						<CEP>80000000</CEP>
+						<xLgr>RUA EXEMPLO</xLgr>
+						<nro>1</nro>
+						<xCpl>SALA TESTE</xCpl>
+						<xBairro>BAIRRO TESTE</xBairro>
+					</end>
+				</gUnidImob>
+			</imovel>
+			<!-- NOVO: bensMoveis pode repetir ate 1000 vezes. cNCMBemMovel tem oito digitos, inclusive zeros a esquerda. -->
+			<bensMoveis>
+				<cNCMBemMovel>01012100</cNCMBemMovel>
+				<xNCMBemMovel>BEM TESTE</xNCMBemMovel>
+				<qtdNCMBemMovel>1</qtdNCMBemMovel>
+			</bensMoveis>
+			<bensMoveis>
+				<cNCMBemMovel>01012900</cNCMBemMovel>
+				<xNCMBemMovel>OUTRO BEM TESTE</xNCMBemMovel>
+				<qtdNCMBemMovel>2</qtdNCMBemMovel>
+			</bensMoveis>
+			<valores>
+				<trib>
+					<!-- NOVO NIVEL: CST e cClassTrib pertencem a trib, fora de gIBSCBS. gIBSCBS e opcional e recebe somente os complementos tributarios. -->
+					<CST>000</CST>
+					<cClassTrib>000001</cClassTrib>
+				</trib>
+			</valores>
+		</IBSCBS>
+	</infDPS>
+</DPS>
