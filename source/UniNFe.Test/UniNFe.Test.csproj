@@ -31,7 +31,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.13" />
     <PackageReference Include="System.Text.Json" Version="10.0.13" />
-    <PackageReference Include="Unimake.DFe" Version="20261017.1623.10" />
+    <PackageReference Include="Unimake.DFe" Version="20261021.810.33" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\..\exemplos xml\NFeAbi\41260912345678000123770010000000011012345670-nfeabi.xml" Link="NFeABI\Resources\NFeABI.xml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFe\Exemplos RTC\*.txt" Link="NFeConvertTxt\Fixtures\RTC\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFe\99999999999999999999999999999999999999999991-nfe.txt" Link="NFeConvertTxt\Fixtures\NFe\NFe-4.00.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFCe\99999999999999999999999999999999999999999999-nfe.txt" Link="NFeConvertTxt\Fixtures\NFCe\NFCe-4.00.txt" CopyToOutputDirectory="PreserveNewest" />

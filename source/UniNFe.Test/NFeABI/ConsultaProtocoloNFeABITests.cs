@@ -1,196 +1,179 @@
-using NFe.Components;
 using NFe.Service;
 using NFe.Service.NFeABI;
-using NFe.Settings;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using UniNFe.Test.Abstractions;
-using Unimake.Business.DFe.Servicos;
+using System.Xml;
 using Xunit;
 
 namespace UniNFe.Test.NFeABI
 {
     [Collection("NFeABI Serial")]
-    public class ConsultaProtocoloNFeABITests : TaskTestFixtureBase, IDisposable
+    public class ConsultaProtocoloNFeABITests : NFeABITestFixture
     {
-        private const string Chave = "41260912345678000123770010000000011012345670";
-
-        [Fact]
-        public void ConsultaPreservaXmlBrutoEConfiguraTransporte()
+        [Theory]
+        [InlineData(false, false)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        public void ConsultaRecuperaNotaPorChaveOuFluxoEArquivaProcessado(bool fluxo, bool somenteDistribuicao)
         {
-            using(var contexto = new Contexto(Pedido()))
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
             {
-                var retorno = Retorno();
-                string recebido = null;
-                Configuracao configuracao = null;
-                TaskConsultaSituacaoNFeABI.ExecutarConsulta = (xml, config) =>
-                {
-                    recebido = xml;
-                    configuracao = config;
-                    return retorno;
-                };
+                contexto.Empresa.SalvarSomenteXMLDistribuicao = somenteDistribuicao;
+                var arquivo = contexto.GuardarDocumento("nome-erp-nfeabi.xml", fluxo);
+                var original = File.ReadAllText(arquivo);
+                var retorno = Retorno("retConsSitNFeABI", 100, Protocolo());
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString = retorno;
 
-                ExecutarEmThread("0", () => new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio).Execute());
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
 
-                Assert.Contains("<chNFeABI>" + Chave + "</chNFeABI>", recebido);
-                Assert.Equal(TipoDFe.NFeABI, configuracao.TipoDFe);
-                Assert.Equal(41, configuracao.CodigoUF);
-                Assert.Equal(TipoAmbiente.Homologacao, configuracao.TipoAmbiente);
+                var proc = contexto.Destino("nome-erp-procNFeABI.xml");
+                Assert.True(File.Exists(proc));
+                Assert.Equal(original, File.ReadAllText(contexto.Destino("nome-erp-nfeabi.xml", somenteDistribuicao ? "Originais" : "Autorizados")));
                 Assert.Equal(retorno, File.ReadAllText(Path.Combine(contexto.PastaRetorno, "consulta-sit.xml")));
+                Assert.False(File.Exists(arquivo));
                 Assert.False(File.Exists(contexto.ArquivoEnvio));
-                Assert.False(File.Exists(Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
-            }
-        }
-
-        [Fact]
-        public void AdaptadorRealSelecionaServicoEModeloSemExecutarTransporte()
-        {
-            using(var consulta = new Unimake.Business.DFe.Servicos.NFeABI.ConsultaProtocolo(
-                Pedido(), new Configuracao()))
-            {
-                Assert.Equal(Servico.NFeABIConsultaProtocolo, consulta.Configuracoes.Servico);
-                Assert.Equal(ModeloDFe.NFeABI, consulta.Configuracoes.Modelo);
-                Assert.Equal(TipoAmbiente.Homologacao, consulta.Configuracoes.TipoAmbiente);
-            }
-        }
-
-        [Fact]
-        public void RoteamentoExecutaConsultaSemRede()
-        {
-            using(var contexto = new Contexto(Pedido()))
-            {
-                var checarConexaoAnterior = ConfiguracaoApp.ChecarConexaoInternet;
-                var executou = false;
-                TaskConsultaSituacaoNFeABI.ExecutarConsulta = (xml, config) =>
-                {
-                    executou = true;
-                    return Retorno();
-                };
-
-                try
-                {
-                    ConfiguracaoApp.ChecarConexaoInternet = false;
-                    ExecutarEmThread("0", () => new Processar().ProcessaArquivo(0, contexto.ArquivoEnvio));
-                }
-                finally
-                {
-                    ConfiguracaoApp.ChecarConexaoInternet = checarConexaoAnterior;
-                }
-
-                var erro = Path.Combine(contexto.PastaRetorno, "consulta-sit.err");
-                Assert.True(executou, File.Exists(erro) ? File.ReadAllText(erro) :
-                    "Roteamento não executou a consulta e não gerou .ERR; pedido existe: " + File.Exists(contexto.ArquivoEnvio));
-                Assert.True(File.Exists(Path.Combine(contexto.PastaRetorno, "consulta-sit.xml")));
+                var processado = CarregarXml(proc);
+                Assert.Equal("nfeabiProc", processado.DocumentElement.LocalName);
+                Assert.Equal(Documento().DocumentElement.OuterXml, processado.GetElementsByTagName("NFeABI")[0].OuterXml);
+                Assert.Equal(Protocolo(), processado.GetElementsByTagName("protNFeABI")[0].OuterXml);
+                Assert.Equal(string.Empty, new FluxoNfe(0).LerTag("NFeABI" + Chave, FluxoNfe.ElementoFixo.ArqNFe));
             }
         }
 
         [Theory]
-        [InlineData("STATUS", Chave, 2)]
-        [InlineData("CONSULTAR", "123", 2)]
-        [InlineData("CONSULTAR", "41260912345678000123550010000000011012345670", 2)]
-        [InlineData("CONSULTAR", Chave, 1)]
-        public void PedidoInvalidoNaoIniciaTransporte(string servico, string chave, int ambiente)
+        [InlineData(false)]
+        [InlineData(true)]
+        public void DocumentoAusenteOuDeOutraEmpresaPreservaRetornoSemArquivar(bool outraEmpresa)
         {
-            using(var contexto = new Contexto(Pedido(servico, chave, ambiente)))
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
             {
-                var executou = false;
-                TaskConsultaSituacaoNFeABI.ExecutarConsulta = (xml, config) =>
+                string arquivo = null;
+                if(outraEmpresa)
                 {
-                    executou = true;
-                    return Retorno();
-                };
+                    arquivo = contexto.GuardarDocumento();
+                    contexto.Empresa.CNPJ = "99999999000191";
+                }
+                var retorno = Retorno("retConsSitNFeABI", 100, Protocolo());
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString = retorno;
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
 
-                ExecutarEmThread("0", () => new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio).Execute());
+                Assert.Equal(retorno, File.ReadAllText(Path.Combine(contexto.PastaRetorno, "consulta-sit.xml")));
+                Assert.False(File.Exists(contexto.Destino("pedido-procNFeABI.xml")));
+                if(arquivo != null) Assert.True(File.Exists(arquivo));
+            }
+        }
 
-                Assert.False(executou);
-                Assert.True(File.Exists(contexto.ArquivoEnvio));
-                Assert.Contains("Message|Falha de Configuracao", File.ReadAllText(
-                    Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void ComparacaoDeDigestRespeitaConfiguracao(bool comparar)
+        {
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
+            {
+                contexto.Empresa.CompararDigestValueDFeRetornadoSEFAZ = comparar;
+                var arquivo = contexto.GuardarDocumento();
+                var documento = CarregarXml(arquivo);
+                var assinatura = documento.CreateElement("Signature", "http://www.w3.org/2000/09/xmldsig#");
+                var digest = documento.CreateElement("DigestValue", assinatura.NamespaceURI);
+                digest.InnerText = "AA==";
+                assinatura.AppendChild(digest);
+                documento.DocumentElement.AppendChild(assinatura);
+                documento.Save(arquivo);
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta =>
+                    consulta.RetornoWSString = Retorno("retConsSitNFeABI", 100, Protocolo(digest: "AQ=="));
+
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
+
+                Assert.Equal(!comparar, File.Exists(contexto.Destino("pedido-procNFeABI.xml")));
+                Assert.Equal(comparar, File.Exists(Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
+                if(comparar) Assert.True(File.Exists(Path.Combine(contexto.Empresa.PastaXmlErro, "pedido-nfeabi.xml")));
+            }
+        }
+
+        [Theory]
+        [InlineData(100, "")]
+        [InlineData(101, "")]
+        [InlineData(102, "")]
+        [InlineData(100, "<protNFeABI versao=\"1.00\" />")]
+        public void RetornoSemProtocoloUtilizavelMantemNotaEmProcessamento(int status, string protocolo)
+        {
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
+            {
+                var arquivo = contexto.GuardarDocumento();
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString = Retorno("retConsSitNFeABI", status, protocolo);
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
+                Assert.True(File.Exists(arquivo));
+                Assert.False(File.Exists(contexto.Destino("pedido-procNFeABI.xml")));
+                Assert.False(File.Exists(Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
+            }
+        }
+
+        [Theory]
+        [InlineData(101, 100)]
+        [InlineData(150, 150)]
+        public void ConsultaUsaProtocoloDeAutorizacaoMesmoAposCancelamento(int status, int statusProtocolo)
+        {
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
+            {
+                contexto.GuardarDocumento();
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString =
+                    Retorno("retConsSitNFeABI", status, Protocolo(status: statusProtocolo));
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
+                Assert.True(File.Exists(contexto.Destino("pedido-procNFeABI.xml")));
+            }
+        }
+
+        [Theory]
+        [InlineData(216)]
+        [InlineData(217)]
+        public void RejeicaoRetiraNotaDoFluxo(int status)
+        {
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
+            {
+                var arquivo = contexto.GuardarDocumento(fluxo: true);
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString = Retorno("retConsSitNFeABI", status);
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
+                Assert.False(File.Exists(arquivo));
+                Assert.True(File.Exists(Path.Combine(contexto.Empresa.PastaXmlErro, "pedido-nfeabi.xml")));
+                Assert.Equal(string.Empty, new FluxoNfe(0).LerTag("NFeABI" + Chave, FluxoNfe.ElementoFixo.ArqNFe));
             }
         }
 
         [Fact]
-        public void ProducaoSemEndpointNaoIniciaTransporte()
+        public void FalhaDeMovimentacaoDoProcessadoMantemOriginalEmProcessamento()
         {
-            using(var contexto = new Contexto(Pedido(ambiente: 1), 1))
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
             {
-                var executou = false;
-                TaskConsultaSituacaoNFeABI.ExecutarConsulta = (xml, config) =>
-                {
-                    executou = true;
-                    return Retorno();
-                };
-
-                ExecutarEmThread("0", () => new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio).Execute());
-
-                Assert.False(executou);
-                Assert.Contains("Message|Falha de Configuracao", File.ReadAllText(
-                    Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
+                var arquivo = contexto.GuardarDocumento();
+                Directory.CreateDirectory(contexto.Destino("pedido-procNFeABI.xml"));
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString = Retorno("retConsSitNFeABI", 100, Protocolo());
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
+                Assert.True(File.Exists(arquivo));
+                Assert.True(File.Exists(Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
             }
         }
 
         [Fact]
-        public void FalhaDeTransporteGeraErroPadraoSemVazarSegredo()
+        public void ErroDeTransporteMantemExcecaoOriginalEExcluiPedido()
         {
-            using(var contexto = new Contexto(Pedido()))
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
             {
-                TaskConsultaSituacaoNFeABI.ExecutarConsulta = (xml, config) =>
-                {
-                    throw new Exception("Falha TLS senha=NAO_VAZAR");
-                };
-
-                ExecutarEmThread("0", () => new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio).Execute());
-
-                var erro = File.ReadAllText(Path.Combine(contexto.PastaRetorno, "consulta-sit.err"));
-                Assert.Contains("Versão UniNFe|", erro);
-                Assert.Contains("ErrorCode|", erro);
-                Assert.Contains("Message|Falha de TLS na consulta de protocolo da NF-e ABI.", erro);
-                Assert.DoesNotContain("NAO_VAZAR", erro);
-                Assert.True(File.Exists(contexto.ArquivoEnvio));
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => { throw new Exception("Falha DNS de teste da DLL."); };
+                Executar(new TaskConsultaSituacaoNFeABI(contexto.ArquivoEnvio));
+                Assert.Contains("Message|Falha DNS de teste da DLL.", File.ReadAllText(Path.Combine(contexto.PastaRetorno, "consulta-sit.err")));
+                Assert.False(File.Exists(contexto.ArquivoEnvio));
             }
         }
 
-        private static string Pedido(string servico = "CONSULTAR", string chave = Chave, int ambiente = 2)
+        [Fact]
+        public void RoteamentoRealExecutaConsultaSemRede()
         {
-            return "<consSitNFeABI xmlns=\"http://www.portalfiscal.inf.br/nfeabi\" versao=\"1.00\"><tpAmb>" + ambiente +
-                "</tpAmb><xServ>" + servico + "</xServ><chNFeABI>" + chave + "</chNFeABI></consSitNFeABI>";
-        }
-
-        private static string Retorno()
-        {
-            return "<retConsSitNFeABI versao=\"1.00\" xmlns=\"http://www.portalfiscal.inf.br/nfeabi\"><tpAmb>2</tpAmb><verAplic>TESTE</verAplic><cStat>217</cStat><xMotivo>NFeABI nao consta na base de dados</xMotivo><cUF>41</cUF><dhRecbto>2026-10-13T09:00:00-03:00</dhRecbto><chNFeABI>" + Chave + "</chNFeABI></retConsSitNFeABI>";
-        }
-
-        public void Dispose()
-        {
-            TaskConsultaSituacaoNFeABI.ExecutarConsulta = null;
-        }
-
-        private sealed class Contexto : TaskTestContextBase
-        {
-            internal Contexto(string xml, int ambiente = 2) : base("consulta-ped-sit.xml", xml)
+            using(var contexto = new Contexto("consulta-ped-sit.xml", PedidoConsulta()))
             {
-                var pastaErro = Path.Combine(PastaTemporaria, "Erro");
-                var pastaValidar = Path.Combine(PastaTemporaria, "Validar");
-                Directory.CreateDirectory(pastaErro);
-                Directory.CreateDirectory(pastaValidar);
-                DefinirConfiguracoesEmpresas(new List<Empresa>
-                {
-                    new Empresa
-                    {
-                        PastaXmlEnvio = PastaTemporaria,
-                        PastaXmlEnviado = PastaTemporaria,
-                        PastaXmlRetorno = PastaRetorno,
-                        PastaXmlErro = pastaErro,
-                        PastaValidar = pastaValidar,
-                        AmbienteCodigo = ambiente,
-                        Servico = TipoAplicativo.NFeABI,
-                        UsaCertificado = false
-                    }
-                });
+                TaskConsultaSituacaoNFeABI.ExecutarConsulta = consulta => consulta.RetornoWSString = Retorno("retConsSitNFeABI", 217);
+                Processar(contexto);
+                Assert.True(File.Exists(Path.Combine(contexto.PastaRetorno, "consulta-sit.xml")));
             }
-
         }
     }
 }

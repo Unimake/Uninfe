@@ -1,20 +1,16 @@
 using NFe.Components;
 using NFe.Settings;
 using System;
-using System.IO;
-using System.Text;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Xml.NFeABI;
+using ConsultaProtocolo = Unimake.Business.DFe.Servicos.NFeABI.ConsultaProtocolo;
 
 namespace NFe.Service.NFeABI
 {
-    /// <summary>
-    /// Consulta o protocolo de uma NF-e ABI pela chave de acesso.
-    /// </summary>
     public class TaskConsultaSituacaoNFeABI : TaskAbst
     {
-        internal static Func<string, Configuracao, string> ExecutarConsulta = ExecutarConsultaPadrao;
+        internal static Action<ConsultaProtocolo> ExecutarConsulta;
 
         public TaskConsultaSituacaoNFeABI(string arquivo)
         {
@@ -27,163 +23,114 @@ namespace NFe.Service.NFeABI
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
-            var excluirEntrada = false;
+            Configuracao configuracao = null;
 
             try
             {
-                if(ConteudoXML.DocumentElement == null ||
-                    ConteudoXML.DocumentElement.LocalName != "consSitNFeABI" ||
-                    ConteudoXML.DocumentElement.NamespaceURI != NFeStrConstants.NAME_SPACE_NFEABI)
+                var xml = new ConsSitNFeABI().LerXML<ConsSitNFeABI>(ConteudoXML);
+                configuracao = new Configuracao
                 {
-                    throw new Exception("Pedido de consulta de protocolo da NF-e ABI inválido.");
-                }
+                    PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
+                    TipoDFe = TipoDFe.NFeABI,
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                    ColetarTelemetriaDisponibilidade = true
+                };
+                ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
 
-                var consulta = new ConsSitNFeABI().LerXML<ConsSitNFeABI>(ConteudoXML);
-                ValidarPedido(emp, consulta);
-
-                var configuracao = CriarConfiguracao(emp, consulta);
-                vStrXmlRetorno = (ExecutarConsulta ?? ExecutarConsultaPadrao)(ConteudoXML.OuterXml, configuracao);
-                if(string.IsNullOrWhiteSpace(vStrXmlRetorno))
+                using(var consulta = new ConsultaProtocolo(xml, configuracao))
                 {
-                    throw new Exception("O serviço de consulta de protocolo da NF-e ABI retornou uma resposta vazia.");
+                    if(ExecutarConsulta == null) consulta.Executar();
+                    else ExecutarConsulta(consulta);
+
+                    vStrXmlRetorno = consulta.RetornoWSString;
+                    XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML,
+                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
+                    LerRetorno(xml, consulta.Result, emp);
                 }
-
-                // O retorno fiscal da DLL é gravado sem desserialização ou reformatação.
-                XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
-                excluirEntrada = true;
-            }
-            catch(Exception ex)
-            {
-                GravarErroSeguro(emp, ClassificarFalha(ex));
-            }
-            finally
-            {
-                if(excluirEntrada)
-                {
-                    try { Functions.DeletarArquivo(NomeArquivoXML); }
-                    catch { /* O monitor poderá repetir o processamento se a exclusão falhar. */ }
-                }
-            }
-        }
-
-        private static string ExecutarConsultaPadrao(string xmlOriginal, Configuracao configuracao)
-        {
-            using(var consulta = new Unimake.Business.DFe.Servicos.NFeABI.ConsultaProtocolo(xmlOriginal, configuracao))
-            {
-                consulta.Executar();
-                return consulta.RetornoWSString;
-            }
-        }
-
-        private static Configuracao CriarConfiguracao(int emp, ConsSitNFeABI consulta)
-        {
-            var empresa = Empresas.Configuracoes[emp];
-            var configuracao = new Configuracao
-            {
-                PrepararConexaoTLSAntesDoEnvio = empresa.AtivarPreparacaoTLSAntesEnvioXML,
-                TipoDFe = TipoDFe.NFeABI,
-                CodigoUF = int.Parse(consulta.ChNFeABI.Substring(0, 2)),
-                TipoAmbiente = consulta.TpAmb,
-                CertificadoDigital = empresa.X509Certificado,
-                ColetarTelemetriaDisponibilidade = true
-            };
-
-            ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
-            return configuracao;
-        }
-
-        private static void ValidarPedido(int emp, ConsSitNFeABI consulta)
-        {
-            if(consulta == null || consulta.Versao != "1.00" || consulta.XServ != "CONSULTAR" ||
-                string.IsNullOrEmpty(consulta.ChNFeABI) || consulta.ChNFeABI.Length != 44 ||
-                consulta.ChNFeABI.Substring(20, 2) != "77")
-            {
-                throw new Exception("Pedido de consulta de protocolo da NF-e ABI inválido.");
-            }
-
-            foreach(var digito in consulta.ChNFeABI)
-            {
-                if(digito < '0' || digito > '9')
-                {
-                    throw new Exception("Chave de acesso da NF-e ABI inválida.");
-                }
-            }
-
-            if((int)consulta.TpAmb != Empresas.Configuracoes[emp].AmbienteCodigo)
-            {
-                throw new Exception("O ambiente do pedido de consulta da NF-e ABI diverge da configuração da empresa.");
-            }
-
-            if(consulta.TpAmb == TipoAmbiente.Producao)
-            {
-                throw new Exception("O endpoint de produção da NF-e ABI ainda não foi publicado.");
-            }
-
-            if(Empresas.Configuracoes[emp].UsaCertificado && Empresas.Configuracoes[emp].X509Certificado == null)
-            {
-                throw new Exception("Certificado digital não configurado para a consulta de protocolo da NF-e ABI.");
-            }
-
-            if(Empresas.Configuracoes[emp].UsaCertificado &&
-                new Unimake.Business.Security.CertificadoDigital().Vencido(Empresas.Configuracoes[emp].X509Certificado))
-            {
-                throw new Exception("Certificado digital vencido para a consulta de protocolo da NF-e ABI.");
-            }
-        }
-
-        private static string ClassificarFalha(Exception ex)
-        {
-            var mensagem = ex == null ? string.Empty : ex.Message ?? string.Empty;
-            if(mensagem.IndexOf("certificado", StringComparison.OrdinalIgnoreCase) >= 0) return "Certificado";
-            if(mensagem.IndexOf("proxy", StringComparison.OrdinalIgnoreCase) >= 0) return "Proxy";
-            if(mensagem.IndexOf("tls", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                mensagem.IndexOf("ssl", StringComparison.OrdinalIgnoreCase) >= 0) return "TLS";
-            if(mensagem.IndexOf("dns", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                mensagem.IndexOf("host", StringComparison.OrdinalIgnoreCase) >= 0) return "DNS";
-            if(mensagem.IndexOf("pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                mensagem.IndexOf("ambiente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                mensagem.IndexOf("produção", StringComparison.OrdinalIgnoreCase) >= 0) return "Configuracao";
-            if(mensagem.IndexOf("retorno", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                mensagem.IndexOf("vazia", StringComparison.OrdinalIgnoreCase) >= 0) return "Retorno";
-            return "Transporte";
-        }
-
-        private void GravarErroSeguro(int emp, string categoria)
-        {
-            Exception erroSeguro;
-            try { throw new Exception("Falha de " + categoria + " na consulta de protocolo da NF-e ABI."); }
-            catch(Exception ex) { erroSeguro = ex; }
-
-            try
-            {
-                TFunctions.GravarArqErroServico(NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML,
-                    Propriedade.ExtRetorno.Sit_ERR, erroSeguro,
-                    ErroPadrao.ErroNaoDetectado, false);
             }
             catch(Exception ex)
             {
                 try
                 {
-                    var nome = Functions.ExtrairNomeArq(NomeArquivoXML,
-                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML) + Propriedade.ExtRetorno.Sit_ERR;
-                    var caminho = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, nome);
-                    if(!File.Exists(caminho))
-                    {
-                        File.WriteAllText(caminho, TFunctions.MontaStringErro(
-                            erroSeguro, ErroPadrao.ErroNaoDetectado, "indisponível", "indisponível"),
-                            new UTF8Encoding(false));
-                    }
+                    TFunctions.GravarArqErroServico(NomeArquivoXML,
+                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML,
+                        Propriedade.ExtRetorno.Sit_ERR, ex);
                 }
-                catch(Exception falhaFallback)
+                catch(Exception erro)
                 {
-                    try { Auxiliar.WriteLog("Falha ao gravar o retorno alternativo da consulta de protocolo da NF-e ABI. " + falhaFallback, false); }
-                    catch { }
+                    Auxiliar.WriteLog("Falha ao gravar o retorno de erro da consulta de situação da NF-e ABI. " + erro, false);
                 }
+            }
+            finally
+            {
+                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
+                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
+                try
+                {
+                    Functions.DeletarArquivo(NomeArquivoXML);
+                }
+                catch(Exception ex)
+                {
+                    Auxiliar.WriteLog("Falha ao excluir o pedido de consulta de situação da NF-e ABI. " + ex, false);
+                }
+            }
+        }
 
-                try { Auxiliar.WriteLog("Falha ao gravar o retorno de erro da consulta de protocolo da NF-e ABI. " + ex, false); }
-                catch { }
+        private void LerRetorno(ConsSitNFeABI pedido, RetConsSitNFeABI retorno, int emp)
+        {
+            var empresa = Empresas.Configuracoes[emp];
+            if(!Functions.ChaveDFePertenceEmpresa(pedido.ChNFeABI, empresa.CNPJ, empresa.UnidadeFederativaCodigo))
+            {
+                return;
+            }
+
+            var arquivo = FinalizacaoNFeABI.LocalizarArquivo(emp, pedido.ChNFeABI);
+            if(arquivo == null) return;
+
+            switch(retorno.CStat)
+            {
+                case 100:
+                case 150:
+                case 101: // Cancelada: o protocolo de autorização ainda permite recuperar o processado.
+                    var xmlRetorno = new XmlDocument();
+                    xmlRetorno.LoadXml(vStrXmlRetorno);
+                    var ns = new XmlNamespaceManager(xmlRetorno.NameTable);
+                    ns.AddNamespace("abi", NFeStrConstants.NAME_SPACE_NFEABI);
+                    var protocolo = xmlRetorno.SelectSingleNode("/abi:retConsSitNFeABI/abi:protNFeABI", ns) as XmlElement;
+                    var infProt = protocolo == null ? null : protocolo.SelectSingleNode("abi:infProt", ns);
+                    if(infProt == null || infProt.SelectSingleNode("abi:chNFeABI", ns)?.InnerText != pedido.ChNFeABI ||
+                        string.IsNullOrWhiteSpace(infProt.SelectSingleNode("abi:nProt", ns)?.InnerText))
+                    {
+                        return;
+                    }
+
+                    var status = infProt.SelectSingleNode("abi:cStat", ns)?.InnerText;
+                    if(status != "100" && status != "150") return;
+
+                    var documento = new XmlDocument();
+                    documento.Load(arquivo);
+                    if(empresa.CompararDigestValueDFeRetornadoSEFAZ)
+                    {
+                        var digestProtocolo = infProt.SelectSingleNode("abi:digVal", ns)?.InnerText;
+                        var digestNota = documento.GetElementsByTagName("DigestValue", "http://www.w3.org/2000/09/xmldsig#");
+                        if(!string.IsNullOrEmpty(digestProtocolo) && digestNota.Count > 0 &&
+                            !string.IsNullOrEmpty(digestNota[0].InnerText) && digestProtocolo != digestNota[0].InnerText)
+                        {
+                            oAux.MoveArqErro(arquivo);
+                            throw new Exception("O valor do DigestValue da consulta situação é diferente do DigestValue da NF-e ABI.");
+                        }
+                    }
+
+                    FinalizacaoNFeABI.Finalizar(emp, arquivo, documento,
+                        FinalizacaoNFeABI.CriarProcessado(documento, protocolo));
+                    break;
+
+                case 216:
+                case 217:
+                    oAux.MoveArqErro(arquivo);
+                    new FluxoNfe().ExcluirNfeFluxo("NFeABI" + pedido.ChNFeABI);
+                    RemoverArqTemp("NFeABI" + pedido.ChNFeABI, emp);
+                    break;
             }
         }
     }
