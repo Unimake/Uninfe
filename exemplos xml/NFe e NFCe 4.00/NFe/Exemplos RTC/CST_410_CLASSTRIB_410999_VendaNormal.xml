@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251099999999999999550010001949861303405801">
+	<infNFe versao="4.00" Id="NFe41261099999999000191550010001949861303405804">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>30340580</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>194986</nNF>
-			<dhEmi>2025-10-03T11:22:30-03:00</dhEmi>
-			<dhSaiEnt>2025-10-03T11:22:30-03:00</dhSaiEnt>
+			<dhEmi>2026-10-03T11:22:30-03:00</dhEmi>
+			<dhSaiEnt>2026-10-03T11:22:30-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>2</idDest>
 			<cMunFG>4126702</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>1</cDV>
+			<cDV>4</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>0</indFinal>
@@ -24,15 +24,15 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>99999999999999</CNPJ>
-			<xNome>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xNome>
-			<xFant>XXXXXXXXXXXXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>00000</nro>
-				<xBairro>ZXXXXXXXXX</xBairro>
+				<xBairro>ZTESTE</xBairro>
 				<cMun>4126702</cMun>
-				<xMun>XXXXXXXX</xMun>
+				<xMun>TESTE</xMun>
 				<UF>PR</UF>
 				<CEP>11111111</CEP>
 				<cPais>1058</cPais>
@@ -46,10 +46,10 @@
 			<CNPJ>04172183000183</CNPJ>
 			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
 			<enderDest>
-				<xLgr>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>SN</nro>
 				<xCpl>CASA</xCpl>
-				<xBairro>XXXXXXXXXX</xBairro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>2925758</cMun>
 				<xMun>PRESIDENTE TANCREDO NEVE</xMun>
 				<UF>BA</UF>
@@ -62,16 +62,16 @@
 			<IE>11111111</IE>
 		</dest>
 		<autXML>
-			<CNPJ>11111111111111</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 		</autXML>
 		<autXML>
-			<CPF>11111111111</CPF>
+			<CPF>12345678909</CPF>
 		</autXML>
 		<det nItem="1">
 			<prod>
 				<cProd>23504</cProd>
 				<cEAN>SEM GTIN</cEAN>
-				<xProd>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xProd>
+				<xProd>TESTE</xProd>
 				<NCM>35051000</NCM>
 				<CFOP>6116</CFOP>
 				<uCom>KG</uCom>
@@ -182,7 +182,7 @@
 			<vol>
 				<qVol>100</qVol>
 				<esp>KG</esp>
-				<marca>XXXXXX</marca>
+				<marca>TESTE</marca>
 				<pesoL>100.000</pesoL>
 				<pesoB>100.000</pesoB>
 			</vol>
@@ -198,9 +198,9 @@
 		</infAdic>
 		<infRespTec>
 			<CNPJ>11111111111111</CNPJ>
-			<xContato>XXXXXXXXXXXXXXXXXXXXXXX</xContato>
+			<xContato>TESTE</xContato>
 			<email>teste@teste.com.br</email>
 			<fone>111111111111</fone>
 		</infRespTec>
 	</infNFe>
-</NFe>  
+</NFe>

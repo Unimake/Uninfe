@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe35251099999999999999550010000621551161200081">
+	<infNFe versao="4.00" Id="NFe35261099999999000191550010000621551161200086">
 		<ide>
 			<cUF>35</cUF>
 			<cNF>16120008</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>62155</nNF>
-			<dhEmi>2025-10-07T17:41:45-03:00</dhEmi>
-			<dhSaiEnt>2025-10-07T17:41:45-03:00</dhSaiEnt>
+			<dhEmi>2026-10-07T17:41:45-03:00</dhEmi>
+			<dhSaiEnt>2026-10-07T17:41:45-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>2</idDest>
 			<cMunFG>3547809</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>1</cDV>
+			<cDV>6</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>0</indFinal>
@@ -24,16 +24,16 @@
 			<verProc>0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>99999999999999</CNPJ>
-			<xNome>XXXXXXXXXXXXXXXXXX</xNome>
-			<xFant>XXXXXXXXXXXXXXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>278</nro>
-				<xBairro>XXXXXXXX</xBairro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>3547809</cMun>
 				<xMun>SANTO ANDRE</xMun>
-				<UF>XX</UF>
+				<UF>SP</UF>
 				<CEP>99999999</CEP>
 				<cPais>1058</cPais>
 				<xPais>Brasil</xPais>
@@ -43,15 +43,15 @@
 			<CRT>3</CRT>
 		</emit>
 		<dest>
-			<CNPJ>11111111111111</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
 			<enderDest>
-				<xLgr>XXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>1111</nro>
-				<xBairro>XXXXXXXXXXXX</xBairro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>3157807</cMun>
 				<xMun>SANTA LUZIA</xMun>
-				<UF>XX</UF>
+				<UF>MG</UF>
 				<CEP>11111111</CEP>
 				<cPais>1058</cPais>
 				<xPais>Brasil</xPais>
@@ -156,6 +156,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>362.70</vItem>
 		</det>
 		<det nItem="2">
 			<prod>
@@ -238,6 +239,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>179.52</vItem>
 		</det>
 		<det nItem="3">
 			<prod>
@@ -329,6 +331,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>117.20</vItem>
 		</det>
 		<det nItem="4">
 			<prod>
@@ -414,6 +417,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>501.40</vItem>
 		</det>
 		<det nItem="5">
 			<prod>
@@ -499,6 +503,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>367.71</vItem>
 		</det>
 		<det nItem="6">
 			<prod>
@@ -584,6 +589,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>364.45</vItem>
 		</det>
 		<det nItem="7">
 			<prod>
@@ -669,6 +675,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>254.19</vItem>
 		</det>
 		<det nItem="8">
 			<prod>
@@ -754,6 +761,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>144.12</vItem>
 		</det>
 		<det nItem="9">
 			<prod>
@@ -839,6 +847,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>293.34</vItem>
 		</det>
 		<det nItem="10">
 			<prod>
@@ -924,6 +933,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>287.87</vItem>
 		</det>
 		<det nItem="11">
 			<prod>
@@ -1009,6 +1019,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>203.68</vItem>
 		</det>
 		<det nItem="12">
 			<prod>
@@ -1100,6 +1111,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>298.60</vItem>
 		</det>
 		<det nItem="13">
 			<prod>
@@ -1185,6 +1197,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>218.06</vItem>
 		</det>
 		<det nItem="14">
 			<prod>
@@ -1276,6 +1289,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>395.07</vItem>
 		</det>
 		<total>
 			<ICMSTot>
@@ -1324,14 +1338,15 @@
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gCBS>
 			</IBSCBSTot>
+			<vNFTot>3987.91</vNFTot>
 		</total>
 		<transp>
 			<modFrete>1</modFrete>
 			<transporta>
 				<CNPJ>11111111111111</CNPJ>
-				<xNome>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</xNome>
+				<xNome>TRANSPORTADORA TESTE LTDA</xNome>
 				<IE>111111111111</IE>
-				<xEnder>XXXXXXXXXXXXXXXXXXXXXXXX</xEnder>
+				<xEnder>TESTE</xEnder>
 				<xMun>GUARULHOS</xMun>
 				<UF>SP</UF>
 			</transporta>
@@ -1353,17 +1368,17 @@
 			</fat>
 			<dup>
 				<nDup>001</nDup>
-				<dVenc>2025-10-31</dVenc>
+				<dVenc>2026-10-31</dVenc>
 				<vDup>1355.89</vDup>
 			</dup>
 			<dup>
 				<nDup>002</nDup>
-				<dVenc>2025-11-30</dVenc>
+				<dVenc>2026-11-30</dVenc>
 				<vDup>1316.01</vDup>
 			</dup>
 			<dup>
 				<nDup>003</nDup>
-				<dVenc>2025-12-30</dVenc>
+				<dVenc>2026-12-30</dVenc>
 				<vDup>1316.01</vDup>
 			</dup>
 		</cobr>
@@ -1377,7 +1392,7 @@
 		<infAdic>
 			<infCpl>Forma de Pagamento em 3 parcela(s)</infCpl>
 			<obsCont xCampo="obsFat1">
-				<xTexto>Cliente :99999 - XXXXXXXXXXX CPF 11111111111</xTexto>
+				<xTexto>Cliente :99999 - TESTE CPF 11111111111</xTexto>
 			</obsCont>
 		</infAdic>
 	</infNFe>

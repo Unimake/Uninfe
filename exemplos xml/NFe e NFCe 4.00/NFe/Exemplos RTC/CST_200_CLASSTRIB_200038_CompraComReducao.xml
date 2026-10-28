@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251999999999999995550010001949841303325780">
+	<infNFe versao="4.00" Id="NFe41261099999999000191550010001949841303325784">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>30332578</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>194984</nNF>
-			<dhEmi>2025-10-03T11:15:13-03:00</dhEmi>
-			<dhSaiEnt>2025-10-03T11:15:13-03:00</dhSaiEnt>
+			<dhEmi>2026-10-03T11:15:13-03:00</dhEmi>
+			<dhSaiEnt>2026-10-03T11:15:13-03:00</dhSaiEnt>
 			<tpNF>0</tpNF>
 			<idDest>1</idDest>
 			<cMunFG>4126702</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>0</cDV>
+			<cDV>4</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>0</indFinal>
@@ -35,50 +35,50 @@
 			</NFref>
 		</ide>
 		<emit>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
-			<xFant>XXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4126702</cMun>
 				<xMun>TAMBOARA</xMun>
 				<UF>PR</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderEmit>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 			<CRT>3</CRT>
 		</emit>
 		<dest>
 			<CPF>05269218976</CPF>
-			<xNome>XXXXXX</xNome>
+			<xNome>DESTINATARIO TESTE LTDA</xNome>
 			<enderDest>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
 				<xCpl>S\C</xCpl>
-				<xBairro>XXXXXX</xBairro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4124509</cMun>
 				<xMun>SANTO INACIO</xMun>
 				<UF>PR</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
 			</enderDest>
 			<indIEDest>1</indIEDest>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 		</dest>
 		<autXML>
-			<CNPJ>XXXXXX</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 		</autXML>
 		<autXML>
-			<CPF>XXXXXX</CPF>
+			<CPF>12345678909</CPF>
 		</autXML>
 		<autXML>
-			<CPF>XXXXXX</CPF>
+			<CPF>12345678909</CPF>
 		</autXML>
 		<det nItem="1">
 			<prod>
@@ -158,12 +158,12 @@
 						</gIBSMun>
 						<vIBS>0.15</vIBS>
 						<gCBS>
-							<pCBS>0.8000</pCBS>
+							<pCBS>0.9000</pCBS>
 							<gRed>
 								<pRedAliq>60.0000</pRedAliq>
-								<pAliqEfet>0.3200</pAliqEfet>
+								<pAliqEfet>0.3600</pAliqEfet>
 							</gRed>
-							<vCBS>1.19</vCBS>
+							<vCBS>1.34</vCBS>
 						</gCBS>
 					</gIBSCBS>
 				</IBSCBS>
@@ -212,7 +212,7 @@
 				<gCBS>
 					<vDif>0.00</vDif>
 					<vDevTrib>0.00</vDevTrib>
-					<vCBS>1.19</vCBS>
+					<vCBS>1.34</vCBS>
 					<vCredPres>0.00</vCredPres>
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gCBS>
@@ -251,7 +251,7 @@
 			</fat>
 			<dup>
 				<nDup>001</nDup>
-				<dVenc>2025-10-09</dVenc>
+				<dVenc>2026-10-09</dVenc>
 				<vDup>379.54</vDup>
 			</dup>
 		</cobr>

@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe42251999999999999999550010000078951329455520">
+	<infNFe versao="4.00" Id="NFe42261099999999000191550010000078951329455522">
 		<ide>
 			<cUF>42</cUF>
 			<cNF>32945552</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>7895</nNF>
-			<dhEmi>2025-10-29T15:45:16-03:00</dhEmi>
-			<dhSaiEnt>2025-10-29T15:45:16-03:00</dhSaiEnt>
+			<dhEmi>2026-10-29T15:45:16-03:00</dhEmi>
+			<dhSaiEnt>2026-10-29T15:45:16-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>3</idDest>
 			<cMunFG>4218400</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>0</cDV>
+			<cDV>2</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>1</indFinal>
@@ -24,35 +24,35 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
-			<xFant>XXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4218400</cMun>
 				<xMun>TREZE DE MAIO</xMun>
 				<UF>SC</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderEmit>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 			<CRT>3</CRT>
 		</emit>
 		<dest>
 			<idEstrangeiro/>
-			<xNome>XXXXXX</xNome>
+			<xNome>DESTINATARIO TESTE LTDA</xNome>
 			<enderDest>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>9999999</cMun>
 				<xMun>CIDADE DE LEST</xMun>
 				<UF>EX</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>5860</cPais>
 				<xPais>PARAGUAI</xPais>
 			</enderDest>
@@ -121,12 +121,12 @@
 						<gTribRegular>
 							<CSTReg>200</CSTReg>
 							<cClassTribReg>200038</cClassTribReg>
-							<pAliqEfetRegIBSUF>0.0400</pAliqEfetRegIBSUF>
-							<vTribRegIBSUF>0.40</vTribRegIBSUF>
+							<pAliqEfetRegIBSUF>0.1000</pAliqEfetRegIBSUF>
+							<vTribRegIBSUF>1.00</vTribRegIBSUF>
 							<pAliqEfetRegIBSMun>0.0000</pAliqEfetRegIBSMun>
 							<vTribRegIBSMun>0.00</vTribRegIBSMun>
-							<pAliqEfetRegCBS>0.3600</pAliqEfetRegCBS>
-							<vTribRegCBS>3.60</vTribRegCBS>
+							<pAliqEfetRegCBS>0.9000</pAliqEfetRegCBS>
+							<vTribRegCBS>9.00</vTribRegCBS>
 						</gTribRegular>
 					</gIBSCBS>
 				</IBSCBS>
@@ -210,7 +210,7 @@
 			</fat>
 			<dup>
 				<nDup>001</nDup>
-				<dVenc>2025-11-28</dVenc>
+				<dVenc>2026-11-28</dVenc>
 				<vDup>1000.00</vDup>
 			</dup>
 		</cobr>

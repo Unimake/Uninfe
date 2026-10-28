@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe42251999999999999999550010000078941529025510">
+	<infNFe versao="4.00" Id="NFe42261099999999000191550010000078941529025516">
 		<ide>
 			<cUF>42</cUF>
 			<cNF>52902551</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>7894</nNF>
-			<dhEmi>2025-10-29T15:12:01-03:00</dhEmi>
-			<dhSaiEnt>2025-10-29T15:12:01-03:00</dhSaiEnt>
+			<dhEmi>2026-10-29T15:12:01-03:00</dhEmi>
+			<dhSaiEnt>2026-10-29T15:12:01-03:00</dhSaiEnt>
 			<tpNF>0</tpNF>
 			<idDest>1</idDest>
 			<cMunFG>4218400</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>0</cDV>
+			<cDV>6</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>0</indFinal>
@@ -24,41 +24,41 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
-			<xFant>XXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4218400</cMun>
 				<xMun>TREZE DE MAIO</xMun>
 				<UF>SC</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderEmit>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 			<CRT>3</CRT>
 		</emit>
 		<dest>
 			<CPF>65401042949</CPF>
-			<xNome>XXXXXX</xNome>
+			<xNome>DESTINATARIO TESTE LTDA</xNome>
 			<enderDest>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4204251</cMun>
 				<xMun>COCAL DO SUL</xMun>
 				<UF>SC</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderDest>
 			<indIEDest>1</indIEDest>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 		</dest>
 		<det nItem="1">
 			<prod>

@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251099999999999999550010001949881606345841">
+	<infNFe versao="4.00" Id="NFe41261099999999000191550010001949881606345845">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>60634584</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>194988</nNF>
-			<dhEmi>2025-10-06T16:52:36-03:00</dhEmi>
-			<dhSaiEnt>2025-10-06T16:52:36-03:00</dhSaiEnt>
+			<dhEmi>2026-10-06T16:52:36-03:00</dhEmi>
+			<dhSaiEnt>2026-10-06T16:52:36-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>1</idDest>
 			<cMunFG>4126702</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>1</cDV>
+			<cDV>5</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>0</indFinal>
@@ -24,17 +24,17 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>99999999999999</CNPJ>
-			<xNome>XXXXXXXXXXXXXXXXXX</xNome>
-			<xFant>XXXXXXXXXXXXXXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>278</nro>
-				<xBairro>XXXXXXXX</xBairro>
-				<cMun>3547809</cMun>
-				<xMun>SANTO ANDRE</xMun>
-				<UF>XX</UF>
-				<CEP>99999999</CEP>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>Brasil</xPais>
 				<fone>1111111111</fone>
@@ -43,16 +43,16 @@
 			<CRT>3</CRT>
 		</emit>
 		<dest>
-			<CNPJ>11111111111111</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
 			<enderDest>
-				<xLgr>XXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>1111</nro>
-				<xBairro>XXXXXXXXXXXX</xBairro>
-				<cMun>3157807</cMun>
-				<xMun>SANTA LUZIA</xMun>
-				<UF>XX</UF>
-				<CEP>11111111</CEP>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>Brasil</xPais>
 				<fone>1111111111</fone>
@@ -61,10 +61,10 @@
 			<IE>11111111111</IE>
 		</dest>
 		<autXML>
-			<CNPJ>11111111111111</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 		</autXML>
 		<autXML>
-			<CPF>11111111111</CPF>
+			<CPF>12345678909</CPF>
 		</autXML>
 		<det nItem="1">
 			<prod>
@@ -122,10 +122,10 @@
 					<gIBSCBS>
 						<vBC>567.19</vBC>
 						<gIBSUF>
-							<pIBSUF>0.0000</pIBSUF>
+							<pIBSUF>0.1000</pIBSUF>
 							<gDif>
 								<pDif>100.0000</pDif>
-								<vDif>0.00</vDif>
+								<vDif>0.57</vDif>
 							</gDif>
 							<vIBSUF>0.00</vIBSUF>
 						</gIBSUF>
@@ -139,10 +139,10 @@
 						</gIBSMun>
 						<vIBS>0.00</vIBS>
 						<gCBS>
-							<pCBS>0.0000</pCBS>
+							<pCBS>0.9000</pCBS>
 							<gDif>
 								<pDif>100.0000</pDif>
-								<vDif>0.00</vDif>
+								<vDif>5.10</vDif>
 							</gDif>
 							<vCBS>0.00</vCBS>
 						</gCBS>
@@ -177,7 +177,7 @@
 				<vBCIBSCBS>567.19</vBCIBSCBS>
 				<gIBS>
 					<gIBSUF>
-						<vDif>0.00</vDif>
+						<vDif>0.57</vDif>
 						<vDevTrib>0.00</vDevTrib>
 						<vIBSUF>0.00</vIBSUF>
 					</gIBSUF>
@@ -191,7 +191,7 @@
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gIBS>
 				<gCBS>
-					<vDif>0.00</vDif>
+					<vDif>5.10</vDif>
 					<vDevTrib>0.00</vDevTrib>
 					<vCBS>0.00</vCBS>
 					<vCredPres>0.00</vCredPres>
@@ -228,7 +228,7 @@
 			</fat>
 			<dup>
 				<nDup>001</nDup>
-				<dVenc>2025-11-05</dVenc>
+				<dVenc>2026-11-05</dVenc>
 				<vDup>625.00</vDup>
 			</dup>
 		</cobr>

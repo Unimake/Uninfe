@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251999999999999990550010001196981502013510">
+	<infNFe versao="4.00" Id="NFe41261299999999000191550010001196981502013510">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>50201351</cNF>
@@ -8,8 +8,8 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>119698</nNF>
-			<dhEmi>2025-12-02T13:39:30-03:00</dhEmi>
-			<dhSaiEnt>2025-12-02T13:39:30-03:00</dhSaiEnt>
+			<dhEmi>2026-12-02T13:39:30-03:00</dhEmi>
+			<dhSaiEnt>2026-12-02T13:39:30-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>1</idDest>
 			<cMunFG>4115200</cMunFG>
@@ -25,40 +25,40 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
-			<xFant>XXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4115200</cMun>
 				<xMun>MARINGA</xMun>
 				<UF>PR</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderEmit>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 			<CRT>3</CRT>
 		</emit>
 		<dest>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
+			<CNPJ>11222333000181</CNPJ>
+			<xNome>DESTINATARIO TESTE LTDA</xNome>
 			<enderDest>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4115200</cMun>
 				<xMun>MARINGA</xMun>
 				<UF>PR</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
 			</enderDest>
 			<indIEDest>1</indIEDest>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 		</dest>
 		<det nItem="1">
 			<prod>
@@ -102,7 +102,7 @@
 			</imposto>
 			<vItem>100.00</vItem>
 			<DFeReferenciado>
-				<chaveAcesso>11111111111111111111111111111111111111111111</chaveAcesso>
+				<chaveAcesso>41261199999999000191550010001111231007777783</chaveAcesso>
 				<nItem>1</nItem>
 			</DFeReferenciado>
 		</det>

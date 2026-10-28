@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251999999999999995550010001950011415026020">
+	<infNFe versao="4.00" Id="NFe41261099999999000191550010001950011415026021">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>41502602</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>195001</nNF>
-			<dhEmi>2025-10-15T10:29:45-03:00</dhEmi>
-			<dhSaiEnt>2025-10-15T10:29:45-03:00</dhSaiEnt>
+			<dhEmi>2026-10-15T10:29:45-03:00</dhEmi>
+			<dhSaiEnt>2026-10-15T10:29:45-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>1</idDest>
 			<cMunFG>4126702</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>0</cDV>
+			<cDV>1</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>0</indFinal>
@@ -24,47 +24,47 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
-			<xFant>XXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4126702</cMun>
 				<xMun>TAMBOARA</xMun>
 				<UF>PR</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderEmit>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 			<CRT>3</CRT>
 		</emit>
 		<dest>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
+			<CNPJ>11222333000181</CNPJ>
+			<xNome>DESTINATARIO TESTE LTDA</xNome>
 			<enderDest>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>4118402</cMun>
 				<xMun>PARANAVAI</xMun>
 				<UF>PR</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderDest>
 			<indIEDest>1</indIEDest>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 		</dest>
 		<autXML>
-			<CNPJ>XXXXXX</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 		</autXML>
 		<autXML>
-			<CPF>XXXXXX</CPF>
+			<CPF>12345678909</CPF>
 		</autXML>
 		<det nItem="1">
 			<prod>
@@ -154,7 +154,7 @@
 				</IBSCBS>
 			</imposto>
 			<infAdProd>RESOL. SEN. FEDERAL Nro. 13/12, Nro. FCI C9BC9D57-154A-41E6-957F-B177D47FF7D3VENDAS INTERNAS REDUCAO BASE DE CALCULO -CARGA TRIBUTARIA RESULTE EM 7% CONFORME ANEXO VI - ITEM 20 - DO RICMS / PR - DECRETO 7871/ 2017-VALIDO ATE 30/04/2024, PRORROGADO ATE O DIA 30/04/2026.</infAdProd>
-			<vItem>1000.00</vItem>
+			<vItem>666.67</vItem>
 		</det>
 		<det nItem="2">
 			<prod>
@@ -220,7 +220,7 @@
 				</IBSCBS>
 			</imposto>
 			<infAdProd>RESOL. SEN. FEDERAL Nro. 13/12, Nro. FCI C9BC9D57-154A-41E6-957F-B177D47FF7D3VENDAS INTERNAS REDUCAO BASE DE CALCULO -CARGA TRIBUTARIA RESULTE EM 7% CONFORME ANEXO VI - ITEM 20 - DO RICMS / PR - DECRETO 7871/ 2017-VALIDO ATE 30/04/2024, PRORROGADO ATE O DIA 30/04/2026.</infAdProd>
-			<vItem>500.00</vItem>
+			<vItem>333.33</vItem>
 		</det>
 		<total>
 			<ICMSTot>
@@ -277,7 +277,7 @@
 					<vCBSMonoRet>0.00</vCBSMonoRet>
 				</gMono>
 			</IBSCBSTot>
-			<vNFTot>1500.00</vNFTot>
+			<vNFTot>1000.00</vNFTot>
 		</total>
 		<transp>
 			<modFrete>0</modFrete>

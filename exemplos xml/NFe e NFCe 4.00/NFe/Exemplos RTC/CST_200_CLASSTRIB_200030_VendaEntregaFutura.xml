@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251099999999999999550010001949851503395791">
+	<infNFe versao="4.00" Id="NFe41261099999999000191550010001949851503395791">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>50339579</cNF>
@@ -8,8 +8,8 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>194985</nNF>
-			<dhEmi>2025-10-03T11:20:05-03:00</dhEmi>
-			<dhSaiEnt>2025-10-03T11:20:06-03:00</dhSaiEnt>
+			<dhEmi>2026-10-03T11:20:05-03:00</dhEmi>
+			<dhSaiEnt>2026-10-03T11:20:06-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>2</idDest>
 			<cMunFG>4126702</cMunFG>
@@ -24,17 +24,17 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>99999999999999</CNPJ>
-			<xNome>XXXXXXXXXXXXXXXXXX</xNome>
-			<xFant>XXXXXXXXXXXXXXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>278</nro>
-				<xBairro>XXXXXXXX</xBairro>
-				<cMun>3547809</cMun>
-				<xMun>SANTO ANDRE</xMun>
-				<UF>SP</UF>
-				<CEP>99999999</CEP>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>Brasil</xPais>
 				<fone>1111111111</fone>
@@ -43,12 +43,12 @@
 			<CRT>3</CRT>
 		</emit>
 		<dest>
-			<CNPJ>11111111111111</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
 			<enderDest>
-				<xLgr>XXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>1111</nro>
-				<xBairro>XXXXXXXXXXXX</xBairro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>3157807</cMun>
 				<xMun>SANTA LUZIA</xMun>
 				<UF>MG</UF>
@@ -61,10 +61,10 @@
 			<IE>11111111111</IE>
 		</dest>
 		<autXML>
-			<CNPJ>11111111111111</CNPJ>
+			<CNPJ>11222333000181</CNPJ>
 		</autXML>
 		<autXML>
-			<CPF>11111111111</CPF>
+			<CPF>12345678909</CPF>
 		</autXML>
 		<det nItem="1">
 			<prod>
@@ -136,12 +136,12 @@
 						</gIBSMun>
 						<vIBS>0.73</vIBS>
 						<gCBS>
-							<pCBS>0.8000</pCBS>
+							<pCBS>0.9000</pCBS>
 							<gRed>
 								<pRedAliq>60.0000</pRedAliq>
-								<pAliqEfet>0.3200</pAliqEfet>
+								<pAliqEfet>0.3600</pAliqEfet>
 							</gRed>
-							<vCBS>5.81</vCBS>
+							<vCBS>6.53</vCBS>
 						</gCBS>
 					</gIBSCBS>
 				</IBSCBS>
@@ -190,7 +190,7 @@
 				<gCBS>
 					<vDif>0.00</vDif>
 					<vDevTrib>0.00</vDevTrib>
-					<vCBS>5.81</vCBS>
+					<vCBS>6.53</vCBS>
 					<vCredPres>0.00</vCredPres>
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gCBS>

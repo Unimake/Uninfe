@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41250899999999999999550010001155991014435727">
+	<infNFe versao="4.00" Id="NFe41260899999999000191550010001155991014435729">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>01443572</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>1</serie>
 			<nNF>115599</nNF>
-			<dhEmi>2025-08-14T15:18:39-03:00</dhEmi>
-			<dhSaiEnt>2025-08-14T15:18:39-03:00</dhSaiEnt>
+			<dhEmi>2026-08-14T15:18:39-03:00</dhEmi>
+			<dhSaiEnt>2026-08-14T15:18:39-03:00</dhSaiEnt>
 			<tpNF>0</tpNF>
 			<idDest>2</idDest>
 			<cMunFG>4115200</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>7</cDV>
+			<cDV>9</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>4</finNFe>
 			<indFinal>0</indFinal>
@@ -23,17 +23,17 @@
 			<procEmi>0</procEmi>
 			<verProc>UNICO V8.0</verProc>
 			<NFref>
-				<refNFe>41250899999999999999550010001155981614005700</refNFe>
+				<refNFe>41260799999999000191550010009816751000399066</refNFe>
 			</NFref>
 		</ide>
 		<emit>
-			<CNPJ>99999999999999</CNPJ>
+			<CNPJ>99999999000191</CNPJ>
 			<xNome>EMPRESA DE TESTE DE EMISSAO</xNome>
 			<xFant>EMPRESA DE TESTE</xFant>
 			<enderEmit>
-				<xLgr>R: XXXXXXXX</xLgr>
+				<xLgr>R: TESTE</xLgr>
 				<nro>11111</nro>
-				<xBairro>JARDIM XXXXXXX</xBairro>
+				<xBairro>JARDIM TESTE</xBairro>
 				<cMun>4115200</cMun>
 				<xMun>MARINGA</xMun>
 				<UF>PR</UF>
@@ -49,9 +49,9 @@
 			<CNPJ>07002246000141</CNPJ>
 			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
 			<enderDest>
-				<xLgr>XXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>s/n</nro>
-				<xBairro>BAIRRO XXXXXXXXXX</xBairro>
+				<xBairro>BAIRRO TESTE</xBairro>
 				<cMun>4208203</cMun>
 				<xMun>ITAJAI</xMun>
 				<UF>SC</UF>
@@ -126,6 +126,7 @@
 							<pIBSMun>0.0000</pIBSMun>
 							<vIBSMun>0.00</vIBSMun>
 						</gIBSMun>
+						<vIBS>0.08</vIBS>
 						<gCBS>
 							<pCBS>0.8000</pCBS>
 							<vCBS>0.64</vCBS>
@@ -133,6 +134,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
+			<vItem>100.00</vItem>
 		</det>
 		<total>
 			<ICMSTot>
@@ -157,7 +159,7 @@
 				<vNF>100.00</vNF>
 			</ICMSTot>
 			<IBSCBSTot>
-				<vBCIBSCBS>0.00</vBCIBSCBS>
+				<vBCIBSCBS>79.86</vBCIBSCBS>
 				<gIBS>
 					<gIBSUF>
 						<vDif>0.00</vDif>
@@ -181,6 +183,7 @@
 					<vCredPresCondSus>0.00</vCredPresCondSus>
 				</gCBS>
 			</IBSCBSTot>
+			<vNFTot>100.00</vNFTot>
 		</total>
 		<transp>
 			<modFrete>0</modFrete>
@@ -200,22 +203,22 @@
 			</fat>
 			<dup>
 				<nDup>001</nDup>
-				<dVenc>2025-09-11</dVenc>
+				<dVenc>2026-09-11</dVenc>
 				<vDup>16.67</vDup>
 			</dup>
 			<dup>
 				<nDup>002</nDup>
-				<dVenc>2025-10-09</dVenc>
+				<dVenc>2026-10-09</dVenc>
 				<vDup>16.67</vDup>
 			</dup>
 			<dup>
 				<nDup>003</nDup>
-				<dVenc>2025-11-06</dVenc>
+				<dVenc>2026-11-06</dVenc>
 				<vDup>16.67</vDup>
 			</dup>
 			<dup>
 				<nDup>004</nDup>
-				<dVenc>2025-12-04</dVenc>
+				<dVenc>2026-12-04</dVenc>
 				<vDup>16.67</vDup>
 			</dup>
 			<dup>
@@ -245,7 +248,7 @@
 			<email>ciclanodasilva@teste.com.br</email>
 			<fone>1234567890</fone>
 			<idCSRT>01</idCSRT>
-			<hashCSRT>1234567890asdfghjkio9999999=</hashCSRT>
+			<hashCSRT>Q1NSVC1FWEVNUExPLUZJQ1RJQ0k=</hashCSRT>
 		</infRespTec>
 	</infNFe>
 </NFe>

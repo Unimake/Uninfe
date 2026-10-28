@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe41251199999999999999550550000047491019596773">
+	<infNFe versao="4.00" Id="NFe41261199999999000191550550000047491019596770">
 		<ide>
 			<cUF>41</cUF>
 			<cNF>01959677</cNF>
@@ -8,14 +8,14 @@
 			<mod>55</mod>
 			<serie>55</serie>
 			<nNF>4749</nNF>
-			<dhEmi>2025-11-19T14:25:57-03:00</dhEmi>
-			<dhSaiEnt>2025-11-19T14:25:57-03:00</dhSaiEnt>
+			<dhEmi>2026-11-19T14:25:57-03:00</dhEmi>
+			<dhSaiEnt>2026-11-19T14:25:57-03:00</dhSaiEnt>
 			<tpNF>0</tpNF>
 			<idDest>3</idDest>
 			<cMunFG>4104303</cMunFG>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>3</cDV>
+			<cDV>0</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>1</finNFe>
 			<indFinal>1</indFinal>
@@ -24,17 +24,17 @@
 			<verProc>UNICO V8.0</verProc>
 		</ide>
 		<emit>
-			<CNPJ>99999999999999</CNPJ>
-			<xNome>XXXXXXXXXXXXXXXXXXXXXXXXXXXXX</xNome>
-			<xFant>XXXXXXXXXXXXXXXXXXXX</xFant>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
+			<xFant>EMITENTE TESTE</xFant>
 			<enderEmit>
-				<xLgr>XXXXXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>1875</nro>
 				<xBairro>CENTRO</xBairro>
-				<cMun>1111111</cMun>
-				<xMun>XXXXXXXXXXXX</xMun>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
 				<UF>PR</UF>
-				<CEP>11111111</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
 			</enderEmit>
@@ -45,12 +45,12 @@
 			<idEstrangeiro/>
 			<xNome>NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xNome>
 			<enderDest>
-				<xLgr>XXXXXXXXXXXXXXXXXXXX</xLgr>
+				<xLgr>RUA TESTE</xLgr>
 				<nro>S/N</nro>
 				<xBairro>EXTERIOR</xBairro>
-				<cMun>9999999</cMun>
-				<xMun>CHINA</xMun>
-				<UF>EX</UF>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
 				<CEP>00000000</CEP>
 				<cPais>1600</cPais>
 				<xPais>CHINA</xPais>

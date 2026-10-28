@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
-	<infNFe versao="4.00" Id="NFe35251999999999999999550000000004781445543450">
+	<infNFe versao="4.00" Id="NFe35261199999999000191550000000004781445543457">
 		<ide>
 			<cUF>35</cUF>
 			<cNF>44554345</cNF>
@@ -8,57 +8,57 @@
 			<mod>55</mod>
 			<serie>0</serie>
 			<nNF>478</nNF>
-			<dhEmi>2025-11-17T16:19:38-03:00</dhEmi>
-			<dhSaiEnt>2025-11-17T16:19:38-03:00</dhSaiEnt>
+			<dhEmi>2026-11-17T16:19:38-03:00</dhEmi>
+			<dhSaiEnt>2026-11-17T16:19:38-03:00</dhSaiEnt>
 			<tpNF>1</tpNF>
 			<idDest>1</idDest>
 			<cMunFG>3535309</cMunFG>
 			<cMunFGIBS>3535309</cMunFGIBS>
 			<tpImp>1</tpImp>
 			<tpEmis>1</tpEmis>
-			<cDV>0</cDV>
+			<cDV>7</cDV>
 			<tpAmb>2</tpAmb>
 			<finNFe>6</finNFe>
-			<tpNFDebito>07</tpNFDebito>
+			<tpNFDebito>06</tpNFDebito>
 			<indFinal>0</indFinal>
 			<indPres>1</indPres>
 			<procEmi>0</procEmi>
 			<verProc>1.4.1</verProc>
 		</ide>
 		<emit>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
+			<CNPJ>99999999000191</CNPJ>
+			<xNome>EMPRESA TESTE EMITENTE LTDA</xNome>
 			<enderEmit>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>3535309</cMun>
 				<xMun>PALMITAL</xMun>
 				<UF>SP</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
-				<fone>XXXXXX</fone>
+				<fone>4133333333</fone>
 			</enderEmit>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 			<CRT>1</CRT>
 		</emit>
 		<dest>
-			<CNPJ>XXXXXX</CNPJ>
-			<xNome>XXXXXX</xNome>
+			<CNPJ>11222333000181</CNPJ>
+			<xNome>DESTINATARIO TESTE LTDA</xNome>
 			<enderDest>
-				<xLgr>XXXXXX</xLgr>
-				<nro>XXXXXX</nro>
-				<xBairro>XXXXXX</xBairro>
+				<xLgr>RUA TESTE</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
 				<cMun>3535309</cMun>
 				<xMun>PALMITAL</xMun>
 				<UF>SP</UF>
-				<CEP>XXXXXX</CEP>
+				<CEP>80010000</CEP>
 				<cPais>1058</cPais>
 				<xPais>BRASIL</xPais>
 			</enderDest>
 			<indIEDest>1</indIEDest>
-			<IE>XXXXXX</IE>
+			<IE>1234567890</IE>
 		</dest>
 		<det nItem="1">
 			<prod>
@@ -100,7 +100,7 @@
 					</gIBSCBS>
 				</IBSCBS>
 			</imposto>
-			<vItem>17.00</vItem>
+			<vItem>17.50</vItem>
 		</det>
 		<total>
 			<ICMSTot>
