@@ -374,7 +374,7 @@
             this.metroTile_Layout.Size = new System.Drawing.Size(144, 120);
             this.metroTile_Layout.Style = MetroFramework.MetroColorStyle.Green;
             this.metroTile_Layout.TabIndex = 50;
-            this.metroTile_Layout.Text = "Layout";
+            this.metroTile_Layout.Text = "Layout TXT";
             this.metroTile_Layout.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.metroTile_Layout.TileImage = global::NFe.UI.Properties.Resources.documentacao;
             this.metroTile_Layout.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -267,17 +267,7 @@ namespace NFe.UI
 
         private void metroTile_Layout_Click(object sender, EventArgs e)
         {
-            string pdffile = System.IO.Path.GetTempFileName() + ".pdf";
-            try
-            {
-                new NFe.Service.TaskLayouts().CriaPDFLayout(pdffile);
-                if (System.IO.File.Exists(pdffile))
-                    StartPage(pdffile);
-            }
-            catch (Exception ex)
-            {
-                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            StartPage("https://github.com/Unimake/DFe/blob/main/LAYOUT-TXT-NFE-NFCE.md");
         }
     }
 }

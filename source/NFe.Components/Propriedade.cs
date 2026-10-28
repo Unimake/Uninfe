@@ -299,8 +299,7 @@ namespace NFe.Components
 
             cancel_XML,
             sair_XML,
-            pedLayouts,
-            pedUpdatewsdl,
+            pedUpdatewsdl = sair_XML + 2, // Preserva a numeração após a remoção do pedido de layouts.
             pedRestart,
 
             ///
@@ -997,12 +996,6 @@ namespace NFe.Components
                 "", "",
                 "",
                 "Uso específico, não usar"));
-
-            ListaExtensoes.Add(TipoEnvio.pedLayouts, new ExtensaoClass(
-                "-layouts.xml", "-layouts.txt",
-                "-ret-layouts.pdf", "",
-                "",
-                "Gerar um PDF com o layout da NFe em TXT e extensões usadas no UniNFe."));
 
             #endregion 
 

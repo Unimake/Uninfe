@@ -210,7 +210,6 @@ namespace NFe.Threadings
                 ///
                 if (fi.Length > 0 || (fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.sair_XML).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
                                       fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedUpdatewsdl).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
-                                      fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedLayouts).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
                                       fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedRestart).EnvioTXT, StringComparison.OrdinalIgnoreCase)))
                 {
                     var tworker = new Thread(

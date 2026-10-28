@@ -45,7 +45,6 @@ Name: brazilianportuguese; MessagesFile: compiler:Languages\BrazilianPortuguese.
 Source: ..\source\uninfe\bin\Release\BouncyCastle.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\EBank.Solutions.Primitives.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\GeradorCIOTShared.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\source\uninfe\bin\Release\itextsharp.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.Design.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\source\uninfe\bin\Release\MetroFramework.Fonts.dll; DestDir: {app}; Flags: ignoreversion

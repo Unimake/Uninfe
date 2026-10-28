@@ -244,19 +244,6 @@ namespace NFe.Threadings
                         return;
                     }
 
-                    ///
-                    /// solicitacao de layouts
-                    ///
-                    var lext = Components.Propriedade.Extensao(Components.Propriedade.TipoEnvio.pedLayouts);
-                    if (arq.EndsWith(lext.EnvioTXT) || arq.EndsWith(lext.EnvioXML))
-                    {
-                        var l = new Service.TaskLayouts
-                        {
-                            NomeArquivoXML = fi.FullName
-                        };
-                        l.Execute();
-                        return;
-                    }
                     empresa = 0; //Vou criar fixo como 0 quando for na pasta geral, pois na pasta geral não tem como detectar qual é a empresa. Wandrey 20/03/2013
                 }
                 else
