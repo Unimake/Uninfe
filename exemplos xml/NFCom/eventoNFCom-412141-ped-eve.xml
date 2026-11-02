@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventoNFCom versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfcom">
+	<infEvento Id="ID41214131250999999999999999620010000000051050000000001">
+		<cOrgao>31</cOrgao>
+		<tpAmb>2</tpAmb>
+		<CNPJ>99999999999999</CNPJ>
+		<chNFCom>31250999999999999999620010000000051050000000</chNFCom>
+		<dhEvento>2025-09-23T12:00:00-03:00</dhEvento>
+		<tpEvento>412141</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="1.00">
+			<evCancTribSN>
+				<descEvento>Cancelamento da Tributação do Simples Nacional</descEvento>
+				<nProt>1412600000000001</nProt>
+				<nProtEvTribSN>1412600000000002</nProtEvTribSN>
+			</evCancTribSN>
+		</detEvento>
+	</infEvento>
+</eventoNFCom>

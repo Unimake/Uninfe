@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventoNFCom versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfcom">
+	<infEvento Id="ID41214031250999999999999999620010000000051050000000001">
+		<cOrgao>31</cOrgao>
+		<tpAmb>2</tpAmb>
+		<CNPJ>99999999999999</CNPJ>
+		<chNFCom>31250999999999999999620010000000051050000000</chNFCom>
+		<dhEvento>2025-09-23T12:00:00-03:00</dhEvento>
+		<tpEvento>412140</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="1.00">
+			<evTributacaoSN>
+				<descEvento>Tributação do Simples Nacional</descEvento>
+				<nProt>1412600000000001</nProt>
+				<gTribItemSN nItem="1">
+					<vRBSNItem>104.90</vRBSNItem>
+					<tpRBSN>1</tpRBSN>
+					<pIBSSN>0.1000</pIBSSN>
+					<vIBSSN>0.10</vIBSSN>
+					<pCBSSN>0.9000</pCBSSN>
+					<vCBSSN>0.94</vCBSSN>
+					<vIBSPendSusp>0.00</vIBSPendSusp>
+					<vCBSPendSusp>0.00</vCBSPendSusp>
+				</gTribItemSN>
+				<gTotalSN>
+					<vRBSNTot>104.90</vRBSNTot>
+					<vIBSSNTot>0.10</vIBSSNTot>
+					<vIBSSNtotPendSusp>0.00</vIBSSNtotPendSusp>
+					<vCBSSNTot>0.94</vCBSSNTot>
+					<vCBSSNtotPendSusp>0.00</vCBSSNtotPendSusp>
+				</gTotalSN>
+			</evTributacaoSN>
+		</detEvento>
+	</infEvento>
+</eventoNFCom>
