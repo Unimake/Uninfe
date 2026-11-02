@@ -35,6 +35,7 @@ Escolha um modo antes de editar:
 - `MODO_DOCUMENTAR_SERVICO`: documentar um servico especifico, como NFe, NFCe, CTe, MDFe, NFCom, NF3e, BPe, CIOT, GNRE ou outro encontrado no codigo.
 - `MODO_DOCUMENTAR_FAQ`: criar ou atualizar perguntas frequentes com perguntas e respostas fornecidas pelo usuario, refinando a redacao e validando no repositorio quando a resposta depender de comportamento tecnico.
 - `MODO_DOCUMENTAR_ERROS_SOLUCOES`: criar ou atualizar a seção separada de erros e soluções, preservando mensagens reconhecíveis, explicando causas prováveis e oferecendo procedimentos seguros e verificáveis de diagnóstico e correção.
+- `MODO_ATUALIZAR_NOTAS_TECNICAS_VIGENTES`: reconstruir integralmente a página de notas técnicas vigentes a partir da seleção atual da planilha. Ler [references/notas-tecnicas-vigentes.md](references/notas-tecnicas-vigentes.md) antes de executar este modo.
 - `MODO_ATUALIZAR_INDICE`: ler os `.md` existentes em `/docs` e atualizar indice/catalogo, sem criar conteudo funcional novo.
 - `MODO_REVISAR_DOCUMENTACAO`: verificar links quebrados, duplicidades, documentos orfaos, inconsistencias, lacunas e trechos sem evidencia; corrigir apenas problemas seguros.
 
@@ -83,6 +84,8 @@ Quando houver manuais sobre a Reforma Tributária, mantenha-os em `docs/referenc
 O visualizador cria automaticamente as opções dentro da categoria `referencias` a partir dos arquivos Markdown. Para novos materiais, preserve o prefixo `reforma-tributaria-`, use um título visível no formato `Reforma Tributária - <assunto>`, atualize `docs/referencias/README.md`, `docs/index.md` e `docs/_catalogo-documentacao.md`, e regenere o índice do visualizador.
 
 ### Recursos para desenvolvedores
+
+Para o comando **`$uninfe-documentacao atualizar notas técnicas vigentes`**, ou pedido equivalente de atualização do conteúdo da planilha, use `MODO_ATUALIZAR_NOTAS_TECNICAS_VIGENTES` e leia [references/notas-tecnicas-vigentes.md](references/notas-tecnicas-vigentes.md). Esse modo usa a planilha como fonte externa autorizada para a página específica `docs/referencias/notas-tecnicas-vigentes.md`; não altera as exigências de evidência para documentar o comportamento do UniNFe. Toda execução reconstrói a seleção atual, removendo registros que deixaram de ser SIM, em vez de apenas acrescentar notas.
 
 Mantenha em `docs/referencias/notas-tecnicas-e-noticias-para-desenvolvedores.md` os recursos externos usados por desenvolvedores para acompanhar notas técnicas, prazos, mudanças na legislação e novidades das integrações fiscais. A página deve aparecer no menu como `Notas técnicas e notícias para desenvolvedores` e reunir, atualmente:
 
