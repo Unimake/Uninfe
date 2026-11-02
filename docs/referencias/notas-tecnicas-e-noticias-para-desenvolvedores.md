@@ -8,6 +8,8 @@ A planilha **Notas técnicas e prazos** centraliza o acompanhamento das notas t�
 
 [Acessar a planilha de notas técnicas e prazos](https://docs.google.com/spreadsheets/d/1vW6Gu_joO2mvua4rGjnBQ5LccVUVljvEpUtYin30BFs/edit?usp=sharing)
 
+Para consultar os registros selecionados como vigentes em uma leitura organizada por documento fiscal, acesse [Notas técnicas vigentes e prazos](notas-tecnicas-vigentes.md). A página apresenta uma consulta rápida, os cronogramas por etapa e fichas expansíveis com os resumos e links das publicações. Confira a data de atualização indicada na página; alterações posteriores podem estar disponíveis na planilha.
+
 ## Canal de notícias para desenvolvedores
 
 O canal **Wandrey Descomplica** divulga notícias, explicações e conteúdos práticos sobre documentos fiscais eletrônicos, notas técnicas, mudanças na legislação e integrações. Acompanhe o canal para receber avisos e entender o impacto técnico das novidades na rotina de desenvolvimento.

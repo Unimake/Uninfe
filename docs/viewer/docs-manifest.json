@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T19:44:55.522Z",
+  "generatedAt": "2026-11-02T13:43:04.034Z",
   "documents": [
     {
       "id": "introducao-o-que-e-uninfe-md",
@@ -89,6 +89,12 @@
       "id": "referencias-notas-tecnicas-e-noticias-para-desenvolvedores-md",
       "title": "Notas técnicas e notícias para desenvolvedores",
       "path": "referencias/notas-tecnicas-e-noticias-para-desenvolvedores.md",
+      "category": "referencias"
+    },
+    {
+      "id": "referencias-notas-tecnicas-vigentes-md",
+      "title": "Notas técnicas vigentes e prazos",
+      "path": "referencias/notas-tecnicas-vigentes.md",
       "category": "referencias"
     },
     {

@@ -5,6 +5,7 @@ Pasta reservada para paginas de referencia, como estrutura de pastas, tipos de r
 - [Apoio e Suporte](apoio-e-suporte.md)
 - [Menu principal](menu-principal.md)
 - [Notas técnicas e notícias para desenvolvedores](notas-tecnicas-e-noticias-para-desenvolvedores.md)
+- [Notas técnicas vigentes e prazos](notas-tecnicas-vigentes.md) — consulta por documento fiscal, cronogramas e fichas expansíveis.
 - [Perguntas frequentes](perguntas-frequentes.md)
 - [Reforma Tributária - NFe/NFCe](reforma-tributaria-nfe-nfce.md)
 - [Reforma Tributária - NFSe](reforma-tributaria-nfse.md) — inclui tabelas de alíquotas do ISSQN por município e UF.
