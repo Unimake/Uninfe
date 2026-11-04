@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe xmlns="http://www.portalfiscal.inf.br/cte" versao="4.00">
+	<infEvento Id="ID41214141251299999999999999570010000117471903894001001">
+		<cOrgao>41</cOrgao>
+		<tpAmb>2</tpAmb>
+		<CNPJ>99999999999999</CNPJ>
+		<chCTe>41251299999999999999570010000117471903894001</chCTe>
+		<dhEvento>2026-11-04T10:00:00-03:00</dhEvento>
+		<tpEvento>412141</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="4.00">
+			<evCancTribSN>
+				<descEvento>Cancelamento da Tributação do Simples Nacional</descEvento>
+				<nProt>141260000000001</nProt>
+				<nProtEvTribSN>141260000000002</nProtEvTribSN>
+			</evCancTribSN>
+		</detEvento>
+	</infEvento>
+</eventoCTe>

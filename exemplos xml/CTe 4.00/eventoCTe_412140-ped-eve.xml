@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eventoCTe xmlns="http://www.portalfiscal.inf.br/cte" versao="4.00">
+	<infEvento Id="ID41214041251299999999999999570010000117471903894001001">
+		<cOrgao>41</cOrgao>
+		<tpAmb>2</tpAmb>
+		<CNPJ>99999999999999</CNPJ>
+		<chCTe>41251299999999999999570010000117471903894001</chCTe>
+		<dhEvento>2026-11-04T10:00:00-03:00</dhEvento>
+		<tpEvento>412140</tpEvento>
+		<nSeqEvento>1</nSeqEvento>
+		<detEvento versaoEvento="4.00">
+			<evTributacaoSN>
+				<descEvento>Tributação do Simples Nacional</descEvento>
+				<nProt>141260000000001</nProt>
+				<gTribItemSN nItem="1">
+					<vRBSNItem>1000.00</vRBSNItem>
+					<tpRBSN>1</tpRBSN>
+					<pIBSSN>1.00</pIBSSN>
+					<vIBSSN>10.00</vIBSSN>
+					<pCBSSN>3.00</pCBSSN>
+					<vCBSSN>30.00</vCBSSN>
+					<vIBSPendSusp>0.00</vIBSPendSusp>
+					<vCBSPendSusp>0.00</vCBSPendSusp>
+				</gTribItemSN>
+				<gTotalSN>
+					<vRBSNTot>1000.00</vRBSNTot>
+					<vIBSSNTot>10.00</vIBSSNTot>
+					<vIBSSNtotPendSusp>0.00</vIBSSNtotPendSusp>
+					<vCBSSNTot>30.00</vCBSSNTot>
+					<vCBSSNtotPendSusp>0.00</vCBSSNtotPendSusp>
+				</gTotalSN>
+			</evTributacaoSN>
+		</detEvento>
+	</infEvento>
+</eventoCTe>
