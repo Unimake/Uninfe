@@ -103,7 +103,7 @@ namespace NFe.Service.NFSe
                 SchemaVersao = versaoXML
             };
 
-            var consultaNFeEmitidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultaNFeEmitidas(conteudoXML, configuracao);
+            var consultaNFeEmitidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNfse(conteudoXML, configuracao);
             consultaNFeEmitidas.Executar();
 
             vStrXmlRetorno = consultaNFeEmitidas.RetornoWSString;

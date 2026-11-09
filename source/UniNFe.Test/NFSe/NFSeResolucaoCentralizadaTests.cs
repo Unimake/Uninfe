@@ -17,7 +17,9 @@ namespace UniNFe.Test.NFSe
         [InlineData(PadraoNFSe.SMARAPD, "<EnviarLoteRpsSincronoEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><LoteRps versao=\"2.04\" /></EnviarLoteRpsSincronoEnvio>", 0, Servico.NFSeRecepcionarLoteRpsSincrono)]
         [InlineData(PadraoNFSe.SMARAPD, "<EnviarLoteRpsSincronoEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><LoteRps versao=\"2.04\" /></EnviarLoteRpsSincronoEnvio>", 2111300, Servico.NFSeRecepcionarLoteRps)]
         [InlineData(PadraoNFSe.FIORILLI, "<ConsultarNfseEnvio versao=\"1.01\"><Prestador /></ConsultarNfseEnvio>", 0, Servico.NFSeConsultarNfse)]
-        [InlineData(PadraoNFSe.SIGCORP, "<ConsultarRpsServicoPrestadoEnvio><numero_rps>1</numero_rps></ConsultarRpsServicoPrestadoEnvio>", 4113700, Servico.NFSeConsultarRpsServicoPrestado)]
+        [InlineData(PadraoNFSe.SIGCORP, "<ConsultarRpsServicoPrestadoEnvio><numero_rps>1</numero_rps></ConsultarRpsServicoPrestadoEnvio>", 4113700, Servico.NFSeConsultarNfsePorRps)]
+        [InlineData(PadraoNFSe.WEBFISCO, "<CancelaNfe><pass>TESTE</pass></CancelaNfe>", 3518602, Servico.NFSeCancelarNfse)]
+        [InlineData(PadraoNFSe.GIF, "<pedConsultaTrans><CNPJ>1</CNPJ></pedConsultaTrans>", 0, Servico.NFSeConsultarNotaFiscal)]
         public void DeveResolverServicoUsadoPelasTasksNFSe(PadraoNFSe padraoNFSe, string conteudoXML, int codigoMunicipio, Servico servicoEsperado)
         {
             var xml = CriarXml(conteudoXML);

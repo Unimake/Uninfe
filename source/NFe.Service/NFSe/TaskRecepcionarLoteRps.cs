@@ -264,7 +264,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps:
-                    var recepcionarLoteRps = new Unimake.Business.DFe.Servicos.NFSe.RecepcionarLoteRps(conteudoXML, configuracao);
+                    var recepcionarLoteRps = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     recepcionarLoteRps.Executar();
                     vStrXmlRetorno = recepcionarLoteRps.RetornoWSString;
 
@@ -272,7 +272,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono:
-                    var recepcionarLoteRpsSincrono = new Unimake.Business.DFe.Servicos.NFSe.RecepcionarLoteRpsSincrono(conteudoXML, configuracao);
+                    var recepcionarLoteRpsSincrono = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     recepcionarLoteRpsSincrono.Executar();
                     vStrXmlRetorno = recepcionarLoteRpsSincrono.RetornoWSString;
 
@@ -280,7 +280,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeEnvioLoteRps:
-                    var envioLoteRps = new Unimake.Business.DFe.Servicos.NFSe.EnvioLoteRps(conteudoXML, configuracao);
+                    var envioLoteRps = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     envioLoteRps.Executar();
                     vStrXmlRetorno = envioLoteRps.RetornoWSString;
 
@@ -288,7 +288,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeEnvioRps:
-                    var envioRps = new Unimake.Business.DFe.Servicos.NFSe.EnvioRps(conteudoXML, configuracao);
+                    var envioRps = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     envioRps.Executar();
                     vStrXmlRetorno = envioRps.RetornoWSString;
 
@@ -296,13 +296,13 @@ namespace NFe.Service.NFSe
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeTesteEnvioLoteRps:
-                    var testeEnvioLoteRps = new Unimake.Business.DFe.Servicos.NFSe.TesteEnvioLoteRps(conteudoXML, configuracao);
+                    var testeEnvioLoteRps = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     testeEnvioLoteRps.Executar();
                     vStrXmlRetorno = testeEnvioLoteRps.RetornoWSString;
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeEmissaoNota:
-                    var emissaoNota = new Unimake.Business.DFe.Servicos.NFSe.EmissaoNota(conteudoXML, configuracao);
+                    var emissaoNota = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     emissaoNota.Executar();
                     vStrXmlRetorno = emissaoNota.RetornoWSString;
 
@@ -310,7 +310,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case Unimake.Business.DFe.Servicos.Servico.NFSeEnviarLoteNotas:
-                    var enviarLoteNotas = new Unimake.Business.DFe.Servicos.NFSe.EnviarLoteNotas(conteudoXML, configuracao);
+                    var enviarLoteNotas = new Unimake.Business.DFe.Servicos.NFSe.GerarNfse(conteudoXML, configuracao);
                     enviarLoteNotas.Executar();
                     vStrXmlRetorno = enviarLoteNotas.RetornoWSString;
 
