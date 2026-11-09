@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NFe.Components;
 using NFe.Settings;
 using Unimake.Business.DFe.Xml.NF3e;
@@ -344,8 +344,6 @@ namespace NFe.Service.NF3e
 
                     consultaProtocolo.Dispose();
 
-                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
                 }
             }
             catch(Exception ex)
@@ -360,8 +358,6 @@ namespace NFe.Service.NF3e
                     //Wandrey 09/03/2010
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
             }
             finally
             {

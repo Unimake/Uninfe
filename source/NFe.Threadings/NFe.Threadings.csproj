@@ -192,7 +192,7 @@
       <Name>NFe.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Settings\NFe.Settings.csproj">
-      <Project>{A963E456-A54B-4C4D-A9DE-E80C136C3554}</Project>
+      <Project>{a963e456-a54b-4c4d-a9de-e80c136c3554}</Project>
       <Name>NFe.Settings</Name>
     </ProjectReference>
   </ItemGroup>

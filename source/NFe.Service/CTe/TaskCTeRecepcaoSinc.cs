@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -367,8 +367,6 @@ namespace NFe.Service
 
                 autorizacaoSinc.Dispose();
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML);
             }
             catch(Exception ex)
             {
@@ -390,8 +388,6 @@ namespace NFe.Service
                 }
                 catch { }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML);
             }
         }
 

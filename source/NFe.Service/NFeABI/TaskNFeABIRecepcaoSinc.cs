@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -115,7 +115,6 @@ namespace NFe.Service.NFeABI
             }
             finally
             {
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, extensao.EnvioXML);
             }
         }
     }

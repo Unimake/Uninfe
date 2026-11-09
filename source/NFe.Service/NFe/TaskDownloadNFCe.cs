@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -36,8 +36,6 @@ namespace NFe.Service
 
                 ExecuteDLL(emp);
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracaoDiagnostico, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML);
             }
             catch (Exception ex)
             {
@@ -51,8 +49,6 @@ namespace NFe.Service
                     //Se falhou algo na hora de gravar o retorno.ERR(de erro) para o ERP
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracaoDiagnostico, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.DownloadNFCe).EnvioXML);
             }
             finally
             {

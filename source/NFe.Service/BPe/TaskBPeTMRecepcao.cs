@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -75,15 +75,11 @@ namespace NFe.Service.BPe
                     File.Delete(NomeArquivoXML);
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.BPeTM).EnvioXML);
             }
             catch (Exception ex)
             {
                 GravarErroEnvio(arqEmProcessamento, Propriedade.TipoEnvio.BPeTM, ex);
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.BPeTM).EnvioXML);
             }
             finally
             {

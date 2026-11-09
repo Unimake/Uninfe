@@ -183,6 +183,7 @@
     <Compile Include="Empresa.cs" />
     <Compile Include="Empresas.cs" />
     <Compile Include="GerenciadorPinCertificadoA3.cs" />
+	<Compile Include="DiagnosticoPinCertificadoA3.cs" />
     <Compile Include="ProtecaoPinCertificado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

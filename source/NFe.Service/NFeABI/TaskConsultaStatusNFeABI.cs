@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using Unimake.Business.DFe.Servicos;
@@ -62,8 +62,6 @@ namespace NFe.Service.NFeABI
             }
             finally
             {
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
                 try
                 {
                     Functions.DeletarArquivo(NomeArquivoXML);
