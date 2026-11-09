@@ -260,9 +260,6 @@ namespace NFe.Service
                                                 }
                                             }
 
-                                            //Verificar se a -nfe.xml existe na pasta de autorizados
-                                            var NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML);
-
                                             //Verificar se o -procNfe.xml existe na past de autorizados
                                             var procNFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML, Propriedade.ExtRetorno.ProcNFe);
 
@@ -289,7 +286,7 @@ namespace NFe.Service
                                             }
 
                                             //Se a NFe não existir ainda na pasta de autorizados
-                                            if(!(NFeJaNaAutorizada = oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML)))
+                                            if(!oAux.EstaAutorizada(strArquivoNFe, oLerXml.oDadosNfe.dEmi, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML))
                                             {
                                                 //1-Mover a NFE da pasta de NFE em processamento para NFe Autorizada
                                                 //2-Só vou mover o -nfe.xml para a pasta autorizados se já existir a -procnfe.xml, caso contrário vou manter na pasta EmProcessamento
@@ -593,7 +590,6 @@ namespace NFe.Service
         public override void Execute()
         {
             var emp = Empresas.FindEmpresaByThread();
-            Configuracao configuracao = null;
 
             try
             {
@@ -605,7 +601,7 @@ namespace NFe.Service
                     var xml = new ConsSitNFe();
                     xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ConsSitNFe>(ConteudoXML);
 
-                    configuracao = new Configuracao
+                    var configuracao = new Configuracao
                     {
                         PrepararConexaoTLSAntesDoEnvio = Empresas.Configuracoes[emp].AtivarPreparacaoTLSAntesEnvioXML,
                         TipoDFe = (dadosPedSit.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
