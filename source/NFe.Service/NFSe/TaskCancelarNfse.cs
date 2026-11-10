@@ -248,8 +248,15 @@ namespace NFe.Service.NFSe
 
                     cancelarNotaFiscal.Dispose();
                     break;
+
+                default:
+                    throw new InvalidOperationException($"O serviço de cancelamento de NFS-e '{servico}' não é suportado.");
             }
 
+            if(string.IsNullOrWhiteSpace(vStrXmlRetorno))
+            {
+                throw new InvalidOperationException("O cancelamento de NFS-e não retornou conteúdo para gerar o arquivo de retorno.");
+            }
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
