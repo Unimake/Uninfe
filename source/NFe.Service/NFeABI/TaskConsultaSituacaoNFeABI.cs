@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Xml;
@@ -63,8 +63,6 @@ namespace NFe.Service.NFeABI
             }
             finally
             {
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML);
                 try
                 {
                     Functions.DeletarArquivo(NomeArquivoXML);

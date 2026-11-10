@@ -127,12 +127,14 @@ namespace NFe.UI
                 {
                     ///
                     /// cria o processo
-                    _uc = Activator.CreateInstance(user) as UserControl1;
+                    _uc = DiagnosticoConfiguracoes.Executar("Construção do controle da tela",
+                        () => Activator.CreateInstance(user) as UserControl1);
                 }
-                _uc.UpdateControles();
+                DiagnosticoConfiguracoes.Executar("Inicialização dos controles da tela", () => _uc.UpdateControles());
                 if (_novo)
                 {
-                    uninfeDummy.mainForm.Controls.Add(_uc);
+                    DiagnosticoConfiguracoes.Executar("Inclusão da tela no formulário principal",
+                        () => uninfeDummy.mainForm.Controls.Add(_uc));
                 }
                 var Components = uninfeDummy.mainForm.Controls.Cast<object>()
                                                        .Where(obj => !ReferenceEquals(obj, _uc))
@@ -141,10 +143,11 @@ namespace NFe.UI
                 {
                     ctrl.Visible = false;
                 }
-                _uc.Visible = true;
+                DiagnosticoConfiguracoes.Executar("Exibição da tela", () => { _uc.Visible = true; });
             }
             catch (Exception ex)
             {
+                DiagnosticoConfiguracoes.Registrar("Falha tratada na abertura da tela; tipo: " + ex.GetType().FullName + ".");
                 MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -163,7 +166,7 @@ namespace NFe.UI
 
                 uninfeDummy.UltimoAcessoConfiguracao = DateTime.Now;
             }
-            createControl(typeof(userConfiguracoes));
+            DiagnosticoConfiguracoes.Abrir(() => { createControl(typeof(userConfiguracoes)); });
         }
 
         private void metroTile_log_Click(object sender, EventArgs e)

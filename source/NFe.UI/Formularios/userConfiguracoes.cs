@@ -137,7 +137,7 @@ namespace NFe.UI
         {
             #region --UpdateControles
 
-            base.UpdateControles();
+            DiagnosticoConfiguracoes.Executar("Preparação visual da tela", () => base.UpdateControles());
 
             if (first)
             {
@@ -191,15 +191,24 @@ namespace NFe.UI
 
             if (uc_geral == null)
             {
-                tc_empresa.TabPages.Add(_tpEmpresa_divs = createtpage(0));
-                tc_empresa.TabPages.Add(_tpEmpresa_pastas = createtpage(1));
-                tc_empresa.TabPages.Add(_tpEmpresa_cert = createtpage(2));
-                tc_empresa.TabPages.Add(_tpEmpresa_ftp = createtpage(3));
-                tc_empresa.TabPages.Add(_tpEmpresa_danfe = createtpage(4));
-                tc_empresa.TabPages.Add(_tpEmpresa_resptecnico = createtpage(6));
-                tc_empresa.TabPages.Add(_tpEmpresa_EbankPix = createtpage(7));
-                tc_empresa.TabPages.Add(_tpEmpresa_outrasconfiguracoes = createtpage(8));
-                uc_geral = new Formularios.userConfiguracao_geral();
+                tc_empresa.TabPages.Add(_tpEmpresa_divs =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba Principal", () => createtpage(0)));
+                tc_empresa.TabPages.Add(_tpEmpresa_pastas =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba Pastas", () => createtpage(1)));
+                tc_empresa.TabPages.Add(_tpEmpresa_cert =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba Certificado digital", () => createtpage(2)));
+                tc_empresa.TabPages.Add(_tpEmpresa_ftp =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba FTP", () => createtpage(3)));
+                tc_empresa.TabPages.Add(_tpEmpresa_danfe =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba DANFE", () => createtpage(4)));
+                tc_empresa.TabPages.Add(_tpEmpresa_resptecnico =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba Responsável Técnico", () => createtpage(6)));
+                tc_empresa.TabPages.Add(_tpEmpresa_EbankPix =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba Integrações", () => createtpage(7)));
+                tc_empresa.TabPages.Add(_tpEmpresa_outrasconfiguracoes =
+                    DiagnosticoConfiguracoes.Executar("Criação da aba Outras Configurações", () => createtpage(8)));
+                uc_geral = DiagnosticoConfiguracoes.Executar("Criação da aba geral",
+                    () => new Formularios.userConfiguracao_geral());
                 tpGeral.Controls.Add(uc_geral);
             }
 
@@ -210,11 +219,13 @@ namespace NFe.UI
             cbEmpresas.DataSource = null;
             cbEmpresas.DisplayMember = NFeStrConstants.Nome;
             cbEmpresas.ValueMember = "Key";
-            cbEmpresas.DataSource = Auxiliar.CarregaEmpresa(false);
+            DiagnosticoConfiguracoes.Executar("Leitura e vinculação da lista de empresas",
+                () => { cbEmpresas.DataSource = Auxiliar.CarregaEmpresa(false); });
+            DiagnosticoConfiguracoes.Registrar("Empresas na lista: " + cbEmpresas.Items.Count + ".");
             btnExcluir.Visible = cbEmpresas.Items.Count > 0;
 
-            ConfiguracaoApp.CarregarDados();
-            uc_geral.PopulateConfGeral();
+            DiagnosticoConfiguracoes.Executar("Leitura das configurações gerais", ConfiguracaoApp.CarregarDados);
+            DiagnosticoConfiguracoes.Executar("Preenchimento da aba geral", uc_geral.PopulateConfGeral);
 
             userConfiguracoes_Resize(null, null);
 
@@ -225,7 +236,8 @@ namespace NFe.UI
                     cbEmpresas.Enabled = true;
                 cbEmpresas.SelectedIndex = 0;
                 cbEmpresas.SelectedIndexChanged += cbEmpresas_SelectedIndexChanged;
-                cbEmpresas_SelectedIndexChanged(null, null);
+                DiagnosticoConfiguracoes.Executar("Carregamento da primeira empresa",
+                    () => cbEmpresas_SelectedIndexChanged(null, null));
             }
             else
                 CopiaDadosDaEmpresaParaControls(new Empresa(), true);
@@ -470,11 +482,15 @@ namespace NFe.UI
             else
             {
                 currentEmpresa = new Empresa();
-                empresa.CopyObjectTo(currentEmpresa);
+                DiagnosticoConfiguracoes.Registrar("Empresa selecionada: posição " + (cbEmpresas.SelectedIndex + 1) +
+                    "; serviço: " + empresa.Servico + "; usa certificado: " + empresa.UsaCertificado +
+                    "; certificado instalado: " + empresa.CertificadoInstalado + ".");
+                DiagnosticoConfiguracoes.Executar("Cópia dos dados da empresa", () => empresa.CopyObjectTo(currentEmpresa));
                 empcnpj = currentEmpresa.CNPJ;
                 servico = currentEmpresa.Servico;
 
-                CopiaDadosDaEmpresaParaControls(currentEmpresa, false);
+                DiagnosticoConfiguracoes.Executar("Preenchimento dos controles da empresa",
+                    () => CopiaDadosDaEmpresaParaControls(currentEmpresa, false));
 
                 btnNova.Tag = 0;
             }
@@ -898,13 +914,13 @@ namespace NFe.UI
             switch (empresa.Servico)
             {
                 case TipoAplicativo.Nfse:
-                    uce_divs.Populate(empresa, novaempresa);
-                    uce_pastas.Populate(empresa);
-                    uce_cert.Populate(empresa);
-                    uce_ftp.Populate(empresa);
-                    uce_danfe.Populate(empresa);
-                    uc_EbankPixUMessenger.Populate(empresa);
-                    uce_outrasconfiguracoes.Populate(empresa);
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Principal", () => uce_divs.Populate(empresa, novaempresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Pastas", () => uce_pastas.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Certificado digital", () => uce_cert.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba FTP", () => uce_ftp.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba DANFE", () => uce_danfe.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Integrações", () => uc_EbankPixUMessenger.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Outras Configurações", () => uce_outrasconfiguracoes.Populate(empresa));
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = tc_empresa;
                     _tpEmpresa_danfe.Parent = tc_empresa;
@@ -914,10 +930,10 @@ namespace NFe.UI
                 case TipoAplicativo.EFDReinf:
                 case TipoAplicativo.eSocial:
                 case TipoAplicativo.EFDReinfeSocial:
-                    uce_divs.Populate(empresa, novaempresa);
-                    uce_pastas.Populate(empresa);
-                    uce_cert.Populate(empresa);
-                    uc_EbankPixUMessenger.Populate(empresa);
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Principal", () => uce_divs.Populate(empresa, novaempresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Pastas", () => uce_pastas.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Certificado digital", () => uce_cert.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Integrações", () => uc_EbankPixUMessenger.Populate(empresa));
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = null;
                     _tpEmpresa_danfe.Parent = null;
@@ -935,14 +951,14 @@ namespace NFe.UI
                 case TipoAplicativo.NFeABI:
                 case TipoAplicativo.BPe:
                 case TipoAplicativo.CIOT:
-                    uce_divs.Populate(empresa, novaempresa);
-                    uce_pastas.Populate(empresa);
-                    uce_cert.Populate(empresa);
-                    uce_ftp.Populate(empresa);
-                    uce_danfe.Populate(empresa);
-                    uce_resptecnico.Populate(empresa);
-                    uce_outrasconfiguracoes.Populate(empresa);
-                    uc_EbankPixUMessenger.Populate(empresa);
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Principal", () => uce_divs.Populate(empresa, novaempresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Pastas", () => uce_pastas.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Certificado digital", () => uce_cert.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba FTP", () => uce_ftp.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba DANFE", () => uce_danfe.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Responsável Técnico", () => uce_resptecnico.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Outras Configurações", () => uce_outrasconfiguracoes.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Integrações", () => uc_EbankPixUMessenger.Populate(empresa));
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = tc_empresa;
                     _tpEmpresa_danfe.Parent = tc_empresa;
@@ -951,12 +967,12 @@ namespace NFe.UI
                     _tpEmpresa_outrasconfiguracoes.Parent = tc_empresa;
                     break;
                 default:
-                    uce_divs.Populate(empresa, novaempresa);
-                    uce_pastas.Populate(empresa);
-                    uce_cert.Populate(empresa);
-                    uce_ftp.Populate(empresa);
-                    uce_danfe.Populate(empresa);
-                    uc_EbankPixUMessenger.Populate(empresa);
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Principal", () => uce_divs.Populate(empresa, novaempresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Pastas", () => uce_pastas.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Certificado digital", () => uce_cert.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba FTP", () => uce_ftp.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba DANFE", () => uce_danfe.Populate(empresa));
+                    DiagnosticoConfiguracoes.Executar("Preenchimento da aba Integrações", () => uc_EbankPixUMessenger.Populate(empresa));
                     _tpEmpresa_cert.Parent = tc_empresa;
                     _tpEmpresa_ftp.Parent = tc_empresa;
                     _tpEmpresa_danfe.Parent = tc_empresa;

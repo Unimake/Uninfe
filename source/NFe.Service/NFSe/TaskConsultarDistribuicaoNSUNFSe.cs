@@ -8,13 +8,6 @@ namespace NFe.Service.NFSe
 {
     internal class TaskConsultarDistribuicaoNSUNFSe : TaskAbst
     {
-        #region Objeto com os dados do XML de consulta NSU
-        /// <summary>
-        /// Dados da consulta de NSU da NFSe
-        /// </summary>
-        private DadosConsNsuNfse oDadosConsNsuNfse;
-        #endregion
-
         #region Execute
         public override void Execute()
         {

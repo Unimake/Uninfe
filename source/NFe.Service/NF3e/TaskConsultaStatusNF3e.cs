@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Collections.Generic;
@@ -71,8 +71,6 @@ namespace NFe.Service.NF3e
 
                 statusServico.Dispose();
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
             catch(Exception ex)
             {
@@ -89,8 +87,6 @@ namespace NFe.Service.NF3e
                     //Wandrey 09/03/2010
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
             finally
             {

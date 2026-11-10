@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -130,13 +130,11 @@ namespace NFe.Service
                     distribuicaoDFe.Dispose();
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, ExtEnvioDFe);
             }
             catch(Exception ex)
             {
                 WriteLogError(ex);
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, ExtEnvioDFe);
             }
             finally
             {

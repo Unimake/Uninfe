@@ -75,7 +75,7 @@
             this.lblPinCertificado.Name = "lblPinCertificado";
             this.lblPinCertificado.Size = new System.Drawing.Size(151, 15);
             this.lblPinCertificado.TabIndex = 8;
-            this.lblPinCertificado.Text = "PIN Certificado A3 (opcional)";
+            this.lblPinCertificado.Text = "PIN do certificado A3 (opcional)";
             // 
             // txtSenhaCertificado
             // 

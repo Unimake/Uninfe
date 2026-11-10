@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using Unimake.Business.DFe.Servicos;
@@ -67,8 +67,6 @@ namespace NFe.Service.NFGas
 
                 statusServico.Dispose();
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
             catch(Exception ex)
             {
@@ -85,8 +83,6 @@ namespace NFe.Service.NFGas
                     //Wandrey 09/03/2010
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSta).EnvioXML);
             }
             finally
             {

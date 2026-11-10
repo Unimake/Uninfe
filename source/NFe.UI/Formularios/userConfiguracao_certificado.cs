@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using Unimake.Business.DFe.Security;
 
 namespace NFe.UI.Formularios
 {
@@ -43,7 +42,9 @@ namespace NFe.UI.Formularios
                 {
                     try
                     {
-                        empresa.X509Certificado = empresa.BuscaConfiguracaoCertificado();
+                        empresa.X509Certificado = DiagnosticoConfiguracoes.Executar("Busca do certificado configurado",
+                            empresa.BuscaConfiguracaoCertificado);
+                        DiagnosticoConfiguracoes.Registrar("Certificado localizado: " + (empresa.X509Certificado != null) + ".");
                     }
                     catch
                     {
@@ -334,38 +335,16 @@ namespace NFe.UI.Formularios
         /// </summary>
         private void HabilitaComponentesPINA3()
         {
-            var isA3 = false;
+            DiagnosticoConfiguracoes.Executar("Preparação dos controles de PIN (sem acesso à chave privada)", () =>
+            {
+                // A identificação de A3 acessa o provedor criptográfico e pode bloquear a interface.
+                // O PIN é opcional; sua validação permanece na ação explícita e no processamento.
+                var habilitar = ckbUsarCertificadoInstalado.Checked && ckbUsaCertificado.Checked;
 
-            if (ckbUsarCertificadoInstalado.Checked && ckbUsaCertificado.Checked)
-            {
-                try
-                {
-                    isA3 = empresa.X509Certificado != null && empresa.X509Certificado.IsA3();
-                }
-                catch
-                {
-                    // False significa apenas que o A3 não pôde ser confirmado neste momento.
-                }
-            }
-
-            if (isA3 || !string.IsNullOrEmpty(txtPinCertificado.Text))
-            {
-                btnValidarProvider.Visible = true;
-                txtPinCertificado.Visible = true;
-                lblPinCertificado.Visible = true;
-                btnValidarProvider.Enabled = true;
-                txtPinCertificado.Enabled = true;
-                lblPinCertificado.Enabled = true;
-            }
-            else
-            {
-                txtPinCertificado.Visible = false;
-                txtPinCertificado.Enabled = false;
-                btnValidarProvider.Visible = false;
-                btnValidarProvider.Enabled = false;
-                lblPinCertificado.Visible = false;
-                lblPinCertificado.Enabled = false;
-            }
+                btnValidarProvider.Visible = btnValidarProvider.Enabled = habilitar;
+                txtPinCertificado.Visible = txtPinCertificado.Enabled = habilitar;
+                lblPinCertificado.Visible = lblPinCertificado.Enabled = habilitar;
+            });
         }
 
         private void ckbTemCertificadoInstalado_CheckedChanged(object sender, EventArgs e)
@@ -400,9 +379,12 @@ namespace NFe.UI.Formularios
             {
                 try
                 {
-                    Validar(false);
-                    empresa.PastaXmlEnvio = ucPastas.textBox_PastaXmlEnvio.Text;
-                    ValidarCertificadoA3(false);
+                    DiagnosticoPinCertificadoA3.IniciarTeste(() =>
+                    {
+                        DiagnosticoPinCertificadoA3.Executar("Preparação dos dados para o teste", () => Validar(false));
+                        empresa.PastaXmlEnvio = ucPastas.textBox_PastaXmlEnvio.Text;
+                        ValidarCertificadoA3(false);
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -421,11 +403,17 @@ namespace NFe.UI.Formularios
                 throw new Exception("Informe o PIN do certificado");
             }
 
-            Wait.Show("Validando PIN...");
+            DiagnosticoPinCertificadoA3.Executar("Exibição da janela de espera", () => Wait.Show("Validando PIN..."));
 
             try
             {
-                var resultado = empresa.CarregarPinCertificadoA3(true);
+                var resultado = DiagnosticoPinCertificadoA3.Executar("Solicitação de carregamento do PIN",
+                    () => empresa.CarregarPinCertificadoA3(true));
+                DiagnosticoPinCertificadoA3.Registrar("Resultado: sucesso=" + resultado.Sucesso +
+                    "; aplicação do PIN tentada=" + resultado.TentativaExecutada +
+                    "; pode continuar sem automação=" + resultado.PodeContinuarSemAutomacao + ".");
+                if (resultado.Excecao != null)
+                    DiagnosticoPinCertificadoA3.RegistrarExcecao(resultado.Excecao);
                 if (!resultado.Sucesso)
                 {
                     throw new Exception(resultado.Mensagem, resultado.Excecao);
@@ -441,7 +429,7 @@ namespace NFe.UI.Formularios
             }
             finally
             {
-                Wait.Close();
+                DiagnosticoPinCertificadoA3.Executar("Fechamento da janela de espera", Wait.Close);
             }
         }
     }

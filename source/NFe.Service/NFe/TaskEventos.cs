@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -204,7 +204,6 @@ namespace NFe.Service
 
                     LerRetornoEvento(emp);
 
-                    DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, extensaoEnvioDiagnostico);
                 }
                 else
                 {
@@ -318,7 +317,6 @@ namespace NFe.Service
                     //Wandrey 09/03/2010
                 }
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML, extensaoEnvioDiagnostico);
             }
             finally
             {

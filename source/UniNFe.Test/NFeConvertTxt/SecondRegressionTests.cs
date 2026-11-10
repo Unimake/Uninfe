@@ -15,6 +15,63 @@ namespace UniNFe.Test.NFeConvertTxt
     public sealed class SecondRegressionTests
     {
         [Fact]
+        public void ConversoresDevemPreservarIpiDaNota177783()
+        {
+            var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "000177783-valores-liquidos-ipi-nfe.txt");
+            var fixture = new NFeConvertTxtFixture();
+            using (var resultado = fixture.Converter(arquivo))
+            {
+                Assert.True(resultado.Sucesso, resultado.MensagemErro);
+                var pasta = Path.Combine(Path.GetTempPath(), "UniNFe.Test", "NFeConvertTxt", Guid.NewGuid().ToString("N"));
+                Directory.CreateDirectory(pasta);
+                try
+                {
+                    var legadoGerador = new NFeW { cMensagemErro = string.Empty };
+                    typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic)
+                        .Invoke(legadoGerador, new object[] { resultado.Nota, pasta, arquivo });
+                    var xmlLegado = new XmlDocument();
+                    xmlLegado.Load(legadoGerador.cFileName);
+
+                    var conversaoNova = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivo);
+                    Assert.True(conversaoNova.Sucesso, conversaoNova.MensagemErro);
+                    var xmlNovo = new XmlDocument();
+                    xmlNovo.LoadXml(Assert.Single(conversaoNova.Documentos).Xml);
+
+                    foreach (var xml in new[] { xmlLegado, xmlNovo })
+                    {
+                        var ipi = xml.SelectSingleNode("//*[local-name()='det']/*[local-name()='imposto']/*[local-name()='IPI']/*[local-name()='IPITrib']");
+                        Assert.NotNull(ipi);
+                        Assert.Equal("50", ipi.SelectSingleNode("*[local-name()='CST']")?.InnerText);
+                        Assert.Equal("872.50", ipi.SelectSingleNode("*[local-name()='vBC']")?.InnerText);
+                        Assert.Equal("3.2500", ipi.SelectSingleNode("*[local-name()='pIPI']")?.InnerText);
+                        Assert.Equal("28.36", ipi.SelectSingleNode("*[local-name()='vIPI']")?.InnerText);
+                    }
+
+                    Assert.Null(xmlLegado.SelectSingleNode("//*[local-name()='vUnComLiq']"));
+                    Assert.Null(xmlLegado.SelectSingleNode("//*[local-name()='vProdLiqTot']"));
+                    Assert.Equal("872.5", xmlNovo.SelectSingleNode("//*[local-name()='vUnComLiq']")?.InnerText);
+                    Assert.Equal("872.50", xmlNovo.SelectSingleNode("//*[local-name()='vProdLiqTot']")?.InnerText);
+
+                    // I11A e W01A foram adicionados somente ao conversor novo; compare o restante da NF-e.
+                    foreach (var tag in new[] { "vUnComLiq", "vProdLiq", "vProdLiqTot" })
+                    {
+                        XmlNode elemento;
+                        while ((elemento = xmlNovo.SelectSingleNode("//*[local-name()='" + tag + "']")) != null)
+                        {
+                            elemento.ParentNode.RemoveChild(elemento);
+                        }
+                    }
+                    var diferenca = NFeConvertTxtXmlComparer.Comparar(xmlLegado.OuterXml, xmlNovo.OuterXml);
+                    Assert.True(diferenca == null, diferenca);
+                }
+                finally
+                {
+                    if (Directory.Exists(pasta)) Directory.Delete(pasta, true);
+                }
+            }
+        }
+
+        [Fact]
         public void ConversoresDevemRejeitarTxtSemSegmentoB()
         {
             var arquivo = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000001-nfe.txt");

@@ -112,9 +112,6 @@ namespace NFe.Service.BPe
                 LerRetornoEvento(emp, recepcaoEvento.Result);
 
                 recepcaoEvento.Dispose();
-
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
             catch(Exception ex)
             {
@@ -125,9 +122,6 @@ namespace NFe.Service.BPe
                 catch
                 {
                 }
-
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML);
             }
             finally
             {

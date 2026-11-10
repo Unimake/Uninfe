@@ -491,11 +491,11 @@ O trecho abaixo considera que:
 
     <!-- Demais dados do tomador e do serviço. -->
 
-    <!-- Valor total contratado, antes das retenções. -->
-    <ValorFinalCobrado>435.00</ValorFinalCobrado>
-
     <!-- Código 3: PIS, COFINS e CSLL retidos. -->
     <RetencaoPisCofins>3</RetencaoPisCofins>
+
+    <!-- Valor total contratado, antes das retenções. -->
+    <ValorFinalCobrado>435.00</ValorFinalCobrado>
 
     <!-- Demais campos obrigatórios do layout 2:
          NBS, local da prestação, IBS/CBS etc. -->

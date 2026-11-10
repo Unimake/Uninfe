@@ -39,6 +39,23 @@ namespace NFe.Service.NFSe
                 codigoMunicipio,
                 tipoAmbiente);
 
+            if (servico == Servico.NFSeConsultaNotaFiscal)
+            {
+                servico = Servico.NFSeConsultarNotaFiscal;
+            }
+
+            // Compatibilidade com identificadores antigos ainda presentes no ValidarConfig.xml da DLL.
+            switch (servico.ToString())
+            {
+                case "NFSeCancelaNota":
+                    servico = Servico.NFSeCancelarNfse;
+                    break;
+
+                case "NFSeConsultarRpsServicoPrestado":
+                    servico = Servico.NFSeConsultarNfsePorRps;
+                    break;
+            }
+
             return new ResultadoResolucaoNFSe(versao, servico);
         }
     }

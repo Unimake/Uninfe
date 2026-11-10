@@ -113,7 +113,7 @@ namespace NFe.Service.NFSe
                 conteudoXML.AppendChild(root);
             }
 
-            var obterNotaFiscal = new Unimake.Business.DFe.Servicos.NFSe.ObterNotaFiscalXml(conteudoXML, configuracao);
+            var obterNotaFiscal = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNfse(conteudoXML, configuracao);
             obterNotaFiscal.Executar();
             vStrXmlRetorno = obterNotaFiscal.RetornoWSString;
 

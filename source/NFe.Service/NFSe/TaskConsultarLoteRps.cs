@@ -123,7 +123,7 @@ namespace NFe.Service.NFSe
             switch (servico)
             {
                 case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNotaValida:
-                    var consultarNotaValida = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNotaValida(conteudoXML, configuracao);
+                    var consultarNotaValida = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNfse(conteudoXML, configuracao);
                     consultarNotaValida.Executar();
 
                     vStrXmlRetorno = consultarNotaValida.RetornoWSString;

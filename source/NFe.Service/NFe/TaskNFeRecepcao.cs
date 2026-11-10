@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Exceptions;
 using NFe.Settings;
 using System;
@@ -842,8 +842,6 @@ namespace NFe.Service
             {
                 LimparNumerosLotePublicados(emp);
 
-                DiagnosticoDisponibilidadeDFeHelper.Gravar(emp, configuracao, NomeArquivoXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML);
             }
         }
 

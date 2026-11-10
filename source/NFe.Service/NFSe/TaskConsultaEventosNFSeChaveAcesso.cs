@@ -8,13 +8,6 @@ namespace NFe.Service.NFSe
 {
     internal class TaskConsultaEventosNFSeChaveAcesso : TaskAbst
     {
-        #region Objeto com os dados do XML de consulta de eventos por chave de acesso
-        /// <summary>
-        /// Dados da consulta de eventos da NFSe por chave de acesso
-        /// </summary>
-        private DadosConsEventosNFSeChaveAcesso oDadosConsEventosNFSeChaveAcesso;
-        #endregion
-
         #region Execute
         public override void Execute()
         {

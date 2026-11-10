@@ -97,14 +97,19 @@ namespace NFe.Settings
                 return Falha("Não há PIN de certificado configurado para esta empresa.");
             }
 
-            if (!DeveSerializar(empresa))
+            DiagnosticoPinCertificadoA3.Registrar("Certificado em memória: " + (empresa.X509Certificado != null) +
+                "; certificado instalado: " + empresa.CertificadoInstalado + ".");
+            if (!DiagnosticoPinCertificadoA3.Executar("Confirmação de certificado A3", () => DeveSerializar(empresa)))
             {
+                DiagnosticoPinCertificadoA3.Registrar("A3 não confirmado; aplicação do PIN não executada.");
                 return Falha("O certificado atual não foi confirmado como A3. O PIN armazenado não será aplicado.");
             }
 
             var controle = Controles.GetOrAdd(empresa, _ => new Controle());
+            DiagnosticoPinCertificadoA3.Registrar("Aguardando exclusividade para carregar o PIN.");
             lock (controle.Sincronizacao)
             {
+                DiagnosticoPinCertificadoA3.Registrar("Exclusividade para carregar o PIN obtida.");
                 if (!tentativaExplicita && controle.Estado == EstadoPinCertificadoA3.Carregado)
                 {
                     if (Provedor.HasCachedPrivateKeyContext(empresa.X509Certificado))
@@ -127,7 +132,8 @@ namespace NFe.Settings
                 {
                     if (empresa.X509Certificado == null)
                     {
-                        empresa.X509Certificado = empresa.BuscaConfiguracaoCertificado();
+                        empresa.X509Certificado = DiagnosticoPinCertificadoA3.Executar("Busca do certificado configurado",
+                            empresa.BuscaConfiguracaoCertificado);
                     }
 
                     if (empresa.X509Certificado == null)
@@ -135,7 +141,8 @@ namespace NFe.Settings
                         return Falha("O certificado configurado não foi localizado.");
                     }
 
-                    if (!empresa.X509Certificado.HasPrivateKey)
+                    if (!DiagnosticoPinCertificadoA3.Executar("Verificação de presença da chave privada",
+                        () => empresa.X509Certificado.HasPrivateKey))
                     {
                         return Falha("O certificado selecionado não possui uma chave privada disponível.");
                     }
@@ -155,7 +162,8 @@ namespace NFe.Settings
 
                 try
                 {
-                    Provedor.SetPinPrivateKey(empresa.X509Certificado, empresa.CertificadoPIN);
+                    DiagnosticoPinCertificadoA3.Executar("Aplicação do PIN e preparação da chave privada (SetPinPrivateKey)",
+                        () => Provedor.SetPinPrivateKey(empresa.X509Certificado, empresa.CertificadoPIN));
                     controle.Estado = EstadoPinCertificadoA3.Carregado;
                     empresa.CertificadoPINCarregado = true;
                     MarcarA3Conhecido(empresa);
@@ -215,23 +223,31 @@ namespace NFe.Settings
                 return false;
             }
 
+            DiagnosticoPinCertificadoA3.Registrar("Aguardando exclusividade para identificar o certificado.");
             lock (SincronizacaoIdentificacao)
             {
+                DiagnosticoPinCertificadoA3.Registrar("Exclusividade para identificar o certificado obtida.");
                 if (EhA3Conhecido(empresa))
                 {
+                    DiagnosticoPinCertificadoA3.Registrar("A3 confirmado pelo reconhecimento anterior; consulta à DLL dispensada.");
                     return true;
                 }
 
                 try
                 {
-                    if (Provedor.IsA3(empresa.X509Certificado))
+                    var ehA3 = DiagnosticoPinCertificadoA3.Executar("Identificação do tipo pela DLL (IsA3)",
+                        () => Provedor.IsA3(empresa.X509Certificado));
+                    DiagnosticoPinCertificadoA3.Registrar("Resultado de IsA3: " + ehA3 +
+                        (ehA3 ? "." : ". A API atual não informa o motivo nem códigos de falhas internas quando retorna false."));
+                    if (ehA3)
                     {
                         MarcarA3Conhecido(empresa);
                         return true;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    DiagnosticoPinCertificadoA3.RegistrarExcecao(ex);
                     // Uma consulta inconclusiva não deve apagar reconhecimento positivo anterior.
                 }
 
