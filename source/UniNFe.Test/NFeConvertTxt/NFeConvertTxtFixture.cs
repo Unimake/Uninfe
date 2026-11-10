@@ -13,6 +13,7 @@ namespace UniNFe.Test.NFeConvertTxt
             var raiz = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures");
             var conversoesComSucesso = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
+                "000177783-valores-liquidos-ipi-nfe.txt",
                 "CST_SEM_CLASSTRIB_SEM_NotaCredito03Retorno_SemImpostoIBSCBS.txt",
                 "NFE_Devolucao_00003.txt",
                 "NFe_ReformaTributaria_1_prod-nfe.txt",
