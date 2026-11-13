@@ -30,17 +30,19 @@ Os nomes preservam o padrão `CST_000_CLASSTRIB_000001_<cenário>-nfe.xml`. Todo
 
 | Modelo | CRT | `tpRegimeIBSCBS` | Grupo regular `gIBSCBS` | Composição `gTribSN` |
 |---|---:|---|---|---|
-| [CRT 1 sem regime regular](CST_000_CLASSTRIB_000001_SimplesNacional_CRT1_SemRegimeRegular-nfe.xml) | 1 | Ausente | Ausente | IBS e CBS |
-| [CRT 2 sem regime regular](CST_000_CLASSTRIB_000001_SimplesNacional_CRT2_SemRegimeRegular-nfe.xml) | 2 | Ausente | Presente; CBS regular com alíquota zero | Somente CBS |
-| [CRT 1 com regime regular](CST_000_CLASSTRIB_000001_SimplesNacional_CRT1_ComRegimeRegular-nfe.xml) | 1 | 1 | Presente | Ausente |
-| [CRT 2 com regime regular](CST_000_CLASSTRIB_000001_SimplesNacional_CRT2_ComRegimeRegular-nfe.xml) | 2 | 1 | Presente | Ausente |
-| [CRT 3 com opção pendente pelo CRT 1](CST_000_CLASSTRIB_000001_SimplesNacional_CRT3_OpcaoPendenteCRT1-nfe.xml) | 3 | 2 | Presente | IBS e CBS |
-| [CRT 3 com opção pendente pelo CRT 2](CST_000_CLASSTRIB_000001_SimplesNacional_CRT3_OpcaoPendenteCRT2-nfe.xml) | 3 | 3 | Presente | Somente CBS |
-| [CRT 3 com opção pendente e regime regular](CST_000_CLASSTRIB_000001_SimplesNacional_CRT3_OpcaoPendenteComRegimeRegular-nfe.xml) | 3 | 4 | Presente | Ausente |
+| CRT 1 sem regime regular (CST_000_CLASSTRIB_000001_SimplesNacional_CRT1_SemRegimeRegular-nfe.xml) | 1 | Ausente | Ausente | IBS e CBS |
+| CRT 2 sem regime regular (CST_000_CLASSTRIB_000001_SimplesNacional_CRT2_SemRegimeRegular-nfe.xml) | 2 | Ausente | Presente; CBS regular com alíquota zero | Somente CBS |
+| CRT 1 com regime regular (CST_000_CLASSTRIB_000001_SimplesNacional_CRT1_ComRegimeRegular-nfe.xml) | 1 | 1 | Presente | Ausente |
+| CRT 2 com regime regular (CST_000_CLASSTRIB_000001_SimplesNacional_CRT2_ComRegimeRegular-nfe.xml) | 2 | 1 | Presente | Ausente |
+| CRT 3 com opção pendente pelo CRT 1 (CST_000_CLASSTRIB_000001_SimplesNacional_CRT3_OpcaoPendenteCRT1-nfe.xml) | 3 | 2 | Presente | IBS e CBS |
+| CRT 3 com opção pendente pelo CRT 2 (CST_000_CLASSTRIB_000001_SimplesNacional_CRT3_OpcaoPendenteCRT2-nfe.xml) | 3 | 3 | Presente | Somente CBS |
+| CRT 3 com opção pendente e regime regular (CST_000_CLASSTRIB_000001_SimplesNacional_CRT3_OpcaoPendenteComRegimeRegular-nfe.xml) | 3 | 4 | Presente | Ausente |
+
+Modelos em: https://www.unimake.com.br/uninfe/modelos.php?p=NFe+e+NFCe+4.00%2FNFe%2FExemplos+RTC
 
 Essa matriz corresponde às orientações da seção 2.3 da NT 2026.005. A informação de `gIBSCBS` continua condicionada ao CST da operação. Nos exemplos foi escolhido um CST de tributação regular para tornar visível a diferença entre os regimes.
 
-O primeiro arquivo também contém **dois pagamentos vinculados**, com `nPag` e `idTransacao` distintos. O [modelo do evento 412140](../../Eventos/Evento_412140-ped-eve.xml) referencia a chave desse primeiro documento e seus itens 1 e 2.
+O primeiro arquivo também contém **dois pagamentos vinculados**, com `nPag` e `idTransacao` distintos. O modelo do evento 412140 (Evento_412140-ped-eve.xml) referencia a chave desse primeiro documento e seus itens 1 e 2.
 
 ### Dados didáticos
 
@@ -195,7 +197,7 @@ As regras de somatório não são expressas apenas pela estrutura do XSD. Inclua
 
 ## 8. Evento 412140 — Tributação do Simples Nacional
 
-Arquivo: [Evento_412140-ped-eve.xml](../../Eventos/Evento_412140-ped-eve.xml).
+Arquivo: Evento_412140-ped-eve.xml (https://www.unimake.com.br/uninfe/modelos.php?p=NFe+e+NFCe+4.00%2FEventos).
 
 O modelo contém dois itens, todas as tags novas de seu schema e os totais correspondentes. Referencia a primeira NF-e desta coleção para permitir cruzar `chNFe` e `nItem`.
 
@@ -270,7 +272,7 @@ A base de dados deve distinguir valores devidos, pendentes e suspensos conforme 
 5. Ao receber novamente a mesma identificação de evento, evite duplicar efeitos na base de dados.
 6. Trate o eventual cancelamento conforme o vínculo do evento original, preservando o histórico.
 
-A NT prevê cancelamento pelo **evento genérico 110001**. Não foi criado um novo evento de cancelamento 412141 para NF-e nesta atualização. O [modelo genérico já existente](../../Eventos/Evento_110001-ped-eve.xml) deve ser estudado em conjunto com a NT e as regras de autoria; a existência desse modelo não habilita a empresa a cancelar um evento gerado pelo Fisco.
+A NT prevê cancelamento pelo **evento genérico 110001**. Não foi criado um novo evento de cancelamento 412141 para NF-e nesta atualização. O modelo genérico já existente (Evento_110001-ped-eve.xml - https://www.unimake.com.br/uninfe/modelos.php?p=NFe+e+NFCe+4.00%2FEventos) deve ser estudado em conjunto com a NT e as regras de autoria; a existência desse modelo não habilita a empresa a cancelar um evento gerado pelo Fisco.
 
 ## 9. Pagamentos vinculados: validação de unicidade
 
@@ -393,11 +395,11 @@ O código não executa um serviço fiscal. Para XML recebido como string ou `Xml
 
 Os arquivos desta entrega são **XMLs**. O suporte das novas propriedades de serialização não implica que o catálogo TXT ganhou segmentos ou colunas correspondentes. Não acrescente campos nos segmentos `C`, `I` ou `UB` por conta própria. Para uso em TXT, confirme o leiaute publicado e a implementação do conversor da versão efetivamente instalada.
 
-Para usar a NF-e como base de uma emissão, substitua os dados fictícios, escolha o cenário correto, recalcule os valores e a chave e siga o [fluxo de autorização por arquivo do UniNFe](../../../../docs/servicos/nfe/autorizacao.md). Os nomes desta pasta são descritivos; no fluxo de integração utilize o padrão `<chave>-nfe.xml` documentado para a empresa configurada.
+Para usar a NF-e como base de uma emissão, substitua os dados fictícios, escolha o cenário correto, recalcule os valores e a chave e siga o [fluxo de autorização por arquivo do UniNFe](https://www.unimake.com.br/uninfe/docs/viewer/?doc=servicos%2Fnfe%2Fautorizacao.md). Os nomes desta pasta são descritivos; no fluxo de integração utilize o padrão `<chave>-nfe.xml` documentado para a empresa configurada.
 
 O UniNFe utiliza a Unimake.DFe por pacote NuGet. Confirme a versão efetivamente restaurada e instalada; ter o código-fonte atualizado em outro checkout não atualiza os schemas nem as classes usados pelo aplicativo. Para desenvolvimento conjunto, siga o fluxo oficial de pacote offline e mantenha as referências de versão apenas locais enquanto o pacote existir somente no feed offline.
 
-O [modelo do evento do Fisco](../../Eventos/Evento_412140-ped-eve.xml) não deve ser colocado na pasta monitorada de envio da empresa. A extensão foi mantida para acompanhar a convenção da coleção de exemplos, mas a autoria e o fluxo de disponibilização fiscal são os definidos pela documentação oficial.
+O modelo do evento do Fisco Evento_412140-ped-eve.xml (https://www.unimake.com.br/uninfe/modelos.php?p=NFe+e+NFCe+4.00%2FEventos) não deve ser colocado na pasta monitorada de envio da empresa. A extensão foi mantida para acompanhar a convenção da coleção de exemplos, mas a autoria e o fluxo de disponibilização fiscal são os definidos pela documentação oficial.
 
 ## 12. Conferências antes de integrar
 
