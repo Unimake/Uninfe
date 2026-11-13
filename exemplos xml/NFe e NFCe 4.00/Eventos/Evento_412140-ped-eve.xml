@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Evento gerado pelo Fisco (tpAutor=5), com implementação futura na NT 2026.005 v1.00. Modelo de estrutura/leitura; não enviar como evento da empresa. Dados sintéticos, sem assinatura. -->
+<envEvento xmlns="http://www.portalfiscal.inf.br/nfe" versao="1.00">
+	<idLote>000000000000001</idLote>
+	<evento versao="1.00">
+		<infEvento Id="ID4121404127019999999900019155001000189681100189681201">
+			<cOrgao>41</cOrgao>
+			<tpAmb>2</tpAmb>
+			<CNPJ>00000000000191</CNPJ>
+			<chNFe>41270199999999000191550010001896811001896812</chNFe>
+			<dhEvento>2027-01-15T11:00:00-03:00</dhEvento>
+			<tpEvento>412140</tpEvento>
+			<nSeqEvento>1</nSeqEvento>
+			<verEvento>1.00</verEvento>
+			<detEvento versao="1.00">
+				<descEvento>Tributação do Simples Nacional</descEvento>
+				<cOrgaoAutor>41</cOrgaoAutor>
+				<tpAutor>5</tpAutor>
+				<verAplic>MODELO-SN-1.00</verAplic>
+				<gTribItemSN nItem="1">
+					<vRBSNitem>100.00</vRBSNitem>
+					<tpRBSN>1</tpRBSN>
+					<pIBSSN>1.2345</pIBSSN>
+					<vIBSSN>1.23</vIBSSN>
+					<pCBSSN>2.3456</pCBSSN>
+					<vCBSSN>2.35</vCBSSN>
+					<vIBSPendSusp>0.10</vIBSPendSusp>
+					<vCBSPendSusp>0.20</vCBSPendSusp>
+				</gTribItemSN>
+				<gTribItemSN nItem="2">
+					<vRBSNitem>50.00</vRBSNitem>
+					<tpRBSN>1</tpRBSN>
+					<pIBSSN>1.2345</pIBSSN>
+					<vIBSSN>0.62</vIBSSN>
+					<pCBSSN>2.3456</pCBSSN>
+					<vCBSSN>1.17</vCBSSN>
+					<vIBSPendSusp>0.05</vIBSPendSusp>
+					<vCBSPendSusp>0.00</vCBSPendSusp>
+				</gTribItemSN>
+				<gTotalSN>
+					<vRBSNtot>150.00</vRBSNtot>
+					<vIBSSNtot>1.85</vIBSSNtot>
+					<vIBSSNtotPendSusp>0.15</vIBSSNtotPendSusp>
+					<vCBSSNtot>3.52</vCBSSNtot>
+					<vCBSSNtotPendSusp>0.20</vCBSSNtotPendSusp>
+				</gTotalSN>
+			</detEvento>
+		</infEvento>
+	</evento>
+</envEvento>
