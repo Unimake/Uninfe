@@ -17,9 +17,6 @@
 			<tpBPe>4</tpBPe>
 			<CFOP>5353</CFOP>
 			<indFornecimento>1</indFornecimento>
-			<gMultaJuros>
-				<chBPeRef>35260712345678000195630010000000011234567890</chBPeRef>
-			</gMultaJuros>
 		</ide>
 		<emit>
 			<CNPJ>12345678000195</CNPJ>
