@@ -217,11 +217,10 @@ namespace NFe.Service
         }
 
         /// <summary>
-        /// Ajusta grupos monofásicos legados para a modalidade exigida no ano da emissão em homologação.
-        /// Produção permanece no leiaute legado até que sua ativação seja deliberadamente autorizada.
+        /// Ajusta grupos monofásicos legados para a modalidade exigida no ano da emissão.
         /// </summary>
         /// <param name="lote">Lote de NFe/NFCe que será autorizado.</param>
-        internal static void AjustarLeiauteMonofasiaHomologacao(EnviNFe lote)
+        internal static void AjustarLeiauteMonofasia(EnviNFe lote)
         {
             if(lote?.NFe == null)
             {
@@ -231,7 +230,7 @@ namespace NFe.Service
             foreach(var nfe in lote.NFe)
             {
                 var infNFe = nfe?.InfNFeField;
-                if(infNFe?.Ide == null || infNFe.Ide.TpAmb != TipoAmbiente.Homologacao || infNFe.Det == null)
+                if(infNFe?.Ide == null || infNFe.Det == null)
                 {
                     continue;
                 }
@@ -633,7 +632,7 @@ namespace NFe.Service
                 var xmlNFe = new EnviNFe();
                 xmlNFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EnviNFe>(ConteudoXML);
 
-                AjustarLeiauteMonofasiaHomologacao(xmlNFe);
+                AjustarLeiauteMonofasia(xmlNFe);
 
                 //remover assinatura gerada pelo ERP para que o UNINFE assine novamente.
                 for(var i = 0; i < xmlNFe.NFe.Count; i++)

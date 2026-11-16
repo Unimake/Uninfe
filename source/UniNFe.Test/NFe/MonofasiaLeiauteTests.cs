@@ -16,31 +16,33 @@ namespace UniNFe.Test.Monofasia
         [InlineData(2027, VersaoLeiauteMonofasia.Atual2027A2028)]
         [InlineData(2028, VersaoLeiauteMonofasia.Atual2027A2028)]
         [InlineData(2029, VersaoLeiauteMonofasia.Atual2029EmDiante)]
-        public void HomologacaoDeveSelecionarLeiautePeloAnoDaEmissao(int ano, VersaoLeiauteMonofasia esperado)
+        public void DeveSelecionarLeiautePeloAnoDaEmissao(int ano, VersaoLeiauteMonofasia esperado)
         {
             var lote = CriarLote(TipoAmbiente.Homologacao, ano);
 
-            TaskNFeRecepcao.AjustarLeiauteMonofasiaHomologacao(lote);
+            TaskNFeRecepcao.AjustarLeiauteMonofasia(lote);
 
             Assert.Equal(esperado, lote.NFe[0].InfNFeField.Det[0].Imposto.IBSCBS.GIBSCBSMono.VersaoLeiaute);
         }
 
         [Fact]
-        public void ProducaoDevePermanecerNoLeiauteLegado()
+        public void Producao2026DeveSelecionarLeiauteAtual()
         {
             var lote = CriarLote(TipoAmbiente.Producao, 2026);
 
-            TaskNFeRecepcao.AjustarLeiauteMonofasiaHomologacao(lote);
+            TaskNFeRecepcao.AjustarLeiauteMonofasia(lote);
 
-            Assert.Equal(VersaoLeiauteMonofasia.Legado, lote.NFe[0].InfNFeField.Det[0].Imposto.IBSCBS.GIBSCBSMono.VersaoLeiaute);
+            Assert.Equal(VersaoLeiauteMonofasia.Atual2026, lote.NFe[0].InfNFeField.Det[0].Imposto.IBSCBS.GIBSCBSMono.VersaoLeiaute);
         }
 
-        [Fact]
-        public void Homologacao2026DeveSerializarRetidoLegadoComoAdValorem()
+        [Theory]
+        [InlineData(TipoAmbiente.Homologacao)]
+        [InlineData(TipoAmbiente.Producao)]
+        public void Ambientes2026DevemSerializarRetidoLegadoComoAdValorem(TipoAmbiente ambiente)
         {
-            var lote = CriarLote(TipoAmbiente.Homologacao, 2026);
+            var lote = CriarLote(ambiente, 2026);
 
-            TaskNFeRecepcao.AjustarLeiauteMonofasiaHomologacao(lote);
+            TaskNFeRecepcao.AjustarLeiauteMonofasia(lote);
             var xml = XMLUtility.Serializar(lote.NFe[0].InfNFeField.Det[0].Imposto.IBSCBS.GIBSCBSMono);
 
             Assert.Equal("0.00", xml.SelectSingleNode("//*[local-name()='gIBSMonoAdValorem']/*[local-name()='gMonoRet']/*[local-name()='vIBSMonoRet']")?.InnerText);
