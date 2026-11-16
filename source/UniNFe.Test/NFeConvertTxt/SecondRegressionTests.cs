@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using NFe.ConvertTxt;
 using NFe.Settings;
+using Unimake.Business.DFe;
 using Unimake.Business.DFe.Utility;
 using Xunit;
 
@@ -88,7 +89,7 @@ namespace UniNFe.Test.NFeConvertTxt
         }
 
         [Fact]
-        public void DllDeveRejeitarGrupoGCurtoSemG02OuG02A()
+        public void DllDeveGerarCnpjVazioParaGrupoGCurtoSemG02OuG02A()
         {
             var origem = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "000000011-devolucao-rtc-nfe.txt");
             var arquivoTemporario = Path.GetTempFileName();
@@ -99,14 +100,85 @@ namespace UniNFe.Test.NFeConvertTxt
 
                 var resultado = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(arquivoTemporario);
 
-                Assert.False(resultado.Sucesso);
-                Assert.Empty(resultado.Documentos);
-                Assert.Contains("Grupo G (entrega)", resultado.MensagemErro);
-                Assert.Contains("G02/G02A", resultado.MensagemErro);
+                Assert.True(resultado.Sucesso, resultado.MensagemErro);
+                var xml = new XmlDocument();
+                xml.LoadXml(Assert.Single(resultado.Documentos).Xml);
+                var cnpj = xml.SelectSingleNode("//*[local-name()='entrega']/*[local-name()='CNPJ']");
+                Assert.NotNull(cnpj);
+                Assert.Equal(string.Empty, cnpj.InnerText);
             }
             finally
             {
                 File.Delete(arquivoTemporario);
+            }
+        }
+
+        [Fact]
+        public void RemessaComodatoDevePreservarDiferencaEntreLegadoEDllSemDocumentoEntrega()
+        {
+            var origem = Path.Combine(AppContext.BaseDirectory, "NFeConvertTxt", "Fixtures", "Regressions", "001157999-entrega-sem-documento-nfe.txt");
+            var fixture = new NFeConvertTxtFixture();
+            var pastaLegado = Path.Combine(Path.GetTempPath(), "UniNFe.Test", "NFeConvertTxt", Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(pastaLegado);
+
+            try
+            {
+                using (var leituraLegada = fixture.Converter(origem))
+                {
+                    Assert.True(leituraLegada.Sucesso, leituraLegada.MensagemErro);
+                    var geradorLegado = new NFeW { cMensagemErro = string.Empty };
+                    var excecao = Assert.Throws<TargetInvocationException>(() =>
+                        typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic)
+                            .Invoke(geradorLegado, new object[] { leituraLegada.Nota, pastaLegado, origem }));
+                    Assert.Contains("CNPJ/CPF inválido", excecao.InnerException?.Message);
+                }
+
+                var novo = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(origem);
+                Assert.True(novo.Sucesso, novo.MensagemErro);
+                var xmlSemDocumento = new XmlDocument();
+                xmlSemDocumento.LoadXml(Assert.Single(novo.Documentos).Xml);
+                var entrega = ObterElemento(novo.Documentos[0].Xml, "entrega");
+                Assert.NotNull(entrega);
+                Assert.NotNull(entrega.SelectSingleNode("*[local-name()='CNPJ']"));
+                Assert.Equal(string.Empty, entrega.SelectSingleNode("*[local-name()='CNPJ']").InnerText);
+                Assert.Equal("99999999000191", ObterElemento(novo.Documentos[0].Xml, "autXML")?.SelectSingleNode("*[local-name()='CNPJ']")?.InnerText);
+
+                var validacao = new ValidarSchema();
+                validacao.Validar(xmlSemDocumento, "NFe.nfe_v4.00.xsd", "http://www.portalfiscal.inf.br/nfe");
+                Assert.False(validacao.Success);
+                Assert.Contains("Signature", validacao.ErrorMessage);
+                Assert.Equal(1, validacao.ErrorMessage.Split(new[] { "Linha:" }, StringSplitOptions.None).Length - 1);
+
+                var corrigido = Path.GetTempFileName();
+                try
+                {
+                    var conteudo = File.ReadAllText(origem)
+                        .Replace("G51|99999999000191|", "G02|99999999000191|" + Environment.NewLine + "G51|99999999000191|");
+                    File.WriteAllText(corrigido, conteudo);
+
+                    using (var legadoCorrigido = fixture.Converter(corrigido))
+                    {
+                        Assert.True(legadoCorrigido.Sucesso, legadoCorrigido.MensagemErro);
+                        var novoCorrigido = new Unimake.Business.DFe.Xml.NFe.NFeTxtConverter().Converter(corrigido);
+                        Assert.True(novoCorrigido.Sucesso, novoCorrigido.MensagemErro);
+
+                        var geradorLegado = new NFeW { cMensagemErro = string.Empty };
+                        typeof(NFeW).GetMethod("GerarXmlLegado", BindingFlags.Instance | BindingFlags.NonPublic)
+                            .Invoke(geradorLegado, new object[] { legadoCorrigido.Nota, pastaLegado, corrigido });
+                        var xmlLegado = File.ReadAllText(geradorLegado.cFileName);
+                        var xmlNovo = Assert.Single(novoCorrigido.Documentos).Xml;
+                        Assert.Null(NFeConvertTxtXmlComparer.Comparar(xmlLegado, xmlNovo));
+                        Assert.Equal("99999999000191", ObterElemento(xmlNovo, "entrega")?.SelectSingleNode("*[local-name()='CNPJ']")?.InnerText);
+                    }
+                }
+                finally
+                {
+                    File.Delete(corrigido);
+                }
+            }
+            finally
+            {
+                if (Directory.Exists(pastaLegado)) Directory.Delete(pastaLegado, true);
             }
         }
 
