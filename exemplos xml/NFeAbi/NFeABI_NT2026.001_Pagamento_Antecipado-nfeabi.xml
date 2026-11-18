@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NFeABI xmlns="http://www.portalfiscal.inf.br/nfeabi">
+	<infNFeABI versao="1.00" Id="NFeABI41260912345678000123770010000000011012345670">
+		<ide>
+			<cUF>41</cUF>
+			<cNF>1234567</cNF>
+			<mod>77</mod>
+			<serie>1</serie>
+			<nNF>1</nNF>
+			<dhEmi>2026-09-14T12:00:00-03:00</dhEmi>
+			<tpNF>0</tpNF>
+			<tpImp>1</tpImp>
+			<gModNat>
+				<modOper>01</modOper>
+				<natOper>01</natOper>
+			</gModNat>
+			<tpEmis>1</tpEmis>
+			<nSiteAutoriz>0</nSiteAutoriz>
+			<cDV>0</cDV>
+			<tpAmb>2</tpAmb>
+			<finNFe>1</finNFe>
+			<tpPagAnt>1</tpPagAnt>
+			<procEmi>0</procEmi>
+			<verProc>EXEMPLO NT2026.001</verProc>
+		</ide>
+		<emit>
+			<CNPJ>12345678000123</CNPJ>
+			<xNome>EMITENTE TESTE</xNome>
+			<enderEmit>
+				<xLgr>RUA EXEMPLO</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80000000</CEP>
+			</enderEmit>
+			<tpEmit>11</tpEmit>
+		</emit>
+		<transmit nTransmit="1">
+			<CNPJ>12345678000123</CNPJ>
+			<xNome>TRANSMITENTE TESTE</xNome>
+		</transmit>
+		<adquirente nAdquir="1">
+			<CPF>12345678901</CPF>
+			<xNome>ADQUIRENTE TESTE</xNome>
+			<enderAdquirente>
+				<xLgr>RUA MODELO</xLgr>
+				<nro>200</nro>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80000000</CEP>
+			</enderAdquirente>
+		</adquirente>
+		<imovel>
+			<tipo>1</tipo>
+			<cadastro>
+				<cCIB>12345678</cCIB>
+				<indIPTU>1</indIPTU>
+				<nIPTU>IPTU-123</nIPTU>
+				<indINCRA>1</indINCRA>
+				<nINCRA>INCRA-123</nINCRA>
+				<indRIP>1</indRIP>
+				<nRIP>RIP-123</nRIP>
+			</cadastro>
+			<espImovel>01</espImovel>
+			<enquadramento>01</enquadramento>
+			<enderImovel>
+				<xLgr>RUA DO IMOVEL</xLgr>
+				<nro>300</nro>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80000000</CEP>
+			</enderImovel>
+		</imovel>
+		<gInfTrib>
+			<IBSCBS>
+				<CST>000</CST>
+				<cClassTrib>000001</cClassTrib>
+				<gIBSCBS>
+					<gInfPagAntecip>
+						<vPagAntecip>250000.00</vPagAntecip>
+						<dtPagAntecip>2026-11-18</dtPagAntecip>
+						<indCNPJempImob>1</indCNPJempImob>
+						<CNPJempImob>12345678000123</CNPJempImob>
+					</gInfPagAntecip>
+					<vBC>250000.00</vBC>
+					<gIBSUF>
+						<pIBSUF>0.1000</pIBSUF>
+						<gRed>
+							<pRedAliq>0.0000</pRedAliq>
+							<pAliqEfet>0.1000</pAliqEfet>
+						</gRed>
+						<vIBSUF>250.00</vIBSUF>
+					</gIBSUF>
+					<gIBSMun>
+						<pIBSMun>0.1000</pIBSMun>
+						<gRed>
+							<pRedAliq>0.0000</pRedAliq>
+							<pAliqEfet>0.1000</pAliqEfet>
+						</gRed>
+						<vIBSMun>250.00</vIBSMun>
+					</gIBSMun>
+					<gCBS>
+						<pCBS>0.9000</pCBS>
+						<gRed>
+							<pRedAliq>0.0000</pRedAliq>
+							<pAliqEfet>0.9000</pAliqEfet>
+						</gRed>
+						<vCBS>2250.00</vCBS>
+					</gCBS>
+				</gIBSCBS>
+			</IBSCBS>
+		</gInfTrib>
+		<total>
+			<tribTot>
+				<vRedAjusteIndiv>0.00</vRedAjusteIndiv>
+				<vRedSocialIndiv>0.00</vRedSocialIndiv>
+				<vBC>250000.00</vBC>
+				<vIBSUF>250.00</vIBSUF>
+				<vIBSMun>250.00</vIBSMun>
+				<vCBS>2250.00</vCBS>
+			</tribTot>
+			<vNF>250000.00</vNF>
+		</total>
+		<infAdic>
+			<infCpl>EXEMPLO DE PAGAMENTO ANTECIPADO DA NT 2026.001; INFOPER E VALORES OPCIONAIS DO TOTAL NAO SAO INFORMADOS.</infCpl>
+		</infAdic>
+		<infRespTec>
+			<CNPJ>12345678000123</CNPJ>
+			<xContato>CONTATO TESTE</xContato>
+			<email>teste@example.com</email>
+			<fone>41999999999</fone>
+		</infRespTec>
+	</infNFeABI>
+</NFeABI>

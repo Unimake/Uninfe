@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NFeABI xmlns="http://www.portalfiscal.inf.br/nfeabi">
+	<infNFeABI versao="1.00" Id="NFeABI41260912345678000123770010000000031012345672">
+		<ide>
+			<cUF>41</cUF>
+			<cNF>1234567</cNF>
+			<mod>77</mod>
+			<serie>1</serie>
+			<nNF>3</nNF>
+			<dhEmi>2026-09-14T12:00:00-03:00</dhEmi>
+			<tpNF>2</tpNF>
+			<tpImp>1</tpImp>
+			<tpEmis>1</tpEmis>
+			<nSiteAutoriz>0</nSiteAutoriz>
+			<cDV>2</cDV>
+			<tpAmb>2</tpAmb>
+			<finNFe>1</finNFe>
+			<procEmi>0</procEmi>
+			<verProc>EXEMPLO NT2026.001</verProc>
+		</ide>
+		<emit>
+			<CNPJ>12345678000123</CNPJ>
+			<xNome>EMITENTE TESTE</xNome>
+			<enderEmit>
+				<xLgr>RUA EXEMPLO</xLgr>
+				<nro>100</nro>
+				<xBairro>CENTRO</xBairro>
+				<cMun>4106902</cMun>
+				<xMun>CURITIBA</xMun>
+				<UF>PR</UF>
+				<CEP>80000000</CEP>
+			</enderEmit>
+			<tpEmit>11</tpEmit>
+		</emit>
+		<gInfTribTransic>
+			<CNPJ>12345678000123</CNPJ>
+			<xNome>CONTRIBUINTE TESTE</xNome>
+			<IBSCBS>
+				<CST>000</CST>
+				<cClassTrib>000001</cClassTrib>
+				<gExigSusp>
+					<tpSusp>01</tpSusp>
+					<nProcesso>PROCESSO-TESTE-001</nProcesso>
+				</gExigSusp>
+				<gIBSCBSTransic>
+					<CNPJIncImob>12345678000123</CNPJIncImob>
+					<dtRecUni>2026-11-17</dtRecUni>
+					<vRecRecebRET>100.00</vRecRecebRET>
+					<vRecFinRET>10.00</vRecFinRET>
+					<vRecTotal>110.00</vRecTotal>
+					<vBC>110.00</vBC>
+					<gIBSUF>
+						<pIBSUF>0.1000</pIBSUF>
+						<vIBSUF>0.11</vIBSUF>
+					</gIBSUF>
+					<gIBSMun>
+						<pIBSMun>0.1000</pIBSMun>
+						<vIBSMun>0.11</vIBSMun>
+					</gIBSMun>
+					<gCBS>
+						<pCBS>0.9000</pCBS>
+						<vCBS>0.99</vCBS>
+					</gCBS>
+				</gIBSCBSTransic>
+			</IBSCBS>
+		</gInfTribTransic>
+		<total>
+			<tribTot>
+				<vRedAjusteIndiv>0.00</vRedAjusteIndiv>
+				<vRedSocialIndiv>0.00</vRedSocialIndiv>
+				<vBC>110.00</vBC>
+				<vIBSUF>0.11</vIBSUF>
+				<vIBSMun>0.11</vIBSMun>
+				<vCBS>0.99</vCBS>
+			</tribTot>
+			<vNF>111.21</vNF>
+		</total>
+		<infAdic>
+			<infCpl>EXEMPLO DO REGIME DE TRANSICAO; GMODNAT, TRANSMITENTE, ADQUIRENTE, IMOVEL, INFOPER E GINFTRIB NAO SAO INFORMADOS.</infCpl>
+		</infAdic>
+		<infRespTec>
+			<CNPJ>12345678000123</CNPJ>
+			<xContato>CONTATO TESTE</xContato>
+			<email>teste@example.com</email>
+			<fone>41999999999</fone>
+		</infRespTec>
+	</infNFeABI>
+</NFeABI>
