@@ -101,6 +101,7 @@ namespace NFe.UI
 
                 ThreadService.NotifyIconUniNFe = notifyIcon1;
 
+                IniciarServicosMonitor();
                 VerificaAtualizacaoAutomatica();
             }
             finally
@@ -116,7 +117,6 @@ namespace NFe.UI
         {
             if (!ConfiguracaoApp.ManterAtualizado || ConfiguracaoApp.ExecutadoModoSilencioso)
             {
-                IniciarServicosMonitor();
                 return;
             }
 
@@ -135,26 +135,25 @@ namespace NFe.UI
                             ConfiguracaoApp.DetectarConfiguracaoProxyAuto);
                     }
 
-                    var update = new UniNFeUpdate(proxy);
-                    update.VerificaVersao();
-
-                    if (!update.InstaladorIniciado)
+                    using (var update = new UniNFeUpdate(proxy))
                     {
-                        IniciarServicosMonitor();
+                        if (update.VerificaVersao())
+                        {
+                            AvisarAtualizacaoAutomatica("Existe uma atualização disponível. Acesse 'Atualizar o UniNFe' quando desejar instalar.", ToolTipIcon.Info);
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     Auxiliar.WriteLog("Falha ao verificar atualização automática do UniNFe. " + ex.Message, true, true);
-                    AvisarFalhaAtualizacaoAutomatica();
-                    IniciarServicosMonitor();
+                    AvisarAtualizacaoAutomatica("Não foi possível verificar atualizações. O Monitor continua funcionando.", ToolTipIcon.Warning);
                 }
             });
         }
 
         private void IniciarServicosMonitor()
         {
-            if (IsDisposed)
+            if (IsDisposed || Disposing || _encerramentoExecutado || Propriedade.EncerrarApp)
             {
                 return;
             }
@@ -170,9 +169,9 @@ namespace NFe.UI
             ExecutaServicos();
         }
 
-        private void AvisarFalhaAtualizacaoAutomatica()
+        private void AvisarAtualizacaoAutomatica(string mensagem, ToolTipIcon icone)
         {
-            if (IsDisposed || !notifyIcon1.Visible)
+            if (IsDisposed || Disposing || _encerramentoExecutado || !IsHandleCreated)
             {
                 return;
             }
@@ -181,18 +180,18 @@ namespace NFe.UI
             {
                 if (InvokeRequired)
                 {
-                    BeginInvoke(new Action(AvisarFalhaAtualizacaoAutomatica));
+                    BeginInvoke(new Action(() => AvisarAtualizacaoAutomatica(mensagem, icone)));
                     return;
                 }
 
-                notifyIcon1.ShowBalloonTip(
-                    10000,
-                    "Atualização do UniNFe",
-                    "Não foi possível verificar atualizações. O Monitor iniciou normalmente.",
-                    ToolTipIcon.Warning);
+                if (notifyIcon1.Visible)
+                {
+                    notifyIcon1.ShowBalloonTip(10000, "Atualização do UniNFe", mensagem, icone);
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                Auxiliar.WriteLog("Falha ao exibir aviso de atualização do UniNFe. " + ex.Message, true, true);
             }
         }
 
