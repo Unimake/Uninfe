@@ -140,6 +140,90 @@ namespace UniNFe.Test.Atualizacao
         });
 
         [Fact]
+        public async Task FalhaNaRetomadaPermiteStartAposCorrigirConfiguracao()
+        {
+            using (var contexto = new ContextoMonitor())
+            {
+                contexto.Iniciar();
+                Assert.True(contexto.Iniciou.Wait(3000));
+                var parada = Task.Run(() => ThreadService.PararParaAtualizacao());
+                Assert.True(SpinWait.SpinUntil(() => contexto.Monitor.StopWatch, 3000));
+                var configuracao = NFe.Components.Propriedade.NomeArqEmpresas;
+                File.WriteAllText(configuracao, "<Empresa>");
+                var retomada = Task.Run(() => ThreadService.RetomarAposAtualizacao());
+                try
+                {
+                    Assert.NotSame(retomada, await Task.WhenAny(retomada, Task.Delay(100)));
+                    Assert.False(contexto.Concluiu.IsSet);
+                }
+                finally
+                {
+                    contexto.Liberar.Set();
+                    await parada;
+                }
+                await Assert.ThrowsAsync<System.Xml.XmlException>(() => retomada);
+                Assert.True(contexto.Concluiu.IsSet);
+                Assert.True(File.Exists(Path.Combine(contexto.PastaRetorno, "retorno.xml")));
+
+                File.WriteAllText(configuracao, "<Empresa />");
+                ThreadService.Start();
+                var iniciado = Assert.Single(MonitoraPasta.fsw);
+                Assert.False(iniciado.StopWatch);
+                var auxiliares = ThreadService.Threads.ToArray();
+                Assert.Equal(3, auxiliares.Length);
+                ThreadService.Start();
+                Assert.Same(iniciado, Assert.Single(MonitoraPasta.fsw));
+                Assert.Equal(auxiliares, ThreadService.Threads.ToArray());
+            }
+        }
+
+        [Fact]
+        public async Task FalhaParcialAguardaArquivoELimpaWatchersAntesDeLiberarNovoStart()
+        {
+            using (var contexto = new ContextoMonitor())
+            {
+                ThreadService.PararParaAtualizacao();
+                NFe.Threadings.FileSystemWatcher parcial = null;
+                var retomada = Task.Run(() => contexto.RetomarComInicializacao(() =>
+                {
+                    parcial = contexto.CriarMonitor();
+                    parcial.StartWatch(-1);
+                    Assert.True(contexto.Iniciou.Wait(3000));
+                    throw new IOException("Falha simulada após iniciar um watcher.");
+                }));
+                Task concorrente = null;
+                try
+                {
+                    Assert.True(SpinWait.SpinUntil(() => parcial != null && parcial.StopWatch, 3000));
+                    Assert.False(retomada.IsCompleted);
+                    Assert.False(contexto.Concluiu.IsSet);
+                    ThreadService.Start();
+                    Assert.Same(parcial, MonitoraPasta.fsw[MonitoraPasta.fsw.Count - 1]);
+                    concorrente = Task.Run(() => ThreadService.RetomarAposAtualizacao());
+                    Assert.NotSame(concorrente, await Task.WhenAny(concorrente, Task.Delay(100)));
+                }
+                finally
+                {
+                    contexto.Liberar.Set();
+                    await Assert.ThrowsAsync<IOException>(() => retomada);
+                    if (concorrente != null) await concorrente;
+                }
+
+                Assert.True(contexto.Concluiu.IsSet);
+                Assert.True(File.Exists(Path.Combine(contexto.PastaRetorno, "retorno.xml")));
+                Assert.Empty(MonitoraPasta.fsw);
+                Assert.Empty(ThreadService.Threads);
+                ThreadService.Start();
+                var iniciado = Assert.Single(MonitoraPasta.fsw);
+                Assert.False(iniciado.StopWatch);
+                var auxiliares = ThreadService.Threads.ToArray();
+                ThreadService.Start();
+                Assert.Same(iniciado, Assert.Single(MonitoraPasta.fsw));
+                Assert.Equal(auxiliares, ThreadService.Threads.ToArray());
+            }
+        }
+
+        [Fact]
         public void CancelarPreparacaoSemMonitorPermiteInicializacaoPosterior()
         {
             using (var contexto = new ContextoMonitor())

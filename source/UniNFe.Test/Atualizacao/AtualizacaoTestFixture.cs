@@ -73,8 +73,13 @@ namespace UniNFe.Test.Atualizacao
                 DefinirConfiguracoesEmpresas(new List<Empresa>());
                 Directory.CreateDirectory(Path.Combine(PastaEnvio, "Temp"));
                 File.WriteAllText(Path.Combine(PastaEnvio, "arquivo-teste.xml"), "<teste />");
-                Monitor = new NFe.Threadings.FileSystemWatcher(PastaEnvio, "*.xml");
-                Monitor.OnFileChanged += arquivo =>
+                Monitor = CriarMonitor();
+            }
+
+            internal NFe.Threadings.FileSystemWatcher CriarMonitor()
+            {
+                var monitor = new NFe.Threadings.FileSystemWatcher(PastaEnvio, "*.xml");
+                monitor.OnFileChanged += arquivo =>
                 {
                     Iniciou.Set();
                     Liberar.Wait();
@@ -83,10 +88,25 @@ namespace UniNFe.Test.Atualizacao
                     File.Delete(arquivo.FullName);
                     Concluiu.Set();
                 };
-                MonitoraPasta.fsw.Add(Monitor);
+                MonitoraPasta.fsw.Add(monitor);
+                return monitor;
             }
 
             internal void Iniciar() => Monitor.StartWatch(-1);
+
+            internal void RetomarComInicializacao(Action inicializar)
+            {
+                var metodo = typeof(ThreadService).GetMethod("RetomarAposAtualizacao",
+                    BindingFlags.NonPublic | BindingFlags.Static, null, new[] { typeof(Action) }, null);
+                try
+                {
+                    metodo.Invoke(null, new object[] { inicializar });
+                }
+                catch (TargetInvocationException ex)
+                {
+                    System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex.InnerException ?? ex).Throw();
+                }
+            }
 
             public override void Dispose()
             {
