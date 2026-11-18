@@ -68,6 +68,32 @@ namespace UniNFe.Test.NFeABI
         }
 
         [Theory]
+        [InlineData("cadastro")]
+        [InlineData("enquadramento")]
+        public void ImovelSemCampoObrigatorioDaNT2026001RetornaErroDeSchema(string campo)
+        {
+            var xml = Documento();
+            var elemento = xml.GetElementsByTagName(campo, Namespace)[0];
+            elemento.ParentNode.RemoveChild(elemento);
+            using(var contexto = new Contexto("pedido-nfeabi.xml", xml.OuterXml))
+            {
+                contexto.UsarCertificado();
+                var executou = false;
+                TaskNFeABIRecepcaoSinc.ExecutarAutorizacao = autorizacao => { executou = true; };
+
+                Executar(new TaskNFeABIRecepcaoSinc(contexto.ArquivoEnvio));
+
+                var erro = File.ReadAllText(Path.Combine(contexto.PastaRetorno, "pedido-ret-nfeabi.err"));
+                Assert.False(executou);
+                Assert.Contains("Erro ao validar schema", erro);
+                Assert.Contains(campo, erro);
+                Assert.True(File.Exists(Path.Combine(contexto.Empresa.PastaXmlErro, "pedido-nfeabi.xml")));
+                Assert.False(File.Exists(contexto.ArquivoEnvio));
+                Assert.False(File.Exists(Path.Combine(contexto.PastaRetorno, "pedido-ret-nfeabi.xml")));
+            }
+        }
+
+        [Theory]
         [InlineData(false)]
         [InlineData(true)]
         public void ResponsavelTecnicoAusenteDelegaValidacaoDosCamposDisponiveisParaDll(bool configurar)
@@ -175,30 +201,44 @@ namespace UniNFe.Test.NFeABI
             }
         }
 
-        [Fact]
-        public void NomesAcimaDoLimiteSaoValidadosPelaDllComErroOriginal()
+        [Theory]
+        [InlineData(80, 60, true)]
+        [InlineData(81, 61, false)]
+        public void LimitesDeNomeEFantasiaSaoValidadosPelaDll(int tamanhoNome, int tamanhoFantasia, bool valido)
         {
             var xml = Documento();
             var ns = new XmlNamespaceManager(xml.NameTable);
             ns.AddNamespace("abi", Namespace);
             var fantasia = xml.CreateElement("xFant", Namespace);
+            fantasia.InnerText = new string('X', tamanhoFantasia);
             var emitente = xml.SelectSingleNode("//abi:emit", ns);
             emitente.InsertAfter(fantasia, emitente.SelectSingleNode("abi:xNome", ns));
-            foreach(XmlNode nome in xml.SelectNodes("//abi:emit/abi:xNome|//abi:emit/abi:xFant|//abi:adquirente/abi:xNome", ns))
+            foreach(XmlNode nome in xml.SelectNodes("//abi:emit/abi:xNome|//abi:transmit/abi:xNome|//abi:adquirente/abi:xNome", ns))
             {
-                nome.InnerText = new string('X', 62);
+                nome.InnerText = new string('X', tamanhoNome);
             }
             using(var contexto = new Contexto("pedido-nfeabi.xml", xml.OuterXml))
             {
                 contexto.UsarCertificado();
                 var executou = false;
-                TaskNFeABIRecepcaoSinc.ExecutarAutorizacao = autorizacao => { executou = true; };
+                TaskNFeABIRecepcaoSinc.ExecutarAutorizacao = autorizacao =>
+                {
+                    executou = true;
+                    autorizacao.RetornoWSString = Retorno("retNFeABI", 999);
+                };
                 Executar(new TaskNFeABIRecepcaoSinc(contexto.ArquivoEnvio));
-                var erro = File.ReadAllText(Path.Combine(contexto.PastaRetorno, "pedido-ret-nfeabi.err"));
-                Assert.False(executou);
-                Assert.Contains("xNome", erro);
-                Assert.Contains("xFant", erro);
-                Assert.DoesNotContain("Falha de XML na autorização", erro);
+                Assert.Equal(valido, executou);
+                Assert.Equal(valido, File.Exists(Path.Combine(contexto.PastaRetorno, "pedido-ret-nfeabi.xml")));
+                var arquivoErro = Path.Combine(contexto.PastaRetorno, "pedido-ret-nfeabi.err");
+                Assert.Equal(!valido, File.Exists(arquivoErro));
+                if(!valido)
+                {
+                    var erro = File.ReadAllText(arquivoErro);
+                    Assert.Contains("Erro ao validar schema", erro);
+                    Assert.Contains("xNome", erro);
+                    Assert.Contains("xFant", erro);
+                    Assert.DoesNotContain("Falha de XML na autorização", erro);
+                }
             }
         }
 
