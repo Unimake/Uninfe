@@ -155,6 +155,70 @@ namespace NFe.Threadings
      *</#8084>
      */
 
+    internal static class ControleThreads
+    {
+        private static readonly object Sincronizacao = new object();
+        private static readonly HashSet<Thread> Ativas = new HashSet<Thread>();
+
+        internal static Thread Iniciar(Action executar)
+        {
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    executar();
+                }
+                finally
+                {
+                    lock (Sincronizacao)
+                    {
+                        Ativas.Remove(Thread.CurrentThread);
+                        Monitor.PulseAll(Sincronizacao);
+                    }
+                }
+            }) { IsBackground = true };
+
+            lock (Sincronizacao)
+            {
+                Ativas.Add(thread);
+            }
+            try
+            {
+                thread.Start();
+                return thread;
+            }
+            catch
+            {
+                lock (Sincronizacao)
+                {
+                    Ativas.Remove(thread);
+                    Monitor.PulseAll(Sincronizacao);
+                }
+                throw;
+            }
+        }
+
+        internal static void Aguardar(Action informarEspera = null)
+        {
+            while (true)
+            {
+                lock (Sincronizacao)
+                {
+                    if (Ativas.Count == 0)
+                    {
+                        return;
+                    }
+                    if (Ativas.Contains(Thread.CurrentThread))
+                    {
+                        throw new InvalidOperationException("A conclusão dos processamentos deve ser aguardada fora das threads de serviço.");
+                    }
+                    Monitor.Wait(Sincronizacao, 5000);
+                }
+                informarEspera?.Invoke();
+            }
+        }
+    }
+
     #region ThreadService
 
     /// <summary>
@@ -164,8 +228,54 @@ namespace NFe.Threadings
     {
         public static NotifyIcon NotifyIconUniNFe;
         public static List<Thread> Threads = new List<Thread>();
+        private static readonly object CicloDeVida = new object();
+        private static bool preparandoAtualizacao;
 
         public static void Stop()
+        {
+            lock (CicloDeVida)
+            {
+                Parar();
+            }
+        }
+
+        public static void PararParaAtualizacao(Action informarEspera = null)
+        {
+            lock (CicloDeVida)
+            {
+                preparandoAtualizacao = true;
+                Parar();
+            }
+
+            // A espera ocorre fora do lock: um arquivo de configuração em execução
+            // pode chamar Stop/Start antes de liberar a própria thread.
+            ControleThreads.Aguardar(informarEspera);
+        }
+
+        public static void RetomarAposAtualizacao(bool iniciarMonitor = true)
+        {
+            lock (CicloDeVida)
+            {
+                if (!preparandoAtualizacao)
+                {
+                    return;
+                }
+            }
+            ControleThreads.Aguardar();
+            lock (CicloDeVida)
+            {
+                if (preparandoAtualizacao)
+                {
+                    if (iniciarMonitor)
+                    {
+                        Iniciar();
+                    }
+                    preparandoAtualizacao = false;
+                }
+            }
+        }
+
+        private static void Parar()
         {
             for (int i = 0; i < MonitoraPasta.fsw.Count; i++)
             {
@@ -197,6 +307,17 @@ namespace NFe.Threadings
 
         public static void Start()
         {
+            lock (CicloDeVida)
+            {
+                if (!preparandoAtualizacao)
+                {
+                    Iniciar();
+                }
+            }
+        }
+
+        private static void Iniciar()
+        {
             ControleEncerramento.Reiniciar();
             Empresas.CarregaConfiguracao();
 
@@ -212,22 +333,16 @@ namespace NFe.Threadings
             Threads.Clear();
 
             //Executa a thread que faz a limpeza dos arquivos temporários
-            Thread t = new Thread(new Processar().LimpezaTemporario);
-            t.IsBackground = true;
-            t.Start();
+            Thread t = ControleThreads.Iniciar(new Processar().LimpezaTemporario);
             Threads.Add(t);
 
             //Executa a thread que faz a verificação das notas em processamento
-            Thread t2 = new Thread(new Processar().EmProcessamento);
-            t2.IsBackground = true;
-            t2.Start();
+            Thread t2 = ControleThreads.Iniciar(new Processar().EmProcessamento);
             Threads.Add(t2);
 
             //Executar a thread que faz a consulta do recibo das notas fiscais enviadas
             Processar srv = new Processar();
-            Thread t3 = new Thread(srv.GerarXMLPedRec);
-            t3.IsBackground = true;
-            t3.Start(new TaskNFeGerarXMLPedRec());
+            Thread t3 = ControleThreads.Iniciar(() => srv.GerarXMLPedRec(new TaskNFeGerarXMLPedRec()));
             Threads.Add(t3);
         }
     }

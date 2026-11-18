@@ -382,6 +382,41 @@ namespace NFe.UI
 
         #endregion PararServicos()
 
+        public void PararServicosParaAtualizacao()
+        {
+            if (servicoInstaladoErodando)
+            {
+                ServiceProcess.StopService(srvName, 40000);
+                if (ServiceProcess.StatusService(srvName) != System.ServiceProcess.ServiceControllerStatus.Stopped)
+                {
+                    throw new InvalidOperationException("Aguarde a conclusão da parada do serviço antes de instalar a atualização.");
+                }
+            }
+            else
+            {
+                ThreadService.PararParaAtualizacao();
+            }
+        }
+
+        public void RetomarServicosAposAtualizacao()
+        {
+            if (servicoInstaladoErodando)
+            {
+                using (var servico = new System.ServiceProcess.ServiceController(srvName))
+                {
+                    if (servico.Status == System.ServiceProcess.ServiceControllerStatus.StopPending)
+                    {
+                        servico.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Stopped);
+                    }
+                }
+                ServiceProcess.StartService(srvName, 40000);
+            }
+            else
+            {
+                ThreadService.RetomarAposAtualizacao();
+            }
+        }
+
         #endregion Métodos gerais
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)

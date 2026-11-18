@@ -178,16 +178,26 @@ namespace NFe.Threadings
                     if (arq.EndsWith(sext.EnvioTXT) || arq.EndsWith(sext.EnvioXML))
                     {
                         File.Delete(fi.FullName);
-                        Empresas.ClearLockFiles(false);
                         if (!Components.Propriedade.ExecutandoPeloUniNFe)
                         {
-                            if (Components.ServiceProcess.StatusService(Components.Propriedade.ServiceName) == System.ServiceProcess.ServiceControllerStatus.Running)
+                            // O serviço aguarda estes workers ao parar. Solicitar a parada
+                            // fora do worker evita esperar pela própria conclusão.
+                            System.Threading.ThreadPool.QueueUserWorkItem(_ =>
                             {
-                                Components.ServiceProcess.StopService(Components.Propriedade.ServiceName, 40000);
-                            }
+                                try
+                                {
+                                    Components.ServiceProcess.StopService(Components.Propriedade.ServiceName, 40000);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Auxiliar.WriteLog("Falha ao solicitar a parada do serviço do UniNFe. " + ex.Message, true, true);
+                                }
+                            });
+                            return;
                         }
                         else
                         {
+                            Empresas.ClearLockFiles(false);
                             ThreadService.Stop();
                         }
 

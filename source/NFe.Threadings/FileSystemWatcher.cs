@@ -21,7 +21,7 @@ namespace NFe.Threadings
         public string Directory { get; set; }
         public string Filter { get; set; }
 
-        private bool CancelProcess = false;
+        private volatile bool CancelProcess = false;
 
         private bool _disposed = false;
 
@@ -78,11 +78,7 @@ namespace NFe.Threadings
 
         public void StartWatch(int empresa)
         {
-            var t = new Thread(new ParameterizedThreadStart(ProcessFiles))
-            {
-                IsBackground = true
-            };
-            t.Start(empresa);
+            ControleThreads.Iniciar(() => ProcessFiles(empresa));
         }
 
         #region Metodos
@@ -108,8 +104,6 @@ namespace NFe.Threadings
 
 
             var arqTemp = "";
-
-            CancelProcess = false;
 
             // Create a semaphore that can satisfy up to three
             // concurrent requests. Use an initial count of zero,
@@ -212,8 +206,7 @@ namespace NFe.Threadings
                                       fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedUpdatewsdl).EnvioTXT, StringComparison.OrdinalIgnoreCase) ||
                                       fi.Name.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.pedRestart).EnvioTXT, StringComparison.OrdinalIgnoreCase)))
                 {
-                    var tworker = new Thread(
-                        new ThreadStart(
+                    var tworker = ControleThreads.Iniciar(
                             delegate
                             {
                                 if (OnFileChanged != null)
@@ -227,12 +220,7 @@ namespace NFe.Threadings
                                         System.Diagnostics.Debug.WriteLine(ex.ToString());
                                     }
                                 }
-                            }
-                        ))
-                    {
-                        IsBackground = true
-                    };
-                    tworker.Start();
+                            });
 
                     if (emp >= 0)
                     {

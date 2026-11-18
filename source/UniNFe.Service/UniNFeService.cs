@@ -4,12 +4,15 @@ using NFe.Threadings;
 using System;
 using System.IO;
 using System.Timers;
+using Topshelf;
 
 namespace UniNFe.Service
 {
     internal class UniNFeService : IDisposable
     {
         private readonly Timer _timer;
+        private readonly object cicloDeVida = new object();
+        private bool parado;
         private bool _disposed;
         private bool _servicosIniciados;
         private int _tentativas;
@@ -29,6 +32,17 @@ namespace UniNFe.Service
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            lock (cicloDeVida)
+            {
+                if (!parado)
+                {
+                    VerificarDependencias();
+                }
+            }
+        }
+
+        private void VerificarDependencias()
         {
             if (_servicosIniciados || _disposed)
                 return;
@@ -74,22 +88,37 @@ namespace UniNFe.Service
 
         public void Start()
         {
-            if (_disposed) throw new ObjectDisposedException(nameof(UniNFeService));
-            _timer.Start();
+            lock (cicloDeVida)
+            {
+                if (_disposed) throw new ObjectDisposedException(nameof(UniNFeService));
+                ThreadService.RetomarAposAtualizacao(_servicosIniciados);
+                parado = false;
+                _timer.Start();
+            }
         }
 
-        public void Stop()
+        public void Stop(HostControl controle = null)
         {
-            Program.WriteLog("Serviço parado - " + Propriedade.PastaExecutavel);
-            PararServicosUniNFe();
-            _timer.Stop();
+            controle?.RequestAdditionalTime(TimeSpan.FromSeconds(60));
+            lock (cicloDeVida)
+            {
+                Program.WriteLog("Aguardando os processamentos para parar o serviço - " + Propriedade.PastaExecutavel);
+                parado = true;
+                _timer.Stop();
+                PararServicosUniNFe(controle);
+                Program.WriteLog("Serviço parado - " + Propriedade.PastaExecutavel);
+            }
         }
 
         public void OnShutdown()
         {
-            Program.WriteLog("Serviço encerrado.");
-            PararServicosUniNFe();
-            _timer.Stop();
+            lock (cicloDeVida)
+            {
+                parado = true;
+                _timer.Stop();
+                PararServicosUniNFe();
+                Program.WriteLog("Serviço encerrado.");
+            }
         }
 
         private void IniciarServicosUniNFe()
@@ -152,9 +181,9 @@ namespace UniNFe.Service
                 $"Directory.Exists: {Directory.Exists(pasta)}. O resultado não comprova permissão de gravação.");
         }
 
-        private void PararServicosUniNFe()
+        private void PararServicosUniNFe(HostControl controle = null)
         {
-            ThreadService.Stop();
+            ThreadService.PararParaAtualizacao(() => controle?.RequestAdditionalTime(TimeSpan.FromSeconds(60)));
             Empresas.ClearLockFiles(false);
         }
 

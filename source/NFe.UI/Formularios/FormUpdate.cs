@@ -75,10 +75,14 @@ namespace NFe.UI.Formularios
                 Auxiliar.WriteLog("Processo de download da atualização do UniNFe foi concluído.", false);
                 prgDownload.Value = 100;
                 Text = "Instalando a atualização do " + Propriedade.NomeAplicacao;
-                lblProgresso.Text = "Parando os serviços para iniciar o instalador.";
+                lblProgresso.Text = "Aguardando os processamentos em andamento terminarem.";
 
                 servicosParados = true;
-                PararServicos();
+                await Task.Run(() => PararServicos());
+                if (IsDisposed || Disposing || Propriedade.EncerrarApp)
+                {
+                    return;
+                }
                 update.InstalarBaixado();
                 if (!update.InstaladorIniciado)
                 {
@@ -94,7 +98,7 @@ namespace NFe.UI.Formularios
                 {
                     try
                     {
-                        RetomarServicos();
+                        await Task.Run(() => RetomarServicos());
                     }
                     catch (Exception retomada)
                     {
@@ -153,9 +157,9 @@ namespace NFe.UI.Formularios
             return new UniNFeUpdate(proxy);
         }
 
-        protected virtual void PararServicos() => uninfeDummy.mainForm.PararServicos(true);
+        protected virtual void PararServicos() => uninfeDummy.mainForm.PararServicosParaAtualizacao();
 
-        protected virtual void RetomarServicos() => uninfeDummy.mainForm.ExecutaServicos();
+        protected virtual void RetomarServicos() => uninfeDummy.mainForm.RetomarServicosAposAtualizacao();
 
         protected virtual void EncerrarAplicacao() => Application.Exit();
 

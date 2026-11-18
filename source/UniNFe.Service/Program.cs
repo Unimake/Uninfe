@@ -52,8 +52,8 @@ namespace UniNFe.Service
                         s.WhenContinued(st => st.Start());
                         s.WhenStarted(st => st.Start());
 
-                        s.WhenPaused(st => st.Stop());
-                        s.WhenStopped(st => st.Stop());
+                        s.WhenPaused((st, controle) => { st.Stop(controle); return true; });
+                        s.WhenStopped((st, controle) => { st.Stop(controle); return true; });
                         s.WhenShutdown(st => st.OnShutdown());
                     });
                     p.RunAsLocalService();
