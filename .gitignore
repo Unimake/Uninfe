@@ -53,6 +53,12 @@ Generated\ Files/
 [Bb]uild[Ll]og.*
 *.trx
 
+# Arquivos locais da atualização do UniNFe
+iuninfe5.exe
+iuninfe5_beta.exe
+UltimaAtualizacao.xml
+versaouninfe.xml
+
 # NUnit
 *.VisualState.xml
 TestResult.xml
