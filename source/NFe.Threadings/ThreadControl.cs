@@ -229,6 +229,7 @@ namespace NFe.Threadings
         public static NotifyIcon NotifyIconUniNFe;
         public static List<Thread> Threads = new List<Thread>();
         private static readonly object CicloDeVida = new object();
+        private static readonly object Retomada = new object();
         private static bool preparandoAtualizacao;
 
         public static void Stop()
@@ -254,23 +255,54 @@ namespace NFe.Threadings
 
         public static void RetomarAposAtualizacao(bool iniciarMonitor = true)
         {
-            lock (CicloDeVida)
+            RetomarAposAtualizacao(iniciarMonitor ? (Action)Iniciar : null);
+        }
+
+        private static void RetomarAposAtualizacao(Action iniciarMonitor)
+        {
+            // Serializa também a limpeza de uma retomada que falhou, sem manter
+            // CicloDeVida bloqueado enquanto os arquivos concluem o processamento.
+            lock (Retomada)
             {
-                if (!preparandoAtualizacao)
+                lock (CicloDeVida)
                 {
-                    return;
-                }
-            }
-            ControleThreads.Aguardar();
-            lock (CicloDeVida)
-            {
-                if (preparandoAtualizacao)
-                {
-                    if (iniciarMonitor)
+                    if (!preparandoAtualizacao)
                     {
-                        Iniciar();
+                        return;
                     }
-                    preparandoAtualizacao = false;
+                }
+                ControleThreads.Aguardar();
+                try
+                {
+                    lock (CicloDeVida)
+                    {
+                        if (preparandoAtualizacao)
+                        {
+                            try
+                            {
+                                iniciarMonitor?.Invoke();
+                                preparandoAtualizacao = false;
+                            }
+                            catch
+                            {
+                                Parar();
+                                throw;
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    // Uma inicialização parcial pode já ter recebido arquivos.
+                    // Aguarda esses arquivos antes de permitir uma nova tentativa.
+                    ControleThreads.Aguardar();
+                    lock (CicloDeVida)
+                    {
+                        MonitoraPasta.fsw.Clear();
+                        Threads.Clear();
+                        preparandoAtualizacao = false;
+                    }
+                    throw;
                 }
             }
         }
@@ -309,7 +341,7 @@ namespace NFe.Threadings
         {
             lock (CicloDeVida)
             {
-                if (!preparandoAtualizacao)
+                if (!preparandoAtualizacao && !MonitoraPasta.fsw.Exists(watcher => !watcher.StopWatch))
                 {
                     Iniciar();
                 }
