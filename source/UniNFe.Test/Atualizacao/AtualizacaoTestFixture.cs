@@ -1,10 +1,12 @@
 using NFe.Components;
 using NFe.Settings;
 using NFe.UI.Formularios;
+using NFe.Threadings;
 using UniNFe.Test.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,7 +21,7 @@ namespace UniNFe.Test.Atualizacao
 
     public class AtualizacaoTestFixture
     {
-        internal sealed class Contexto : TaskTestContextBase
+        internal class Contexto : TaskTestContextBase, IDisposable
         {
             private readonly bool encerramentoAnterior = Propriedade.EncerrarApp;
             internal string Pasta => PastaTemporaria;
@@ -34,9 +36,78 @@ namespace UniNFe.Test.Atualizacao
             internal void LiberarConsulta() => File.WriteAllText(Path.Combine(Pasta, "UltimaAtualizacao.xml"),
                 "<UltimaAtualizacao><data>2000-01-01T00:00:00</data></UltimaAtualizacao>");
 
-            public new void Dispose()
+            public new virtual void Dispose()
             {
                 Propriedade.EncerrarApp = encerramentoAnterior;
+                base.Dispose();
+            }
+        }
+
+        internal sealed class ContextoMonitor : Contexto
+        {
+            private static readonly FieldInfo preparandoAtualizacao = typeof(ThreadService).GetField("preparandoAtualizacao", BindingFlags.NonPublic | BindingFlags.Static);
+            private static readonly PropertyInfo pastaGeral = typeof(Propriedade).GetProperty("_pastaGeral", BindingFlags.NonPublic | BindingFlags.Static);
+            private readonly string pastaGeralAnterior = (string)pastaGeral.GetValue(null);
+            private readonly bool erroDiretorioAnterior = Empresas.ExisteErroDiretorio;
+            private readonly string erroCaminhoAnterior = Empresas.ErroCaminhoDiretorio;
+            private readonly bool preparandoAnterior = (bool)preparandoAtualizacao.GetValue(null);
+            private readonly bool encerramentoSolicitado = ControleEncerramento.Solicitado;
+            private readonly List<NFe.Threadings.FileSystemWatcher> watchersAnteriores = MonitoraPasta.fsw;
+            private readonly List<Thread> threadsAnteriores = ThreadService.Threads;
+            private readonly Semaphore poolAnterior = NFe.Threadings.FileSystemWatcher._pool;
+            internal readonly ManualResetEventSlim Iniciou = new ManualResetEventSlim();
+            internal readonly ManualResetEventSlim Liberar = new ManualResetEventSlim();
+            internal readonly ManualResetEventSlim Concluiu = new ManualResetEventSlim();
+            internal readonly NFe.Threadings.FileSystemWatcher Monitor;
+            internal readonly string PastaEnvio;
+            internal Action AoConcluir;
+
+            internal ContextoMonitor()
+            {
+                MonitoraPasta.fsw = new List<NFe.Threadings.FileSystemWatcher>();
+                ThreadService.Threads = new List<Thread>();
+                preparandoAtualizacao.SetValue(null, false);
+                ControleEncerramento.Reiniciar();
+                PastaEnvio = Path.Combine(Pasta, "geral");
+                pastaGeral.SetValue(null, PastaEnvio);
+                DefinirConfiguracoesEmpresas(new List<Empresa>());
+                Directory.CreateDirectory(Path.Combine(PastaEnvio, "Temp"));
+                File.WriteAllText(Path.Combine(PastaEnvio, "arquivo-teste.xml"), "<teste />");
+                Monitor = new NFe.Threadings.FileSystemWatcher(PastaEnvio, "*.xml");
+                Monitor.OnFileChanged += arquivo =>
+                {
+                    Iniciou.Set();
+                    Liberar.Wait();
+                    AoConcluir?.Invoke();
+                    File.WriteAllText(Path.Combine(PastaRetorno, "retorno.xml"), "<retorno />");
+                    File.Delete(arquivo.FullName);
+                    Concluiu.Set();
+                };
+                MonitoraPasta.fsw.Add(Monitor);
+            }
+
+            internal void Iniciar() => Monitor.StartWatch(-1);
+
+            public override void Dispose()
+            {
+                Liberar.Set();
+                Monitor.StopWatch = true;
+                Monitor.Dispose();
+                ThreadService.PararParaAtualizacao();
+                MonitoraPasta.fsw = watchersAnteriores;
+                ThreadService.Threads = threadsAnteriores;
+                var poolTeste = NFe.Threadings.FileSystemWatcher._pool;
+                NFe.Threadings.FileSystemWatcher._pool = poolAnterior;
+                if (poolTeste != poolAnterior) poolTeste?.Dispose();
+                preparandoAtualizacao.SetValue(null, preparandoAnterior);
+                pastaGeral.SetValue(null, pastaGeralAnterior);
+                Empresas.ExisteErroDiretorio = erroDiretorioAnterior;
+                Empresas.ErroCaminhoDiretorio = erroCaminhoAnterior;
+                if (encerramentoSolicitado) ControleEncerramento.Sinalizar();
+                else ControleEncerramento.Reiniciar();
+                Iniciou.Dispose();
+                Liberar.Dispose();
+                Concluiu.Dispose();
                 base.Dispose();
             }
         }
@@ -100,6 +171,7 @@ namespace UniNFe.Test.Atualizacao
             internal bool Encerrou;
             internal Exception Falha;
             internal Action AoParar;
+            internal Action AoRetomar;
 
             internal Tela(Atualizador update) => Atualizacao = update;
 
@@ -129,6 +201,7 @@ namespace UniNFe.Test.Atualizacao
             {
                 Retomadas++;
                 Atualizacao.Eventos.Add("retomar");
+                AoRetomar?.Invoke();
             }
 
             protected override void EncerrarAplicacao()
