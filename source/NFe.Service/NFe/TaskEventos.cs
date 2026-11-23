@@ -138,6 +138,8 @@ namespace NFe.Service
                         ColetarTelemetriaDisponibilidade = true
                     };
 
+                    ConfiguracaoApp.AplicarConfiguracaoProxy(configuracao);
+
                     if (ehNFCe)
                     {
                         if (epecNFCe)
