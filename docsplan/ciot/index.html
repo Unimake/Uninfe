@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentação CIOT</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --border: #e5e7eb;
+      --code-bg: #0f172a;
+      --code-text: #e5e7eb;
+      --quote-bg: #eff6ff;
+      --quote-border: #60a5fa;
+      --table-head: #f3f4f6;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top left, #e0ecff 0, transparent 32rem), var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      background: rgba(255, 255, 255, 0.88);
+      border-right: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+
+    .brand .badge {
+      width: fit-content;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-button {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px 14px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 650;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+      transition: all 0.18s ease;
+    }
+
+    .nav-button:hover {
+      border-color: #93c5fd;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.10);
+    }
+
+    .nav-button.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .help-box {
+      margin-top: 26px;
+      padding: 14px;
+      border: 1px solid #fde68a;
+      background: #fffbeb;
+      border-radius: 14px;
+      color: #78350f;
+      font-size: 13px;
+    }
+
+    .help-box strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    main { padding: 36px; }
+
+    .topbar {
+      max-width: 1120px;
+      margin: 0 auto 18px auto;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content-card {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    #status {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: #f9fafb;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    article { padding: 34px 44px 48px 44px; }
+
+    article h1, article h2, article h3, article h4 {
+      color: #111827;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    article h1 {
+      margin-top: 0;
+      font-size: 34px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    article h2 { margin-top: 34px; font-size: 26px; }
+    article h3 { margin-top: 28px; font-size: 20px; }
+    article h4 { margin-top: 22px; font-size: 17px; }
+    article p { margin: 12px 0; }
+
+    article a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    article a:hover { text-decoration: underline; }
+
+    article code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    article pre {
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 14px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      border: 1px solid #1e293b;
+    }
+
+    article pre code {
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      font-size: 0.94em;
+    }
+
+    article blockquote {
+      margin: 18px 0;
+      padding: 14px 18px;
+      border-left: 5px solid var(--quote-border);
+      background: var(--quote-bg);
+      border-radius: 10px;
+      color: #1e3a8a;
+    }
+
+    article ul, article ol { padding-left: 1.45rem; }
+    article li { margin: 6px 0; }
+
+    article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      border-radius: 12px;
+      display: block;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+    }
+
+    article th, article td {
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      vertical-align: top;
+      min-width: 130px;
+    }
+
+    article th {
+      background: var(--table-head);
+      text-align: left;
+      font-weight: 750;
+    }
+
+    article tr:last-child td { border-bottom: 0; }
+    article hr { border: 0; border-top: 1px solid var(--border); margin: 30px 0; }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 44px 20px;
+    }
+
+    .empty-state strong {
+      display: block;
+      color: var(--text);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .error {
+      color: #991b1b;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      aside { position: relative; height: auto; }
+      main { padding: 18px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      article { padding: 24px 22px 34px 22px; }
+      article h1 { font-size: 28px; }
+    }
+
+    @media print {
+      aside, .topbar, #status { display: none; }
+      .layout { display: block; }
+      main, article { padding: 0; }
+      .content-card { box-shadow: none; border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand">
+        <span class="badge">CIOT</span>
+        <h1>Documentação</h1>
+      </div>
+
+      <nav>
+        <button class="nav-button active" data-file="ciot_antt_integracao_desenvolvedores.md">
+          CIOT para desenvolvedores
+        </button>
+        <button class="nav-button" data-file="passo_a_passo_habilitar_cnpj_ciot_antt.md">
+          Passo a passo para habilitar o CNPJ para emitir CIOT na ANTT
+        </button>
+        <button class="nav-button" data-file="opcoes_temporarias_para_gerar_ciot.md">
+          Opções já existentes para gerar CIOT
+        </button>
+        <button class="nav-button" data-file="tabela_de_codigos_de_autorizacao_e_rejeicao.md">
+          Tabela de códigos de autorização e rejeições
+        </button>
+        <button class="nav-button" data-file="analise-rejeicao-b115-ciot-dados-ficticios.md">
+          Análise da rejeição B115 na emissão direta do CIOT
+        </button>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="topbar">
+      </div>
+
+      <section class="content-card">
+        <div id="status">Carregando documentação...</div>
+        <article id="content">
+          <div class="empty-state">
+            <strong>Carregando...</strong>
+            Aguarde enquanto o Markdown é lido e formatado.
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    const documents = {
+      "ciot_antt_integracao_desenvolvedores.md": "CIOT para desenvolvedores",
+      "passo_a_passo_habilitar_cnpj_ciot_antt.md": "Passo a passo para habilitar o CNPJ para emitir CIOT na ANTT",
+      "opcoes_temporarias_para_gerar_ciot.md": "Opções já existentes para gerar CIOT",
+      "tabela_de_codigos_de_autorizacao_e_rejeicao.md": "Tabela de códigos de autorização e rejeições",
+      "analise-rejeicao-b115-ciot-dados-ficticios.md": "Análise da rejeição B115 na emissão direta do CIOT"
+    };
+
+    const content = document.getElementById("content");
+    const statusBox = document.getElementById("status");
+    const buttons = document.querySelectorAll(".nav-button");
+    let mermaidInitialized = false;
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function inlineMarkdown(text) {
+      const inline = [];
+      const keep = html => `\u0000${inline.push(html) - 1}\u0000`;
+      text = escapeHtml(text.replace(/\u0000/g, ""));
+      text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => keep(`<img alt="${alt}" src="${src}" style="max-width:100%;border-radius:12px;">`));
+      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => keep(`<a href="${href}" target="_blank" rel="noopener">${label}</a>`));
+      text = text.replace(/`([^`]+)`/g, (_, code) => keep(`<code>${code}</code>`));
+      text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+      text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+      text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
+      return text.replace(/\u0000(\d+)\u0000/g, (_, i) => inline[Number(i)]);
+    }
+
+    function isTableSeparator(line) {
+      return /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+    }
+
+    function splitTableRow(line) {
+      return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(cell => cell.trim());
+    }
+
+    function renderTable(lines, startIndex) {
+      const header = splitTableRow(lines[startIndex]);
+      const rows = [];
+      let i = startIndex + 2;
+      while (i < lines.length && /\|/.test(lines[i]) && lines[i].trim() !== "") {
+        rows.push(splitTableRow(lines[i]));
+        i++;
+      }
+      let html = "<table><thead><tr>";
+      header.forEach(cell => html += `<th>${inlineMarkdown(cell)}</th>`);
+      html += "</tr></thead><tbody>";
+      rows.forEach(row => {
+        html += "<tr>";
+        header.forEach((_, idx) => html += `<td>${inlineMarkdown(row[idx] || "")}</td>`);
+        html += "</tr>";
+      });
+      html += "</tbody></table>";
+      return { html, nextIndex: i };
+    }
+
+    function renderList(lines, startIndex, ordered) {
+      const tag = ordered ? "ol" : "ul";
+      let html = `<${tag}>`;
+      let i = startIndex;
+      const regex = ordered ? /^\s*\d+\.\s+(.+)$/ : /^\s*[-*+]\s+(.+)$/;
+      while (i < lines.length && regex.test(lines[i])) {
+        const match = lines[i].match(regex);
+        html += `<li>${inlineMarkdown(match[1])}</li>`;
+        i++;
+      }
+      html += `</${tag}>`;
+      return { html, nextIndex: i };
+    }
+
+    function renderBlockquote(lines, startIndex) {
+      let quote = [];
+      let i = startIndex;
+      while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+        quote.push(lines[i].replace(/^\s*>\s?/, ""));
+        i++;
+      }
+      return { html: `<blockquote>${parseMarkdown(quote.join("\n"))}</blockquote>`, nextIndex: i };
+    }
+
+    function parseMarkdown(markdown) {
+      markdown = markdown.replace(/\r\n/g, "\n");
+      const codeBlocks = [];
+      markdown = markdown.replace(/```([^\n`]*)\n([\s\S]*?)```/g, function(_, language, code) {
+        const token = `@@CODE_BLOCK_${codeBlocks.length}@@`;
+        const cleanCode = code.replace(/^\n/, "").replace(/\n$/, "");
+        const normalizedLanguage = (language || "").trim().toLowerCase();
+
+        if (normalizedLanguage === "mermaid") {
+          codeBlocks.push(`<div class="mermaid">${escapeHtml(cleanCode)}</div>`);
+        } else {
+          codeBlocks.push(`<pre><code>${escapeHtml(cleanCode)}</code></pre>`);
+        }
+
+        return token;
+      });
+
+      const lines = markdown.split("\n");
+      let html = "";
+      let paragraph = [];
+      let i = 0;
+
+      function flushParagraph() {
+        if (paragraph.length) {
+          html += `<p>${inlineMarkdown(paragraph.join(" "))}</p>`;
+          paragraph = [];
+        }
+      }
+
+      while (i < lines.length) {
+        const line = lines[i];
+        const trimmed = line.trim();
+
+        if (trimmed === "") { flushParagraph(); i++; continue; }
+        if (/^@@CODE_BLOCK_\d+@@$/.test(trimmed)) { flushParagraph(); html += trimmed; i++; continue; }
+        if (/^\s*\|.*\|\s*$/.test(line) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+          flushParagraph();
+          const table = renderTable(lines, i);
+          html += table.html;
+          i = table.nextIndex;
+          continue;
+        }
+        if (/^\s*>\s?/.test(line)) {
+          flushParagraph();
+          const quote = renderBlockquote(lines, i);
+          html += quote.html;
+          i = quote.nextIndex;
+          continue;
+        }
+        if (/^\s*\d+\.\s+/.test(line)) {
+          flushParagraph();
+          const list = renderList(lines, i, true);
+          html += list.html;
+          i = list.nextIndex;
+          continue;
+        }
+        if (/^\s*[-*+]\s+/.test(line)) {
+          flushParagraph();
+          const list = renderList(lines, i, false);
+          html += list.html;
+          i = list.nextIndex;
+          continue;
+        }
+        if (/^#{1,6}\s+/.test(line)) {
+          flushParagraph();
+          const level = line.match(/^#{1,6}/)[0].length;
+          const text = line.replace(/^#{1,6}\s+/, "");
+          html += `<h${level}>${inlineMarkdown(text)}</h${level}>`;
+          i++;
+          continue;
+        }
+        if (/^---+$/.test(trimmed) || /^\*\*\*+$/.test(trimmed)) {
+          flushParagraph();
+          html += "<hr>";
+          i++;
+          continue;
+        }
+
+        paragraph.push(line);
+        i++;
+      }
+
+      flushParagraph();
+      codeBlocks.forEach((block, index) => html = html.replace(`@@CODE_BLOCK_${index}@@`, block));
+      return html;
+    }
+
+    async function renderMermaidDiagrams() {
+      const diagrams = content.querySelectorAll(".mermaid");
+      if (!diagrams.length || !window.mermaid) return;
+
+      if (!mermaidInitialized) {
+        mermaid.initialize({ startOnLoad: false, securityLevel: "loose" });
+        mermaidInitialized = true;
+      }
+
+      await mermaid.run({ nodes: diagrams });
+    }
+
+    async function loadMarkdown(fileName) {
+      statusBox.classList.remove("error");
+      statusBox.textContent = `Carregando ${fileName}...`;
+
+      buttons.forEach(button => button.classList.toggle("active", button.dataset.file === fileName));
+
+      try {
+        const response = await fetch(fileName, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Arquivo não encontrado ou inacessível: ${fileName}`);
+        const markdown = await response.text();
+        content.innerHTML = parseMarkdown(markdown);
+        await renderMermaidDiagrams();
+        statusBox.textContent = documents[fileName] || fileName;
+        document.title = documents[fileName] || "Documentação CIOT";
+      } catch (error) {
+        content.innerHTML = `
+          <div class="empty-state">
+            <strong>Não consegui carregar o arquivo automaticamente.</strong>
+            <p>Verifique se o arquivo <code>${escapeHtml(fileName)}</code> está na mesma pasta do <code>index.html</code>.</p>
+            <p>Alguns navegadores bloqueiam a leitura de arquivos locais usando <code>file://</code>. Neste caso, publique a pasta em uma hospedagem estática.</p>
+          </div>
+        `;
+        statusBox.classList.add("error");
+        statusBox.textContent = error.message;
+      }
+    }
+
+    function getDocumentFromUrl() {
+      if (!window.location.hash) return null;
+
+      try {
+        const fileName = decodeURIComponent(window.location.hash.slice(1));
+        return Object.prototype.hasOwnProperty.call(documents, fileName) ? fileName : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function loadDocumentFromUrl() {
+      loadMarkdown(getDocumentFromUrl() || "ciot_antt_integracao_desenvolvedores.md");
+    }
+
+    buttons.forEach(button => button.addEventListener("click", () => {
+      const hash = `#${encodeURIComponent(button.dataset.file)}`;
+
+      if (window.location.hash === hash) {
+        loadMarkdown(button.dataset.file);
+      } else {
+        window.location.hash = hash;
+      }
+    }));
+
+    window.addEventListener("hashchange", loadDocumentFromUrl);
+    loadDocumentFromUrl();
+  </script>
+</body>
+</html>

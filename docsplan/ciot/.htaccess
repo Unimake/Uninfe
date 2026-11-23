@@ -1,0 +1,32 @@
+# Seguranca da pasta CIOT: publica somente leitura.
+# Suba este arquivo junto com index.html e os arquivos .md.
+
+Options -Indexes
+DirectoryIndex index.html
+
+# Pagina de erro para arquivos inexistentes dentro de /uninfe/docmd/ciot/
+ErrorDocument 404 /uninfe/docmd/ciot/404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Allow "GET, HEAD, OPTIONS"
+</IfModule>
+
+# Permite somente leitura. Bloqueia POST, PUT, DELETE, PATCH, PROPFIND etc.
+<LimitExcept GET HEAD OPTIONS>
+  Require all denied
+</LimitExcept>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Retorna 405 para qualquer metodo que nao seja leitura.
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|OPTIONS)$ [NC]
+  RewriteRule ^ - [R=405,L]
+
+  # Evita que o servidor/site principal responda 200 para arquivos inexistentes.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ - [R=404,L]
+</IfModule>

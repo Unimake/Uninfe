@@ -1,0 +1,28 @@
+# Modelo para a pasta /uninfe/docmd/ no servidor.
+# Renomeie este arquivo para .htaccess somente quando for subir nessa pasta raiz.
+
+Options -Indexes
+DirectoryIndex disabled
+
+ErrorDocument 404 /uninfe/docmd/ciot/404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Allow "GET, HEAD, OPTIONS"
+</IfModule>
+
+<LimitExcept GET HEAD OPTIONS>
+  Require all denied
+</LimitExcept>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|OPTIONS)$ [NC]
+  RewriteRule ^ - [R=405,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ - [R=404,L]
+</IfModule>
