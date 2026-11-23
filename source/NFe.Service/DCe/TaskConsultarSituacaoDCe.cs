@@ -12,7 +12,7 @@ namespace NFe.Service.DCe
     {
         #region Private Methods
 
-        private void LerRetornoSitDCe(ConsSitDCe xmlConsSitDCe, RetConsSitDCe retornoConsSitDCe, int emp)
+        private void LerRetornoSitDCe(ConsSitDCe xmlConsSitDCe, RetConsSitDCe retornoConsSitDCe, XmlDocument retornoXml, int emp)
         {
             oGerarXML.XmlDistEventoDCe(emp, vStrXmlRetorno);
 
@@ -109,7 +109,9 @@ namespace NFe.Service.DCe
                         {
                             case 100: //Autorizado o uso da DCe
                             case 150: //Autorizado o uso da DCe, autorização fora de prazo
-                                var strProtDCe = retornoConsSitDCe.ProtDCe.GerarXML().ToString();
+                                var protocolo = retornoXml.DocumentElement["protDCe", NFeStrConstants.NAME_SPACE_DCE]
+                                    ?? throw new InvalidOperationException("O protocolo da DC-e não foi encontrado no retorno da consulta de situação.");
+                                var strProtDCe = protocolo.OuterXml;
 
                                 //Definir o nome do arquivo -procDCe.xml
                                 var strArquivoDCeProc = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString()
@@ -335,7 +337,7 @@ namespace NFe.Service.DCe
 
                     vStrXmlRetorno = consultaProtocolo.RetornoWSString;
 
-                    LerRetornoSitDCe(xmlConsSitDCe, consultaProtocolo.Result, emp);
+                    LerRetornoSitDCe(xmlConsSitDCe, consultaProtocolo.Result, consultaProtocolo.RetornoWSXML, emp);
 
                     XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).RetornoXML);
 
