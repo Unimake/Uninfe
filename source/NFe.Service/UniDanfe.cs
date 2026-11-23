@@ -622,7 +622,7 @@ namespace NFe.Service
 
                     if (tipo.Equals("cte") || tipo.Equals("cteos"))
                     {
-                        Args += " EE=1";    //EnviarEmail
+                        //Args += " EE=1";    //EnviarEmail
                         if (!string.IsNullOrEmpty(emp.EmailDanfe) && !emp.AdicionaEmailDanfe)
                         {
                             Args += " E=\"" + emp.EmailDanfe + "\"";
@@ -660,7 +660,7 @@ namespace NFe.Service
 
                             if (!string.IsNullOrEmpty(fEmail))
                             {
-                                Args += " EE=1";    //EnviarEmail
+                                //Args += " EE=1";    //EnviarEmail
                                 Args += " E=\"" + fEmail + "\"";
                                 Args += " IEX=1";   //IgnorarEmail principal
                             }
