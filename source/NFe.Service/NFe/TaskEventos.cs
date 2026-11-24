@@ -32,6 +32,13 @@ namespace NFe.Service
 
         #endregion Classe com os dados do XML do registro de eventos
 
+        #region Internal Properties
+
+        internal Func<EnvEvento, Configuracao, Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento> CriarRecepcaoEvento { get; set; } =
+            (xml, configuracao) => new Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento(xml, configuracao);
+
+        #endregion Internal Properties
+
         #region Execute
 
         public override void Execute()
@@ -165,7 +172,7 @@ namespace NFe.Service
                     }
                     else
                     {
-                        var recepcaoEvento = new Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento(xml, configuracao);
+                        var recepcaoEvento = CriarRecepcaoEvento(xml, configuracao);
                         recepcaoEvento.Executar();
 
                         ConteudoXML = recepcaoEvento.ConteudoXMLAssinado;
