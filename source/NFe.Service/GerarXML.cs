@@ -1942,10 +1942,10 @@ namespace NFe.Service
 
                 //Montar o XML -procInutNFe.xml
                 var strXmlProcInutNfe = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                    "<procInutNFe xmlns=\"" + NFeStrConstants.NAME_SPACE_NFE + "\" versao=\"" + versao + "\">" +
+                    "<ProcInutNFe xmlns=\"" + NFeStrConstants.NAME_SPACE_NFE + "\" versao=\"" + versao + "\">" +
                     strInutNFe +
                     strRetInut +
-                    "</procInutNFe>";
+                    "</ProcInutNFe>";
 
                 //Montar o nome do arquivo -proc-NFe.xml
                 var strNomeArqProcInutNFe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +

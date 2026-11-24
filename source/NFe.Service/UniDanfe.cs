@@ -228,6 +228,7 @@ namespace NFe.Service
                         tipo = "nfse";
                         break;
 
+                    case "ProcInutNFe":
                     case "procInutNFe":
                         arqProcNFe = nomeArquivoRecebido;
                         tipo = "inut";
