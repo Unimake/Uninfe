@@ -1,33 +1,18 @@
 ---
 name: revisao-ticket
-description: "Review UniNFe commits linked to a ticket using the exact commit-message pattern ID #000000. Use when the user asks Codex to review, audit, or justify approval/rejection of all commits for a ticket, consolidating the final state and producing Textile only for remaining technical problems."
+description: "Review UniNFe commits linked to a ticket by the exact ID #NUMERO pattern, or review pending Git changes made in the current Codex chat when no ticket is supplied. Use for technical review, audit, or approval/rejection of either scope. Report only remaining problems in Textile."
 ---
 
-# Revisao tecnica de ticket por commits
+# Revisao tecnica do UniNFe
 
-## Objetivo
+## Escolha do escopo
 
-Revisar os commits relacionados a um ticket informado pelo usuario e avaliar o resultado final do conjunto de alteracoes.
+- Com ticket informado explicitamente, como `ID #1234567` ou `1234567`, siga a revisao por ticket. Preserve todos os algarismos informados.
+- Sem ticket informado para a revisao, siga a revisao das alteracoes pendentes do chat atual imediatamente.
 
-Localizar o ticket nas mensagens de commit pelo padrao exato:
+Use o restante do repositorio apenas como contexto para entender arquitetura, padroes, compatibilidade e impacto direto das alteracoes em escopo.
 
-```text
-ID #123456
-```
-
-Use o restante do repositorio apenas como contexto para entender arquitetura, padroes, compatibilidade e impacto. Nao critique codigo antigo nao alterado pelos commits do ticket, exceto quando ele for indispensavel para explicar o impacto direto da alteracao revisada.
-
-## Entrada
-
-O usuario deve informar o numero do ticket, por exemplo:
-
-```text
-123456
-```
-
-Se o numero do ticket nao for informado, peca somente essa informacao.
-
-## Fluxo obrigatorio
+## Revisao por ticket
 
 1. Localizar todos os commits cuja mensagem contenha exatamente `ID #NUMERO`.
 2. Considerar todos os branches disponiveis quando possivel.
@@ -39,8 +24,8 @@ Se o numero do ticket nao for informado, peca somente essa informacao.
 Comandos de referencia:
 
 ```powershell
-git log --all --grep="ID #123456" --format="%H %an %ad %s" --date=iso --reverse
-git log --all --grep="ID #123456" --name-only --format="" | Sort-Object -Unique
+git log --all --grep="ID #123456([^[:digit:]]|$)" --extended-regexp --format="%H %an %ad %s" --date=iso --reverse
+git log --all --grep="ID #123456([^[:digit:]]|$)" --extended-regexp --name-only --format="" | Sort-Object -Unique
 git show --stat --patch HASH_DO_COMMIT
 git show HEAD:CAMINHO_DO_ARQUIVO
 ```
@@ -53,7 +38,7 @@ git diff COMMIT_BASE..COMMIT_FINAL -- CAMINHO_DO_ARQUIVO
 
 Se o branch atual nao contiver o estado final do ticket, use o ultimo commit do ticket como referencia para os arquivos alterados.
 
-## Regra de consolidacao
+### Regra de consolidacao por ticket
 
 A revisao e do ticket, nao de cada commit isolado.
 
@@ -67,9 +52,25 @@ Nao reportar:
 
 Antes de reprovar, confirme se algum commit posterior do mesmo ticket alterou o mesmo arquivo, classe, metodo, formulario, XML, schema, exemplo, setup ou comportamento relacionado.
 
+## Revisao das alteracoes pendentes do chat atual
+
+1. Identifique as edicoes feitas neste chat antes da invocacao. Use o historico disponivel da conversa, patches aplicados, resultados de ferramentas e, quando disponivel, o diff ou snapshot anterior as edicoes.
+2. Cruze essas evidencias com o estado Git atual. Considere alteracoes no indice, na arvore de trabalho e arquivos novos ainda nao rastreados. Inclua adicoes, exclusoes e renomeacoes quando atribuiveis ao chat.
+3. Em arquivos com mudancas de origens diferentes, revise apenas os trechos atribuiveis ao chat. Exclua mudancas preexistentes, feitas fora deste chat, ja commitadas ou revertidas, e trechos cuja origem nao puder ser comprovada. O diff, o nome do branch e a data de modificacao do arquivo por si so nao comprovam autoria.
+4. Avalie o estado final das mudancas elegiveis e reporte apenas problemas que ainda estejam presentes. Se nao houver alteracoes pendentes de origem comprovada, use a resposta especifica em Formato da resposta.
+
+Comandos de referencia:
+
+```powershell
+git status --short --untracked-files=all
+git diff --cached -- CAMINHO_DO_ARQUIVO
+git diff -- CAMINHO_DO_ARQUIVO
+git diff HEAD -- CAMINHO_DO_ARQUIVO
+```
+
 ## Escopo da revisao
 
-Analise somente alteracoes feitas pelo ticket, incluindo efeitos diretos sobre:
+Analise somente as alteracoes do modo selecionado, incluindo efeitos diretos sobre:
 
 - codigo C# dos projetos em `source`;
 - fluxo de processamento em `NFe.Service`;
@@ -136,7 +137,7 @@ Reporte somente problema concreto e remanescente, como:
 - organizacao em diretorio/namespace errado;
 - teste, exemplo ou validacao ausente para comportamento novo relevante.
 
-Nao reprovar por preferencia pessoal, modernizacao opcional, estilo antigo que o proprio projeto usa amplamente ou problema que nao foi introduzido pelo ticket.
+Nao reprovar por preferencia pessoal, modernizacao opcional, estilo antigo que o proprio projeto usa amplamente ou problema alheio as alteracoes em escopo.
 
 ## Como escrever achados
 
@@ -156,6 +157,14 @@ Nao invente problemas. Nao use comentarios genericos como "melhorar codigo", "re
 
 Nao escreva preambulo, resumo de investigacao, lista de commits analisados, conclusao extra ou arquivos sem problema.
 
+### Sem alteracoes elegiveis no chat atual
+
+No modo sem ticket, se nao houver alteracoes pendentes comprovadamente feitas neste chat, responda somente:
+
+```text
+Nao foram encontradas alteracoes pendentes feitas neste chat que possam ser revisadas.
+```
+
 ### Sem problemas
 
 Se nenhum problema concreto permanecer apos a analise consolidada, responda somente:
@@ -166,13 +175,19 @@ Nao encontramos falhas.
 
 ### Com problemas
 
-Se houver problemas remanescentes, comece exatamente com:
+Na revisao por ticket, comece exatamente com:
 
 ```text
 h2. Justificativa da reprova na revisao do ticket:
 ```
 
-Para cada problema, use Textile simples:
+Na revisao das alteracoes pendentes do chat atual, comece exatamente com:
+
+```text
+h2. Justificativa da reprova na revisao das alteracoes pendentes:
+```
+
+Nos dois modos, use Textile simples para cada problema:
 
 ```text
 h3. Problema N - titulo curto
@@ -216,4 +231,4 @@ Inclua uma orientacao curta para evitar esse tipo de problema no futuro.
 - Nao repita trechos grandes de codigo.
 - Mostre o trecho de codigo no estado final, nao em commit intermediario.
 - Nao liste commits aprovados.
-- Nao inclua problemas corrigidos no proprio ticket.
+- Nao inclua problemas ja corrigidos no conjunto de alteracoes revisado.

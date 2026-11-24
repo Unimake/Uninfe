@@ -1,7 +1,7 @@
 interface:
   display_name: "Revisao de Ticket"
-  short_description: "Revisa commits UniNFe por ticket"
-  default_prompt: "Use $revisao-ticket para revisar o ticket ID #123456 no UniNFe."
+  short_description: "Revisa o UniNFe por ticket ou pelas mudancas do chat"
+  default_prompt: "Use $revisao-ticket para revisar as alteracoes pendentes feitas neste chat no UniNFe."
 
 policy:
   allow_implicit_invocation: true
