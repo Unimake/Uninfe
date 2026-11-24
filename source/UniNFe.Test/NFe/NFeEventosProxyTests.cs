@@ -1,4 +1,4 @@
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Service;
 using NFe.Settings;
 using System;
@@ -57,6 +57,56 @@ namespace UniNFe.Test.Autorizacao
                 Assert.False(configuracao.HasProxy);
             }
         }
+
+        [Theory]
+        [InlineData(false, false)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public void RecusaEpecNFCeSpSemCriarServico(bool misto, bool cancelamentoPrimeiro)
+        {
+            var epec = Evento("110140", "65", "35", "35");
+            var cancelamento = Evento("110111", "65", "35", "35");
+            var eventos = !misto ? epec : cancelamentoPrimeiro ? cancelamento + epec : epec + cancelamento;
+            using (var contexto = new NFeEventosProxyTestContext(Lote(eventos), 35))
+            {
+                Assert.Null(fixture.Executar(contexto));
+                var erro = File.ReadAllText(Path.Combine(contexto.PastaRetorno, "evento-eve.err"));
+                Assert.Contains("Utilize a contingência offline da NFC-e", erro);
+                Assert.False(File.Exists(Path.Combine(contexto.PastaRetorno, "evento-eve.xml")));
+            }
+        }
+
+        [Theory]
+        [InlineData("110140", "55", "91", "41", TipoDFe.NFe)]
+        [InlineData("110111", "65", "35", "35", TipoDFe.NFCe)]
+        public void MantemRotaDosEventosSuportados(string tipo, string modelo, string orgao, string uf, TipoDFe tipoDFe)
+        {
+            using (var contexto = new NFeEventosProxyTestContext(Lote(Evento(tipo, modelo, orgao, uf)), int.Parse(uf)))
+            {
+                contexto.Empresa.tpEmis = tipo == "110140" ? 4 : 1;
+                var configuracao = fixture.Executar(contexto);
+                Assert.NotNull(configuracao);
+                Assert.Equal(tipoDFe, configuracao.TipoDFe);
+            }
+        }
+
+        private static string Lote(string eventos) =>
+            "<envEvento xmlns=\"http://www.portalfiscal.inf.br/nfe\" versao=\"1.00\"><idLote>1</idLote>" + eventos + "</envEvento>";
+
+        private static string Evento(string tipo, string modelo, string orgao, string uf)
+        {
+            var emissao = tipo == "110140" ? "4" : "1";
+            var chave = uf + "261112345678000123" + modelo + "001000000001" + emissao + "000000010";
+            var detalhe = tipo == "110140"
+                ? $"<descEvento>EPEC</descEvento><cOrgaoAutor>{uf}</cOrgaoAutor><tpAutor>1</tpAutor><verAplic>TESTE</verAplic>" +
+                  "<dhEmi>2026-11-24T12:00:00-03:00</dhEmi><tpNF>1</tpNF><IE>0000000000</IE>" +
+                  "<dest><UF>SP</UF><CPF>12345678909</CPF><vNF>10.00</vNF><vICMS>0.00</vICMS><vST>0.00</vST></dest>"
+                : "<descEvento>Cancelamento</descEvento><nProt>135260000000001</nProt><xJust>Cancelamento sintetico de teste offline</xJust>";
+            return $"<evento versao=\"1.00\"><infEvento Id=\"ID{tipo}{chave}01\"><cOrgao>{orgao}</cOrgao><tpAmb>2</tpAmb>" +
+                $"<CNPJ>12345678000123</CNPJ><chNFe>{chave}</chNFe><dhEvento>2026-11-24T12:00:01-03:00</dhEvento>" +
+                $"<tpEvento>{tipo}</tpEvento><nSeqEvento>1</nSeqEvento><verEvento>1.00</verEvento>" +
+                $"<detEvento versao=\"1.00\">{detalhe}</detEvento></infEvento></evento>";
+        }
     }
 
     public class NFeEventosProxyTestFixture : TaskTestFixtureBase
@@ -84,12 +134,14 @@ namespace UniNFe.Test.Autorizacao
         private readonly string usuarioAnterior = ConfiguracaoApp.ProxyUsuario;
         private readonly string senhaAnterior = ConfiguracaoApp.ProxySenha;
 
-        internal NFeEventosProxyTestContext(string tipoEvento) : base("evento-ped-eve.xml", PedidoEvento(tipoEvento))
+        internal NFeEventosProxyTestContext(string tipoEvento) : this(PedidoEvento(tipoEvento), 41) { }
+
+        internal NFeEventosProxyTestContext(string pedido, int uf) : base("evento-ped-eve.xml", pedido)
         {
             Empresa = new Empresa
             {
                 CNPJ = "12345678000123",
-                UnidadeFederativaCodigo = 41,
+                UnidadeFederativaCodigo = uf,
                 PastaXmlEnvio = PastaTemporaria,
                 PastaXmlEnviado = Path.Combine(PastaTemporaria, "Enviados"),
                 PastaXmlRetorno = PastaRetorno,

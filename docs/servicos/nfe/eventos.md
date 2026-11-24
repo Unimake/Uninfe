@@ -14,12 +14,14 @@ Use este serviço quando o ERP precisar registrar um evento fiscal relacionado a
 - cancelamento de NFe;
 - cancelamento por substituição de NFCe;
 - carta de correção eletrônica;
-- EPEC;
+- EPEC da NF-e (modelo 55);
 - manifestação do destinatário;
 - comprovante de entrega e cancelamento do comprovante de entrega;
 - conciliação financeira e cancelamento da conciliação financeira;
 - eventos de prorrogação de ICMS e seus cancelamentos;
 - outros eventos aceitos pelo leiaute de eventos de NFe/NFCe.
+
+Para a NFC-e de São Paulo, use a contingência offline. O UniNFe recusa pedidos de EPEC (110140) da NFC-e/SP com `-eve.err` antes do envio à SEFAZ, inclusive quando o arquivo também contém um cancelamento.
 
 Todos os eventos dentro do mesmo arquivo devem ser do mesmo tipo. Se precisar enviar eventos de tipos diferentes, gere arquivos separados.
 
@@ -47,7 +49,6 @@ Exemplos:
 ```text
 cce35111253420477000192550550000033071213028272_01-ped-eve.xml
 canc1101103511031029073900013955001000000001105112804101-ped-eve.xml
-epec-nfce-35150309062049000143650010000000604010373539110140-01-ped-eve.xml
 ```
 
 Estrutura simplificada de uma carta de correção:
@@ -136,7 +137,7 @@ Ao receber o TXT, o UniNFe gera o XML correspondente para processamento. Depois 
 | `110111` | Cancelamento de NFe. |
 | `110112` | Cancelamento por substituição de NFCe. |
 | `110130` | Comprovante de entrega da NFe. |
-| `110140` | EPEC. |
+| `110140` | EPEC da NF-e (modelo 55). |
 | `110750` | Conciliação financeira da NFe. |
 | `110751` | Cancelamento da conciliação financeira da NFe. |
 | `210200` | Confirmação da operação. |

@@ -35,7 +35,9 @@ namespace NFe.Service
         #region Internal Properties
 
         internal Func<EnvEvento, Configuracao, Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento> CriarRecepcaoEvento { get; set; } =
-            (xml, configuracao) => new Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento(xml, configuracao);
+            (xml, configuracao) => configuracao.TipoDFe == TipoDFe.NFCe
+                ? new Unimake.Business.DFe.Servicos.NFCe.RecepcaoEvento(xml, configuracao)
+                : new Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento(xml, configuracao);
 
         #endregion Internal Properties
 
@@ -50,6 +52,12 @@ namespace NFe.Service
             try
             {
                 EnvEvento(emp, dadosEnvEvento);
+                if (dadosEnvEvento.eventos.Any(evento => evento.tpEvento == "110140" &&
+                    evento.chNFe?.Length >= 22 && evento.chNFe.Substring(20, 2) == "65" &&
+                    (evento.chNFe.StartsWith("35", StringComparison.Ordinal) || evento.cOrgao == 35 || evento.epec?.cOrgaoAutor == 35)))
+                {
+                    throw new InvalidOperationException("O envio de EPEC da NFC-e de São Paulo foi descontinuado. Utilize a contingência offline da NFC-e.");
+                }
                 ValidaEvento(emp, dadosEnvEvento);
 
                 var currentEvento = dadosEnvEvento.eventos[0].tpEvento;
@@ -108,7 +116,6 @@ namespace NFe.Service
 
                     var ehNFCe = xml.Evento[0].InfEvento.ChNFe.Substring(20, 2) == "65";
                     var tpEmis = dadosEnvEvento.eventos[0].tpEmis;
-                    var epecNFCe = (ehNFCe && Servico == Servicos.EventoEPEC && xml.Evento[0].InfEvento.COrgao == UFBrasil.SP); //EPEC NFCe da SEFAZ SP
 
                     switch (Servico)
                     {
@@ -149,25 +156,12 @@ namespace NFe.Service
 
                     if (ehNFCe)
                     {
-                        if (epecNFCe)
+                        using (var recepcaoEvento = CriarRecepcaoEvento(xml, configuracao))
                         {
-                            var recepcaoEvento = new Unimake.Business.DFe.Servicos.NFCe.RecepcaoEventoEPEC(xml, configuracao);
                             recepcaoEvento.Executar();
 
                             ConteudoXML = recepcaoEvento.ConteudoXMLAssinado;
                             vStrXmlRetorno = recepcaoEvento.RetornoWSString;
-
-                            recepcaoEvento.Dispose();
-                        }
-                        else
-                        {
-                            var recepcaoEvento = new Unimake.Business.DFe.Servicos.NFCe.RecepcaoEvento(xml, configuracao);
-                            recepcaoEvento.Executar();
-
-                            ConteudoXML = recepcaoEvento.ConteudoXMLAssinado;
-                            vStrXmlRetorno = recepcaoEvento.RetornoWSString;
-
-                            recepcaoEvento.Dispose();
                         }
                     }
                     else

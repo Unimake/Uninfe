@@ -69,7 +69,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [NFCe - Consulta status de serviço por arquivo](servicos/nfe/consulta-status-servico-arquivo.md)
 - [NFCe - Conversão de TXT para XML de NFe e NFCe](servicos/nfe/conversao-txt-para-xml.md)
 - [NFCe - Consulta de chaves e download de XML em São Paulo](servicos/nfce/download-e-consulta-chaves-sp.md)
-- [NFCe - Eventos por arquivo](servicos/nfe/eventos.md)
+- [NFCe - Eventos por arquivo](servicos/nfe/eventos.md), com orientação sobre contingência em São Paulo
 - [NFCe - Inutilização de numeração de NFe e NFCe](servicos/nfe/inutilizacao-numeracao.md)
 - [CCG](servicos/ccg/)
 - [CCG - Consulta GTIN](servicos/ccg/consulta-gtin.md)
