@@ -521,6 +521,10 @@ namespace NFe.Service
                             DirecionarArquivo(emp, false, true, arquivo, new TaskNFeABIRecepcaoSinc(arquivo));
                             break;
 
+                        case Servicos.NFeABIRecepcaoEvento:
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskNFeABIEventos(arquivo));
+                            break;
+
                         #endregion NFeABI
 
                         #region BPe
@@ -688,6 +692,7 @@ namespace NFe.Service
                         case Servicos.NFeConsultaStatusServico:
                         case Servicos.NFeABIStatusServico:
                         case Servicos.NFeABIConsultaProtocolo:
+                        case Servicos.NFeABIRecepcaoEvento:
                         case Servicos.UniNFeUpdate:
                         case Servicos.Nulo:
 
@@ -974,13 +979,16 @@ namespace NFe.Service
                     {
                         var nameTag = "";
                         var lastChildName = "";
+                        var namespaceRaiz = "";
                         try
                         {
                             var doc = new XmlDocument();
                             doc.Load(fullPath);
 
-                            nameTag = doc.DocumentElement.Name;
-                            lastChildName = doc.DocumentElement.LastChild.Name;
+                            namespaceRaiz = doc.DocumentElement.NamespaceURI;
+                            nameTag = namespaceRaiz == NFeStrConstants.NAME_SPACE_NFEABI && doc.DocumentElement.LocalName == "evento"
+                                ? doc.DocumentElement.LocalName : doc.DocumentElement.Name;
+                            lastChildName = doc.DocumentElement.LastChild?.Name;
                         }
                         catch
                         {
@@ -1344,6 +1352,13 @@ namespace NFe.Service
                                 if (arq.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.NFeABI).EnvioXML))
                                 {
                                     tipoServico = Servicos.NFeABIAutorizacaoSinc;
+                                }
+                                break;
+
+                            case "evento" when namespaceRaiz == NFeStrConstants.NAME_SPACE_NFEABI:
+                                if (arq.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML))
+                                {
+                                    tipoServico = Servicos.NFeABIRecepcaoEvento;
                                 }
                                 break;
 
@@ -2409,6 +2424,11 @@ namespace NFe.Service
                 case Servicos.NFeABIConsultaProtocolo:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.Sit_ERR;
+                    return true;
+
+                case Servicos.NFeABIRecepcaoEvento:
+                    extRet = Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML;
+                    extRetERR = Propriedade.ExtRetorno.Eve_ERR;
                     return true;
 
                 case Servicos.NFeABIAutorizacaoSinc:

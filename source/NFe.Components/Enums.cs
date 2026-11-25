@@ -866,7 +866,12 @@ namespace NFe.Components
         /// <summary>
         /// Consulta protocolo da NFeABI
         /// </summary>
-        NFeABIConsultaProtocolo
+        NFeABIConsultaProtocolo,
+
+        /// <summary>
+        /// Recepção de eventos da NF-e ABI
+        /// </summary>
+        NFeABIRecepcaoEvento
 
         #endregion NFeABI
     }
