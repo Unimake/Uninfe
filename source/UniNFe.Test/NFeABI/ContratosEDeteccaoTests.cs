@@ -64,6 +64,7 @@ namespace UniNFe.Test.NFeABI
             Assert.Equal(152, (int)Servicos.NFeABIStatusServico);
             Assert.Equal(153, (int)Servicos.NFeABIAutorizacaoSinc);
             Assert.Equal(154, (int)Servicos.NFeABIConsultaProtocolo);
+            Assert.Equal(155, (int)Servicos.NFeABIRecepcaoEvento);
             Assert.Equal(732, (int)TpcnResources.vCredPresumido);
             Assert.Equal(733, (int)TpcnResources.chNFeABI);
         }
@@ -88,6 +89,7 @@ namespace UniNFe.Test.NFeABI
         [InlineData("NFeABI", "-nfeabi.xml", Servicos.NFeABIAutorizacaoSinc)]
         [InlineData("consStatServNFeABI", "-ped-sta.xml", Servicos.NFeABIStatusServico)]
         [InlineData("consSitNFeABI", "-ped-sit.xml", Servicos.NFeABIConsultaProtocolo)]
+        [InlineData("evento", "-ped-eve.xml", Servicos.NFeABIRecepcaoEvento)]
         public void RaizesOficiaisSaoDetectadas(string raiz, string sufixo, Servicos esperado)
         {
             Assert.Equal(esperado, Detectar(raiz, sufixo));
@@ -126,6 +128,7 @@ namespace UniNFe.Test.NFeABI
         [InlineData("NFeABI", "-nfgas.xml")]
         [InlineData("consStatServNFeABI", "-nfeabi.xml")]
         [InlineData("consSitNFeABI", "-ped-sta.xml")]
+        [InlineData("evento", "-ped-sit.xml")]
         public void RaizNFeABINaoAceitaSufixoDeOutroContrato(string raiz, string sufixo)
         {
             Assert.Equal(Servicos.Nulo, Detectar(raiz, sufixo));
@@ -146,6 +149,7 @@ namespace UniNFe.Test.NFeABI
         [InlineData(Servicos.NFeABIAutorizacaoSinc, "-nfeabi.xml", "-ret-nfeabi.err")]
         [InlineData(Servicos.NFeABIStatusServico, "-ped-sta.xml", "-sta.err")]
         [InlineData(Servicos.NFeABIConsultaProtocolo, "-ped-sit.xml", "-sit.err")]
+        [InlineData(Servicos.NFeABIRecepcaoEvento, "-ped-eve.xml", "-eve.err")]
         public void ErroERPUsaContratoAprovado(Servicos servico, string entrada, string erro)
         {
             var metodo = typeof(Processar).GetMethod("TryGetExtensoesErroNFeABI", BindingFlags.Static | BindingFlags.NonPublic);
@@ -167,7 +171,13 @@ namespace UniNFe.Test.NFeABI
             }
         }
 
-        private Servicos Detectar(string raiz, string sufixo)
+        [Fact]
+        public void RaizEventoDeOutroNamespaceNaoERecepcaoDaNFeABI()
+        {
+            Assert.Equal(Servicos.Nulo, Detectar("evento", "-ped-eve.xml", "http://www.portalfiscal.inf.br/nfe"));
+        }
+
+        private Servicos Detectar(string raiz, string sufixo, string namespaceRaiz = null)
         {
             Assert.NotNull(definirTipoServico);
 
@@ -175,7 +185,7 @@ namespace UniNFe.Test.NFeABI
             Directory.CreateDirectory(pastaEntrada);
 
             var arquivo = Path.Combine(pastaEntrada, Guid.NewGuid().ToString("N") + sufixo);
-            File.WriteAllText(arquivo, "<" + raiz + " xmlns=\"" + NFeStrConstants.NAME_SPACE_NFEABI + "\"><dummy /></" + raiz + ">");
+            File.WriteAllText(arquivo, "<" + raiz + " xmlns=\"" + (namespaceRaiz ?? NFeStrConstants.NAME_SPACE_NFEABI) + "\"><dummy /></" + raiz + ">");
 
             return (Servicos)definirTipoServico.Invoke(new Processar(), new object[] { 0, arquivo });
         }

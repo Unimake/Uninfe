@@ -145,6 +145,7 @@ namespace UniNFe.Test.NFeABI
                 TaskConsultaStatusNFeABI.ExecutarConsulta = null;
                 TaskConsultaSituacaoNFeABI.ExecutarConsulta = null;
                 TaskNFeABIRecepcaoSinc.ExecutarAutorizacao = null;
+                TaskNFeABIEventos.ExecutarRecepcao = null;
                 ConfiguracaoApp.Proxy = proxyAnterior;
                 ConfiguracaoApp.DetectarConfiguracaoProxyAuto = proxyAutoAnterior;
                 ConfiguracaoApp.ChecarConexaoInternet = conexaoAnterior;

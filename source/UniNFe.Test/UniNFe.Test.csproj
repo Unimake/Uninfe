@@ -53,6 +53,7 @@
   <ItemGroup>
     <Content Include="NFeConvertTxt\Fixtures\000177783-valores-liquidos-ipi-nfe.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFeAbi\41260912345678000123770010000000011012345670-nfeabi.xml" Link="NFeABI\Resources\NFeABI.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\exemplos xml\NFeAbi\Evento_110111-ped-eve.xml" Link="NFeABI\Resources\Evento_110111-ped-eve.xml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFe\Exemplos RTC\*.txt" Link="NFeConvertTxt\Fixtures\RTC\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFe\99999999999999999999999999999999999999999991-nfe.txt" Link="NFeConvertTxt\Fixtures\NFe\NFe-4.00.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\exemplos xml\NFe e NFCe 4.00\NFCe\99999999999999999999999999999999999999999999-nfe.txt" Link="NFeConvertTxt\Fixtures\NFCe\NFCe-4.00.txt" CopyToOutputDirectory="PreserveNewest" />
