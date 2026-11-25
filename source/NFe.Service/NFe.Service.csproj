@@ -323,6 +323,7 @@
     <Compile Include="NFCom\TaskConsultaStatusNFCom.cs" />
     <Compile Include="NFCom\TaskNFComEventos.cs" />
     <Compile Include="NFCom\TaskNFComRecepcaoSinc.cs" />
+	<Compile Include="NFeABI\TaskNFeABIEventos.cs" />
     <Compile Include="NFGas\TaskConsultaSituacaoNFGas.cs" />
     <Compile Include="NFGas\TaskConsultaStatusNFGas.cs" />
     <Compile Include="NFGas\TaskNFGasEventos.cs" />
