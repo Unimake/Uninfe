@@ -986,6 +986,11 @@ namespace UniNFe.Test.NFeConvertTxt
         {
             var dadosIdentificaveis = new[]
             {
+                "AM PNEUS DISTRIBUIDORA DE BARRA MANSA LTDA FILIAL 4",
+                "CONTINENTAL DO BRASIL PRODUTOS AUTOMOTIVOS LTDA",
+                "RUA ARY FONTINELLE",
+                "10882131000446",
+                "02036483000614",
                 "LBA-LINHA BRANCA E AUTOMOTIVA LTDA",
                 "nfe@lba.ind.br",
                 "RODOVIA ARNALDO JULIO MAUERBERG",
