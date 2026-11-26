@@ -175,7 +175,7 @@ Este indice organiza a documentacao Markdown do UniNFe. As paginas devem ser cri
 - [Apoio e Suporte](referencias/apoio-e-suporte.md)
 - [Menu principal](referencias/menu-principal.md)
 - [Notas técnicas e notícias para desenvolvedores](referencias/notas-tecnicas-e-noticias-para-desenvolvedores.md)
-- [Notas técnicas vigentes e prazos](referencias/notas-tecnicas-vigentes.md)
+- [Notas técnicas vigentes e prazos](referencias/notas-tecnicas-vigentes.md) — consulta por documento fiscal, resumos e cronogramas por etapa.
 - [Tela Log](referencias/tela-log.md)
 - [Tela Sobre](referencias/tela-sobre.md)
 - [Tela Validar XML](referencias/tela-validar-xml.md)

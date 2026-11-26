@@ -2,7 +2,7 @@
 
 Consulte as notas e os informes técnicos marcados como **SIM** na coluna **NT Vigente?** da [planilha Notas técnicas e prazos](https://docs.google.com/spreadsheets/d/1vW6Gu_joO2mvua4rGjnBQ5LccVUVljvEpUtYin30BFs/edit?gid=0#gid=0).
 
-**Conteúdo atualizado em 17/11/2026.** Esta edição reúne 47 registros da planilha em 30 fichas, consolidando duplicatas equivalentes e cronogramas por etapa.
+**Conteúdo atualizado em 26/11/2026.** Esta edição reúne 42 registros da planilha em 23 fichas, consolidando duplicatas equivalentes e cronogramas por etapa.
 
 A seleção indica vigência no acompanhamento da planilha. A presença de uma nota nesta página não confirma sua implantação em produção nem o atendimento por uma versão específica do UniNFe.
 
@@ -16,15 +16,9 @@ Selecione uma nota para abrir sua ficha. As datas de produção aparecem por eta
 |---|---|---|---|
 | NFe/NFCe | [NT 2021.003 v1.50 — Validação de GTIN](#nt-nfe-nfce-2021-003-v1-50) | Todas as UFs | Em 01/09/2027 |
 | NFe/NFCe | [NT 2023.002 v1.02 — Autorização síncrona](#nt-nfe-nfce-2023-002-v1-02) | Todas as UFs | Em 05/04/2027 |
-| NFe/NFCe | [NT 2025.002 v1.50 — Tributação monofásica de combustíveis](#nt-nfe-nfce-2025-002-v1-50) | Todas as UFs | Em 16/11/2026 |
-| NFe/NFCe | [NT 2025.002 v1.52 — NF-e de devolução](#nt-nfe-nfce-2025-002-v1-52) | Todas as UFs | Até 16/11/2026 |
-| NFe/NFCe | [NT 2025.002 v1.53 — Referenciamento da devolução](#nt-nfe-nfce-2025-002-v1-53) | Todas as UFs | Até 16/11/2026; Em 16/11/2026; Implementação futura |
 | NFe/NFCe | [NT 2026.002 v1.11 — DANFE Simplificado Tipo 2](#nt-nfe-nfce-2026-002-v1-11) | Todas as UFs | Em 14/12/2026 |
 | NFe/NFCe | [NT 2026.005 v1.00 — Simples Nacional](#nt-nfe-nfce-2026-005-v1-00) | Todas as UFs | Em 14/12/2026; Implementação futura |
 | NFe/NFCe | [NT 2026.006 v1.01 — Cronograma da vinculação de pagamento](#nt-nfe-nfce-2026-006-v1-01) | Todas as UFs | Em 14/12/2026 |
-| NFe/NFCe | [NT 2026.007 v1.00 — Contribuinte exclusivo de IBS/CBS](#nt-nfe-nfce-2026-007-v1-00) | Todas as UFs | Em 16/11/2026 |
-| NFe/NFCe | [NT 2026.007 v1.10 — Ajustes de validação](#nt-nfe-nfce-2026-007-v1-10-to) | TO | Em 16/11/2026 |
-| NFe/NFCe | [NT 2026.007 v1.11 — Cronograma das validações cadastrais](#nt-nfe-nfce-2026-007-v1-11) | Todas as UFs | Em 16/11/2026 |
 | NFe/NFCe | [NT 2026.008 v1.00 — Valores líquidos e pagamento antecipado](#nt-nfe-nfce-2026-008-v1-00) | Todas as UFs | Em 14/12/2026; Em 01/03/2027 |
 | NFe/NFCe | [NT 2026.008 v1.01 — Composição de vProd, vItem e vNFTot](#nt-nfe-nfce-2026-008-v1-01) | Todas as UFs | Em 14/12/2026; Implementação futura; Em 01/03/2027 |
 | NFe/NFCe | [NT 2026.010 v1.00 — DANFE da NF-e](#nt-nfe-nfce-2026-010-v1-00) | Todas as UFs | Em 01/12/2026 |
@@ -42,8 +36,7 @@ Selecione uma nota para abrir sua ficha. As datas de produção aparecem por eta
 | NFCom | [NT 2026.005 v1.00 — Simples Nacional](#nt-nfcom-2026-005-v1-00) | Todas as UFs | Em 14/12/2026; Implementação futura |
 | NFGas | [NT 2026.004 v1.00 — Adequações da Reforma Tributária](#nt-nfgas-2026-004-v1-00) | Todas as UFs | Em 01/03/2027 |
 | NFGas | [NT 2026.004 v1.01 — Composição dos valores da NFGas](#nt-nfgas-2026-004-v1-01) | Todas as UFs | Em 14/12/2026 |
-| NFAbi | [Informe Técnico 2026.003 v1.00 — Tabela de códigos](#it-nfeabi-2026-003-v1-00) | Todas as UFs | Imediato |
-| NFSe | [NT SE/CGNFS-e nº 009 v1.01 — NFS-e Nacional](#nt-nfse-009-v1-01) | Todas as UFs | Em 30/11/2026 |
+| NFSe | [NT SE/CGNFS-e nº 009 v1.01 — NFS-e Nacional](#nt-nfse-009-v1-01) | Todas as UFs | Release 1: Em 07/12/2026; Release 2 — cronograma geral: Em 07/12/2026; Release 3 — previsto: Em 07/12/2026; Release 4 — previsto: Em 24/12/2026; Release 2 — procurações e alternância de perfis: Em 31/10/2026 |
 
 ## Detalhes por documento fiscal
 
@@ -67,11 +60,11 @@ Abra a ficha para consultar o cronograma completo, as orientações e os documen
 
 ### Principais alterações e orientações
 
-Amplia a verificação da existência do GTIN no Cadastro Centralizado de GTIN (CCG) para o **Grupo V de mercadorias**, que abrange NCMs do segmento de construção civil.
+Amplia a verificação da existência do GTIN no Cadastro Centralizado de GTIN (CCG) para o **Grupo V de mercadorias**, com NCMs do segmento de construção civil.
 
-- Consultar na NT os NCMs do novo grupo.
-- Identificar os produtos abrangidos e revisar os cadastros de GTIN/EAN.
-- Revisar o preenchimento de `cEAN` e `cEANTrib` e preparar os testes.
+- Identificar na NT os NCMs abrangidos e os produtos correspondentes.
+- Revisar os cadastros de GTIN/EAN e o preenchimento de `cEAN` e `cEANTrib`.
+- Preparar os testes de validação.
 
 ### Documentos e links
 
@@ -91,146 +84,19 @@ Amplia a verificação da existência do GTIN no Cadastro Centralizado de GTIN (
 
 | Etapa | Homologação | Produção |
 |---|---|---|
-| Autorização síncrona | Até 01/02/2027 | Em 05/04/2027 |
+| Implantação | Até 01/02/2027 | Em 05/04/2027 |
 
 ### Principais alterações e orientações
 
-O resumo trata do fim da autorização assíncrona e da inutilização de numeração em Acre, Bahia e São Paulo.
+Prevê o encerramento da autorização assíncrona de NF-e/NFC-e. A solicitação deverá usar resposta síncrona; `indSinc=0` poderá gerar a **Rejeição 129 — A autorização deve ser solicitada de forma síncrona**.
 
-**Autorização**
+Para a NF-e modelo 55, a orientação considera também a NT 2025.001: **uma NF-e por lote**, com retorno direto da autorização. Revise as rotinas que enviam vários documentos em lote e consultam recibos.
 
-- A solicitação com `indSinc = 0` poderá receber a **Rejeição 129 — A autorização deve ser solicitada de forma síncrona**.
-- As observações relacionam essa mudança à NT 2025.001 para indicar uma NF-e por lote.
-- Revisar envio de lote, armazenamento de recibo e consulta posterior de processamento.
-
-O prazo da tabela corresponde à autorização síncrona. Consultar na NT e nos comunicados de cada UF as condições e o cronograma da inutilização.
+As observações também apontam o fim da inutilização de numeração em **Acre, Bahia e São Paulo**. Consulte na NT o alcance e as condições dessa alteração.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=DCFRgnlk4g8=)
-
-</details>
-
-<details id="nt-nfe-nfce-2025-002-v1-50">
-<summary><strong>NT 2025.002 v1.50 — Tributação monofásica de combustíveis</strong></summary>
-
-**Documento fiscal na planilha:** NFe/NFCe.  
-**Abrangência:** Todas as UFs.  
-**Publicação:** 03/06/2026.  
-**Análise pela Unimake:** 08/06/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Implantação | Até 01/09/2026 | Em 16/11/2026 |
-
-### Principais alterações e orientações
-
-Reformula o leiaute da tributação monofásica de combustíveis e modifica as regras de validação relacionadas.
-
-Revisar os campos e a estrutura tributária das operações com combustíveis, a geração do XML e os testes. O cronograma de produção considera a prorrogação confirmada pelos comunicados oficiais.
-
-### Documentos e links
-
-- [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=pD4YrecPV6s=)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/portal/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=74KmX8poGpM%3D&ehCTG=false)
-
-</details>
-
-<details id="nt-nfe-nfce-2025-002-v1-52">
-<summary><strong>NT 2025.002 v1.52 — NF-e de devolução</strong></summary>
-
-**Documento fiscal na planilha:** NFe/NFCe.  
-**Abrangência:** Todas as UFs.  
-**Publicação:** 01/10/2026.  
-**Análise pela Unimake:** 01/10/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Correção da VC02-50 | Até 26/10/2026 | Até 16/11/2026 |
-
-### Principais alterações e orientações
-
-Corrige a regra `VC02-50` e trata do referenciamento da NF-e de devolução.
-
-**Regra VC02-50**
-
-Para devolução de saída (`finNFe = 4` e `tpNF = 1`), quando o documento referenciado também for de saída (`tpNF = 1`), o CNPJ/CPF de seu emitente deve corresponder ao CNPJ/CPF do destinatário da devolução.
-
-Na Nota Fiscal Avulsa (NFA), se a chave apresentar o CNPJ da SEFAZ como emitente, considerar o CNPJ/CPF do verdadeiro emitente da operação.
-
-**Referenciamento por item**
-
-As observações desta versão descrevem o grupo `DFeReferenciado`, com `chaveAcesso`, vinculado aos itens da devolução em lugar de `refNFe` no cabeçalho.
-
-A revisão posterior modifica essa orientação. Consulte também a [NT 2025.002 v1.53](#nt-nfe-nfce-2025-002-v1-53), que apresenta as alternativas de referenciamento e a opcionalidade de `nItem`.
-
-O cronograma considera os comunicados oficiais posteriores às datas citadas no resumo original.
-
-### Documentos e links
-
-- [Nota técnica](https://dfe-portal.svrs.rs.gov.br/NFE/DownloadArquivoEstatico/?sistema=NFE&tipoArquivo=3&nomeArquivo=NT_2025.002_v1.52_RTC_NF-e_IBS_CBS_IS.pdf)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/portal/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=p51cQJEX57A%3D&ehCTG=false)
-
-</details>
-
-<details id="nt-nfe-nfce-2025-002-v1-53">
-<summary><strong>NT 2025.002 v1.53 — Referenciamento da devolução</strong></summary>
-
-**Documento fiscal na planilha:** NFe/NFCe.  
-**Abrangência:** Todas as UFs.  
-**Publicação:** 30/10/2026.  
-**Análise pela Unimake:** 02/11/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Alterações da devolução | Até 09/11/2026 | Até 16/11/2026 |
-| Regra B25-40 | Até 09/11/2026 | Em 16/11/2026 |
-| Regra UB12-10 | Consultar a NT | Implementação futura |
-| Regras VC02-20 e VC03-20 | Implementação futura | Implementação futura |
-
-### Principais alterações e orientações
-
-Permite referenciar a NF-e devolvida por **uma das alternativas**:
-
-- No cabeçalho, por `NFref/refNFe`, com uma única NF-e referenciada.
-- Nos itens, por `DFeReferenciado/chaveAcesso`, inclusive em devolução com mercadorias de várias NF-e.
-
-Não utilizar os dois formatos simultaneamente. `DFeReferenciado/nItem` passa a ser opcional.
-
-**Regras de validação**
-
-| Regra | Alteração descrita nas observações |
-|---|---|
-| `UB12-10` | Ajusta a exceção à obrigatoriedade de IBS/CBS para devoluções de documentos anteriores a 2027, aceitando referência no cabeçalho ou no item. Produção com implementação futura. |
-| `VC02-14` | Para `finNFe = 4`, aceita referência no cabeçalho ou no item. Ausência de ambas: **Rejeição 321 — NF-e de devolução sem documento fiscal referenciado**. |
-| `VC02-20` | Verifica duplicidade de `chaveAcesso + nItem`; sem `nItem`, compara somente a chave. Implementação futura. |
-| `VC02-30` | Verifica chaves diferentes em `DFeReferenciado`, mas não se aplica à devolução (`finNFe = 4`). |
-| `VC02-40` | Compara CNPJ base ou CPF dos emitentes dos documentos referenciados nos itens. **Rejeição 1193 — Emitente das NF-e Referenciadas deve ser o mesmo em todos os itens**. |
-| `VC02-50` | Na devolução de saída (`finNFe = 4` e `tpNF = 1`), quando o documento original também for de saída, compara CNPJ base ou CPF de seu emitente com o destinatário da devolução. **Rejeição 1194**. |
-| `VC03-20` | A exigência de `DFeReferenciado/nItem` fica como implementação futura; o campo é opcional. |
-| `B25-40` | Inclui a devolução na limitação de uma ocorrência de `NFref` quando utilizada referência `refNFe` no cabeçalho. Mais de uma: **Rejeição 255 — NF-e possui mais de uma NF referenciada**. |
-
-**Comparação dos valores devolvidos**
-
-As regras abaixo aplicam-se quando a NF-e original estiver referenciada no cabeçalho por `refNFe`. Consultar as exceções e tolerâncias na NT.
-
-| Regra | Valor comparado com a NF-e original | Rejeição |
-|---|---|---|
-| `3BA02-50` | `vNF` — total da devolução | 545 |
-| `3BA02-54` | `vICMS` — ICMS | 546 |
-| `3BA02-58` | `vFCP` — FCP | 566 |
-| `3BA02-64` | `vICMSUFDest` — ICMS da UF de destino | 567 |
-| `3BA02-68` | `vFCPUFDest` — FCP da UF de destino | 581 |
-
-### Documentos e links
-
-- [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=BMcHSMEoepU=)
 
 </details>
 
@@ -246,13 +112,13 @@ As regras abaixo aplicam-se quando a NF-e original estiver referenciada no cabe�
 
 | Etapa | Homologação | Produção |
 |---|---|---|
-| Implantação | Em 01/09/2026 | Em 14/12/2026 |
+| Regras I08-180, BA02-35 e VC02-40 | Em 01/09/2026 | Em 14/12/2026 |
 
 ### Principais alterações e orientações
 
-Atualiza o cronograma das regras `I08-180`, `BA02-35` e `VC02-40`, relacionadas a vendas presenciais e não presenciais com DANFE Simplificado Tipo 2.
+Atualiza o cronograma de produção das regras `I08-180`, `BA02-35` e `VC02-40`, relacionadas a vendas presenciais e não presenciais com **DANFE Simplificado Tipo 2**.
 
-As observações informam o adiamento dessas regras de produção de 05/10/2026 para **14/12/2026**. Revisar a implementação, a geração do XML e os testes dessas validações.
+A produção dessas regras passou de 05/10/2026 para **14/12/2026**. Revise a geração do XML e os testes dos cenários abrangidos.
 
 ### Documentos e links
 
@@ -272,24 +138,19 @@ As observações informam o adiamento dessas regras de produção de 05/10/2026 
 
 | Etapa | Homologação | Produção |
 |---|---|---|
-| Campos e demais alterações | Até 26/10/2026 | Em 14/12/2026 |
-| Evento 412140 — Tributação do Simples Nacional | Implementação futura | Implementação futura |
+| Campos e demais regras | Até 26/10/2026 | Em 14/12/2026 |
+| Evento 412140 | Implementação futura | Implementação futura |
 
 ### Principais alterações e orientações
 
-Adequa a NF-e/NFC-e para contribuintes do Simples Nacional no contexto da Reforma Tributária.
+Cria campos para informar o regime de apuração do IBS/CBS, a atividade do Simples Nacional por item, o grupo `gTribSN` e totalizadores específicos.
 
-- Campos para o regime de apuração de IBS/CBS.
-- Identificação da atividade do Simples Nacional por item.
-- Grupo `gTribSN` com informações de tributação de IBS/CBS.
-- Totalizadores específicos do Simples Nacional.
-
-Cria o evento **412140 — Tributação do Simples Nacional**, com implementação futura. O prazo geral não se aplica a esse evento.
+O evento **412140 — Tributação do Simples Nacional** permanece com implementação futura.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=HInG7WD5Sj8=)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -309,109 +170,15 @@ Cria o evento **412140 — Tributação do Simples Nacional**, com implementaç�
 
 ### Principais alterações e orientações
 
-Atualiza o cronograma de implantação da vinculação da NF-e/NFC-e às transações de pagamento, no contexto do Split Payment.
+Trata da vinculação de NF-e/NFC-e às transações de pagamento no contexto do **Split Payment**.
 
-As observações informam que a versão 1.01 não acrescenta alterações de leiaute nem novas regras. Revisar as datas do planejamento e dos testes; a produção considera o comunicado posterior de prorrogação.
+A versão 1.01 altera o cronograma de implantação, sem introduzir mudança de leiaute ou nova regra nessa revisão.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=7xf05PpO4Z0=)
 - [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
-
-</details>
-
-<details id="nt-nfe-nfce-2026-007-v1-00">
-<summary><strong>NT 2026.007 v1.00 — Contribuinte exclusivo de IBS/CBS</strong></summary>
-
-**Documento fiscal na planilha:** NFe/NFCe.  
-**Abrangência:** Todas as UFs.  
-**Publicação:** 04/08/2026.  
-**Análise pela Unimake:** 05/08/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Implantação | Em 01/09/2026 | Em 16/11/2026 |
-
-### Principais alterações e orientações
-
-Regulamenta a emissão de NF-e por contribuintes exclusivamente de IBS/CBS, sem contribuição de ICMS.
-
-**Identificação do emitente**
-
-As condições descritas devem ocorrer simultaneamente:
-
-- Ausência de Inscrição Estadual em `emit/IE`.
-- CNPJ ativo na LCC-RFB.
-- Ausência de IE habilitada para ICMS no CCC.
-
-**Principais impactos**
-
-- CNPJ obrigatório nesse cenário.
-- Confronto de `CRT` com o regime cadastrado na LCC-RFB; divergências podem gerar a **Rejeição 180**.
-- Vedação dos grupos de ICMS e ICMS interestadual.
-- Vedação de emissão de NFC-e, modelo 65, por esses contribuintes até 2033.
-- Autorização dos eventos vinculados às suas NF-e pela SVRS.
-- Consultas conjuntas à LCC-RFB e ao CCC nas validações cadastrais de emitente, destinatário, retirada, entrega e transportador.
-
-O resumo informa a remoção da rejeição pela simples ausência de IE.
-
-### Documentos e links
-
-- [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=jVEAeMhv83w=)
-
-</details>
-
-<details id="nt-nfe-nfce-2026-007-v1-10-to">
-<summary><strong>NT 2026.007 v1.10 — Ajustes de validação</strong></summary>
-
-**Documento fiscal na planilha:** NFe/NFCe.  
-**Abrangência:** TO.  
-**Publicação:** 01/10/2026.  
-**Análise pela Unimake:** 02/10/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Implantação | Até 26/10/2026 | Em 16/11/2026 |
-
-### Principais alterações e orientações
-
-- Altera regras de validação para facilitar testes em homologação.
-- Corrige a regra `1C17-04`.
-
-### Documentos e links
-
-- [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=fpJlwzhffcQ=)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/portal/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=p51cQJEX57A%3D&ehCTG=false)
-
-</details>
-
-<details id="nt-nfe-nfce-2026-007-v1-11">
-<summary><strong>NT 2026.007 v1.11 — Cronograma das validações cadastrais</strong></summary>
-
-**Documento fiscal na planilha:** NFe/NFCe.  
-**Abrangência:** Todas as UFs.  
-**Publicação:** 30/10/2026.  
-**Análise pela Unimake:** 02/11/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Implantação | Até 26/10/2026 | Em 16/11/2026 |
-
-### Principais alterações e orientações
-
-Atualiza os prazos de implantação das validações cadastrais da NF-e/NFC-e que consultam a LCC-RFB e o CCC.
-
-As observações informam que não há novas alterações de regra ou leiaute nesta versão.
-
-### Documentos e links
-
-- [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=HXzgTeht%205Q=)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -427,26 +194,27 @@ As observações informam que não há novas alterações de regra ou leiaute ne
 
 | Etapa | Homologação | Produção |
 |---|---|---|
-| Alterações gerais | Em 26/10/2026 | Em 14/12/2026 |
-| Etapa posterior | Em 01/02/2027 | Em 01/03/2027 |
+| Primeira implantação | Em 26/10/2026 | Em 14/12/2026 |
+| Etapa de 2027 | Em 01/02/2027 | Em 01/03/2027 |
 
 ### Principais alterações e orientações
 
-Cria campos para demonstrar o valor líquido do produto ou serviço e separar o valor da operação dos tributos que compõem o preço.
+Cria campos para demonstrar valores líquidos de produtos e serviços, separando o valor da operação dos tributos que compõem o preço:
 
 - Valor líquido unitário.
 - Valor líquido do produto.
 - Valor total líquido dos produtos.
 - ICMS previsto em operações de pagamento antecipado.
-- Criação e alteração de regras de validação para a nova estrutura.
 
-As duas etapas do cronograma são mantidas separadas. Consulte também a [versão 1.01](#nt-nfe-nfce-2026-008-v1-01), que revisa a composição dos valores.
+Também cria e altera regras de validação. O cronograma separa a primeira implantação da etapa de 2027.
+
+Para a formação dos valores revisada, consulte a [versão 1.01](#nt-nfe-nfce-2026-008-v1-01).
 
 ### Documentos e links
 
 - [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=qAoMot6VyiY=)
-- [Comentário no canal Wandrey Descomplica](https://whatsapp.com/channel/0029VaCYoen3gvWRRRbKve40/415)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Comentário complementar — Wandrey Descomplica](https://whatsapp.com/channel/0029VaCYoen3gvWRRRbKve40/415)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -463,37 +231,32 @@ As duas etapas do cronograma são mantidas separadas. Consulte também a [versã
 | Etapa | Homologação | Produção |
 |---|---|---|
 | Campos e demais regras | Até 26/10/2026 | Em 14/12/2026 |
-| Regras VB01-10 e VB01-20 | Implementação futura | Implementação futura |
-| Regra NB01-30 | Em 01/02/2027 | Em 01/03/2027 |
+| VB01-10 e VB01-20 | Implementação futura | Implementação futura |
+| NB01-30 — ICMS previsto em pagamento antecipado | Em 01/02/2027 | Em 01/03/2027 |
 
 ### Principais alterações e orientações
 
-Atualiza o cronograma geral e retira o item “Composição do valor do produto com informações de IBS e CBS”.
+Retira a orientação de incluir IBS, CBS e IS em `vProd` e esclarece a formação dos valores:
 
-**Formação dos valores**
+- `vProdLiq`: produto ou serviço sem qualquer tributo.
+- `vProd`: valor do produto ou serviço desconsiderando IBS, CBS e IS.
+- `vItem`: valor total do item, incluindo os tributos.
+- `vNFTot`: soma dos valores `vItem`.
 
-| Campo | Composição descrita no resumo |
-|---|---|
-| `vProdLiq` | Valor líquido do produto ou serviço, sem qualquer tributo. |
-| `vProd` | Valor total do produto ou serviço, desconsiderando IBS, CBS e IS. |
-| `vItem` | Valor total do item, incluindo todos os tributos. |
-| `vNFTot` | Soma dos valores `vItem`. |
+IBS e CBS são calculados por fora e não integram suas próprias bases de cálculo.
 
-IBS e CBS são calculados “por fora” e não integram suas próprias bases de cálculo. Revisar implementações da versão 1.00 que tenham incluído IBS/CBS/IS em `vProd`.
+**Regras de composição do item**
 
-**Regras VB01-10 e VB01-20**
+- `VB01-10`: compara `vItem` com seus componentes, considerando separadamente `vIBS`, `vCBS`, `vIS`, `vTotIBSMonoItem` e `vTotCBSMonoItem`, com exceções para 2025/2026 e importações com CFOP iniciado por 3.
+- `VB01-20`: realiza a comparação no cenário de venda direta de veículos novos (`tpOp=2`).
+- Ambas estão associadas à **Rejeição 1105 — Valor total do Item difere do somatório dos valores que o compõem** e permanecem com implementação futura.
 
-As duas validam a composição de `vItem` e utilizam a **Rejeição 1105 — Valor total do Item difere do somatório dos valores que o compõem**.
-
-- `VB01-10`: considera separadamente `vIBS`, `vCBS`, `vIS`, `vTotIBSMonoItem` e `vTotCBSMonoItem`, com exceções para 2025/2026 e importações com CFOP iniciado por 3.
-- `VB01-20`: aplica o ajuste à venda direta de veículos novos (`tpOp = 2`).
-
-Ambas permanecem com **implementação futura**, sem data definida para início das rejeições. A regra `NB01-30`, relativa à obrigatoriedade do ICMS previsto em pagamento antecipado, mantém o cronograma específico de 2027.
+A regra `NB01-30`, que exige ICMS previsto em pagamento antecipado, mantém cronograma próprio em 2027.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=PVjdIcA/H2s=)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -513,9 +276,9 @@ Ambas permanecem com **implementação futura**, sem data definida para início 
 
 ### Principais alterações e orientações
 
-Altera o leiaute de impressão do DANFE da NF-e, modelo 55, para apresentar IBS, CBS e Imposto Seletivo (IS).
+Atualiza o leiaute de impressão do **DANFE da NF-e, modelo 55**, para apresentar IBS, CBS e Imposto Seletivo (IS).
 
-O impacto descrito é a adaptação do documento impresso aos novos campos tributários. Para notícias complementares, consulte [Notas técnicas e notícias para desenvolvedores](notas-tecnicas-e-noticias-para-desenvolvedores.md).
+O impacto envolve a apresentação no documento impresso. Consulte a NT para adequar o leiaute e conferir as informações tributárias exibidas.
 
 ### Documentos e links
 
@@ -541,31 +304,30 @@ O impacto descrito é a adaptação do documento impresso aos novos campos tribu
 
 ### Principais alterações e orientações
 
-Ajusta a data de homologação, corrige o total do DF-e, retira a orientação de incluir IBS/CBS em `vBP` e cria o grupo de multa e juros.
+Ajusta o cronograma, corrige a regra do total do DF-e, retira IBS/CBS da composição de `vBP` e cria o grupo de multa e juros.
 
 **Formação dos valores**
 
-| Campo ou período | Tratamento descrito nas observações |
-|---|---|
-| `vBPLiq` | Valor líquido do serviço, sem qualquer tributo. |
-| `vBP` | Valor total do serviço, desconsiderando IBS e CBS. |
-| `vTotDFe` em 2026 | Igual a `vBP`, sem somar IBS/CBS ao total geral. |
-| `vTotDFe` a partir de 2027 | `vBP - vDesconto + IBS + CBS`. |
+- `vBPLiq`: valor líquido do serviço, sem tributos.
+- `vBP`: valor total do serviço desconsiderando IBS e CBS.
+- Em 2026: `vTotDFe = vBP`.
+- A partir de 2027: `vTotDFe = vBP - vDesconto + IBS + CBS`.
 
-Para BP-e TM, a mesma lógica se aplica ao total correspondente.
+Para BP-e TM, aplica-se a mesma lógica ao total correspondente.
 
 **Multa e juros**
 
-O grupo `gMultaJuros` permite emitir novo BP-e para cobrar multa e juros de documento anterior. Informar a chave original em `chBPeRef`.
+O grupo `gMultaJuros` permite emitir novo BP-e referente a multa e juros de documento anterior, informado em `chBPeRef`.
 
-As validações verificam existência e validade do documento original, ausência de cancelamento/substituição, mesmo emitente, mesmo comprador quando informado, mesma origem/destino, mesmo `CST` e `cClassTrib` e mesmo tipo de BP-e.
+As validações verificam existência e validade da referência, ausência de cancelamento ou substituição e compatibilidade de emitente, comprador quando informado, origem/destino, `CST`, `cClassTrib` e tipo de BP-e.
 
-Para BP-e rodoviário, aquaviário e ferroviário, informar ICMS com **CST 41**. IBS/CBS correspondem somente ao complemento de multa e juros.
+Para BP-e rodoviário, aquaviário e ferroviário, o ICMS utiliza **CST 41**; IBS/CBS representam somente o complemento da multa e dos juros.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.cte.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=ir3st/saoU0=)
 - [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -583,25 +345,22 @@ Para BP-e rodoviário, aquaviário e ferroviário, informar ICMS com **CST 41**.
 |---|---|---|
 | Criação dos novos campos | Em 26/10/2026 | Em 14/12/2026 |
 | Regras de validação | Em 16/11/2026 | Em 14/12/2026 |
-| Evento de Tributação do Simples Nacional | Implementação futura | Implementação futura |
+| Eventos do Simples Nacional | Implementação futura | Implementação futura |
 
 ### Principais alterações e orientações
 
-Adequa BP-e, BP-e TA e BP-e TM ao tratamento de IBS/CBS no Simples Nacional.
+Adequa **BP-e, BP-e TA e BP-e TM** ao tratamento de IBS/CBS no Simples Nacional.
 
-- Regime de apuração de IBS/CBS do contribuinte.
-- Informações de tributação do Simples Nacional por item.
-- Grupos específicos de cálculo de IBS/CBS.
+- Identificação do regime de apuração de IBS/CBS.
+- Tributação do Simples Nacional por item e grupos de cálculo.
 - Validações conforme `CRT` e regime tributário.
 
-Cria os eventos **412140 — Tributação do Simples Nacional** e **412141 — Cancelamento da Tributação do Simples Nacional**, gerados pela Administração Tributária.
-
-O cronograma distingue novos campos, validações e implementação futura do evento de tributação.
+Cria os eventos **412140 — Tributação do Simples Nacional** e **412141 — Cancelamento da Tributação do Simples Nacional**, gerados pela Administração Tributária, com implementação futura.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.cte.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=tsiloeZ6vBw=)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -623,40 +382,32 @@ O cronograma distingue novos campos, validações e implementação futura do ev
 
 ### Principais alterações e orientações
 
-Atualiza CT-e, CT-e OS e CT-e Simplificado com mudanças no cronograma, EPEC, estrutura do CT-e Simplificado, total do documento e cobrança de multa e juros.
+Altera CT-e, CT-e OS e CT-e Simplificado no contexto da Reforma Tributária, com ajustes em valores, EPEC, estrutura de itens e multa e juros.
 
 **Formação dos valores**
 
-- `vTPrest`: valor total da prestação, sem somar IBS/CBS em 2026.
-- `vTPrestLiq`: valor líquido da prestação, sem tributos.
+- `vTPrest`: valor total da prestação sem somar IBS/CBS em 2026.
+- `vTPrestLiq`: valor líquido da prestação sem tributos.
 - Em 2026: `vTotDFe = vTPrest`.
 - A partir de 2027: `vTotDFe = vTPrest + IBS + CBS`.
 
-A versão retira a orientação anterior de incluir IBS/CBS em `vTPrest`.
-
 **CT-e Simplificado**
 
-As informações de IBS/CBS passam do documento para o item. Cada viagem ou trecho pode ter tributação, alíquota, classificação tributária e município de destino próprios, eliminando a limitação de mesmo município de término para todos os itens descrita nas observações.
+IBS/CBS passam ao nível do item, permitindo tributação, alíquota, classificação tributária e município de destino próprios por viagem ou trecho.
 
 **Multa e juros**
 
-O novo grupo `gMultaJuros` permite cobrar multa e juros de CT-e anterior:
+O grupo `gMultaJuros` referencia a chave do CT-e original. As regras verificam existência, ausência de cancelamento/substituição e compatibilidade de emitente, tomador, tipo de serviço e demais dados. O ICMS utiliza **CST 41** e IBS/CBS representam somente o complemento de multa e juros.
 
-- Informar a chave do CT-e original.
-- Manter dados compatíveis com o documento referenciado.
-- Informar ICMS com **CST 41**.
-- Informar em IBS/CBS somente o complemento de multa e juros.
+**Contingência**
 
-As validações conferem existência do documento original, ausência de cancelamento/substituição e compatibilidade de emitente, tomador, tipo de serviço e demais informações.
-
-**EPEC e contingência**
-
-O resumo mantém a desativação de EPEC e FS-DA e a utilização de contingência Off-line com `tpEmis = 2`. Há tratamentos específicos para documentos antigos e conciliação de EPEC, que devem ser consultados na NT.
+A NT dá continuidade à desativação de EPEC e FS-DA e prevê contingência Off-line com `tpEmis=2`. Há tratamentos específicos para documentos antigos e conciliação de EPEC; consulte as condições na publicação.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.cte.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=urai6j7wfLM=)
 - [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -678,19 +429,18 @@ O resumo mantém a desativação de EPEC e FS-DA e a utilização de contingênc
 
 ### Principais alterações e orientações
 
-Adequa o tratamento de IBS/CBS no Simples Nacional para CT-e.
+Cria campos e regras para identificar o enquadramento no Simples Nacional e a opção pelo regime regular do IBS/CBS.
 
-- Identifica o enquadramento no Simples Nacional e a opção pelo regime regular de IBS/CBS.
-- Orienta o preenchimento de `gIBSCBS` e `gTribSN`.
-- Inclui alíquotas e valores específicos do Simples Nacional.
-- Inclui totalizadores do CT-e Simplificado.
+- Preenchimento dos grupos `gIBSCBS` e `gTribSN`.
+- Alíquotas e valores de IBS/CBS específicos do Simples.
+- Totalizadores do CT-e Simplificado.
 
-Cria o evento **412140 — Tributação do Simples Nacional**, gerado automaticamente pelo Fisco, com implementação futura. Os prazos dos campos e das validações continuam apresentados por etapa.
+O evento **412140 — Tributação do Simples Nacional** será gerado pelo Fisco e permanece com implementação futura.
 
 ### Documentos e links
 
 - [Nota técnica](https://www.cte.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=AtaVevRXCIQ=)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -712,15 +462,15 @@ Cria o evento **412140 — Tributação do Simples Nacional**, gerado automatica
 
 ### Principais alterações e orientações
 
-Exige CIOT no transporte rodoviário de cargas por conta de terceiros e mediante remuneração, conforme o Ajuste SINIEF nº 03/2026.
+Prevê o preenchimento de `infCIOT` no transporte rodoviário de cargas por conta de terceiros e mediante remuneração, conforme o Ajuste SINIEF nº 03/2026.
 
-Para `modal = 1`, informar `infCIOT` quando ocorrer uma destas condições:
+A validação considera `modal=1` e uma das situações:
 
-- `tpEmit = 1`: prestador de serviço de transporte.
-- `tpEmit = 3`: transportador que emitirá CT-e globalizado.
-- `tpEmit = 2` com `tpTransp` informado: transportador próprio.
+- `tpEmit=1`: prestador de serviço de transporte.
+- `tpEmit=3`: transportador que emitirá CT-e globalizado.
+- `tpEmit=2`: transportador próprio com `tpTransp` informado.
 
-A ausência do grupo, quando exigido, gera a **Rejeição 684 — CIOT deverá ser informado**. Revisar o enquadramento do emitente, o preenchimento dos campos e o tratamento da rejeição.
+Quando essas condições forem atendidas e `infCIOT` não for informado, aplica-se a **Rejeição 684 — CIOT deverá ser informado**. Revise o tipo de emitente, o tipo de transportador e a geração do grupo.
 
 ### Documentos e links
 
@@ -744,15 +494,15 @@ A ausência do grupo, quando exigido, gera a **Rejeição 684 — CIOT deverá s
 
 ### Principais alterações e orientações
 
-Exige CIOT no transporte rodoviário de cargas por conta de terceiros e mediante remuneração, conforme o Ajuste SINIEF nº 03/2026.
+Prevê o preenchimento de `infCIOT` no transporte rodoviário de cargas por conta de terceiros e mediante remuneração, conforme o Ajuste SINIEF nº 03/2026.
 
-Para `modal = 1`, informar `infCIOT` quando ocorrer uma destas condições:
+A validação considera `modal=1` e uma das situações:
 
-- `tpEmit = 1`: prestador de serviço de transporte.
-- `tpEmit = 3`: transportador que emitirá CT-e globalizado.
-- `tpEmit = 2` com `tpTransp` informado: transportador próprio.
+- `tpEmit=1`: prestador de serviço de transporte.
+- `tpEmit=3`: transportador que emitirá CT-e globalizado.
+- `tpEmit=2`: transportador próprio com `tpTransp` informado.
 
-A ausência do grupo, quando exigido, gera a **Rejeição 684 — CIOT deverá ser informado**. Revisar o enquadramento do emitente, o preenchimento dos campos e o tratamento da rejeição.
+Quando essas condições forem atendidas e `infCIOT` não for informado, aplica-se a **Rejeição 684 — CIOT deverá ser informado**. Revise o tipo de emitente, o tipo de transportador e a geração do grupo.
 
 ### Documentos e links
 
@@ -779,9 +529,11 @@ A ausência do grupo, quando exigido, gera a **Rejeição 684 — CIOT deverá s
 
 ### Principais alterações e orientações
 
-As observações descrevem campos de valor líquido sem tributos, ajustes em `vProd` e no total do DF-e considerando IBS/CBS, validações de IBS/CBS, ICMS previsto em pagamento antecipado e IBS/CBS em processo referenciado.
+Esta ficha acompanha o **fim da NF3e Normal com Ajustes** e a etapa posterior de ICMS previsto em pagamento antecipado.
 
-Esta ficha acompanha o **fim da NF3e Normal com Ajustes** e a etapa posterior do ICMS previsto. Consulte a [versão 1.01](#nt-nf3e-2026-004-v1-01) para a revisão da composição dos valores.
+As observações também descrevem campos de valor líquido, composição de `vProd` e do total do DF-e, validações de IBS/CBS e inclusão de IBS/CBS em processo referenciado.
+
+Para a revisão da composição dos valores e o cronograma geral, consulte a [versão 1.01](#nt-nf3e-2026-004-v1-01).
 
 ### Documentos e links
 
@@ -805,18 +557,19 @@ Esta ficha acompanha o **fim da NF3e Normal com Ajustes** e a etapa posterior do
 
 ### Principais alterações e orientações
 
-Ajusta a data de homologação e retira a orientação de incluir IBS/CBS em `vProd`.
+Ajusta o cronograma de homologação, retira IBS/CBS de `vProd` e retoma sua soma no total do DF-e a partir de 2027.
 
-- `vProd`: valor do produto desconsiderando IBS/CBS.
-- `vTotDFe` em 2026: permanece sem somar IBS/CBS.
-- `vTotDFe` a partir de 2027: volta a considerar IBS/CBS no total.
+- `vProd`: valor do produto desconsiderando IBS e CBS.
+- `vTotDFe` em 2026: sem somar IBS/CBS.
+- `vTotDFe` a partir de 2027: volta a considerar IBS/CBS.
 
-Permanecem os campos de valor líquido, validações de IBS/CBS, `indDoacao`, processo referenciado e descontinuidade da NF3e Normal com Ajuste. Revisar a composição implementada para a versão 1.00.
+Permanecem as alterações de valores líquidos, validações de IBS/CBS, `indDoacao`, processo referenciado e descontinuidade da NF3e Normal com Ajuste.
 
 ### Documentos e links
 
 - [Nota técnica](https://dfe-portal.svrs.rs.gov.br/NF3E/DownloadArquivoEstatico/?sistema=NF3E&tipoArquivo=3&nomeArquivo=NF3e_Nota_Tecnica_2026_004_v1.01.pdf)
 - [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -834,16 +587,16 @@ Permanecem os campos de valor líquido, validações de IBS/CBS, `indDoacao`, pr
 
 | Etapa | Homologação | Produção |
 |---|---|---|
-| Regra da Rejeição 261 | Em 13/08/2026 | Em 04/01/2027 |
-| Demais regras de validação | Consultar a NT | Em 31/08/2026 |
+| Rejeição 261 | Em 13/08/2026 | Em 04/01/2027 |
+| Demais regras de validação | Sem prazo informado | Em 31/08/2026 |
 
 ### Principais alterações e orientações
 
-Posterga a regra da **Rejeição 261** para janeiro de 2027. As demais validações permanecem com produção em 31/08/2026, conforme as observações.
+Postergou para janeiro de 2027 a validação da **Rejeição 261 — CNPJ de terceiro deve ser informado para cClass de Cobrança de terceiros [nItem: NNN]**.
 
-> 261 — Rejeição: CNPJ de terceiro deve ser informado para cClass de Cobrança de terceiros [nItem: NNN]
+Quando o item usar `cClass` de cobrança de terceiros iniciado por `110`, deverá informar o CNPJ correspondente em `CNPJCobrTerc`.
 
-Quando o item utilizar `cClass` de cobrança de terceiros iniciado por `110`, informar o CNPJ correspondente em `CNPJCobrTerc`.
+As demais regras de validação mantêm produção em **31/08/2026**; a postergação da Rejeição 261 não altera esse marco.
 
 ### Documentos e links
 
@@ -867,11 +620,11 @@ Quando o item utilizar `cClass` de cobrança de terceiros iniciado por `110`, in
 
 ### Principais alterações e orientações
 
-Esta ficha acompanha a **regra do ICMS previsto em pagamento antecipado**, com cronograma próprio em 2027.
+Esta ficha acompanha a **regra do ICMS previsto em pagamento antecipado**, com cronograma específico em 2027.
 
-As observações da versão 1.00 também descrevem valores líquidos, composição de `vProd` e do total do DF-e considerando IBS/CBS, validações de IBS/CBS e doações, processo referenciado e município do terminal principal.
+As observações também descrevem campos de valor líquido sem tributos, composição de `vProd` e do total do DF-e considerando IBS/CBS, validações de IBS/CBS e doações, processo referenciado e município do terminal principal.
 
-Para a composição dos valores revisada e o cronograma geral, consulte a [versão 1.01](#nt-nfcom-2026-004-v1-01).
+Para a formação dos valores revisada e o cronograma geral, consulte a [versão 1.01](#nt-nfcom-2026-004-v1-01).
 
 ### Documentos e links
 
@@ -895,18 +648,19 @@ Para a composição dos valores revisada e o cronograma geral, consulte a [vers�
 
 ### Principais alterações e orientações
 
-Ajusta a homologação, retira a orientação de incluir IBS/CBS em `vProd` e retoma sua soma no total do DF-e a partir de 2027.
+Ajusta a homologação, retira IBS/CBS da composição de `vProd` e retoma a soma desses tributos no total do DF-e a partir de 2027.
 
-- `vProd`: valor do produto ou serviço sem IBS/CBS.
-- `vTotDFe` em 2026: repete o valor da NFCom, sem somar IBS/CBS.
-- `vTotDFe` a partir de 2027: considera novamente IBS/CBS no total.
+- `vProd`: produto ou serviço sem IBS/CBS.
+- `vTotDFe` em 2026: repete o valor da NFCom sem somar IBS/CBS.
+- `vTotDFe` a partir de 2027: volta a incluir IBS/CBS.
 
-Permanecem os campos de valor líquido, processo referenciado e município do terminal principal.
+Revise implementações da versão 1.00 que tenham incluído IBS/CBS em `vProd`. Permanecem os campos de valor líquido, processo referenciado e município do terminal principal.
 
 ### Documentos e links
 
 - [Nota técnica](https://dfe-portal.svrs.rs.gov.br/NFCOM/DownloadArquivoEstatico?nomeArquivo=NFCom_Nota_Tecnica_2026_004_v1.01.pdf&sistema=NFCOM&tipoArquivo=3)
 - [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -928,19 +682,14 @@ Permanecem os campos de valor líquido, processo referenciado e município do te
 
 ### Principais alterações e orientações
 
-Adequa a NFCom ao tratamento de IBS/CBS no Simples Nacional.
+Cria campos e regras para informar o regime de apuração de IBS/CBS, os dados de tributação do Simples Nacional por item, os grupos `gIBSCBS` e `gTribSN` e os totalizadores correspondentes.
 
-- Regime de apuração de IBS/CBS.
-- Tributação do Simples Nacional por item.
-- Grupos `gIBSCBS` e `gTribSN`.
-- Totalizadores correspondentes no documento.
-
-Cria os eventos **412140 — Tributação do Simples Nacional** e **412141 — Cancelamento da Tributação do Simples Nacional**, gerados pela Administração Tributária, com implementação futura. O cronograma separa campos, validações e eventos.
+Os eventos **412140 — Tributação do Simples Nacional** e **412141 — Cancelamento da Tributação do Simples Nacional** serão gerados pela Administração Tributária e permanecem com implementação futura.
 
 ### Documentos e links
 
 - [Nota técnica](https://dfe-portal.svrs.rs.gov.br/NFCOM/DownloadArquivoEstatico/?sistema=NFCOM&tipoArquivo=3&nomeArquivo=NFCom_Nota_Tecnica_2026_005_v1.00.pdf)
-- [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
@@ -962,11 +711,11 @@ Cria os eventos **412140 — Tributação do Simples Nacional** e **412141 — C
 
 ### Principais alterações e orientações
 
-Esta ficha acompanha a etapa do **ICMS previsto em pagamento antecipado**, com cronograma próprio em 2027.
+Esta ficha acompanha o **ICMS previsto em pagamento antecipado**, com cronograma específico em 2027.
 
-As observações da versão 1.00 também descrevem valores líquidos, composição de `vProd` e do total do DF-e considerando IBS/CBS, validação de `indDoacao`, processo referenciado, grupo de tarifas com até 20 ocorrências e opção “Mínimo” na origem da quantidade faturada.
+As observações também descrevem campos de valor líquido, composição de `vProd` e do total do DF-e com IBS/CBS, novas validações de IBS/CBS, `indDoacao`, processo referenciado, grupo de tarifas com até **20 ocorrências** e opção **Mínimo** no indicador de origem da quantidade faturada.
 
-Consulte a [versão 1.01](#nt-nfgas-2026-004-v1-01) para a revisão da composição dos valores e o cronograma geral.
+Para a formação dos valores revisada e o cronograma geral, consulte a [versão 1.01](#nt-nfgas-2026-004-v1-01).
 
 ### Documentos e links
 
@@ -990,83 +739,75 @@ Consulte a [versão 1.01](#nt-nfgas-2026-004-v1-01) para a revisão da composiç
 
 ### Principais alterações e orientações
 
-Ajusta a homologação e retira a orientação de incluir IBS/CBS em `vProd`.
+Ajusta a homologação, retira IBS/CBS de `vProd` e retoma sua soma no total do DF-e a partir de 2027.
 
-- `vProd`: valor do produto sem somar IBS/CBS.
-- `vTotDFe` em 2026: permanece sem acrescentar IBS/CBS.
-- `vTotDFe` a partir de 2027: volta a considerar IBS/CBS no total.
+- `vProd`: valor do produto sem IBS/CBS.
+- `vTotDFe` em 2026: sem acrescentar IBS/CBS ao total.
+- `vTotDFe` a partir de 2027: volta a somar IBS/CBS.
 
-Permanecem os valores líquidos, `indDoacao`, IBS/CBS no processo referenciado, ampliação do grupo de tarifas e opção “Mínimo” no indicador de origem da quantidade faturada.
+Permanecem os campos de valor líquido, `indDoacao`, IBS/CBS em processo referenciado, ampliação do grupo de tarifas e opção **Mínimo** no indicador de origem da quantidade faturada. Revise a formação dos valores implementada com a versão 1.00.
 
 ### Documentos e links
 
 - [Nota técnica](https://dfe-portal.svrs.rs.gov.br/NFGAS/DownloadArquivoEstatico/?sistema=NFGAS&tipoArquivo=3&nomeArquivo=NFGas_Nota_Tecnica_2026_004_v1.01.pdf)
 - [Comunicado oficial — cronograma](https://www.nfe.fazenda.gov.br/PORTAL/informe.aspx?AspxAutoDetectCookieSupport=1&Informe=K1oEKcq8Bjs%3D&ehCTG=false)
+- [Avisos oficiais — homologação e prorrogação](https://dfe-portal.svrs.rs.gov.br/Nfe/Avisos)
 
 </details>
 
-## NF-e ABI
-
-<details id="it-nfeabi-2026-003-v1-00">
-<summary><strong>Informe Técnico 2026.003 v1.00 — Tabela de códigos</strong></summary>
-
-**Documento fiscal na planilha:** NFAbi.  
-**Abrangência:** Todas as UFs.  
-**Publicação:** 30/10/2026.  
-**Análise pela Unimake:** 02/11/2026.
-
-### Prazos
-
-| Etapa | Homologação | Produção |
-|---|---|---|
-| Implantação | Imediato | Imediato |
-
-### Principais alterações e orientações
-
-Divulga a **Tabela de Códigos da NF-e ABI v1.01** e informa a revogação da tabela v1.00a, publicada em 25/08/2026.
-
-A tabela é disponibilizada no Portal Nacional da NF-e, na aba **NF-e ABI**, opção **Diversos**.
-
-### Documentos e links
-
-- [Informe técnico](https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=ubZJ18I0T78=)
-
-</details>
-
-## NFS-e
+## NFS-e Nacional
 
 <details id="nt-nfse-009-v1-01">
 <summary><strong>NT SE/CGNFS-e nº 009 v1.01 — NFS-e Nacional</strong></summary>
 
 **Documento fiscal na planilha:** NFSe.  
 **Abrangência:** Todas as UFs.  
-**Publicação:** 01/10/2026.  
 **Análise pela Unimake:** 08/10/2026.
 
 ### Prazos
 
 | Etapa | Homologação | Produção |
 |---|---|---|
-| Primeiro prazo de acompanhamento | Implementação futura | Em 30/11/2026 |
+| Release 1 | Em 20/10/2026 | Em 07/12/2026 |
+| Release 2 — cronograma geral | Em 24/11/2026 | Em 07/12/2026 |
+| Release 3 — previsto | Em 07/12/2026 | Em 07/12/2026 |
+| Release 4 — previsto | Em 24/12/2026 | Em 24/12/2026 |
+| Release 2 — procurações e alternância de perfis | Em 24/11/2026 | Em 31/10/2026 |
 
 ### Principais alterações e orientações
 
-Atualiza o leiaute da NFS-e Nacional para a Reforma Tributária e disponibiliza revisões dos anexos de leiautes/regras e da tabela `cIndOp`.
+Organiza as evoluções em quatro releases. As datas são de **disponibilização técnica**, conforme o cronograma inicial divulgado em 25/11/2026, e podem ser atualizadas. Não equivalem à obrigatoriedade fiscal de emissão ou destaque de IBS/CBS; para esta, consulte o comunicado do Ato Conjunto RFB/CGIBS nº 7/2026.
 
-- IBS/CBS e notas de ajuste.
-- Simples Nacional.
-- Operações com imóveis, exterior, eventos e condomínios.
-- Reorganização dos grupos e campos da DPS.
-- Reposicionamento de `CST` e `cClassTrib`.
-- Adequações para CNPJ alfanumérico.
+**Release 1**
 
-O cronograma reúne etapas distintas. **A data de produção da tabela corresponde ao primeiro prazo de acompanhamento informado na planilha** e não deve ser aplicada automaticamente a todas as funcionalidades ou à obrigatoriedade legal. Consulte os comunicados oficiais para o alcance de cada etapa.
+Reposiciona `CST` e `cClassTrib` (item 2.16), amplia os fatos geradores da API para 99.02 a 99.04 (NT 007 e itens 2.6/2.7) e cria `vAjusteBC`, unificando `vDedRed` e `gReeRepRes` (2.3). A previsão de produção de 01/12 foi substituída por **07/12/2026**. Notas de finalidade de ajuste e eventos específicos da RTC dependem de cronograma próprio.
+
+**Release 2**
+
+Contempla os itens 2.9 a 2.14:
+
+- `verCalcIBSCBS`, regras de endereço e incidência do ISS no subitem 17.05.
+- Reorganização do destinatário na DPS, `comExt`, `vAjusteBCIBSCBSComExt` e identificação municipal de eventos.
+- Nota do tomador/intermediário para importação, consultas a serviços municipais e primeiro NSU por data, além da parametrização da retenção de ISSQN.
+
+**Procurações e alternância de perfis já têm produção em 31/10/2026**, como exceção ao cronograma geral do release.
+
+**Release 3**
+
+Prevê operações condominiais (2.15), nova tabela `cIndOp` (Anexo VII), emissão web para fatos 99.02 a 99.05 e DANFSe especial, este dependente de nova NT 008.
+
+Também prevê série da DPS mais quatro caracteres aleatórios alfanuméricos nas nove posições hoje aleatórias da chave da NFS-e e um grupo de identificação da emissão por representantes. Essas duas mudanças dependem de nova versão da NT 009.
+
+**Release 4**
+
+Prevê adequações ao Simples Nacional (2.4) nos emissores nacionais, DANFSe, leiaute e regras de validação.
 
 ### Documentos e links
 
+- [Comunicado oficial — release 1](https://www.gov.br/nfse/pt-br/noticias/cgnfs-e-informa-disponibilizadas-no-ambiente-de-testes-o-release-1-das-evolucoes-da-nota-tecnica-009/)
 - [Nota técnica](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/rtc/nota-tecnica-009-se-cgnfs-e-v-1-01.pdf)
-- [Anexo VI — Leiautes e regras](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/rtc/anexovi-leiautesrn_rtc_ibscbs-v1-04-01-nt009.xlsx)
-- [Anexo VII — Indicadores cIndOp](https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/rtc/anexovii-indop_ibscbs_v1-03-00-nt009.xlsx)
+- [Cronograma oficial — releases 1 a 4](https://www.gov.br/nfse/pt-br/noticias/cgnfs-e-informa-disponibilizado-no-ambiente-de-testes-o-release-2-das-evolucoes-da-nota-tecnica-009)
+- [Obrigatoriedade de emissão — Ato Conjunto RFB/CGIBS nº 7/2026](https://www.gov.br/nfse/pt-br/noticias/cgnfs-e-informa-ato-conjunto-rfb-cgibs-no-7-2026-atualiza-o-cronograma-de-obrigatoriedade-de-emissao-da-nfs-e-para-ibs-e-cbs)
 
 </details>
 
