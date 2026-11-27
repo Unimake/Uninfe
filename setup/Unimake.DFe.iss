@@ -1,7 +1,7 @@
 #include ReadReg(HKEY_LOCAL_MACHINE,'Software\Sherlock Software\InnoTools\Downloader','ScriptPath','')
 
 #define MyAppName "Unimake.DFe"
-#define MyAppVersion "2026.11.19.1651"
+#define MyAppVersion "2026.11.27.0852"
 #define MyAppPublisher "Unimake Software"
 #define MyAppURL "http://www.uninfe.com.br"
 #define MyAppExeName "Unimake.Business.DFe.dll"
@@ -31,11 +31,11 @@ SolidCompression=yes
 AppCopyright=Unimake Software
 AppMutex=Unimake.DFe_MUTEX
 AllowUNCPath=False
-VersionInfoVersion=2026.11.19.1651
+VersionInfoVersion=2026.11.27.0852
 VersionInfoCopyright=2020 - Todos os direitos reservados
 VersionInfoProductName=Unimake.DFe
-VersionInfoProductVersion=2026.11.19.1651
-VersionInfoProductTextVersion=2026.11.19.1651
+VersionInfoProductVersion=2026.11.27.0852
+VersionInfoProductTextVersion=2026.11.27.0852
 UsePreviousAppDir=False
 PrivilegesRequired=admin
 
