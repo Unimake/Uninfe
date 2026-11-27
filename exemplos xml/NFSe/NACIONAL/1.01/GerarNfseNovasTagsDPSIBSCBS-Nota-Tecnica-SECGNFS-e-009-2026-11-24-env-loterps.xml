@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MODELO DIDÁTICO | NT SE/CGNFS-e 009 | Schema 1.01 atualizado em 2026-11-24.
+Reúne campos de cenários distintos para demonstrar a estrutura. Os dados são fictícios. Para emissão, mantenha apenas os grupos aplicáveis e ajuste códigos, valores e documentos. -->
+<DPS versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+	<infDPS Id="DPS410550821234567800019500003000000000000052">
+		<tpAmb>2</tpAmb>
+		<dhEmi>2026-11-27T10:00:00-03:00</dhEmi>
+		<verAplic>1.00</verAplic>
+		<serie>3</serie>
+		<nDPS>52</nDPS>
+		<dCompet>2026-11-27</dCompet>
+		<tpEmit>1</tpEmit>
+		<finNFSe>0</finNFSe>
+		<cLocEmi>4105508</cLocEmi>
+		<prest>
+			<CNPJ>12345678000195</CNPJ>
+			<regTrib>
+				<opSimpNac>3</opSimpNac>
+				<regApTribSN>1</regApTribSN>
+				<regEspTrib>0</regEspTrib>
+			</regTrib>
+		</prest>
+		<toma>
+			<CNPJ>12345678000195</CNPJ>
+			<xNome>CLIENTE TESTE</xNome>
+			<end>
+				<endNac>
+					<cMun>4128104</cMun>
+					<CEP>80000000</CEP>
+				</endNac>
+				<xLgr>RUA EXEMPLO</xLgr>
+				<nro>9001</nro>
+				<xBairro>BAIRRO TESTE</xBairro>
+			</end>
+			<email>cliente@example.com</email>
+		</toma>
+		<!-- Novo local de indDest e dest: diretamente em infDPS, após toma. -->
+		<indDest>1</indDest>
+		<dest>
+			<CNPJ>11111111000191</CNPJ>
+			<xNome>DESTINATARIO TESTE</xNome>
+		</dest>
+		<serv>
+			<locPrest>
+				<cLocPrestacao>4105508</cLocPrestacao>
+			</locPrest>
+			<cServ>
+				<cTribNac>990501</cTribNac>
+				<cNBS>115022000</cNBS>
+				<cIntContrib>SERVICOTESTE</cIntContrib>
+				<xDescServ>SERVICO TESTE - MODELO DIDATICO DO LEIAUTE</xDescServ>
+			</cServ>
+			<!-- Comércio exterior no novo leiaute. Informe DUIMP ou DU-E conforme a operação. -->
+			<comExt>
+				<mdPrestacao>5</mdPrestacao>
+				<vincPrest>0</vincPrest>
+				<tpMoeda>220</tpMoeda>
+				<nFatura>000123</nFatura>
+				<vFatura>300.50</vFatura>
+				<mecAFComexP>01</mecAFComexP>
+				<mecAFComexT>01</mecAFComexT>
+				<movTempBens>2</movTempBens>
+				<nDUIMP>26BR00000000001</nDUIMP>
+				<!-- nDUE é mostrada junto da DUIMP apenas para localizar as duas tags no XML. -->
+				<nDUE>26BR0000000001</nDUE>
+				<mdic>0</mdic>
+				<nContCambio>000456</nContCambio>
+			</comExt>
+			<!-- cMun se aplica aos subitens 12.13 e 17.10 quando o evento ocorre em outro município. -->
+			<atvEvento>
+				<xNome>EVENTO TESTE</xNome>
+				<dtIni>2026-11-26</dtIni>
+				<dtFim>2026-11-27</dtFim>
+				<cMun>4106902</cMun>
+				<idAtvEvt>EVENTO-001</idAtvEvt>
+			</atvEvento>
+		</serv>
+		<valores>
+			<vServPrest>
+				<vServ>1500.00</vServ>
+			</vServPrest>
+			<!-- Em condomínios, os descontos são somados por tpDesconto. -->
+			<vDescCondIncond>
+				<vDescIncond>10.00</vDescIncond>
+				<vDescCond>5.00</vDescCond>
+			</vDescCondIncond>
+			<vAjusteBC>
+				<pAjusteBCISSQN>10.00</pAjusteBCISSQN>
+				<documentos>
+					<docAjusteBC>
+						<tpAjusteBC>2</tpAjusteBC>
+						<vTotDoc>100.00</vTotDoc>
+						<vAjusteAplic>50.00</vAjusteAplic>
+						<docOutro>
+							<nDoc>1</nDoc>
+							<xDoc>DOCUMENTO TESTE</xDoc>
+						</docOutro>
+						<fornec>
+							<CNPJ>12345678000195</CNPJ>
+						</fornec>
+					</docAjusteBC>
+					<docAjusteBC>
+						<tpAjusteBC>105</tpAjusteBC>
+						<vTotDoc>100.00</vTotDoc>
+						<vAjusteAplic>50.00</vAjusteAplic>
+						<dtEmiDoc>2026-10-20</dtEmiDoc>
+						<dtCompDoc>2026-10-01</dtCompDoc>
+						<docFiscalOutro>
+							<cMunDocFiscal>4106902</cMunDocFiscal>
+							<nDocFiscal>2</nDocFiscal>
+							<xDocFiscal>DOCUMENTO FISCAL TESTE</xDocFiscal>
+						</docFiscalOutro>
+					</docAjusteBC>
+					<docAjusteBC>
+						<tpAjusteBC>199</tpAjusteBC>
+						<xTpAjusteBC>OUTRO REEMBOLSO TESTE</xTpAjusteBC>
+						<vTotDoc>100.00</vTotDoc>
+						<vAjusteAplic>50.00</vAjusteAplic>
+						<dFeNacional>
+							<tipoChaveDFe>1</tipoChaveDFe>
+							<chaveDFe>11111111111111111111111111111111111111111111</chaveDFe>
+						</dFeNacional>
+						<fornec>
+							<CNPJ>12345678000195</CNPJ>
+						</fornec>
+					</docAjusteBC>
+				</documentos>
+				<!-- Ajuste com sinal, usado com o novo leiaute de comércio exterior. -->
+				<vAjusteBCIBSCBSComExt>-50.00</vAjusteBCIBSCBSComExt>
+			</vAjusteBC>
+			<trib>
+				<tribMun>
+					<tribISSQN>1</tribISSQN>
+					<tpRetISSQN>1</tpRetISSQN>
+				</tribMun>
+				<totTrib>
+					<vTotTrib>
+						<vTotTribFed>0.00</vTotTribFed>
+						<vTotTribEst>0.00</vTotTribEst>
+						<vTotTribMun>0.00</vTotTribMun>
+					</vTotTrib>
+				</totTrib>
+			</trib>
+		</valores>
+		<IBSCBS>
+			<indFinal>0</indFinal>
+			<cIndOp>000001</cIndOp>
+			<imovel>
+				<cMun>4106902</cMun>
+				<gLocacao>
+					<pCopropriedade>50.00</pCopropriedade>
+					<vTotOper>1500.00</vTotOper>
+					<vDescIncondTot>10.00</vDescIncondTot>
+					<vDescCondTot>5.00</vDescCondTot>
+					<dVencOrig>2026-11-01</dVencOrig>
+				</gLocacao>
+				<gUnidImob>
+					<inscImobFisc>000123</inscImobFisc>
+					<cCIB>12345678</cCIB>
+					<gAjusteBCLocImoveis>
+						<tpAjusteBCLocImoveis>01</tpAjusteBCLocImoveis>
+						<vAjusteBCLocImoveis>10.00</vAjusteBCLocImoveis>
+					</gAjusteBCLocImoveis>
+					<gAjusteBCLocImoveis>
+						<tpAjusteBCLocImoveis>04</tpAjusteBCLocImoveis>
+						<vAjusteBCLocImoveis>20.00</vAjusteBCLocImoveis>
+					</gAjusteBCLocImoveis>
+					<gAjusteBCLocImoveis>
+						<tpAjusteBCLocImoveis>99</tpAjusteBCLocImoveis>
+						<xTpAjusteBCLocImoveis>OUTRA PARCELA TESTE</xTpAjusteBCLocImoveis>
+						<vAjusteBCLocImoveis>5.00</vAjusteBCLocImoveis>
+					</gAjusteBCLocImoveis>
+				</gUnidImob>
+				<gUnidImob>
+					<end>
+						<CEP>80000000</CEP>
+						<xLgr>RUA EXEMPLO</xLgr>
+						<nro>1</nro>
+						<xCpl>SALA TESTE</xCpl>
+						<xBairro>BAIRRO TESTE</xBairro>
+					</end>
+				</gUnidImob>
+			</imovel>
+			<bensMoveis>
+				<cNCMBemMovel>01012100</cNCMBemMovel>
+				<xNCMBemMovel>BEM TESTE</xNCMBemMovel>
+				<qtdNCMBemMovel>1</qtdNCMBemMovel>
+			</bensMoveis>
+			<bensMoveis>
+				<cNCMBemMovel>01012900</cNCMBemMovel>
+				<xNCMBemMovel>OUTRO BEM TESTE</xNCMBemMovel>
+				<qtdNCMBemMovel>2</qtdNCMBemMovel>
+			</bensMoveis>
+			<!-- Novo grupo para operações de condomínio do subitem 99.05. -->
+			<condominios>
+				<dVencOrig>2026-11-30</dVencOrig>
+				<gCobranca>
+					<tpCobranca>99</tpCobranca>
+					<xTpCobranca>OUTRA COBRANCA TESTE</xTpCobranca>
+					<vCobranca>1500.00</vCobranca>
+					<gDetCobranca>
+						<tpDetCobranca>999</tpDetCobranca>
+						<xTpDetCobranca>OUTRO DETALHE TESTE</xTpDetCobranca>
+						<vDetCobranca>1500.00</vDetCobranca>
+					</gDetCobranca>
+				</gCobranca>
+				<gDesconto>
+					<tpDesconto>1</tpDesconto>
+					<vDesconto>10.00</vDesconto>
+					<xTpDesconto>DESCONTO INCONDICIONADO TESTE</xTpDesconto>
+				</gDesconto>
+				<gDesconto>
+					<tpDesconto>2</tpDesconto>
+					<vDesconto>5.00</vDesconto>
+					<xTpDesconto>DESCONTO CONDICIONADO TESTE</xTpDesconto>
+				</gDesconto>
+			</condominios>
+			<valores>
+				<trib>
+					<CST>000</CST>
+					<cClassTrib>000001</cClassTrib>
+				</trib>
+			</valores>
+		</IBSCBS>
+	</infDPS>
+</DPS>
